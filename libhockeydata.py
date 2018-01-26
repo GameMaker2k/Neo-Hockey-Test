@@ -14,18 +14,19 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 1/25/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 1/26/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re;
+import xml.etree.ElementTree as ET;
 
 def CommitHockeyDatabase(sqldatacon):
  sqldatacon[1].commit();
  return True;
 
-def MakeHockeyDatabase(leaguename, filename):
- print("Creating "+leaguename+" Database.");
+def MakeHockeyDatabase(filename):
+ print("Creating Hockey Database.");
  sqlcon = sqlite3.connect(filename);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
@@ -619,11 +620,47 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  CommitHockeyDatabase(sqldatacon);
  return True;
 
-def CloseHockeyDatabase(sqldatacon, leaguename):
+def CloseHockeyDatabase(sqldatacon):
  print("Database Check Return: "+str(sqldatacon[0].execute("PRAGMA integrity_check(100);").fetchone()[0])+"\n");
  CommitHockeyDatabase(sqldatacon);
  sqldatacon[0].close();
  sqldatacon[1].close();
  print("DONE! All Game Data Inserted.");
- print("DONE! "+leaguename+" Database Created.");
+ print("DONE! Hockey Database Created.");
+ return True;
+
+def MakeHockeyDataFromXML(xmlfile):
+ hockeyfile = ET.parse(xmlfile);
+ gethockey = hockeyfile.getroot();
+ sqldatacon = MakeHockeyDatabase(gethockey.attrib['database']);
+ leaguecount = 0;
+ for getleague in gethockey:
+  if(leaguecount==0):
+   MakeHockeyLeagueTable(sqldatacon, getleague.attrib['name']);
+  MakeHockeyLeagues(sqldatacon, getleague.attrib['name'], getleague.attrib['fullname']);
+  leaguecount = leaguecount + 1;
+  if(getleague.tag == "league"):
+   conferencecount = 0;
+   for getconference in getleague:
+    if(conferencecount==0):
+     MakeHockeyConferenceTable(sqldatacon, getleague.attrib['name']);
+    MakeHockeyConferences(sqldatacon, getleague.attrib['name'], getconference.attrib['name']);
+    print("Inserting "+getleague.attrib['name']+" Teams From "+getleague.attrib['fullname']+" Conference.");
+    conferencecount = conferencecount + 1;
+    if(getconference.tag == "conference"):
+     divisioncount = 0;
+     for getdivision in getconference:
+      if(divisioncount==0):
+       MakeHockeyDivisionTable(sqldatacon, getleague.attrib['name']);
+      MakeHockeyDivisions(sqldatacon, getleague.attrib['name'], getdivision.attrib['name'], getconference.attrib['name']);
+      print("Inserting "+getleague.attrib['name']+" Teams From "+getdivision.attrib['name']+" Division.\n");
+      divisioncount = divisioncount + 1;
+      if(getdivision.tag == "division"):
+       teamcount = 0;
+       for getteam in getdivision:
+        if(teamcount==0):
+         MakeHockeyTeamTable(sqldatacon, getleague.attrib['name']);
+        MakeHockeyTeams(sqldatacon, getleague.attrib['name'], str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day']), getteam.attrib['city'], getteam.attrib['area'], getteam.attrib['name'], getconference.attrib['name'], getdivision.attrib['name'], getteam.attrib['arena'], getteam.attrib['prefix']);
+        teamcount = teamcount + 1;
+ CloseHockeyDatabase(sqldatacon);
  return True;
