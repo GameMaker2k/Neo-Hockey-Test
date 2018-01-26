@@ -43,6 +43,9 @@
     <team city="Paradise" area="NV" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" />
    </division>
   </conference>
+  <games>
+   <game date="10072017" hometeam="Chicago Blackhawks" awayteam="Vegas Golden Knights" goals="1:0,1:0,2:0" sogs="2:1,2:1,4:1" ppgs="1:0,1:0,2:0" pims="0:0,0:0,0:0" hits="0:0,0:0,0:0" takeaways="2:0,2:0,4:0" faceoffwins="2:1,2:1,4:1" atarena="0" isplayoffgame="0" />
+  </games>
  </league>
  <league name="AHL" fullname="American Hockey League">
   <conference name="Eastern">
@@ -87,6 +90,9 @@
     <team city="Tucson" area="AZ" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" />
    </division>
   </conference>
+  <games>
+   <game date="10072017" hometeam="Rockford IceHogs" awayteam="Chicago Wolves" goals="1:0,1:0,2:0" sogs="2:1,2:1,4:1" ppgs="1:0,1:0,2:0" pims="0:0,0:0,0:0" hits="0:0,0:0,0:0" takeaways="2:0,2:0,4:0" faceoffwins="2:1,2:1,4:1" atarena="0" isplayoffgame="0" />
+  </games>
  </league>
  <league name="ECHL" fullname="ECHL">
   <conference name="Eastern">
@@ -128,5 +134,8 @@
     <team city="Wichita" area="KS" name="Thunder" arena="Intrust Bank Arena" prefix="Wichita" />
    </division>
   </conference>
+  <games>
+   <game date="10072017" hometeam="Indy Fuel" awayteam="Quad City Mallards" goals="1:0,1:0,2:0" sogs="2:1,2:1,4:1" ppgs="1:0,1:0,2:0" pims="0:0,0:0,0:0" hits="0:0,0:0,0:0" takeaways="2:0,2:0,4:0" faceoffwins="2:1,2:1,4:1" atarena="0" isplayoffgame="0" />
+  </games>
  </league>
 </hockey>

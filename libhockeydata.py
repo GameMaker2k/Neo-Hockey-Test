@@ -279,6 +279,8 @@ def MakeHockeyGameTable(sqldatacon, leaguename):
  return True;
 
 def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+ if(atarena.isdigit()):
+  atarena = int(atarena);
  isplayoffgsql = "0";
  if(isplayoffgame==True):
   isplayoffgsql = "1";
@@ -642,15 +644,23 @@ def MakeHockeyDataFromXML(xmlfile):
   if(getleague.tag == "league"):
    conferencecount = 0;
    for getconference in getleague:
-    if(conferencecount==0):
+    if(getconference.tag == "conference" and conferencecount==0):
      MakeHockeyConferenceTable(sqldatacon, getleague.attrib['name']);
-    MakeHockeyConferences(sqldatacon, getleague.attrib['name'], getconference.attrib['name']);
-    print("Inserting "+getleague.attrib['name']+" Teams From "+getleague.attrib['fullname']+" Conference.");
-    conferencecount = conferencecount + 1;
+    if(getconference.tag == "conference"):
+     MakeHockeyConferences(sqldatacon, getleague.attrib['name'], getconference.attrib['name']);
+     print("Inserting "+getleague.attrib['name']+" Teams From "+getconference.attrib['name']+" Conference.");
+     conferencecount = conferencecount + 1;
+    if(getconference.tag == "games"):
+     gamecount = 0;
+     for getgame in getconference:
+      if(gamecount==0):
+       MakeHockeyGameTable(sqldatacon, getleague.attrib['name']);
+      MakeHockeyGame(sqldatacon, getleague.attrib['name'], getgame.attrib['date'], getgame.attrib['hometeam'], getgame.attrib['awayteam'], getgame.attrib['goals'], getgame.attrib['sogs'], getgame.attrib['ppgs'], getgame.attrib['pims'], getgame.attrib['hits'], getgame.attrib['takeaways'], getgame.attrib['faceoffwins'], getgame.attrib['atarena'], getgame.attrib['isplayoffgame']);
+      gamecount = gamecount + 1;
     if(getconference.tag == "conference"):
      divisioncount = 0;
      for getdivision in getconference:
-      if(divisioncount==0):
+      if(divisioncount==0 and conferencecount==1):
        MakeHockeyDivisionTable(sqldatacon, getleague.attrib['name']);
       MakeHockeyDivisions(sqldatacon, getleague.attrib['name'], getdivision.attrib['name'], getconference.attrib['name']);
       print("Inserting "+getleague.attrib['name']+" Teams From "+getdivision.attrib['name']+" Division.\n");
@@ -658,7 +668,7 @@ def MakeHockeyDataFromXML(xmlfile):
       if(getdivision.tag == "division"):
        teamcount = 0;
        for getteam in getdivision:
-        if(teamcount==0):
+        if(teamcount==0 and divisioncount==1 and conferencecount==1):
          MakeHockeyTeamTable(sqldatacon, getleague.attrib['name']);
         MakeHockeyTeams(sqldatacon, getleague.attrib['name'], str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day']), getteam.attrib['city'], getteam.attrib['area'], getteam.attrib['name'], getconference.attrib['name'], getdivision.attrib['name'], getteam.attrib['arena'], getteam.attrib['prefix']);
         teamcount = teamcount + 1;
