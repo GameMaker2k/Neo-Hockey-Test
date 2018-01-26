@@ -14,27 +14,17 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockey.py - Last Update: 1/25/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 1/25/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re;
 
-leaguename = "NHL";
-leaguefullname = "National Hockey League";
-getstartday = "01";
-getforday = "07";
-getformonth = "10";
-getforyearshort = "17";
-getforyear = "20"+getforyearshort;
-getendyearshort = "18";
-getendyear = "20"+getendyearshort;
-
 def CommitHockeyDatabase(sqldatacon):
  sqldatacon[1].commit();
  return True;
 
-def MakeHockeyDatabase(leaguename, filename="./"+leaguename.lower()+str(getforyearshort)+"-"+str(getendyearshort)+".db3"):
+def MakeHockeyDatabase(leaguename, filename):
  print("Creating "+leaguename+" Database.");
  sqlcon = sqlite3.connect(filename);
  sqlcur = sqlcon.cursor();
@@ -44,8 +34,6 @@ def MakeHockeyDatabase(leaguename, filename="./"+leaguename.lower()+str(getforye
  sqlcon.execute("PRAGMA foreign_keys = 1;");
  CommitHockeyDatabase(sqldatacon);
  return sqldatacon;
-
-sqldatacon = MakeHockeyDatabase(leaguename, "./"+leaguename.lower()+str(getforyearshort)+"-"+str(getendyearshort)+".db3");
 
 def GetLastTenGames(sqldatacon, leaguename, teamname):
  wins = 0;
@@ -191,9 +179,6 @@ def MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname):
  CommitHockeyDatabase(sqldatacon);
  return True;
 
-MakeHockeyLeagueTable(sqldatacon, leaguename);
-MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname);
-
 def MakeHockeyConferenceTable(sqldatacon, leaguename):
  print("Creating "+leaguename+" Conference Table.");
  print("Inserting "+leaguename+" Conference Data.");
@@ -210,10 +195,6 @@ def MakeHockeyConferences(sqldatacon, leaguename, conference):
  CommitHockeyDatabase(sqldatacon);
  UpdateLeagueData(sqldatacon, leaguename, "NumberOfConferences", 1, "+");
  return True;
-
-MakeHockeyConferenceTable(sqldatacon, leaguename);
-MakeHockeyConferences(sqldatacon, leaguename, "Eastern");
-MakeHockeyConferences(sqldatacon, leaguename, "Western");
 
 def MakeHockeyDivisionTable(sqldatacon, leaguename):
  print("Creating "+leaguename+" Division Table.");
@@ -233,12 +214,6 @@ def MakeHockeyDivisions(sqldatacon, leaguename, division, conference):
  UpdateConferenceData(sqldatacon, leaguename, conference, "NumberOfDivisions", 1, "+");
  UpdateLeagueData(sqldatacon, leaguename, "NumberOfDivisions", 1, "+");
  return True;
-
-MakeHockeyDivisionTable(sqldatacon, leaguename);
-MakeHockeyDivisions(sqldatacon, leaguename, "Atlantic", "Eastern");
-MakeHockeyDivisions(sqldatacon, leaguename, "Metropolitan", "Eastern");
-MakeHockeyDivisions(sqldatacon, leaguename, "Central", "Western");
-MakeHockeyDivisions(sqldatacon, leaguename, "Pacific", "Western");
 
 def MakeHockeyTeamTable(sqldatacon, leaguename):
  print("Creating "+leaguename+" Team Table.");
@@ -281,51 +256,6 @@ def MakeHockeyArena(sqldatacon, leaguename, cityname, areaname, arenaname):
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas(CityName, AreaName, FullCityName, ArenaName, FullArenaName, GamesPlayed) VALUES(\""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
  CommitHockeyDatabase(sqldatacon);
  return True;
-
-MakeHockeyTeamTable(sqldatacon, leaguename);
-print("Inserting "+leaguename+" Teams From Eastern Conference.");
-print("Inserting "+leaguename+" Teams From Atlantic Division.\n");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Boston", "MA", "Bruins", "Eastern", "Atlantic", "TD Garden", "Boston");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Buffalo", "NY", "Sabres", "Eastern", "Atlantic", "KeyBank Center", "Buffalo");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Detroit", "MI", "Red Wings", "Eastern", "Atlantic", "Little Caesars Arena", "Detroit");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Sunrise", "FL", "Panthers", "Eastern", "Atlantic", "BB&T Center", "Florida");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Montreal", "QC", "Canadiens", "Eastern", "Atlantic", "Bell Centre", "Montreal");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Ottawa", "ON", "Senators", "Eastern", "Atlantic", "Canadian Tire Centre", "Ottawa");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Tampa Bay", "FL", "Lightning", "Eastern", "Atlantic", "Amalie Arena", "Tampa Bay");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Toronto", "ON", "Maple Leafs", "Eastern", "Atlantic", "Air Canada Centre", "Toronto");
-
-print("Inserting "+leaguename+" Teams From Metropolitan Division.\n");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Carolina", "NC", "Hurricanes", "Eastern", "Metropolitan", "PNC Arena", "Carolina");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Columbus", "OH", "Blue Jackets", "Eastern", "Metropolitan", "Nationwide Arena", "Columbus");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "New Jersey", "NJ", "Devils", "Eastern", "Metropolitan", "Prudential Center", "New Jersey");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "New York City", "NY", "Islanders", "Eastern", "Metropolitan", "Barclays Center", "New York");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "New York City", "NY", "Rangers", "Eastern", "Metropolitan", "Madison Square Garden", "New York");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Philadelphia", "PA", "Flyers", "Eastern", "Metropolitan", "Wells Fargo Center", "Philadelphia");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Pittsburgh", "PA", "Penguins", "Eastern", "Metropolitan", "PPG Paints Arena", "Pittsburgh");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Washington", "D.C.", "Capitals", "Eastern", "Metropolitan", "Capital One Arena", "Washington");
-
-print("Inserting "+leaguename+" Teams From Western Conference.");
-print("Inserting "+leaguename+" Teams From Central Division.\n");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Chicago", "IL", "Blackhawks", "Western", "Central", "United Center", "Chicago");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Denver", "CO", "Avalanche", "Western", "Central", "Pepsi Center", "Colorado");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Dallas", "TX", "Stars", "Western", "Central", "American Airlines Center", "Dallas");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "St. Paul", "MN", "Wild", "Western", "Central", "Xcel Energy Center", "Minnesota");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Nashville", "TN", "Predators", "Western", "Central", "Bridgestone Arena", "Nashville");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "St. Louis", "MO", "Blues", "Western", "Central", "Scottrade Center", "St. Louis");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Winnipeg", "MB", "Jets", "Western", "Central", "Bell MTS Place", "Winnipeg");
-
-print("Inserting "+leaguename+" Teams From Pacific Division.\n");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Anaheim", "CA", "Ducks", "Western", "Pacific", "Honda Center", "Anaheim");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Glendale", "AZ", "Coyotes", "Western", "Pacific", "Gila River Arena", "Arizona");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Calgary", "AB", "Flames", "Western", "Pacific", "Scotiabank Saddledome", "Calgary");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Edmonton", "AB", "Oilers", "Western", "Pacific", "Rogers Place", "Edmonton");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Los Angeles", "CA", "Kings", "Western", "Pacific", "Staples Center", "Los Angeles");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "San Jose", "CA", "Sharks", "Western", "Pacific", "SAP Center", "San Jose");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Vancouver", "BC", "Canucks", "Western", "Pacific", "Rogers Arena", "Vancouver");
-MakeHockeyTeams(sqldatacon, leaguename, str(getforyear+getformonth+getstartday), "Paradise", "NV", "Golden Knights", "Western", "Pacific", "T-Mobile Arena", "Vegas");
-
-MakeHockeyArena(sqldatacon, leaguename, "Queens", "NY", "Citi Field");
-MakeHockeyArena(sqldatacon, leaguename, "Annapolis", "MD", "Navy-Marine Corps Memorial Stadium");
 
 def GetNum2Team(sqldatacon, leaguename, TeamNum, ReturnVar):
  return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Teams WHERE id="+str(TeamNum)).fetchone()[0]);
@@ -689,8 +619,6 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  CommitHockeyDatabase(sqldatacon);
  return True;
 
-MakeHockeyGameTable(sqldatacon, leaguename);
-
 def CloseHockeyDatabase(sqldatacon, leaguename):
  print("Database Check Return: "+str(sqldatacon[0].execute("PRAGMA integrity_check(100);").fetchone()[0])+"\n");
  CommitHockeyDatabase(sqldatacon);
@@ -699,5 +627,3 @@ def CloseHockeyDatabase(sqldatacon, leaguename):
  print("DONE! All Game Data Inserted.");
  print("DONE! "+leaguename+" Database Created.");
  return True;
-
-CloseHockeyDatabase(sqldatacon, leaguename);
