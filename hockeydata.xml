@@ -43,6 +43,12 @@
     <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" />
    </division>
   </conference>
+  <arenas>
+   <arena city="Stockholm" area="AB" fullarea="Stockholm County" country="SWE" fullcountry="Sweden" name="Ericsson Globe" />
+   <arena city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Lansdowne Park" />
+   <arena city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Citi Field" />
+   <arena city="Annapolis" area="MD" fullarea="Maryland" country="USA" fullcountry="United States" name="United States Naval Academy" />
+  </arenas>
  </league>
  <league name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States">
   <conference name="Eastern">
@@ -87,6 +93,9 @@
     <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" />
    </division>
   </conference>
+  <arenas>
+   <arena city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hersheypark Stadium" />
+  </arenas>
  </league>
  <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States">
   <conference name="Eastern">
@@ -128,5 +137,8 @@
     <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Thunder" arena="Intrust Bank Arena" prefix="Wichita" />
    </division>
   </conference>
+  <arenas>
+   <arena city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hersheypark Stadium" />
+  </arenas>
  </league>
 </hockey>
