@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 1/27/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 1/28/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -25,7 +25,7 @@ __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 0, 1, "RC 1", 1);
-__version_date_info__ = (2018, 1, 27, "RC 1", 1);
+__version_date_info__ = (2018, 1, 28, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -167,9 +167,21 @@ def GetLeagueName(sqldatacon, leaguename):
  TMPData = str(sqldatacon[0].execute("SELECT LeagueFullName FROM HockeyLeagues WHERE LeagueName=\""+str(leaguename)+"\"").fetchone()[0]);
  return TMPData;
 
+def GetNum2Team(sqldatacon, leaguename, TeamNum, ReturnVar):
+ return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Teams WHERE id="+str(TeamNum)).fetchone()[0]);
+
+def GetTeam2Num(sqldatacon, leaguename, TeamName):
+ return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Teams WHERE FullName=\""+str(TeamName)+"\"").fetchone()[0]);
+
+def GetNum2Arena(sqldatacon, leaguename, ArenaNum, ReturnVar):
+ return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Arenas WHERE id="+str(ArenaNum)).fetchone()[0]);
+
+def GetArena2Num(sqldatacon, leaguename, ArenaName):
+ return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
+
 def MakeHockeyLeagueTable(sqldatacon, leaguename):
  print("Creating "+leaguename+" League Table.");
- print("Inserting "+leaguename+" League Data.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
  sqldatacon[0].execute("CREATE TABLE HockeyLeagues(id INTEGER PRIMARY KEY, LeagueName TEXT, LeagueFullName TEXT, CountryName TEXT, FullCountryName TEXT, NumberOfTeams INTEGER, NumberOfConferences INTEGER, NumberOfDivisions INTEGER)");
  return True;
@@ -182,7 +194,7 @@ def MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname, countryname, fullc
 
 def MakeHockeyConferenceTable(sqldatacon, leaguename):
  print("Creating "+leaguename+" Conference Table.");
- print("Inserting "+leaguename+" Conference Data.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences(id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER)");
  return True;
@@ -197,7 +209,7 @@ def MakeHockeyConferences(sqldatacon, leaguename, conference):
 
 def MakeHockeyDivisionTable(sqldatacon, leaguename):
  print("Creating "+leaguename+" Division Table.");
- print("Inserting "+leaguename+" Division Data.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions(id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER)");
  return True;
@@ -213,14 +225,20 @@ def MakeHockeyDivisions(sqldatacon, leaguename, division, conference):
  return True;
 
 def MakeHockeyTeamTable(sqldatacon, leaguename):
- print("Creating "+leaguename+" Team Table.");
- print("Inserting "+leaguename+" Team Data.");
+ print("Creating "+leaguename+" Arena Table.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas(id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER)");
+ print("Creating "+leaguename+" Team Table.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams(id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT)");
+ print("Creating "+leaguename+" Stat Table.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats(id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT)");
+ print("Creating "+leaguename+" Game Stat Table.");
+ print(" ");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats(id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER)");
  return True;
@@ -251,18 +269,6 @@ def MakeHockeyArena(sqldatacon, leaguename, cityname, areaname, countryname, ful
  print(" ");
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas(TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES(0, \"None\", \"None\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
  return True;
-
-def GetNum2Team(sqldatacon, leaguename, TeamNum, ReturnVar):
- return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Teams WHERE id="+str(TeamNum)).fetchone()[0]);
-
-def GetTeam2Num(sqldatacon, leaguename, TeamName):
- return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Teams WHERE FullName=\""+str(TeamName)+"\"").fetchone()[0]);
-
-def GetNum2Arena(sqldatacon, leaguename, ArenaNum, ReturnVar):
- return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Arenas WHERE id="+str(ArenaNum)).fetchone()[0]);
-
-def GetArena2Num(sqldatacon, leaguename, ArenaName):
- return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
 
 def MakeHockeyGameTable(sqldatacon, leaguename):
  print("DONE! All Team Data Inserted.");
@@ -620,13 +626,15 @@ def MakeHockeyDataFromXML(xmlfile):
   if(leaguecount==0 and getleague.tag=="league"):
    MakeHockeyLeagueTable(sqldatacon, getleague.attrib['name']);
   if(getleague.tag=="league"):
+   MakeHockeyTeamTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyConferenceTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyGameTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyDivisionTable(sqldatacon, getleague.attrib['name']);
    MakeHockeyLeagues(sqldatacon, getleague.attrib['name'], getleague.attrib['fullname'], getleague.attrib['country'], getleague.attrib['fullcountry']);
   leaguecount = leaguecount + 1;
   if(getleague.tag == "league"):
    conferencecount = 0;
    for getconference in getleague:
-    if(getconference.tag == "conference" and conferencecount==0):
-     MakeHockeyConferenceTable(sqldatacon, getleague.attrib['name']);
     if(getconference.tag == "conference"):
      MakeHockeyConferences(sqldatacon, getleague.attrib['name'], getconference.attrib['name']);
      print("Inserting "+getleague.attrib['name']+" Teams From "+getconference.attrib['name']+" Conference.");
@@ -639,23 +647,17 @@ def MakeHockeyDataFromXML(xmlfile):
     if(getconference.tag == "games"):
      gamecount = 0;
      for getgame in getconference:
-      if(gamecount==0):
-       MakeHockeyGameTable(sqldatacon, getleague.attrib['name']);
       MakeHockeyGame(sqldatacon, getleague.attrib['name'], getgame.attrib['date'], getgame.attrib['hometeam'], getgame.attrib['awayteam'], getgame.attrib['goals'], getgame.attrib['sogs'], getgame.attrib['ppgs'], getgame.attrib['penalties'], getgame.attrib['pims'], getgame.attrib['hits'], getgame.attrib['takeaways'], getgame.attrib['faceoffwins'], getgame.attrib['atarena'], getgame.attrib['isplayoffgame']);
       gamecount = gamecount + 1;
     if(getconference.tag == "conference"):
      divisioncount = 0;
      for getdivision in getconference:
-      if(divisioncount==0 and conferencecount==1):
-       MakeHockeyDivisionTable(sqldatacon, getleague.attrib['name']);
       MakeHockeyDivisions(sqldatacon, getleague.attrib['name'], getdivision.attrib['name'], getconference.attrib['name']);
       print("Inserting "+getleague.attrib['name']+" Teams From "+getdivision.attrib['name']+" Division.\n");
       divisioncount = divisioncount + 1;
       if(getdivision.tag == "division"):
        teamcount = 0;
        for getteam in getdivision:
-        if(teamcount==0 and divisioncount==1 and conferencecount==1):
-         MakeHockeyTeamTable(sqldatacon, getleague.attrib['name']);
         if(getteam.tag == "team"):
          MakeHockeyTeams(sqldatacon, getleague.attrib['name'], str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day']), getteam.attrib['city'], getteam.attrib['area'], getteam.attrib['country'], getteam.attrib['fullcountry'], getteam.attrib['fullarea'], getteam.attrib['name'], getconference.attrib['name'], getdivision.attrib['name'], getteam.attrib['arena'], getteam.attrib['prefix']);
         teamcount = teamcount + 1;

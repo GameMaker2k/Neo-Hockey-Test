@@ -137,5 +137,8 @@
     <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Thunder" arena="Intrust Bank Arena" prefix="Wichita" />
    </division>
   </conference>
+  <arenas>
+   <arena city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hersheypark Stadium" />
+  </arenas>
  </league>
 </hockey>
