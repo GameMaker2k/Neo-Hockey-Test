@@ -138,4 +138,32 @@
    </division>
   </conference>
  </league>
+ <league name="FHL" fullname="Federal Hockey League" country="USA" fullcountry="United States">
+  <conference name="Northern">
+   <division name="North">
+    <team city="Winston-Salem" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Thunderbirds" arena="Winston-Salem Fairgrounds Annex" prefix="Carolina" />
+    <team city="Cornwall" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Nationals" arena="Ed Lumley Arena" prefix="Cornwall" />
+    <team city="Danville" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Dashers" arena="David S. Palmer Arena" prefix="Danville" />
+    <team city="Kingsville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Knights" arena="Kingsville Arena Complex" prefix="North Shore" />
+    <team city="Port Huron" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Prowlers" arena="McMorran Place" prefix="Port Huron" />
+    <team city="Watertown" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Wolves" arena="Watertown Municipal Arena" prefix="Watertown" />
+   </division>
+  </conference>
+ </league>
+ <league name="SPHL" fullname="Southern Professional Hockey League" country="USA" fullcountry="United States">
+  <conference name="Southern">
+   <division name="South">
+    <team city="Pelham" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Bulls" arena="Pelham Civic Center" prefix="Birmingham" />
+    <team city="Evansville" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Thunderbolts" arena="Ford Center" prefix="Evansville" />
+    <team city="Fayetteville" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Marksmen" arena="Crown Coliseum" prefix="Fayetteville" />
+    <team city="Huntsville" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Havoc" arena="Von Braun Center" prefix="Huntsville" />
+    <team city="Knoxville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Ice Bears" arena="Knoxville Civic Coliseum" prefix="Knoxville" />
+    <team city="Macon" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Mayhem" arena="Macon Coliseum" prefix="Macon" />
+    <team city="Southaven" area="MS" fullarea="Mississippi" country="USA" fullcountry="United States" name="RiverKings" arena="Landers Center" prefix="Mississippi" />
+    <team city="Pensacola" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Ice Flyers" arena="Pensacola Bay Center" prefix="Pensacola" />
+    <team city="Peoria" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Rivermen" arena="Carver Arena" prefix="Peoria" />-Guy Trudel
+    <team city="Roanoke" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Rail Yard Dawgs" arena="Berglund Center" prefix="Roanoke" />
+   </division>
+  </conference>
+ </league>
 </hockey>
