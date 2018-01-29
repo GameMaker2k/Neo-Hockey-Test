@@ -33,12 +33,12 @@
     <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Jets" arena="Bell MTS Place" prefix="Winnipeg" />
    </division>
    <division name="Pacific">
-    <team city="Anaheim" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Ducks" arena="Honda Center" prefix="Anaheim" />
+    <team city="Anaheim" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Ducks" arena="Honda Center" prefix="Anaheim" />
     <team city="Glendale" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Coyotes" arena="Gila River Arena" prefix="Arizona" />
     <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Flames" arena="Scotiabank Saddledome" prefix="Calgary" />
     <team city="Edmonton" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Oilers" arena="Rogers Place" prefix="Edmonton" />
-    <team city="Los Angeles" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Kings" arena="Staples Center" prefix="Los Angeles" />
-    <team city="San Jose" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Sharks" arena="SAP Center" prefix="San Jose" />
+    <team city="Los Angeles" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Kings" arena="Staples Center" prefix="Los Angeles" />
+    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Sharks" arena="SAP Center" prefix="San Jose" />
     <team city="Vancouver" area="BC" fullarea="British Columbia" country="CAN" fullcountry="Canada" name="Canucks" arena="Rogers Arena" prefix="Vancouver" />
     <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" />
    </division>
@@ -83,12 +83,12 @@
     <team city="Rockford" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="IceHogs" arena="BMO Harris Bank Center" prefix="Rockford" />
    </division>
    <division name="Pacific">
-    <team city="Bakersfield" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Condors" arena="Rabobank Arena" prefix="Bakersfield" />
-    <team city="Ontario" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Reign" arena="Citizens Business Bank Arena" prefix="Ontario" />
+    <team city="Bakersfield" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Condors" arena="Rabobank Arena" prefix="Bakersfield" />
+    <team city="Ontario" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Reign" arena="Citizens Business Bank Arena" prefix="Ontario" />
     <team city="San Antonio" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Rampage" arena="AT&amp;T Center" prefix="San Antonio" />
-    <team city="San Diego" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Valley View Casino Center" prefix="San Diego" />
-    <team city="San Jose" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" />
-    <team city="Stockton" area="CAN" fullarea="California" country="USA" fullcountry="United States" name="Heat" arena="Stockton Arena" prefix="Stockton" />
+    <team city="San Diego" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Valley View Casino Center" prefix="San Diego" />
+    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" />
+    <team city="Stockton" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Heat" arena="Stockton Arena" prefix="Stockton" />
     <team city="Cedar Park" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="H-E-B Center" prefix="Texas" />
     <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" />
    </division>
