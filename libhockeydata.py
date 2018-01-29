@@ -43,7 +43,7 @@ def MakeHockeyDatabase(filename, synchronous="FULL", journal_mode="DELETE"):
  sqldatacon = (sqlcur, sqlcon);
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
- sqlcur.execute("PRAGMA foreign_keys = 1;");
+ sqlcur.execute("PRAGMA foreign_keys = 0;");
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  return sqldatacon;
