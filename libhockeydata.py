@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 1/30/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 1/30/2018 Ver. 0.0.1 RC 2 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -24,7 +24,7 @@ import xml.etree.ElementTree as ET;
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
-__version_info__ = (0, 0, 1, "RC 1", 1);
+__version_info__ = (0, 0, 2, "RC 1", 1);
 __version_date_info__ = (2018, 1, 30, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
@@ -659,13 +659,18 @@ def MakeHockeyDataFromXML(xmlfile, returnxml=False):
   return True;
  return True;
 
-def MakeHockeyDataFromXMLAlt(inxmlfile, outxmlfile=None):
+def MakeHockeyDataFromXMLAlt(inxmlfile, outxmlfile=None, returnxml=False):
  if(outxmlfile is None):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlfp.write(MakeHockeyDataFromXML(inxmlfile, True));
+ xmlstring = MakeHockeyDataFromXML(inxmlfile, True);
+ xmlfp.write();
  xmlfp.close();
+ if(returnxml==True):
+  return xmlstring;
+ if(returnxml==True):
+  return True;
  return True;
 
 def MakeHockeyPyFromXML(xmlfile):
@@ -721,13 +726,18 @@ def MakeHockeyPyFromXML(xmlfile):
  pystring = pystring+"libhockeydata.CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
 
-def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None):
+def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
  xmlfp = open(outpyfile, "w+");
- xmlfp.write(MakeHockeyPyFromXML(inxmlfile));
+ pystring = MakeHockeyPyFromXML(inxmlfile);
+ xmlfp.write();
  xmlfp.close();
+ if(returnpy==True):
+  return pystring;
+ if(returnpy==True):
+  return True;
  return True;
 
 def MakeXMLFromHockeyData(filename, date):
@@ -799,13 +809,18 @@ def MakeXMLFromHockeyData(filename, date):
  sqlcon.close();
  return xmlstring;
 
-def MakeXMLFileFromHockeyData(filename, date, xmlfile=None):
+def MakeXMLFileFromHockeyData(filename, date, xmlfile=None, returnxml=False):
  if(xmlfile is None):
   file_wo_extension, file_extension = os.path.splitext(filename);
   xmlfile = file_wo_extension+".xml";
  xmlfp = open(xmlfile, "w+");
- xmlfp.write(MakeXMLFromHockeyData(filename, date));
+ xmlstring = MakeXMLFromHockeyData(filename, date);
+ xmlfp.write(xmlstring);
  xmlfp.close();
+ if(returnxml==True):
+  return xmlstring;
+ if(returnxml==True):
+  return True;
  return True;
 
 def MakeHockeyPyFromHockeyData(filename, date):
@@ -866,11 +881,16 @@ def MakeHockeyPyFromHockeyData(filename, date):
  pystring = pystring+"libhockeydata.CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
 
-def MakeHockeyPyFileFromHockeyData(filename, date, pyfile=None):
+def MakeHockeyPyFileFromHockeyData(filename, date, pyfile=None, returnpy=False):
  if(pyfile is None):
   file_wo_extension, file_extension = os.path.splitext(filename);
   pyfile = file_wo_extension+".xml";
  xmlfp = open(pyfile, "w+");
- xmlfp.write(MakeHockeyPyFromHockeyData(filename, date));
+ pystring = MakeHockeyPyFromHockeyData(filename, date);
+ xmlfp.write(pystring);
  xmlfp.close();
+ if(returnpy==True):
+  return pystring;
+ if(returnpy==True):
+  return True;
  return True;
