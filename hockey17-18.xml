@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><hockey database="hockey17-18.db3" year="2017" month="10" day="01">
+<?xml version="1.0" encoding="UTF-8"?>
+<hockey database="hockey17-18.db3" year="2017" month="10" day="01">
  <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States">
   <conference name="Eastern">
    <division name="Atlantic">
