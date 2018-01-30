@@ -682,7 +682,7 @@ def MakeXMLFromHockeyData(filename, date):
  chckyear = date[:4];
  chckmonth = date[4:6];
  chckday = date[6:8];
- xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+ xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  xmlstring = xmlstring+"<hockey database=\""+filename+"\" year=\""+chckyear+"\" month=\""+chckmonth+"\" day=\""+chckday+"\">\n";
  sqlcon = sqlite3.connect(filename, isolation_level=None);
  leaguecur = sqlcon.cursor();
