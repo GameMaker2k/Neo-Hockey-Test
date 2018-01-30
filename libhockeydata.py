@@ -328,6 +328,8 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  awaytsb = 0;
  homeppg = 0;
  awayppg = 0;
+ homeshg = 0;
+ awayshg = 0;
  homepims = 0;
  awaypims = 0;
  homepens = 0;
