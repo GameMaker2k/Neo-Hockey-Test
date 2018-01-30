@@ -704,8 +704,8 @@ def MakeXMLFromHockeyData(filename, date):
     xmlstring = xmlstring+"   </division>\n";
     print("   </division>");
    divisioncur.close();
-  xmlstring = xmlstring+"  </conference>\n";
-  print("  </conference>");
+   xmlstring = xmlstring+"  </conference>\n";
+   print("  </conference>");
   conferencecur.close();
   arenacur = sqlcon.cursor();
   getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0").fetchone()[0];
