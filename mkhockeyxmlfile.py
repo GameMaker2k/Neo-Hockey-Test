@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeyxmlfile.py - Last Update: 1/29/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeyxmlfile.py - Last Update: 1/30/2018 Ver. 0.0.1 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;

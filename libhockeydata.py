@@ -571,6 +571,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  return True;
 
 def CloseHockeyDatabase(sqldatacon):
+ db_integrity_check = sqldatacon[0].execute("PRAGMA integrity_check(100);").fetchone()[0];
  sqldatacon[0].execute("PRAGMA optimize;");
  sqldatacon[0].close();
  sqldatacon[1].close();
