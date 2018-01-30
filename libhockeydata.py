@@ -666,3 +666,66 @@ def MakeHockeyDataFromXML(xmlfile):
         teamcount = teamcount + 1;
  CloseHockeyDatabase(sqldatacon);
  return True;
+
+def MakeXMLFromHockeyData(filename, date):
+ chckyear = date[:4];
+ chckmonth = date[4:6];
+ chckday = date[6:8];
+ xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+ xmlstring = xmlstring+"<hockey database=\""+filename+"\" year=\""+chckyear+"\" month=\""+chckmonth+"\" day=\""+chckday+"\">\n";
+ sqlcon = sqlite3.connect(filename, isolation_level=None);
+ leaguecur = sqlcon.cursor();
+ getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName FROM HockeyLeagues");
+ for leagueinfo in getleague:
+  xmlstring = xmlstring+" <league name=\""+leagueinfo[0]+"\" fullname=\""+leagueinfo[1]+"\" country=\""+leagueinfo[2]+"\" fullcountry=\""+leagueinfo[3]+"\">\n";
+  conferencecur = sqlcon.cursor();
+  getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"").fetchone()[0];
+  getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"");
+  for conferenceinfo in getconference:
+   xmlstring = xmlstring+"  <conference name=\""+conferenceinfo[0]+"\">\n";
+   divisioncur = sqlcon.cursor();
+   getdivision_num = divisioncur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"").fetchone()[0];
+   getdivision = divisioncur.execute("SELECT Division FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"");
+   for divisioninfo in getdivision:
+    xmlstring = xmlstring+"   <division name=\""+divisioninfo[0]+"\">\n";
+    teamcur = sqlcon.cursor();
+    getteam_num = teamcur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"").fetchone()[0];
+    getteam = teamcur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, TeamName, ArenaName, TeamPrefix FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"");
+    for teaminfo in getteam:
+     xmlstring = xmlstring+"    <team city=\""+teaminfo[0]+"\" area=\""+teaminfo[1]+"\" fullarea=\""+teaminfo[2]+"\" country=\""+teaminfo[3]+"\" fullcountry=\""+teaminfo[4]+"\" name=\""+teaminfo[5]+"\" arena=\""+teaminfo[6]+"\" prefix=\""+teaminfo[7]+"\" />\n";
+    teamcur.close();
+    xmlstring = xmlstring+"   </division>\n";
+   divisioncur.close();
+  xmlstring = xmlstring+"  </conference>\n";
+  conferencecur.close();
+  arenacur = sqlcon.cursor();
+  getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0").fetchone()[0];
+  getarena = arenacur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, ArenaName FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0");
+  if(getteam_num>0):
+   xmlstring = xmlstring+"  <arenas>\n";
+   for arenainfo in getarena:
+    xmlstring = xmlstring+"   <arena city=\""+arenainfo[0]+"\" area=\""+arenainfo[1]+"\" fullarea=\""+arenainfo[2]+"\" country=\""+arenainfo[3]+"\" fullcountry=\""+arenainfo[4]+"\" name=\""+arenainfo[5]+"\" />\n";
+   xmlstring = xmlstring+"  </arenas>\n";
+  gamecur = sqlcon.cursor();
+  getgame_num = gamecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Games").fetchone()[0];
+  getgame = gamecur.execute("SELECT Date, HomeTeam, AwayTeam, TeamScorePeriods, ShotsOnGoal, PowerPlays, Penalties, PenaltyMinutes, HitsPerPeriod, TakeAways, FaceoffWins, AtArena, IsPlayOffGame FROM "+leagueinfo[0]+"Games");
+  if(getgame_num>0):
+   xmlstring = xmlstring+"  <games>\n";
+   for gameinfo in getgame:
+    xmlstring = xmlstring+"   <game date=\""+gameinfo[0]+"\" hometeam=\""+gameinfo[1]+"\" awayteam=\""+gameinfo[2]+"\" goals=\""+gameinfo[3]+"\" sogs=\""+gameinfo[4]+"\" ppgs=\""+gameinfo[5]+"\" penalties=\""+gameinfo[6]+"\" pims=\""+gameinfo[7]+"\" hits=\""+gameinfo[8]+"\" takeaways=\""+gameinfo[9]+"\" faceoffwins=\""+gameinfo[10]+"\" atarena=\""+gameinfo[11]+"\" isplayoffgame=\""+gameinfo[12]+"\" />\n";
+   xmlstring = xmlstring+"  </games>\n";
+  xmlstring = xmlstring+" </league>\n";
+ xmlstring = xmlstring+"</hockey>\n";
+ leaguecur.close();
+ sqlcon.close();
+ return xmlstring;
+
+def MakeXMLFileFromHockeyData(filename, date, xmlfile=None):
+ if(xmlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(filename);
+  xmlfile = file_wo_extension+".xml";
+ xmlfp = open(xmlfile, "w+");
+ xmlfp.write(MakeXMLFromHockeyData(filename, date));
+ xmlfp.close();
+ return True;
