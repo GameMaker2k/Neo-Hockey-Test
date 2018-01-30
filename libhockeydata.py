@@ -180,7 +180,7 @@ def GetNum2Arena(sqldatacon, leaguename, ArenaNum, ReturnVar):
 def GetArena2Num(sqldatacon, leaguename, ArenaName):
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
 
-def MakeHockeyLeagueTable(sqldatacon, leaguename):
+def MakeHockeyLeagueTable(sqldatacon):
  sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
  sqldatacon[0].execute("CREATE TABLE HockeyLeagues(id INTEGER PRIMARY KEY, LeagueName TEXT, LeagueFullName TEXT, CountryName TEXT, FullCountryName TEXT, NumberOfTeams INTEGER, NumberOfConferences INTEGER, NumberOfDivisions INTEGER)");
  return True;
@@ -589,7 +589,7 @@ def MakeHockeyDataFromXML(xmlfile, returnxml=False):
  leaguecount = 0;
  for getleague in gethockey:
   if(leaguecount==0 and getleague.tag=="league"):
-   MakeHockeyLeagueTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyLeagueTable(sqldatacon);
   if(getleague.tag=="league"):
    MakeHockeyTeamTable(sqldatacon, getleague.attrib['name']);
    MakeHockeyConferenceTable(sqldatacon, getleague.attrib['name']);
@@ -668,6 +668,68 @@ def MakeHockeyDataFromXMLAlt(inxmlfile, outxmlfile=None):
  xmlfp.close();
  return True;
 
+def MakeHockeyPyFromXML(xmlfile):
+ hockeyfile = ET.parse(xmlfile);
+ gethockey = hockeyfile.getroot();
+ print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n");
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n\n";
+ if(gethockey.tag == "hockey"):
+  print("sqldatacon = libhockeydata.MakeHockeyDatabase(\""+gethockey.attrib['database']+"\");");
+  pystring = pystring+"sqldatacon = libhockeydata.MakeHockeyDatabase(\""+gethockey.attrib['database']+"\");\n";
+ leaguecount = 0;
+ for getleague in gethockey:
+  if(leaguecount==0 and getleague.tag=="league"):
+   print("libhockeydata.MakeHockeyLeagueTable(sqldatacon);");
+   pystring = pystring+"libhockeydata.MakeHockeyLeagueTable(sqldatacon);\n";
+  if(getleague.tag=="league"):
+   print("libhockeydata.MakeHockeyTeamTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyConferenceTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyGameTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyDivisionTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyLeagues(sqldatacon, \""+getleague.attrib['name']+"\", \""+getleague.attrib['fullname']+"\", \""+getleague.attrib['country']+"\", \""+getleague.attrib['fullcountry']+"\");");
+   pystring = pystring+"libhockeydata.MakeHockeyTeamTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyConferenceTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyGameTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyDivisionTable(sqldatacon, \""+getleague.attrib['name']+"\");\nlibhockeydata.MakeHockeyLeagues(sqldatacon, \""+getleague.attrib['name']+"\", \""+getleague.attrib['fullname']+"\", \""+getleague.attrib['country']+"\", \""+getleague.attrib['fullcountry']+"\");\n";
+  leaguecount = leaguecount + 1;
+  if(getleague.tag == "league"):
+   conferencecount = 0;
+   for getconference in getleague:
+    if(getconference.tag == "conference"):
+     print("libhockeydata.MakeHockeyConferences(sqldatacon, \""+getleague.attrib['name']+"\", \""+getconference.attrib['name']+"\");");
+     pystring = pystring+"libhockeydata.MakeHockeyConferences(sqldatacon, \""+getleague.attrib['name']+"\", \""+getconference.attrib['name']+"\");\n";
+     conferencecount = conferencecount + 1;
+    if(getconference.tag == "arenas"):
+     arenascount = 0;
+     for getarenas in getconference:
+      print("libhockeydata.MakeHockeyArena(sqldatacon, \""+getleague.attrib['name']+"\", \""+getarenas.attrib['city']+"\", \""+getarenas.attrib['area']+"\", \""+getarenas.attrib['country']+"\", \""+getarenas.attrib['fullcountry']+"\", \""+getarenas.attrib['fullarea']+"\", \""+getarenas.attrib['name']+"\");");
+      pystring = pystring+"libhockeydata.MakeHockeyArena(sqldatacon, \""+getleague.attrib['name']+"\", \""+getarenas.attrib['city']+"\", \""+getarenas.attrib['area']+"\", \""+getarenas.attrib['country']+"\", \""+getarenas.attrib['fullcountry']+"\", \""+getarenas.attrib['fullarea']+"\", \""+getarenas.attrib['name']+"\");\n";
+      arenascount = arenascount + 1;
+    if(getconference.tag == "games"):
+     gamecount = 0;
+     for getgame in getconference:
+      print("libhockeydata.MakeHockeyGame(sqldatacon, \""+getleague.attrib['name']+"\", "+getgame.attrib['date']+", \""+getgame.attrib['hometeam']+"\", \""+getgame.attrib['awayteam']+"\", \""+getgame.attrib['goals']+"\", \""+getgame.attrib['sogs']+"\", \""+getgame.attrib['ppgs']+"\", \""+getgame.attrib['shgs']+"\", \""+getgame.attrib['penalties']+"\", \""+getgame.attrib['pims']+"\", \""+getgame.attrib['hits']+"\", \""+getgame.attrib['takeaways']+"\", \""+getgame.attrib['faceoffwins']+"\", \""+getgame.attrib['atarena']+"\", \""+getgame.attrib['isplayoffgame']+"\");");
+      pystring = pystring+"libhockeydata.MakeHockeyGame(sqldatacon, \""+getleague.attrib['name']+"\", "+getgame.attrib['date']+", \""+getgame.attrib['hometeam']+"\", \""+getgame.attrib['awayteam']+"\", \""+getgame.attrib['goals']+"\", \""+getgame.attrib['sogs']+"\", \""+getgame.attrib['ppgs']+"\", \""+getgame.attrib['shgs']+"\", \""+getgame.attrib['penalties']+"\", \""+getgame.attrib['pims']+"\", \""+getgame.attrib['hits']+"\", \""+getgame.attrib['takeaways']+"\", \""+getgame.attrib['faceoffwins']+"\", \""+getgame.attrib['atarena']+"\", \""+getgame.attrib['isplayoffgame']+"\");\n";
+      gamecount = gamecount + 1;
+    if(getconference.tag == "conference"):
+     divisioncount = 0;
+     for getdivision in getconference:
+      print("libhockeydata.MakeHockeyDivisions(sqldatacon, \""+getleague.attrib['name']+"\", \""+getdivision.attrib['name']+"\", \""+getconference.attrib['name']+"\");");
+      pystring = pystring+"libhockeydata.MakeHockeyDivisions(sqldatacon, \""+getleague.attrib['name']+"\", \""+getdivision.attrib['name']+"\", \""+getconference.attrib['name']+"\");\n";
+      divisioncount = divisioncount + 1;
+      if(getdivision.tag == "division"):
+       teamcount = 0;
+       for getteam in getdivision:
+        if(getteam.tag == "team"):
+         print("libhockeydata.MakeHockeyTeams(sqldatacon, \""+getleague.attrib['name']+"\", "+str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day'])+", \""+getteam.attrib['city']+"\", \""+getteam.attrib['area']+"\", \""+getteam.attrib['country']+"\", \""+getteam.attrib['fullcountry']+"\", \""+getteam.attrib['fullarea']+"\", \""+getteam.attrib['name']+"\", \""+getconference.attrib['name']+"\", \""+getdivision.attrib['name']+"\", \""+getteam.attrib['arena']+"\", \""+getteam.attrib['prefix']+"\");");
+         pystring = pystring+"libhockeydata.MakeHockeyTeams(sqldatacon, \""+getleague.attrib['name']+"\", "+str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day'])+", \""+getteam.attrib['city']+"\", \""+getteam.attrib['area']+"\", \""+getteam.attrib['country']+"\", \""+getteam.attrib['fullcountry']+"\", \""+getteam.attrib['fullarea']+"\", \""+getteam.attrib['name']+"\", \""+getconference.attrib['name']+"\", \""+getdivision.attrib['name']+"\", \""+getteam.attrib['arena']+"\", \""+getteam.attrib['prefix']+"\");\n";
+        teamcount = teamcount + 1;
+ print("libhockeydata.CloseHockeyDatabase(sqldatacon);");
+ pystring = pystring+"libhockeydata.CloseHockeyDatabase(sqldatacon);\n";
+ return pystring;
+
+def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None):
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
+  outpyfile = file_wo_extension+".xml";
+ xmlfp = open(outpyfile, "w+");
+ xmlfp.write(MakeHockeyPyFromXML(inxmlfile));
+ xmlfp.close();
+ return True;
+
 def MakeXMLFromHockeyData(filename, date):
  chckyear = date[:4];
  chckmonth = date[4:6];
@@ -743,5 +805,72 @@ def MakeXMLFileFromHockeyData(filename, date, xmlfile=None):
   xmlfile = file_wo_extension+".xml";
  xmlfp = open(xmlfile, "w+");
  xmlfp.write(MakeXMLFromHockeyData(filename, date));
+ xmlfp.close();
+ return True;
+
+def MakeHockeyPyFromHockeyData(filename, date):
+ chckyear = date[:4];
+ chckmonth = date[4:6];
+ chckday = date[6:8];
+ print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n");
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n\n";
+ print("sqldatacon = libhockeydata.MakeHockeyDatabase(\""+filename+"\");");
+ pystring = pystring+"sqldatacon = libhockeydata.MakeHockeyDatabase(\""+filename+"\");\n";
+ sqlcon = sqlite3.connect(filename, isolation_level=None);
+ leaguecur = sqlcon.cursor();
+ getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName FROM HockeyLeagues");
+ for leagueinfo in getleague:
+  print("libhockeydata.MakeHockeyLeagueTable(sqldatacon);");
+  pystring = pystring+"libhockeydata.MakeHockeyLeagueTable(sqldatacon);\n";
+  print("libhockeydata.MakeHockeyTeamTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyConferenceTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyGameTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyDivisionTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyLeagues(sqldatacon, \""+leagueinfo[0]+"\", \""+leagueinfo[1]+"\", \""+leagueinfo[2]+"\", \""+leagueinfo[3]+"\");");
+  pystring = pystring+"libhockeydata.MakeHockeyTeamTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyConferenceTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyGameTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyDivisionTable(sqldatacon, \""+leagueinfo[0]+"\");\nlibhockeydata.MakeHockeyLeagues(sqldatacon, \""+leagueinfo[0]+"\", \""+leagueinfo[1]+"\", \""+leagueinfo[2]+"\", \""+leagueinfo[3]+"\");\n";
+  conferencecur = sqlcon.cursor();
+  getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"").fetchone()[0];
+  getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"");
+  for conferenceinfo in getconference:
+   print("libhockeydata.MakeHockeyConferences(sqldatacon, \""+leagueinfo[0]+"\", \""+conferenceinfo[0]+"\");");
+   pystring = pystring+"libhockeydata.MakeHockeyConferences(sqldatacon, \""+leagueinfo[0]+"\", \""+conferenceinfo[0]+"\");\n";
+   divisioncur = sqlcon.cursor();
+   getdivision_num = divisioncur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"").fetchone()[0];
+   getdivision = divisioncur.execute("SELECT Division FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"");
+   for divisioninfo in getdivision:
+    print("libhockeydata.MakeHockeyDivisions(sqldatacon, \""+leagueinfo[0]+"\", \""+divisioninfo[0]+"\", \""+conferenceinfo[0]+"\");");
+    pystring = pystring+"libhockeydata.MakeHockeyDivisions(sqldatacon, \""+leagueinfo[0]+"\", \""+divisioninfo[0]+"\", \""+conferenceinfo[0]+"\");\n";
+    teamcur = sqlcon.cursor();
+    getteam_num = teamcur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"").fetchone()[0];
+    getteam = teamcur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, TeamName, ArenaName, TeamPrefix FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"");
+    for teaminfo in getteam:
+     print("libhockeydata.MakeHockeyTeams(sqldatacon, \""+leagueinfo[0]+"\", "+str(chckyear+chckmonth+chckday)+", \""+teaminfo[0]+"\", \""+teaminfo[1]+"\", \""+teaminfo[3]+"\", \""+teaminfo[4]+"\", \""+teaminfo[2]+"\", \""+teaminfo[5]+"\", \""+conferenceinfo[0]+"\", \""+divisioninfo[0]+"\", \""+teaminfo[6]+"\", \""+teaminfo[7]+"\");");
+     pystring = pystring+"libhockeydata.MakeHockeyTeams(sqldatacon, \""+leagueinfo[0]+"\", "+str(chckyear+chckmonth+chckday)+", \""+teaminfo[0]+"\", \""+teaminfo[1]+"\", \""+teaminfo[3]+"\", \""+teaminfo[4]+"\", \""+teaminfo[2]+"\", \""+teaminfo[5]+"\", \""+conferenceinfo[0]+"\", \""+divisioninfo[0]+"\", \""+teaminfo[6]+"\", \""+teaminfo[7]+"\");\n";
+    teamcur.close();
+   divisioncur.close();
+  conferencecur.close();
+  arenacur = sqlcon.cursor();
+  getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0").fetchone()[0];
+  getarena = arenacur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, ArenaName FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0");
+  if(getteam_num>0):
+   for arenainfo in getarena:
+    print("libhockeydata.MakeHockeyArena(sqldatacon, \""+leagueinfo[0]+"\", \""+arenainfo[0]+"\", \""+arenainfo[1]+"\", \""+arenainfo[3]+"\", \""+arenainfo[4]+"\", \""+arenainfo[2]+"\", \""+arenainfo[5]+"\");");
+    pystring = pystring+"libhockeydata.MakeHockeyArena(sqldatacon, \""+leagueinfo[0]+"\", \""+arenainfo[0]+"\", \""+arenainfo[1]+"\", \""+arenainfo[3]+"\", \""+arenainfo[4]+"\", \""+arenainfo[2]+"\", \""+arenainfo[5]+"\");\n";
+  gamecur = sqlcon.cursor();
+  getgame_num = gamecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Games").fetchone()[0];
+  getgame = gamecur.execute("SELECT Date, HomeTeam, AwayTeam, TeamScorePeriods, ShotsOnGoal, PowerPlays, ShortHanded, Penalties, PenaltyMinutes, HitsPerPeriod, TakeAways, FaceoffWins, AtArena, IsPlayOffGame FROM "+leagueinfo[0]+"Games");
+  if(getgame_num>0):
+   for gameinfo in getgame:
+    print("libhockeydata.MakeHockeyGame(sqldatacon, \""+leagueinfo[0]+"\", "+gameinfo[0]+", \""+gameinfo[1]+"\", \""+gameinfo[2]+"\", \""+gameinfo[3]+"\", \""+gameinfo[4]+"\", \""+gameinfo[5]+"\", \""+gameinfo[6]+"\", \""+gameinfo[7]+"\", \""+gameinfo[8]+"\", \""+gameinfo[9]+"\", \""+gameinfo[10]+"\", \""+gameinfo[11]+"\", \""+gameinfo[12]+"\", \""+gameinfo[13]+"\");");
+    pystring = pystring+"libhockeydata.MakeHockeyGame(sqldatacon, \""+leagueinfo[0]+"\", "+gameinfo[0]+", \""+gameinfo[1]+"\", \""+gameinfo[2]+"\", \""+gameinfo[3]+"\", \""+gameinfo[4]+"\", \""+gameinfo[5]+"\", \""+gameinfo[6]+"\", \""+gameinfo[7]+"\", \""+gameinfo[8]+"\", \""+gameinfo[9]+"\", \""+gameinfo[10]+"\", \""+gameinfo[11]+"\", \""+gameinfo[12]+"\", \""+gameinfo[13]+"\");\n";
+ leaguecur.close();
+ sqlcon.close();
+ print("libhockeydata.CloseHockeyDatabase(sqldatacon);");
+ pystring = pystring+"libhockeydata.CloseHockeyDatabase(sqldatacon);\n";
+ return pystring;
+
+def MakeHockeyPyFileFromHockeyData(filename, date, pyfile=None):
+ if(pyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(filename);
+  pyfile = file_wo_extension+".xml";
+ xmlfp = open(pyfile, "w+");
+ xmlfp.write(MakeHockeyPyFromHockeyData(filename, date));
  xmlfp.close();
  return True;
