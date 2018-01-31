@@ -577,13 +577,16 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyDataFromXML(xmlfile, returnxml=False):
+def MakeHockeyDataFromXML(xmlfile, outdbfile=None, returnxml=False):
  hockeyfile = ET.parse(xmlfile);
  gethockey = hockeyfile.getroot();
  print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if(gethockey.tag == "hockey"):
-  sqldatacon = MakeHockeyDatabase(gethockey.attrib['database']);
+  if(outdbfile is None):
+   sqldatacon = MakeHockeyDatabase(gethockey.attrib['database']);
+  if(outdbfile is not None):
+   sqldatacon = MakeHockeyDatabase(outdbfile);
   print("<hockey database=\""+gethockey.attrib['database']+"\" year=\""+gethockey.attrib['year']+"\" month=\""+gethockey.attrib['month']+"\" day=\""+gethockey.attrib['day']+"\">");
   xmlstring = "<hockey database=\""+gethockey.attrib['database']+"\" year=\""+gethockey.attrib['year']+"\" month=\""+gethockey.attrib['month']+"\" day=\""+gethockey.attrib['day']+"\">\n";
  leaguecount = 0;
@@ -659,12 +662,12 @@ def MakeHockeyDataFromXML(xmlfile, returnxml=False):
   return True;
  return True;
 
-def MakeHockeyDataFromXMLAlt(inxmlfile, outxmlfile=None, returnxml=False):
+def MakeHockeyDataFromXMLAlt(inxmlfile, outdbfile=None, outxmlfile=None, returnxml=False):
  if(outxmlfile is None):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyDataFromXML(inxmlfile, True);
+ xmlstring = MakeHockeyDataFromXML(inxmlfile, outdbfile, True);
  xmlfp.write();
  xmlfp.close();
  if(returnxml==True):
