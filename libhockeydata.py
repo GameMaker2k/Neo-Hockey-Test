@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 1/30/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/1/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -30,7 +30,7 @@ __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 0, 2, "RC 1", 1);
-__version_date_info__ = (2018, 1, 30, "RC 1", 1);
+__version_date_info__ = (2018, 2, 1, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -596,7 +596,7 @@ def MakeHockeyDataFromXML(xmlfile, sdbfile=None, returnxml=False):
   if(sdbfile is not None):
    sqldatacon = MakeHockeyDatabase(sdbfile);
   print("<hockey database=\""+xml_escape(gethockey.attrib['database'], quote=True)+"\" year=\""+xml_escape(gethockey.attrib['year'], quote=True)+"\" month=\""+xml_escape(gethockey.attrib['month'], quote=True)+"\" day=\""+xml_escape(gethockey.attrib['day'], quote=True)+"\">");
-  xmlstring = "<hockey database=\""+xml_escape(gethockey.attrib['database'], quote=True)+"\" year=\""+xml_escape(gethockey.attrib['year'], quote=True)+"\" month=\""+xml_escape(gethockey.attrib['month'], quote=True)+"\" day=\""+xml_escape(gethockey.attrib['day'], quote=True)+"\">\n";
+  xmlstring = xmlstring+"<hockey database=\""+xml_escape(gethockey.attrib['database'], quote=True)+"\" year=\""+xml_escape(gethockey.attrib['year'], quote=True)+"\" month=\""+xml_escape(gethockey.attrib['month'], quote=True)+"\" day=\""+xml_escape(gethockey.attrib['day'], quote=True)+"\">\n";
  leaguecount = 0;
  for getleague in gethockey:
   if(leaguecount==0 and getleague.tag=="league"):
@@ -767,7 +767,8 @@ def MakeXMLFromHockeyData(sdbfile, date):
  else:
   return False;
  leaguecur = sqlcon.cursor();
- xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<hockey database=\""+xml_escape(sdbfile, quote=True)+"\" year=\""+xml_escape(chckyear, quote=True)+"\" month=\""+xml_escape(chckmonth, quote=True)+"\" day=\""+xml_escape(chckday, quote=True)+"\">\n";
+ xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+ xmlstring = xmlstring+"<hockey database=\""+xml_escape(sdbfile, quote=True)+"\" year=\""+xml_escape(chckyear, quote=True)+"\" month=\""+xml_escape(chckmonth, quote=True)+"\" day=\""+xml_escape(chckday, quote=True)+"\">\n";
  print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  print("<hockey database=\""+xml_escape(sdbfile, quote=True)+"\" year=\""+xml_escape(chckyear, quote=True)+"\" month=\""+xml_escape(chckmonth, quote=True)+"\" day=\""+xml_escape(chckday, quote=True)+"\">");
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];

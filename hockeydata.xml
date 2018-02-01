@@ -166,4 +166,45 @@
    </division>
   </conference>
  </league>
+ <league name="KHL" fullname="Kontinental Hockey League" country="RUS" fullcountry="Russia">
+  <conference name="Western">
+   <division name="Bobrov">
+    <team city="Minsk" area="BY" fullarea="Belarus" country="BLR" fullcountry="Belarus" name="Dinamo Minsk" arena="Minsk-Arena" prefix="Boston" />
+    <team city="Riga" area="LV" fullarea="Latvia" country="LVA" fullcountry="Latvia" name="Dinamo Riga" arena="Arena Riga" prefix="Boston" />
+    <team city="Helsinki" area="FI" fullarea="Finland" country="FIN" fullcountry="Finland" name="Jokerit Helsinki" arena="Hartwall Arena" prefix="Boston" />
+    <team city="Saint Petersburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="SKA Saint Petersburg" arena="Ice Palace Saint Petersburg" prefix="Boston" />
+    <team city="Bratislava" area="SK" fullarea="Slovakia" country="SVK" fullcountry="Slovakia" name="Slovan Bratislava" arena="Ondrej Nepela Arena" prefix="Boston" />
+    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Spartak Moscow" arena="Luzhniki Minor Arena" prefix="Boston" />
+   </division>
+   <division name="Tarasov">
+    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="CSKA Moscow" arena="CSKA Ice Palace" prefix="Boston" />
+    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Dynamo Moscow" arena="VTB Ice Palace" prefix="Boston" />
+    <team city="Yaroslavl" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lokomotiv Yaroslavl" arena="Arena 2000" prefix="Boston" />
+    <team city="Cherepovets" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Severstal Cherepovets" arena="Ice Palace" prefix="Boston" />
+    <team city="Sochi" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Sochi" arena="Bolshoy Ice Dome" prefix="Boston" />
+    <team city="Nizhny Novgorod" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Torpedo Nizhny Novgorod" arena="Trade Union Sport Palace" prefix="Boston" />
+    <team city="Podolsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Vityaz Moscow Oblast" arena="Vityaz Ice Palace" prefix="Boston" />
+   </division>
+  </conference>
+  <conference name="Eastern">
+   <division name="Kharlamov">
+    <team city="Kazan" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Ak Bars Kazan" arena="TatNeft Arena" prefix="Boston" />
+    <team city="Yekaterinburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avtomobilist Yekaterinburg" arena="KRK Uralets" prefix="Boston" />
+    <team city="Tolyatti" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lada Togliatti" arena="Lada Arena a" prefix="Boston" />
+    <team city="Magnitogorsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Metallurg Magnitogorsk" arena="Arena Metallurg" prefix="Boston" />
+    <team city="Nizhnekamsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Neftekhimik Nizhnekamsk" arena="SCC Arena" prefix="Boston" />
+    <team city="Chelyabinsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Traktor Chelyabinsk" arena="Traktor Sport Palace" prefix="Boston" />
+    <team city="Khanty-Mansiysk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Yugra Khanty-Mansiysk" arena="Arena Ugra" prefix="Boston" />
+   </division>
+   <division name="Chernyshev">
+    <team city="Vladivostok" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Admiral Vladivostok" arena="Fetisov Arena" prefix="Boston" />
+    <team city="Khabarovsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Amur Khabarovsk" arena="Platinum Arena" prefix="Boston" />
+    <team city="Omsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avangard Omsk" arena="Omsk Arena" prefix="Boston" />
+    <team city="Astana" area="RU" fullarea="Kazakhstan" country="RUS" fullcountry="Kazakhstan" name="Barys Astana" arena="Barys Arena" prefix="Boston" />
+    <team city="Ufa" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Salavat Yulaev Ufa" arena="Ufa Arena" prefix="Boston" />
+    <team city="Novosibirsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Sibir Novosibirsk" arena="Ice Sports Palace Sibir" prefix="Boston" />
+    <team city="Beijing" area="CN" fullarea="China" country="CHN" fullcountry="China" name="Red Star Kunlun" arena="Cadillac Arena" prefix="Boston" />
+   </division>
+  </conference>
+ </league>
 </hockey>
