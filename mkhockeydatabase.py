@@ -34,6 +34,7 @@ __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 argparser = argparse.ArgumentParser(description="convert hockey xml file to sqlite database", conflict_handler="resolve", add_help=True);
 argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
 argparser.add_argument("-f", "--file", default="./hockeydata.xml", help="xml file to convert");
+argparser.add_argument("-o", "--outfile", default=None, help="sqlite database to convert");
 getargs = argparser.parse_args();
 
-libhockeydata.MakeHockeyDataFromXML(getargs.file);
+libhockeydata.MakeHockeyDataFromXML(getargs.file, getargs.outfile);

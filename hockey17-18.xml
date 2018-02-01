@@ -207,5 +207,9 @@
     <team city="Beijing" area="CN" fullarea="China" country="CHN" fullcountry="China" name="Red Star Kunlun" arena="Cadillac Arena" prefix="Boston" />
    </division>
   </conference>
+  <arenas>
+   <arena city="Helsinki" area="FI" fullarea="Finland" country="FIN" fullcountry="Finland" name="Kaisaniemi Park" />
+   <arena city="Riga" area="LV" fullarea="Latvia" country="LVA" fullcountry="Latvia" name="Riga City Council Sports Complex" />
+  </arenas>
  </league>
 </hockey>
