@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 2/1/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/2/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -30,7 +30,7 @@ __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 0, 2, "RC 1", 1);
-__version_date_info__ = (2018, 2, 1, "RC 1", 1);
+__version_date_info__ = (2018, 2, 2, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -775,10 +775,10 @@ def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
- xmlfp = open(outpyfile, "w+");
+ pyfp = open(outpyfile, "w+");
  pystring = MakeHockeyPyFromXML(inxmlfile);
- xmlfp.write();
- xmlfp.close();
+ pyfp.write();
+ pyfp.close();
  if(returnpy==True):
   return pystring;
  if(returnpy==True):
@@ -953,10 +953,10 @@ def MakeHockeyPyFileFromHockeyData(sdbfile, date, pyfile=None, returnpy=False):
  if(pyfile is None):
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   pyfile = file_wo_extension+".xml";
- xmlfp = open(pyfile, "w+");
+ pyfp = open(pyfile, "w+");
  pystring = MakeHockeyPyFromHockeyData(sdbfile, date);
- xmlfp.write(pystring);
- xmlfp.close();
+ pyfp.write(pystring);
+ pyfp.close();
  if(returnpy==True):
   return pystring;
  if(returnpy==True):
