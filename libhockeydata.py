@@ -1018,8 +1018,3 @@ def MakeHockeyPyFileFromHockeyData(sdbfile, date, pyfile=None, returnpy=False):
  if(returnpy==True):
   return True;
  return True;
-
-hockeydata = MakeHockeyDatabase("./hockeydata.db3");
-MakeHockeyPlayoffTeamTable(hockeydata, "NHL");
-MakeHockeyTeams(hockeydata, "NHL", "Division=3,Conference=2");
-CloseHockeyDatabase(hockeydata);
