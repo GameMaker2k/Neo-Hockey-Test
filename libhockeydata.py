@@ -41,8 +41,8 @@ if(__version_info__[3] is not None):
 if(__version_info__[3] is None):
  __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2]);
 
-def MakeHockeyDatabase(filename, synchronous="FULL", journal_mode="DELETE"):
- sqlcon = sqlite3.connect(filename, isolation_level=None);
+def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE"):
+ sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
@@ -50,6 +50,17 @@ def MakeHockeyDatabase(filename, synchronous="FULL", journal_mode="DELETE"):
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
+ return sqldatacon;
+
+def OpenHockeyDatabase(sdbfile):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+ sqlcur = sqlcon.cursor();
+ sqldatacon = (sqlcur, sqlcon);
+ sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
+ sqlcur.execute("PRAGMA auto_vacuum = 1;");
+ sqlcur.execute("PRAGMA foreign_keys = 0;");
  return sqldatacon;
 
 def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
