@@ -52,11 +52,11 @@ def MakeHockeyDatabase(filename, synchronous="FULL", journal_mode="DELETE"):
  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  return sqldatacon;
 
-def GetLastTenGames(sqldatacon, leaguename, teamname):
+def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
  wins = 0;
  losses = 0;
  otlosses = 0;
- getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT 10").fetchall();
+ getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
  nmax = len(getlastninegames);
  nmin = 0;
  while(nmin<nmax):
@@ -69,6 +69,9 @@ def GetLastTenGames(sqldatacon, leaguename, teamname):
     otlosses = otlosses + 1;
   nmin = nmin + 1;
  return str(wins)+":"+str(losses)+":"+str(otlosses);
+
+def GetLastTenGames(sqldatacon, leaguename, teamname):
+ return GetLastGames(sqldatacon, leaguename, teamname, 10);
 
 def UpdateHockeyData(sqldatacon, leaguename, tablename, wherename, wheredata, wheretype, dataname, addtodata, addtype):
  wheretype = wheretype.lower();
