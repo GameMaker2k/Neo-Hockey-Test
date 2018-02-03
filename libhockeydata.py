@@ -70,6 +70,35 @@ def GetLastTenGames(sqldatacon, leaguename, teamname):
   nmin = nmin + 1;
  return str(wins)+":"+str(losses)+":"+str(otlosses);
 
+def UpdateHockeyData(sqldatacon, leaguename, tablename, wherename, wheredata, wheretype, dataname, addtodata, addtype):
+ wheretype = wheretype.lower();
+ if(wheretype!="int" and wheretype!="str"):
+  wheretype = "int";
+ if(addtype!="=" and addtype!="+" and addtype!="-"):
+  addtype = "=";
+ if(addtype=="="):
+  TMPData = addtodata;
+ if(addtype=="+" and wheretype="int"):
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+tablename+" WHERE "+wherename+"="+str(wheredata)).fetchone()[0]) + addtodata;
+ if(addtype=="-" and wheretype="int"):
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+tablename+" WHERE "+wherename+"="+str(wheredata)).fetchone()[0]) - addtodata;
+ if(addtype=="+" and wheretype="str"):
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+tablename+" WHERE "+wherename+"=\""+str(wheredata)+"\"").fetchone()[0]) + addtodata;
+ if(addtype=="-" and wheretype="str"):
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+tablename+" WHERE "+wherename+"=\""+str(wheredata)+"\"").fetchone()[0]) - addtodata;
+ if(wheretype="int"):
+  sqldatacon[0].execute("UPDATE "+leaguename+tablename+" SET "+dataname+"="+str(TMPData)+" WHERE "+wherename+"="+str(wheredata));
+ if(wheretype="str"):
+  sqldatacon[0].execute("UPDATE "+leaguename+tablename+" SET "+dataname+"="+str(TMPData)+" WHERE "+wherename+"=\""+str(wheredata)+"\"");
+ return int(TMPData);
+
+def UpdateHockeyDataString(sqldatacon, leaguename, tablename, wherename, wheredata, wheretype, dataname, newdata):
+ if(wheretype="int"):
+  sqldatacon[0].execute("UPDATE "+leaguename+tablename+" SET "+dataname+"=\""+str(newdata)+"\" WHERE "+wherename+"="+str(wheredata));
+ if(wheretype="str"):
+  sqldatacon[0].execute("UPDATE "+leaguename+tablename+" SET "+dataname+"=\""+str(newdata)+"\" WHERE "+wherename+"=\""+str(wheredata)+"\"");
+ return True;
+
 def UpdateTeamData(sqldatacon, leaguename, teamid, dataname, addtodata, addtype):
  if(addtype=="="):
   TMPData = addtodata;
