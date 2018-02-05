@@ -14,11 +14,11 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeypyfromdatabase.py - Last Update: 2/1/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeypyfromdatabase.py - Last Update: 2/5/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, libhockeydata, argparse;
+import sqlite3, sys, os, re, libhockeydata, argparse, datetime;
 import logging as log;
 
 __project__ = libhockeydata.__project__;
@@ -35,6 +35,7 @@ argparser = argparse.ArgumentParser(description="convert hockey xml file to sqli
 argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
 argparser.add_argument("-f", "--file", default="./hockeydata.xml", help="xml file to convert");
 argparser.add_argument("-o", "--outfile", default=None, help="python file to output");
+argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
 getargs = argparser.parse_args();
 
-libhockeydata.MakeHockeyPyFileFromXML(getargs.file, getargs.outfile);
+libhockeydata.MakeHockeyPyFileFromHockeyData(getargs.file, getargs.date, getargs.outfile);

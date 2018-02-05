@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeypyfromxmlfile.py - Last Update: 2/1/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeypyfromxmlfile.py - Last Update: 2/5/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -38,4 +38,4 @@ argparser.add_argument("-o", "--outfile", default=None, help="python file to out
 argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
 getargs = argparser.parse_args();
 
-libhockeydata.MakeHockeyPyFileFromHockeyData(getargs.file, getargs.date, getargs.outfile);
+libhockeydata.MakeHockeyPyFileFromXML(getargs.file, getargs.date, getargs.outfile);

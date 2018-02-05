@@ -1,215 +1,210 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<hockey database="./hockey17-18.db3" year="2017" month="10" day="01">
- <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" conferences="United States" divisions="United States">
-  <conference name="Eastern">
-   <division name="Atlantic">
-    <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" />
-    <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Sabres" arena="KeyBank Center" prefix="Buffalo" suffix="" />
-    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Red Wings" arena="Little Caesars Arena" prefix="Detroit" suffix="" />
-    <team city="Sunrise" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Panthers" arena="BB&amp;T Center" prefix="Florida" suffix="" />
-    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Bell Centre" prefix="Montreal" suffix="" />
-    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Ottawa" suffix="" />
-    <team city="Tampa Bay" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Lightning" arena="Amalie Arena" prefix="Tampa Bay" suffix="" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Air Canada Centre" prefix="Toronto" suffix="" />
-   </division>
-   <division name="Metropolitan">
-    <team city="Carolina" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Hurricanes" arena="PNC Arena" prefix="Carolina" suffix="" />
-    <team city="Columbus" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Blue Jackets" arena="Nationwide Arena" prefix="Columbus" suffix="" />
-    <team city="New Jersey" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Prudential Center" prefix="New Jersey" suffix="" />
-    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Islanders" arena="Barclays Center" prefix="New York" suffix="" />
-    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" />
-    <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Flyers" arena="Wells Fargo Center" prefix="Philadelphia" suffix="" />
-    <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="PPG Paints Arena" prefix="Pittsburgh" suffix="" />
-    <team city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Capitals" arena="Capital One Arena" prefix="Washington" suffix="" />
-   </division>
-  </conference>
-  <conference name="Western">
-   <division name="Central">
-    <team city="Chicago" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Blackhawks" arena="United Center" prefix="Chicago" suffix="" />
-    <team city="Denver" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Avalanche" arena="Pepsi Center" prefix="Colorado" suffix="" />
-    <team city="Dallas" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="American Airlines Center" prefix="Dallas" suffix="" />
-    <team city="St. Paul" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Wild" arena="Xcel Energy Center" prefix="Minnesota" suffix="" />
-    <team city="Nashville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Predators" arena="Bridgestone Arena" prefix="Nashville" suffix="" />
-    <team city="St. Louis" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Blues" arena="Scottrade Center" prefix="St. Louis" suffix="" />
-    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Jets" arena="Bell MTS Place" prefix="Winnipeg" suffix="" />
-   </division>
-   <division name="Pacific">
-    <team city="Anaheim" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Ducks" arena="Honda Center" prefix="Anaheim" suffix="" />
-    <team city="Glendale" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Coyotes" arena="Gila River Arena" prefix="Arizona" suffix="" />
-    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Flames" arena="Scotiabank Saddledome" prefix="Calgary" suffix="" />
-    <team city="Edmonton" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Oilers" arena="Rogers Place" prefix="Edmonton" suffix="" />
-    <team city="Los Angeles" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Kings" arena="Staples Center" prefix="Los Angeles" suffix="" />
-    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Sharks" arena="SAP Center" prefix="San Jose" suffix="" />
-    <team city="Vancouver" area="BC" fullarea="British Columbia" country="CAN" fullcountry="Canada" name="Canucks" arena="Rogers Arena" prefix="Vancouver" suffix="" />
-    <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" suffix="" />
-   </division>
-  </conference>
-  <arenas>
-   <arena city="Stockholm" area="AB" fullarea="Stockholm County" country="SWE" fullcountry="Sweden" name="Ericsson Globe" />
-   <arena city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Lansdowne Park" />
-   <arena city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Citi Field" />
-   <arena city="Annapolis" area="MD" fullarea="Maryland" country="USA" fullcountry="United States" name="United States Naval Academy" />
-  </arenas>
- </league>
- <league name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States" conferences="United States" divisions="United States">
-  <conference name="Eastern">
-   <division name="Atlantic">
-    <team city="Bridgeport" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Sound Tigers" arena="Webster Bank Arena" prefix="Bridgeport" suffix="" />
-    <team city="Charlotte" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Checkers" arena="Bojangles&#x27; Coliseum" prefix="Charlotte" suffix="" />
-    <team city="Hartford" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Wolf Pack" arena="XL Center" prefix="Hartford" suffix="" />
-    <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" />
-    <team city="Allentown" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Phantoms" arena="PPL Center" prefix="Lehigh Valley" suffix="" />
-    <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Bruins" arena="Dunkin&#x27; Donuts Center" prefix="Providence" suffix="" />
-    <team city="Springfield" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Thunderbirds" arena="MassMutual Center" prefix="Springfield" suffix="" />
-    <team city="Wilkes-Barre" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="Mohegan Sun Arena" prefix="Wilkes-Barre/Scranton" suffix="" />
-   </division>
-   <division name="North">
-    <team city="Belleville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Yardmen Arena" prefix="Belleville" suffix="" />
-    <team city="Binghamton" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Devils" arena="Veterans Memorial Arena" prefix="Binghamton" suffix="" />
-    <team city="Laval" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Rocket" arena="Place Bell" prefix="Laval" suffix="" />
-    <team city="Rochester" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Americans" arena="Blue Cross Arena" prefix="Rochester" suffix="" />
-    <team city="Syracuse" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Crunch" arena="Oncenter War Memorial Arena" prefix="Syracuse" suffix="" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Marlies" arena="Ricoh Coliseum" prefix="Toronto" suffix="" />
-    <team city="Utica" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Comets" arena="Adirondack Bank Center" prefix="Utica" suffix="" />
-   </division>
-  </conference>
-  <conference name="Western">
-   <division name="Central">
-    <team city="Rosemont" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Wolves" arena="Allstate Arena" prefix="Chicago" suffix="" />
-    <team city="Cleveland" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Monsters" arena="Quicken Loans Arena" prefix="Lake Erie" suffix="" />
-    <team city="Grand Rapids" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Griffins" arena="Van Andel Arena" prefix="Grand Rapids" suffix="" />
-    <team city="Des Moines" area="IA" fullarea="Iowa" country="USA" fullcountry="United States" name="Wild" arena="Wells Fargo Arena" prefix="Iowa" suffix="" />
-    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Moose" arena="Bell MTS Place" prefix="Manitoba" suffix="" />
-    <team city="Milwaukee" area="WI" fullarea="Wisconsin" country="USA" fullcountry="United States" name="Admirals" arena="UW-Milwaukee Panther Arena" prefix="Milwaukee" suffix="" />
-    <team city="Rockford" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="IceHogs" arena="BMO Harris Bank Center" prefix="Rockford" suffix="" />
-   </division>
-   <division name="Pacific">
-    <team city="Bakersfield" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Condors" arena="Rabobank Arena" prefix="Bakersfield" suffix="" />
-    <team city="Ontario" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Reign" arena="Citizens Business Bank Arena" prefix="Ontario" suffix="" />
-    <team city="San Antonio" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Rampage" arena="AT&amp;T Center" prefix="San Antonio" suffix="" />
-    <team city="San Diego" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Valley View Casino Center" prefix="San Diego" suffix="" />
-    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" suffix="" />
-    <team city="Stockton" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Heat" arena="Stockton Arena" prefix="Stockton" suffix="" />
-    <team city="Cedar Park" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="H-E-B Center" prefix="Texas" suffix="" />
-    <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" suffix="" />
-   </division>
-  </conference>
-  <arenas>
-   <arena city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hersheypark Stadium" />
-  </arenas>
- </league>
- <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States" conferences="United States" divisions="United States">
-  <conference name="Eastern">
-   <division name="North">
-    <team city="Glens Falls" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Thunder" arena="Cool Insuring Arena" prefix="Adirondack" suffix="" />
-    <team city="Brampton" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Beast" arena="Powerade Centre" prefix="Brampton" suffix="" />
-    <team city="Manchester" area="NH" fullarea="New Hampshire" country="USA" fullcountry="United States" name="Monarchs" arena="SNHU Arena" prefix="Manchester" suffix="" />
-    <team city="Reading" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Royals" arena="Santander Arena" prefix="Reading" suffix="" />
-    <team city="Wheeling" area="WV" fullarea="West Virginia" country="USA" fullcountry="United States" name="Nailers" arena="WesBanco Arena" prefix="Wheeling" suffix="" />
-    <team city="Worcester" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Railers" arena="DCU Center" prefix="Worcester" suffix="" />
-   </division>
-   <division name="South">
-    <team city="Duluth" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Gladiators" arena="Infinite Energy Arena" prefix="Atlanta" suffix="" />
-    <team city="Estero" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Everblades" arena="Germain Arena" prefix="Florida" suffix="" />
-    <team city="Greenville" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Swamp Rabbits" arena="Bon Secours Wellness Arena" prefix="Greenville" suffix="" />
-    <team city="Jacksonville" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Icemen" arena="Jacksonville Veterans Memorial Arena" prefix="Jacksonville" suffix="" />
-    <team city="Norfolk" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Admirals" arena="Norfolk Scope" prefix="Norfolk" suffix="" />
-    <team city="Orlando" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Solar Bears" arena="Amway Center" prefix="Orlando" suffix="" />
-    <team city="North Charleston" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Stingrays" arena="North Charleston Coliseum" prefix="South Carolina" suffix="" />
-   </division>
-  </conference>
-  <conference name="Western">
-   <division name="Central">
-    <team city="Cincinnati" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Cyclones" arena="US Bank Arena" prefix="Cincinnati" suffix="" />
-    <team city="Fort Wayne" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Komets" arena="Allen County War Memorial Coliseum" prefix="Fort Wayne" suffix="" />
-    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Fuel" arena="Indiana Farmers Coliseum" prefix="Indy" suffix="" />
-    <team city="Kalamazoo" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Wings" arena="Wings Event Center" prefix="Kalamazoo" suffix="" />
-    <team city="Independence" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Mavericks" arena="Silverstein Eye Centers Arena" prefix="Kansas City" suffix="" />
-    <team city="Moline" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Mallards" arena="TaxSlayer Center" prefix="Quad City" suffix="" />
-    <team city="Toledo" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Walleye" arena="Huntington Center" prefix="Toledo" suffix="" />
-   </division>
-   <division name="Mountain">
-    <team city="Allen" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Americans" arena="Allen Event Center" prefix="Allen" suffix="" />
-    <team city="Loveland" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Eagles" arena="Budweiser Events Center" prefix="Colorado" suffix="" />
-    <team city="Boise" area="ID" fullarea="Idaho" country="USA" fullcountry="United States" name="Steelheads" arena="CenturyLink Arena" prefix="Idaho" suffix="" />
-    <team city="Rapid City" area="SD" fullarea="South Dakota" country="USA" fullcountry="United States" name="Rush" arena="Rushmore Plaza Civic Center" prefix="Rapid City" suffix="" />
-    <team city="Tulsa" area="OK" fullarea="Oklahoma" country="USA" fullcountry="United States" name="Oilers" arena="BOK Center" prefix="Tulsa" suffix="" />
-    <team city="West Valley City" area="UT" fullarea="Utah" country="USA" fullcountry="United States" name="Grizzlies" arena="Maverik Center" prefix="Utah" suffix="" />
-    <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Thunder" arena="Intrust Bank Arena" prefix="Wichita" suffix="" />
-   </division>
-  </conference>
- </league>
- <league name="FHL" fullname="Federal Hockey League" country="USA" fullcountry="United States" conferences="United States" divisions="United States">
-  <conference name="">
-   <division name="">
-    <team city="Winston-Salem" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Thunderbirds" arena="Winston-Salem Fairgrounds Annex" prefix="Carolina" suffix="" />
-    <team city="Cornwall" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Nationals" arena="Ed Lumley Arena" prefix="Cornwall" suffix="" />
-    <team city="Danville" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Dashers" arena="David S. Palmer Arena" prefix="Danville" suffix="" />
-    <team city="Kingsville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Knights" arena="Kingsville Arena Complex" prefix="North Shore" suffix="" />
-    <team city="Port Huron" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Prowlers" arena="McMorran Place" prefix="Port Huron" suffix="" />
-    <team city="Watertown" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Wolves" arena="Watertown Municipal Arena" prefix="Watertown" suffix="" />
-   </division>
-  </conference>
- </league>
- <league name="SPHL" fullname="Southern Professional Hockey League" country="USA" fullcountry="United States" conferences="United States" divisions="United States">
-  <conference name="">
-   <division name="">
-    <team city="Pelham" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Bulls" arena="Pelham Civic Center" prefix="Birmingham" suffix="" />
-    <team city="Evansville" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Thunderbolts" arena="Ford Center" prefix="Evansville" suffix="" />
-    <team city="Fayetteville" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Marksmen" arena="Crown Coliseum" prefix="Fayetteville" suffix="" />
-    <team city="Huntsville" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Havoc" arena="Von Braun Center" prefix="Huntsville" suffix="" />
-    <team city="Knoxville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Ice Bears" arena="Knoxville Civic Coliseum" prefix="Knoxville" suffix="" />
-    <team city="Macon" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Mayhem" arena="Macon Coliseum" prefix="Macon" suffix="" />
-    <team city="Southaven" area="MS" fullarea="Mississippi" country="USA" fullcountry="United States" name="RiverKings" arena="Landers Center" prefix="Mississippi" suffix="" />
-    <team city="Pensacola" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Ice Flyers" arena="Pensacola Bay Center" prefix="Pensacola" suffix="" />
-    <team city="Peoria" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Rivermen" arena="Carver Arena" prefix="Peoria" suffix="" />
-    <team city="Roanoke" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Rail Yard Dawgs" arena="Berglund Center" prefix="Roanoke" suffix="" />
-   </division>
-  </conference>
- </league>
- <league name="KHL" fullname="Kontinental Hockey League" country="RUS" fullcountry="Russia" conferences="Russia" divisions="Russia">
-  <conference name="Western">
-   <division name="Bobrov">
-    <team city="Minsk" area="BY" fullarea="Belarus" country="BLR" fullcountry="Belarus" name="Dinamo Minsk" arena="Minsk-Arena" prefix="" suffix="" />
-    <team city="Riga" area="LV" fullarea="Latvia" country="LVA" fullcountry="Latvia" name="Dinamo Riga" arena="Arena Riga" prefix="" suffix="" />
-    <team city="Helsinki" area="FI" fullarea="Finland" country="FIN" fullcountry="Finland" name="Jokerit Helsinki" arena="Hartwall Arena" prefix="" suffix="" />
-    <team city="Saint Petersburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="SKA Saint Petersburg" arena="Ice Palace Saint Petersburg" prefix="" suffix="" />
-    <team city="Bratislava" area="SK" fullarea="Slovakia" country="SVK" fullcountry="Slovakia" name="Slovan Bratislava" arena="Ondrej Nepela Arena" prefix="" suffix="" />
-    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Spartak Moscow" arena="Luzhniki Minor Arena" prefix="" suffix="" />
-   </division>
-   <division name="Tarasov">
-    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="CSKA Moscow" arena="CSKA Ice Palace" prefix="" suffix="" />
-    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Dynamo Moscow" arena="VTB Ice Palace" prefix="" suffix="" />
-    <team city="Yaroslavl" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lokomotiv Yaroslavl" arena="Arena 2000" prefix="" suffix="" />
-    <team city="Cherepovets" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Severstal Cherepovets" arena="Ice Palace" prefix="" suffix="" />
-    <team city="Sochi" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Sochi" arena="Bolshoy Ice Dome" prefix="" suffix="" />
-    <team city="Nizhny Novgorod" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Torpedo Nizhny Novgorod" arena="Trade Union Sport Palace" prefix="" suffix="" />
-    <team city="Podolsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Vityaz Moscow Oblast" arena="Vityaz Ice Palace" prefix="" suffix="" />
-   </division>
-  </conference>
-  <conference name="Eastern">
-   <division name="Kharlamov">
-    <team city="Kazan" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Ak Bars Kazan" arena="TatNeft Arena" prefix="" suffix="" />
-    <team city="Yekaterinburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avtomobilist Yekaterinburg" arena="KRK Uralets" prefix="" suffix="" />
-    <team city="Tolyatti" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lada Togliatti" arena="Lada Arena a" prefix="" suffix="" />
-    <team city="Magnitogorsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Metallurg Magnitogorsk" arena="Arena Metallurg" prefix="" suffix="" />
-    <team city="Nizhnekamsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Neftekhimik Nizhnekamsk" arena="SCC Arena" prefix="" suffix="" />
-    <team city="Chelyabinsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Traktor Chelyabinsk" arena="Traktor Sport Palace" prefix="" suffix="" />
-    <team city="Khanty-Mansiysk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Yugra Khanty-Mansiysk" arena="Arena Ugra" prefix="" suffix="" />
-   </division>
-   <division name="Chernyshev">
-    <team city="Vladivostok" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Admiral Vladivostok" arena="Fetisov Arena" prefix="" suffix="" />
-    <team city="Khabarovsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Amur Khabarovsk" arena="Platinum Arena" prefix="" suffix="" />
-    <team city="Omsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avangard Omsk" arena="Omsk Arena" prefix="" suffix="" />
-    <team city="Astana" area="RU" fullarea="Kazakhstan" country="RUS" fullcountry="Kazakhstan" name="Barys Astana" arena="Barys Arena" prefix="" suffix="" />
-    <team city="Ufa" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Salavat Yulaev Ufa" arena="Ufa Arena" prefix="" suffix="" />
-    <team city="Novosibirsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Sibir Novosibirsk" arena="Ice Sports Palace Sibir" prefix="" suffix="" />
-    <team city="Beijing" area="CN" fullarea="China" country="CHN" fullcountry="China" name="Red Star Kunlun" arena="Cadillac Arena" prefix="" suffix="" />
-   </division>
-  </conference>
-  <arenas>
-   <arena city="Helsinki" area="FI" fullarea="Finland" country="FIN" fullcountry="Finland" name="Kaisaniemi Park" />
-   <arena city="Riga" area="LV" fullarea="Latvia" country="LVA" fullcountry="Latvia" name="Riga City Council Sports Complex" />
-  </arenas>
- </league>
-</hockey>
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function, unicode_literals;
+import sqlite3, sys, os, re, libhockeydata, argparse, datetime;
+
+sqldatacon = libhockeydata.MakeHockeyDatabase("./hockey17-18.db3");
+libhockeydata.MakeHockeyLeagueTable(sqldatacon);
+libhockeydata.MakeHockeyTeamTable(sqldatacon, "NHL");
+libhockeydata.MakeHockeyConferenceTable(sqldatacon, "NHL");
+libhockeydata.MakeHockeyGameTable(sqldatacon, "NHL");
+libhockeydata.MakeHockeyDivisionTable(sqldatacon, "NHL");
+libhockeydata.MakeHockeyLeagues(sqldatacon, "NHL", "National Hockey League", "USA", "United States");
+libhockeydata.MakeHockeyConferences(sqldatacon, "NHL", "Eastern", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "NHL", "Atlantic", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Boston", "MA", "USA", "United States", "Massachusetts", "Bruins", "Eastern", "Atlantic", "TD Garden", "Boston", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Buffalo", "NY", "USA", "United States", "New York", "Sabres", "Eastern", "Atlantic", "KeyBank Center", "Buffalo", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Detroit", "MI", "USA", "United States", "Michigan", "Red Wings", "Eastern", "Atlantic", "Little Caesars Arena", "Detroit", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Sunrise", "FL", "USA", "United States", "Florida", "Panthers", "Eastern", "Atlantic", "BB&T Center", "Florida", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Montreal", "QC", "CAN", "Canada", "Quebec", "Canadiens", "Eastern", "Atlantic", "Bell Centre", "Montreal", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Ottawa", "ON", "CAN", "Canada", "Ontario", "Senators", "Eastern", "Atlantic", "Canadian Tire Centre", "Ottawa", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Tampa Bay", "FL", "USA", "United States", "Florida", "Lightning", "Eastern", "Atlantic", "Amalie Arena", "Tampa Bay", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Toronto", "ON", "CAN", "Canada", "Ontario", "Maple Leafs", "Eastern", "Atlantic", "Air Canada Centre", "Toronto", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "NHL", "Metropolitan", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Carolina", "NC", "USA", "United States", "North Carolina", "Hurricanes", "Eastern", "Metropolitan", "PNC Arena", "Carolina", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Columbus", "OH", "USA", "United States", "Ohio", "Blue Jackets", "Eastern", "Metropolitan", "Nationwide Arena", "Columbus", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "New Jersey", "NJ", "USA", "United States", "New Jersey", "Devils", "Eastern", "Metropolitan", "Prudential Center", "New Jersey", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "New York City", "NY", "USA", "United States", "New York", "Islanders", "Eastern", "Metropolitan", "Barclays Center", "New York", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "New York City", "NY", "USA", "United States", "New York", "Rangers", "Eastern", "Metropolitan", "Madison Square Garden", "New York", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Philadelphia", "PA", "USA", "United States", "Pennsylvania", "Flyers", "Eastern", "Metropolitan", "Wells Fargo Center", "Philadelphia", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Pittsburgh", "PA", "USA", "United States", "Pennsylvania", "Penguins", "Eastern", "Metropolitan", "PPG Paints Arena", "Pittsburgh", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Washington", "DC", "USA", "United States", "District of Columbia", "Capitals", "Eastern", "Metropolitan", "Capital One Arena", "Washington", "", True, True);
+libhockeydata.MakeHockeyConferences(sqldatacon, "NHL", "Western", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "NHL", "Central", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Chicago", "IL", "USA", "United States", "Illinois", "Blackhawks", "Western", "Central", "United Center", "Chicago", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Denver", "CO", "USA", "United States", "Colorado", "Avalanche", "Western", "Central", "Pepsi Center", "Colorado", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Dallas", "TX", "USA", "United States", "Texas", "Stars", "Western", "Central", "American Airlines Center", "Dallas", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "St. Paul", "MN", "USA", "United States", "Minnesota", "Wild", "Western", "Central", "Xcel Energy Center", "Minnesota", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Nashville", "TN", "USA", "United States", "Tennessee", "Predators", "Western", "Central", "Bridgestone Arena", "Nashville", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "St. Louis", "MO", "USA", "United States", "Missouri", "Blues", "Western", "Central", "Scottrade Center", "St. Louis", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Winnipeg", "MB", "CAN", "Canada", "Manitoba", "Jets", "Western", "Central", "Bell MTS Place", "Winnipeg", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "NHL", "Pacific", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Anaheim", "CA", "USA", "United States", "California", "Ducks", "Western", "Pacific", "Honda Center", "Anaheim", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Glendale", "AZ", "USA", "United States", "Arizona", "Coyotes", "Western", "Pacific", "Gila River Arena", "Arizona", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Calgary", "AB", "CAN", "Canada", "Alberta", "Flames", "Western", "Pacific", "Scotiabank Saddledome", "Calgary", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Edmonton", "AB", "CAN", "Canada", "Alberta", "Oilers", "Western", "Pacific", "Rogers Place", "Edmonton", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Los Angeles", "CA", "USA", "United States", "California", "Kings", "Western", "Pacific", "Staples Center", "Los Angeles", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "San Jose", "CA", "USA", "United States", "California", "Sharks", "Western", "Pacific", "SAP Center", "San Jose", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Vancouver", "BC", "CAN", "Canada", "British Columbia", "Canucks", "Western", "Pacific", "Rogers Arena", "Vancouver", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "NHL", ./hockey, "Paradise", "NV", "USA", "United States", "Nevada", "Golden Knights", "Western", "Pacific", "T-Mobile Arena", "Vegas", "", True, True);
+libhockeydata.MakeHockeyArena(sqldatacon, "NHL", "Stockholm", "AB", "SWE", "Sweden", "Stockholm County", "Ericsson Globe");
+libhockeydata.MakeHockeyArena(sqldatacon, "NHL", "Ottawa", "ON", "CAN", "Canada", "Ontario", "Lansdowne Park");
+libhockeydata.MakeHockeyArena(sqldatacon, "NHL", "New York City", "NY", "USA", "United States", "New York", "Citi Field");
+libhockeydata.MakeHockeyArena(sqldatacon, "NHL", "Annapolis", "MD", "USA", "United States", "Maryland", "United States Naval Academy");
+libhockeydata.MakeHockeyLeagueTable(sqldatacon);
+libhockeydata.MakeHockeyTeamTable(sqldatacon, "AHL");
+libhockeydata.MakeHockeyConferenceTable(sqldatacon, "AHL");
+libhockeydata.MakeHockeyGameTable(sqldatacon, "AHL");
+libhockeydata.MakeHockeyDivisionTable(sqldatacon, "AHL");
+libhockeydata.MakeHockeyLeagues(sqldatacon, "AHL", "American Hockey League", "USA", "United States");
+libhockeydata.MakeHockeyConferences(sqldatacon, "AHL", "Eastern", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "AHL", "Atlantic", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Bridgeport", "CT", "USA", "United States", "Connecticut", "Sound Tigers", "Eastern", "Atlantic", "Webster Bank Arena", "Bridgeport", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Charlotte", "NC", "USA", "United States", "North Carolina", "Checkers", "Eastern", "Atlantic", "Bojangles' Coliseum", "Charlotte", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Hartford", "CT", "USA", "United States", "Connecticut", "Wolf Pack", "Eastern", "Atlantic", "XL Center", "Hartford", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Hershey", "PA", "USA", "United States", "Pennsylvania", "Bears", "Eastern", "Atlantic", "Giant Center", "Hershey", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Allentown", "PA", "USA", "United States", "Pennsylvania", "Phantoms", "Eastern", "Atlantic", "PPL Center", "Lehigh Valley", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Providence", "RI", "USA", "United States", "Rhode Island", "Bruins", "Eastern", "Atlantic", "Dunkin' Donuts Center", "Providence", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Springfield", "MA", "USA", "United States", "Massachusetts", "Thunderbirds", "Eastern", "Atlantic", "MassMutual Center", "Springfield", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Wilkes-Barre", "PA", "USA", "United States", "Pennsylvania", "Penguins", "Eastern", "Atlantic", "Mohegan Sun Arena", "Wilkes-Barre/Scranton", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "AHL", "North", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Belleville", "ON", "CAN", "Canada", "Ontario", "Senators", "Eastern", "North", "Yardmen Arena", "Belleville", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Binghamton", "NY", "USA", "United States", "New York", "Devils", "Eastern", "North", "Veterans Memorial Arena", "Binghamton", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Laval", "QC", "CAN", "Canada", "Quebec", "Rocket", "Eastern", "North", "Place Bell", "Laval", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Rochester", "NY", "USA", "United States", "New York", "Americans", "Eastern", "North", "Blue Cross Arena", "Rochester", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Syracuse", "NY", "USA", "United States", "New York", "Crunch", "Eastern", "North", "Oncenter War Memorial Arena", "Syracuse", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Toronto", "ON", "CAN", "Canada", "Ontario", "Marlies", "Eastern", "North", "Ricoh Coliseum", "Toronto", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Utica", "NY", "USA", "United States", "New York", "Comets", "Eastern", "North", "Adirondack Bank Center", "Utica", "", True, True);
+libhockeydata.MakeHockeyConferences(sqldatacon, "AHL", "Western", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "AHL", "Central", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Rosemont", "IL", "USA", "United States", "Illinois", "Wolves", "Western", "Central", "Allstate Arena", "Chicago", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Cleveland", "OH", "USA", "United States", "Ohio", "Monsters", "Western", "Central", "Quicken Loans Arena", "Lake Erie", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Grand Rapids", "MI", "USA", "United States", "Michigan", "Griffins", "Western", "Central", "Van Andel Arena", "Grand Rapids", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Des Moines", "IA", "USA", "United States", "Iowa", "Wild", "Western", "Central", "Wells Fargo Arena", "Iowa", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Winnipeg", "MB", "CAN", "Canada", "Manitoba", "Moose", "Western", "Central", "Bell MTS Place", "Manitoba", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Milwaukee", "WI", "USA", "United States", "Wisconsin", "Admirals", "Western", "Central", "UW-Milwaukee Panther Arena", "Milwaukee", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Rockford", "IL", "USA", "United States", "Illinois", "IceHogs", "Western", "Central", "BMO Harris Bank Center", "Rockford", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "AHL", "Pacific", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Bakersfield", "CA", "USA", "United States", "California", "Condors", "Western", "Pacific", "Rabobank Arena", "Bakersfield", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Ontario", "CA", "USA", "United States", "California", "Reign", "Western", "Pacific", "Citizens Business Bank Arena", "Ontario", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "San Antonio", "TX", "USA", "United States", "Texas", "Rampage", "Western", "Pacific", "AT&T Center", "San Antonio", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "San Diego", "CA", "USA", "United States", "California", "Gulls", "Western", "Pacific", "Valley View Casino Center", "San Diego", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "San Jose", "CA", "USA", "United States", "California", "Barracuda", "Western", "Pacific", "SAP Center", "San Jose", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Stockton", "CA", "USA", "United States", "California", "Heat", "Western", "Pacific", "Stockton Arena", "Stockton", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Cedar Park", "TX", "USA", "United States", "Texas", "Stars", "Western", "Pacific", "H-E-B Center", "Texas", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "AHL", ./hockey, "Tucson", "AZ", "USA", "United States", "Arizona", "Roadrunners", "Western", "Pacific", "Tucson Convention Center", "Tucson", "", True, True);
+libhockeydata.MakeHockeyArena(sqldatacon, "AHL", "Hershey", "PA", "USA", "United States", "Pennsylvania", "Hersheypark Stadium");
+libhockeydata.MakeHockeyLeagueTable(sqldatacon);
+libhockeydata.MakeHockeyTeamTable(sqldatacon, "ECHL");
+libhockeydata.MakeHockeyConferenceTable(sqldatacon, "ECHL");
+libhockeydata.MakeHockeyGameTable(sqldatacon, "ECHL");
+libhockeydata.MakeHockeyDivisionTable(sqldatacon, "ECHL");
+libhockeydata.MakeHockeyLeagues(sqldatacon, "ECHL", "ECHL", "USA", "United States");
+libhockeydata.MakeHockeyConferences(sqldatacon, "ECHL", "Eastern", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "ECHL", "North", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Glens Falls", "NY", "USA", "United States", "New York", "Thunder", "Eastern", "North", "Cool Insuring Arena", "Adirondack", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Brampton", "ON", "CAN", "Canada", "Ontario", "Beast", "Eastern", "North", "Powerade Centre", "Brampton", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Manchester", "NH", "USA", "United States", "New Hampshire", "Monarchs", "Eastern", "North", "SNHU Arena", "Manchester", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Reading", "PA", "USA", "United States", "Pennsylvania", "Royals", "Eastern", "North", "Santander Arena", "Reading", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Wheeling", "WV", "USA", "United States", "West Virginia", "Nailers", "Eastern", "North", "WesBanco Arena", "Wheeling", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Worcester", "MA", "USA", "United States", "Massachusetts", "Railers", "Eastern", "North", "DCU Center", "Worcester", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "ECHL", "South", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Duluth", "GA", "USA", "United States", "Georgia", "Gladiators", "Eastern", "South", "Infinite Energy Arena", "Atlanta", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Estero", "FL", "USA", "United States", "Florida", "Everblades", "Eastern", "South", "Germain Arena", "Florida", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Greenville", "SC", "USA", "United States", "South Carolina", "Swamp Rabbits", "Eastern", "South", "Bon Secours Wellness Arena", "Greenville", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Jacksonville", "FL", "USA", "United States", "Florida", "Icemen", "Eastern", "South", "Jacksonville Veterans Memorial Arena", "Jacksonville", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Norfolk", "VA", "USA", "United States", "Virginia", "Admirals", "Eastern", "South", "Norfolk Scope", "Norfolk", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Orlando", "FL", "USA", "United States", "Florida", "Solar Bears", "Eastern", "South", "Amway Center", "Orlando", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "North Charleston", "SC", "USA", "United States", "South Carolina", "Stingrays", "Eastern", "South", "North Charleston Coliseum", "South Carolina", "", True, True);
+libhockeydata.MakeHockeyConferences(sqldatacon, "ECHL", "Western", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "ECHL", "Central", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Cincinnati", "OH", "USA", "United States", "Ohio", "Cyclones", "Western", "Central", "US Bank Arena", "Cincinnati", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Fort Wayne", "IN", "USA", "United States", "Indiana", "Komets", "Western", "Central", "Allen County War Memorial Coliseum", "Fort Wayne", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Indianapolis", "IN", "USA", "United States", "Indiana", "Fuel", "Western", "Central", "Indiana Farmers Coliseum", "Indy", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Kalamazoo", "MI", "USA", "United States", "Michigan", "Wings", "Western", "Central", "Wings Event Center", "Kalamazoo", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Independence", "MO", "USA", "United States", "Missouri", "Mavericks", "Western", "Central", "Silverstein Eye Centers Arena", "Kansas City", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Moline", "IL", "USA", "United States", "Illinois", "Mallards", "Western", "Central", "TaxSlayer Center", "Quad City", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Toledo", "OH", "USA", "United States", "Ohio", "Walleye", "Western", "Central", "Huntington Center", "Toledo", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "ECHL", "Mountain", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Allen", "TX", "USA", "United States", "Texas", "Americans", "Western", "Mountain", "Allen Event Center", "Allen", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Loveland", "CO", "USA", "United States", "Colorado", "Eagles", "Western", "Mountain", "Budweiser Events Center", "Colorado", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Boise", "ID", "USA", "United States", "Idaho", "Steelheads", "Western", "Mountain", "CenturyLink Arena", "Idaho", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Rapid City", "SD", "USA", "United States", "South Dakota", "Rush", "Western", "Mountain", "Rushmore Plaza Civic Center", "Rapid City", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Tulsa", "OK", "USA", "United States", "Oklahoma", "Oilers", "Western", "Mountain", "BOK Center", "Tulsa", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "West Valley City", "UT", "USA", "United States", "Utah", "Grizzlies", "Western", "Mountain", "Maverik Center", "Utah", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "ECHL", ./hockey, "Wichita", "KS", "USA", "United States", "Kansas", "Thunder", "Western", "Mountain", "Intrust Bank Arena", "Wichita", "", True, True);
+libhockeydata.MakeHockeyLeagueTable(sqldatacon);
+libhockeydata.MakeHockeyTeamTable(sqldatacon, "FHL");
+libhockeydata.MakeHockeyConferenceTable(sqldatacon, "FHL");
+libhockeydata.MakeHockeyGameTable(sqldatacon, "FHL");
+libhockeydata.MakeHockeyDivisionTable(sqldatacon, "FHL");
+libhockeydata.MakeHockeyLeagues(sqldatacon, "FHL", "Federal Hockey League", "USA", "United States");
+libhockeydata.MakeHockeyConferences(sqldatacon, "FHL", "", False);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "FHL", "", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "FHL", ./hockey, "Winston-Salem", "NC", "USA", "United States", "North Carolina", "Thunderbirds", "", "", "Winston-Salem Fairgrounds Annex", "Carolina", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "FHL", ./hockey, "Cornwall", "ON", "CAN", "Canada", "Ontario", "Nationals", "", "", "Ed Lumley Arena", "Cornwall", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "FHL", ./hockey, "Danville", "IL", "USA", "United States", "Illinois", "Dashers", "", "", "David S. Palmer Arena", "Danville", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "FHL", ./hockey, "Kingsville", "ON", "CAN", "Canada", "Ontario", "Knights", "", "", "Kingsville Arena Complex", "North Shore", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "FHL", ./hockey, "Port Huron", "MI", "USA", "United States", "Michigan", "Prowlers", "", "", "McMorran Place", "Port Huron", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "FHL", ./hockey, "Watertown", "NY", "USA", "United States", "New York", "Wolves", "", "", "Watertown Municipal Arena", "Watertown", "", False, False);
+libhockeydata.MakeHockeyLeagueTable(sqldatacon);
+libhockeydata.MakeHockeyTeamTable(sqldatacon, "SPHL");
+libhockeydata.MakeHockeyConferenceTable(sqldatacon, "SPHL");
+libhockeydata.MakeHockeyGameTable(sqldatacon, "SPHL");
+libhockeydata.MakeHockeyDivisionTable(sqldatacon, "SPHL");
+libhockeydata.MakeHockeyLeagues(sqldatacon, "SPHL", "Southern Professional Hockey League", "USA", "United States");
+libhockeydata.MakeHockeyConferences(sqldatacon, "SPHL", "", False);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "SPHL", "", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Pelham", "AL", "USA", "United States", "Alabama", "Bulls", "", "", "Pelham Civic Center", "Birmingham", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Evansville", "IN", "USA", "United States", "Indiana", "Thunderbolts", "", "", "Ford Center", "Evansville", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Fayetteville", "NC", "USA", "United States", "North Carolina", "Marksmen", "", "", "Crown Coliseum", "Fayetteville", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Huntsville", "AL", "USA", "United States", "Alabama", "Havoc", "", "", "Von Braun Center", "Huntsville", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Knoxville", "TN", "USA", "United States", "Tennessee", "Ice Bears", "", "", "Knoxville Civic Coliseum", "Knoxville", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Macon", "GA", "USA", "United States", "Georgia", "Mayhem", "", "", "Macon Coliseum", "Macon", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Southaven", "MS", "USA", "United States", "Mississippi", "RiverKings", "", "", "Landers Center", "Mississippi", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Pensacola", "FL", "USA", "United States", "Florida", "Ice Flyers", "", "", "Pensacola Bay Center", "Pensacola", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Peoria", "IL", "USA", "United States", "Illinois", "Rivermen", "", "", "Carver Arena", "Peoria", "", False, False);
+libhockeydata.MakeHockeyTeams(sqldatacon, "SPHL", ./hockey, "Roanoke", "VA", "USA", "United States", "Virginia", "Rail Yard Dawgs", "", "", "Berglund Center", "Roanoke", "", False, False);
+libhockeydata.MakeHockeyLeagueTable(sqldatacon);
+libhockeydata.MakeHockeyTeamTable(sqldatacon, "KHL");
+libhockeydata.MakeHockeyConferenceTable(sqldatacon, "KHL");
+libhockeydata.MakeHockeyGameTable(sqldatacon, "KHL");
+libhockeydata.MakeHockeyDivisionTable(sqldatacon, "KHL");
+libhockeydata.MakeHockeyLeagues(sqldatacon, "KHL", "Kontinental Hockey League", "RUS", "Russia");
+libhockeydata.MakeHockeyConferences(sqldatacon, "KHL", "Western", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "KHL", "Bobrov", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Minsk", "BY", "BLR", "Belarus", "Belarus", "Dinamo Minsk", "Western", "Bobrov", "Minsk-Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Riga", "LV", "LVA", "Latvia", "Latvia", "Dinamo Riga", "Western", "Bobrov", "Arena Riga", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Helsinki", "FI", "FIN", "Finland", "Finland", "Jokerit Helsinki", "Western", "Bobrov", "Hartwall Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Saint Petersburg", "RU", "RUS", "Russia", "Russia", "SKA Saint Petersburg", "Western", "Bobrov", "Ice Palace Saint Petersburg", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Bratislava", "SK", "SVK", "Slovakia", "Slovakia", "Slovan Bratislava", "Western", "Bobrov", "Ondrej Nepela Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Moscow", "RU", "RUS", "Russia", "Russia", "Spartak Moscow", "Western", "Bobrov", "Luzhniki Minor Arena", "", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "KHL", "Tarasov", "Western", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Moscow", "RU", "RUS", "Russia", "Russia", "CSKA Moscow", "Western", "Tarasov", "CSKA Ice Palace", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Moscow", "RU", "RUS", "Russia", "Russia", "Dynamo Moscow", "Western", "Tarasov", "VTB Ice Palace", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Yaroslavl", "RU", "RUS", "Russia", "Russia", "Lokomotiv Yaroslavl", "Western", "Tarasov", "Arena 2000", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Cherepovets", "RU", "RUS", "Russia", "Russia", "Severstal Cherepovets", "Western", "Tarasov", "Ice Palace", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Sochi", "RU", "RUS", "Russia", "Russia", "Sochi", "Western", "Tarasov", "Bolshoy Ice Dome", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Nizhny Novgorod", "RU", "RUS", "Russia", "Russia", "Torpedo Nizhny Novgorod", "Western", "Tarasov", "Trade Union Sport Palace", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Podolsk", "RU", "RUS", "Russia", "Russia", "Vityaz Moscow Oblast", "Western", "Tarasov", "Vityaz Ice Palace", "", "", True, True);
+libhockeydata.MakeHockeyConferences(sqldatacon, "KHL", "Eastern", True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "KHL", "Kharlamov", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Kazan", "RU", "RUS", "Russia", "Russia", "Ak Bars Kazan", "Eastern", "Kharlamov", "TatNeft Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Yekaterinburg", "RU", "RUS", "Russia", "Russia", "Avtomobilist Yekaterinburg", "Eastern", "Kharlamov", "KRK Uralets", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Tolyatti", "RU", "RUS", "Russia", "Russia", "Lada Togliatti", "Eastern", "Kharlamov", "Lada Arena a", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Magnitogorsk", "RU", "RUS", "Russia", "Russia", "Metallurg Magnitogorsk", "Eastern", "Kharlamov", "Arena Metallurg", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Nizhnekamsk", "RU", "RUS", "Russia", "Russia", "Neftekhimik Nizhnekamsk", "Eastern", "Kharlamov", "SCC Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Chelyabinsk", "RU", "RUS", "Russia", "Russia", "Traktor Chelyabinsk", "Eastern", "Kharlamov", "Traktor Sport Palace", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Khanty-Mansiysk", "RU", "RUS", "Russia", "Russia", "Yugra Khanty-Mansiysk", "Eastern", "Kharlamov", "Arena Ugra", "", "", True, True);
+libhockeydata.MakeHockeyDivisions(sqldatacon, "KHL", "Chernyshev", "Eastern", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Vladivostok", "RU", "RUS", "Russia", "Russia", "Admiral Vladivostok", "Eastern", "Chernyshev", "Fetisov Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Khabarovsk", "RU", "RUS", "Russia", "Russia", "Amur Khabarovsk", "Eastern", "Chernyshev", "Platinum Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Omsk", "RU", "RUS", "Russia", "Russia", "Avangard Omsk", "Eastern", "Chernyshev", "Omsk Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Astana", "RU", "RUS", "Kazakhstan", "Kazakhstan", "Barys Astana", "Eastern", "Chernyshev", "Barys Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Ufa", "RU", "RUS", "Russia", "Russia", "Salavat Yulaev Ufa", "Eastern", "Chernyshev", "Ufa Arena", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Novosibirsk", "RU", "RUS", "Russia", "Russia", "Sibir Novosibirsk", "Eastern", "Chernyshev", "Ice Sports Palace Sibir", "", "", True, True);
+libhockeydata.MakeHockeyTeams(sqldatacon, "KHL", ./hockey, "Beijing", "CN", "CHN", "China", "China", "Red Star Kunlun", "Eastern", "Chernyshev", "Cadillac Arena", "", "", True, True);
+libhockeydata.MakeHockeyArena(sqldatacon, "KHL", "Helsinki", "FI", "FIN", "Finland", "Finland", "Kaisaniemi Park");
+libhockeydata.MakeHockeyArena(sqldatacon, "KHL", "Riga", "LV", "LVA", "Latvia", "Latvia", "Riga City Council Sports Complex");
+libhockeydata.CloseHockeyDatabase(sqldatacon);
