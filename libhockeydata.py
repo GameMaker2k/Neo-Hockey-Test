@@ -297,16 +297,18 @@ def MakeHockeyTeamTable(sqldatacon, leaguename):
  return True;
 
 def MakeHockeyTeams(sqldatacon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences=True, hasdivisions=True):
- if(teamnameprefix.strip()==""):
+ if(teamnameprefix.strip()=="" and teamnamesuffix.strip()==""):
   fullteamname = str(teamname);
   teamnameprefix = teamnameprefix.strip();
- else:
-  fullteamname = str(teamnameprefix+" "+teamname);
- if(teamnamesuffix.strip()==""):
-  fullteamname = str(teamname);
   teamnamesuffix = teamnamesuffix.strip();
- else:
-  fullteamname = str(teamname+teamnamesuffix);
+ if(teamnameprefix.strip()!="" and teamnamesuffix.strip()==""):
+  fullteamname = str(teamnameprefix+" "+teamname);
+  teamnamesuffix = teamnamesuffix.strip();
+ if(teamnameprefix.strip()=="" and teamnamesuffix.strip()!=""):
+  fullteamname = str(teamname+" "+teamnamesuffix);
+  teamnameprefix = teamnameprefix.strip();
+ if(teamnameprefix.strip()!="" and teamnamesuffix.strip()!=""):
+  fullteamname = str(teamnameprefix+" "+teamname+" "+teamnamesuffix);
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Teams(Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak) VALUES(\""+str(date)+"\", \""+fullteamname+"\", \""+str(cityname)+"\", \""+str(teamnameprefix)+"\", \""+str(teamnamesuffix)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(teamname)+"\", \""+str(conference)+"\", \""+str(division)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \"0:0:0:0\", \"0:0:0:0\", \"0:0\", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \"0:0:0:0\", \"None\")");
  TeamID = int(sqldatacon[0].lastrowid);
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Stats (TeamID, Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak) SELECT id, Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, Points, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, PCT, LastTen, Streak FROM "+leaguename+"Teams WHERE FullName=\""+fullteamname+"\";");
@@ -362,11 +364,21 @@ def MakeHockeyGameTable(sqldatacon, leaguename):
  return True;
 
 def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+ if(isplayoffgame.isdigit()):
+  isplayoffgame = int(isplayoffgame);
+ if(isplayoffgame==0 or isplayoffgame=="0"):
+  isplayoffgame = False;
+ if(isplayoffgame==1 or isplayoffgame=="1"):
+  isplayoffgame = True;
+ if(isplayoffgame==2 or isplayoffgame=="2"):
+  isplayoffgame = None;
  isplayoffgsql = "0";
- if(isplayoffgame==True):
+ if(isplayoffgame is True):
   isplayoffgsql = "1";
- if(isplayoffgame==False):
+ if(isplayoffgame is False):
   isplayoffsql = "0";
+ if(isplayoffgame is None):
+  isplayoffsql = "2";
  periodssplit = periodsscore.split(",");
  periodcounting = 0;
  numberofperiods=int(len(periodssplit));
@@ -381,10 +393,10 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
   if(periodcounting <= 3):
    homescore = homescore + int(periodscoresplit[0]);
    awayscore = awayscore + int(periodscoresplit[1]);
-  if(isplayoffgame==True and periodcounting > 3):
+  if(isplayoffgame is True and periodcounting > 3):
    homescore = homescore + int(periodscoresplit[0]);
    awayscore = awayscore + int(periodscoresplit[1]);
-  if(isplayoffgame==False and periodcounting > 3):
+  if(isplayoffgame is False and periodcounting > 3):
    if(periodscoresplit[0] > periodscoresplit[1]):
     homescore = homescore + 1;
    if(periodscoresplit[0] < periodscoresplit[1]):
@@ -611,7 +623,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
    if(numberofperiods>3):
     GetLosingStreakNext = "OT "+str(int(GetLosingStreakSplit[0][1]) + 1);
  UpdateTeamDataString(sqldatacon, leaguename, losingteam, "Streak", GetLosingStreakNext);
- if((isplayoffgame==False and numberofperiods<5) or (isplayoffgame==True)):
+ if((isplayoffgame is False and numberofperiods<5) or (isplayoffgame is True)):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "ROW", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "ROT", 1, "+");
  if(numberofperiods==3):
@@ -640,17 +652,17 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1] + 1)+":"+str(ATRSpit[2])+":"+str(ATRSpit[3]);
    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
  if(numberofperiods>3):
-  if((numberofperiods==4 and isplayoffgame==False) or (numberofperiods>4 and isplayoffgame==True)):
+  if((numberofperiods==4 and isplayoffgame is False) or (numberofperiods>4 and isplayoffgame is True)):
    UpdateTeamData(sqldatacon, leaguename, winningteam, "OTWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "OTSOWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "TWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "Points", 2, "+");
-  if((numberofperiods==4 and isplayoffgame==False) or (numberofperiods>4 and isplayoffgame==True)):
+  if((numberofperiods==4 and isplayoffgame is False) or (numberofperiods>4 and isplayoffgame is True)):
    UpdateTeamData(sqldatacon, leaguename, losingteam, "OTLosses", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "OTSOLosses", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "TLosses", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "Points", 1, "+");
-  if(isplayoffgame==True)
+  if(isplayoffgame is True):
    if(winningteam==hometeam):
     HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
     HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
@@ -669,7 +681,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
-  if(isplayoffgame==False and numberofperiods==4)
+  if(isplayoffgame is False and numberofperiods==4):
    if(winningteam==hometeam):
     HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
     HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
@@ -688,7 +700,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
-  if(isplayoffgame==False and numberofperiods>4)
+  if(isplayoffgame is False and numberofperiods>4):
    if(winningteam==hometeam):
     HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
     HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
@@ -707,7 +719,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2])+":"+str(ATRSpit[3] + 1);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
- if(isplayoffgame==False and numberofperiods>4):
+ if(isplayoffgame is False and numberofperiods>4):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "SOWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "SOLosses", 1, "+");
   WinningTeamShootouts = GetTeamData(sqldatacon, leaguename, winningteam, "Shootouts", "str");
@@ -827,9 +839,9 @@ def MakeHockeyDataFromXML(xmlfile, sdbfile=None, returnxml=False):
  print("</hockey>");
  xmlstring = "</hockey>\n";
  CloseHockeyDatabase(sqldatacon);
- if(returnxml==True):
+ if(returnxml is True):
   return xmlstring;
- if(returnxml==True):
+ if(returnxml is True):
   return True;
  return True;
 
@@ -843,9 +855,9 @@ def MakeHockeyDataFromXMLAlt(inxmlfile, sdbfile=None, outxmlfile=None, returnxml
  xmlstring = MakeHockeyDataFromXML(inxmlfile, sdbfile, True);
  xmlfp.write();
  xmlfp.close();
- if(returnxml==True):
+ if(returnxml is True):
   return xmlstring;
- if(returnxml==True):
+ if(returnxml is True):
   return True;
  return True;
 
@@ -921,9 +933,9 @@ def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
  pystring = MakeHockeyPyFromXML(inxmlfile);
  pyfp.write();
  pyfp.close();
- if(returnpy==True):
+ if(returnpy is True):
   return pystring;
- if(returnpy==True):
+ if(returnpy is True):
   return True;
  return True;
 
@@ -1016,9 +1028,9 @@ def MakeXMLFileFromHockeyData(sdbfile, date, xmlfile=None, returnxml=False):
  xmlstring = MakeXMLFromHockeyData(sdbfile, date);
  xmlfp.write(xmlstring);
  xmlfp.close();
- if(returnxml==True):
+ if(returnxml is True):
   return xmlstring;
- if(returnxml==True):
+ if(returnxml is True):
   return True;
  return True;
 
@@ -1099,8 +1111,8 @@ def MakeHockeyPyFileFromHockeyData(sdbfile, date, pyfile=None, returnpy=False):
  pystring = MakeHockeyPyFromHockeyData(sdbfile, date);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy==True):
+ if(returnpy is True):
   return pystring;
- if(returnpy==True):
+ if(returnpy is True):
   return True;
  return True;
