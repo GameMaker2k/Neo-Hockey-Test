@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, libhockeydata, argparse, datetime;
+import libhockeydata;
 
 sqldatacon = libhockeydata.MakeHockeyDatabase("./hockey17-18.db3");
 libhockeydata.MakeHockeyLeagueTable(sqldatacon);

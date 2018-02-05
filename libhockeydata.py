@@ -877,8 +877,8 @@ def MakeHockeyPyFromXML(xmlfile):
  else:
   return False;
  gethockey = hockeyfile.getroot();
- print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n");
- pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n\n";
+ print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport libhockeydata;\n");
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport libhockeydata;\n\n";
  if(gethockey.tag == "hockey"):
   print("sqldatacon = libhockeydata.MakeHockeyDatabase(\""+gethockey.attrib['database']+"\");");
   pystring = pystring+"sqldatacon = libhockeydata.MakeHockeyDatabase(\""+gethockey.attrib['database']+"\");\n";
@@ -1052,8 +1052,8 @@ def MakeHockeyPyFromHockeyData(sdbfile, date):
   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  else:
   return False;
- print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n");
- pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport sqlite3, sys, os, re, libhockeydata, argparse, datetime;\n\n";
+ print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport libhockeydata;\n");
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport libhockeydata;\n\n";
  print("sqldatacon = libhockeydata.MakeHockeyDatabase(\""+sdbfile+"\");");
  pystring = pystring+"sqldatacon = libhockeydata.MakeHockeyDatabase(\""+sdbfile+"\");\n";
  leaguecur = sqlcon.cursor();
