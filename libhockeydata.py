@@ -1039,7 +1039,7 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=F
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   xmlfile = file_wo_extension+".xml";
  xmlfp = open(xmlfile, "w+");
- xmlstring = MakeXMLFromHockeyData(sdbfile, date);
+ xmlstring = MakeHockeyXMLFromHockeyDatabase(sdbfile, date);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml is True):

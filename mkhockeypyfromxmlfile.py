@@ -18,8 +18,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, libhockeydata, argparse, datetime;
-import logging as log;
+import libhockeydata, argparse, datetime;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;

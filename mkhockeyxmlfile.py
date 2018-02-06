@@ -18,8 +18,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, libhockeydata, argparse, datetime;
-import logging as log;
+import libhockeydata, argparse, datetime;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
@@ -38,4 +37,4 @@ argparser.add_argument("-o", "--outfile", default=None, help="xml file to output
 argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
 getargs = argparser.parse_args();
 
-libhockeydata.MakeXMLFileFromHockeyDatabase(getargs.file, getargs.date, getargs.outfile);
+libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.file, getargs.date, getargs.outfile);
