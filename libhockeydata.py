@@ -1127,7 +1127,7 @@ def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, date, pyfile=None, returnpy=
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   pyfile = file_wo_extension+".xml";
  pyfp = open(pyfile, "w+");
- pystring = MakeHockeyPyFromHockeyData(sdbfile, date);
+ pystring = MakeHockeyPythonFromHockeyDatabase(sdbfile, date);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy is True):
@@ -1198,7 +1198,7 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False):
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   sqlfile = file_wo_extension+".sql";
  sqlfp = open(sqlfile, "w+");
- sqlstring = MakeHockeySQLFromHockeyData(sdbfile);
+ sqlstring = MakeHockeySQLFromHockeyDatabase(sdbfile);
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql is True):
