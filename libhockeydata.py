@@ -18,7 +18,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re;
+import sqlite3, sys, os, re, time;
 import xml.etree.ElementTree as ET;
 
 if(sys.version[0]=="2"):
@@ -1124,5 +1124,72 @@ def MakeHockeyPyFileFromHockeyData(sdbfile, date, pyfile=None, returnpy=False):
  if(returnpy is True):
   return pystring;
  if(returnpy is True):
+  return True;
+ return True;
+
+def MakeHockeySQLFromHockeyData(sdbfile):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile)):
+  sqldatacon = OpenHockeyDatabase(sdbfile);
+ else:
+  return False;
+ sqldump = "-- PyHockeyStats SQL Dumper\n";
+ sqldump += "-- version 0.0.2 RC 1\n";
+ sqldump += "-- https://github.com/GameMaker2k/Neo-Hockey-Test\n";
+ sqldump += "--\n";
+ sqldump += "-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump += "-- SQLite Server version: "+sqlite3.version+"\n";
+ sqldump += "-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
+ sqldump += "--\n";
+ sqldump += "-- Database: \""+sdbfile+"\"\n";
+ sqldump += "--\n\n";
+ sqldump += "-- --------------------------------------------------------\n\n";
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
+ for leagueinfo_tmp in getleague_tmp:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp[0]+cur_tab);
+ for get_cur_tab in table_list:
+  tresult = sqldatacon[0].execute("SELECT * FROM "+get_cur_tab);
+  tmbcor = sqldatacon[1].cursor();
+  tabresult = tmbcor.execute("SELECT * FROM sqlite_master WHERE type=\"table\" and tbl_name=\""+get_cur_tab+"\";").fetchone()[4];
+  tabresultcol = list(map(lambda x: x[0], sqldatacon[0].description));
+  tresult_list = [];
+  sqldump += "--\n";
+  sqldump += "-- Table structure for table \""+str(get_cur_tab)+"\"\n";
+  sqldump += "--\n\n";
+  sqldump += tabresult+"\n\n";
+  sqldump += "--\n";
+  sqldump += "-- Dumping data for table \""+str(get_cur_tab)+"\"\n";
+  sqldump += "--\n\n";
+  get_insert_stmt_full = "";
+  for tresult_tmp in tresult:
+   get_insert_stmt = "INSERT INTO \""+str(get_cur_tab)+"\" (";
+   get_insert_stmt_val = "(";
+   for result_cal_val in tabresultcol:
+    get_insert_stmt += "\""+str(result_cal_val)+"\", ";
+   for result_val in tresult_tmp:
+    get_insert_stmt_val += "\""+str(result_val)+"\", ";
+   get_insert_stmt = get_insert_stmt[:-3]+") VALUES \n";
+   get_insert_stmt_val = get_insert_stmt_val[:-3]+");";
+   get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
+  sqldump += get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
+ CloseHockeyDatabase(sqldatacon);
+ return sqldump;
+
+def MakeHockeySQLFileFromHockeyData(sdbfile, sqlfile=None, returnsql=False):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(sqlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  sqlfile = file_wo_extension+".sql";
+ sqlfp = open(sqlfile, "w+");
+ sqlstring = MakeHockeySQLFromHockeyData(sdbfile);
+ sqlfp.write(sqlstring);
+ sqlfp.close();
+ if(returnsql is True):
+  return sqlstring;
+ if(returnsql is True):
   return True;
  return True;
