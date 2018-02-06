@@ -355,7 +355,7 @@ def MakeHockeyPlayoffTeams(sqldatacon, leaguename, playofffmt="Division=3,Confer
  return True;
 
 def MakeHockeyArena(sqldatacon, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas (TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES(0, \"None\", \"None\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas (TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES(0, \"\", \"\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
  return True;
 
 def MakeHockeyGameTable(sqldatacon, leaguename):
@@ -1188,8 +1188,8 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
     if(isinstance(result_val, int)):
      get_insert_stmt_val += ""+str(result_val)+", ";
-   get_insert_stmt = get_insert_stmt[:-3]+") VALUES \n";
-   get_insert_stmt_val = get_insert_stmt_val[:-3]+");";
+   get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
+   get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
@@ -1308,8 +1308,8 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
     if(isinstance(result_val, int)):
      get_insert_stmt_val += ""+str(result_val)+", ";
-   get_insert_stmt = get_insert_stmt[:-3]+") VALUES \n";
-   get_insert_stmt_val = get_insert_stmt_val[:-3]+");";
+   get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
+   get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
