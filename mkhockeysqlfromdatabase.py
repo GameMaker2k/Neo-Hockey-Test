@@ -35,7 +35,6 @@ argparser = argparse.ArgumentParser(description="convert hockey xml file to sqli
 argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
 argparser.add_argument("-f", "--file", default="./hockeydata.db3", help="sqlite database to convert");
 argparser.add_argument("-o", "--outfile", default=None, help="sql file to output");
-argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
 getargs = argparser.parse_args();
 
 libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.file, getargs.outfile);
