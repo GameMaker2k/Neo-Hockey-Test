@@ -761,7 +761,7 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyDatabaseFromXML(xmlfile, sdbfile=None, returnxml=False):
+def MakeHockeyDatabaseFromXML(xmlfile, sdbfile=None, returnxml=False, closedatabase=True):
  if(os.path.exists(xmlfile) and os.path.isfile(xmlfile)):
   hockeyfile = ET.parse(xmlfile);
  else:
@@ -851,7 +851,7 @@ def MakeHockeyDatabaseFromXML(xmlfile, sdbfile=None, returnxml=False):
  CloseHockeyDatabase(sqldatacon);
  if(returnxml is True):
   return xmlstring;
- if(returnxml is True):
+ if(returnxml is False):
   return True;
  return True;
 
@@ -862,12 +862,12 @@ def MakeHockeyDatabaseFromXMLWrite(inxmlfile, sdbfile=None, outxmlfile=None, ret
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyDataFromXML(inxmlfile, sdbfile, True);
+ xmlstring = MakeHockeyDatabaseFromXML(inxmlfile, sdbfile, True);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml is True):
   return xmlstring;
- if(returnxml is True):
+ if(returnxml is False):
   return True;
  return True;
 
@@ -949,7 +949,7 @@ def MakeHockeyPythonFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
  pyfp.close();
  if(returnpy is True):
   return pystring;
- if(returnpy is True):
+ if(returnpy is False):
   return True;
  return True;
 
@@ -1044,7 +1044,7 @@ def MakeXMLFileFromHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=False):
  xmlfp.close();
  if(returnxml is True):
   return xmlstring;
- if(returnxml is True):
+ if(returnxml is False):
   return True;
  return True;
 
@@ -1132,7 +1132,7 @@ def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, date, pyfile=None, returnpy=
  pyfp.close();
  if(returnpy is True):
   return pystring;
- if(returnpy is True):
+ if(returnpy is False):
   return True;
  return True;
 
@@ -1203,6 +1203,6 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False):
  sqlfp.close();
  if(returnsql is True):
   return sqlstring;
- if(returnsql is True):
+ if(returnsql is False):
   return True;
  return True;
