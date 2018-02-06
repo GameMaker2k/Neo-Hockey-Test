@@ -932,7 +932,7 @@ def MakeHockeyPyFromXML(xmlfile):
          pystring = pystring+pyfilename+".MakeHockeyTeams(sqldatacon, \""+getleague.attrib['name']+"\", "+str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day'])+", \""+getteam.attrib['city']+"\", \""+getteam.attrib['area']+"\", \""+getteam.attrib['country']+"\", \""+getteam.attrib['fullcountry']+"\", \""+getteam.attrib['fullarea']+"\", \""+getteam.attrib['name']+"\", \""+getconference.attrib['name']+"\", \""+getdivision.attrib['name']+"\", \""+getteam.attrib['arena']+"\", \""+getteam.attrib['prefix']+"\", \""+getteam.attrib['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n";
         teamcount = teamcount + 1;
   print(" ");
-  pystring = "\n";
+  pystring = pystring+"\n";
  print(pyfilename+".CloseHockeyDatabase(sqldatacon);");
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
@@ -952,6 +952,8 @@ def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
  if(returnpy is True):
   return True;
  return True;
+
+MakeHockeyPyFileFromXML("./hockey17-18.xml", "./hockey17-18.py");
 
 def MakeXMLFromHockeyData(sdbfile, date):
  chckyear = date[:4];
@@ -1113,7 +1115,7 @@ def MakeHockeyPyFromHockeyData(sdbfile, date):
     print(pyfilename+".MakeHockeyGame(sqldatacon, \""+leagueinfo[0]+"\", "+gameinfo[0]+", \""+gameinfo[1]+"\", \""+gameinfo[2]+"\", \""+gameinfo[3]+"\", \""+gameinfo[4]+"\", \""+gameinfo[5]+"\", \""+gameinfo[6]+"\", \""+gameinfo[7]+"\", \""+gameinfo[8]+"\", \""+gameinfo[9]+"\", \""+gameinfo[10]+"\", \""+gameinfo[11]+"\", \""+gameinfo[12]+"\", \""+gameinfo[13]+"\");");
     pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+leagueinfo[0]+"\", "+gameinfo[0]+", \""+gameinfo[1]+"\", \""+gameinfo[2]+"\", \""+gameinfo[3]+"\", \""+gameinfo[4]+"\", \""+gameinfo[5]+"\", \""+gameinfo[6]+"\", \""+gameinfo[7]+"\", \""+gameinfo[8]+"\", \""+gameinfo[9]+"\", \""+gameinfo[10]+"\", \""+gameinfo[11]+"\", \""+gameinfo[12]+"\", \""+gameinfo[13]+"\");\n";
   print(" ");
-  pystring = "\n";
+  pystring = pystring+"\n";
  leaguecur.close();
  sqlcon.close();
  print(pyfilename+".CloseHockeyDatabase(sqldatacon);");
@@ -1142,16 +1144,16 @@ def MakeHockeySQLFromHockeyData(sdbfile):
  else:
   return False;
  sqldump = "-- PyHockeyStats SQL Dumper\n";
- sqldump += "-- version 0.0.2 RC 1\n";
- sqldump += "-- https://github.com/GameMaker2k/Neo-Hockey-Test\n";
- sqldump += "--\n";
- sqldump += "-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
- sqldump += "-- SQLite Server version: "+sqlite3.version+"\n";
- sqldump += "-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
- sqldump += "--\n";
- sqldump += "-- Database: "+sdbfile+"\n";
- sqldump += "--\n\n";
- sqldump += "-- --------------------------------------------------------\n\n";
+ sqldump = sqldump+"-- version 0.0.2 RC 1\n";
+ sqldump = sqldump+"-- https://github.com/GameMaker2k/Neo-Hockey-Test\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Database: "+sdbfile+"\n";
+ sqldump = sqldump+"--\n\n";
+ sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
@@ -1165,13 +1167,13 @@ def MakeHockeySQLFromHockeyData(sdbfile):
   tabresult = tmbcor.execute("SELECT * FROM sqlite_master WHERE type=\"table\" and tbl_name=\""+get_cur_tab+"\";").fetchone()[4];
   tabresultcol = list(map(lambda x: x[0], sqldatacon[0].description));
   tresult_list = [];
-  sqldump += "--\n";
-  sqldump += "-- Table structure for table "+str(get_cur_tab)+"\n";
-  sqldump += "--\n\n";
-  sqldump += tabresult+"\n\n";
-  sqldump += "--\n";
-  sqldump += "-- Dumping data for table "+str(get_cur_tab)+"\n";
-  sqldump += "--\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  sqldump = sqldump+tabresult+"\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
   get_insert_stmt_full = "";
   for tresult_tmp in tresult:
    get_insert_stmt = "INSERT INTO "+str(get_cur_tab)+" (";
@@ -1186,7 +1188,7 @@ def MakeHockeySQLFromHockeyData(sdbfile):
    get_insert_stmt = get_insert_stmt[:-3]+") VALUES \n";
    get_insert_stmt_val = get_insert_stmt_val[:-3]+");";
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
-  sqldump += get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
+  sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
  return sqldump;
 
