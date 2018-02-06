@@ -38,4 +38,4 @@ argparser.add_argument("-o", "--outfile", default=None, help="xml file to output
 argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
 getargs = argparser.parse_args();
 
-libhockeydata.MakeXMLFileFromHockeyData(getargs.file, getargs.date, getargs.outfile);
+libhockeydata.MakeXMLFileFromHockeyDatabase(getargs.file, getargs.date, getargs.outfile);

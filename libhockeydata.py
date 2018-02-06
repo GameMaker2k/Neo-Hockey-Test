@@ -761,7 +761,7 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyDataFromXML(xmlfile, sdbfile=None, returnxml=False):
+def MakeHockeyDatabaseFromXML(xmlfile, sdbfile=None, returnxml=False):
  if(os.path.exists(xmlfile) and os.path.isfile(xmlfile)):
   hockeyfile = ET.parse(xmlfile);
  else:
@@ -855,7 +855,7 @@ def MakeHockeyDataFromXML(xmlfile, sdbfile=None, returnxml=False):
   return True;
  return True;
 
-def MakeHockeyDataFromXMLAlt(inxmlfile, sdbfile=None, outxmlfile=None, returnxml=False):
+def MakeHockeyDatabaseFromXMLWrite(inxmlfile, sdbfile=None, outxmlfile=None, returnxml=False):
  if(not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile)):
   return False;
  if(outxmlfile is None):
@@ -871,7 +871,7 @@ def MakeHockeyDataFromXMLAlt(inxmlfile, sdbfile=None, outxmlfile=None, returnxml
   return True;
  return True;
 
-def MakeHockeyPyFromXML(xmlfile):
+def MakeHockeyPythonFromXML(xmlfile):
  pyfilename = __name__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -937,7 +937,7 @@ def MakeHockeyPyFromXML(xmlfile):
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
 
-def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
+def MakeHockeyPythonFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
  if(not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile)):
   return False;
  if(outpyfile is None):
@@ -953,7 +953,7 @@ def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
   return True;
  return True;
 
-def MakeXMLFromHockeyData(sdbfile, date):
+def MakeXMLFromHockeyDatabase(sdbfile, date):
  chckyear = date[:4];
  chckmonth = date[4:6];
  chckday = date[6:8];
@@ -1032,7 +1032,7 @@ def MakeXMLFromHockeyData(sdbfile, date):
  sqlcon.close();
  return xmlstring;
 
-def MakeXMLFileFromHockeyData(sdbfile, date, xmlfile=None, returnxml=False):
+def MakeXMLFileFromHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=False):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(xmlfile is None):
@@ -1048,7 +1048,7 @@ def MakeXMLFileFromHockeyData(sdbfile, date, xmlfile=None, returnxml=False):
   return True;
  return True;
 
-def MakeHockeyPyFromHockeyData(sdbfile, date):
+def MakeHockeyPythonFromHockeyDatabase(sdbfile, date):
  pyfilename = __name__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -1120,7 +1120,7 @@ def MakeHockeyPyFromHockeyData(sdbfile, date):
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
 
-def MakeHockeyPyFileFromHockeyData(sdbfile, date, pyfile=None, returnpy=False):
+def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, date, pyfile=None, returnpy=False):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(pyfile is None):
@@ -1136,7 +1136,7 @@ def MakeHockeyPyFileFromHockeyData(sdbfile, date, pyfile=None, returnpy=False):
   return True;
  return True;
 
-def MakeHockeySQLFromHockeyData(sdbfile):
+def MakeHockeySQLFromHockeyDatabase(sdbfile):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
@@ -1191,7 +1191,7 @@ def MakeHockeySQLFromHockeyData(sdbfile):
  CloseHockeyDatabase(sqldatacon);
  return sqldump;
 
-def MakeHockeySQLFileFromHockeyData(sdbfile, sqlfile=None, returnsql=False):
+def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(sqlfile is None):
