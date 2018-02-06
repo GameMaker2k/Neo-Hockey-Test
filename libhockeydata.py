@@ -1206,3 +1206,121 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False):
  if(returnsql is False):
   return True;
  return True;
+
+def MakeHockeySQLFromXML(xmlfile, returnsql=False):
+ if(os.path.exists(xmlfile) and os.path.isfile(xmlfile)):
+  hockeyfile = ET.parse(xmlfile);
+ else:
+  return False;
+ gethockey = hockeyfile.getroot();
+ if(gethockey.tag == "hockey"):
+  sqldatacon = MakeHockeyDatabase(":memory:");
+ leaguecount = 0;
+ for getleague in gethockey:
+  if(leaguecount==0 and getleague.tag=="league"):
+   MakeHockeyLeagueTable(sqldatacon);
+  if(getleague.tag=="league"):
+   MakeHockeyTeamTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyConferenceTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyGameTable(sqldatacon, getleague.attrib['name']);
+   MakeHockeyDivisionTable(sqldatacon, getleague.attrib['name']);
+   HockeyLeagueHasDivisions = True;
+   if(getleague.attrib['conferences'].lower()=="no"):
+    HockeyLeagueHasDivisions = False;
+   HockeyLeagueHasConferences = True;
+   if(getleague.attrib['divisions'].lower()=="no"):
+    HockeyLeagueHasConferences = False;
+   MakeHockeyLeagues(sqldatacon, getleague.attrib['name'], getleague.attrib['fullname'], getleague.attrib['country'], getleague.attrib['fullcountry']);
+  leaguecount = leaguecount + 1;
+  if(getleague.tag == "league"):
+   conferencecount = 0;
+   for getconference in getleague:
+    if(getconference.tag == "conference"):
+     MakeHockeyConferences(sqldatacon, getleague.attrib['name'], getconference.attrib['name'], HockeyLeagueHasConferences);
+     conferencecount = conferencecount + 1;
+    if(getconference.tag == "arenas"):
+     arenascount = 0;
+     for getarenas in getconference:
+      MakeHockeyArena(sqldatacon, getleague.attrib['name'], getarenas.attrib['city'], getarenas.attrib['area'], getarenas.attrib['country'], getarenas.attrib['fullcountry'], getarenas.attrib['fullarea'], getarenas.attrib['name']);
+      arenascount = arenascount + 1;
+    if(getconference.tag == "games"):
+     gamecount = 0;
+     for getgame in getconference:
+      MakeHockeyGame(sqldatacon, getleague.attrib['name'], getgame.attrib['date'], getgame.attrib['hometeam'], getgame.attrib['awayteam'], getgame.attrib['goals'], getgame.attrib['sogs'], getgame.attrib['ppgs'], getgame.attrib['shgs'], getgame.attrib['penalties'], getgame.attrib['pims'], getgame.attrib['hits'], getgame.attrib['takeaways'], getgame.attrib['faceoffwins'], getgame.attrib['atarena'], getgame.attrib['isplayoffgame']);
+      gamecount = gamecount + 1;
+    if(getconference.tag == "conference"):
+     divisioncount = 0;
+     for getdivision in getconference:
+      MakeHockeyDivisions(sqldatacon, getleague.attrib['name'], getdivision.attrib['name'], getconference.attrib['name'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+      divisioncount = divisioncount + 1;
+      if(getdivision.tag == "division"):
+       teamcount = 0;
+       for getteam in getdivision:
+        if(getteam.tag == "team"):
+         MakeHockeyTeams(sqldatacon, getleague.attrib['name'], str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day']), getteam.attrib['city'], getteam.attrib['area'], getteam.attrib['country'], getteam.attrib['fullcountry'], getteam.attrib['fullarea'], getteam.attrib['name'], getconference.attrib['name'], getdivision.attrib['name'], getteam.attrib['arena'], getteam.attrib['prefix'], getteam.attrib['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+        teamcount = teamcount + 1;
+ sqldump = "-- "+__program_name__+" SQL Dumper\n";
+ sqldump = sqldump+"-- "+__version__+"\n";
+ sqldump = sqldump+"-- "+__project_url__+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.sqlite_version+"\n";
+ sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Database: "+sdbfile+"\n";
+ sqldump = sqldump+"--\n\n";
+ sqldump = sqldump+"-- --------------------------------------------------------\n\n";
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
+ for leagueinfo_tmp in getleague_tmp:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp[0]+cur_tab);
+ for get_cur_tab in table_list:
+  tresult = sqldatacon[0].execute("SELECT * FROM "+get_cur_tab);
+  tmbcor = sqldatacon[1].cursor();
+  tabresult = tmbcor.execute("SELECT * FROM sqlite_master WHERE type=\"table\" and tbl_name=\""+get_cur_tab+"\";").fetchone()[4];
+  tabresultcol = list(map(lambda x: x[0], sqldatacon[0].description));
+  tresult_list = [];
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  sqldump = sqldump+tabresult+"\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  get_insert_stmt_full = "";
+  for tresult_tmp in tresult:
+   get_insert_stmt = "INSERT INTO "+str(get_cur_tab)+" (";
+   get_insert_stmt_val = "(";
+   for result_cal_val in tabresultcol:
+    get_insert_stmt += str(result_cal_val)+", ";
+   for result_val in tresult_tmp:
+    if(isinstance(result_val, str)):
+     get_insert_stmt_val += "\""+str(result_val)+"\", ";
+    if(isinstance(result_val, int)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
+   get_insert_stmt = get_insert_stmt[:-3]+") VALUES \n";
+   get_insert_stmt_val = get_insert_stmt_val[:-3]+");";
+   get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
+  sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
+ CloseHockeyDatabase(sqldatacon);
+ return sqldump;
+
+def MakeHockeySQLFileFromXML(xmlfile, sqlfile=None, returnsql=False):
+ if(not os.path.exists(xmlfile) and not os.path.isfile(xmlfile)):
+  return False;
+ if(sqlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(xmlfile);
+  sqlfile = file_wo_extension+".sql";
+ sqlfp = open(sqlfile, "w+");
+ sqlstring = MakeHockeySQLFromXML(xmlfile);
+ sqlfp.write(sqlstring);
+ sqlfp.close();
+ if(returnsql is True):
+  return sqlstring;
+ if(returnsql is False):
+  return True;
+ return True;
