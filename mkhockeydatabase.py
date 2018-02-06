@@ -37,4 +37,4 @@ argparser.add_argument("-f", "--file", default="./hockeydata.xml", help="xml fil
 argparser.add_argument("-o", "--outfile", default=None, help="sqlite database to output");
 getargs = argparser.parse_args();
 
-libhockeydata.MakeHockeyDatabaseFromXML(getargs.file, getargs.outfile);
+libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.file, getargs.outfile);
