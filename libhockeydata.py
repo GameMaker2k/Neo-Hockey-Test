@@ -761,7 +761,7 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyDatabaseFromXML(xmlfile, sdbfile=None, returnxml=False, closedatabase=True):
+def MakeHockeyDatabaseFromXML(xmlfile, sdbfile=None, returnxml=False):
  if(os.path.exists(xmlfile) and os.path.isfile(xmlfile)):
   hockeyfile = ET.parse(xmlfile);
  else:
