@@ -1141,12 +1141,13 @@ def MakeHockeySQLFromHockeyData(sdbfile):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   return False;
- sqldump = "-- PyHockeyStats SQL Dumper\n";
- sqldump = sqldump+"-- version 0.0.2 RC 1\n";
- sqldump = sqldump+"-- https://github.com/GameMaker2k/Neo-Hockey-Test\n";
+ sqldump = "-- "+__program_name__+" SQL Dumper\n";
+ sqldump = sqldump+"-- "+__version__+"\n";
+ sqldump = sqldump+"-- "+__project_url__+"\n";
  sqldump = sqldump+"--\n";
  sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
- sqldump = sqldump+"-- SQLite Server version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.sqlite_version+"\n";
+ sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
  sqldump = sqldump+"--\n";
  sqldump = sqldump+"-- Database: "+sdbfile+"\n";
