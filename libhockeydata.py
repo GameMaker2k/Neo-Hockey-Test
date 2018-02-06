@@ -953,8 +953,6 @@ def MakeHockeyPyFileFromXML(inxmlfile, outpyfile=None, returnpy=False):
   return True;
  return True;
 
-MakeHockeyPyFileFromXML("./hockey17-18.xml", "./hockey17-18.py");
-
 def MakeXMLFromHockeyData(sdbfile, date):
  chckyear = date[:4];
  chckmonth = date[4:6];
