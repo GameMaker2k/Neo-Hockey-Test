@@ -1,13 +1,14 @@
 -- PyHockeyStats SQL Dumper
--- version 0.0.2 RC 1
+-- 0.0.2 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: February 05, 2018 at 06:14 PM
--- SQLite Server version: 2.6.0
+-- Generation Time: February 07, 2018 at 04:00 AM
+-- SQLite Server version: 3.21.0
+-- PySQLite version: 2.6.0
 -- Python Version: 3.6.4
 
 --
--- Database: ./hockey17-18.db3
+-- Database: :memory:
 --
 
 -- --------------------------------------------------------
@@ -29,9 +30,9 @@ INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCoun
 INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivision) VALUES 
 (3, "ECHL", "ECHL", "USA", "United States", 27, 2, );
 INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivision) VALUES 
-(4, "FHL", "Federal Hockey League", "USA", "United States", 6, 0, );
+(4, "FHL", "Federal Hockey League", "USA", "United States", 6, 1, );
 INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivision) VALUES 
-(5, "SPHL", "Southern Professional Hockey League", "USA", "United States", 10, 0, );
+(5, "SPHL", "Southern Professional Hockey League", "USA", "United States", 10, 1, );
 INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivision) VALUES 
 (6, "KHL", "Kontinental Hockey League", "RUS", "Russia", 27, 2, );
 
@@ -895,7 +896,7 @@ CREATE TABLE FHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName
 --
 
 INSERT INTO FHLConferences (id, Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivision) VALUES 
-(1, "", "FHL", "Federal Hockey League", 0, );
+(1, "", "FHL", "Federal Hockey League", 6, );
 
 -- --------------------------------------------------------
 
@@ -1026,7 +1027,7 @@ CREATE TABLE SPHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueNam
 --
 
 INSERT INTO SPHLConferences (id, Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivision) VALUES 
-(1, "", "SPHL", "Southern Professional Hockey League", 0, );
+(1, "", "SPHL", "Southern Professional Hockey League", 10, );
 
 -- --------------------------------------------------------
 
@@ -1041,7 +1042,7 @@ CREATE TABLE SPHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TE
 --
 
 INSERT INTO SPHLDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeam) VALUES 
-(1, "", "", "SPHL", "Southern Professional Hockey League", );
+(1, "", "", "SPHL", "Southern Professional Hockey League", 1);
 
 -- --------------------------------------------------------
 
