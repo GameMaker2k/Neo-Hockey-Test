@@ -776,8 +776,8 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
    sqldatacon = MakeHockeyDatabase(gethockey.attrib['database']);
   if(sdbfile is not None):
    sqldatacon = MakeHockeyDatabase(sdbfile);
-  print("<hockey database=\""+xml_escape(gethockey.attrib['database'], quote=True)+"\" year=\""+xml_escape(gethockey.attrib['year'], quote=True)+"\" month=\""+xml_escape(gethockey.attrib['month'], quote=True)+"\" day=\""+xml_escape(gethockey.attrib['day'], quote=True)+"\">");
-  xmlstring = xmlstring+"<hockey database=\""+xml_escape(gethockey.attrib['database'], quote=True)+"\" year=\""+xml_escape(gethockey.attrib['year'], quote=True)+"\" month=\""+xml_escape(gethockey.attrib['month'], quote=True)+"\" day=\""+xml_escape(gethockey.attrib['day'], quote=True)+"\">\n";
+  print("<hockey database=\""+xml_escape(str(gethockey.attrib['database']), quote=True)+"\" year=\""+xml_escape(str(gethockey.attrib['year']), quote=True)+"\" month=\""+xml_escape(str(gethockey.attrib['month']), quote=True)+"\" day=\""+xml_escape(str(gethockey.attrib['day']), quote=True)+"\">");
+  xmlstring = xmlstring+"<hockey database=\""+xml_escape(str(gethockey.attrib['database']), quote=True)+"\" year=\""+xml_escape(str(gethockey.attrib['year']), quote=True)+"\" month=\""+xml_escape(str(gethockey.attrib['month']), quote=True)+"\" day=\""+xml_escape(str(gethockey.attrib['day']), quote=True)+"\">\n";
  leaguecount = 0;
  for getleague in gethockey:
   if(leaguecount==0 and getleague.tag=="league"):
@@ -794,16 +794,16 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
    if(getleague.attrib['divisions'].lower()=="no"):
     HockeyLeagueHasConferences = False;
    MakeHockeyLeagues(sqldatacon, getleague.attrib['name'], getleague.attrib['fullname'], getleague.attrib['country'], getleague.attrib['fullcountry']);
-   print(" <league name=\""+xml_escape(getleague.attrib['name'], quote=True)+"\" fullname=\""+xml_escape(getleague.attrib['fullname'], quote=True)+"\" country=\""+xml_escape(getleague.attrib['country'], quote=True)+"\" fullcountry=\""+xml_escape(getleague.attrib['fullcountry'], quote=True)+"\" conferences=\""+xml_escape(getleague.attrib['conferences'], quote=True)+"\" divisions=\""+xml_escape(getleague.attrib['divisions'], quote=True)+"\">");
-   xmlstring = " <league name=\""+xml_escape(getleague.attrib['name'], quote=True)+"\" fullname=\""+xml_escape(getleague.attrib['fullname'], quote=True)+"\" country=\""+xml_escape(getleague.attrib['country'], quote=True)+"\" fullcountry=\""+xml_escape(getleague.attrib['fullcountry'], quote=True)+"\" conferences=\""+xml_escape(getleague.attrib['conferences'], quote=True)+"\" divisions=\""+xml_escape(getleague.attrib['divisions'], quote=True)+"\">\n";
+   print(" <league name=\""+xml_escape(str(getleague.attrib['name']), quote=True)+"\" fullname=\""+xml_escape(str(getleague.attrib['fullname']), quote=True)+"\" country=\""+xml_escape(str(getleague.attrib['country']), quote=True)+"\" fullcountry=\""+xml_escape(str(getleague.attrib['fullcountry']), quote=True)+"\" conferences=\""+xml_escape(str(getleague.attrib['conferences']), quote=True)+"\" divisions=\""+xml_escape(str(getleague.attrib['divisions']), quote=True)+"\">");
+   xmlstring = " <league name=\""+xml_escape(str(getleague.attrib['name']), quote=True)+"\" fullname=\""+xml_escape(str(getleague.attrib['fullname']), quote=True)+"\" country=\""+xml_escape(str(getleague.attrib['country']), quote=True)+"\" fullcountry=\""+xml_escape(str(getleague.attrib['fullcountry']), quote=True)+"\" conferences=\""+xml_escape(str(getleague.attrib['conferences']), quote=True)+"\" divisions=\""+xml_escape(str(getleague.attrib['divisions']), quote=True)+"\">\n";
   leaguecount = leaguecount + 1;
   if(getleague.tag == "league"):
    conferencecount = 0;
    for getconference in getleague:
     if(getconference.tag == "conference"):
      MakeHockeyConferences(sqldatacon, getleague.attrib['name'], getconference.attrib['name'], HockeyLeagueHasConferences);
-     print("  <conference name=\""+xml_escape(getconference.attrib['name'], quote=True)+"\">");
-     xmlstring = "  <conference name=\""+xml_escape(getconference.attrib['name'], quote=True)+"\">\n";
+     print("  <conference name=\""+xml_escape(str(getconference.attrib['name']), quote=True)+"\">");
+     xmlstring = "  <conference name=\""+xml_escape(str(getconference.attrib['name']), quote=True)+"\">\n";
      conferencecount = conferencecount + 1;
     if(getconference.tag == "arenas"):
      arenascount = 0;
@@ -811,8 +811,8 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
      xmlstring = "  <arenas>\n";
      for getarenas in getconference:
       MakeHockeyArena(sqldatacon, getleague.attrib['name'], getarenas.attrib['city'], getarenas.attrib['area'], getarenas.attrib['country'], getarenas.attrib['fullcountry'], getarenas.attrib['fullarea'], getarenas.attrib['name']);
-      print("   <arena city=\""+xml_escape(getarenas.attrib['city'], quote=True)+"\" area=\""+xml_escape(getarenas.attrib['area'], quote=True)+"\" fullarea=\""+xml_escape(getarenas.attrib['fullarea'], quote=True)+"\" country=\""+xml_escape(getarenas.attrib['country'], quote=True)+"\" fullcountry=\""+xml_escape(getarenas.attrib['fullcountry'], quote=True)+"\" name=\""+xml_escape(getarenas.attrib['name'], quote=True)+"\" />");
-      xmlstring = "   <arena city=\""+xml_escape(getarenas.attrib['city'], quote=True)+"\" area=\""+xml_escape(getarenas.attrib['area'], quote=True)+"\" fullarea=\""+xml_escape(getarenas.attrib['fullarea'], quote=True)+"\" country=\""+xml_escape(getarenas.attrib['country'], quote=True)+"\" fullcountry=\""+xml_escape(getarenas.attrib['fullcountry'], quote=True)+"\" name=\""+xml_escape(getarenas.attrib['name'], quote=True)+"\" />\n";
+      print("   <arena city=\""+xml_escape(str(getarenas.attrib['city']), quote=True)+"\" area=\""+xml_escape(str(getarenas.attrib['area']), quote=True)+"\" fullarea=\""+xml_escape(str(getarenas.attrib['fullarea']), quote=True)+"\" country=\""+xml_escape(str(getarenas.attrib['country']), quote=True)+"\" fullcountry=\""+xml_escape(str(getarenas.attrib['fullcountry']), quote=True)+"\" name=\""+xml_escape(str(getarenas.attrib['name']), quote=True)+"\" />");
+      xmlstring = "   <arena city=\""+xml_escape(str(getarenas.attrib['city']), quote=True)+"\" area=\""+xml_escape(str(getarenas.attrib['area']), quote=True)+"\" fullarea=\""+xml_escape(str(getarenas.attrib['fullarea']), quote=True)+"\" country=\""+xml_escape(str(getarenas.attrib['country']), quote=True)+"\" fullcountry=\""+xml_escape(str(getarenas.attrib['fullcountry']), quote=True)+"\" name=\""+xml_escape(str(getarenas.attrib['name']), quote=True)+"\" />\n";
       arenascount = arenascount + 1;
      print("  </arenas>");
      xmlstring = "  </arenas>\n";
@@ -822,8 +822,8 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
      xmlstring = "  <games>\n";
      for getgame in getconference:
       MakeHockeyGame(sqldatacon, getleague.attrib['name'], getgame.attrib['date'], getgame.attrib['hometeam'], getgame.attrib['awayteam'], getgame.attrib['goals'], getgame.attrib['sogs'], getgame.attrib['ppgs'], getgame.attrib['shgs'], getgame.attrib['penalties'], getgame.attrib['pims'], getgame.attrib['hits'], getgame.attrib['takeaways'], getgame.attrib['faceoffwins'], getgame.attrib['atarena'], getgame.attrib['isplayoffgame']);
-      print("   <game date=\""+xml_escape(getgame.attrib['date'], quote=True)+"\" hometeam=\""+xml_escape(getgame.attrib['hometeam'], quote=True)+"\" awayteam=\""+xml_escape(getgame.attrib['awayteam'], quote=True)+"\" goals=\""+xml_escape(getgame.attrib['goals'], quote=True)+"\" sogs=\""+xml_escape(getgame.attrib['sogs'], quote=True)+"\" ppgs=\""+xml_escape(getgame.attrib['ppgs'], quote=True)+"\" shgs=\""+xml_escape(getgame.attrib['shgs'], quote=True)+"\" penalties=\""+xml_escape(getgame.attrib['penalties'], quote=True)+"\" pims=\""+xml_escape(getgame.attrib['pims'], quote=True)+"\" hits=\""+xml_escape(getgame.attrib['hits'], quote=True)+"\" takeaways=\""+xml_escape(getgame.attrib['takeaways'], quote=True)+"\" faceoffwins=\""+xml_escape(getgame.attrib['faceoffwins'], quote=True)+"\" atarena=\""+xml_escape(getgame.attrib['atarena'], quote=True)+"\" isplayoffgame=\""+xml_escape(getgame.attrib['isplayoffgame'], quote=True)+"\" />");
-      xmlstring = "   <game date=\""+xml_escape(getgame.attrib['date'], quote=True)+"\" hometeam=\""+xml_escape(getgame.attrib['hometeam'], quote=True)+"\" awayteam=\""+xml_escape(getgame.attrib['awayteam'], quote=True)+"\" goals=\""+xml_escape(getgame.attrib['goals'], quote=True)+"\" sogs=\""+xml_escape(getgame.attrib['sogs'], quote=True)+"\" ppgs=\""+xml_escape(getgame.attrib['ppgs'], quote=True)+"\" shgs=\""+xml_escape(getgame.attrib['shgs'], quote=True)+"\" penalties=\""+xml_escape(getgame.attrib['penalties'], quote=True)+"\" pims=\""+xml_escape(getgame.attrib['pims'], quote=True)+"\" hits=\""+xml_escape(getgame.attrib['hits'], quote=True)+"\" takeaways=\""+xml_escape(getgame.attrib['takeaways'], quote=True)+"\" faceoffwins=\""+xml_escape(getgame.attrib['faceoffwins'], quote=True)+"\" atarena=\""+xml_escape(getgame.attrib['atarena'], quote=True)+"\" isplayoffgame=\""+xml_escape(getgame.attrib['isplayoffgame'], quote=True)+"\" />\n";
+      print("   <game date=\""+xml_escape(str(getgame.attrib['date']), quote=True)+"\" hometeam=\""+xml_escape(str(getgame.attrib['hometeam']), quote=True)+"\" awayteam=\""+xml_escape(str(getgame.attrib['awayteam']), quote=True)+"\" goals=\""+xml_escape(str(getgame.attrib['goals']), quote=True)+"\" sogs=\""+xml_escape(str(getgame.attrib['sogs']), quote=True)+"\" ppgs=\""+xml_escape(str(getgame.attrib['ppgs']), quote=True)+"\" shgs=\""+xml_escape(str(getgame.attrib['shgs']), quote=True)+"\" penalties=\""+xml_escape(str(getgame.attrib['penalties']), quote=True)+"\" pims=\""+xml_escape(str(getgame.attrib['pims']), quote=True)+"\" hits=\""+xml_escape(str(getgame.attrib['hits']), quote=True)+"\" takeaways=\""+xml_escape(str(getgame.attrib['takeaways']), quote=True)+"\" faceoffwins=\""+xml_escape(str(getgame.attrib['faceoffwins']), quote=True)+"\" atarena=\""+xml_escape(str(getgame.attrib['atarena']), quote=True)+"\" isplayoffgame=\""+xml_escape(str(getgame.attrib['isplayoffgame']), quote=True)+"\" />");
+      xmlstring = "   <game date=\""+xml_escape(str(getgame.attrib['date']), quote=True)+"\" hometeam=\""+xml_escape(str(getgame.attrib['hometeam']), quote=True)+"\" awayteam=\""+xml_escape(str(getgame.attrib['awayteam']), quote=True)+"\" goals=\""+xml_escape(str(getgame.attrib['goals']), quote=True)+"\" sogs=\""+xml_escape(str(getgame.attrib['sogs']), quote=True)+"\" ppgs=\""+xml_escape(str(getgame.attrib['ppgs']), quote=True)+"\" shgs=\""+xml_escape(str(getgame.attrib['shgs']), quote=True)+"\" penalties=\""+xml_escape(str(getgame.attrib['penalties']), quote=True)+"\" pims=\""+xml_escape(str(getgame.attrib['pims']), quote=True)+"\" hits=\""+xml_escape(str(getgame.attrib['hits']), quote=True)+"\" takeaways=\""+xml_escape(str(getgame.attrib['takeaways']), quote=True)+"\" faceoffwins=\""+xml_escape(str(getgame.attrib['faceoffwins']), quote=True)+"\" atarena=\""+xml_escape(str(getgame.attrib['atarena']), quote=True)+"\" isplayoffgame=\""+xml_escape(str(getgame.attrib['isplayoffgame']), quote=True)+"\" />\n";
       gamecount = gamecount + 1;
      print("  </games>");
      xmlstring = "  </games>\n";
@@ -831,16 +831,16 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
      divisioncount = 0;
      for getdivision in getconference:
       MakeHockeyDivisions(sqldatacon, getleague.attrib['name'], getdivision.attrib['name'], getconference.attrib['name'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
-      print("   <division name=\""+xml_escape(getdivision.attrib['name'], quote=True)+"\">");
-      xmlstring = "   <division name=\""+xml_escape(getdivision.attrib['name'], quote=True)+"\">\n";
+      print("   <division name=\""+xml_escape(str(getdivision.attrib['name']), quote=True)+"\">");
+      xmlstring = "   <division name=\""+xml_escape(str(getdivision.attrib['name']), quote=True)+"\">\n";
       divisioncount = divisioncount + 1;
       if(getdivision.tag == "division"):
        teamcount = 0;
        for getteam in getdivision:
         if(getteam.tag == "team"):
          MakeHockeyTeams(sqldatacon, getleague.attrib['name'], str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day']), getteam.attrib['city'], getteam.attrib['area'], getteam.attrib['country'], getteam.attrib['fullcountry'], getteam.attrib['fullarea'], getteam.attrib['name'], getconference.attrib['name'], getdivision.attrib['name'], getteam.attrib['arena'], getteam.attrib['prefix'], getteam.attrib['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
-         print("    <team city=\""+xml_escape(getteam.attrib['city'], quote=True)+"\" area=\""+xml_escape(getteam.attrib['area'], quote=True)+"\" fullarea=\""+xml_escape(getteam.attrib['fullarea'], quote=True)+"\" country=\""+xml_escape(getteam.attrib['country'], quote=True)+"\" fullcountry=\""+xml_escape(getteam.attrib['fullcountry'], quote=True)+"\" name=\""+xml_escape(getleague.attrib['name'], quote=True)+"\" arena=\""+xml_escape(getteam.attrib['arena'], quote=True)+"\" prefix=\""+xml_escape(getteam.attrib['prefix'], quote=True)+"\" suffix=\""+xml_escape(getteam.attrib['suffix'], quote=True)+"\" />");
-         xmlstring = "    <team city=\""+xml_escape(getteam.attrib['city'], quote=True)+"\" area=\""+xml_escape(getteam.attrib['area'], quote=True)+"\" fullarea=\""+xml_escape(getteam.attrib['fullarea'], quote=True)+"\" country=\""+xml_escape(getteam.attrib['country'], quote=True)+"\" fullcountry=\""+xml_escape(getteam.attrib['fullcountry'], quote=True)+"\" name=\""+xml_escape(getleague.attrib['name'], quote=True)+"\" arena=\""+xml_escape(getteam.attrib['arena'], quote=True)+"\" prefix=\""+xml_escape(getteam.attrib['prefix'], quote=True)+"\" suffix=\""+xml_escape(getteam.attrib['suffix'], quote=True)+"\" />\n";
+         print("    <team city=\""+xml_escape(str(getteam.attrib['city']), quote=True)+"\" area=\""+xml_escape(str(getteam.attrib['area']), quote=True)+"\" fullarea=\""+xml_escape(str(getteam.attrib['fullarea']), quote=True)+"\" country=\""+xml_escape(str(getteam.attrib['country']), quote=True)+"\" fullcountry=\""+xml_escape(str(getteam.attrib['fullcountry']), quote=True)+"\" name=\""+xml_escape(str(getleague.attrib['name']), quote=True)+"\" arena=\""+xml_escape(str(getteam.attrib['arena']), quote=True)+"\" prefix=\""+xml_escape(str(getteam.attrib['prefix']), quote=True)+"\" suffix=\""+xml_escape(str(getteam.attrib['suffix']), quote=True)+"\" />");
+         xmlstring = "    <team city=\""+xml_escape(str(getteam.attrib['city']), quote=True)+"\" area=\""+xml_escape(str(getteam.attrib['area']), quote=True)+"\" fullarea=\""+xml_escape(str(getteam.attrib['fullarea']), quote=True)+"\" country=\""+xml_escape(str(getteam.attrib['country']), quote=True)+"\" fullcountry=\""+xml_escape(str(getteam.attrib['fullcountry']), quote=True)+"\" name=\""+xml_escape(str(getleague.attrib['name']), quote=True)+"\" arena=\""+xml_escape(str(getteam.attrib['arena']), quote=True)+"\" prefix=\""+xml_escape(str(getteam.attrib['prefix']), quote=True)+"\" suffix=\""+xml_escape(str(getteam.attrib['suffix']), quote=True)+"\" />\n";
         teamcount = teamcount + 1;
        print("   </division>");
        xmlstring = "   </division>\n";
@@ -967,9 +967,9 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date):
   return False;
  leaguecur = sqlcon.cursor();
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
- xmlstring = xmlstring+"<hockey database=\""+xml_escape(sdbfile, quote=True)+"\" year=\""+xml_escape(chckyear, quote=True)+"\" month=\""+xml_escape(chckmonth, quote=True)+"\" day=\""+xml_escape(chckday, quote=True)+"\">\n";
+ xmlstring = xmlstring+"<hockey database=\""+xml_escape(str(sdbfile), quote=True)+"\" year=\""+xml_escape(str(chckyear), quote=True)+"\" month=\""+xml_escape(str(chckmonth), quote=True)+"\" day=\""+xml_escape(str(chckday), quote=True)+"\">\n";
  print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
- print("<hockey database=\""+xml_escape(sdbfile, quote=True)+"\" year=\""+xml_escape(chckyear, quote=True)+"\" month=\""+xml_escape(chckmonth, quote=True)+"\" day=\""+xml_escape(chckday, quote=True)+"\">");
+ print("<hockey database=\""+xml_escape(str(sdbfile), quote=True)+"\" year=\""+xml_escape(str(chckyear), quote=True)+"\" month=\""+xml_escape(str(chckmonth), quote=True)+"\" day=\""+xml_escape(str(chckday), quote=True)+"\">");
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
  for leagueinfo in getleague:
@@ -979,26 +979,26 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date):
   HockeyLeagueHasConferences = "yes";
   if(int(leagueinfo[5])<=0):
    HockeyLeagueHasConferences = "no";
-  xmlstring = xmlstring+" <league name=\""+xml_escape(leagueinfo[0], quote=True)+"\" fullname=\""+xml_escape(leagueinfo[1], quote=True)+"\" country=\""+xml_escape(leagueinfo[2], quote=True)+"\" fullcountry=\""+xml_escape(leagueinfo[3], quote=True)+"\" conferences=\""+xml_escape(leagueinfo[4], quote=True)+"\" divisions=\""+xml_escape(leagueinfo[5], quote=True)+"\">\n";
-  print(" <league name=\""+xml_escape(leagueinfo[0], quote=True)+"\" fullname=\""+xml_escape(leagueinfo[1], quote=True)+"\" country=\""+xml_escape(leagueinfo[2], quote=True)+"\" fullcountry=\""+xml_escape(leagueinfo[3], quote=True)+"\" conferences=\""+xml_escape(leagueinfo[4], quote=True)+"\" divisions=\""+xml_escape(leagueinfo[5], quote=True)+"\">");
+  xmlstring = xmlstring+" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" divisions=\""+xml_escape(str(leagueinfo[5]), quote=True)+"\">\n";
+  print(" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" divisions=\""+xml_escape(str(leagueinfo[5]), quote=True)+"\">");
   conferencecur = sqlcon.cursor();
   getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"").fetchone()[0];
   getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"");
   for conferenceinfo in getconference:
-   xmlstring = xmlstring+"  <conference name=\""+xml_escape(conferenceinfo[0], quote=True)+"\">\n";
-   print("  <conference name=\""+xml_escape(conferenceinfo[0], quote=True)+"\">");
+   xmlstring = xmlstring+"  <conference name=\""+xml_escape(str(conferenceinfo[0]), quote=True)+"\">\n";
+   print("  <conference name=\""+xml_escape(str(conferenceinfo[0]), quote=True)+"\">");
    divisioncur = sqlcon.cursor();
    getdivision_num = divisioncur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"").fetchone()[0];
    getdivision = divisioncur.execute("SELECT Division FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"");
    for divisioninfo in getdivision:
-    xmlstring = xmlstring+"   <division name=\""+xml_escape(divisioninfo[0], quote=True)+"\">\n";
-    print("   <division name=\""+xml_escape(divisioninfo[0], quote=True)+"\">");
+    xmlstring = xmlstring+"   <division name=\""+xml_escape(str(divisioninfo[0]), quote=True)+"\">\n";
+    print("   <division name=\""+xml_escape(str(divisioninfo[0]), quote=True)+"\">");
     teamcur = sqlcon.cursor();
     getteam_num = teamcur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"").fetchone()[0];
     getteam = teamcur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, TeamName, ArenaName, TeamPrefix, TeamSuffix FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"");
     for teaminfo in getteam:
-     xmlstring = xmlstring+"    <team city=\""+xml_escape(teaminfo[0], quote=True)+"\" area=\""+xml_escape(teaminfo[1], quote=True)+"\" fullarea=\""+xml_escape(teaminfo[2], quote=True)+"\" country=\""+xml_escape(teaminfo[3], quote=True)+"\" fullcountry=\""+xml_escape(teaminfo[4], quote=True)+"\" name=\""+xml_escape(teaminfo[5], quote=True)+"\" arena=\""+xml_escape(teaminfo[6], quote=True)+"\" prefix=\""+xml_escape(teaminfo[7], quote=True)+"\" suffix=\""+xml_escape(teaminfo[8], quote=True)+"\" />\n";
-     print("    <team city=\""+xml_escape(teaminfo[0], quote=True)+"\" area=\""+xml_escape(teaminfo[1], quote=True)+"\" fullarea=\""+xml_escape(teaminfo[2], quote=True)+"\" country=\""+xml_escape(teaminfo[3], quote=True)+"\" fullcountry=\""+xml_escape(teaminfo[4], quote=True)+"\" name=\""+xml_escape(teaminfo[5], quote=True)+"\" arena=\""+xml_escape(teaminfo[6], quote=True)+"\" prefix=\""+xml_escape(teaminfo[7], quote=True)+"\" suffix=\""+xml_escape(teaminfo[8], quote=True)+"\" />");
+     xmlstring = xmlstring+"    <team city=\""+xml_escape(str(teaminfo[0]), quote=True)+"\" area=\""+xml_escape(str(teaminfo[1]), quote=True)+"\" fullarea=\""+xml_escape(str(teaminfo[2]), quote=True)+"\" country=\""+xml_escape(str(teaminfo[3]), quote=True)+"\" fullcountry=\""+xml_escape(str(teaminfo[4]), quote=True)+"\" name=\""+xml_escape(str(teaminfo[5]), quote=True)+"\" arena=\""+xml_escape(str(teaminfo[6]), quote=True)+"\" prefix=\""+xml_escape(str(teaminfo[7]), quote=True)+"\" suffix=\""+xml_escape(str(teaminfo[8]), quote=True)+"\" />\n";
+     print("    <team city=\""+xml_escape(str(teaminfo[0]), quote=True)+"\" area=\""+xml_escape(str(teaminfo[1]), quote=True)+"\" fullarea=\""+xml_escape(str(teaminfo[2]), quote=True)+"\" country=\""+xml_escape(str(teaminfo[3]), quote=True)+"\" fullcountry=\""+xml_escape(str(teaminfo[4]), quote=True)+"\" name=\""+xml_escape(str(teaminfo[5]), quote=True)+"\" arena=\""+xml_escape(str(teaminfo[6]), quote=True)+"\" prefix=\""+xml_escape(str(teaminfo[7]), quote=True)+"\" suffix=\""+xml_escape(str(teaminfo[8]), quote=True)+"\" />");
     teamcur.close();
     xmlstring = xmlstring+"   </division>\n";
     print("   </division>");
@@ -1013,8 +1013,8 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date):
    xmlstring = xmlstring+"  <arenas>\n";
    print("  <arenas>");
    for arenainfo in getarena:
-    xmlstring = xmlstring+"   <arena city=\""+xml_escape(arenainfo[0], quote=True)+"\" area=\""+xml_escape(arenainfo[1], quote=True)+"\" fullarea=\""+xml_escape(arenainfo[2], quote=True)+"\" country=\""+xml_escape(arenainfo[3], quote=True)+"\" fullcountry=\""+xml_escape(arenainfo[4], quote=True)+"\" name=\""+xml_escape(arenainfo[5], quote=True)+"\" />\n";
-    print("   <arena city=\""+xml_escape(arenainfo[0], quote=True)+"\" area=\""+xml_escape(arenainfo[1], quote=True)+"\" fullarea=\""+xml_escape(arenainfo[2], quote=True)+"\" country=\""+xml_escape(arenainfo[3], quote=True)+"\" fullcountry=\""+xml_escape(arenainfo[4], quote=True)+"\" name=\""+xml_escape(arenainfo[5], quote=True)+"\" />");
+    xmlstring = xmlstring+"   <arena city=\""+xml_escape(str(arenainfo[0]), quote=True)+"\" area=\""+xml_escape(str(arenainfo[1]), quote=True)+"\" fullarea=\""+xml_escape(str(arenainfo[2]), quote=True)+"\" country=\""+xml_escape(str(arenainfo[3]), quote=True)+"\" fullcountry=\""+xml_escape(str(arenainfo[4]), quote=True)+"\" name=\""+xml_escape(str(arenainfo[5]), quote=True)+"\" />\n";
+    print("   <arena city=\""+xml_escape(str(arenainfo[0]), quote=True)+"\" area=\""+xml_escape(str(arenainfo[1]), quote=True)+"\" fullarea=\""+xml_escape(str(arenainfo[2]), quote=True)+"\" country=\""+xml_escape(str(arenainfo[3]), quote=True)+"\" fullcountry=\""+xml_escape(str(arenainfo[4]), quote=True)+"\" name=\""+xml_escape(str(arenainfo[5]), quote=True)+"\" />");
    xmlstring = xmlstring+"  </arenas>\n";
    print("  </arenas>");
   gamecur = sqlcon.cursor();
@@ -1024,8 +1024,8 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date):
    xmlstring = xmlstring+"  <games>\n";
    print("  <games>");
    for gameinfo in getgame:
-    xmlstring = xmlstring+"   <game date=\""+xml_escape(gameinfo[0], quote=True)+"\" hometeam=\""+xml_escape(gameinfo[1], quote=True)+"\" awayteam=\""+xml_escape(gameinfo[2], quote=True)+"\" goals=\""+xml_escape(gameinfo[3], quote=True)+"\" sogs=\""+xml_escape(gameinfo[4], quote=True)+"\" ppgs=\""+xml_escape(gameinfo[5], quote=True)+"\" shgs=\""+xml_escape(gameinfo[6], quote=True)+"\" penalties=\""+xml_escape(gameinfo[7], quote=True)+"\" pims=\""+xml_escape(gameinfo[8], quote=True)+"\" hits=\""+xml_escape(gameinfo[9], quote=True)+"\" takeaways=\""+xml_escape(gameinfo[10], quote=True)+"\" faceoffwins=\""+xml_escape(gameinfo[11], quote=True)+"\" atarena=\""+xml_escape(gameinfo[12], quote=True)+"\" isplayoffgame=\""+xml_escape(gameinfo[13], quote=True)+"\" />\n";
-    print("   <game date=\""+xml_escape(gameinfo[0], quote=True)+"\" hometeam=\""+xml_escape(gameinfo[1], quote=True)+"\" awayteam=\""+xml_escape(gameinfo[2], quote=True)+"\" goals=\""+xml_escape(gameinfo[3], quote=True)+"\" sogs=\""+xml_escape(gameinfo[4], quote=True)+"\" ppgs=\""+xml_escape(gameinfo[5], quote=True)+"\" shgs=\""+xml_escape(gameinfo[6], quote=True)+"\" penalties=\""+xml_escape(gameinfo[7], quote=True)+"\" pims=\""+xml_escape(gameinfo[8], quote=True)+"\" hits=\""+xml_escape(gameinfo[9], quote=True)+"\" takeaways=\""+xml_escape(gameinfo[10], quote=True)+"\" faceoffwins=\""+xml_escape(gameinfo[11], quote=True)+"\" atarena=\""+xml_escape(gameinfo[12], quote=True)+"\" isplayoffgame=\""+xml_escape(gameinfo[13], quote=True)+"\" />");
+    xmlstring = xmlstring+"   <game date=\""+xml_escape(str(gameinfo[0]), quote=True)+"\" hometeam=\""+xml_escape(str(gameinfo[1]), quote=True)+"\" awayteam=\""+xml_escape(str(gameinfo[2]), quote=True)+"\" goals=\""+xml_escape(str(gameinfo[3]), quote=True)+"\" sogs=\""+xml_escape(str(gameinfo[4]), quote=True)+"\" ppgs=\""+xml_escape(str(gameinfo[5]), quote=True)+"\" shgs=\""+xml_escape(str(gameinfo[6]), quote=True)+"\" penalties=\""+xml_escape(str(gameinfo[7]), quote=True)+"\" pims=\""+xml_escape(str(gameinfo[8]), quote=True)+"\" hits=\""+xml_escape(str(gameinfo[9]), quote=True)+"\" takeaways=\""+xml_escape(str(gameinfo[10]), quote=True)+"\" faceoffwins=\""+xml_escape(str(gameinfo[11]), quote=True)+"\" atarena=\""+xml_escape(str(gameinfo[12]), quote=True)+"\" isplayoffgame=\""+xml_escape(str(gameinfo[13]), quote=True)+"\" />\n";
+    print("   <game date=\""+xml_escape(str(gameinfo[0]), quote=True)+"\" hometeam=\""+xml_escape(str(gameinfo[1]), quote=True)+"\" awayteam=\""+xml_escape(str(gameinfo[2]), quote=True)+"\" goals=\""+xml_escape(str(gameinfo[3]), quote=True)+"\" sogs=\""+xml_escape(str(gameinfo[4]), quote=True)+"\" ppgs=\""+xml_escape(str(gameinfo[5]), quote=True)+"\" shgs=\""+xml_escape(str(gameinfo[6]), quote=True)+"\" penalties=\""+xml_escape(str(gameinfo[7]), quote=True)+"\" pims=\""+xml_escape(str(gameinfo[8]), quote=True)+"\" hits=\""+xml_escape(str(gameinfo[9]), quote=True)+"\" takeaways=\""+xml_escape(str(gameinfo[10]), quote=True)+"\" faceoffwins=\""+xml_escape(str(gameinfo[11]), quote=True)+"\" atarena=\""+xml_escape(str(gameinfo[12]), quote=True)+"\" isplayoffgame=\""+xml_escape(str(gameinfo[13]), quote=True)+"\" />");
    xmlstring = xmlstring+"  </games>\n";
    print("  </games>");
   xmlstring = xmlstring+" </league>\n";
