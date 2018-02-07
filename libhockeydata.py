@@ -1154,7 +1154,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile):
  sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
  sqldump = sqldump+"--\n";
- sqldump = sqldump+"-- Database: :memory:\n";
+ sqldump = sqldump+"-- Database: "+sdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  print("-- "+__program_name__+" SQL Dumper\n");
