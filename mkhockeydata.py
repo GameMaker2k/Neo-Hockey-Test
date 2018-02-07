@@ -47,6 +47,7 @@ if(curaction=="help"):
 if(curaction=="mkhockeyxmlfile"):
  argparser = argparse.ArgumentParser(description="convert hockey sqlite file to hockey xml", conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-f", "--file", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
@@ -56,6 +57,7 @@ if(curaction=="mkhockeyxmlfile"):
 if(curaction=="mkhockeydatabase"):
  argparser = argparse.ArgumentParser(description="convert hockey xml file to hockey sqlite database", conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-f", "--file", default="./hockeydata.xml", help="xml file to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="sqlite database to output");
  getargs = argparser.parse_args();
@@ -64,6 +66,7 @@ if(curaction=="mkhockeydatabase"):
 if(curaction=="mkhockeypyfromdatabase"):
  argparser = argparse.ArgumentParser(description="convert hockey sqlite database to hockey python file", conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-f", "--file", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="python file to output");
  argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
@@ -73,6 +76,7 @@ if(curaction=="mkhockeypyfromdatabase"):
 if(curaction=="mkhockeypyfromxmlfile"):
  argparser = argparse.ArgumentParser(description="convert hockey xml file to hockey python file", conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-f", "--file", default="./hockeydata.xml", help="xml file to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="python file to output");
  getargs = argparser.parse_args();
@@ -81,6 +85,7 @@ if(curaction=="mkhockeypyfromxmlfile"):
 if(curaction=="mkhockeysqlfromdatabase"):
  argparser = argparse.ArgumentParser(description="convert hockey sqlite database to hockey sql file", conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-f", "--file", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="sql file to output");
  getargs = argparser.parse_args();
@@ -89,6 +94,7 @@ if(curaction=="mkhockeysqlfromdatabase"):
 if(curaction=="mkhockeysqlfromxmlfile"):
  argparser = argparse.ArgumentParser(description="convert hockey xml file to hockey sql file", conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-f", "--file", default="./hockeydata.xml", help="xml file to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="sql file to output");
  getargs = argparser.parse_args();

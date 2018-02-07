@@ -1146,7 +1146,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile):
  else:
   return False;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
- sqldump = sqldump+"-- "+__version__+"\n";
+ sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
  sqldump = sqldump+"--\n";
  sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
@@ -1266,7 +1266,7 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False):
          MakeHockeyTeams(sqldatacon, getleague.attrib['name'], str(gethockey.attrib['year']+gethockey.attrib['month']+gethockey.attrib['day']), getteam.attrib['city'], getteam.attrib['area'], getteam.attrib['country'], getteam.attrib['fullcountry'], getteam.attrib['fullarea'], getteam.attrib['name'], getconference.attrib['name'], getdivision.attrib['name'], getteam.attrib['arena'], getteam.attrib['prefix'], getteam.attrib['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
         teamcount = teamcount + 1;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
- sqldump = sqldump+"-- "+__version__+"\n";
+ sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
  sqldump = sqldump+"--\n";
  sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
