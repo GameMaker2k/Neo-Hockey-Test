@@ -973,14 +973,18 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date):
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
  for leagueinfo in getleague:
-  HockeyLeagueHasDivisions = "yes";
+  HockeyLeagueHasDivisions = True;
+  HockeyLeagueHasDivisionStr = "yes";
   if(int(leagueinfo[4])<=0):
-   HockeyLeagueHasDivisions = "no";
-  HockeyLeagueHasConferences = "yes";
+   HockeyLeagueHasDivisions = False;
+   HockeyLeagueHasDivisionStr = "no";
+  HockeyLeagueHasConferences = True;
+  HockeyLeagueHasConferenceStr = "yes";
   if(int(leagueinfo[5])<=0):
-   HockeyLeagueHasConferences = "no";
-  xmlstring = xmlstring+" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" divisions=\""+xml_escape(str(leagueinfo[5]), quote=True)+"\">\n";
-  print(" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" divisions=\""+xml_escape(str(leagueinfo[5]), quote=True)+"\">");
+   HockeyLeagueHasConferences = False;
+   HockeyLeagueHasConferenceStr = "no";
+  xmlstring = xmlstring+" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">\n";
+  print(" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
   conferencecur = sqlcon.cursor();
   getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"").fetchone()[0];
   getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"");
@@ -1074,11 +1078,15 @@ def MakeHockeyPythonFromHockeyDatabase(sdbfile, date):
  pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n";
  for leagueinfo in getleague:
   HockeyLeagueHasDivisions = True;
+  HockeyLeagueHasDivisionStr = "yes";
   if(int(leagueinfo[4])<=0):
    HockeyLeagueHasDivisions = False;
+   HockeyLeagueHasDivisionStr = "no";
   HockeyLeagueHasConferences = True;
+  HockeyLeagueHasConferenceStr = "yes";
   if(int(leagueinfo[5])<=0):
    HockeyLeagueHasConferences = False;
+   HockeyLeagueHasConferenceStr = "no";
   print(pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyLeagues(sqldatacon, \""+leagueinfo[0]+"\", \""+leagueinfo[1]+"\", \""+leagueinfo[2]+"\", \""+leagueinfo[3]+"\");");
   pystring = pystring+pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+leagueinfo[0]+"\");\n"+pyfilename+".MakeHockeyLeagues(sqldatacon, \""+leagueinfo[0]+"\", \""+leagueinfo[1]+"\", \""+leagueinfo[2]+"\", \""+leagueinfo[3]+"\");\n";
   conferencecur = sqlcon.cursor();
