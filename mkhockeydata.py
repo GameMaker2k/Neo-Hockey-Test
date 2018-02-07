@@ -33,15 +33,20 @@ __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 curaction = "mkhockeydatabase";
 cursaction = os.path.splitext(os.path.basename(__file__))[0];
 
+if(getattr(sys, 'frozen', False)):
+ application_path = os.path.splitext(os.path.basename(sys.executable))[0];
+else:
+ cursaction = os.path.splitext(os.path.basename(__file__))[0];
+
 if(len(sys.argv)>=2):
- if(sys.argv[1]!="mkhockeyxmlfile" and sys.argv[1]!="mkhockeydatabase" and sys.argv[1]!="mkhockeypyfromdatabase" and sys.argv[1]!="mkhockeypyfromxmlfile" and sys.argv[1]!="mkhockeysqlfromdatabase" and sys.argv[1]!="mkhockeysqlfromxmlfile" and sys.argv[1]!="help"):
+ if(sys.argv[1]!="mkhockeyxmlfile" and sys.argv[1]!="mkhockeydatabase" and sys.argv[1]!="mkhockeypyfromdatabase" and sys.argv[1]!="mkhockeypyfromxmlfile" and sys.argv[1]!="mkhockeysqlfromdatabase" and sys.argv[1]!="mkhockeysqlfromxmlfile" and sys.argv[1]!="help" and sys.argv[1]!="h"):
   curaction = "mkhockeydatabase";
- if(cursaction=="mkhockeyxmlfile" or cursaction=="mkhockeydatabase" or cursaction=="mkhockeypyfromdatabase" or cursaction=="mkhockeypyfromxmlfile" or cursaction=="mkhockeysqlfromdatabase" or cursaction=="mkhockeysqlfromxmlfile" or cursaction=="help"):
+ if(cursaction=="mkhockeyxmlfile" or cursaction=="mkhockeydatabase" or cursaction=="mkhockeypyfromdatabase" or cursaction=="mkhockeypyfromxmlfile" or cursaction=="mkhockeysqlfromdatabase" or cursaction=="mkhockeysqlfromxmlfile" or cursaction=="help" or cursaction=="h"):
   curaction = cursaction;
- if(sys.argv[1]=="mkhockeyxmlfile" or sys.argv[1]=="mkhockeydatabase" or sys.argv[1]=="mkhockeypyfromdatabase" or sys.argv[1]=="mkhockeypyfromxmlfile" or sys.argv[1]=="mkhockeysqlfromdatabase" or sys.argv[1]=="mkhockeysqlfromxmlfile" or sys.argv[1]=="help"):
+ if(sys.argv[1]=="mkhockeyxmlfile" or sys.argv[1]=="mkhockeydatabase" or sys.argv[1]=="mkhockeypyfromdatabase" or sys.argv[1]=="mkhockeypyfromxmlfile" or sys.argv[1]=="mkhockeysqlfromdatabase" or sys.argv[1]=="mkhockeysqlfromxmlfile" or sys.argv[1]=="help" or sys.argv[1]=="h"):
   curaction = sys.argv[1];
 
-if(curaction=="help"):
+if(curaction=="help" or curaction=="h"):
  print("Actions: help mkhockeyxmlfile mkhockeydatabase mkhockeypyfromdatabase mkhockeypyfromxmlfile mkhockeysqlfromdatabase mkhockeysqlfromxmlfile");
 
 if(curaction=="mkhockeyxmlfile"):
