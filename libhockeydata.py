@@ -1247,7 +1247,7 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
  else:
   return False;
  sqldatacon = MakeHockeyDatabase(sdbfile);
- sqldatacon[0].executescript(sql);
+ sqldatacon[0].executescript(sqlstring);
  CloseHockeyDatabase(sqldatacon);
  if(returnsql is True):
   return sqlstring;
@@ -1260,7 +1260,7 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(insqlfile, sdbfile=None, outsqlfile=Non
   return False;
  if(outsqlfile is None):
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
-  outsqlfile = file_wo_extension+".sql";
+  outsqlfile = file_wo_extension+".db3";
  sqlfp = open(outsqlfile, "w+");
  sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True);
  sqlfp.write(sqlstring);
