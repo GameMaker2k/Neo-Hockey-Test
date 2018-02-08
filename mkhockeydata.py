@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeydata.py - Last Update: 2/7/2018 Ver. 0.0.3 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeydata.py - Last Update: 2/8/2018 Ver. 0.0.3 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -86,10 +86,10 @@ if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="sql dump file to import");
+ argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.sql", help="sql dump file to import");
  argparser.add_argument("-o", "--outfile", default=None, help="sqlite database to output");
  getargs = argparser.parse_args();
- libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile);
+ libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile);
 
 if(curaction==getactlist[3]):
  argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
