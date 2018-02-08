@@ -31,6 +31,9 @@ __version__ = libhockeydata.__version__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 
 getactlist = ["mkhockeyxmlfile", "mkhockeydatabase", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h"];
+getactstr = "Actions:";
+for getactsublist in getactlist:
+ getactstr = getactstr+" "+getactsublist;
 curaction = "mkhockeydatabase";
 cursaction = os.path.splitext(os.path.basename(sys.argv[0]))[0];
 cursactionspt = list(cursaction.split("-"));
@@ -55,7 +58,7 @@ if(len(sys.argv)>=2):
     break;
 
 if(curaction=="help" or curaction=="h"):
- print("Actions: help mkhockeyxmlfile mkhockeydatabase mkhockeypyfromdatabase mkhockeypyfromxmlfile mkhockeysqlfromdatabase mkhockeysqlfromxmlfile");
+ print(getactstr);
 
 if(curaction=="mkhockeyxmlfile"):
  argparser = argparse.ArgumentParser(description="convert hockey sqlite database to hockey xml file", conflict_handler="resolve", add_help=True);
