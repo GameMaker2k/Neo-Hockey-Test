@@ -1557,7 +1557,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile):
   sqldump = sqldump+"--\n";
   sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
-  sqldump = sqldump+tabresult+"\n\n";
+  sqldump = sqldump+tabresult+";\n\n";
   sqldump = sqldump+"--\n";
   sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
@@ -1566,7 +1566,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile):
   print("-- Table structure for table "+str(get_cur_tab)+"");
   print("--");
   print(" ");
-  print(tabresult+"");
+  print(tabresult+";");
   print(" ");
   print("--");
   print("-- Dumping data for table "+str(get_cur_tab)+"");
@@ -1705,7 +1705,7 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False):
   sqldump = sqldump+"--\n";
   sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
-  sqldump = sqldump+tabresult+"\n\n";
+  sqldump = sqldump+tabresult+";\n\n";
   sqldump = sqldump+"--\n";
   sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
@@ -1714,7 +1714,7 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False):
   print("-- Table structure for table "+str(get_cur_tab)+"");
   print("--");
   print(" ");
-  print(tabresult+"");
+  print(tabresult+";");
   print(" ");
   print("--");
   print("-- Dumping data for table "+str(get_cur_tab)+"");

@@ -2,7 +2,7 @@
 -- version 0.0.3 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: February 07, 2018 at 11:03 PM
+-- Generation Time: February 07, 2018 at 11:08 PM
 -- SQLite Server version: 3.21.0
 -- PySQLite version: 2.6.0
 -- Python Version: 3.6.4
@@ -26,7 +26,7 @@ CREATE TABLE HockeyLeagues (
   NumberOfTeams INTEGER,
   NumberOfConferences INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table HockeyLeagues
@@ -58,7 +58,7 @@ CREATE TABLE NHLConferences (
   LeagueFullName TEXT,
   NumberOfTeams INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table NHLConferences
@@ -82,7 +82,7 @@ CREATE TABLE NHLDivisions (
   LeagueName TEXT,
   LeagueFullName TEXT,
   NumberOfTeams INTEGER
-)
+);
 
 --
 -- Dumping data for table NHLDivisions
@@ -119,7 +119,7 @@ CREATE TABLE NHLArenas (
   FullArenaName TEXT,
   GamesPlayed INTEGER,
   FOREIGN KEY(TeamID) REFERENCES NHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table NHLArenas
@@ -277,7 +277,7 @@ CREATE TABLE NHLTeams (
   PCT REAL,
   LastTen TEXT,
   Streak TEXT
-)
+);
 
 --
 -- Dumping data for table NHLTeams
@@ -429,7 +429,7 @@ CREATE TABLE NHLStats (
   LastTen TEXT,
   Streak TEXT,
   FOREIGN KEY(TeamID) REFERENCES NHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table NHLStats
@@ -558,7 +558,7 @@ CREATE TABLE NHLGameStats (
   FaceoffDifference INTEGER,
   FOREIGN KEY(GameID) REFERENCES NHLGames(id),
   FOREIGN KEY(TeamID) REFERENCES NHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table NHLGameStats
@@ -604,7 +604,7 @@ CREATE TABLE NHLGames (
   TeamLost TEXT,
   TieGame INTEGER,
   IsPlayOffGame INTEGER
-)
+);
 
 --
 -- Dumping data for table NHLGames
@@ -624,7 +624,7 @@ CREATE TABLE AHLConferences (
   LeagueFullName TEXT,
   NumberOfTeams INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table AHLConferences
@@ -648,7 +648,7 @@ CREATE TABLE AHLDivisions (
   LeagueName TEXT,
   LeagueFullName TEXT,
   NumberOfTeams INTEGER
-)
+);
 
 --
 -- Dumping data for table AHLDivisions
@@ -685,7 +685,7 @@ CREATE TABLE AHLArenas (
   FullArenaName TEXT,
   GamesPlayed INTEGER,
   FOREIGN KEY(TeamID) REFERENCES AHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table AHLArenas
@@ -835,7 +835,7 @@ CREATE TABLE AHLTeams (
   PCT REAL,
   LastTen TEXT,
   Streak TEXT
-)
+);
 
 --
 -- Dumping data for table AHLTeams
@@ -985,7 +985,7 @@ CREATE TABLE AHLStats (
   LastTen TEXT,
   Streak TEXT,
   FOREIGN KEY(TeamID) REFERENCES AHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table AHLStats
@@ -1112,7 +1112,7 @@ CREATE TABLE AHLGameStats (
   FaceoffDifference INTEGER,
   FOREIGN KEY(GameID) REFERENCES AHLGames(id),
   FOREIGN KEY(TeamID) REFERENCES AHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table AHLGameStats
@@ -1158,7 +1158,7 @@ CREATE TABLE AHLGames (
   TeamLost TEXT,
   TieGame INTEGER,
   IsPlayOffGame INTEGER
-)
+);
 
 --
 -- Dumping data for table AHLGames
@@ -1178,7 +1178,7 @@ CREATE TABLE ECHLConferences (
   LeagueFullName TEXT,
   NumberOfTeams INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table ECHLConferences
@@ -1202,7 +1202,7 @@ CREATE TABLE ECHLDivisions (
   LeagueName TEXT,
   LeagueFullName TEXT,
   NumberOfTeams INTEGER
-)
+);
 
 --
 -- Dumping data for table ECHLDivisions
@@ -1239,7 +1239,7 @@ CREATE TABLE ECHLArenas (
   FullArenaName TEXT,
   GamesPlayed INTEGER,
   FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table ECHLArenas
@@ -1381,7 +1381,7 @@ CREATE TABLE ECHLTeams (
   PCT REAL,
   LastTen TEXT,
   Streak TEXT
-)
+);
 
 --
 -- Dumping data for table ECHLTeams
@@ -1525,7 +1525,7 @@ CREATE TABLE ECHLStats (
   LastTen TEXT,
   Streak TEXT,
   FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table ECHLStats
@@ -1646,7 +1646,7 @@ CREATE TABLE ECHLGameStats (
   FaceoffDifference INTEGER,
   FOREIGN KEY(GameID) REFERENCES ECHLGames(id),
   FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table ECHLGameStats
@@ -1692,7 +1692,7 @@ CREATE TABLE ECHLGames (
   TeamLost TEXT,
   TieGame INTEGER,
   IsPlayOffGame INTEGER
-)
+);
 
 --
 -- Dumping data for table ECHLGames
@@ -1712,7 +1712,7 @@ CREATE TABLE FHLConferences (
   LeagueFullName TEXT,
   NumberOfTeams INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table FHLConferences
@@ -1734,7 +1734,7 @@ CREATE TABLE FHLDivisions (
   LeagueName TEXT,
   LeagueFullName TEXT,
   NumberOfTeams INTEGER
-)
+);
 
 --
 -- Dumping data for table FHLDivisions
@@ -1765,7 +1765,7 @@ CREATE TABLE FHLArenas (
   FullArenaName TEXT,
   GamesPlayed INTEGER,
   FOREIGN KEY(TeamID) REFERENCES FHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table FHLArenas
@@ -1865,7 +1865,7 @@ CREATE TABLE FHLTeams (
   PCT REAL,
   LastTen TEXT,
   Streak TEXT
-)
+);
 
 --
 -- Dumping data for table FHLTeams
@@ -1967,7 +1967,7 @@ CREATE TABLE FHLStats (
   LastTen TEXT,
   Streak TEXT,
   FOREIGN KEY(TeamID) REFERENCES FHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table FHLStats
@@ -2046,7 +2046,7 @@ CREATE TABLE FHLGameStats (
   FaceoffDifference INTEGER,
   FOREIGN KEY(GameID) REFERENCES FHLGames(id),
   FOREIGN KEY(TeamID) REFERENCES FHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table FHLGameStats
@@ -2092,7 +2092,7 @@ CREATE TABLE FHLGames (
   TeamLost TEXT,
   TieGame INTEGER,
   IsPlayOffGame INTEGER
-)
+);
 
 --
 -- Dumping data for table FHLGames
@@ -2112,7 +2112,7 @@ CREATE TABLE SPHLConferences (
   LeagueFullName TEXT,
   NumberOfTeams INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table SPHLConferences
@@ -2134,7 +2134,7 @@ CREATE TABLE SPHLDivisions (
   LeagueName TEXT,
   LeagueFullName TEXT,
   NumberOfTeams INTEGER
-)
+);
 
 --
 -- Dumping data for table SPHLDivisions
@@ -2165,7 +2165,7 @@ CREATE TABLE SPHLArenas (
   FullArenaName TEXT,
   GamesPlayed INTEGER,
   FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table SPHLArenas
@@ -2273,7 +2273,7 @@ CREATE TABLE SPHLTeams (
   PCT REAL,
   LastTen TEXT,
   Streak TEXT
-)
+);
 
 --
 -- Dumping data for table SPHLTeams
@@ -2383,7 +2383,7 @@ CREATE TABLE SPHLStats (
   LastTen TEXT,
   Streak TEXT,
   FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table SPHLStats
@@ -2470,7 +2470,7 @@ CREATE TABLE SPHLGameStats (
   FaceoffDifference INTEGER,
   FOREIGN KEY(GameID) REFERENCES SPHLGames(id),
   FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table SPHLGameStats
@@ -2516,7 +2516,7 @@ CREATE TABLE SPHLGames (
   TeamLost TEXT,
   TieGame INTEGER,
   IsPlayOffGame INTEGER
-)
+);
 
 --
 -- Dumping data for table SPHLGames
@@ -2536,7 +2536,7 @@ CREATE TABLE KHLConferences (
   LeagueFullName TEXT,
   NumberOfTeams INTEGER,
   NumberOfDivisions INTEGER
-)
+);
 
 --
 -- Dumping data for table KHLConferences
@@ -2560,7 +2560,7 @@ CREATE TABLE KHLDivisions (
   LeagueName TEXT,
   LeagueFullName TEXT,
   NumberOfTeams INTEGER
-)
+);
 
 --
 -- Dumping data for table KHLDivisions
@@ -2597,7 +2597,7 @@ CREATE TABLE KHLArenas (
   FullArenaName TEXT,
   GamesPlayed INTEGER,
   FOREIGN KEY(TeamID) REFERENCES KHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table KHLArenas
@@ -2743,7 +2743,7 @@ CREATE TABLE KHLTeams (
   PCT REAL,
   LastTen TEXT,
   Streak TEXT
-)
+);
 
 --
 -- Dumping data for table KHLTeams
@@ -2887,7 +2887,7 @@ CREATE TABLE KHLStats (
   LastTen TEXT,
   Streak TEXT,
   FOREIGN KEY(TeamID) REFERENCES KHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table KHLStats
@@ -3008,7 +3008,7 @@ CREATE TABLE KHLGameStats (
   FaceoffDifference INTEGER,
   FOREIGN KEY(GameID) REFERENCES KHLGames(id),
   FOREIGN KEY(TeamID) REFERENCES KHLTeams(id)
-)
+);
 
 --
 -- Dumping data for table KHLGameStats
@@ -3054,7 +3054,7 @@ CREATE TABLE KHLGames (
   TeamLost TEXT,
   TieGame INTEGER,
   IsPlayOffGame INTEGER
-)
+);
 
 --
 -- Dumping data for table KHLGames
