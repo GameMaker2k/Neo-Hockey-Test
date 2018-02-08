@@ -263,7 +263,7 @@ def MakeHockeyLeagueTable(sqldatacon):
  "  NumberOfTeams INTEGER,\n"+
  "  NumberOfConferences INTEGER,\n"+
  "  NumberOfDivisions INTEGER\n"+
- );");
+ ");");
  return True;
 
 def MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname, countryname, fullcountryname):
@@ -279,7 +279,7 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename):
  "  LeagueFullName TEXT,\n"+
  "  NumberOfTeams INTEGER,\n"+
  "  NumberOfDivisions INTEGER\n"+
- );");
+ ");");
  return True;
 
 def MakeHockeyConferences(sqldatacon, leaguename, conference, hasconferences=True):
@@ -297,7 +297,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename):
  "  LeagueName TEXT,\n"+
  "  LeagueFullName TEXT,\n"+
  "  NumberOfTeams INTEGER\n"+
- );");
+ ");");
  return True;
 
 def MakeHockeyDivisions(sqldatacon, leaguename, division, conference, hasconferences=True, hasdivisions=True):
@@ -326,7 +326,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename):
  "  FullArenaName TEXT,\n"+
  "  GamesPlayed INTEGER,\n"+
  "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
- );");
+ ");");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (\n"+
  "  id INTEGER PRIMARY KEY,\n"+
@@ -403,7 +403,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename):
  "  PCT REAL,\n"+
  "  LastTen TEXT,\n"+
  "  Streak TEXT\n"+
- );");
+ ");");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (\n"+
  "  id INTEGER PRIMARY KEY,\n"+
@@ -482,7 +482,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename):
  "  LastTen TEXT,\n"+
  "  Streak TEXT,\n"+
  "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
- );");
+ ");");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (\n"+
  "  id INTEGER PRIMARY KEY,\n"+
@@ -538,7 +538,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename):
  "  FaceoffDifference INTEGER,\n"+
  "  FOREIGN KEY(GameID) REFERENCES "+leaguename+"Games(id),\n"+
  "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
- );");
+ ");");
  return True;
 
 def MakeHockeyTeams(sqldatacon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences=True, hasdivisions=True):
@@ -644,7 +644,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename):
  "  LastTen TEXT,\n"+
  "  Streak TEXT,\n"+
  "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
- );");
+ ");");
  return True;
 
 def MakeHockeyPlayoffTeams(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
@@ -715,7 +715,7 @@ def MakeHockeyGameTable(sqldatacon, leaguename):
  "  TeamLost TEXT,\n"+
  "  TieGame INTEGER,\n"+
  "  IsPlayOffGame INTEGER\n"+
- );");
+ ");");
  return True;
 
 def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
