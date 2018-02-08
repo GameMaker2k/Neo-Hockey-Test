@@ -1617,6 +1617,8 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
     if(isinstance(result_val, int)):
      get_insert_stmt_val += ""+str(result_val)+", ";
+    if(isinstance(result_val, float)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
    get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
    print(get_insert_stmt[:-2]+") VALUES ");
    get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
@@ -1764,6 +1766,8 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False):
     if(isinstance(result_val, str)):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
     if(isinstance(result_val, int)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
+    if(isinstance(result_val, float)):
      get_insert_stmt_val += ""+str(result_val)+", ";
    get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
    print(get_insert_stmt[:-2]+") VALUES ");
