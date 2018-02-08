@@ -2,7 +2,7 @@
 -- version 0.0.3 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: February 07, 2018 at 11:41 PM
+-- Generation Time: February 07, 2018 at 11:53 PM
 -- SQLite Server version: 3.21.0
 -- PySQLite version: 2.6.0
 -- Python Version: 3.6.4
@@ -19,7 +19,16 @@
 
 DROP TABLE IF EXISTS HockeyLeagues;
 
-CREATE TABLE HockeyLeagues (id INTEGER PRIMARY KEY, LeagueName TEXT, LeagueFullName TEXT, CountryName TEXT, FullCountryName TEXT, NumberOfTeams INTEGER, NumberOfConferences INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE HockeyLeagues (
+  id INTEGER PRIMARY KEY,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfConferences INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table HockeyLeagues
@@ -46,7 +55,14 @@ INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCoun
 
 DROP TABLE IF EXISTS NHLConferences;
 
-CREATE TABLE NHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE NHLConferences (
+  id INTEGER PRIMARY KEY,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table NHLConferences
@@ -65,7 +81,14 @@ INSERT INTO NHLConferences (id, Conference, LeagueName, LeagueFullName, NumberOf
 
 DROP TABLE IF EXISTS NHLDivisions;
 
-CREATE TABLE NHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER);
+CREATE TABLE NHLDivisions (
+  id INTEGER PRIMARY KEY,
+  Division TEXT,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER
+);
 
 --
 -- Dumping data for table NHLDivisions
@@ -88,7 +111,23 @@ INSERT INTO NHLDivisions (id, Division, Conference, LeagueName, LeagueFullName, 
 
 DROP TABLE IF EXISTS NHLArenas;
 
-CREATE TABLE NHLArenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES NHLTeams(id));
+CREATE TABLE NHLArenas (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  TeamName TEXT,
+  TeamFullName TEXT,
+  CityName TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  FOREIGN KEY(TeamID) REFERENCES NHLTeams(id)
+);
 
 --
 -- Dumping data for table NHLArenas
@@ -157,13 +196,13 @@ INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
 (31, 31, "Golden Knights", "Vegas Golden Knights", "Paradise", "NV", "USA", "United States", "Paradise, NV", "Nevada", "Paradise, Nevada", "T-Mobile Arena", "T-Mobile Arena, Paradise", 0);
 INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(32, 0, "None", "None", "Stockholm", "AB", "SWE", "Sweden", "Stockholm, AB", "Stockholm County", "Stockholm, Stockholm County", "Ericsson Globe", "Ericsson Globe, Stockholm", 0);
+(32, 0, "", "", "Stockholm", "AB", "SWE", "Sweden", "Stockholm, AB", "Stockholm County", "Stockholm, Stockholm County", "Ericsson Globe", "Ericsson Globe, Stockholm", 0);
 INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(33, 0, "None", "None", "Ottawa", "ON", "CAN", "Canada", "Ottawa, ON", "Ontario", "Ottawa, Ontario", "Lansdowne Park", "Lansdowne Park, Ottawa", 0);
+(33, 0, "", "", "Ottawa", "ON", "CAN", "Canada", "Ottawa, ON", "Ontario", "Ottawa, Ontario", "Lansdowne Park", "Lansdowne Park, Ottawa", 0);
 INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(34, 0, "None", "None", "New York City", "NY", "USA", "United States", "New York City, NY", "New York", "New York City, New York", "Citi Field", "Citi Field, New York City", 0);
+(34, 0, "", "", "New York City", "NY", "USA", "United States", "New York City, NY", "New York", "New York City, New York", "Citi Field", "Citi Field, New York City", 0);
 INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(35, 0, "None", "None", "Annapolis", "MD", "USA", "United States", "Annapolis, MD", "Maryland", "Annapolis, Maryland", "United States Naval Academy", "United States Naval Academy, Annapolis", 0);
+(35, 0, "", "", "Annapolis", "MD", "USA", "United States", "Annapolis, MD", "Maryland", "Annapolis, Maryland", "United States Naval Academy", "United States Naval Academy, Annapolis", 0);
 
 -- --------------------------------------------------------
 
@@ -173,7 +212,82 @@ INSERT INTO NHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 
 DROP TABLE IF EXISTS NHLTeams;
 
-CREATE TABLE NHLTeams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT);
+CREATE TABLE NHLTeams (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT
+);
 
 --
 -- Dumping data for table NHLTeams
@@ -250,7 +364,84 @@ INSERT INTO NHLTeams (id, Date, FullName, CityName, TeamPrefix, TeamSuffix, Area
 
 DROP TABLE IF EXISTS NHLStats;
 
-CREATE TABLE NHLStats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES NHLTeams(id));
+CREATE TABLE NHLStats (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT,
+  FOREIGN KEY(TeamID) REFERENCES NHLTeams(id)
+);
 
 --
 -- Dumping data for table NHLStats
@@ -327,7 +518,61 @@ INSERT INTO NHLStats (id, TeamID, Date, FullName, CityName, TeamPrefix, TeamSuff
 
 DROP TABLE IF EXISTS NHLGameStats;
 
-CREATE TABLE NHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES NHLGames(id), FOREIGN KEY(TeamID) REFERENCES NHLTeams(id));
+CREATE TABLE NHLGameStats (
+  id INTEGER PRIMARY KEY,
+  GameID INTEGER,
+  Date INTEGER,
+  TeamID INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  FOREIGN KEY(GameID) REFERENCES NHLGames(id),
+  FOREIGN KEY(TeamID) REFERENCES NHLTeams(id)
+);
 
 --
 -- Dumping data for table NHLGameStats
@@ -342,7 +587,40 @@ CREATE TABLE NHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER,
 
 DROP TABLE IF EXISTS NHLGames;
 
-CREATE TABLE NHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER);
+CREATE TABLE NHLGames (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  HomeTeam TEXT,
+  AwayTeam TEXT,
+  AtArena TEXT,
+  TeamScorePeriods TEXT,
+  TeamFullScore TEXT,
+  ShotsOnGoal TEXT,
+  FullShotsOnGoal TEXT,
+  ShotsBlocked TEXT,
+  FullShotsBlocked TEXT,
+  PowerPlays TEXT,
+  FullPowerPlays TEXT,
+  ShortHanded TEXT,
+  FullShortHanded TEXT,
+  Penalties TEXT,
+  FullPenalties TEXT,
+  PenaltyMinutes TEXT,
+  FullPenaltyMinutes TEXT,
+  HitsPerPeriod TEXT,
+  FullHitsPerPeriod TEXT,
+  TakeAways TEXT,
+  FullTakeAways TEXT,
+  GiveAways TEXT,
+  FullGiveAways TEXT,
+  FaceoffWins TEXT,
+  FullFaceoffWins TEXT,
+  NumberPeriods INTEGER,
+  TeamWin TEXT,
+  TeamLost TEXT,
+  TieGame INTEGER,
+  IsPlayOffGame INTEGER
+);
 
 --
 -- Dumping data for table NHLGames
@@ -357,7 +635,14 @@ CREATE TABLE NHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, Away
 
 DROP TABLE IF EXISTS AHLConferences;
 
-CREATE TABLE AHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE AHLConferences (
+  id INTEGER PRIMARY KEY,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table AHLConferences
@@ -376,7 +661,14 @@ INSERT INTO AHLConferences (id, Conference, LeagueName, LeagueFullName, NumberOf
 
 DROP TABLE IF EXISTS AHLDivisions;
 
-CREATE TABLE AHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER);
+CREATE TABLE AHLDivisions (
+  id INTEGER PRIMARY KEY,
+  Division TEXT,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER
+);
 
 --
 -- Dumping data for table AHLDivisions
@@ -399,7 +691,23 @@ INSERT INTO AHLDivisions (id, Division, Conference, LeagueName, LeagueFullName, 
 
 DROP TABLE IF EXISTS AHLArenas;
 
-CREATE TABLE AHLArenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES AHLTeams(id));
+CREATE TABLE AHLArenas (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  TeamName TEXT,
+  TeamFullName TEXT,
+  CityName TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  FOREIGN KEY(TeamID) REFERENCES AHLTeams(id)
+);
 
 --
 -- Dumping data for table AHLArenas
@@ -466,7 +774,7 @@ INSERT INTO AHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 INSERT INTO AHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
 (30, 30, "Roadrunners", "Tucson Roadrunners", "Tucson", "AZ", "USA", "United States", "Tucson, AZ", "Arizona", "Tucson, Arizona", "Tucson Convention Center", "Tucson Convention Center, Tucson", 0);
 INSERT INTO AHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(31, 0, "None", "None", "Hershey", "PA", "USA", "United States", "Hershey, PA", "Pennsylvania", "Hershey, Pennsylvania", "Hersheypark Stadium", "Hersheypark Stadium, Hershey", 0);
+(31, 0, "", "", "Hershey", "PA", "USA", "United States", "Hershey, PA", "Pennsylvania", "Hershey, Pennsylvania", "Hersheypark Stadium", "Hersheypark Stadium, Hershey", 0);
 
 -- --------------------------------------------------------
 
@@ -476,7 +784,82 @@ INSERT INTO AHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 
 DROP TABLE IF EXISTS AHLTeams;
 
-CREATE TABLE AHLTeams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT);
+CREATE TABLE AHLTeams (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT
+);
 
 --
 -- Dumping data for table AHLTeams
@@ -551,7 +934,84 @@ INSERT INTO AHLTeams (id, Date, FullName, CityName, TeamPrefix, TeamSuffix, Area
 
 DROP TABLE IF EXISTS AHLStats;
 
-CREATE TABLE AHLStats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES AHLTeams(id));
+CREATE TABLE AHLStats (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT,
+  FOREIGN KEY(TeamID) REFERENCES AHLTeams(id)
+);
 
 --
 -- Dumping data for table AHLStats
@@ -626,7 +1086,61 @@ INSERT INTO AHLStats (id, TeamID, Date, FullName, CityName, TeamPrefix, TeamSuff
 
 DROP TABLE IF EXISTS AHLGameStats;
 
-CREATE TABLE AHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES AHLGames(id), FOREIGN KEY(TeamID) REFERENCES AHLTeams(id));
+CREATE TABLE AHLGameStats (
+  id INTEGER PRIMARY KEY,
+  GameID INTEGER,
+  Date INTEGER,
+  TeamID INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  FOREIGN KEY(GameID) REFERENCES AHLGames(id),
+  FOREIGN KEY(TeamID) REFERENCES AHLTeams(id)
+);
 
 --
 -- Dumping data for table AHLGameStats
@@ -641,7 +1155,40 @@ CREATE TABLE AHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER,
 
 DROP TABLE IF EXISTS AHLGames;
 
-CREATE TABLE AHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER);
+CREATE TABLE AHLGames (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  HomeTeam TEXT,
+  AwayTeam TEXT,
+  AtArena TEXT,
+  TeamScorePeriods TEXT,
+  TeamFullScore TEXT,
+  ShotsOnGoal TEXT,
+  FullShotsOnGoal TEXT,
+  ShotsBlocked TEXT,
+  FullShotsBlocked TEXT,
+  PowerPlays TEXT,
+  FullPowerPlays TEXT,
+  ShortHanded TEXT,
+  FullShortHanded TEXT,
+  Penalties TEXT,
+  FullPenalties TEXT,
+  PenaltyMinutes TEXT,
+  FullPenaltyMinutes TEXT,
+  HitsPerPeriod TEXT,
+  FullHitsPerPeriod TEXT,
+  TakeAways TEXT,
+  FullTakeAways TEXT,
+  GiveAways TEXT,
+  FullGiveAways TEXT,
+  FaceoffWins TEXT,
+  FullFaceoffWins TEXT,
+  NumberPeriods INTEGER,
+  TeamWin TEXT,
+  TeamLost TEXT,
+  TieGame INTEGER,
+  IsPlayOffGame INTEGER
+);
 
 --
 -- Dumping data for table AHLGames
@@ -656,7 +1203,14 @@ CREATE TABLE AHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, Away
 
 DROP TABLE IF EXISTS ECHLConferences;
 
-CREATE TABLE ECHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE ECHLConferences (
+  id INTEGER PRIMARY KEY,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table ECHLConferences
@@ -675,7 +1229,14 @@ INSERT INTO ECHLConferences (id, Conference, LeagueName, LeagueFullName, NumberO
 
 DROP TABLE IF EXISTS ECHLDivisions;
 
-CREATE TABLE ECHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER);
+CREATE TABLE ECHLDivisions (
+  id INTEGER PRIMARY KEY,
+  Division TEXT,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER
+);
 
 --
 -- Dumping data for table ECHLDivisions
@@ -698,7 +1259,23 @@ INSERT INTO ECHLDivisions (id, Division, Conference, LeagueName, LeagueFullName,
 
 DROP TABLE IF EXISTS ECHLArenas;
 
-CREATE TABLE ECHLArenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id));
+CREATE TABLE ECHLArenas (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  TeamName TEXT,
+  TeamFullName TEXT,
+  CityName TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id)
+);
 
 --
 -- Dumping data for table ECHLArenas
@@ -767,7 +1344,82 @@ INSERT INTO ECHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, 
 
 DROP TABLE IF EXISTS ECHLTeams;
 
-CREATE TABLE ECHLTeams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT);
+CREATE TABLE ECHLTeams (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT
+);
 
 --
 -- Dumping data for table ECHLTeams
@@ -836,7 +1488,84 @@ INSERT INTO ECHLTeams (id, Date, FullName, CityName, TeamPrefix, TeamSuffix, Are
 
 DROP TABLE IF EXISTS ECHLStats;
 
-CREATE TABLE ECHLStats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id));
+CREATE TABLE ECHLStats (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT,
+  FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id)
+);
 
 --
 -- Dumping data for table ECHLStats
@@ -905,7 +1634,61 @@ INSERT INTO ECHLStats (id, TeamID, Date, FullName, CityName, TeamPrefix, TeamSuf
 
 DROP TABLE IF EXISTS ECHLGameStats;
 
-CREATE TABLE ECHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES ECHLGames(id), FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id));
+CREATE TABLE ECHLGameStats (
+  id INTEGER PRIMARY KEY,
+  GameID INTEGER,
+  Date INTEGER,
+  TeamID INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  FOREIGN KEY(GameID) REFERENCES ECHLGames(id),
+  FOREIGN KEY(TeamID) REFERENCES ECHLTeams(id)
+);
 
 --
 -- Dumping data for table ECHLGameStats
@@ -920,7 +1703,40 @@ CREATE TABLE ECHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER
 
 DROP TABLE IF EXISTS ECHLGames;
 
-CREATE TABLE ECHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER);
+CREATE TABLE ECHLGames (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  HomeTeam TEXT,
+  AwayTeam TEXT,
+  AtArena TEXT,
+  TeamScorePeriods TEXT,
+  TeamFullScore TEXT,
+  ShotsOnGoal TEXT,
+  FullShotsOnGoal TEXT,
+  ShotsBlocked TEXT,
+  FullShotsBlocked TEXT,
+  PowerPlays TEXT,
+  FullPowerPlays TEXT,
+  ShortHanded TEXT,
+  FullShortHanded TEXT,
+  Penalties TEXT,
+  FullPenalties TEXT,
+  PenaltyMinutes TEXT,
+  FullPenaltyMinutes TEXT,
+  HitsPerPeriod TEXT,
+  FullHitsPerPeriod TEXT,
+  TakeAways TEXT,
+  FullTakeAways TEXT,
+  GiveAways TEXT,
+  FullGiveAways TEXT,
+  FaceoffWins TEXT,
+  FullFaceoffWins TEXT,
+  NumberPeriods INTEGER,
+  TeamWin TEXT,
+  TeamLost TEXT,
+  TieGame INTEGER,
+  IsPlayOffGame INTEGER
+);
 
 --
 -- Dumping data for table ECHLGames
@@ -935,7 +1751,14 @@ CREATE TABLE ECHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, Awa
 
 DROP TABLE IF EXISTS FHLConferences;
 
-CREATE TABLE FHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE FHLConferences (
+  id INTEGER PRIMARY KEY,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table FHLConferences
@@ -952,7 +1775,14 @@ INSERT INTO FHLConferences (id, Conference, LeagueName, LeagueFullName, NumberOf
 
 DROP TABLE IF EXISTS FHLDivisions;
 
-CREATE TABLE FHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER);
+CREATE TABLE FHLDivisions (
+  id INTEGER PRIMARY KEY,
+  Division TEXT,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER
+);
 
 --
 -- Dumping data for table FHLDivisions
@@ -969,7 +1799,23 @@ INSERT INTO FHLDivisions (id, Division, Conference, LeagueName, LeagueFullName, 
 
 DROP TABLE IF EXISTS FHLArenas;
 
-CREATE TABLE FHLArenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES FHLTeams(id));
+CREATE TABLE FHLArenas (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  TeamName TEXT,
+  TeamFullName TEXT,
+  CityName TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  FOREIGN KEY(TeamID) REFERENCES FHLTeams(id)
+);
 
 --
 -- Dumping data for table FHLArenas
@@ -996,7 +1842,82 @@ INSERT INTO FHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 
 DROP TABLE IF EXISTS FHLTeams;
 
-CREATE TABLE FHLTeams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT);
+CREATE TABLE FHLTeams (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT
+);
 
 --
 -- Dumping data for table FHLTeams
@@ -1023,7 +1944,84 @@ INSERT INTO FHLTeams (id, Date, FullName, CityName, TeamPrefix, TeamSuffix, Area
 
 DROP TABLE IF EXISTS FHLStats;
 
-CREATE TABLE FHLStats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES FHLTeams(id));
+CREATE TABLE FHLStats (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT,
+  FOREIGN KEY(TeamID) REFERENCES FHLTeams(id)
+);
 
 --
 -- Dumping data for table FHLStats
@@ -1050,7 +2048,61 @@ INSERT INTO FHLStats (id, TeamID, Date, FullName, CityName, TeamPrefix, TeamSuff
 
 DROP TABLE IF EXISTS FHLGameStats;
 
-CREATE TABLE FHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES FHLGames(id), FOREIGN KEY(TeamID) REFERENCES FHLTeams(id));
+CREATE TABLE FHLGameStats (
+  id INTEGER PRIMARY KEY,
+  GameID INTEGER,
+  Date INTEGER,
+  TeamID INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  FOREIGN KEY(GameID) REFERENCES FHLGames(id),
+  FOREIGN KEY(TeamID) REFERENCES FHLTeams(id)
+);
 
 --
 -- Dumping data for table FHLGameStats
@@ -1065,7 +2117,40 @@ CREATE TABLE FHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER,
 
 DROP TABLE IF EXISTS FHLGames;
 
-CREATE TABLE FHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER);
+CREATE TABLE FHLGames (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  HomeTeam TEXT,
+  AwayTeam TEXT,
+  AtArena TEXT,
+  TeamScorePeriods TEXT,
+  TeamFullScore TEXT,
+  ShotsOnGoal TEXT,
+  FullShotsOnGoal TEXT,
+  ShotsBlocked TEXT,
+  FullShotsBlocked TEXT,
+  PowerPlays TEXT,
+  FullPowerPlays TEXT,
+  ShortHanded TEXT,
+  FullShortHanded TEXT,
+  Penalties TEXT,
+  FullPenalties TEXT,
+  PenaltyMinutes TEXT,
+  FullPenaltyMinutes TEXT,
+  HitsPerPeriod TEXT,
+  FullHitsPerPeriod TEXT,
+  TakeAways TEXT,
+  FullTakeAways TEXT,
+  GiveAways TEXT,
+  FullGiveAways TEXT,
+  FaceoffWins TEXT,
+  FullFaceoffWins TEXT,
+  NumberPeriods INTEGER,
+  TeamWin TEXT,
+  TeamLost TEXT,
+  TieGame INTEGER,
+  IsPlayOffGame INTEGER
+);
 
 --
 -- Dumping data for table FHLGames
@@ -1080,7 +2165,14 @@ CREATE TABLE FHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, Away
 
 DROP TABLE IF EXISTS SPHLConferences;
 
-CREATE TABLE SPHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE SPHLConferences (
+  id INTEGER PRIMARY KEY,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table SPHLConferences
@@ -1097,7 +2189,14 @@ INSERT INTO SPHLConferences (id, Conference, LeagueName, LeagueFullName, NumberO
 
 DROP TABLE IF EXISTS SPHLDivisions;
 
-CREATE TABLE SPHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER);
+CREATE TABLE SPHLDivisions (
+  id INTEGER PRIMARY KEY,
+  Division TEXT,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER
+);
 
 --
 -- Dumping data for table SPHLDivisions
@@ -1114,7 +2213,23 @@ INSERT INTO SPHLDivisions (id, Division, Conference, LeagueName, LeagueFullName,
 
 DROP TABLE IF EXISTS SPHLArenas;
 
-CREATE TABLE SPHLArenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id));
+CREATE TABLE SPHLArenas (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  TeamName TEXT,
+  TeamFullName TEXT,
+  CityName TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id)
+);
 
 --
 -- Dumping data for table SPHLArenas
@@ -1149,7 +2264,82 @@ INSERT INTO SPHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, 
 
 DROP TABLE IF EXISTS SPHLTeams;
 
-CREATE TABLE SPHLTeams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT);
+CREATE TABLE SPHLTeams (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT
+);
 
 --
 -- Dumping data for table SPHLTeams
@@ -1184,7 +2374,84 @@ INSERT INTO SPHLTeams (id, Date, FullName, CityName, TeamPrefix, TeamSuffix, Are
 
 DROP TABLE IF EXISTS SPHLStats;
 
-CREATE TABLE SPHLStats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id));
+CREATE TABLE SPHLStats (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT,
+  FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id)
+);
 
 --
 -- Dumping data for table SPHLStats
@@ -1219,7 +2486,61 @@ INSERT INTO SPHLStats (id, TeamID, Date, FullName, CityName, TeamPrefix, TeamSuf
 
 DROP TABLE IF EXISTS SPHLGameStats;
 
-CREATE TABLE SPHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES SPHLGames(id), FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id));
+CREATE TABLE SPHLGameStats (
+  id INTEGER PRIMARY KEY,
+  GameID INTEGER,
+  Date INTEGER,
+  TeamID INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  FOREIGN KEY(GameID) REFERENCES SPHLGames(id),
+  FOREIGN KEY(TeamID) REFERENCES SPHLTeams(id)
+);
 
 --
 -- Dumping data for table SPHLGameStats
@@ -1234,7 +2555,40 @@ CREATE TABLE SPHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER
 
 DROP TABLE IF EXISTS SPHLGames;
 
-CREATE TABLE SPHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER);
+CREATE TABLE SPHLGames (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  HomeTeam TEXT,
+  AwayTeam TEXT,
+  AtArena TEXT,
+  TeamScorePeriods TEXT,
+  TeamFullScore TEXT,
+  ShotsOnGoal TEXT,
+  FullShotsOnGoal TEXT,
+  ShotsBlocked TEXT,
+  FullShotsBlocked TEXT,
+  PowerPlays TEXT,
+  FullPowerPlays TEXT,
+  ShortHanded TEXT,
+  FullShortHanded TEXT,
+  Penalties TEXT,
+  FullPenalties TEXT,
+  PenaltyMinutes TEXT,
+  FullPenaltyMinutes TEXT,
+  HitsPerPeriod TEXT,
+  FullHitsPerPeriod TEXT,
+  TakeAways TEXT,
+  FullTakeAways TEXT,
+  GiveAways TEXT,
+  FullGiveAways TEXT,
+  FaceoffWins TEXT,
+  FullFaceoffWins TEXT,
+  NumberPeriods INTEGER,
+  TeamWin TEXT,
+  TeamLost TEXT,
+  TieGame INTEGER,
+  IsPlayOffGame INTEGER
+);
 
 --
 -- Dumping data for table SPHLGames
@@ -1249,7 +2603,14 @@ CREATE TABLE SPHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, Awa
 
 DROP TABLE IF EXISTS KHLConferences;
 
-CREATE TABLE KHLConferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER);
+CREATE TABLE KHLConferences (
+  id INTEGER PRIMARY KEY,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER,
+  NumberOfDivisions INTEGER
+);
 
 --
 -- Dumping data for table KHLConferences
@@ -1268,7 +2629,14 @@ INSERT INTO KHLConferences (id, Conference, LeagueName, LeagueFullName, NumberOf
 
 DROP TABLE IF EXISTS KHLDivisions;
 
-CREATE TABLE KHLDivisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER);
+CREATE TABLE KHLDivisions (
+  id INTEGER PRIMARY KEY,
+  Division TEXT,
+  Conference TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  NumberOfTeams INTEGER
+);
 
 --
 -- Dumping data for table KHLDivisions
@@ -1291,7 +2659,23 @@ INSERT INTO KHLDivisions (id, Division, Conference, LeagueName, LeagueFullName, 
 
 DROP TABLE IF EXISTS KHLArenas;
 
-CREATE TABLE KHLArenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES KHLTeams(id));
+CREATE TABLE KHLArenas (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  TeamName TEXT,
+  TeamFullName TEXT,
+  CityName TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  FOREIGN KEY(TeamID) REFERENCES KHLTeams(id)
+);
 
 --
 -- Dumping data for table KHLArenas
@@ -1352,9 +2736,9 @@ INSERT INTO KHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 INSERT INTO KHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
 (27, 27, "Red Star Kunlun", "Red Star Kunlun", "Beijing", "CN", "CHN", "China", "Beijing, CN", "China", "Beijing, China", "Cadillac Arena", "Cadillac Arena, Beijing", 0);
 INSERT INTO KHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(28, 0, "None", "None", "Helsinki", "FI", "FIN", "Finland", "Helsinki, FI", "Finland", "Helsinki, Finland", "Kaisaniemi Park", "Kaisaniemi Park, Helsinki", 0);
+(28, 0, "", "", "Helsinki", "FI", "FIN", "Finland", "Helsinki, FI", "Finland", "Helsinki, Finland", "Kaisaniemi Park", "Kaisaniemi Park, Helsinki", 0);
 INSERT INTO KHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES 
-(29, 0, "None", "None", "Riga", "LV", "LVA", "Latvia", "Riga, LV", "Latvia", "Riga, Latvia", "Riga City Council Sports Complex", "Riga City Council Sports Complex, Riga", 0);
+(29, 0, "", "", "Riga", "LV", "LVA", "Latvia", "Riga, LV", "Latvia", "Riga, Latvia", "Riga City Council Sports Complex", "Riga City Council Sports Complex, Riga", 0);
 
 -- --------------------------------------------------------
 
@@ -1364,7 +2748,82 @@ INSERT INTO KHLArenas (id, TeamID, TeamName, TeamFullName, CityName, AreaName, C
 
 DROP TABLE IF EXISTS KHLTeams;
 
-CREATE TABLE KHLTeams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT);
+CREATE TABLE KHLTeams (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT
+);
 
 --
 -- Dumping data for table KHLTeams
@@ -1433,7 +2892,84 @@ INSERT INTO KHLTeams (id, Date, FullName, CityName, TeamPrefix, TeamSuffix, Area
 
 DROP TABLE IF EXISTS KHLStats;
 
-CREATE TABLE KHLStats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES KHLTeams(id));
+CREATE TABLE KHLStats (
+  id INTEGER PRIMARY KEY,
+  TeamID INTEGER,
+  Date INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GamesPlayed INTEGER,
+  GamesPlayedHome INTEGER,
+  GamesPlayedAway INTEGER,
+  Ties INTEGER,
+  Wins INTEGER,
+  OTWins INTEGER,
+  SOWins INTEGER,
+  OTSOWins INTEGER,
+  TWins INTEGER,
+  Losses INTEGER,
+  OTLosses INTEGER,
+  SOLosses INTEGER,
+  OTSOLosses INTEGER,
+  TLosses INTEGER,
+  ROW INTEGER,
+  ROT INTEGER,
+  ShutoutWins INTEGER,
+  ShutoutLosses INTEGER,
+  HomeRecord TEXT,
+  AwayRecord TEXT,
+  Shootouts TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  Points INTEGER,
+  PCT REAL,
+  LastTen TEXT,
+  Streak TEXT,
+  FOREIGN KEY(TeamID) REFERENCES KHLTeams(id)
+);
 
 --
 -- Dumping data for table KHLStats
@@ -1502,7 +3038,61 @@ INSERT INTO KHLStats (id, TeamID, Date, FullName, CityName, TeamPrefix, TeamSuff
 
 DROP TABLE IF EXISTS KHLGameStats;
 
-CREATE TABLE KHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES KHLGames(id), FOREIGN KEY(TeamID) REFERENCES KHLTeams(id));
+CREATE TABLE KHLGameStats (
+  id INTEGER PRIMARY KEY,
+  GameID INTEGER,
+  Date INTEGER,
+  TeamID INTEGER,
+  FullName TEXT,
+  CityName TEXT,
+  TeamPrefix TEXT,
+  TeamSuffix TEXT,
+  AreaName TEXT,
+  CountryName TEXT,
+  FullCountryName TEXT,
+  FullCityName TEXT,
+  FullAreaName TEXT,
+  FullCityNameAlt TEXT,
+  TeamName TEXT,
+  Conference TEXT,
+  Division TEXT,
+  LeagueName TEXT,
+  LeagueFullName TEXT,
+  ArenaName TEXT,
+  FullArenaName TEXT,
+  GoalsFor INTEGER,
+  GoalsAgainst INTEGER,
+  GoalsDifference INTEGER,
+  SOGFor INTEGER,
+  SOGAgainst INTEGER,
+  SOGDifference INTEGER,
+  ShotsBlockedFor INTEGER,
+  ShotsBlockedAgainst INTEGER,
+  ShotsBlockedDifference INTEGER,
+  PPGFor INTEGER,
+  PPGAgainst INTEGER,
+  PPGDifference INTEGER,
+  SHGFor INTEGER,
+  SHGAgainst INTEGER,
+  SHGDifference INTEGER,
+  PenaltiesFor INTEGER,
+  PenaltiesAgainst INTEGER,
+  PenaltiesDifference INTEGER,
+  PIMFor INTEGER,
+  PIMAgainst INTEGER,
+  PIMDifference INTEGER,
+  HITSFor INTEGER,
+  HITSAgainst INTEGER,
+  HITSDifference INTEGER,
+  TakeAways INTEGER,
+  GiveAways INTEGER,
+  TAGADifference INTEGER,
+  FaceoffWins INTEGER,
+  FaceoffLosses INTEGER,
+  FaceoffDifference INTEGER,
+  FOREIGN KEY(GameID) REFERENCES KHLGames(id),
+  FOREIGN KEY(TeamID) REFERENCES KHLTeams(id)
+);
 
 --
 -- Dumping data for table KHLGameStats
@@ -1517,7 +3107,40 @@ CREATE TABLE KHLGameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER,
 
 DROP TABLE IF EXISTS KHLGames;
 
-CREATE TABLE KHLGames (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER);
+CREATE TABLE KHLGames (
+  id INTEGER PRIMARY KEY,
+  Date INTEGER,
+  HomeTeam TEXT,
+  AwayTeam TEXT,
+  AtArena TEXT,
+  TeamScorePeriods TEXT,
+  TeamFullScore TEXT,
+  ShotsOnGoal TEXT,
+  FullShotsOnGoal TEXT,
+  ShotsBlocked TEXT,
+  FullShotsBlocked TEXT,
+  PowerPlays TEXT,
+  FullPowerPlays TEXT,
+  ShortHanded TEXT,
+  FullShortHanded TEXT,
+  Penalties TEXT,
+  FullPenalties TEXT,
+  PenaltyMinutes TEXT,
+  FullPenaltyMinutes TEXT,
+  HitsPerPeriod TEXT,
+  FullHitsPerPeriod TEXT,
+  TakeAways TEXT,
+  FullTakeAways TEXT,
+  GiveAways TEXT,
+  FullGiveAways TEXT,
+  FaceoffWins TEXT,
+  FullFaceoffWins TEXT,
+  NumberPeriods INTEGER,
+  TeamWin TEXT,
+  TeamLost TEXT,
+  TieGame INTEGER,
+  IsPlayOffGame INTEGER
+);
 
 --
 -- Dumping data for table KHLGames

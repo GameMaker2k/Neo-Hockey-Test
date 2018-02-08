@@ -67,7 +67,7 @@ if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-f", "--file", default="./hockeydata.db3", help="sqlite database to convert");
+ argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
