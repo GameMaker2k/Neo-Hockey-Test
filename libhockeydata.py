@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 2/7/2018 Ver. 0.0.3 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/8/2018 Ver. 0.0.3 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -30,7 +30,7 @@ __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 0, 3, "RC 1", 1);
-__version_date_info__ = (2018, 2, 7, "RC 1", 1);
+__version_date_info__ = (2018, 2, 8, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -1234,6 +1234,40 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=Non
  if(returnxml is True):
   return xmlstring;
  if(returnxml is False):
+  return True;
+ return True;
+
+def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnsql=False):
+ if(os.path.exists(sqlfile) and os.path.isfile(sqlfile) and sqlisfile is True):
+  sqlfp = open(sqlfile, "r");
+  sqlstring = sqlfp.read();
+  sqlfp.close();
+ elif(sqlisfile is False):
+  sqlstring = sqlfile;
+ else:
+  return False;
+ sqldatacon = MakeHockeyDatabase(sdbfile);
+ sqldatacon[0].executescript(sql);
+ CloseHockeyDatabase(sqldatacon);
+ if(returnsql is True):
+  return sqlstring;
+ if(returnsql is False):
+  return True;
+ return True;
+
+def MakeHockeyDatabaseFromHockeyXMLWrite(insqlfile, sdbfile=None, outsqlfile=None, sqlisfile=True, returnsql=False):
+ if(not os.path.exists(insqlfile) or not os.path.isfile(insqlfile)):
+  return False;
+ if(outsqlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insqlfile);
+  outsqlfile = file_wo_extension+".sql";
+ sqlfp = open(outsqlfile, "w+");
+ sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True);
+ sqlfp.write(sqlstring);
+ sqlfp.close();
+ if(returnsql is True):
+  return sqlstring;
+ if(returnsql is False):
   return True;
  return True;
 
