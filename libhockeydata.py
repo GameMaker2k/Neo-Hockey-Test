@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 2/7/2018 Ver. 0.0.3 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/5/2018 Ver. 0.0.2 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -29,8 +29,8 @@ if(sys.version[0]>="3"):
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
-__version_info__ = (0, 0, 3, "RC 1", 1);
-__version_date_info__ = (2018, 2, 7, "RC 1", 1);
+__version_info__ = (0, 0, 2, "RC 1", 1);
+__version_date_info__ = (2018, 2, 5, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -254,7 +254,16 @@ def GetArena2Num(sqldatacon, leaguename, ArenaName):
 
 def MakeHockeyLeagueTable(sqldatacon):
  sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
- sqldatacon[0].execute("CREATE TABLE HockeyLeagues (id INTEGER PRIMARY KEY, LeagueName TEXT, LeagueFullName TEXT, CountryName TEXT, FullCountryName TEXT, NumberOfTeams INTEGER, NumberOfConferences INTEGER, NumberOfDivisions INTEGER)");
+ sqldatacon[0].execute("CREATE TABLE HockeyLeagues (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  CountryName TEXT,\n"+
+ "  FullCountryName TEXT,\n"+
+ "  NumberOfTeams INTEGER,\n"+
+ "  NumberOfConferences INTEGER,\n"+
+ "  NumberOfDivisions INTEGER\n"+
+ );");
  return True;
 
 def MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname, countryname, fullcountryname):
@@ -263,7 +272,14 @@ def MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname, countryname, fullc
 
 def MakeHockeyConferenceTable(sqldatacon, leaguename):
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (id INTEGER PRIMARY KEY, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER, NumberOfDivisions INTEGER)");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  Conference TEXT,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  NumberOfTeams INTEGER,\n"+
+ "  NumberOfDivisions INTEGER\n"+
+ );");
  return True;
 
 def MakeHockeyConferences(sqldatacon, leaguename, conference, hasconferences=True):
@@ -274,7 +290,14 @@ def MakeHockeyConferences(sqldatacon, leaguename, conference, hasconferences=Tru
 
 def MakeHockeyDivisionTable(sqldatacon, leaguename):
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (id INTEGER PRIMARY KEY, Division TEXT, Conference TEXT, LeagueName TEXT, LeagueFullName TEXT, NumberOfTeams INTEGER)");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  Division TEXT,\n"+
+ "  Conference TEXT,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  NumberOfTeams INTEGER\n"+
+ );");
  return True;
 
 def MakeHockeyDivisions(sqldatacon, leaguename, division, conference, hasconferences=True, hasdivisions=True):
@@ -287,13 +310,235 @@ def MakeHockeyDivisions(sqldatacon, leaguename, division, conference, hasconfere
 
 def MakeHockeyTeamTable(sqldatacon, leaguename):
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (id INTEGER PRIMARY KEY, TeamID INTEGER, TeamName TEXT, TeamFullName TEXT, CityName TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id))");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  TeamID INTEGER,\n"+
+ "  TeamName TEXT,\n"+
+ "  TeamFullName TEXT,\n"+
+ "  CityName TEXT,\n"+
+ "  AreaName TEXT,\n"+
+ "  CountryName TEXT,\n"+
+ "  FullCountryName TEXT,\n"+
+ "  FullCityName TEXT,\n"+
+ "  FullAreaName TEXT,\n"+
+ "  FullCityNameAlt TEXT,\n"+
+ "  ArenaName TEXT,\n"+
+ "  FullArenaName TEXT,\n"+
+ "  GamesPlayed INTEGER,\n"+
+ "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
+ );");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (id INTEGER PRIMARY KEY, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT)");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  Date INTEGER,\n"+
+ "  FullName TEXT,\n"+
+ "  CityName TEXT,\n"+
+ "  TeamPrefix TEXT,\n"+
+ "  TeamSuffix TEXT,\n"+
+ "  AreaName TEXT,\n"+
+ "  CountryName TEXT,\n"+
+ "  FullCountryName TEXT,\n"+
+ "  FullCityName TEXT,\n"+
+ "  FullAreaName TEXT,\n"+
+ "  FullCityNameAlt TEXT,\n"+
+ "  TeamName TEXT,\n"+
+ "  Conference TEXT,\n"+
+ "  Division TEXT,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  ArenaName TEXT,\n"+
+ "  FullArenaName TEXT,\n"+
+ "  GamesPlayed INTEGER,\n"+
+ "  GamesPlayedHome INTEGER,\n"+
+ "  GamesPlayedAway INTEGER,\n"+
+ "  Ties INTEGER,\n"+
+ "  Wins INTEGER,\n"+
+ "  OTWins INTEGER,\n"+
+ "  SOWins INTEGER,\n"+
+ "  OTSOWins INTEGER,\n"+
+ "  TWins INTEGER,\n"+
+ "  Losses INTEGER,\n"+
+ "  OTLosses INTEGER,\n"+
+ "  SOLosses INTEGER,\n"+
+ "  OTSOLosses INTEGER,\n"+
+ "  TLosses INTEGER,\n"+
+ "  ROW INTEGER,\n"+
+ "  ROT INTEGER,\n"+
+ "  ShutoutWins INTEGER,\n"+
+ "  ShutoutLosses INTEGER,\n"+
+ "  HomeRecord TEXT,\n"+
+ "  AwayRecord TEXT,\n"+
+ "  Shootouts TEXT,\n"+
+ "  GoalsFor INTEGER,\n"+
+ "  GoalsAgainst INTEGER,\n"+
+ "  GoalsDifference INTEGER,\n"+
+ "  SOGFor INTEGER,\n"+
+ "  SOGAgainst INTEGER,\n"+
+ "  SOGDifference INTEGER,\n"+
+ "  ShotsBlockedFor INTEGER,\n"+
+ "  ShotsBlockedAgainst INTEGER,\n"+
+ "  ShotsBlockedDifference INTEGER,\n"+
+ "  PPGFor INTEGER,\n"+
+ "  PPGAgainst INTEGER,\n"+
+ "  PPGDifference INTEGER,\n"+
+ "  SHGFor INTEGER,\n"+
+ "  SHGAgainst INTEGER,\n"+
+ "  SHGDifference INTEGER,\n"+
+ "  PenaltiesFor INTEGER,\n"+
+ "  PenaltiesAgainst INTEGER,\n"+
+ "  PenaltiesDifference INTEGER,\n"+
+ "  PIMFor INTEGER,\n"+
+ "  PIMAgainst INTEGER,\n"+
+ "  PIMDifference INTEGER,\n"+
+ "  HITSFor INTEGER,\n"+
+ "  HITSAgainst INTEGER,\n"+
+ "  HITSDifference INTEGER,\n"+
+ "  TakeAways INTEGER,\n"+
+ "  GiveAways INTEGER,\n"+
+ "  TAGADifference INTEGER,\n"+
+ "  FaceoffWins INTEGER,\n"+
+ "  FaceoffLosses INTEGER,\n"+
+ "  FaceoffDifference INTEGER,\n"+
+ "  Points INTEGER,\n"+
+ "  PCT REAL,\n"+
+ "  LastTen TEXT,\n"+
+ "  Streak TEXT\n"+
+ );");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties INTEGER, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id))");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  TeamID INTEGER,\n"+
+ "  Date INTEGER,\n"+
+ "  FullName TEXT,\n"+
+ "  CityName TEXT,\n"+
+ "  TeamPrefix TEXT,\n"+
+ "  TeamSuffix TEXT,\n"+
+ "  AreaName TEXT,\n"+
+ "  CountryName TEXT,\n"+
+ "  FullCountryName TEXT,\n"+
+ "  FullCityName TEXT,\n"+
+ "  FullAreaName TEXT,\n"+
+ "  FullCityNameAlt TEXT,\n"+
+ "  TeamName TEXT,\n"+
+ "  Conference TEXT,\n"+
+ "  Division TEXT,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  ArenaName TEXT,\n"+
+ "  FullArenaName TEXT,\n"+
+ "  GamesPlayed INTEGER,\n"+
+ "  GamesPlayedHome INTEGER,\n"+
+ "  GamesPlayedAway INTEGER,\n"+
+ "  Ties INTEGER,\n"+
+ "  Wins INTEGER,\n"+
+ "  OTWins INTEGER,\n"+
+ "  SOWins INTEGER,\n"+
+ "  OTSOWins INTEGER,\n"+
+ "  TWins INTEGER,\n"+
+ "  Losses INTEGER,\n"+
+ "  OTLosses INTEGER,\n"+
+ "  SOLosses INTEGER,\n"+
+ "  OTSOLosses INTEGER,\n"+
+ "  TLosses INTEGER,\n"+
+ "  ROW INTEGER,\n"+
+ "  ROT INTEGER,\n"+
+ "  ShutoutWins INTEGER,\n"+
+ "  ShutoutLosses INTEGER,\n"+
+ "  HomeRecord TEXT,\n"+
+ "  AwayRecord TEXT,\n"+
+ "  Shootouts TEXT,\n"+
+ "  GoalsFor INTEGER,\n"+
+ "  GoalsAgainst INTEGER,\n"+
+ "  GoalsDifference INTEGER,\n"+
+ "  SOGFor INTEGER,\n"+
+ "  SOGAgainst INTEGER,\n"+
+ "  SOGDifference INTEGER,\n"+
+ "  ShotsBlockedFor INTEGER,\n"+
+ "  ShotsBlockedAgainst INTEGER,\n"+
+ "  ShotsBlockedDifference INTEGER,\n"+
+ "  PPGFor INTEGER,\n"+
+ "  PPGAgainst INTEGER,\n"+
+ "  PPGDifference INTEGER,\n"+
+ "  SHGFor INTEGER,\n"+
+ "  SHGAgainst INTEGER,\n"+
+ "  SHGDifference INTEGER,\n"+
+ "  PenaltiesFor INTEGER,\n"+
+ "  PenaltiesAgainst INTEGER,\n"+
+ "  PenaltiesDifference INTEGER,\n"+
+ "  PIMFor INTEGER,\n"+
+ "  PIMAgainst INTEGER,\n"+
+ "  PIMDifference INTEGER,\n"+
+ "  HITSFor INTEGER,\n"+
+ "  HITSAgainst INTEGER,\n"+
+ "  HITSDifference INTEGER,\n"+
+ "  TakeAways INTEGER,\n"+
+ "  GiveAways INTEGER,\n"+
+ "  TAGADifference INTEGER,\n"+
+ "  FaceoffWins INTEGER,\n"+
+ "  FaceoffLosses INTEGER,\n"+
+ "  FaceoffDifference INTEGER,\n"+
+ "  Points INTEGER,\n"+
+ "  PCT REAL,\n"+
+ "  LastTen TEXT,\n"+
+ "  Streak TEXT,\n"+
+ "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
+ );");
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (id INTEGER PRIMARY KEY, GameID INTEGER, Date INTEGER, TeamID INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, FOREIGN KEY(GameID) REFERENCES "+leaguename+"Games(id), FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id))");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  GameID INTEGER,\n"+
+ "  Date INTEGER,\n"+
+ "  TeamID INTEGER,\n"+
+ "  FullName TEXT,\n"+
+ "  CityName TEXT,\n"+
+ "  TeamPrefix TEXT,\n"+
+ "  TeamSuffix TEXT,\n"+
+ "  AreaName TEXT,\n"+
+ "  CountryName TEXT,\n"+
+ "  FullCountryName TEXT,\n"+
+ "  FullCityName TEXT,\n"+
+ "  FullAreaName TEXT,\n"+
+ "  FullCityNameAlt TEXT,\n"+
+ "  TeamName TEXT,\n"+
+ "  Conference TEXT,\n"+
+ "  Division TEXT,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  ArenaName TEXT,\n"+
+ "  FullArenaName TEXT,\n"+
+ "  GoalsFor INTEGER,\n"+
+ "  GoalsAgainst INTEGER,\n"+
+ "  GoalsDifference INTEGER,\n"+
+ "  SOGFor INTEGER,\n"+
+ "  SOGAgainst INTEGER,\n"+
+ "  SOGDifference INTEGER,\n"+
+ "  ShotsBlockedFor INTEGER,\n"+
+ "  ShotsBlockedAgainst INTEGER,\n"+
+ "  ShotsBlockedDifference INTEGER,\n"+
+ "  PPGFor INTEGER,\n"+
+ "  PPGAgainst INTEGER,\n"+
+ "  PPGDifference INTEGER,\n"+
+ "  SHGFor INTEGER,\n"+
+ "  SHGAgainst INTEGER,\n"+
+ "  SHGDifference INTEGER,\n"+
+ "  PenaltiesFor INTEGER,\n"+
+ "  PenaltiesAgainst INTEGER,\n"+
+ "  PenaltiesDifference INTEGER,\n"+
+ "  PIMFor INTEGER,\n"+
+ "  PIMAgainst INTEGER,\n"+
+ "  PIMDifference INTEGER,\n"+
+ "  HITSFor INTEGER,\n"+
+ "  HITSAgainst INTEGER,\n"+
+ "  HITSDifference INTEGER,\n"+
+ "  TakeAways INTEGER,\n"+
+ "  GiveAways INTEGER,\n"+
+ "  TAGADifference INTEGER,\n"+
+ "  FaceoffWins INTEGER,\n"+
+ "  FaceoffLosses INTEGER,\n"+
+ "  FaceoffDifference INTEGER,\n"+
+ "  FOREIGN KEY(GameID) REFERENCES "+leaguename+"Games(id),\n"+
+ "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
+ );");
  return True;
 
 def MakeHockeyTeams(sqldatacon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences=True, hasdivisions=True):
@@ -322,7 +567,84 @@ def MakeHockeyTeams(sqldatacon, leaguename, date, cityname, areaname, countrynam
 
 def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename):
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"PlayoffTeams");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (id INTEGER PRIMARY KEY, TeamID INTEGER, Date INTEGER, FullName TEXT, CityName TEXT, TeamPrefix TEXT, TeamSuffix TEXT, AreaName TEXT, CountryName TEXT, FullCountryName TEXT, FullCityName TEXT, FullAreaName TEXT, FullCityNameAlt TEXT, TeamName TEXT, Conference TEXT, Division TEXT, LeagueName TEXT, LeagueFullName TEXT, ArenaName TEXT, FullArenaName TEXT, GamesPlayed INTEGER, GamesPlayedHome INTEGER, GamesPlayedAway INTEGER, Ties, Wins INTEGER, OTWins INTEGER, SOWins INTEGER, OTSOWins INTEGER, TWins INTEGER, Losses INTEGER, OTLosses INTEGER, SOLosses INTEGER, OTSOLosses INTEGER, TLosses INTEGER, ROW INTEGER, ROT INTEGER, ShutoutWins INTEGER, ShutoutLosses INTEGER, HomeRecord TEXT, AwayRecord TEXT, Shootouts TEXT, GoalsFor INTEGER, GoalsAgainst INTEGER, GoalsDifference INTEGER, SOGFor INTEGER, SOGAgainst INTEGER, SOGDifference INTEGER, ShotsBlockedFor INTEGER, ShotsBlockedAgainst INTEGER, ShotsBlockedDifference INTEGER, PPGFor INTEGER, PPGAgainst INTEGER, PPGDifference INTEGER, SHGFor INTEGER, SHGAgainst INTEGER, SHGDifference INTEGER, PenaltiesFor INTEGER, PenaltiesAgainst INTEGER, PenaltiesDifference INTEGER, PIMFor INTEGER, PIMAgainst INTEGER, PIMDifference INTEGER, HITSFor INTEGER, HITSAgainst INTEGER, HITSDifference INTEGER, TakeAways INTEGER, GiveAways INTEGER, TAGADifference INTEGER, FaceoffWins INTEGER, FaceoffLosses INTEGER, FaceoffDifference INTEGER, Points INTEGER, PCT REAL, LastTen TEXT, Streak TEXT, FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id))");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  TeamID INTEGER,\n"+
+ "  Date INTEGER,\n"+
+ "  FullName TEXT,\n"+
+ "  CityName TEXT,\n"+
+ "  TeamPrefix TEXT,\n"+
+ "  TeamSuffix TEXT,\n"+
+ "  AreaName TEXT,\n"+
+ "  CountryName TEXT,\n"+
+ "  FullCountryName TEXT,\n"+
+ "  FullCityName TEXT,\n"+
+ "  FullAreaName TEXT,\n"+
+ "  FullCityNameAlt TEXT,\n"+
+ "  TeamName TEXT,\n"+
+ "  Conference TEXT,\n"+
+ "  Division TEXT,\n"+
+ "  LeagueName TEXT,\n"+
+ "  LeagueFullName TEXT,\n"+
+ "  ArenaName TEXT,\n"+
+ "  FullArenaName TEXT,\n"+
+ "  GamesPlayed INTEGER,\n"+
+ "  GamesPlayedHome INTEGER,\n"+
+ "  GamesPlayedAway INTEGER,\n"+
+ "  Ties,\n"+
+ "  Wins INTEGER,\n"+
+ "  OTWins INTEGER,\n"+
+ "  SOWins INTEGER,\n"+
+ "  OTSOWins INTEGER,\n"+
+ "  TWins INTEGER,\n"+
+ "  Losses INTEGER,\n"+
+ "  OTLosses INTEGER,\n"+
+ "  SOLosses INTEGER,\n"+
+ "  OTSOLosses INTEGER,\n"+
+ "  TLosses INTEGER,\n"+
+ "  ROW INTEGER,\n"+
+ "  ROT INTEGER,\n"+
+ "  ShutoutWins INTEGER,\n"+
+ "  ShutoutLosses INTEGER,\n"+
+ "  HomeRecord TEXT,\n"+
+ "  AwayRecord TEXT,\n"+
+ "  Shootouts TEXT,\n"+
+ "  GoalsFor INTEGER,\n"+
+ "  GoalsAgainst INTEGER,\n"+
+ "  GoalsDifference INTEGER,\n"+
+ "  SOGFor INTEGER,\n"+
+ "  SOGAgainst INTEGER,\n"+
+ "  SOGDifference INTEGER,\n"+
+ "  ShotsBlockedFor INTEGER,\n"+
+ "  ShotsBlockedAgainst INTEGER,\n"+
+ "  ShotsBlockedDifference INTEGER,\n"+
+ "  PPGFor INTEGER,\n"+
+ "  PPGAgainst INTEGER,\n"+
+ "  PPGDifference INTEGER,\n"+
+ "  SHGFor INTEGER,\n"+
+ "  SHGAgainst INTEGER,\n"+
+ "  SHGDifference INTEGER,\n"+
+ "  PenaltiesFor INTEGER,\n"+
+ "  PenaltiesAgainst INTEGER,\n"+
+ "  PenaltiesDifference INTEGER,\n"+
+ "  PIMFor INTEGER,\n"+
+ "  PIMAgainst INTEGER,\n"+
+ "  PIMDifference INTEGER,\n"+
+ "  HITSFor INTEGER,\n"+
+ "  HITSAgainst INTEGER,\n"+
+ "  HITSDifference INTEGER,\n"+
+ "  TakeAways INTEGER,\n"+
+ "  GiveAways INTEGER,\n"+
+ "  TAGADifference INTEGER,\n"+
+ "  FaceoffWins INTEGER,\n"+
+ "  FaceoffLosses INTEGER,\n"+
+ "  FaceoffDifference INTEGER,\n"+
+ "  Points INTEGER,\n"+
+ "  PCT REAL,\n"+
+ "  LastTen TEXT,\n"+
+ "  Streak TEXT,\n"+
+ "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n"+
+ );");
  return True;
 
 def MakeHockeyPlayoffTeams(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
@@ -360,7 +682,40 @@ def MakeHockeyArena(sqldatacon, leaguename, cityname, areaname, countryname, ful
 
 def MakeHockeyGameTable(sqldatacon, leaguename):
  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Games");
- sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (id INTEGER PRIMARY KEY, Date INTEGER, HomeTeam TEXT, AwayTeam TEXT, AtArena TEXT, TeamScorePeriods TEXT, TeamFullScore TEXT, ShotsOnGoal TEXT, FullShotsOnGoal TEXT, ShotsBlocked TEXT, FullShotsBlocked TEXT, PowerPlays TEXT, FullPowerPlays TEXT, ShortHanded TEXT, FullShortHanded TEXT, Penalties TEXT, FullPenalties TEXT, PenaltyMinutes TEXT, FullPenaltyMinutes TEXT, HitsPerPeriod TEXT, FullHitsPerPeriod TEXT, TakeAways TEXT, FullTakeAways TEXT, GiveAways TEXT, FullGiveAways TEXT, FaceoffWins TEXT, FullFaceoffWins TEXT, NumberPeriods INTEGER, TeamWin TEXT, TeamLost TEXT, TieGame INTEGER, IsPlayOffGame INTEGER)");
+ sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n"+
+ "  id INTEGER PRIMARY KEY,\n"+
+ "  Date INTEGER,\n"+
+ "  HomeTeam TEXT,\n"+
+ "  AwayTeam TEXT,\n"+
+ "  AtArena TEXT,\n"+
+ "  TeamScorePeriods TEXT,\n"+
+ "  TeamFullScore TEXT,\n"+
+ "  ShotsOnGoal TEXT,\n"+
+ "  FullShotsOnGoal TEXT,\n"+
+ "  ShotsBlocked TEXT,\n"+
+ "  FullShotsBlocked TEXT,\n"+
+ "  PowerPlays TEXT,\n"+
+ "  FullPowerPlays TEXT,\n"+
+ "  ShortHanded TEXT,\n"+
+ "  FullShortHanded TEXT,\n"+
+ "  Penalties TEXT,\n"+
+ "  FullPenalties TEXT,\n"+
+ "  PenaltyMinutes TEXT,\n"+
+ "  FullPenaltyMinutes TEXT,\n"+
+ "  HitsPerPeriod TEXT,\n"+
+ "  FullHitsPerPeriod TEXT,\n"+
+ "  TakeAways TEXT,\n"+
+ "  FullTakeAways TEXT,\n"+
+ "  GiveAways TEXT,\n"+
+ "  FullGiveAways TEXT,\n"+
+ "  FaceoffWins TEXT,\n"+
+ "  FullFaceoffWins TEXT,\n"+
+ "  NumberPeriods INTEGER,\n"+
+ "  TeamWin TEXT,\n"+
+ "  TeamLost TEXT,\n"+
+ "  TieGame INTEGER,\n"+
+ "  IsPlayOffGame INTEGER\n"+
+ );");
  return True;
 
 def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
