@@ -328,8 +328,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  FullCityNameAlt TEXT,\n" + \
  "  ArenaName TEXT,\n" + \
  "  FullArenaName TEXT,\n" + \
- "  GamesPlayed INTEGER,\n" + \
- "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n" + \
+ "  GamesPlayed INTEGER\n" + \
  ");");
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
@@ -486,8 +485,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  Points INTEGER,\n" + \
  "  PCT REAL,\n" + \
  "  LastTen TEXT,\n" + \
- "  Streak TEXT,\n" + \
- "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n" + \
+ "  Streak TEXT\n" + \
  ");");
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
@@ -542,9 +540,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  TAGADifference INTEGER,\n" + \
  "  FaceoffWins INTEGER,\n" + \
  "  FaceoffLosses INTEGER,\n" + \
- "  FaceoffDifference INTEGER,\n" + \
- "  FOREIGN KEY(GameID) REFERENCES "+leaguename+"Games(id),\n" + \
- "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n" + \
+ "  FaceoffDifference INTEGER\n" + \
  ");");
  return True;
 
@@ -650,8 +646,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  "  Points INTEGER,\n" + \
  "  PCT REAL,\n" + \
  "  LastTen TEXT,\n" + \
- "  Streak TEXT,\n" + \
- "  FOREIGN KEY(TeamID) REFERENCES "+leaguename+"Teams(id)\n" + \
+ "  Streak TEXT\n" + \
  ");");
  return True;
 
