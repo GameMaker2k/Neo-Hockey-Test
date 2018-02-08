@@ -1247,6 +1247,7 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
  else:
   return False;
  sqldatacon = MakeHockeyDatabase(sdbfile);
+ print(sqlstring);
  sqldatacon[0].executescript(sqlstring);
  CloseHockeyDatabase(sqldatacon);
  if(returnsql is True):
