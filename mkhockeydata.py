@@ -31,8 +31,8 @@ __version__ = libhockeydata.__version__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 
 getactlist = ["mkhockeyxmlfile", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h"];
-getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file"];
-gethelplist = ["mkhockeyxmlfile", "mkhockeydatabase", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help"];
+getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file"];
+gethelplist = ["mkhockeyxmlfile", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help"];
 getactstr = "Actions: ";
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
  getactstr = getactstr+"\n"+getactsublist+": "+getactsubdesc+" ";
