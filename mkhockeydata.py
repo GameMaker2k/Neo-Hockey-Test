@@ -60,7 +60,7 @@ if(len(sys.argv)>=2):
     curaction = curargact;
     break;
 
-if(curaction==getactlist[6] or curaction==getactlist[7]):
+if(curaction==getactlist[8] or curaction==getactlist[9]):
  print(getactstr);
 
 if(curaction==getactlist[0]):
