@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeydata.py - Last Update: 2/9/2018 Ver. 0.0.4 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeydata.py - Last Update: 2/9/2018 Ver. 0.0.5 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -30,10 +30,11 @@ __version_date_plusrc__ = libhockeydata.__version_date_plusrc__
 __version__ = libhockeydata.__version__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 
-getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h"];
-getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file"];
-gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help"];
+getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v"];
+getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__ ];
+gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version"];
 getactstr = "Actions: ";
+getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
  getactstr = getactstr+"\n"+getactsublist+": "+getactsubdesc+" ";
 getactstr = getactstr.strip();
@@ -62,6 +63,9 @@ if(len(sys.argv)>=2):
 
 if(curaction==getactlist[8] or curaction==getactlist[9]):
  print(getactstr);
+
+if(curaction==getactlist[10] or curaction==getactlist[11] or curaction==getactlist[12]):
+ print(getverstr);
 
 if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
