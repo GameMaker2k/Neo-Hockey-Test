@@ -80,8 +80,9 @@ if((curaction==getactlist[13] or curaction==getactlist[14])):
    infilename = infilename.replace(os.sep, "/");
   curscrpath = curscrpath+"/";
   outfilename = curscrpath+cursymact;
-  outfileext = str("."+infilenameinfo[1]).rstrip(".");
+  outfileext = str(infilenameinfo[1]).rstrip(".");
   outfilefull = outfilename+outfileext;
+  print("'"+outfilefull+"' -> '"+infilename+"'");
   try:
    os.symlink(infilename, outfilefull);
    print("'"+outfilefull+"' -> '"+infilename+"'");
