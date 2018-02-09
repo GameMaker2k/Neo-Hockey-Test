@@ -72,6 +72,7 @@ if((curaction==getactlist[13] or curaction==getactlist[14])):
  for cursymact in getsymlist:
   curscrpath = os.path.dirname(sys.argv[0]);
   infilename = sys.argv[0];
+  infilenameinfo = os.path.splitext(sys.argv[0]);
   if(curscrpath==""):
    curscrpath = ".";
   if(os.sep=="\\"):
@@ -79,9 +80,11 @@ if((curaction==getactlist[13] or curaction==getactlist[14])):
    infilename = infilename.replace(os.sep, "/");
   curscrpath = curscrpath+"/";
   outfilename = curscrpath+cursymact;
+  outfileext = str("."+infilenameinfo[1]).rstrip(".");
+  outfilefull = outfilename+outfileext;
   try:
-   os.symlink(infilename, outfilename);
-   print("'"+outfilename+"' -> '"+infilename+"'");
+   os.symlink(infilename, outfilefull);
+   print("'"+outfilefull+"' -> '"+infilename+"'");
   except OSError:
    break;
 
