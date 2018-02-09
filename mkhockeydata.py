@@ -30,9 +30,10 @@ __version_date_plusrc__ = libhockeydata.__version_date_plusrc__
 __version__ = libhockeydata.__version__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 
-getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v"];
-getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__ ];
-gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version"];
+getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
+getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__, "make symbolic links"];
+gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version", "mksymlinks"];
+getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile"];
 getactstr = "Actions: ";
 getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
@@ -66,6 +67,23 @@ if(curaction==getactlist[8] or curaction==getactlist[9]):
 
 if(curaction==getactlist[10] or curaction==getactlist[11] or curaction==getactlist[12]):
  print(getverstr);
+
+if((curaction==getactlist[13] or curaction==getactlist[14])):
+ for cursymact in getsymlist:
+  curscrpath = os.path.dirname(sys.argv[0]);
+  infilename = sys.argv[0];
+  if(curscrpath==""):
+   curscrpath = ".";
+  if(os.sep=="\\"):
+   curscrpath = curscrpath.replace(os.sep, "/");
+   infilename = infilename.replace(os.sep, "/");
+  curscrpath = curscrpath+"/";
+  outfilename = curscrpath+cursymact;
+  try:
+   os.symlink(infilename, outfilename);
+   print("'"+outfilename+"' -> '"+infilename+"'");
+  except OSError:
+   break;
 
 if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
