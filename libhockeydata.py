@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 2/9/2018 Ver. 0.0.5 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/10/2018 Ver. 0.0.5 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -30,7 +30,7 @@ __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 0, 5, "RC 1", 1);
-__version_date_info__ = (2018, 2, 9, "RC 1", 1);
+__version_date_info__ = (2018, 2, 10, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -40,6 +40,19 @@ if(__version_info__[3] is not None):
  __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2])+" "+str(__version_info__[3]);
 if(__version_info__[3] is None):
  __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2]);
+
+if __name__ == "__main__":
+ import subprocess;
+ curscrpath = os.path.dirname(sys.argv[0]);
+ if(curscrpath==""):
+  curscrpath = ".";
+ if(os.sep=="\\"):
+  curscrpath = curscrpath.replace(os.sep, "/");
+ curscrpath = curscrpath+"/";
+ scrfile = curscrpath+"mkhockeydata.py";
+ if(os.path.exists(scrfile) and os.path.isfile(scrfile)):
+  scrcmd = subprocess.Popen([sys.executable, scrfile] + sys.argv[1:]);
+  scrcmd.wait();
 
 def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE"):
  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
@@ -1135,7 +1148,7 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, verbose=True):
+def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
  if(os.path.exists(xmlfile) and os.path.isfile(xmlfile) and xmlisfile is True):
   hockeyfile = ET.parse(xmlfile);
  elif(xmlisfile is False):
@@ -1149,8 +1162,10 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
  if(gethockey.tag == "hockey"):
   if(sdbfile is None):
    sqldatacon = MakeHockeyDatabase(gethockey.attrib['database']);
-  if(sdbfile is not None):
+  if(sdbfile is not None and isinstance(sdbfile, str)):
    sqldatacon = MakeHockeyDatabase(sdbfile);
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
   if(verbose is True):
    print("<hockey database=\""+xml_escape(str(gethockey.attrib['database']), quote=True)+"\" year=\""+xml_escape(str(gethockey.attrib['year']), quote=True)+"\" month=\""+xml_escape(str(gethockey.attrib['month']), quote=True)+"\" day=\""+xml_escape(str(gethockey.attrib['day']), quote=True)+"\">");
   xmlstring = xmlstring+"<hockey database=\""+xml_escape(str(gethockey.attrib['database']), quote=True)+"\" year=\""+xml_escape(str(gethockey.attrib['year']), quote=True)+"\" month=\""+xml_escape(str(gethockey.attrib['month']), quote=True)+"\" day=\""+xml_escape(str(gethockey.attrib['day']), quote=True)+"\">\n";
@@ -1240,7 +1255,10 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
  if(verbose is True):
   print("</hockey>");
  xmlstring = "</hockey>\n";
- CloseHockeyDatabase(sqldatacon);
+ if(returndb is False):
+  CloseHockeyDatabase(sqldatacon);
+ if(returndb is True):
+  return sqldatacon;
  if(returnxml is True):
   return xmlstring;
  if(returnxml is False):
@@ -1254,7 +1272,7 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=Non
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, verbose);
+ xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, False, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml is True):
@@ -1263,7 +1281,7 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=Non
   return True;
  return True;
 
-def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnsql=False, verbose=True):
+def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnsql=False, returndb=False, verbose=True):
  if(os.path.exists(sqlfile) and os.path.isfile(sqlfile) and sqlisfile is True):
   sqlfp = open(sqlfile, "r");
   sqlstring = sqlfp.read();
@@ -1277,11 +1295,17 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
  if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", "-- Database: ./hockey17-18.db3"))<1):
   file_wo_extension, file_extension = os.path.splitext(sqlfile);
   sdbfile = file_wo_extension+".db3";
- sqldatacon = MakeHockeyDatabase(sdbfile);
+ if(sdbfile is not None and isinstance(sdbfile, str)):
+  sqldatacon = MakeHockeyDatabase(sdbfile);
+ if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+  sqldatacon = tuple(sdbfile);
  if(verbose is True):
   print(sqlstring);
  sqldatacon[0].executescript(sqlstring);
- CloseHockeyDatabase(sqldatacon);
+ if(returndb is False):
+  CloseHockeyDatabase(sqldatacon);
+ if(returndb is True):
+  return sqldatacon;
  if(returnsql is True):
   return sqlstring;
  if(returnsql is False):
@@ -1295,7 +1319,7 @@ def MakeHockeyDatabaseFromHockeySQLWrite(insqlfile, sdbfile=None, outsqlfile=Non
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outsqlfile = file_wo_extension+".db3";
  sqlfp = open(outsqlfile, "w+");
- sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, verbose);
+ sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, False, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql is True):
@@ -1403,10 +1427,12 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date, verbose=True):
  chckyear = date[:4];
  chckmonth = date[4:6];
  chckday = date[6:8];
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   return False;
+ if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+  sqldatacon = tuple(sdbfile);
  leaguecur = sqldatacon[1].cursor();
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  xmlstring = xmlstring+"<hockey database=\""+xml_escape(str(sdbfile), quote=True)+"\" year=\""+xml_escape(str(chckyear), quote=True)+"\" month=\""+xml_escape(str(chckmonth), quote=True)+"\" day=\""+xml_escape(str(chckday), quote=True)+"\">\n";
@@ -1645,10 +1671,12 @@ def MakeHockeyPythonFromHockeyDatabase(sdbfile, date, verbose=True):
  chckyear = date[:4];
  chckmonth = date[4:6];
  chckday = date[6:8];
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   return False;
+ if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+  sqldatacon = tuple(sdbfile);
  if(verbose is True):
   print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n");
  pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
@@ -1742,10 +1770,12 @@ def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, date, pyfile=None, returnpy=
  return True;
 
 def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   return False;
+ if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+  sqldatacon = tuple(sdbfile);
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
