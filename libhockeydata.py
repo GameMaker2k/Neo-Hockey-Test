@@ -1430,9 +1430,10 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, date, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
-  return False;
- if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-  sqldatacon = tuple(sdbfile);
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return False;
  leaguecur = sqldatacon[1].cursor();
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  xmlstring = xmlstring+"<hockey database=\""+xml_escape(str(sdbfile), quote=True)+"\" year=\""+xml_escape(str(chckyear), quote=True)+"\" month=\""+xml_escape(str(chckmonth), quote=True)+"\" day=\""+xml_escape(str(chckday), quote=True)+"\">\n";
@@ -1674,9 +1675,10 @@ def MakeHockeyPythonFromHockeyDatabase(sdbfile, date, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
-  return False;
- if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-  sqldatacon = tuple(sdbfile);
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return False;
  if(verbose is True):
   print("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n");
  pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
@@ -1773,9 +1775,10 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
-  return False;
- if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-  sqldatacon = tuple(sdbfile);
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return False;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
