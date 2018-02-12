@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 2/10/2018 Ver. 0.0.6 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/10/2018 Ver. 0.0.5 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -29,7 +29,7 @@ if(sys.version[0]>="3"):
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
-__version_info__ = (0, 0, 6, "RC 1", 1);
+__version_info__ = (0, 0, 5, "RC 1", 1);
 __version_date_info__ = (2018, 2, 10, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
@@ -270,13 +270,13 @@ def MakeHockeyLeagueTable(sqldatacon, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
  sqldatacon[0].execute("CREATE TABLE HockeyLeagues (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  CountryName TEXT,\n" + \
- "  FullCountryName TEXT,\n" + \
- "  NumberOfTeams INTEGER,\n" + \
- "  NumberOfConferences INTEGER,\n" + \
- "  NumberOfDivisions INTEGER\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  NumberOfConferences INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
  return True;
 
@@ -290,11 +290,11 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  Conference TEXT,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  NumberOfTeams INTEGER,\n" + \
- "  NumberOfDivisions INTEGER\n" + \
+ "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
  return True;
 
@@ -310,11 +310,11 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  Division TEXT,\n" + \
- "  Conference TEXT,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  NumberOfTeams INTEGER\n" + \
+ "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  NumberOfTeams INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
  return True;
 
@@ -332,231 +332,231 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  TeamID INTEGER,\n" + \
- "  TeamName TEXT,\n" + \
- "  TeamFullName TEXT,\n" + \
- "  CityName TEXT,\n" + \
- "  AreaName TEXT,\n" + \
- "  CountryName TEXT,\n" + \
- "  FullCountryName TEXT,\n" + \
- "  FullCityName TEXT,\n" + \
- "  FullAreaName TEXT,\n" + \
- "  FullCityNameAlt TEXT,\n" + \
- "  ArenaName TEXT,\n" + \
- "  FullArenaName TEXT,\n" + \
- "  GamesPlayed INTEGER\n" + \
+ "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  AreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullAreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
+ "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  GamesPlayed INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  Date INTEGER,\n" + \
- "  FullName TEXT,\n" + \
- "  CityName TEXT,\n" + \
- "  TeamPrefix TEXT,\n" + \
- "  TeamSuffix TEXT,\n" + \
- "  AreaName TEXT,\n" + \
- "  CountryName TEXT,\n" + \
- "  FullCountryName TEXT,\n" + \
- "  FullCityName TEXT,\n" + \
- "  FullAreaName TEXT,\n" + \
- "  FullCityNameAlt TEXT,\n" + \
- "  TeamName TEXT,\n" + \
- "  Conference TEXT,\n" + \
- "  Division TEXT,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  ArenaName TEXT,\n" + \
- "  FullArenaName TEXT,\n" + \
- "  GamesPlayed INTEGER,\n" + \
- "  GamesPlayedHome INTEGER,\n" + \
- "  GamesPlayedAway INTEGER,\n" + \
- "  Ties INTEGER,\n" + \
- "  Wins INTEGER,\n" + \
- "  OTWins INTEGER,\n" + \
- "  SOWins INTEGER,\n" + \
- "  OTSOWins INTEGER,\n" + \
- "  TWins INTEGER,\n" + \
- "  Losses INTEGER,\n" + \
- "  OTLosses INTEGER,\n" + \
- "  SOLosses INTEGER,\n" + \
- "  OTSOLosses INTEGER,\n" + \
- "  TLosses INTEGER,\n" + \
- "  ROW INTEGER,\n" + \
- "  ROT INTEGER,\n" + \
- "  ShutoutWins INTEGER,\n" + \
- "  ShutoutLosses INTEGER,\n" + \
- "  HomeRecord TEXT,\n" + \
- "  AwayRecord TEXT,\n" + \
- "  Shootouts TEXT,\n" + \
- "  GoalsFor INTEGER,\n" + \
- "  GoalsAgainst INTEGER,\n" + \
- "  GoalsDifference INTEGER,\n" + \
- "  SOGFor INTEGER,\n" + \
- "  SOGAgainst INTEGER,\n" + \
- "  SOGDifference INTEGER,\n" + \
- "  ShotsBlockedFor INTEGER,\n" + \
- "  ShotsBlockedAgainst INTEGER,\n" + \
- "  ShotsBlockedDifference INTEGER,\n" + \
- "  PPGFor INTEGER,\n" + \
- "  PPGAgainst INTEGER,\n" + \
- "  PPGDifference INTEGER,\n" + \
- "  SHGFor INTEGER,\n" + \
- "  SHGAgainst INTEGER,\n" + \
- "  SHGDifference INTEGER,\n" + \
- "  PenaltiesFor INTEGER,\n" + \
- "  PenaltiesAgainst INTEGER,\n" + \
- "  PenaltiesDifference INTEGER,\n" + \
- "  PIMFor INTEGER,\n" + \
- "  PIMAgainst INTEGER,\n" + \
- "  PIMDifference INTEGER,\n" + \
- "  HITSFor INTEGER,\n" + \
- "  HITSAgainst INTEGER,\n" + \
- "  HITSDifference INTEGER,\n" + \
- "  TakeAways INTEGER,\n" + \
- "  GiveAways INTEGER,\n" + \
- "  TAGADifference INTEGER,\n" + \
- "  FaceoffWins INTEGER,\n" + \
- "  FaceoffLosses INTEGER,\n" + \
- "  FaceoffDifference INTEGER,\n" + \
- "  Points INTEGER,\n" + \
- "  PCT REAL,\n" + \
- "  LastTen TEXT,\n" + \
- "  Streak TEXT\n" + \
+ "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamPrefix TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamSuffix TEXT NOT NULL DEFAULT '',\n" + \
+ "  AreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullAreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
+ "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  GamesPlayed INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GamesPlayedHome INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GamesPlayedAway INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Ties INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Wins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTSOWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Losses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTSOLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ROW INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ROT INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShutoutWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShutoutLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HomeRecord TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  AwayRecord TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  Shootouts TEXT NOT NULL DEFAULT '0:0',\n" + \
+ "  GoalsFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TakeAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GiveAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TAGADifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Points INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PCT REAL NOT NULL DEFAULT 0,\n" + \
+ "  LastTen TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  Streak TEXT NOT NULL DEFAULT 'None'\n" + \
  ");");
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  TeamID INTEGER,\n" + \
- "  Date INTEGER,\n" + \
- "  FullName TEXT,\n" + \
- "  CityName TEXT,\n" + \
- "  TeamPrefix TEXT,\n" + \
- "  TeamSuffix TEXT,\n" + \
- "  AreaName TEXT,\n" + \
- "  CountryName TEXT,\n" + \
- "  FullCountryName TEXT,\n" + \
- "  FullCityName TEXT,\n" + \
- "  FullAreaName TEXT,\n" + \
- "  FullCityNameAlt TEXT,\n" + \
- "  TeamName TEXT,\n" + \
- "  Conference TEXT,\n" + \
- "  Division TEXT,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  ArenaName TEXT,\n" + \
- "  FullArenaName TEXT,\n" + \
- "  GamesPlayed INTEGER,\n" + \
- "  GamesPlayedHome INTEGER,\n" + \
- "  GamesPlayedAway INTEGER,\n" + \
- "  Ties INTEGER,\n" + \
- "  Wins INTEGER,\n" + \
- "  OTWins INTEGER,\n" + \
- "  SOWins INTEGER,\n" + \
- "  OTSOWins INTEGER,\n" + \
- "  TWins INTEGER,\n" + \
- "  Losses INTEGER,\n" + \
- "  OTLosses INTEGER,\n" + \
- "  SOLosses INTEGER,\n" + \
- "  OTSOLosses INTEGER,\n" + \
- "  TLosses INTEGER,\n" + \
- "  ROW INTEGER,\n" + \
- "  ROT INTEGER,\n" + \
- "  ShutoutWins INTEGER,\n" + \
- "  ShutoutLosses INTEGER,\n" + \
- "  HomeRecord TEXT,\n" + \
- "  AwayRecord TEXT,\n" + \
- "  Shootouts TEXT,\n" + \
- "  GoalsFor INTEGER,\n" + \
- "  GoalsAgainst INTEGER,\n" + \
- "  GoalsDifference INTEGER,\n" + \
- "  SOGFor INTEGER,\n" + \
- "  SOGAgainst INTEGER,\n" + \
- "  SOGDifference INTEGER,\n" + \
- "  ShotsBlockedFor INTEGER,\n" + \
- "  ShotsBlockedAgainst INTEGER,\n" + \
- "  ShotsBlockedDifference INTEGER,\n" + \
- "  PPGFor INTEGER,\n" + \
- "  PPGAgainst INTEGER,\n" + \
- "  PPGDifference INTEGER,\n" + \
- "  SHGFor INTEGER,\n" + \
- "  SHGAgainst INTEGER,\n" + \
- "  SHGDifference INTEGER,\n" + \
- "  PenaltiesFor INTEGER,\n" + \
- "  PenaltiesAgainst INTEGER,\n" + \
- "  PenaltiesDifference INTEGER,\n" + \
- "  PIMFor INTEGER,\n" + \
- "  PIMAgainst INTEGER,\n" + \
- "  PIMDifference INTEGER,\n" + \
- "  HITSFor INTEGER,\n" + \
- "  HITSAgainst INTEGER,\n" + \
- "  HITSDifference INTEGER,\n" + \
- "  TakeAways INTEGER,\n" + \
- "  GiveAways INTEGER,\n" + \
- "  TAGADifference INTEGER,\n" + \
- "  FaceoffWins INTEGER,\n" + \
- "  FaceoffLosses INTEGER,\n" + \
- "  FaceoffDifference INTEGER,\n" + \
- "  Points INTEGER,\n" + \
- "  PCT REAL,\n" + \
- "  LastTen TEXT,\n" + \
- "  Streak TEXT\n" + \
+ "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamPrefix TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamSuffix TEXT NOT NULL DEFAULT '',\n" + \
+ "  AreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullAreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
+ "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  GamesPlayed INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GamesPlayedHome INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GamesPlayedAway INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Ties INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Wins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTSOWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Losses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTSOLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ROW INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ROT INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShutoutWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShutoutLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HomeRecord TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  AwayRecord TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  Shootouts TEXT NOT NULL DEFAULT '0:0',\n" + \
+ "  GoalsFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TakeAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GiveAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TAGADifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Points INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PCT REAL NOT NULL DEFAULT 0,\n" + \
+ "  LastTen TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  Streak TEXT NOT NULL DEFAULT 'None'\n" + \
  ");");
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  GameID INTEGER,\n" + \
- "  Date INTEGER,\n" + \
- "  TeamID INTEGER,\n" + \
- "  FullName TEXT,\n" + \
- "  CityName TEXT,\n" + \
- "  TeamPrefix TEXT,\n" + \
- "  TeamSuffix TEXT,\n" + \
- "  AreaName TEXT,\n" + \
- "  CountryName TEXT,\n" + \
- "  FullCountryName TEXT,\n" + \
- "  FullCityName TEXT,\n" + \
- "  FullAreaName TEXT,\n" + \
- "  FullCityNameAlt TEXT,\n" + \
- "  TeamName TEXT,\n" + \
- "  Conference TEXT,\n" + \
- "  Division TEXT,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  ArenaName TEXT,\n" + \
- "  FullArenaName TEXT,\n" + \
- "  GoalsFor INTEGER,\n" + \
- "  GoalsAgainst INTEGER,\n" + \
- "  GoalsDifference INTEGER,\n" + \
- "  SOGFor INTEGER,\n" + \
- "  SOGAgainst INTEGER,\n" + \
- "  SOGDifference INTEGER,\n" + \
- "  ShotsBlockedFor INTEGER,\n" + \
- "  ShotsBlockedAgainst INTEGER,\n" + \
- "  ShotsBlockedDifference INTEGER,\n" + \
- "  PPGFor INTEGER,\n" + \
- "  PPGAgainst INTEGER,\n" + \
- "  PPGDifference INTEGER,\n" + \
- "  SHGFor INTEGER,\n" + \
- "  SHGAgainst INTEGER,\n" + \
- "  SHGDifference INTEGER,\n" + \
- "  PenaltiesFor INTEGER,\n" + \
- "  PenaltiesAgainst INTEGER,\n" + \
- "  PenaltiesDifference INTEGER,\n" + \
- "  PIMFor INTEGER,\n" + \
- "  PIMAgainst INTEGER,\n" + \
- "  PIMDifference INTEGER,\n" + \
- "  HITSFor INTEGER,\n" + \
- "  HITSAgainst INTEGER,\n" + \
- "  HITSDifference INTEGER,\n" + \
- "  TakeAways INTEGER,\n" + \
- "  GiveAways INTEGER,\n" + \
- "  TAGADifference INTEGER,\n" + \
- "  FaceoffWins INTEGER,\n" + \
- "  FaceoffLosses INTEGER,\n" + \
- "  FaceoffDifference INTEGER\n" + \
+ "  GameID INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamPrefix TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamSuffix TEXT NOT NULL DEFAULT '',\n" + \
+ "  AreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullAreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
+ "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  GoalsFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TakeAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GiveAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TAGADifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffDifference INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
  return True;
 
@@ -592,80 +592,80 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"PlayoffTeams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  TeamID INTEGER,\n" + \
- "  Date INTEGER,\n" + \
- "  FullName TEXT,\n" + \
- "  CityName TEXT,\n" + \
- "  TeamPrefix TEXT,\n" + \
- "  TeamSuffix TEXT,\n" + \
- "  AreaName TEXT,\n" + \
- "  CountryName TEXT,\n" + \
- "  FullCountryName TEXT,\n" + \
- "  FullCityName TEXT,\n" + \
- "  FullAreaName TEXT,\n" + \
- "  FullCityNameAlt TEXT,\n" + \
- "  TeamName TEXT,\n" + \
- "  Conference TEXT,\n" + \
- "  Division TEXT,\n" + \
- "  LeagueName TEXT,\n" + \
- "  LeagueFullName TEXT,\n" + \
- "  ArenaName TEXT,\n" + \
- "  FullArenaName TEXT,\n" + \
- "  GamesPlayed INTEGER,\n" + \
- "  GamesPlayedHome INTEGER,\n" + \
- "  GamesPlayedAway INTEGER,\n" + \
+ "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamPrefix TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamSuffix TEXT NOT NULL DEFAULT '',\n" + \
+ "  AreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullAreaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
+ "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
+ "  GamesPlayed INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GamesPlayedHome INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GamesPlayedAway INTEGER NOT NULL DEFAULT 0,\n" + \
  "  Ties,\n" + \
- "  Wins INTEGER,\n" + \
- "  OTWins INTEGER,\n" + \
- "  SOWins INTEGER,\n" + \
- "  OTSOWins INTEGER,\n" + \
- "  TWins INTEGER,\n" + \
- "  Losses INTEGER,\n" + \
- "  OTLosses INTEGER,\n" + \
- "  SOLosses INTEGER,\n" + \
- "  OTSOLosses INTEGER,\n" + \
- "  TLosses INTEGER,\n" + \
- "  ROW INTEGER,\n" + \
- "  ROT INTEGER,\n" + \
- "  ShutoutWins INTEGER,\n" + \
- "  ShutoutLosses INTEGER,\n" + \
- "  HomeRecord TEXT,\n" + \
- "  AwayRecord TEXT,\n" + \
- "  Shootouts TEXT,\n" + \
- "  GoalsFor INTEGER,\n" + \
- "  GoalsAgainst INTEGER,\n" + \
- "  GoalsDifference INTEGER,\n" + \
- "  SOGFor INTEGER,\n" + \
- "  SOGAgainst INTEGER,\n" + \
- "  SOGDifference INTEGER,\n" + \
- "  ShotsBlockedFor INTEGER,\n" + \
- "  ShotsBlockedAgainst INTEGER,\n" + \
- "  ShotsBlockedDifference INTEGER,\n" + \
- "  PPGFor INTEGER,\n" + \
- "  PPGAgainst INTEGER,\n" + \
- "  PPGDifference INTEGER,\n" + \
- "  SHGFor INTEGER,\n" + \
- "  SHGAgainst INTEGER,\n" + \
- "  SHGDifference INTEGER,\n" + \
- "  PenaltiesFor INTEGER,\n" + \
- "  PenaltiesAgainst INTEGER,\n" + \
- "  PenaltiesDifference INTEGER,\n" + \
- "  PIMFor INTEGER,\n" + \
- "  PIMAgainst INTEGER,\n" + \
- "  PIMDifference INTEGER,\n" + \
- "  HITSFor INTEGER,\n" + \
- "  HITSAgainst INTEGER,\n" + \
- "  HITSDifference INTEGER,\n" + \
- "  TakeAways INTEGER,\n" + \
- "  GiveAways INTEGER,\n" + \
- "  TAGADifference INTEGER,\n" + \
- "  FaceoffWins INTEGER,\n" + \
- "  FaceoffLosses INTEGER,\n" + \
- "  FaceoffDifference INTEGER,\n" + \
- "  Points INTEGER,\n" + \
- "  PCT REAL,\n" + \
- "  LastTen TEXT,\n" + \
- "  Streak TEXT\n" + \
+ "  Wins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTSOWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Losses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  OTSOLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ROW INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ROT INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShutoutWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShutoutLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HomeRecord TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  AwayRecord TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  Shootouts TEXT NOT NULL DEFAULT '0:0',\n" + \
+ "  GoalsFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GoalsDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SOGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  ShotsBlockedDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PPGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  SHGDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PenaltiesDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PIMDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSFor INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSAgainst INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HITSDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TakeAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  GiveAways INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TAGADifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffWins INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffLosses INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  FaceoffDifference INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Points INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PCT REAL NOT NULL DEFAULT 0,\n" + \
+ "  LastTen TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
+ "  Streak TEXT NOT NULL DEFAULT 'None'\n" + \
  ");");
  return True;
 
@@ -711,37 +711,37 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Games");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n" + \
  "  id INTEGER PRIMARY KEY,\n" + \
- "  Date INTEGER,\n" + \
- "  HomeTeam TEXT,\n" + \
- "  AwayTeam TEXT,\n" + \
- "  AtArena TEXT,\n" + \
- "  TeamScorePeriods TEXT,\n" + \
- "  TeamFullScore TEXT,\n" + \
- "  ShotsOnGoal TEXT,\n" + \
- "  FullShotsOnGoal TEXT,\n" + \
- "  ShotsBlocked TEXT,\n" + \
- "  FullShotsBlocked TEXT,\n" + \
- "  PowerPlays TEXT,\n" + \
- "  FullPowerPlays TEXT,\n" + \
- "  ShortHanded TEXT,\n" + \
- "  FullShortHanded TEXT,\n" + \
- "  Penalties TEXT,\n" + \
- "  FullPenalties TEXT,\n" + \
- "  PenaltyMinutes TEXT,\n" + \
- "  FullPenaltyMinutes TEXT,\n" + \
- "  HitsPerPeriod TEXT,\n" + \
- "  FullHitsPerPeriod TEXT,\n" + \
- "  TakeAways TEXT,\n" + \
- "  FullTakeAways TEXT,\n" + \
- "  GiveAways TEXT,\n" + \
- "  FullGiveAways TEXT,\n" + \
- "  FaceoffWins TEXT,\n" + \
- "  FullFaceoffWins TEXT,\n" + \
- "  NumberPeriods INTEGER,\n" + \
- "  TeamWin TEXT,\n" + \
- "  TeamLost TEXT,\n" + \
- "  TieGame INTEGER,\n" + \
- "  IsPlayOffGame INTEGER\n" + \
+ "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  HomeTeam TEXT NOT NULL DEFAULT '',\n" + \
+ "  AwayTeam TEXT NOT NULL DEFAULT '',\n" + \
+ "  AtArena TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamScorePeriods TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamFullScore TEXT NOT NULL DEFAULT '',\n" + \
+ "  ShotsOnGoal TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullShotsOnGoal TEXT NOT NULL DEFAULT '',\n" + \
+ "  ShotsBlocked TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullShotsBlocked TEXT NOT NULL DEFAULT '',\n" + \
+ "  PowerPlays TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullPowerPlays TEXT NOT NULL DEFAULT '',\n" + \
+ "  ShortHanded TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullShortHanded TEXT NOT NULL DEFAULT '',\n" + \
+ "  Penalties TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullPenalties TEXT NOT NULL DEFAULT '',\n" + \
+ "  PenaltyMinutes TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullPenaltyMinutes TEXT NOT NULL DEFAULT '',\n" + \
+ "  HitsPerPeriod TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullHitsPerPeriod TEXT NOT NULL DEFAULT '',\n" + \
+ "  TakeAways TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullTakeAways TEXT NOT NULL DEFAULT '',\n" + \
+ "  GiveAways TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullGiveAways TEXT NOT NULL DEFAULT '',\n" + \
+ "  FaceoffWins TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullFaceoffWins TEXT NOT NULL DEFAULT '',\n" + \
+ "  NumberPeriods INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  TeamWin TEXT NOT NULL DEFAULT '',\n" + \
+ "  TeamLost TEXT NOT NULL DEFAULT '',\n" + \
+ "  TieGame INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  IsPlayOffGame INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
  return True;
 
