@@ -1,0 +1,46 @@
+<hockey database="./fhmt1y17-18.db3" year="2017" month="10" day="01">
+ <league name="HOL" fullname="Hockey League" country="USA" fullcountry="United States" conferences="yes" divisions="yes">
+  <conference name="Conference 1">
+   <division name="Division 1">
+    <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Flies" arena="KAN Arena" prefix="Kansas City" suffix="" />
+    <team city="Chicago" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Lampreys" arena="CHI Arena" prefix="Chicago" suffix="" />
+   </division>
+   <division name="Division 2">
+    <team city="Ft. Wayne" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Whitecaps" arena="WHI Arena" prefix="Ft. Wayne" suffix="" />
+    <team city="Minneapolis" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Frogs" arena="MIN Arena" prefix="Minneapolis" suffix="" />
+   </division>
+  </conference>
+  <conference name="Conference 2">
+   <division name="Division 3">
+    <team city="Columbus" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Passion" arena="COL Arena" prefix="Columbus" suffix="" />
+    <team city="Akron" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Cattlemen" arena="AKR Arena" prefix="Akron" suffix="" />
+   </division>
+   <division name="Division 4">
+    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Gears" arena="IND Arena" prefix="Indianapolis" suffix="" />
+    <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Rail Hawks" arena="WIC Arena" prefix="Wichita" suffix="" />
+   </division>
+  </conference>
+ </league>
+ <league name="MIL" fullname="Minor League" country="USA" fullcountry="United States" conferences="yes" divisions="yes">
+  <conference name="Conference 1">
+   <division name="Division 1">
+    <team city="Milan" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Dazzle" arena="MIL Arena" prefix="Milan" suffix="" />
+    <team city="Moline" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Expositions" arena="MOL Arena" prefix="Moline" suffix="" />
+   </division>
+   <division name="Division 2">
+    <team city="Kokomo" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Loggerheads" arena="KOK Arena" prefix="Kokomo" suffix="" />
+    <team city="Becker" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Winged Wheelers" arena="BEC Arena" prefix="Becker" suffix="" />
+   </division>
+  </conference>
+  <conference name="Conference 2">
+   <division name="Division 3">
+    <team city="Toledo" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Pugs" arena="TOL Arena" prefix="Toledo" suffix="" />
+    <team city="Mason" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Caravans" arena="MAS Arena" prefix="Mason" suffix="" />
+   </division>
+   <division name="Division 4">
+    <team city="Lawrence" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Walkers" arena="LAW Arena" prefix="Lawrence" suffix="" />
+    <team city="Garden City" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Jammers" arena="GAR Arena" prefix="Garden City" suffix="" />
+   </division>
+  </conference>
+ </league>
+</hockey>
