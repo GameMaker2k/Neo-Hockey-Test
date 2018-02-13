@@ -42,7 +42,11 @@ if(!isset($_GET['league'])&&isset($leaguename)) {
  $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
  $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
- $leaguename = $getleague['LeagueName']; }
+ if(count($getleague)==7) {
+  $leaguename = $getleague['LeagueName']; }
+ if(count($getleague)<7) {
+  unset($leaguename);
+  unset($_GET['league']); } }
 ?>
 <!DOCTYPE html>
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en">
