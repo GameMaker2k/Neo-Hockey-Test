@@ -43,10 +43,15 @@ header("Content-Type: application/xslt+xml; charset=UTF-8");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 if(file_exists($databasefile)) {
  $sqldb = new SQLite3($databasefile); } 
-if(!isset($_GET['league'])) { $_GET['league'] = $leaguename; }
+if(!isset($_GET['league'])&&isset($leaguename)) { 
+ $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
  $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
- $leaguename = $getleague['LeagueName']; }
+ if(count($getleague)==7) {
+  $leaguename = $getleague['LeagueName']; }
+ if(count($getleague)<7) {
+  unset($leaguename);
+  unset($_GET['league']); } }
 ?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
  <xsl:template match="/">
