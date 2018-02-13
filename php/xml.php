@@ -31,7 +31,7 @@ header("Date: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
 $leaguename = "NHL";
-$fullurl = "http://localhost/hockey/nhl/";
+$fullurl = "http://localhost/hockey/";
 $fileurl = "xml.php";
 $databasefile = "hockey17-18.db3";
 if(isset($_SERVER['HTTPS'])) {
@@ -45,7 +45,7 @@ if(file_exists($databasefile)) {
  $sqldb = new SQLite3($databasefile); } 
 if(!isset($_GET['league'])) { $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
- $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
+ $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
  $leaguename = $getleague['LeagueName']; }
 ?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">

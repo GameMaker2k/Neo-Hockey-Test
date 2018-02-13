@@ -28,8 +28,7 @@ header("Pragma: private, no-cache, no-store, must-revalidate, pre-check=0, post-
 header("Date: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
-$leaguename = "NHL";
-$fullurl = "http://localhost/hockey/nhl/";
+$fullurl = "http://localhost/hockey/";
 $fileurl = "xhtml.php";
 $databasefile = "hockey17-18.db3";
 if(isset($_SERVER['HTTPS'])) {
@@ -39,9 +38,10 @@ if(!isset($_SERVER['HTTPS'])) {
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 if(file_exists($databasefile)) {
  $sqldb = new SQLite3($databasefile); } 
-if(!isset($_GET['league'])) { $_GET['league'] = $leaguename; }
+if(!isset($_GET['league'])&&isset($leaguename)) { 
+ $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
- $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
+ $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
  $leaguename = $getleague['LeagueName']; }
 ?>
 <!DOCTYPE html>
@@ -63,6 +63,18 @@ if(!isset($_GET['order'])&&isset($_GET['ascending'])) { $_GET['order'] = "ascend
 if(!isset($_GET['order'])&&isset($_GET['desc'])) { $_GET['order'] = "descending"; }
 if(isset($_GET['order'])&&$_GET['order']=="desc") { $_GET['order'] = "descending"; }
 if(!isset($_GET['order'])&&isset($_GET['descending'])) { $_GET['order'] = "descending"; }
+if(!isset($_GET['league'])) {
+echo "  <table style=\"width: 100%;\">\n";
+echo "   <tr>\n    <th>Hockey League Initials</th>\n    <th>Hockey League Name</th>\n    <th>Country Initials</th>\n    <th>Country Name</th>\n    <th>Number of Teams</th>\n    <th>Number of Conferences</th>\n    <th>Number of Divisions</th>\n   </tr>\n";
+$lresults = $sqldb->query("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
+while ($lrow = $lresults->fetchArray()) {
+ echo "   <tr>\n    <td style=\"width: 11%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."\">".htmlspecialchars($lrow[0], ENT_COMPAT | ENT_XHTML, "UTF-8")."</a></td>\n    <td style=\"width: 23%;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."\">".htmlspecialchars($lrow[1], ENT_COMPAT | ENT_XHTML, "UTF-8")."</a></td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[2]."</td>\n    <td style=\"width: 23%;\">".$lrow[3]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[4]."</td>\n    <td style=\"width: 11%; text-align: center;\">".$lrow[5]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[6]."</td>\n   </tr>\n"; }
+echo "  </table>\n";
+?>
+ </body>
+</html>
+<?php
+exit(); }
 if(isset($_GET['month']) && strlen($_GET['month'])==1) {
  $_GET['month'] = "0".$_GET['month']; }
 if(isset($_GET['day']) && strlen($_GET['day'])==1) {
