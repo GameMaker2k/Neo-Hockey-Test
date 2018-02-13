@@ -33,7 +33,7 @@ header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
 $leaguename = "NHL";
 $fullurl = "http://localhost/hockey/";
 $fileurl = "xml.php";
-$databasefile = "hockey17-18.db3";
+$databasefile = "./hockey17-18.db3";
 if(isset($_SERVER['HTTPS'])) {
  $fullurl = "https://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/"); } 
 if(!isset($_SERVER['HTTPS'])) {
@@ -528,7 +528,7 @@ $nextmonthonly = gmdate("F", $nextmonthstamp);
 $nextyearonly = gmdate("Y", $nextmonthstamp);
 $nextmonthyear = $nextmonthonly." ".$nextyearonly;
 echo "  <table style=\"width: 100%;\">\n";
-echo "   <tr>\n    <th><a href=\"".$fileurl."?calendar&amp;date=".urlencode(gmdate("Y", $prevmonthstamp).gmdate("m", $prevmonthstamp))."\">".$prevmonthyear."</a></th>\n    <th colspan=\"5\"><a href=\"".$fileurl."?games&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp))."\">".$monthyear."</a></th>\n    <th><a href=\"".$fileurl."?calendar&amp;date=".urlencode(gmdate("Y", $nextmonthstamp).gmdate("m", $nextmonthstamp))."\">".$nextmonthyear."</a></th>\n   </tr>\n";
+echo "   <tr>\n    <th><a href=\"".$fileurl."?calendar&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $prevmonthstamp).gmdate("m", $prevmonthstamp))."\">".$prevmonthyear."</a></th>\n    <th colspan=\"5\"><a href=\"".$fileurl."?games&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp))."\">".$monthyear."</a></th>\n    <th><a href=\"".$fileurl."?calendar&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $nextmonthstamp).gmdate("m", $nextmonthstamp))."\">".$nextmonthyear."</a></th>\n   </tr>\n";
 echo "   <tr>\n    <td style=\"width: 14%; font-weight: bold;\">Sunday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Monday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Tuesday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Wednesday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Thursday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Friday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Saturday</td>\n   </tr>\n";
 while($daynextcount <= $weekdaystart) {
  if($daynextcount==1) { echo "   <tr>\n"; }
@@ -549,7 +549,7 @@ while($daycount <= $numofdays) {
   $numgamesstr = "&#xA0;"; }
  if($_GET['year'].$_GET['month'].$daycheck>=$firstgamedate && $_GET['year'].$_GET['month'].$daycheck<=$lastgamedate) {
  if($numofgames>0) {
- $gamedaystr = "<a href=\"".$fileurl."?games&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp).$daycheck)."\">".$daycount."</a>"; }
+ $gamedaystr = "<a href=\"".$fileurl."?games&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp).$daycheck)."\">".$daycount."</a>"; }
  if($numofgames==1) { $numgamesstr = "1 Game"; }
  if($numofgames>1) { $numgamesstr = $numofgames." Games"; } }
  if($daynextcount==1) { echo "   <tr>\n"; }
