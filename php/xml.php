@@ -32,8 +32,18 @@ header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
 $leaguename = "NHL";
 $fullurl = "http://localhost/hockey/";
-$fileurl = "xml.php";
-$databasefile = "./hockey17-18.db3";
+$fileurl = "html.php";
+$databasefile = "hockey17-18";
+$databasedir = "./data";
+$databasedirglob = $databasedir."/*.db3";
+$databaselist = glob($databasedirglob);
+$dbi = 0;
+$dbx = count($databaselist);
+while($dbi < $dbx) {
+$databasefnlist[$dbi] = basename($databaselist[$dbi], ".db3");
+$dbshortname = $databasefnlist[$dbi];
+$dbtofilename[$dbshortname] = $databaselist[$dbi];
+$dbi++; }
 if(isset($_SERVER['HTTPS'])) {
  $fullurl = "https://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/"); } 
 if(!isset($_SERVER['HTTPS'])) {
@@ -41,8 +51,10 @@ if(!isset($_SERVER['HTTPS'])) {
 if(isset($_GET['xslt']) || (isset($_GET['act']) && $_GET['act']=="xslt")) {
 header("Content-Type: application/xslt+xml; charset=UTF-8");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-if(file_exists($databasefile)) {
- $sqldb = new SQLite3($databasefile); } 
+if(isset($_GET['database'])&&in_array($_GET['database'], $dbshortname)) {
+ $databasefile = $_GET['database']; }
+if(file_exists($dbtofilename[$databasefile])) {
+ $sqldb = new SQLite3($dbtofilename[$databasefile]); } 
 if(!isset($_GET['league'])&&isset($leaguename)) { 
  $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
@@ -533,7 +545,7 @@ $nextmonthonly = gmdate("F", $nextmonthstamp);
 $nextyearonly = gmdate("Y", $nextmonthstamp);
 $nextmonthyear = $nextmonthonly." ".$nextyearonly;
 echo "  <table style=\"width: 100%;\">\n";
-echo "   <tr>\n    <th><a href=\"".$fileurl."?calendar&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $prevmonthstamp).gmdate("m", $prevmonthstamp))."\">".$prevmonthyear."</a></th>\n    <th colspan=\"5\"><a href=\"".$fileurl."?games&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp))."\">".$monthyear."</a></th>\n    <th><a href=\"".$fileurl."?calendar&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $nextmonthstamp).gmdate("m", $nextmonthstamp))."\">".$nextmonthyear."</a></th>\n   </tr>\n";
+echo "   <tr>\n    <th><a href=\"".$fileurl."?calendar&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;date=".urlencode(gmdate("Y", $prevmonthstamp).gmdate("m", $prevmonthstamp))."\">".$prevmonthyear."</a></th>\n    <th colspan=\"5\"><a href=\"".$fileurl."?games&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp))."\">".$monthyear."</a></th>\n    <th><a href=\"".$fileurl."?calendar&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;date=".urlencode(gmdate("Y", $nextmonthstamp).gmdate("m", $nextmonthstamp))."\">".$nextmonthyear."</a></th>\n   </tr>\n";
 echo "   <tr>\n    <td style=\"width: 14%; font-weight: bold;\">Sunday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Monday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Tuesday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Wednesday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Thursday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Friday</td>\n    <td style=\"width: 14%; font-weight: bold;\">Saturday</td>\n   </tr>\n";
 while($daynextcount <= $weekdaystart) {
  if($daynextcount==1) { echo "   <tr>\n"; }
@@ -554,7 +566,7 @@ while($daycount <= $numofdays) {
   $numgamesstr = "&#xA0;"; }
  if($_GET['year'].$_GET['month'].$daycheck>=$firstgamedate && $_GET['year'].$_GET['month'].$daycheck<=$lastgamedate) {
  if($numofgames>0) {
- $gamedaystr = "<a href=\"".$fileurl."?games&amp;league=".urlencode($_GET['league'])."&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp).$daycheck)."\">".$daycount."</a>"; }
+ $gamedaystr = "<a href=\"".$fileurl."?games&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;date=".urlencode(gmdate("Y", $curtimestamp).gmdate("m", $curtimestamp).$daycheck)."\">".$daycount."</a>"; }
  if($numofgames==1) { $numgamesstr = "1 Game"; }
  if($numofgames>1) { $numgamesstr = $numofgames." Games"; } }
  if($daynextcount==1) { echo "   <tr>\n"; }
@@ -672,7 +684,7 @@ if(isset($_GET['date']) && is_numeric($_GET['date']) && strlen($_GET['date'])==8
 $sqldb->exec("CREATE TEMP TABLE ".$leaguename."Standings AS SELECT * FROM ".$leaguename."Stats ".$SelectWhere." GROUP BY TeamID ORDER BY TeamID ASC, Date DESC");
 echo "<table style=\"width: 100%;\">";
 $tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC");
-echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;#OverallStats\" id=\"OverallStats\">".$leaguename." Team Stats &amp; Standings</a></th>\n </tr>";
+echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;#OverallStats\" id=\"OverallStats\">".$leaguename." Team Stats &amp; Standings</a></th>\n </tr>";
 echo "\n <tr>\n   <th colspan=\"2\">Team</th>\n   <th>GP</th>\n   <th>W</th>\n   <th>L</th>\n   <th>OTL</th>\n   <th>SOL</th>\n   <th>P</th>\n   <th>PCT</th>\n   <th>ROW</th>\n   <th>GF</th>\n   <th>GA</th>\n   <th>DIFF</th>\n   <th>Home</th>\n   <th>Away</th>\n   <th>S/O</th>\n   <th>L10</th>\n   <th>Streak</th>\n </tr>";
 $teamplace = 1;
 while ($trow = $tresults->fetchArray()) {
@@ -684,7 +696,7 @@ while ($conrow = $conresults->fetchArray()) {
 if($_GET['conference']=="All" || $_GET['conference']==$conrow['Conference']) {
 echo " <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n";
 $tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings WHERE Conference='".$sqldb->escapeString($conrow['Conference'])."' ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC");
-echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;#".$conrow['Conference']."ConferenceStats\" id=\"".$conrow['Conference']."ConferenceStats\">".$leaguename." ".$conrow['Conference']." Conference Stats &amp; Standings</a></th>\n </tr>";
+echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;#".$conrow['Conference']."ConferenceStats\" id=\"".$conrow['Conference']."ConferenceStats\">".$leaguename." ".$conrow['Conference']." Conference Stats &amp; Standings</a></th>\n </tr>";
 echo "\n <tr>\n   <th colspan=\"2\">Team</th>\n   <th>GP</th>\n   <th>W</th>\n   <th>L</th>\n   <th>OTL</th>\n   <th>SOL</th>\n   <th>P</th>\n   <th>PCT</th>\n   <th>ROW</th>\n   <th>GF</th>\n   <th>GA</th>\n   <th>DIFF</th>\n   <th>Home</th>\n   <th>Away</th>\n   <th>S/O</th>\n   <th>L10</th>\n   <th>Streak</th>\n </tr>";
 $teamplace = 1;
 while ($trow = $tresults->fetchArray()) {
@@ -696,7 +708,7 @@ while ($divrow = $divresults->fetchArray()) {
 if($_GET['division']=="All" || $_GET['division']==$divrow['Division']) {
 echo " <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n";
 $tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings WHERE Division='".$sqldb->escapeString($divrow['Division'])."' ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC");
-echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;#".$divrow['Division']."DivisionStats\" id=\"".$divrow['Division']."DivisionStats\">".$leaguename." ".$divrow['Division']." Division Team Stats &amp; Standings</a></th>\n </tr>";
+echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;#".$divrow['Division']."DivisionStats\" id=\"".$divrow['Division']."DivisionStats\">".$leaguename." ".$divrow['Division']." Division Team Stats &amp; Standings</a></th>\n </tr>";
 echo "\n <tr>\n   <th colspan=\"2\">Team</th>\n   <th>GP</th>\n   <th>W</th>\n   <th>L</th>\n   <th>OTL</th>\n   <th>SOL</th>\n   <th>P</th>\n   <th>PCT</th>\n   <th>ROW</th>\n   <th>GF</th>\n   <th>GA</th>\n   <th>DIFF</th>\n   <th>Home</th>\n   <th>Away</th>\n   <th>S/O</th>\n   <th>L10</th>\n   <th>Streak</th>\n </tr>";
 $teamplace = 1;
 while ($trow = $tresults->fetchArray()) {
