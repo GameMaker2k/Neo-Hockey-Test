@@ -34,12 +34,13 @@ getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkho
 getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__, "make symbolic links"];
 gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version", "mksymlinks"];
 getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile"];
+defaction = getactlist[8];
 getactstr = "Actions: ";
 getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
  getactstr = getactstr+"\n"+getactsublist+": "+getactsubdesc+" ";
 getactstr = getactstr.strip();
-curaction = "help";
+curaction = defaction;
 cursaction = os.path.splitext(os.path.basename(sys.argv[0]))[0];
 cursactionspt = list(cursaction.split("-"));
 if(len(cursactionspt)<=1):
@@ -53,7 +54,7 @@ if(cursaction in getactlist):
  curaction = cursaction;
 if(len(sys.argv)>=2):
  if(sys.argv[1] not in getactlist):
-  curaction = "help";
+  curaction = defaction;
  if(cursaction in getactlist):
   curaction = cursaction;
  if(len(sys.argv)>1):
