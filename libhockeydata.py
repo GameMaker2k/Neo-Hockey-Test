@@ -265,6 +265,86 @@ def GetNum2Arena(sqldatacon, leaguename, ArenaNum, ReturnVar):
 def GetArena2Num(sqldatacon, leaguename, ArenaName):
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
 
+def GetAreaInfoFromUSCA(areaname):
+ areacodes = {'AL': {'AreaName': "AL", 'FullAreaName': "Alabama", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'AK': {'AreaName': "AK", 'FullAreaName': "Alaska", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'AZ': {'AreaName': "AZ", 'FullAreaName': "Arizona", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'AR': {'AreaName': "AR", 'FullAreaName': "Arkansas", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'CA': {'AreaName': "CA", 'FullAreaName': "California", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'CO': {'AreaName': "CO", 'FullAreaName': "Colorado", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'CT': {'AreaName': "CT", 'FullAreaName': "Connecticut", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'DC': {'AreaName': "DE", 'FullAreaName': "District of Columbia", 'CountryName': "US", 'FullCountryName': "United States"}, 
+			  'D.C.': {'AreaName': "DE", 'FullAreaName': "District of Columbia", 'CountryName': "US", 'FullCountryName': "United States"}, 
+			  'DE': {'AreaName': "DE", 'FullAreaName': "Delaware", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'FL': {'AreaName': "FL", 'FullAreaName': "Florida", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'GA': {'AreaName': "GA", 'FullAreaName': "Georgia", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'HI': {'AreaName': "HI", 'FullAreaName': "Hawaii", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'ID': {'AreaName': "ID", 'FullAreaName': "Idaho", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'IL': {'AreaName': "IL", 'FullAreaName': "Illinois", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'IN': {'AreaName': "IN", 'FullAreaName': "Indiana", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'IA': {'AreaName': "IA", 'FullAreaName': "Iowa", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'KS': {'AreaName': "KS", 'FullAreaName': "Kansas", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'KY': {'AreaName': "KY", 'FullAreaName': "Kentucky", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'LA': {'AreaName': "LA", 'FullAreaName': "Louisiana", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'ME': {'AreaName': "ME", 'FullAreaName': "Maine", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MD': {'AreaName': "MD", 'FullAreaName': "Maryland", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MA': {'AreaName': "MA", 'FullAreaName': "Massachusetts", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MI': {'AreaName': "MI", 'FullAreaName': "Michigan", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MN': {'AreaName': "MN", 'FullAreaName': "Minnesota", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MS': {'AreaName': "MS", 'FullAreaName': "Mississippi", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MO': {'AreaName': "MO", 'FullAreaName': "Missouri", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'MT': {'AreaName': "MT", 'FullAreaName': "Montana", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NE': {'AreaName': "NE", 'FullAreaName': "Nebraska", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NV': {'AreaName': "NV", 'FullAreaName': "Nevada", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NH': {'AreaName': "NH", 'FullAreaName': "New Hampshire", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NJ': {'AreaName': "NJ", 'FullAreaName': "New Jersey", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NM': {'AreaName': "NM", 'FullAreaName': "New Mexico", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NY': {'AreaName': "NY", 'FullAreaName': "New York", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'NC': {'AreaName': "NC", 'FullAreaName': "North Carolina", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'ND': {'AreaName': "ND", 'FullAreaName': "North Dakota", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'OH': {'AreaName': "OH", 'FullAreaName': "Ohio", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'OK': {'AreaName': "OK", 'FullAreaName': "Oklahoma", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'OR': {'AreaName': "OR", 'FullAreaName': "Oregon", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'PA': {'AreaName': "PA", 'FullAreaName': "Pennsylvania", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'RI': {'AreaName': "RI", 'FullAreaName': "Rhode Island", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'SC': {'AreaName': "SC", 'FullAreaName': "South Carolina", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'SD': {'AreaName': "SD", 'FullAreaName': "South Dakota", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'TN': {'AreaName': "TN", 'FullAreaName': "Tennessee", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'TX': {'AreaName': "TX", 'FullAreaName': "Texas", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'UT': {'AreaName': "UT", 'FullAreaName': "Utah", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'VT': {'AreaName': "VT", 'FullAreaName': "Vermont", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'VA': {'AreaName': "VA", 'FullAreaName': "Virginia", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'WA': {'AreaName': "WA", 'FullAreaName': "Washington", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'WV': {'AreaName': "WV", 'FullAreaName': "West Virginia", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'WI': {'AreaName': "WI", 'FullAreaName': "Wisconsin", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'WY': {'AreaName': "WY", 'FullAreaName': "Wyoming", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'AB': {'AreaName': "AB", 'FullAreaName': "Alberta", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'BC': {'AreaName': "BC", 'FullAreaName': "British Columbia", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'MB': {'AreaName': "MB", 'FullAreaName': "Manitoba", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'NB': {'AreaName': "NB", 'FullAreaName': "New Brunswick", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'NL': {'AreaName': "NL", 'FullAreaName': "Newfoundland and Labrador", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'NS': {'AreaName': "NS", 'FullAreaName': "Nova Scotia", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'NT': {'AreaName': "NT", 'FullAreaName': "Northwest Territories", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'NU': {'AreaName': "NU", 'FullAreaName': "Nunavut", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'ON': {'AreaName': "ON", 'FullAreaName': "Ontario", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'PE': {'AreaName': "PE", 'FullAreaName': "Prince Edward Island", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'QC': {'AreaName': "QC", 'FullAreaName': "Quebec", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'SK': {'AreaName': "SK", 'FullAreaName': "Saskatchewan", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'YT': {'AreaName': "YT", 'FullAreaName': "Yukon", 'CountryName': "CA", 'FullCountryName': "Canada"} };
+ return areacodes.get(areaname, {areaname: {'AreaName': areaname, 'FullAreaName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown"}});
+
+def GetHockeyLeaguesInfo(areaname):
+ areacodes = {'NHL': {'LeagueName': "NHL", 'FullLeagueName': "National Hockey League", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'AHL': {'LeagueName': "AHL", 'FullLeagueName': "American Hockey League", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'ECHL': {'LeagueName': "ECHL", 'FullLeagueName': "ECHL", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'FHL': {'LeagueName': "FHL", 'FullLeagueName': "Federal Hockey League", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'SPHL': {'LeagueName': "SPHL", 'FullLeagueName': "Southern Professional Hockey League", 'CountryName': "US", 'FullCountryName': "United States"}, 
+              'CHL': {'LeagueName': "CHL", 'FullLeagueName': "Canadian Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'WHL': {'LeagueName': "WHL", 'FullLeagueName': "Western Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'OHL': {'LeagueName': "OHL", 'FullLeagueName': "Ontario Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada"}, 
+              'QMJHL': {'LeagueName': "QMJHL", 'FullLeagueName': "Quebec Major Junior Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada"} };
+ return areacodes.get(areaname, {areaname: {'LeagueName': areaname, 'FullLeagueName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown"}});
+
 def MakeHockeyLeagueTable(sqldatacon, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
@@ -1539,6 +1619,154 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=F
  if(returnxml is False):
   return True;
  return True;
+
+def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose=True):
+ chckyear = date[:4];
+ chckmonth = date[4:6];
+ chckday = date[6:8];
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+  sqldatacon = OpenHockeyDatabase(sdbfile);
+ else:
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return False;
+ leaguecur = sqldatacon[1].cursor();
+ xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+ xmlstring = xmlstring+"<hockey database=\""+xml_escape(str(sdbfile), quote=True)+"\" year=\""+xml_escape(str(chckyear), quote=True)+"\" month=\""+xml_escape(str(chckmonth), quote=True)+"\" day=\""+xml_escape(str(chckday), quote=True)+"\">\n";
+ if(verbose is True):
+  print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+  print("<hockey database=\""+xml_escape(str(sdbfile), quote=True)+"\" year=\""+xml_escape(str(chckyear), quote=True)+"\" month=\""+xml_escape(str(chckmonth), quote=True)+"\" day=\""+xml_escape(str(chckday), quote=True)+"\">");
+ gettablecur = sqldatacon[1].cursor();
+ gettable_num = gettablecur.execute("SELECT COUNT(*) FROM sqlite_master WHERE type=\"table\" and name LIKE \"%Teams\"").fetchone()[0];
+ gettable = gettablecur.execute("SELECT name FROM sqlite_master WHERE type=\"table\" and name LIKE \"%Teams\"");
+ mktemptablecur = sqldatacon[1].cursor();
+ mktemptablecur.execute("CREATE TEMP TABLE HockeyLeagues (\n" + \
+ "  id INTEGER PRIMARY KEY,\n" + \
+ "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
+ "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
+ "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  NumberOfConferences INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
+ ");");
+ for tableinfo in gettable:
+  LeagueName = re.sub("Teams$", "", tableinfo[0]);
+  LeagueNameInfo = GetHockeyLeaguesInfo(LeagueName);
+  getconference_num = mktemptablecur.execute("SELECT COUNT(*) FROM "+LeagueName+"Conferences").fetchone()[0];
+  getdivision_num = mktemptablecur.execute("SELECT COUNT(*) FROM "+LeagueName+"Divisions").fetchone()[0];
+  getteam_num = mktemptablecur.execute("SELECT COUNT(*) FROM "+LeagueName+"Teams").fetchone()[0];
+  getallteam_num = getteam_num;
+  mktemptablecur.execute("INSERT INTO HockeyLeagues (LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES \n" + \
+  "(\""+str(LeagueNameInfo['LeagueName'])+"\", \""+str(LeagueNameInfo['FullLeagueName'])+"\", \""+str(LeagueNameInfo['CountryName'])+"\", \""+str(LeagueNameInfo['FullCountryName'])+"\", "+str(getteam_num)+", "+str(getconference_num)+", "+str(getdivision_num)+")");
+ gettablecur.close();
+ getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
+ for leagueinfo in getleague:
+  HockeyLeagueHasDivisions = True;
+  HockeyLeagueHasDivisionStr = "yes";
+  if(int(leagueinfo[4])<=0):
+   HockeyLeagueHasDivisions = False;
+   HockeyLeagueHasDivisionStr = "no";
+  HockeyLeagueHasConferences = True;
+  HockeyLeagueHasConferenceStr = "yes";
+  if(int(leagueinfo[5])<=0):
+   HockeyLeagueHasConferences = False;
+   HockeyLeagueHasConferenceStr = "no";
+  xmlstring = xmlstring+" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">\n";
+  if(verbose is True):
+   print(" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
+  conferencecur = sqldatacon[1].cursor();
+  getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences").fetchone()[0];
+  getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences");
+  for conferenceinfo in getconference:
+   xmlstring = xmlstring+"  <conference name=\""+xml_escape(str(conferenceinfo[0]), quote=True)+"\">\n";
+   if(verbose is True):
+    print("  <conference name=\""+xml_escape(str(conferenceinfo[0]), quote=True)+"\">");
+   divisioncur = sqldatacon[1].cursor();
+   getdivision_num = divisioncur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Divisions WHERE Conference=\""+conferenceinfo[0]+"\"").fetchone()[0];
+   getdivision = divisioncur.execute("SELECT Division FROM "+leagueinfo[0]+"Divisions WHERE Conference=\""+conferenceinfo[0]+"\"");
+   for divisioninfo in getdivision:
+    xmlstring = xmlstring+"   <division name=\""+xml_escape(str(divisioninfo[0]), quote=True)+"\">\n";
+    if(verbose is True):
+     print("   <division name=\""+xml_escape(str(divisioninfo[0]), quote=True)+"\">");
+    teamcur = sqldatacon[1].cursor();
+    getteam_num = teamcur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Teams WHERE Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"").fetchone()[0];
+    getteam = teamcur.execute("SELECT CityName, AreaName, TeamName, ArenaName, TeamPrefix FROM "+leagueinfo[0]+"Teams WHERE Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"");
+    for teaminfo in getteam:
+     TeamAreaInfo = GetAreaInfoFromUSCA(teaminfo[1]);
+     xmlstring = xmlstring+"    <team city=\""+xml_escape(str(teaminfo[0]), quote=True)+"\" area=\""+xml_escape(str(TeamAreaInfo['AreaName']), quote=True)+"\" fullarea=\""+xml_escape(str(TeamAreaInfo['FullAreaName']), quote=True)+"\" country=\""+xml_escape(str(TeamAreaInfo['CountryName']), quote=True)+"\" fullcountry=\""+xml_escape(str(TeamAreaInfo['FullCountryName']), quote=True)+"\" name=\""+xml_escape(str(teaminfo[2]), quote=True)+"\" arena=\""+xml_escape(str(teaminfo[3]), quote=True)+"\" prefix=\""+xml_escape(str(teaminfo[4]), quote=True)+"\" suffix=\"\" />\n";
+     if(verbose is True):
+      print("    <team city=\""+xml_escape(str(teaminfo[0]), quote=True)+"\" area=\""+xml_escape(str(TeamAreaInfo['AreaName']), quote=True)+"\" fullarea=\""+xml_escape(str(TeamAreaInfo['FullAreaName']), quote=True)+"\" country=\""+xml_escape(str(TeamAreaInfo['CountryName']), quote=True)+"\" fullcountry=\""+xml_escape(str(TeamAreaInfo['FullCountryName']), quote=True)+"\" name=\""+xml_escape(str(teaminfo[2]), quote=True)+"\" arena=\""+xml_escape(str(teaminfo[3]), quote=True)+"\" prefix=\""+xml_escape(str(teaminfo[4]), quote=True)+"\" suffix=\"\" />");
+    teamcur.close();
+    xmlstring = xmlstring+"   </division>\n";
+    if(verbose is True):
+     print("   </division>");
+   divisioncur.close();
+   xmlstring = xmlstring+"  </conference>\n";
+   if(verbose is True):
+    print("  </conference>");
+  conferencecur.close();
+  arenacur = sqldatacon[1].cursor();
+  getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE id>"+str(getallteam_num)).fetchone()[0];
+  getarena = arenacur.execute("SELECT CityName, AreaName, ArenaName FROM "+leagueinfo[0]+"Arenas WHERE id>"+str(getallteam_num));
+  if(getteam_num>0):
+   xmlstring = xmlstring+"  <arenas>\n";
+   if(verbose is True):
+    print("  <arenas>");
+   for arenainfo in getarena:
+    ArenaAreaInfo = GetAreaInfoFromUSCA(arenainfo[1]);
+    xmlstring = xmlstring+"   <arena city=\""+xml_escape(str(arenainfo[0]), quote=True)+"\" area=\""+xml_escape(str(ArenaAreaInfo['AreaName']), quote=True)+"\" fullarea=\""+xml_escape(str(ArenaAreaInfo['FullAreaName']), quote=True)+"\" country=\""+xml_escape(str(ArenaAreaInfo['CountryName']), quote=True)+"\" fullcountry=\""+xml_escape(str(ArenaAreaInfo['FullCountryName']), quote=True)+"\" name=\""+xml_escape(str(arenainfo[2]), quote=True)+"\" />\n";
+    if(verbose is True):
+     print("   <arena city=\""+xml_escape(str(arenainfo[0]), quote=True)+"\" area=\""+xml_escape(str(ArenaAreaInfo['AreaName']), quote=True)+"\" fullarea=\""+xml_escape(str(ArenaAreaInfo['FullAreaName']), quote=True)+"\" country=\""+xml_escape(str(ArenaAreaInfo['CountryName']), quote=True)+"\" fullcountry=\""+xml_escape(str(ArenaAreaInfo['FullCountryName']), quote=True)+"\" name=\""+xml_escape(str(arenainfo[2]), quote=True)+"\" />");
+   xmlstring = xmlstring+"  </arenas>\n";
+   if(verbose is True):
+    print("  </arenas>");
+  gamecur = sqldatacon[1].cursor();
+  getgame_num = gamecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Games").fetchone()[0];
+  getgame = gamecur.execute("SELECT Date, HomeTeam, AwayTeam, TeamScorePeriods, ShotsOnGoal, AtArena, IsPlayOffGame FROM "+leagueinfo[0]+"Games");
+  if(getgame_num>0):
+   xmlstring = xmlstring+"  <games>\n";
+   if(verbose is True):
+    print("  <games>");
+   for gameinfo in getgame:
+    GetNumPeriods = len(gameinfo[3].split(","));
+    EmptyScore = ",0:0" * (GetNumPeriods - 1);
+    EmptyScore = "0:0"+EmptyScore;
+    xmlstring = xmlstring+"   <game date=\""+xml_escape(str(gameinfo[0]), quote=True)+"\" hometeam=\""+xml_escape(str(gameinfo[1]), quote=True)+"\" awayteam=\""+xml_escape(str(gameinfo[2]), quote=True)+"\" goals=\""+xml_escape(str(gameinfo[3]), quote=True)+"\" sogs=\""+xml_escape(str(gameinfo[4]), quote=True)+"\" ppgs=\""+xml_escape(str(EmptyScore), quote=True)+"\" shgs=\""+xml_escape(str(EmptyScore), quote=True)+"\" penalties=\""+xml_escape(str(EmptyScore), quote=True)+"\" pims=\""+xml_escape(str(EmptyScore), quote=True)+"\" hits=\""+xml_escape(str(EmptyScore), quote=True)+"\" takeaways=\""+xml_escape(str(EmptyScore), quote=True)+"\" faceoffwins=\""+xml_escape(str(EmptyScore), quote=True)+"\" atarena=\""+xml_escape(str(gameinfo[5]), quote=True)+"\" isplayoffgame=\""+xml_escape(str(gameinfo[6]), quote=True)+"\" />\n";
+    if(verbose is True):
+     print("   <game date=\""+xml_escape(str(gameinfo[0]), quote=True)+"\" hometeam=\""+xml_escape(str(gameinfo[1]), quote=True)+"\" awayteam=\""+xml_escape(str(gameinfo[2]), quote=True)+"\" goals=\""+xml_escape(str(gameinfo[3]), quote=True)+"\" sogs=\""+xml_escape(str(gameinfo[4]), quote=True)+"\" ppgs=\""+xml_escape(str(EmptyScore), quote=True)+"\" shgs=\""+xml_escape(str(EmptyScore), quote=True)+"\" penalties=\""+xml_escape(str(EmptyScore), quote=True)+"\" pims=\""+xml_escape(str(EmptyScore), quote=True)+"\" hits=\""+xml_escape(str(EmptyScore), quote=True)+"\" takeaways=\""+xml_escape(str(EmptyScore), quote=True)+"\" faceoffwins=\""+xml_escape(str(EmptyScore), quote=True)+"\" atarena=\""+xml_escape(str(gameinfo[5]), quote=True)+"\" isplayoffgame=\""+xml_escape(str(gameinfo[6]), quote=True)+"\" />");
+   xmlstring = xmlstring+"  </games>\n";
+   if(verbose is True):
+    print("  </games>");
+  xmlstring = xmlstring+" </league>\n";
+  if(verbose is True):
+   print(" </league>");
+ xmlstring = xmlstring+"</hockey>\n";
+ if(verbose is True):
+  print("</hockey>");
+ leaguecur.close();
+ sqldatacon[1].close();
+ return xmlstring;
+
+def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=False, verbose=True):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(xmlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  xmlfile = file_wo_extension+".xml";
+ xmlfp = open(xmlfile, "w+");
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose);
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml is True):
+  return xmlstring;
+ if(returnxml is False):
+  return True;
+ return True;
+
+MakeHockeyXMLFileFromOldHockeyDatabase("./hockey15-16.db3", "20151001", "./hockey15-16.xml", True);
 
 def MakeHockeyXMLFromHockeySQL(sqlfile, date, sdbfile=None, sqlisfile=True, verbose=True):
  if(os.path.exists(sqlfile) and os.path.isfile(sqlfile) and sqlisfile is True):
