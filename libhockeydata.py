@@ -2286,6 +2286,12 @@ def MakeHockeyXMLFromDatabase(sdbfile, date, verbose=True):
 def MakeHockeyXMLFileFromDatabase(sdbfile, date, xmlfile=None, returnxml=False, verbose=True):
  return MakeHockeyXMLFileFromHockeyDatabase(sdbfile, date, xmlfile, returnxml, verbose);
 
+def MakeHockeyXMLFromOldDatabase(sdbfile, date, verbose=True):
+ return MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose);
+
+def MakeHockeyXMLFileFromOldDatabase(sdbfile, date, xmlfile=None, returnxml=False, verbose=True):
+ return MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, date, xmlfile, returnxml, verbose);
+
 def MakeHockeyXMLFromSQL(sqlfile, date, sdbfile=None, sqlisfile=True, verbose=True):
  return MakeHockeyXMLFromHockeySQL(sqlfile, date, sdbfile, sqlisfile, verbose);
 
