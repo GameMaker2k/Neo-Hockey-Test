@@ -349,7 +349,7 @@ def MakeHockeyLeagueTable(sqldatacon, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
  sqldatacon[0].execute("CREATE TABLE HockeyLeagues (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
@@ -369,7 +369,7 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
@@ -389,7 +389,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Division TEXT NOT NULL DEFAULT '',\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
@@ -411,7 +411,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
  "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
  "  TeamFullName TEXT NOT NULL DEFAULT '',\n" + \
@@ -429,7 +429,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
  "  FullName TEXT NOT NULL DEFAULT '',\n" + \
  "  CityName TEXT NOT NULL DEFAULT '',\n" + \
@@ -507,7 +507,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
  "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
  "  FullName TEXT NOT NULL DEFAULT '',\n" + \
@@ -586,7 +586,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  GameID INTEGER NOT NULL DEFAULT 0,\n" + \
  "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
  "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
@@ -671,7 +671,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"PlayoffTeams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  TeamID INTEGER NOT NULL DEFAULT 0,\n" + \
  "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
  "  FullName TEXT NOT NULL DEFAULT '',\n" + \
@@ -790,7 +790,7 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Games");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
  "  HomeTeam TEXT NOT NULL DEFAULT '',\n" + \
  "  AwayTeam TEXT NOT NULL DEFAULT '',\n" + \
@@ -2136,7 +2136,7 @@ def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose=True):
  gettable = gettablecur.execute("SELECT name FROM sqlite_master WHERE type=\"table\" and name LIKE \"%Teams\"");
  mktemptablecur = sqldatacon[1].cursor();
  mktemptablecur.execute("CREATE TEMP TABLE HockeyLeagues (\n" + \
- "  id INTEGER PRIMARY KEY,\n" + \
+ "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
