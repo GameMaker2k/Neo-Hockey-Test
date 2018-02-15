@@ -1229,7 +1229,7 @@ def CloseHockeyDatabase(sqldatacon):
  return True;
 
 def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
- if(os.path.exists(xmlfile) and os.path.isfile(xmlfile) and xmlisfile is True):
+ if(xmlisfile is True and (os.path.exists(xmlfile) and os.path.isfile(xmlfile))):
   hockeyfile = ET.parse(xmlfile);
  elif(xmlisfile is False):
   hockeyfile = ET.ElementTree(ET.fromstring(xmlfile));
@@ -1346,9 +1346,9 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
  return True;
 
 def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
- if(not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile)):
+ if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(outxmlfile is None):
+ if(outxmlfile is None and xmlisfile is True):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
@@ -1362,7 +1362,7 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=Non
  return True;
 
 def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnsql=False, returndb=False, verbose=True):
- if(os.path.exists(sqlfile) and os.path.isfile(sqlfile) and sqlisfile is True):
+ if(sqlisfile is True and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
   sqlfp = open(sqlfile, "r");
   sqlstring = sqlfp.read();
   sqlfp.close();
@@ -1393,9 +1393,9 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
  return True;
 
 def MakeHockeyDatabaseFromHockeySQLWrite(insqlfile, sdbfile=None, outsqlfile=None, sqlisfile=True, returnsql=False, verbose=True):
- if(not os.path.exists(insqlfile) or not os.path.isfile(insqlfile)):
+ if(sqlisfile is True and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
   return False;
- if(outsqlfile is None):
+ if(outsqlfile is None and sqlisfile is True):
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outsqlfile = file_wo_extension+".db3";
  sqlfp = open(outsqlfile, "w+");
@@ -1412,7 +1412,7 @@ def MakeHockeyPythonFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
  pyfilename = __name__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
- if(os.path.exists(xmlfile) and os.path.isfile(xmlfile) and xmlisfile is True):
+ if(xmlisfile is True and (os.path.exists(xmlfile) and os.path.isfile(xmlfile))):
   hockeyfile = ET.parse(xmlfile);
  elif(xmlisfile is False):
   hockeyfile = ET.ElementTree(ET.fromstring(xmlfile));
@@ -1488,9 +1488,9 @@ def MakeHockeyPythonFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
  return pystring;
 
 def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True):
- if(not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile)):
+ if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(outpyfile is None):
+ if(outpyfile is None and xmlisfile is True):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
  pyfp = open(outpyfile, "w+");
@@ -1621,7 +1621,7 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=F
  return True;
 
 def MakeHockeyXMLFromHockeySQL(sqlfile, date, sdbfile=None, sqlisfile=True, verbose=True):
- if(os.path.exists(sqlfile) and os.path.isfile(sqlfile) and sqlisfile is True):
+ if(sqlisfile is True and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
   sqlfp = open(sqlfile, "r");
   sqlstring = sqlfp.read();
   sqlfp.close();
@@ -1730,9 +1730,9 @@ def MakeHockeyXMLFromHockeySQL(sqlfile, date, sdbfile=None, sqlisfile=True, verb
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQL(insqlfile, date, sdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, verbose=True):
- if(not os.path.exists(insqlfile) or not os.path.isfile(insqlfile)):
+ if(sqlisfile is True and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
   return False;
- if(outxmlfile is None):
+ if(outxmlfile is None and sqlisfile is True):
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outxmlfile = file_wo_extension+".xml";
  sqlfp = open(outxmlfile, "w+");
@@ -1961,7 +1961,7 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, 
  return True;
 
 def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False, verbose=True):
- if(os.path.exists(xmlfile) and os.path.isfile(xmlfile) and xmlisfile is True):
+ if(xmlisfile is True and (os.path.exists(xmlfile) and os.path.isfile(xmlfile))):
   hockeyfile = ET.parse(xmlfile);
  elif(xmlisfile is False):
   hockeyfile = ET.ElementTree(ET.fromstring(xmlfile));
@@ -2099,9 +2099,9 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, returnsql=False, verbose
  return sqldump;
 
 def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, returnsql=False, verbose=True):
- if(not os.path.exists(xmlfile) and not os.path.isfile(xmlfile)):
+ if(xmlisfile is False and (not os.path.exists(xmlfile) and not os.path.isfile(xmlfile))):
   return False;
- if(sqlfile is None):
+ if(sqlfile is None and xmlisfile is True):
   file_wo_extension, file_extension = os.path.splitext(xmlfile);
   sqlfile = file_wo_extension+".sql";
  sqlfp = open(sqlfile, "w+");
@@ -2281,19 +2281,19 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, date, pyfile=None, return
   return True;
  return True;
 
-def MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeySQLFromOldHockeyDatabase(sdbfile, date, verbose=True):
  xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, False);
- sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, True);
+ sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, verbose);
  return sqldump;
 
-def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True):
+def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, date, sqlfile=None, returnsql=False, verbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(sqlfile is None):
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   sqlfile = file_wo_extension+".sql";
  sqlfp = open(sqlfile, "w+");
- sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose);
+ sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, date, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql is True):
