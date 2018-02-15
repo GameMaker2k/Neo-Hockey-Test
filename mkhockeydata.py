@@ -157,7 +157,7 @@ if(curaction==getactlist[6]):
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile);
 
-if(curaction==getactlist[7):
+if(curaction==getactlist[7]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
