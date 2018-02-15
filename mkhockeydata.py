@@ -30,11 +30,11 @@ __version_date_plusrc__ = libhockeydata.__version_date_plusrc__
 __version__ = libhockeydata.__version__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 
-getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
-getactdesc = ["convert hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__, "make symbolic links"];
-gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version", "mksymlinks"];
-getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile"];
-defaction = getactlist[8];
+getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
+getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__, "make symbolic links"];
+gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version", "mksymlinks"];
+getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile"];
+defaction = getactlist[9];
 getactstr = "Actions: ";
 getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
@@ -63,13 +63,13 @@ if(len(sys.argv)>=2):
     curaction = curargact;
     break;
 
-if(curaction==getactlist[8] or curaction==getactlist[9]):
+if(curaction==getactlist[9] or curaction==getactlist[10]):
  print(getactstr);
 
-if(curaction==getactlist[10] or curaction==getactlist[11] or curaction==getactlist[12]):
+if(curaction==getactlist[11] or curaction==getactlist[12] or curaction==getactlist[13]):
  print(getverstr);
 
-if((curaction==getactlist[13] or curaction==getactlist[14])):
+if((curaction==getactlist[14] or curaction==getactlist[15])):
  for cursymact in getsymlist:
   curscrpath = os.path.dirname(sys.argv[0]);
   infilename = sys.argv[0];
@@ -104,14 +104,24 @@ if(curaction==getactlist[1]):
  argparser = argparse.ArgumentParser(description=getactdesc[1], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
+ argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
+ argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
+ argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
+ getargs = argparser.parse_args();
+ libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
+
+if(curaction==getactlist[2]):
+ argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
+ argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.sql", help="sql dump file to import");
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, getargs.date, None, getargs.outfile);
 
-if(curaction==getactlist[2]):
- argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
+if(curaction==getactlist[3]):
+ argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="xml file to convert");
@@ -119,8 +129,8 @@ if(curaction==getactlist[2]):
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile);
 
-if(curaction==getactlist[3]):
- argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
+if(curaction==getactlist[4]):
+ argparser = argparse.ArgumentParser(description=getactdesc[4], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.sql", help="sql dump file to import");
@@ -128,8 +138,8 @@ if(curaction==getactlist[3]):
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile);
 
-if(curaction==getactlist[4]):
- argparser = argparse.ArgumentParser(description=getactdesc[4], conflict_handler="resolve", add_help=True);
+if(curaction==getactlist[5]):
+ argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
@@ -138,8 +148,8 @@ if(curaction==getactlist[4]):
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
 
-if(curaction==getactlist[5]):
- argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
+if(curaction==getactlist[6]):
+ argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="xml file to convert");
@@ -147,8 +157,8 @@ if(curaction==getactlist[5]):
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile);
 
-if(curaction==getactlist[6]):
- argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
+if(curaction==getactlist[7):
+ argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
@@ -156,8 +166,8 @@ if(curaction==getactlist[6]):
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile);
 
-if(curaction==getactlist[7]):
- argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
+if(curaction==getactlist[8]):
+ argparser = argparse.ArgumentParser(description=getactdesc[8], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="xml file to convert");
