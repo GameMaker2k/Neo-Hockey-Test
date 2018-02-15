@@ -108,7 +108,7 @@ if(curaction==getactlist[1]):
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
- libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
+ libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
 
 if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
