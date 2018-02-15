@@ -75,7 +75,7 @@ if(file_exists($dbtofilename[$databasefile])) {
 if(!isset($_GET['league'])&&isset($leaguename)) { 
  $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
- $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
+ $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
  if(count($getleague)==7) {
   $leaguename = $getleague['LeagueName']; }
  if(count($getleague)<7) {
@@ -104,9 +104,9 @@ if(!isset($_GET['order'])&&isset($_GET['descending'])) { $_GET['order'] = "desce
 if(!isset($_GET['league'])) {
 echo "  <table style=\"width: 100%;\">\n";
 echo "   <tr>\n    <th>Hockey League Initials</th>\n    <th>Hockey League Name</th>\n    <th>Country Initials</th>\n    <th>Country Name</th>\n    <th>Number of Teams</th>\n    <th>Number of Conferences</th>\n    <th>Number of Divisions</th>\n   </tr>\n";
-$lresults = $sqldb->query("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
+$lresults = $sqldb->query("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
 while ($lrow = $lresults->fetchArray()) {
- echo "   <tr>\n    <td style=\"width: 11%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[0], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 23%;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[1], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[2]."</td>\n    <td style=\"width: 23%;\">".$lrow[3]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[4]."</td>\n    <td style=\"width: 11%; text-align: center;\">".$lrow[5]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[6]."</td>\n   </tr>\n"; }
+ echo "   <tr>\n    <td style=\"width: 11%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[0], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 23%;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[1], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[2]."</td>\n    <td style=\"width: 23%;\">".$lrow[3]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[5]."</td>\n    <td style=\"width: 11%; text-align: center;\">".$lrow[6]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[7]."</td>\n   </tr>\n"; }
 echo "  </table>\n";
 ?>
  </body>
@@ -360,6 +360,7 @@ while ($row = $results->fetchArray()) {
     echo $LineOne."\n <tr>\n   <td colspan=\"7\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"7\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n"; }
 echo "</table>\n<div>&#xA0;<br />&#xA0;</div>\n\n"; }
 if($_GET['act']=="stats") {
+$lsotres = $sqldb->querySingle("SELECT OrderType WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
 $SelectWhere = "";
 $SelectWhereNext = false;
 if(isset($_GET['date']) && is_numeric($_GET['date']) && strlen($_GET['date'])==8) {
@@ -367,7 +368,7 @@ if(isset($_GET['date']) && is_numeric($_GET['date']) && strlen($_GET['date'])==8
  $SelectWhereNext = true; }
 $sqldb->exec("CREATE TEMP TABLE ".$leaguename."Standings AS SELECT * FROM ".$leaguename."Stats ".$SelectWhere." GROUP BY TeamID ORDER BY TeamID ASC, Date DESC");
 echo "<table style=\"width: 100%;\">";
-$tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC");
+$tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings ".$lsotres['OrderType']);
 echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;#OverallStats\" id=\"OverallStats\">".$leaguename." Team Stats &amp; Standings</a></th>\n </tr>";
 echo "\n <tr>\n   <th colspan=\"2\">Team</th>\n   <th>GP</th>\n   <th>W</th>\n   <th>L</th>\n   <th>OTL</th>\n   <th>SOL</th>\n   <th>P</th>\n   <th>PCT</th>\n   <th>ROW</th>\n   <th>GF</th>\n   <th>GA</th>\n   <th>DIFF</th>\n   <th>Home</th>\n   <th>Away</th>\n   <th>S/O</th>\n   <th>L10</th>\n   <th>Streak</th>\n </tr>";
 $teamplace = 1;
@@ -379,7 +380,7 @@ $conresults = $sqldb->query("SELECT * FROM ".$leaguename."Conferences");
 while ($conrow = $conresults->fetchArray()) {
 if($_GET['conference']=="All" || $_GET['conference']==$conrow['Conference']) {
 echo " <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n";
-$tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings WHERE Conference='".$sqldb->escapeString($conrow['Conference'])."' ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC");
+$tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings WHERE Conference='".$sqldb->escapeString($conrow['Conference'])."' ".$lsotres['OrderType']);
 echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;#".$conrow['Conference']."ConferenceStats\" id=\"".$conrow['Conference']."ConferenceStats\">".$leaguename." ".$conrow['Conference']." Conference Stats &amp; Standings</a></th>\n </tr>";
 echo "\n <tr>\n   <th colspan=\"2\">Team</th>\n   <th>GP</th>\n   <th>W</th>\n   <th>L</th>\n   <th>OTL</th>\n   <th>SOL</th>\n   <th>P</th>\n   <th>PCT</th>\n   <th>ROW</th>\n   <th>GF</th>\n   <th>GA</th>\n   <th>DIFF</th>\n   <th>Home</th>\n   <th>Away</th>\n   <th>S/O</th>\n   <th>L10</th>\n   <th>Streak</th>\n </tr>";
 $teamplace = 1;
@@ -391,7 +392,7 @@ $divresults = $sqldb->query("SELECT * FROM ".$leaguename."Divisions");
 while ($divrow = $divresults->fetchArray()) {
 if($_GET['division']=="All" || $_GET['division']==$divrow['Division']) {
 echo " <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n";
-$tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings WHERE Division='".$sqldb->escapeString($divrow['Division'])."' ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC");
+$tresults = $sqldb->query("SELECT * FROM ".$leaguename."Standings WHERE Division='".$sqldb->escapeString($divrow['Division'])."' ".$lsotres['OrderType']);
 echo "\n <tr>\n   <th colspan=\"18\"><a href=\"index.php?stats&amp;league=".urlencode($_GET['league'])."&amp;database=".urlencode($_GET['database'])."&amp;#".$divrow['Division']."DivisionStats\" id=\"".$divrow['Division']."DivisionStats\">".$leaguename." ".$divrow['Division']." Division Team Stats &amp; Standings</a></th>\n </tr>";
 echo "\n <tr>\n   <th colspan=\"2\">Team</th>\n   <th>GP</th>\n   <th>W</th>\n   <th>L</th>\n   <th>OTL</th>\n   <th>SOL</th>\n   <th>P</th>\n   <th>PCT</th>\n   <th>ROW</th>\n   <th>GF</th>\n   <th>GA</th>\n   <th>DIFF</th>\n   <th>Home</th>\n   <th>Away</th>\n   <th>S/O</th>\n   <th>L10</th>\n   <th>Streak</th>\n </tr>";
 $teamplace = 1;

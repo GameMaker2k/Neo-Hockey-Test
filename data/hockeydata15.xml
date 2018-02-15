@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <hockey database="./hockey15-16.db3" year="2015" month="10" day="01">
- <league name="ECHL" fullname="ECHL" country="US" fullcountry="United States" conferences="yes" divisions="yes">
+ <league name="ECHL" fullname="ECHL" country="US" fullcountry="United States" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern">
    <division name="East">
     <team city="Elmira" area="NY" fullarea="New York" country="US" fullcountry="United States" name="Jackals" arena="First Arena" prefix="Elmira" suffix="" />
@@ -675,7 +675,7 @@
    <game date="20160131" hometeam="Toledo Walleye" awayteam="Quad City Mallards" goals="2:0,0:2,0:0,1:0" sogs="9:11,3:12,7:8,1:0" ppgs="0:0,0:0,0:0,0:0" shgs="0:0,0:0,0:0,0:0" penalties="0:0,0:0,0:0,0:0" pims="0:0,0:0,0:0,0:0" hits="0:0,0:0,0:0,0:0" takeaways="0:0,0:0,0:0,0:0" faceoffwins="0:0,0:0,0:0,0:0" atarena="Huntington Center, Toledo" isplayoffgame="0" />
   </games>
  </league>
- <league name="AHL" fullname="American Hockey League" country="US" fullcountry="United States" conferences="yes" divisions="yes">
+ <league name="AHL" fullname="American Hockey League" country="US" fullcountry="United States" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern">
    <division name="Atlantic">
     <team city="Bridgeport" area="CT" fullarea="Connecticut" country="US" fullcountry="United States" name="Sound Tigers" arena="Webster Bank Arena" prefix="Bridgeport" suffix="" />
@@ -1382,7 +1382,7 @@
    <game date="20160130" hometeam="Stockton Heat" awayteam="Bakersfield Condors" goals="1:1,2:0,1:1" sogs="12:8,17:13,15:9" ppgs="0:0,0:0,0:0" shgs="0:0,0:0,0:0" penalties="0:0,0:0,0:0" pims="0:0,0:0,0:0" hits="0:0,0:0,0:0" takeaways="0:0,0:0,0:0" faceoffwins="0:0,0:0,0:0" atarena="Stockton Arena, Stockton" isplayoffgame="0" />
   </games>
  </league>
- <league name="NHL" fullname="National Hockey League" country="US" fullcountry="United States" conferences="yes" divisions="yes">
+ <league name="NHL" fullname="National Hockey League" country="US" fullcountry="United States" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern">
    <division name="Atlantic">
     <team city="Boston" area="MA" fullarea="Massachusetts" country="US" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" />
