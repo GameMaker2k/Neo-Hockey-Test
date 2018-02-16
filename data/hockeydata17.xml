@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hockey database="./hockey17-18.db3" year="2017" month="10" day="01">
- <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+<hockey database="./hockey17-18.db3">
+ <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="20171004" playofffmt="Division=3,Conference=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern">
    <division name="Atlantic">
     <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" />
@@ -51,7 +51,7 @@
    <arena city="Annapolis" area="MD" fullarea="Maryland" country="USA" fullcountry="United States" name="United States Naval Academy" />
   </arenas>
  </league>
- <league name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+ <league name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States" date="20171006" playofffmt="Division=4" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern">
    <division name="Atlantic">
     <team city="Bridgeport" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Sound Tigers" arena="Webster Bank Arena" prefix="Bridgeport" suffix="" />
@@ -98,7 +98,7 @@
    <arena city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hersheypark Stadium" />
   </arenas>
  </league>
- <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+ <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States" date="20171013" playofffmt="Division=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern">
    <division name="North">
     <team city="Glens Falls" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Thunder" arena="Cool Insuring Arena" prefix="Adirondack" suffix="" />
@@ -139,7 +139,7 @@
    </division>
   </conference>
  </league>
- <league name="FHL" fullname="Federal Hockey League" country="USA" fullcountry="United States" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
+ <league name="FHL" fullname="Federal Hockey League" country="USA" fullcountry="United States" date="20171027" playofffmt="League=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
   <conference name="">
    <division name="">
     <team city="Winston-Salem" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Thunderbirds" arena="Winston-Salem Fairgrounds Annex" prefix="Carolina" suffix="" />
@@ -151,7 +151,7 @@
    </division>
   </conference>
  </league>
- <league name="SPHL" fullname="Southern Professional Hockey League" country="USA" fullcountry="United States" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
+ <league name="SPHL" fullname="Southern Professional Hockey League" country="USA" fullcountry="United States" date="20171020" playofffmt="League=8" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
   <conference name="">
    <division name="">
     <team city="Pelham" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Bulls" arena="Pelham Civic Center" prefix="Birmingham" suffix="" />
@@ -167,7 +167,7 @@
    </division>
   </conference>
  </league>
- <league name="KHL" fullname="Kontinental Hockey League" country="RUS" fullcountry="Russia" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+ <league name="KHL" fullname="Kontinental Hockey League" country="RUS" fullcountry="Russia" date="20170821" playofffmt="Conference=8" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Western">
    <division name="Bobrov">
     <team city="Minsk" area="BY" fullarea="Belarus" country="BLR" fullcountry="Belarus" name="Dinamo Minsk" arena="Minsk-Arena" prefix="" suffix="" />

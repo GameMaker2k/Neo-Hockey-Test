@@ -1,5 +1,5 @@
-<hockey database="./fhmt1y17-18.db3" year="2017" month="10" day="01">
- <league name="HOL" fullname="Hockey League" country="USA" fullcountry="United States" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+<hockey database="./fhmt1y17-18.db3">
+ <league name="HOL" fullname="Hockey League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Conference 1">
    <division name="Division 1">
     <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Flies" arena="KAN Arena" prefix="Kansas City" suffix="" />
@@ -21,7 +21,7 @@
    </division>
   </conference>
  </league>
- <league name="MIL" fullname="Minor League" country="USA" fullcountry="United States" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+ <league name="MIL" fullname="Minor League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Conference 1">
    <division name="Division 1">
     <team city="Milan" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Dazzle" arena="MIL Arena" prefix="Milan" suffix="" />

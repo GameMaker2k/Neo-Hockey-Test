@@ -96,9 +96,8 @@ if(curaction==getactlist[0]):
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
- argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
- libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
+ libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile);
 
 if(curaction==getactlist[1]):
  argparser = argparse.ArgumentParser(description=getactdesc[1], conflict_handler="resolve", add_help=True);
@@ -116,9 +115,8 @@ if(curaction==getactlist[2]):
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.sql", help="sql dump file to import");
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
- argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
- libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, getargs.date, None, getargs.outfile);
+ libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile);
 
 if(curaction==getactlist[3]):
  argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
@@ -144,9 +142,8 @@ if(curaction==getactlist[5]):
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="python file to output");
- argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
- libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
+ libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile);
 
 if(curaction==getactlist[6]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
