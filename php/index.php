@@ -25,7 +25,7 @@ header("Pragma: private, no-cache, no-store, must-revalidate, pre-check=0, post-
 header("Date: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
-$fullurl = "http://ja.gamemaker2k.org/neohockey/";
+$fullurl = "http://localhost/hockey/";
 if(isset($_SERVER['HTTPS'])) {
  $fullurl = "https://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/"); } 
 if(!isset($_SERVER['HTTPS'])) {
