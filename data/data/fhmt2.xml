@@ -1,0 +1,46 @@
+<hockey database="./fhmt2y17-18.db3">
+ <league name="HOL" fullname="Hockey League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+  <conference name="Conference 1">
+   <division name="Division 1">
+    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Blasters" arena="DET Arena" prefix="Detroit" suffix="" />
+    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Sabres" arena="IND Arena" prefix="Indianapolis" suffix="" />
+   </division>
+   <division name="Division 2">
+    <team city="Chicago" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="River Bandits" arena="CHI Arena" prefix="Chicago" suffix="" />
+    <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Chariots" arena="KAN Arena" prefix="Kansas City" suffix="" />
+   </division>
+  </conference>
+  <conference name="Conference 2">
+   <division name="Division 3">
+    <team city="St. Paul" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Smoking Guns" arena="SMO Arena" prefix="St. Paul" suffix="" />
+    <team city="Minneapolis" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Armada" arena="MIN Arena" prefix="Minneapolis" suffix="" />
+   </division>
+   <division name="Division 4">
+    <team city="Peoria" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Jammers" arena="PEO Arena" prefix="Peoria" suffix="" />
+    <team city="Joliet" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Gears" arena="JOL Arena" prefix="Chicago" suffix="" />
+   </division>
+  </conference>
+ </league>
+ <league name="MIL" fullname="Minor League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+  <conference name="Conference 1">
+   <division name="Division 1">
+    <team city="Northview" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Loggerheads" arena="NOR Arena" prefix="Northview" suffix="" />
+    <team city="Gulivoire Park" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Caravans" arena="GUL Arena" prefix="Gulivoire Park" suffix="" />
+   </division>
+   <division name="Division 2">
+    <team city="Wheeling" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Ramblers" arena="WHE Arena" prefix="Wheeling" suffix="" />
+    <team city="Columbia" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Skychiefs" arena="COL Arena" prefix="Columbia" suffix="" />
+   </division>
+  </conference>
+  <conference name="Conference 2">
+   <division name="Division 3">
+    <team city="Winona" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Vipers" arena="WIN Arena" prefix="Winona" suffix="" />
+    <team city="New Hope" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Chaos" arena="NEW Arena" prefix="New Hope" suffix="" />
+   </division>
+   <division name="Division 4">
+    <team city="Tinley Park" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Gappers" arena="TIN Arena" prefix="Tinley Park" suffix="" />
+    <team city="Franklin Park" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Spirits" arena="FRA Arena" prefix="Franklin Park" suffix="" />
+   </division>
+  </conference>
+ </league>
+</hockey>
