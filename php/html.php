@@ -57,11 +57,16 @@ if(!isset($_GET['database'])||!in_array($_GET['database'], $databasefnlist)) {
  <body>
 <?php
 echo "  <table style=\"width: 100%;\">\n";
-echo "   <tr>\n    <th>Hockey Databases</th>\n   </tr>\n";
+echo "   <tr>\n    <th>Hockey Databases</th>\n    <th>Number of Leagues</th>\n   </tr>\n";
 $dbi = 0;
 $dbx = count($databasefnlist);
 while($dbi < $dbx) {
- echo "   <tr>\n    <td style=\"width: 11%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;database=".urlencode($databasefnlist[$dbi])."\">".htmlspecialchars($databasefnlist[$dbi], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n   </tr>\n"; 
+ $sqldb = new SQLite3($databaselist[$dbi]);
+ $PreNumHockeyLeagues = $sqldb->query("SELECT COUNT(*) as count FROM HockeyLeagues");
+ $NumHockeyLeaguesArray = $PreNumHockeyLeagues->fetchArray();
+ $NumHockeyLeagues = intval($NumHockeyLeaguesArray['count']);
+ echo "   <tr>\n    <td style=\"width: 50%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;database=".urlencode($databasefnlist[$dbi])."\">".htmlspecialchars($databasefnlist[$dbi], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 50%; text-align: center;\">".htmlspecialchars($NumHockeyLeagues, ENT_COMPAT | ENT_HTML5, "UTF-8")."</td>\n   </tr>\n"; 
+ $sqldb->close();
  ++$dbi; }
 echo "  </table>\n";
 ?>
@@ -112,6 +117,7 @@ echo "  </table>\n";
  </body>
 </html>
 <?php
+$sqldb->close();
 exit(); }
 if(isset($_GET['month']) && strlen($_GET['month'])==1) {
  $_GET['month'] = "0".$_GET['month']; }
@@ -402,6 +408,7 @@ while ($trow = $tresults->fetchArray()) {
     echo "\n <tr>\n   <td style=\"text-align: center;\">".$teamplace."</td>\n   <td style=\"text-align: center;\"><a href=\"".$fileurl."?games&amp;league=".urlencode($leaguename)."&amp;database=".urlencode($_GET['database'])."&amp;date=".urlencode($trow['Date'])."&amp;team=".urlencode($trow['FullName'])."\">".htmlspecialchars($trow['FullName'], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n   <td style=\"text-align: center;\">".$trow['GamesPlayed']."</td>\n   <td style=\"text-align: center;\">".$trow['TWins']."</td>\n   <td style=\"text-align: center;\">".$trow['Losses']."</td>\n   <td style=\"text-align: center;\">".$trow['OTLosses']."</td>\n   <td style=\"text-align: center;\">".$trow['SOLosses']."</td>\n   <td style=\"text-align: center;\">".$trow['Points']."</td>\n   <td style=\"text-align: center;\">".number_format($trow['PCT'], 3)."</td>\n   <td style=\"text-align: center;\">".$trow['ROW']."</td>\n   <td style=\"text-align: center;\">".$trow['GoalsFor']."</td>\n   <td style=\"text-align: center;\">".$trow['GoalsAgainst']."</td>\n   <td style=\"text-align: center;\">".$trow['GoalsDifference']."</td>\n   <td style=\"text-align: center;\">".str_replace(":", "-", $trow['HomeRecord'])."</td>\n   <td style=\"text-align: center;\">".str_replace(":", "-", $trow['AwayRecord'])."</td>\n   <td style=\"text-align: center;\">".str_replace(":", "-", $trow['Shootouts'])."</td>\n   <td style=\"text-align: center;\">".str_replace(":", "-", $trow['LastTen'])."</td>\n   <td style=\"text-align: center;\">".$trow['Streak']."</td>\n </tr>"; $teamplace += 1; } } }
 echo " <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n";
 echo "\n</table>\n<div>&#xA0;<br />&#xA0;</div>\n\n"; }
+$sqldb->close();
 ?>
  </body>
 </html>

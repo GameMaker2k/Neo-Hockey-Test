@@ -222,7 +222,7 @@ if(isset($_GET['league'])) {
   </html>
  </xsl:template>
 </xsl:stylesheet>
-<?php exit(); }
+<?php $sqldb->close(); exit(); }
 if(isset($_GET['dtd']) || (isset($_GET['act']) && $_GET['act']=="dtd")) {
 header("Content-Type: application/xml-dtd; charset=UTF-8");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -244,7 +244,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 <!ELEMENT game (home,away)*>
 <!ATTLIST game date CDATA #REQUIRED>
 <!ATTLIST game arena CDATA #REQUIRED>
-<?php exit(); }
+<?php $sqldb->close(); exit(); }
 if(isset($_GET['xsd']) || (isset($_GET['act']) && $_GET['act']=="xsd")) {
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 ?>
@@ -295,7 +295,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     </xs:complexType>
   </xs:element>
 </xs:schema>
-<?php exit(); }
+<?php $sqldb->close(); exit(); }
 if(isset($_GET['rnc']) || (isset($_GET['act']) && $_GET['act']=="rnc")) {
 header("Content-Type: text/plain; charset=UTF-8");
 ?>
@@ -317,7 +317,7 @@ game = element game { attlist.game, (home, away)* }
 attlist.game &= attribute date { text }
 attlist.game &= attribute arena { text }
 start = hockey
-<?php exit(); }
+<?php $sqldb->close(); exit(); }
 if(isset($_GET['rng']) || (isset($_GET['act']) && $_GET['act']=="rng")) {
 header("Content-Type: pplication/relaxng+xml; charset=UTF-8");
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -412,7 +412,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
     </choice>
   </start>
 </grammar>
-<?php exit(); }
+<?php $sqldb->close(); exit(); }
 echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 echo "<?xml-stylesheet type=\"text/xsl\" href=\"".$fullurl."".$fileurl."?xslt\"?>\n";
 echo "<!DOCTYPE hockey SYSTEM \"".$fullurl."".$fileurl."?dtd\">\n";
@@ -719,4 +719,5 @@ while ($trow = $tresults->fetchArray()) {
 echo " <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n <tr>\n   <td colspan=\"18\" style=\"text-align: center;\">&#xA0;</td>\n </tr>\n";
 echo "\n</table>\n<div>&#xA0;<br />&#xA0;</div>\n\n"; }
 echo "</hockey>";
+$sqldb->close();
 ?>

@@ -1063,44 +1063,79 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
   UpdateTeamData(sqldatacon, leaguename, hometeam, "ShutoutLosses", 1, "+");
  UpdateTeamDataString(sqldatacon, leaguename, hometeam, "LastTen", GetLastGamesWithShootout(sqldatacon, leaguename, winningteamname));
  UpdateTeamDataString(sqldatacon, leaguename, awayteam, "LastTen", GetLastGamesWithShootout(sqldatacon, leaguename, losingteamname));
- GetWinningStreak = GetTeamData(sqldatacon, leaguename, winningteam, "Streak", "str");
- GetWinningStreakNext = "Won 1";
- if(GetWinningStreak!="None"):
-  GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
-  if(GetWinningStreakSplit[0][0]=="Won"):
-   GetWinningStreakNext = "Won "+str(int(GetWinningStreakSplit[0][1]) + 1);
-  if(GetWinningStreakSplit[0][0]=="Lost"):
-   GetWinningStreakNext = "Won 1";
-  if(GetWinningStreakSplit[0][0]=="OT"):
-   GetWinningStreakNext = "Won 1";
- UpdateTeamDataString(sqldatacon, leaguename, winningteam, "Streak", GetWinningStreakNext);
- GetLosingStreak = GetTeamData(sqldatacon, leaguename, losingteam, "Streak", "str");
- if(numberofperiods==3):
-  GetLosingStreakNext = "Lost 1";
- if(numberofperiods>3):
-  GetLosingStreakNext = "OT 1";
- if(GetLosingStreak!="None"):
-  GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
-  if(GetLosingStreakSplit[0][0]=="Won"):
-   if(numberofperiods==3):
-    GetLosingStreakNext = "Lost 1";
-   if(numberofperiods>3):
-    GetLosingStreakNext = "OT 1";
-  if(GetLosingStreakSplit[0][0]=="Lost"):
-   if(numberofperiods==3):
-    GetLosingStreakNext = "Lost "+str(int(GetLosingStreakSplit[0][1]) + 1);
-   if(numberofperiods>3):
-    GetLosingStreakNext = "OT 1";
-  if(GetLosingStreakSplit[0][0]=="OS"):
-   if(numberofperiods==3):
-    GetLosingStreakNext = "Lost 1";
-   if(numberofperiods>3):
-    GetLosingStreakNext = "OT "+str(int(GetLosingStreakSplit[0][1]) + 1);
- UpdateTeamDataString(sqldatacon, leaguename, losingteam, "Streak", GetLosingStreakNext);
- if((isplayoffgame is False and numberofperiods<5 and (winningteam==hometeam or winningteam==awayteam)) or (isplayoffgame is True and (winningteam==hometeam or winningteam==awayteam))):
+ if(tiegame==0):
+  GetWinningStreak = GetTeamData(sqldatacon, leaguename, winningteam, "Streak", "str");
+  GetWinningStreakNext = "Won 1";
+  if(GetWinningStreak!="None"):
+   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   if(GetWinningStreakSplit[0][0]=="Won"):
+    GetWinningStreakNext = "Won "+str(int(GetWinningStreakSplit[0][1]) + 1);
+   if(GetWinningStreakSplit[0][0]=="Lost"):
+    GetWinningStreakNext = "Won 1";
+   if(GetWinningStreakSplit[0][0]=="OT"):
+    GetWinningStreakNext = "Won 1";
+   if(GetWinningStreakSplit[0][0]=="Tie"):
+    GetWinningStreakNext = "Won 1";
+  UpdateTeamDataString(sqldatacon, leaguename, winningteam, "Streak", GetWinningStreakNext);
+  GetLosingStreak = GetTeamData(sqldatacon, leaguename, losingteam, "Streak", "str");
+  if(numberofperiods==3):
+   GetLosingStreakNext = "Lost 1";
+  if(numberofperiods>3):
+   GetLosingStreakNext = "OT 1";
+  if(GetLosingStreak!="None"):
+   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   if(GetLosingStreakSplit[0][0]=="Won"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost 1";
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT 1";
+   if(GetLosingStreakSplit[0][0]=="Lost"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost "+str(int(GetLosingStreakSplit[0][1]) + 1);
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT 1";
+   if(GetLosingStreakSplit[0][0]=="OS"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost 1";
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT "+str(int(GetLosingStreakSplit[0][1]) + 1);
+   if(GetLosingStreakSplit[0][0]=="Tie"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost 1";
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT 1";
+  UpdateTeamDataString(sqldatacon, leaguename, losingteam, "Streak", GetLosingStreakNext);
+ if(tiegame==1):
+  GetWinningStreak = GetTeamData(sqldatacon, leaguename, hometeam, "Streak", "str");
+  GetWinningStreakNext = "Tie 1";
+  if(GetWinningStreak!="None"):
+   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   if(GetWinningStreakSplit[0][0]=="Won"):
+    GetWinningStreakNext = "Tie 1";
+   if(GetWinningStreakSplit[0][0]=="Lost"):
+    GetWinningStreakNext = "Tie 1";
+   if(GetWinningStreakSplit[0][0]=="OT"):
+    GetWinningStreakNext = "Tie 1";
+   if(GetWinningStreakSplit[0][0]=="Tie"):
+    GetWinningStreakNext = "Tie "+str(int(GetWinningStreakSplit[0][1]) + 1);
+  UpdateTeamDataString(sqldatacon, leaguename, hometeam, "Streak", GetWinningStreakNext);
+  GetLosingStreak = GetTeamData(sqldatacon, leaguename, awayteam, "Streak", "str");
+  GetLosingStreakNext = "Tie 1";
+  if(GetLosingStreak!="None"):
+   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   if(GetLosingStreakSplit[0][0]=="Won"):
+    GetLosingStreakNext = "Tie 1";
+   if(GetLosingStreakSplit[0][0]=="Lost"):
+    GetLosingStreakNext = "Tie 1";
+   if(GetLosingStreakSplit[0][0]=="OS"):
+    GetLosingStreakNext = "Tie 1";
+   if(GetLosingStreakSplit[0][0]=="Tie"):
+    GetLosingStreakNext = "Tie "+str(int(GetLosingStreakSplit[0][1]) + 1);
+  UpdateTeamDataString(sqldatacon, leaguename, awayteam, "Streak", GetLosingStreakNext);
+ if((isplayoffgame is False and numberofperiods<5 and tiegame==0) or (isplayoffgame is True and tiegame==0)):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "ROW", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "ROT", 1, "+");
- if(numberofperiods==3 and (winningteam==hometeam or winningteam==awayteam)):
+ if(numberofperiods==3 and tiegame==0):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "Wins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "TWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "Points", 2, "+");
@@ -1125,7 +1160,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1] + 1)+":"+str(ATRSpit[2])+":"+str(ATRSpit[3]);
    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
- if(numberofperiods>3 and (winningteam==hometeam or winningteam==awayteam)):
+ if(numberofperiods>3 and tiegame==0):
   if((numberofperiods==4 and isplayoffgame is False) or (numberofperiods>4 and isplayoffgame is True)):
    UpdateTeamData(sqldatacon, leaguename, winningteam, "OTWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "OTSOWins", 1, "+");
@@ -1193,7 +1228,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2])+":"+str(ATRSpit[3] + 1);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
- if(isplayoffgame is False and numberofperiods>4 and (winningteam==hometeam or winningteam==awayteam)):
+ if(isplayoffgame is False and numberofperiods>4 and tiegame==0):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "SOWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "SOLosses", 1, "+");
   WinningTeamShootouts = GetTeamData(sqldatacon, leaguename, winningteam, "Shootouts", "str");
