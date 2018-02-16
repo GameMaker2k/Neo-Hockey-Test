@@ -58,7 +58,7 @@ if(file_exists($dbtofilename[$databasefile])) {
 if(!isset($_GET['league'])&&isset($leaguename)) { 
  $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
- $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
+ $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
  if(count($getleague)==8) {
   $leaguename = $getleague['LeagueName']; }
  if(count($getleague)<8) {

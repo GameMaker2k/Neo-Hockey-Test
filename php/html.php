@@ -80,7 +80,7 @@ if(file_exists($dbtofilename[$databasefile])) {
 if(!isset($_GET['league'])&&isset($leaguename)) { 
  $_GET['league'] = $leaguename; }
 if(isset($_GET['league'])) {
- $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
+ $getleague = $sqldb->querySingle("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues WHERE LeagueName='".$sqldb->escapeString($_GET['league'])."'", true);
  if(count($getleague)==8) {
   $leaguename = $getleague['LeagueName']; }
  if(count($getleague)<8) {
@@ -109,9 +109,13 @@ if(!isset($_GET['order'])&&isset($_GET['descending'])) { $_GET['order'] = "desce
 if(!isset($leaguename)) {
 echo "  <table style=\"width: 100%;\">\n";
 echo "   <tr>\n    <th>Hockey League Initials</th>\n    <th>Hockey League Name</th>\n    <th>Country Initials</th>\n    <th>Country Name</th>\n    <th>Number of Teams</th>\n    <th>Number of Conferences</th>\n    <th>Number of Divisions</th>\n   </tr>\n";
-$lresults = $sqldb->query("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
+$lresults = $sqldb->query("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
 while ($lrow = $lresults->fetchArray()) {
- echo "   <tr>\n    <td style=\"width: 11%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[0], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 23%;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[1], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[2]."</td>\n    <td style=\"width: 23%;\">".$lrow[3]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[5]."</td>\n    <td style=\"width: 11%; text-align: center;\">".$lrow[6]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[7]."</td>\n   </tr>\n"; }
+ $lstartdate = $lrow[4];
+ $lchckyear = substr($lstartdate, 0, 4);
+ $lchckmonth = substr($lstartdate, 4, 2);
+ $fullstart = $lchckyear.$lchckmonth;
+ echo "   <tr>\n    <td style=\"width: 11%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."&amp;date=".urlencode($fullstart)."\">".htmlspecialchars($lrow[0], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 23%;\"><a href=\"".$fileurl."?calendar&amp;league=".urlencode($lrow[0])."&amp;database=".urlencode($_GET['database'])."\">".htmlspecialchars($lrow[1], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[2]."</td>\n    <td style=\"width: 23%;\">".$lrow[3]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[7]."</td>\n    <td style=\"width: 11%; text-align: center;\">".$lrow[8]."</td>\n    <td style=\"width: 10%; text-align: center;\">".$lrow[9]."</td>\n   </tr>\n"; }
 echo "  </table>\n";
 ?>
  </body>
