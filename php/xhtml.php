@@ -66,7 +66,7 @@ while($dbi < $dbx) {
  $PreNumHockeyLeagues = $sqldb->query("SELECT COUNT(*) as count FROM HockeyLeagues");
  $NumHockeyLeaguesArray = $PreNumHockeyLeagues->fetchArray();
  $NumHockeyLeagues = intval($NumHockeyLeaguesArray['count']);
- echo "   <tr>\n    <td style=\"width: 50%; text-align: center;\"><a href=\"".$fileurl."?calendar&amp;database=".urlencode($databasefnlist[$dbi])."\">".htmlspecialchars($databasefnlist[$dbi], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 50%; text-align: center;\">".htmlspecialchars($NumHockeyLeagues, ENT_COMPAT | ENT_HTML5, "UTF-8")."</td>\n   </tr>\n"; 
+ echo "   <tr>\n    <td style=\"width: 50%; text-align: center;\"><a href=\"".$fileurl."?database=".urlencode($databasefnlist[$dbi])."\">".htmlspecialchars($databasefnlist[$dbi], ENT_COMPAT | ENT_HTML5, "UTF-8")."</a></td>\n    <td style=\"width: 50%; text-align: center;\">".htmlspecialchars($NumHockeyLeagues, ENT_COMPAT | ENT_HTML5, "UTF-8")."</td>\n   </tr>\n"; 
  $sqldb->close();
  ++$dbi; }
 echo "  </table>\n";
