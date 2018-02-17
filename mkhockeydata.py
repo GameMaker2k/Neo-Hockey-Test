@@ -94,8 +94,8 @@ if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=None, help="xml file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile);
 
@@ -103,8 +103,8 @@ if(curaction==getactlist[1]):
  argparser = argparse.ArgumentParser(description=getactdesc[1], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile);
 
@@ -112,8 +112,8 @@ if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.sql", help="sql dump file to import");
- argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.sql"), help="sql dump file to import");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile);
 
@@ -121,8 +121,8 @@ if(curaction==getactlist[3]):
  argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="xml file to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="sqlite database to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.xml"), help="xml file to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile);
 
@@ -130,8 +130,8 @@ if(curaction==getactlist[4]):
  argparser = argparse.ArgumentParser(description=getactdesc[4], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.sql", help="sql dump file to import");
- argparser.add_argument("-o", "--outfile", default=None, help="sqlite database to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.sql"), help="sql dump file to import");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile);
 
@@ -139,8 +139,8 @@ if(curaction==getactlist[5]):
  argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="python file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile);
 
@@ -148,8 +148,8 @@ if(curaction==getactlist[6]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="xml file to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="python file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.xml"), help="xml file to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile);
 
@@ -157,8 +157,8 @@ if(curaction==getactlist[7]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="sql dump file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile);
 
@@ -166,7 +166,7 @@ if(curaction==getactlist[8]):
  argparser = argparse.ArgumentParser(description=getactdesc[8], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.xml", help="xml file to convert");
- argparser.add_argument("-o", "--outfile", default=None, help="sql dump file to output");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.xml"), help="xml file to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
  getargs = argparser.parse_args();
  libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile);
