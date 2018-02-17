@@ -14,11 +14,11 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeydata.py - Last Update: 2/10/2018 Ver. 0.0.6 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeydata.py - Last Update: 2/17/2018 Ver. 0.0.7 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sys, os, libhockeydata, argparse, datetime;
+import sys, os, libhockeydata, argparse;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
@@ -105,9 +105,8 @@ if(curaction==getactlist[1]):
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default="./hockeydata.db3", help="sqlite database to convert");
  argparser.add_argument("-o", "--outfile", default=None, help="xml file to output");
- argparser.add_argument("-d", "--date", default=str(datetime.datetime.now().year-1)+"1001", help="start of hockey season in YYYYMMDD format");
  getargs = argparser.parse_args();
- libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.date, getargs.outfile);
+ libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile);
 
 if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);

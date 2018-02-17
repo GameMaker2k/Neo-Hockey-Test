@@ -14,7 +14,7 @@
     Copyright 2018 Game Maker 2k - http://intdb.sourceforge.net/
     Copyright 2018 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 2/10/2018 Ver. 0.0.6 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/17/2018 Ver. 0.0.7 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -29,8 +29,8 @@ if(sys.version[0]>="3"):
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
-__version_info__ = (0, 0, 6, "RC 1", 1);
-__version_date_info__ = (2018, 2, 10, "RC 1", 1);
+__version_info__ = (0, 0, 7, "RC 1", 1);
+__version_date_info__ = (2018, 2, 17, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
@@ -333,17 +333,13 @@ def GetAreaInfoFromUSCA(areaname):
               'YT': {'AreaName': "YT", 'FullAreaName': "Yukon", 'CountryName': "CA", 'FullCountryName': "Canada"} };
  return areacodes.get(areaname, {areaname: {'AreaName': areaname, 'FullAreaName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown"}});
 
-def GetHockeyLeaguesInfo(areaname):
- areacodes = {'NHL': {'LeagueName': "NHL", 'FullLeagueName': "National Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'AHL': {'LeagueName': "AHL", 'FullLeagueName': "American Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'OrderType': "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'ECHL': {'LeagueName': "ECHL", 'FullLeagueName': "ECHL", 'CountryName': "US", 'FullCountryName': "United States", 'OrderType': "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'FHL': {'LeagueName': "FHL", 'FullLeagueName': "Federal Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'SPHL': {'LeagueName': "SPHL", 'FullLeagueName': "Southern Professional Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'CHL': {'LeagueName': "CHL", 'FullLeagueName': "Canadian Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'WHL': {'LeagueName': "WHL", 'FullLeagueName': "Western Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'OHL': {'LeagueName': "OHL", 'FullLeagueName': "Ontario Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
-              'QMJHL': {'LeagueName': "QMJHL", 'FullLeagueName': "Quebec Major Junior Hockey League", 'CountryName': "CA", 'FullCountryName': "Canada", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"} };
- return areacodes.get(areaname, {areaname: {'LeagueName': areaname, 'FullLeagueName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"} });
+def GetHockeyLeaguesInfo(leaguename):
+ leagueinfo = {'NHL': {'LeagueName': "NHL", 'FullLeagueName': "National Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'StartDate': 20151007, 'PlayOffFMT': "Division=3,Conference=2", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
+              'AHL': {'LeagueName': "AHL", 'FullLeagueName': "American Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'StartDate': 20151009, 'PlayOffFMT': "Division=4", 'OrderType': "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
+              'ECHL': {'LeagueName': "ECHL", 'FullLeagueName': "ECHL", 'CountryName': "US", 'FullCountryName': "United States", 'StartDate': 20151007, 'PlayOffFMT': "Division=1,Conference=5", 'OrderType': "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
+              'FHL': {'LeagueName': "FHL", 'FullLeagueName': "Federal Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'StartDate': 20151106, 'PlayOffFMT': "League=4", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"}, 
+              'SPHL': {'LeagueName': "SPHL", 'FullLeagueName': "Southern Professional Hockey League", 'CountryName': "US", 'FullCountryName': "United States", 'StartDate': 20151023, 'PlayOffFMT': "League=8", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"} };
+ return leagueinfo.get(leaguename, {leaguename: {'LeagueName': leaguename, 'FullLeagueName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown", 'StartDate': 0, 'PlayOffFMT': "Unknown", 'OrderType': "Unknown"} });
 
 def MakeHockeyLeagueTable(sqldatacon, droptable=True):
  if(droptable is True):
@@ -2166,7 +2162,7 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
   return True;
  return True;
 
-def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose=True):
+def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose=True):
  chckyear = date[:4];
  chckmonth = date[4:6];
  chckday = date[6:8];
@@ -2193,11 +2189,14 @@ def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose=True):
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  CountryName TEXT NOT NULL DEFAULT '',\n" + \
  "  FullCountryName TEXT NOT NULL DEFAULT '',\n" + \
+ "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  PlayOffFMT TEXT NOT NULL DEFAULT '',\n" + \
  "  OrderType TEXT NOT NULL DEFAULT '',\n" + \
  "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
  "  NumberOfConferences INTEGER NOT NULL DEFAULT 0,\n" + \
  "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
+ , 'StartDate', 'PlayOffFMT', 'OrderType'
  for tableinfo in gettable:
   LeagueName = re.sub("Teams$", "", tableinfo[0]);
   LeagueNameInfo = GetHockeyLeaguesInfo(LeagueName);
@@ -2205,25 +2204,25 @@ def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose=True):
   getdivision_num = mktemptablecur.execute("SELECT COUNT(*) FROM "+LeagueName+"Divisions").fetchone()[0];
   getteam_num = mktemptablecur.execute("SELECT COUNT(*) FROM "+LeagueName+"Teams").fetchone()[0];
   getallteam_num = getteam_num;
-  mktemptablecur.execute("INSERT INTO HockeyLeagues (LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES \n" + \
-  "(\""+str(LeagueNameInfo['LeagueName'])+"\", \""+str(LeagueNameInfo['FullLeagueName'])+"\", \""+str(LeagueNameInfo['CountryName'])+"\", \""+str(LeagueNameInfo['FullCountryName'])+"\", \""+str(LeagueNameInfo['OrderType'])+"\", "+str(getteam_num)+", "+str(getconference_num)+", "+str(getdivision_num)+")");
+  mktemptablecur.execute("INSERT INTO HockeyLeagues (LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES \n" + \
+  "(\""+str(LeagueNameInfo['LeagueName'])+"\", \""+str(LeagueNameInfo['FullLeagueName'])+"\", \""+str(LeagueNameInfo['CountryName'])+"\", \""+str(LeagueNameInfo['FullCountryName'])+"\", "+str(LeagueNameInfo['StartDate'])+", \""+str(LeagueNameInfo['PlayOffFMT'])+"\", \""+str(LeagueNameInfo['OrderType'])+"\", "+str(getteam_num)+", "+str(getconference_num)+", "+str(getdivision_num)+")");
  gettablecur.close();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
- getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
+ getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
  for leagueinfo in getleague:
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
-  if(int(leagueinfo[5])<=0):
+  if(int(leagueinfo[7])<=0):
    HockeyLeagueHasDivisions = False;
    HockeyLeagueHasDivisionStr = "no";
   HockeyLeagueHasConferences = True;
   HockeyLeagueHasConferenceStr = "yes";
-  if(int(leagueinfo[6])<=0):
+  if(int(leagueinfo[8])<=0):
    HockeyLeagueHasConferences = False;
    HockeyLeagueHasConferenceStr = "no";
-  xmlstring = xmlstring+" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" date=\""+xml_escape(str(date), quote=True)+"\" playofffmt=\"Division=3,Conference=2\" ordertype=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">\n";
+  xmlstring = xmlstring+" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" date=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" playofffmt=\""+xml_escape(str(leagueinfo[5]), quote=True)+"\" ordertype=\""+xml_escape(str(leagueinfo[6]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">\n";
   if(verbose is True):
-   print(" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" date=\""+xml_escape(str(date), quote=True)+"\" playofffmt=\"Division=3,Conference=2\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
+   print(" <league name=\""+xml_escape(str(leagueinfo[0]), quote=True)+"\" fullname=\""+xml_escape(str(leagueinfo[1]), quote=True)+"\" country=\""+xml_escape(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+xml_escape(str(leagueinfo[3]), quote=True)+"\" date=\""+xml_escape(str(leagueinfo[4]), quote=True)+"\" playofffmt=\""+xml_escape(str(leagueinfo[5]), quote=True)+"\" ordertype=\""+xml_escape(str(leagueinfo[6]), quote=True)+"\" conferences=\""+xml_escape(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+xml_escape(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
   conferencecur = sqldatacon[1].cursor();
   getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences").fetchone()[0];
   getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences");
@@ -2302,14 +2301,14 @@ def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose=True):
  sqldatacon[1].close();
  return xmlstring;
 
-def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, date, xmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, verbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(xmlfile is None):
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   xmlfile = file_wo_extension+".xml";
  xmlfp = open(xmlfile, "w+");
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, verbose);
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml is True):
@@ -2318,19 +2317,19 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, date, xmlfile=None, returnxm
   return True;
  return True;
 
-def MakeHockeyPythonFromOldHockeyDatabase(sdbfile, date, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, False);
+def MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
  pystring = MakeHockeyPythonFromHockeyXML(xmlstring, False, verbose);
  return pystring;
 
-def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, date, pyfile=None, returnpy=False, verbose=True):
+def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(pyfile is None):
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   pyfile = file_wo_extension+".xml";
  pyfp = open(pyfile, "w+");
- pystring = MakeHockeyPythonFromOldHockeyDatabase(sdbfile, date, verbose);
+ pystring = MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy is True):
@@ -2339,19 +2338,19 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, date, pyfile=None, return
   return True;
  return True;
 
-def MakeHockeySQLFromOldHockeyDatabase(sdbfile, date, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, date, False);
+def MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
  sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, verbose);
  return sqldump;
 
-def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, date, sqlfile=None, returnsql=False, verbose=True):
+def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(sqlfile is None):
   file_wo_extension, file_extension = os.path.splitext(sdbfile);
   sqlfile = file_wo_extension+".sql";
  sqlfp = open(sqlfile, "w+");
- sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, date, verbose);
+ sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql is True):
