@@ -20,7 +20,7 @@
     <team city="New York City" area="NY" fullarea="New York" country="US" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" />
     <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="US" fullcountry="United States" name="Flyers" arena="Wells Fargo Center" prefix="Philadelphia" suffix="" />
     <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="US" fullcountry="United States" name="Penguins" arena="Consol Energy Center" prefix="Pittsburgh" suffix="" />
-    <team city="Washington" area="DE" fullarea="District of Columbia" country="US" fullcountry="United States" name="Capitals" arena="Verizon Center" prefix="Washington" suffix="" />
+    <team city="Washington" area="DC" fullarea="District of Columbia" country="US" fullcountry="United States" name="Capitals" arena="Verizon Center" prefix="Washington" suffix="" />
    </division>
   </conference>
   <conference name="Western">
