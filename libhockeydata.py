@@ -146,6 +146,27 @@ def GetLastGamesWithShootout(sqldatacon, leaguename, teamname, gamelimit=10):
 def GetLastTenGamesWithShootout(sqldatacon, leaguename, teamname):
  return GetLastGamesWithShootout(sqldatacon, leaguename, teamname, 10);
 
+def GetLastGamesWithoutShootout(sqldatacon, leaguename, teamname, gamelimit=10):
+ wins = 0;
+ losses = 0;
+ otlosses = 0;
+ getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
+ nmax = len(getlastninegames);
+ nmin = 0;
+ while(nmin<nmax):
+  if(teamname==str(getlastninegames[nmin][1])):
+   wins = wins + 1;
+  if(teamname==str(getlastninegames[nmin][2])):
+   if(int(getlastninegames[nmin][0])==3):
+    losses = losses + 1;
+   if(int(getlastninegames[nmin][0])>3):
+    otlosses = otlosses + 1;
+  nmin = nmin + 1;
+ return str(wins)+":"+str(losses)+":"+str(otlosses)+":0";
+
+def GetLastTenGamesWithoutShootout(sqldatacon, leaguename, teamname):
+ return GetLastGamesWithoutShootout(sqldatacon, leaguename, teamname, 10);
+
 def UpdateHockeyData(sqldatacon, leaguename, tablename, wherename, wheredata, wheretype, dataname, addtodata, addtype):
  wheretype = wheretype.lower();
  if(wheretype!="int" and wheretype!="str"):
