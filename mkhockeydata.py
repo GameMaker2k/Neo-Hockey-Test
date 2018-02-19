@@ -36,6 +36,10 @@ getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old 
 gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version", "mksymlinks"];
 getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile"];
 defaction = getactlist[9];
+defxmlfile = "./data/hockeydata.xml";
+defsdbfile = "./data/hockeydata.db3";
+defoldsdbfile = "./data/hockeydata.db3";
+defsqlfile = "./data/hockeydata.sql";
 getactstr = "Actions: ";
 getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
@@ -95,7 +99,7 @@ if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -107,7 +111,7 @@ if(curaction==getactlist[1]):
  argparser = argparse.ArgumentParser(description=getactdesc[1], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defoldsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -119,7 +123,7 @@ if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.sql"), help="sql dump file to import");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsqlfile), help="sql dump file to import");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -131,7 +135,7 @@ if(curaction==getactlist[3]):
  argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.xml"), help="xml file to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -143,7 +147,7 @@ if(curaction==getactlist[4]):
  argparser = argparse.ArgumentParser(description=getactdesc[4], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.sql"), help="sql dump file to import");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsqlfile), help="sql dump file to import");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -155,7 +159,7 @@ if(curaction==getactlist[5]):
  argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -167,7 +171,7 @@ if(curaction==getactlist[6]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.xml"), help="xml file to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -179,7 +183,7 @@ if(curaction==getactlist[7]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.db3"), help="sqlite database to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
@@ -191,7 +195,7 @@ if(curaction==getactlist[8]):
  argparser = argparse.ArgumentParser(description=getactdesc[8], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
- argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', "./data/hockeydata.xml"), help="xml file to convert");
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
