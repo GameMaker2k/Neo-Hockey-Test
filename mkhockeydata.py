@@ -103,9 +103,12 @@ if(curaction==getactlist[0]):
  argparser.add_argument("-o", "-t", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[1]):
  argparser = argparse.ArgumentParser(description=getactdesc[1], conflict_handler="resolve", add_help=True);
@@ -115,9 +118,12 @@ if(curaction==getactlist[1]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
@@ -127,9 +133,12 @@ if(curaction==getactlist[2]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[3]):
  argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
@@ -139,9 +148,12 @@ if(curaction==getactlist[3]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[4]):
  argparser = argparse.ArgumentParser(description=getactdesc[4], conflict_handler="resolve", add_help=True);
@@ -151,9 +163,12 @@ if(curaction==getactlist[4]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[5]):
  argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
@@ -163,9 +178,12 @@ if(curaction==getactlist[5]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[6]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
@@ -175,9 +193,12 @@ if(curaction==getactlist[6]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[7]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
@@ -187,9 +208,12 @@ if(curaction==getactlist[7]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[8]):
  argparser = argparse.ArgumentParser(description=getactdesc[8], conflict_handler="resolve", add_help=True);
@@ -199,6 +223,9 @@ if(curaction==getactlist[8]):
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
- if(getargs.verbose==True):
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=getargs.verbose);
+ libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
