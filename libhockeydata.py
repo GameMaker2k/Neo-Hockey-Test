@@ -105,13 +105,13 @@ def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
  wins = 0;
  losses = 0;
  otlosses = 0;
- getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
+ getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost, TieGame FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
  nmax = len(getlastninegames);
  nmin = 0;
  while(nmin<nmax):
-  if(teamname==str(getlastninegames[nmin][1])):
+  if(teamname==str(getlastninegames[nmin][1]) and int(getlastninegames[nmin][3])==0):
    wins = wins + 1;
-  if(teamname==str(getlastninegames[nmin][2])):
+  if(teamname==str(getlastninegames[nmin][2]) or int(getlastninegames[nmin][3])==1):
    if(int(getlastninegames[nmin][0])==3):
     losses = losses + 1;
    if(int(getlastninegames[nmin][0])>3):
@@ -127,19 +127,21 @@ def GetLastGamesWithShootout(sqldatacon, leaguename, teamname, gamelimit=10):
  losses = 0;
  otlosses = 0;
  solosses = 0;
- getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
+ getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost, TieGame, IsPlayOffGame FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
  nmax = len(getlastninegames);
  nmin = 0;
  while(nmin<nmax):
-  if(teamname==str(getlastninegames[nmin][1])):
+  if(teamname==str(getlastninegames[nmin][1]) and int(getlastninegames[nmin][3])==0):
    wins = wins + 1;
-  if(teamname==str(getlastninegames[nmin][2])):
+  if(teamname==str(getlastninegames[nmin][2]) or int(getlastninegames[nmin][3])==1):
    if(int(getlastninegames[nmin][0])==3):
     losses = losses + 1;
-   if(int(getlastninegames[nmin][0])==4):
+   if(int(getlastninegames[nmin][0])==4 and int(getlastninegames[nmin][4])==0):
     otlosses = otlosses + 1;
-   if(int(getlastninegames[nmin][0])>4):
+   if(int(getlastninegames[nmin][0])>4 and int(getlastninegames[nmin][4])==0):
     solosses = solosses + 1;
+   if(int(getlastninegames[nmin][0])>3 and (int(getlastninegames[nmin][4])==1 or int(getlastninegames[nmin][4])==2)):
+    otlosses = otlosses + 1;
   nmin = nmin + 1;
  return str(wins)+":"+str(losses)+":"+str(otlosses)+":"+str(solosses);
 
@@ -150,13 +152,13 @@ def GetLastGamesWithoutShootout(sqldatacon, leaguename, teamname, gamelimit=10):
  wins = 0;
  losses = 0;
  otlosses = 0;
- getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
+ getlastninegames = sqldatacon[0].execute("SELECT NumberPeriods, TeamWin, TeamLost, TieGame FROM "+leaguename+"Games WHERE (HomeTeam=\""+str(teamname)+"\" OR AwayTeam=\""+str(teamname)+"\") ORDER BY id DESC LIMIT "+str(gamelimit)).fetchall();
  nmax = len(getlastninegames);
  nmin = 0;
  while(nmin<nmax):
-  if(teamname==str(getlastninegames[nmin][1])):
+  if(teamname==str(getlastninegames[nmin][1]) and int(getlastninegames[nmin][3])==0):
    wins = wins + 1;
-  if(teamname==str(getlastninegames[nmin][2])):
+  if(teamname==str(getlastninegames[nmin][2]) or int(getlastninegames[nmin][3])==1):
    if(int(getlastninegames[nmin][0])==3):
     losses = losses + 1;
    if(int(getlastninegames[nmin][0])>3):
