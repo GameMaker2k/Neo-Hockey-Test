@@ -27,9 +27,8 @@ __project_url__ = libhockeydata.__project_url__;
 __version_info__ = libhockeydata.__version_info__;
 __version_date_info__ = libhockeydata.__version_date_info__;
 __version_date__ = libhockeydata.__version_date__;
-__version_date_plusrc__ = libhockeydata.__version_date_plusrc__
-__version__ = libhockeydata.__version__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
+__version__ = libhockeydata.__version__;
 
 getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
 getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey sqlite database to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "get version number of "+__project__, "make symbolic links"];
