@@ -314,8 +314,8 @@ def GetArena2Num(sqldatacon, leaguename, ArenaName):
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
 
 def GetAreaInfoFromUSCA(areaname):
- areacodes = areacodes.replace(".", "");
- areacodes = areacodes.upper();
+ areaname = areaname.replace(".", "");
+ areaname = areaname.upper();
  areacodes = {'AL': {'AreaName': "AL", 'FullAreaName': "Alabama", 'CountryName': "USA", 'FullCountryName': "United States"}, 
               'AK': {'AreaName': "AK", 'FullAreaName': "Alaska", 'CountryName': "USA", 'FullCountryName': "United States"}, 
               'AZ': {'AreaName': "AZ", 'FullAreaName': "Arizona", 'CountryName': "USA", 'FullCountryName': "United States"}, 
@@ -2213,9 +2213,6 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
  return True;
 
 def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose=True):
- chckyear = date[:4];
- chckmonth = date[4:6];
- chckday = date[6:8];
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
