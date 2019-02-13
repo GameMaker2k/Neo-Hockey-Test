@@ -70,12 +70,14 @@ def EscapeXMLString(inxml, quote=True):
   outxml = html_escape(inxml, quote);
  return outxml;
 
-def VerbosePrintOut(dbgtxt, outtype="log"):
- if(outtype=="print"):
+def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True):
+ if(outtype=="print" and dbgenable):
   print(dbgtxt);
   return True;
- if(outtype=="log"):
+ if(outtype=="log" and dbgenable):
   log.info(dbgtxt);
+  return True;
+ if(not dbgenable):
   return True;
  return False;
 
