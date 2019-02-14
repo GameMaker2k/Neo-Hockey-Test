@@ -687,7 +687,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  TAGADifference INTEGER NOT NULL DEFAULT 0,\n" + \
  "  FaceoffWins INTEGER NOT NULL DEFAULT 0,\n" + \
  "  FaceoffLosses INTEGER NOT NULL DEFAULT 0,\n" + \
- "  FaceoffDifference INTEGER NOT NULL DEFAULT ''\n" + \
+ "  FaceoffDifference INTEGER NOT NULL DEFAULT 0\n" + \
  ");");
  return True;
 
