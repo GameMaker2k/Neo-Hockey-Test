@@ -2245,7 +2245,6 @@ def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose=True):
  "  NumberOfConferences INTEGER NOT NULL DEFAULT 0,\n" + \
  "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
-
  for tableinfo in gettable:
   LeagueName = re.sub("Teams$", "", tableinfo[0]);
   LeagueNameInfo = GetHockeyLeaguesInfo(LeagueName);
