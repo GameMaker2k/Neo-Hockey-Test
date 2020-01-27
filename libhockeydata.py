@@ -35,6 +35,8 @@ __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 0, 9, "RC 1", 1);
 __version_date_info__ = (2020, 1, 26, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
+__revision__ = __version_info__[3];
+__revision_id__ = "$Id$";
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):
