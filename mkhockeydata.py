@@ -29,10 +29,10 @@ __version_date__ = libhockeydata.__version_date__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 __version__ = libhockeydata.__version__;
 
-getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
-getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "show this help page", "get version number of "+__project__, "make symbolic links"];
-gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "help", "version", "mksymlinks"];
-getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile"];
+getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
+getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "cleanup hockey xml files", "show this help page", "get version number of "+__project__, "make symbolic links"];
+gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean", "help", "version", "mksymlinks"];
+getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean"];
 defaction = getactlist[9];
 defxmlfile = "./data/hockeydata.xml";
 defsdbfile = "./data/hockeydata.db3";
@@ -66,13 +66,13 @@ if(len(sys.argv)>=2):
     curaction = curargact;
     break;
 
-if(curaction==getactlist[9] or curaction==getactlist[10]):
+if(curaction==getactlist[10] or curaction==getactlist[11]):
  print(getactstr);
 
-if(curaction==getactlist[11] or curaction==getactlist[12] or curaction==getactlist[13]):
+if(curaction==getactlist[12] or curaction==getactlist[13] or curaction==getactlist[14]):
  print(getverstr);
 
-if((curaction==getactlist[14] or curaction==getactlist[15])):
+if((curaction==getactlist[15] or curaction==getactlist[16])):
  for cursymact in getsymlist:
   curscrpath = os.path.dirname(sys.argv[0]);
   infilename = sys.argv[0];
@@ -113,7 +113,7 @@ if(curaction==getactlist[1]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defoldsdbfile), help="sqlite database to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -128,7 +128,7 @@ if(curaction==getactlist[2]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsqlfile), help="sql dump file to import");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="xml file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -143,7 +143,7 @@ if(curaction==getactlist[3]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -158,7 +158,7 @@ if(curaction==getactlist[4]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsqlfile), help="sql dump file to import");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sqlite database to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -173,7 +173,7 @@ if(curaction==getactlist[5]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -188,7 +188,7 @@ if(curaction==getactlist[6]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="python file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -203,7 +203,7 @@ if(curaction==getactlist[7]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -218,7 +218,7 @@ if(curaction==getactlist[8]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('INFILE', None), help="sql dump file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -227,3 +227,21 @@ if(curaction==getactlist[8]):
  if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
  libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+
+if(curaction==getactlist[9]):
+ argparser = argparse.ArgumentParser(description=getactdesc[9], conflict_handler="resolve", add_help=True);
+ argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to clean");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="clean xml file to output");
+ argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ getargs = argparser.parse_args();
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
+  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+ if(getargs.outfile is None):
+  libhockeydata.MakeHockeyXMLFromHockeyXML(getargs.infile, verbose=verboseon);
+ else:
+  libhockeydata.MakeHockeyXMLFromHockeyXMLWrite(getargs.infile, getargs.outfile, verbose=verboseon);

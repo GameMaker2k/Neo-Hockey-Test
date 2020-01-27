@@ -1318,16 +1318,13 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyXMLFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
+def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, verbose=True):
  if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
   hockeyfile = ET.parse(inxmlfile);
  elif(xmlisfile is False):
   hockeyfile = ET.ElementTree(ET.fromstring(inxmlfile));
  else:
   return False;
- if(outxmlfile is None and xmlisfile is True):
-  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
-  outxmlfile = file_wo_extension+".xml";
  gethockey = hockeyfile.getroot();
  if(verbose is True):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -1417,7 +1414,7 @@ def MakeHockeyXMLFromHockeyXMLWrite(inxmlfile, outxmlfile=None, xmlisfile=True, 
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, True, False, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, True, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml is True):
