@@ -1657,10 +1657,12 @@ def MakeHockeyPythonFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
      gamecount = 0;
      for getgame in getconference:
       AtArena = getgame.attrib['atarena'];
+      '''
       if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], getgame.attrib['hometeam']), "FullArenaName", "str")==AtArena):
        AtArena = "0";
       if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], getgame.attrib['awayteam']), "FullArenaName", "str")==AtArena):
        AtArena = "1";
+      '''
       if(verbose is True):
        VerbosePrintOut(pyfilename+".MakeHockeyGame(sqldatacon, \""+getleague.attrib['name']+"\", "+getgame.attrib['date']+", \""+getgame.attrib['hometeam']+"\", \""+getgame.attrib['awayteam']+"\", \""+getgame.attrib['goals']+"\", \""+getgame.attrib['sogs']+"\", \""+getgame.attrib['ppgs']+"\", \""+getgame.attrib['shgs']+"\", \""+getgame.attrib['penalties']+"\", \""+getgame.attrib['pims']+"\", \""+getgame.attrib['hits']+"\", \""+getgame.attrib['takeaways']+"\", \""+getgame.attrib['faceoffwins']+"\", \""+AtArena+"\", \""+getgame.attrib['isplayoffgame']+"\");");
       pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+getleague.attrib['name']+"\", "+getgame.attrib['date']+", \""+getgame.attrib['hometeam']+"\", \""+getgame.attrib['awayteam']+"\", \""+getgame.attrib['goals']+"\", \""+getgame.attrib['sogs']+"\", \""+getgame.attrib['ppgs']+"\", \""+getgame.attrib['shgs']+"\", \""+getgame.attrib['penalties']+"\", \""+getgame.attrib['pims']+"\", \""+getgame.attrib['hits']+"\", \""+getgame.attrib['takeaways']+"\", \""+getgame.attrib['faceoffwins']+"\", \""+AtArena+"\", \""+getgame.attrib['isplayoffgame']+"\");\n";
