@@ -49,6 +49,7 @@ pymodule['longdescription'] = 'Just a test script dealing with hockey games and 
 pymodule['platforms'] = 'OS Independent';
 pymodule['zipsafe'] = True;
 pymodule['pymodules'] = ['libhockeydata'];
+pymodule['scripts'] = ['mkhockeydata.py', 'mkhockeydatabase.py', 'mkhockeydatabasefromsql.py', 'mkhockeypyfromdatabase.py', 'mkhockeypyfromxmlfile.py', 'mkhockeysqlfromdatabase.py', 'mkhockeysqlfromxmlfile.py', 'mkhockeyxmlfile.py', 'mkhockeyxmlfromolddatabase.py', 'mkhockeyxmlfromsql.py'];
 pymodule['classifiers'] = [
  'Development Status :: 5 - Production/Stable',
  'Intended Audience :: Developers',
@@ -108,5 +109,6 @@ setup(
  platforms = pymodule['platforms'],
  zip_safe = pymodule['zipsafe'],
  py_modules = pymodule['pymodules'],
+ scripts = pymodule['scripts'],
  classifiers = pymodule['classifiers']
 )
