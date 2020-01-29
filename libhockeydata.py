@@ -36,7 +36,7 @@ __version_info__ = (0, 1, 0, "RC 1", 1);
 __version_date_info__ = (2020, 1, 27, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
-__revision_id__ = "$Id: f71817b082a376a310d1c07abbd3dcc24adfccf2 $";
+__revision_id__ = "$Id: a343838679e2df10642236ff90f6da14447244f7 $";
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):
@@ -1319,7 +1319,7 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[1].close();
  return True;
 
-def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, verbose=True):
+def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
   hockeyfile = ET.parse(inxmlfile);
  elif(xmlisfile is False):
@@ -1402,11 +1402,7 @@ def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, verbo
  if(verbose is True):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
- if(returnxml is True):
-  return xmlstring;
- if(returnxml is False):
-  return True;
- return True;
+ return xmlstring;
 
 def MakeHockeyXMLFromHockeyXMLWrite(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
  if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
@@ -1415,7 +1411,7 @@ def MakeHockeyXMLFromHockeyXMLWrite(inxmlfile, outxmlfile=None, xmlisfile=True, 
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, True, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml is True):
@@ -1423,6 +1419,90 @@ def MakeHockeyXMLFromHockeyXMLWrite(inxmlfile, outxmlfile=None, xmlisfile=True, 
  if(returnxml is False):
   return True;
  return True;
+
+def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, verbose=True):
+ if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
+  hockeyfile = ET.parse(inxmlfile);
+ elif(xmlisfile is False):
+  hockeyfile = ET.ElementTree(ET.fromstring(inxmlfile));
+ else:
+  return False;
+ gethockey = hockeyfile.getroot();
+ if(verbose is True):
+  VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+ if(gethockey.tag == "hockey"):
+  if(verbose is True):
+   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(gethockey.attrib['database']), quote=True)+"\">");
+ leaguecount = 0;
+ leaguelist = [];
+ for getleague in gethockey:
+  leaguearray = {}
+  if(getleague.tag=="league"):
+   if(verbose is True):
+    VerbosePrintOut(" <league name=\""+EscapeXMLString(str(getleague.attrib['name']), quote=True)+"\" fullname=\""+EscapeXMLString(str(getleague.attrib['fullname']), quote=True)+"\" country=\""+EscapeXMLString(str(getleague.attrib['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(getleague.attrib['fullcountry']), quote=True)+"\" date=\""+EscapeXMLString(str(getleague.attrib['date']), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(getleague.attrib['playofffmt']), quote=True)+"\" ordertype=\""+EscapeXMLString(str(getleague.attrib['ordertype']), quote=True)+"\" conferences=\""+EscapeXMLString(str(getleague.attrib['conferences']), quote=True)+"\" divisions=\""+EscapeXMLString(str(getleague.attrib['divisions']), quote=True)+"\">");
+   leaguearray.update( {'name': str(getleague.attrib['name']), 'fullname': str(getleague.attrib['fullname']), 'country': str(getleague.attrib['country']), 'fullcountry': str(getleague.attrib['fullcountry']), 'date': str(getleague.attrib['date']), 'playofffmt': str(getleague.attrib['playofffmt']), 'ordertype': str(getleague.attrib['ordertype']), 'conferences': str(getleague.attrib['conferences']), 'divisions': str(getleague.attrib['divisions'])} );
+  leaguecount = leaguecount + 1;
+  conferencelist = [];
+  if(getleague.tag == "league"):
+   conferencecount = 0;
+   for getconference in getleague:
+    if(getconference.tag == "conference"):
+     if(verbose is True):
+      VerbosePrintOut("  <conference name=\""+EscapeXMLString(str(getconference.attrib['name']), quote=True)+"\">");
+     conferencelist.append( {'name': str(getconference.attrib['name']), 'league': str(getleague.attrib['name'])} );
+     conferencecount = conferencecount + 1;
+    arenalist = [];
+    if(getconference.tag == "arenas"):
+     arenascount = 0;
+     if(verbose is True):
+      VerbosePrintOut("  <arenas>");
+     for getarenas in getconference:
+      if(verbose is True):
+       VerbosePrintOut("   <arena city=\""+EscapeXMLString(str(getarenas.attrib['city']), quote=True)+"\" area=\""+EscapeXMLString(str(getarenas.attrib['area']), quote=True)+"\" fullarea=\""+EscapeXMLString(str(getarenas.attrib['fullarea']), quote=True)+"\" country=\""+EscapeXMLString(str(getarenas.attrib['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(getarenas.attrib['fullcountry']), quote=True)+"\" name=\""+EscapeXMLString(str(getarenas.attrib['name']), quote=True)+"\" />");
+      arenalist.append( {'city': str(getarenas.attrib['city']), 'area': str(getarenas.attrib['area']), 'fullarea': str(getarenas.attrib['fullarea']), 'country': str(getarenas.attrib['country']), 'fullcountry': str(getarenas.attrib['fullcountry']), 'name': str(getarenas.attrib['name'])} );
+      arenascount = arenascount + 1;
+     if(verbose is True):
+      VerbosePrintOut("  </arenas>");
+    gamelist = [];
+    if(getconference.tag == "games"):
+     gamecount = 0;
+     if(verbose is True):
+      VerbosePrintOut("  <games>");
+     for getgame in getconference:
+      if(verbose is True):
+       VerbosePrintOut("   <game date=\""+EscapeXMLString(str(getgame.attrib['date']), quote=True)+"\" hometeam=\""+EscapeXMLString(str(getgame.attrib['hometeam']), quote=True)+"\" awayteam=\""+EscapeXMLString(str(getgame.attrib['awayteam']), quote=True)+"\" goals=\""+EscapeXMLString(str(getgame.attrib['goals']), quote=True)+"\" sogs=\""+EscapeXMLString(str(getgame.attrib['sogs']), quote=True)+"\" ppgs=\""+EscapeXMLString(str(getgame.attrib['ppgs']), quote=True)+"\" shgs=\""+EscapeXMLString(str(getgame.attrib['shgs']), quote=True)+"\" penalties=\""+EscapeXMLString(str(getgame.attrib['penalties']), quote=True)+"\" pims=\""+EscapeXMLString(str(getgame.attrib['pims']), quote=True)+"\" hits=\""+EscapeXMLString(str(getgame.attrib['hits']), quote=True)+"\" takeaways=\""+EscapeXMLString(str(getgame.attrib['takeaways']), quote=True)+"\" faceoffwins=\""+EscapeXMLString(str(getgame.attrib['faceoffwins']), quote=True)+"\" atarena=\""+EscapeXMLString(str(getgame.attrib['atarena']), quote=True)+"\" isplayoffgame=\""+EscapeXMLString(str(getgame.attrib['isplayoffgame']), quote=True)+"\" />");
+      gamelist.append( {'date': str(getgame.attrib['date']), 'hometeam': str(getgame.attrib['hometeam']), 'awayteam': str(getgame.attrib['awayteam']), 'goals': str(getgame.attrib['goals']), 'sogs': str(getgame.attrib['sogs']), 'ppgs': str(getgame.attrib['ppgs']), 'shgs': str(getgame.attrib['shgs']), 'penalties': str(getgame.attrib['penalties']), 'pims': str(getgame.attrib['pims']), 'hits': str(getgame.attrib['hits']), 'takeaways': str(getgame.attrib['takeaways']), 'faceoffwins': str(getgame.attrib['faceoffwins']), 'atarena': str(getgame.attrib['atarena']), 'isplayoffgame': str(getgame.attrib['isplayoffgame'])} );
+      gamecount = gamecount + 1;
+     if(verbose is True):
+      VerbosePrintOut("  </games>");
+    divisionlist = [];
+    if(getconference.tag == "conference"):
+     divisioncount = 0;
+     for getdivision in getconference:
+      if(verbose is True):
+       VerbosePrintOut("   <division name=\""+EscapeXMLString(str(getdivision.attrib['name']), quote=True)+"\">");
+      divisionlist.append( {'name': str(getdivision.attrib['name']), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name'])} );
+      divisioncount = divisioncount + 1;
+      teamlist = [];
+      if(getdivision.tag == "division"):
+       teamcount = 0;
+       for getteam in getdivision:
+        if(getteam.tag == "team"):
+         if(verbose is True):
+          VerbosePrintOut("    <team city=\""+EscapeXMLString(str(getteam.attrib['city']), quote=True)+"\" area=\""+EscapeXMLString(str(getteam.attrib['area']), quote=True)+"\" fullarea=\""+EscapeXMLString(str(getteam.attrib['fullarea']), quote=True)+"\" country=\""+EscapeXMLString(str(getteam.attrib['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(getteam.attrib['fullcountry']), quote=True)+"\" name=\""+EscapeXMLString(str(getteam.attrib['name']), quote=True)+"\" arena=\""+EscapeXMLString(str(getteam.attrib['arena']), quote=True)+"\" prefix=\""+EscapeXMLString(str(getteam.attrib['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(getteam.attrib['suffix']), quote=True)+"\" />");
+         divisionlist.append( {'city': str(getteam.attrib['city']), 'area': str(getteam.attrib['area']), 'fullarea': str(getteam.attrib['fullarea']), 'country': str(getteam.attrib['country']), 'fullcountry': str(getteam.attrib['fullcountry']), 'name': str(getteam.attrib['name']), 'arena': str(getteam.attrib['arena']), 'prefix': str(getteam.attrib['prefix']), 'suffix': str(getteam.attrib['suffix']), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']), 'division': str(getdivision.attrib['name'])} );
+        teamcount = teamcount + 1;
+       if(verbose is True):
+        VerbosePrintOut("   </division>");
+     if(verbose is True):
+      VerbosePrintOut("  </conference>");
+   leaguearray.update( {'conferences': conferencelist, 'divisions': divisionlist, 'teams': teamlist, 'arenas': arenalist, 'games': gamelist} );
+   leaguelist.append(leaguearray);
+   if(verbose is True):
+    VerbosePrintOut(" </league>");
+ if(verbose is True):
+  VerbosePrintOut("</hockey>");
+ return leaguelist;
 
 def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
  if(xmlisfile is True and (os.path.exists(xmlfile) and os.path.isfile(xmlfile))):
