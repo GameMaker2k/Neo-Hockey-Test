@@ -1842,7 +1842,7 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
    for divisioninfo in getdivision:
     divisionlist.append( {'name': str(divisioninfo[0]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0])} );
     leaguedict[str(leagueinfo[0])][str(conferenceinfo[0])].update( {str(divisioninfo[0]): {} } );
-      divisioncount = divisioncount + 1;
+    divisioncount = divisioncount + 1;
     if(verbose is True):
      VerbosePrintOut("   <division name=\""+EscapeXMLString(str(divisioninfo[0]), quote=True)+"\">");
     teamcur = sqldatacon[1].cursor();
@@ -2077,7 +2077,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
    for divisioninfo in getdivision:
     divisionlist.append( {'name': str(divisioninfo[0]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0])} );
     leaguedict[str(leagueinfo[0])][str(conferenceinfo[0])].update( {str(divisioninfo[0]): {} } );
-      divisioncount = divisioncount + 1;
+    divisioncount = divisioncount + 1;
     if(verbose is True):
      VerbosePrintOut("   <division name=\""+EscapeXMLString(str(divisioninfo[0]), quote=True)+"\">");
     teamcur = sqldatacon[1].cursor();
@@ -2701,7 +2701,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
   teamlist = [];
   for conferenceinfo in getconference:
    conferencelist.append( {'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0])} );
-   leaguedict[str(leagueinfo[0])].update( {str(str(conferenceinfo[0]): {} } );
+   leaguedict[str(leagueinfo[0])].update( {str(conferenceinfo[0]): {} } );
    if(verbose is True):
     VerbosePrintOut("  <conference name=\""+EscapeXMLString(str(conferenceinfo[0]), quote=True)+"\">");
    divisioncur = sqldatacon[1].cursor();
