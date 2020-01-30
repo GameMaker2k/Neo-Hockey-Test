@@ -36,7 +36,7 @@ __version_info__ = (0, 1, 0, "RC 1", 1);
 __version_date_info__ = (2020, 1, 27, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
-__revision_id__ = "$Id: eab77ab561ab85b83261215d302571916f72b7c7 $";
+__revision_id__ = "$Id: c738cd41d56ea4e349b4831bfddba9150900b4c7 $";
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):
@@ -1452,7 +1452,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
      if(verbose is True):
       VerbosePrintOut("  <conference name=\""+EscapeXMLString(str(getconference.attrib['name']), quote=True)+"\">");
      conferencelist.append( {'name': str(getconference.attrib['name']), 'league': str(getleague.attrib['name']), 'divisions': {}} );
-	 leaguedict[str(getleague.attrib['name'])].update( str(getconference.attrib['name']): {} );
+     leaguedict[str(getleague.attrib['name'])].update( str(getconference.attrib['name']): {} );
      conferencecount = conferencecount + 1;
     arenalist = [];
     if(getconference.tag == "arenas"):
@@ -1489,7 +1489,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
       leaguedict[str(getleague.attrib['name'])][str(getconference.attrib['name'])].update( str(getdivision.attrib['name']): {} );
       divisioncount = divisioncount + 1;
       teamlist = [];
-	  teamdist = {};
+      teamdist = {};
       if(getdivision.tag == "division"):
        teamcount = 0;
        for getteam in getdivision:
