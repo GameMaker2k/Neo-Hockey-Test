@@ -13,7 +13,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: libhockeydata.py - Last Update: 1/30/2020 Ver. 0.1.0 RC 1 - Author: cooldude2k $
+    $FileInfo: libhockeydata.py - Last Update: 2/2/2020 Ver. 0.1.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -33,7 +33,7 @@ __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 1, 0, "RC 1", 1);
-__version_date_info__ = (2020, 1, 30, "RC 1", 1);
+__version_date_info__ = (2020, 2, 2, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
 __revision_id__ = "$Id: 43cd678958fe4c7d091f2e924bb0c708c8f637e6 $";
@@ -2978,6 +2978,10 @@ def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=Fals
   return True;
  return True;
 
+def CreateHockeyArray():
+ hockeyarray = {};
+ return hockeyarray;
+
 def AddHockeyLeagueToArray(hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
  if leaguename not in hockeyarray.keys():
   hockeyarray.update( { leaguename: { 'name': str(leaguename), 'fullname': str(leaguefullname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'date': str(date), 'playofffmt': str(playofffmt), 'ordertype': str(ordertype), 'conferences': str(hasconferences), 'divisions': str(hasdivisions) } } )
@@ -2995,8 +2999,9 @@ def AddConferenceToArray(hockeyarray, leaguename, conference, hasconferences="ye
  return hockeyarray;
 
 def RemoveConferenceFromArray(hockeyarray, leaguename, conference):
- if conference in hockeyarray[leaguename].keys():
-  hockeyarray[leaguename].pop(conference, None);
+ if leaguename in hockeyarray.keys():
+  if conference in hockeyarray[leaguename].keys():
+   hockeyarray[leaguename].pop(conference, None);
  return hockeyarray;
 
 def AddDivisionToArray(hockeyarray, leaguename, division, conference, hasconferences="yes", hasdivisions="yes"):
@@ -3007,8 +3012,10 @@ def AddDivisionToArray(hockeyarray, leaguename, division, conference, hasconfere
  return hockeyarray;
 
 def RemoveDivisionFromArray(hockeyarray, leaguename, division, conference):
- if division in hockeyarray[leaguename][conference].keys():
-  hockeyarray[leaguename][conference].pop(division, None);
+ if leaguename in hockeyarray.keys():
+  if conference in hockeyarray[leaguename].keys():
+   if division in hockeyarray[leaguename][conference].keys():
+    hockeyarray[leaguename][conference].pop(division, None);
  return hockeyarray;
 
 def AddHockeyTeamToArray(hockeyarray, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix=""):
@@ -3022,4 +3029,17 @@ def AddHockeyTeamToArray(hockeyarray, leaguename, date, cityname, areaname, coun
 def RemoveHockeyTeamFromArray(hockeyarray, leaguename, teamname, division, conference):
  if teamname in hockeyarray[leaguename][conference][division].keys():
   hockeyarray[leaguename][conference][division].pop(teamname, None);
+ return hockeyarray;
+
+def AddHockeyArenaToArray(hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
+ if leaguename in hockeyarray.keys():
+  if "arenas" not in hockeyarray[leaguename].keys():
+   hockeyarray[leaguename].update( { 'arenas': [ {} ] } );
+  hockeyarray[leaguename]['arenas'].append( { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(arenaname) } );
+ return hockeyarray;
+
+def AddHockeyGameToArray(hockeyarray, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+ if leaguename in hockeyarray.keys():
+  if "games" not in hockeyarray[leaguename].keys():
+   hockeyarray[leaguename]['games'].append( { 'date': str(date), 'hometeam': str(hometeam), 'awayteam': str(awayteam), 'goals': str(periodsscore), 'sogs': str(shotsongoal), 'ppgs': str(ppgoals), 'shgs': str(shgoals), 'penalties': str(periodpens), 'pims': str(periodpims), 'hits': str(periodhits), 'takeaways': str(takeaways), 'faceoffwins': str(faceoffwins), 'atarena': str(atarena), 'isplayoffgame': str(isplayoffgame) } );
  return hockeyarray;
