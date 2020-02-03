@@ -1511,6 +1511,13 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
   VerbosePrintOut("</hockey>");
  return leaguearrayout;
 
+def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, returnjson=False, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False, False);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ if(verbose is True):
+  VerbosePrintOut(jsonstring);
+ return jsonstring;
+
 def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
  if(xmlisfile is True and (os.path.exists(xmlfile) and os.path.isfile(xmlfile))):
   hockeyfile = ET.parse(xmlfile);
@@ -1895,6 +1902,13 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  sqldatacon[1].close();
  return leaguearrayout;
 
+def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ if(verbose is True):
+  VerbosePrintOut(jsonstring);
+ return jsonstring;
+
 def MakeHockeyXMLFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
@@ -2123,6 +2137,13 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  leaguecur.close();
  sqldatacon[1].close();
  return leaguearrayout;
+
+def MakeHockeyJSONFromHockeySQL(isqlfile, sdbfile=None, sqlisfile=True, returnjson=False, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ if(verbose is True):
+  VerbosePrintOut(jsonstring);
+ return jsonstring;
 
 def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
  if(sqlisfile is True and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
@@ -2756,6 +2777,13 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  leaguecur.close();
  sqldatacon[1].close();
  return leaguearrayout;
+
+def MakeHockeyJSONFromOldHockeyDatabase(sdbfile, returnjson=False, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ if(verbose is True):
+  VerbosePrintOut(jsonstring);
+ return jsonstring;
 
 def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
