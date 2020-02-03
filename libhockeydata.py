@@ -1506,7 +1506,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
         VerbosePrintOut("   </division>");
      if(verbose is True):
       VerbosePrintOut("  </conference>");
-   leaguearrayout.update( leaguearray['leagueinfo'] );
+   leaguearrayout.update(leaguearray);
    if(verbose is True):
     VerbosePrintOut(" </league>");
  if(verbose is True):
