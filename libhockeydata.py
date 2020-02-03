@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time;
+import sqlite3, sys, os, re, time, json;
 import xml.etree.ElementTree as ET;
 import logging as log;
 
@@ -1419,6 +1419,12 @@ def MakeHockeyXMLFromHockeyXMLWrite(inxmlfile, outxmlfile=None, xmlisfile=True, 
  if(returnxml is False):
   return True;
  return True;
+
+def MakeHockeyJSONFromHockeyArray(inarray, returnjson=False, verbose=True):
+ jsonstring = json.dumps(inarray);
+ if(verbose is True):
+  VerbosePrintOut(jsonstring);
+ return jsonstring;
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, verbose=True):
  if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
