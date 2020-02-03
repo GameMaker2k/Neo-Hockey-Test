@@ -1434,25 +1434,21 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
   if(verbose is True):
    VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(gethockey.attrib['database']), quote=True)+"\">");
  leaguecount = 0;
- leaguearrayout = {};
+ leaguedictout = {};
  for getleague in gethockey:
-  leaguearray = {}
   leaguedict = {};
   if(getleague.tag=="league"):
    if(verbose is True):
     VerbosePrintOut(" <league name=\""+EscapeXMLString(str(getleague.attrib['name']), quote=True)+"\" fullname=\""+EscapeXMLString(str(getleague.attrib['fullname']), quote=True)+"\" country=\""+EscapeXMLString(str(getleague.attrib['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(getleague.attrib['fullcountry']), quote=True)+"\" date=\""+EscapeXMLString(str(getleague.attrib['date']), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(getleague.attrib['playofffmt']), quote=True)+"\" ordertype=\""+EscapeXMLString(str(getleague.attrib['ordertype']), quote=True)+"\" conferences=\""+EscapeXMLString(str(getleague.attrib['conferences']), quote=True)+"\" divisions=\""+EscapeXMLString(str(getleague.attrib['divisions']), quote=True)+"\">");
    tempdict = { 'name': str(getleague.attrib['name']), 'fullname': str(getleague.attrib['fullname']), 'country': str(getleague.attrib['country']), 'fullcountry': str(getleague.attrib['fullcountry']), 'date': str(getleague.attrib['date']), 'playofffmt': str(getleague.attrib['playofffmt']), 'ordertype': str(getleague.attrib['ordertype']), 'conferences': str(getleague.attrib['conferences']), 'divisions': str(getleague.attrib['divisions']) };
-   leaguearray.update( tempdict );
    leaguedict.update( { str(getleague.attrib['name']): tempdict } );
   leaguecount = leaguecount + 1;
-  conferencelist = [];
   if(getleague.tag == "league"):
    conferencecount = 0;
    for getconference in getleague:
     if(getconference.tag == "conference"):
      if(verbose is True):
       VerbosePrintOut("  <conference name=\""+EscapeXMLString(str(getconference.attrib['name']), quote=True)+"\">");
-     conferencelist.append( { 'name': str(getconference.attrib['name']), 'league': str(getleague.attrib['name']), 'divisions': {} } );
      leaguedict[str(getleague.attrib['name'])].update( { str(getconference.attrib['name']): { 'name': str(getconference.attrib['name']), 'league': str(getleague.attrib['name']) } } );
      conferencecount = conferencecount + 1;
     arenalist = [];
@@ -1481,17 +1477,14 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
      if(verbose is True):
       VerbosePrintOut("  </games>");
     leaguedict[str(getleague.attrib['name'])].update( { "games": gamelist } );
-    divisionlist = [];
     divisiondict = {};
     if(getconference.tag == "conference"):
      divisioncount = 0;
      for getdivision in getconference:
       if(verbose is True):
        VerbosePrintOut("   <division name=\""+str(getdivision.attrib['name'])+"\">");
-      divisionlist.append( { 'name': str(getdivision.attrib['name']), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']) } );
       leaguedict[str(getleague.attrib['name'])][str(getconference.attrib['name'])].update( { str(getdivision.attrib['name']): { 'name': str(getdivision.attrib['name']), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']) } } );
       divisioncount = divisioncount + 1;
-      teamlist = [];
       teamdist = {};
       if(getdivision.tag == "division"):
        teamcount = 0;
@@ -1499,19 +1492,18 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
         if(getteam.tag == "team"):
          if(verbose is True):
           VerbosePrintOut("    <team city=\""+EscapeXMLString(str(getteam.attrib['city']), quote=True)+"\" area=\""+EscapeXMLString(str(getteam.attrib['area']), quote=True)+"\" fullarea=\""+EscapeXMLString(str(getteam.attrib['fullarea']), quote=True)+"\" country=\""+EscapeXMLString(str(getteam.attrib['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(getteam.attrib['fullcountry']), quote=True)+"\" name=\""+EscapeXMLString(str(getteam.attrib['name']), quote=True)+"\" arena=\""+EscapeXMLString(str(getteam.attrib['arena']), quote=True)+"\" prefix=\""+EscapeXMLString(str(getteam.attrib['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(getteam.attrib['suffix']), quote=True)+"\" />");
-         teamlist.append( { 'city': str(getteam.attrib['city']), 'area': str(getteam.attrib['area']), 'fullarea': str(getteam.attrib['fullarea']), 'country': str(getteam.attrib['country']), 'fullcountry': str(getteam.attrib['fullcountry']), 'name': str(getteam.attrib['name']), 'arena': str(getteam.attrib['arena']), 'prefix': str(getteam.attrib['prefix']), 'suffix': str(getteam.attrib['suffix']), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']), 'division': str(getdivision.attrib['name']) } );
          leaguedict[str(getleague.attrib['name'])][str(getconference.attrib['name'])][str(getdivision.attrib['name'])].update( { str(getteam.attrib['name']): { 'city': str(getteam.attrib['city']), 'area': str(getteam.attrib['area']), 'fullarea': str(getteam.attrib['fullarea']), 'country': str(getteam.attrib['country']), 'fullcountry': str(getteam.attrib['fullcountry']), 'name': str(getteam.attrib['name']), 'arena': str(getteam.attrib['arena']), 'prefix': str(getteam.attrib['prefix']), 'suffix': str(getteam.attrib['suffix']), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']), 'division': str(getdivision.attrib['name']) } } );
         teamcount = teamcount + 1;
        if(verbose is True):
         VerbosePrintOut("   </division>");
      if(verbose is True):
       VerbosePrintOut("  </conference>");
-   leaguearrayout.update(leaguearray);
+   leaguedictout.update(leaguedict);
    if(verbose is True):
     VerbosePrintOut(" </league>");
  if(verbose is True):
   VerbosePrintOut("</hockey>");
- return leaguearrayout;
+ return leaguedictout;
 
 def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
  if(xmlisfile is True and (os.path.exists(xmlfile) and os.path.isfile(xmlfile))):
@@ -1809,9 +1801,8 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(sdbfile), quote=True)+"\">");
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = {};
+ leaguedictout = {};
  for leagueinfo in getleague:
-  leaguearray = {}
   leaguedict = {};
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
@@ -1824,18 +1815,15 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
    HockeyLeagueHasConferences = False;
    HockeyLeagueHasConferenceStr = "no";
   tempdict = { 'name': str(leagueinfo[0]), 'fullname': str(leagueinfo[1]), 'country': str(leagueinfo[2]), 'fullcountry': str(leagueinfo[3]), 'date': str(leagueinfo[4]), 'playofffmt': str(leagueinfo[5]), 'ordertype': str(leagueinfo[6]), 'conferences': str(HockeyLeagueHasConferenceStr), 'divisions': str(HockeyLeagueHasDivisionStr) };
-  leaguearray.update( tempdict );
   leaguedict.update( { str(leagueinfo[0]): tempdict } );
   if(verbose is True):
    VerbosePrintOut(" <league name=\""+EscapeXMLString(str(leagueinfo[0]), quote=True)+"\" fullname=\""+EscapeXMLString(str(leagueinfo[1]), quote=True)+"\" country=\""+EscapeXMLString(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(leagueinfo[3]), quote=True)+"\" date=\""+EscapeXMLString(str(leagueinfo[4]), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(leagueinfo[5]), quote=True)+"\" ordertype=\""+EscapeXMLString(str(leagueinfo[6]), quote=True)+"\" conferences=\""+EscapeXMLString(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+EscapeXMLString(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
   conferencecur = sqldatacon[1].cursor();
   getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"").fetchone()[0];
   getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"");
-  conferencelist = [];
   divisionlist = [];
   teamlist = [];
   for conferenceinfo in getconference:
-   conferencelist.append( { 'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0]) } );
    leaguedict[str(leagueinfo[0])].update( { str(conferenceinfo[0]): { 'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0]) } } );
    if(verbose is True):
     VerbosePrintOut("  <conference name=\""+str(conferenceinfo[0])+"\">");
@@ -1896,14 +1884,14 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
    if(verbose is True):
     VerbosePrintOut("  </games>");
   leaguedict[str(leagueinfo[0])].update( { "games": gamelist } );
-  leaguearrayout.update(leaguearray);
+  leaguedictout.update(leaguedict);
   if(verbose is True):
    VerbosePrintOut(" </league>");
  if(verbose is True):
   VerbosePrintOut("</hockey>");
  leaguecur.close();
  sqldatacon[1].close();
- return leaguearrayout;
+ return leaguedictout;
 
 def MakeHockeyXMLFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
@@ -2046,9 +2034,8 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(sdbfile), quote=True)+"\">");
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = {};
+ leaguedictout = {};
  for leagueinfo in getleague:
-  leaguearray = {}
   leaguedict = {};
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
@@ -2061,18 +2048,13 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
    HockeyLeagueHasConferences = False;
    HockeyLeagueHasConferenceStr = "no";
   tempdict = { 'name': str(leagueinfo[0]), 'fullname': str(leagueinfo[1]), 'country': str(leagueinfo[2]), 'fullcountry': str(leagueinfo[3]), 'date': str(leagueinfo[4]), 'playofffmt': str(leagueinfo[5]), 'ordertype': str(leagueinfo[6]), 'conferences': str(HockeyLeagueHasConferenceStr), 'divisions': str(HockeyLeagueHasDivisionStr) };
-  leaguearray.update( tempdict );
   leaguedict.update( { str(leagueinfo[0]): tempdict } );
   if(verbose is True):
    VerbosePrintOut(" <league name=\""+EscapeXMLString(str(leagueinfo[0]), quote=True)+"\" fullname=\""+EscapeXMLString(str(leagueinfo[1]), quote=True)+"\" country=\""+EscapeXMLString(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(leagueinfo[3]), quote=True)+"\" date=\""+EscapeXMLString(str(leagueinfo[4]), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(leagueinfo[5]), quote=True)+"\" ordertype=\""+EscapeXMLString(str(leagueinfo[6]), quote=True)+"\" conferences=\""+EscapeXMLString(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+EscapeXMLString(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
   conferencecur = sqldatacon[1].cursor();
   getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"").fetchone()[0];
   getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\"");
-  conferencelist = [];
-  divisionlist = [];
-  teamlist = [];
   for conferenceinfo in getconference:
-   conferencelist.append( { 'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0]) } );
    leaguedict[str(leagueinfo[0])].update( { str(conferenceinfo[0]): { 'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0]) } } );
    if(verbose is True):
     VerbosePrintOut("  <conference name=\""+str(conferenceinfo[0])+"\">");
@@ -2080,7 +2062,6 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
    getdivision_num = divisioncur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"").fetchone()[0];
    getdivision = divisioncur.execute("SELECT Division FROM "+leagueinfo[0]+"Divisions WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\"");
    for divisioninfo in getdivision:
-    divisionlist.append( { 'name': str(divisioninfo[0]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0]) } );
     leaguedict[str(leagueinfo[0])][str(conferenceinfo[0])].update( { str(divisioninfo[0]): { 'name': str(divisioninfo[0]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0]) } } );
     divisioncount = divisioncount + 1;
     if(verbose is True):
@@ -2089,7 +2070,6 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
     getteam_num = teamcur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"").fetchone()[0];
     getteam = teamcur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, TeamName, ArenaName, TeamPrefix, TeamSuffix FROM "+leagueinfo[0]+"Teams WHERE LeagueName=\""+leagueinfo[0]+"\" AND LeagueFullName=\""+leagueinfo[1]+"\" AND Conference=\""+conferenceinfo[0]+"\" AND Division=\""+divisioninfo[0]+"\"");
     for teaminfo in getteam:
-     teamlist.append( { 'city': str(teaminfo[0]), 'area': str(teaminfo[1]), 'fullarea': str(teaminfo[2]), 'country': str(teaminfo[3]), 'fullcountry': str(teaminfo[4]), 'name': str(teaminfo[5]), 'arena': str(teaminfo[6]), 'prefix': str(teaminfo[7]), 'suffix': str(teaminfo[8]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0]), 'division': str(divisioninfo[0]) } );
      leaguedict[str(leagueinfo[0])][str(conferenceinfo[0])][str(divisioninfo[0])].update( { str(teaminfo[5]): { 'city': str(teaminfo[0]), 'area': str(teaminfo[1]), 'fullarea': str(teaminfo[2]), 'country': str(teaminfo[3]), 'fullcountry': str(teaminfo[4]), 'name': str(teaminfo[5]), 'arena': str(teaminfo[6]), 'prefix': str(teaminfo[7]), 'suffix': str(teaminfo[8]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0]), 'division': str(divisioninfo[0]) } } );
      if(verbose is True):
       VerbosePrintOut("    <team city=\""+EscapeXMLString(str(teaminfo[0]), quote=True)+"\" area=\""+EscapeXMLString(str(teaminfo[1]), quote=True)+"\" fullarea=\""+EscapeXMLString(str(teaminfo[2]), quote=True)+"\" country=\""+EscapeXMLString(str(teaminfo[3]), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(teaminfo[4]), quote=True)+"\" name=\""+EscapeXMLString(str(teaminfo[5]), quote=True)+"\" arena=\""+EscapeXMLString(str(teaminfo[6]), quote=True)+"\" prefix=\""+EscapeXMLString(str(teaminfo[7]), quote=True)+"\" suffix=\""+EscapeXMLString(str(teaminfo[8]), quote=True)+"\" />");
@@ -2133,14 +2113,14 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
    if(verbose is True):
     VerbosePrintOut("  </games>");
   leaguedict[str(leagueinfo[0])].update( { "games": gamelist } );
-  leaguearrayout.update(leaguearray);
+  leaguedictout.update(leaguedict);
   if(verbose is True):
    VerbosePrintOut(" </league>");
  if(verbose is True):
   VerbosePrintOut("</hockey>");
  leaguecur.close();
  sqldatacon[1].close();
- return leaguearrayout;
+ return leaguedictout;
 
 def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
  if(sqlisfile is True and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
@@ -2681,9 +2661,8 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  gettablecur.close();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = {};
+ leaguedictout = {};
  for leagueinfo in getleague:
-  leaguearray = {}
   leaguedict = {};
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
@@ -2696,18 +2675,14 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
    HockeyLeagueHasConferences = False;
    HockeyLeagueHasConferenceStr = "no";
   tempdict = { 'name': str(leagueinfo[0]), 'fullname': str(leagueinfo[1]), 'country': str(leagueinfo[2]), 'fullcountry': str(leagueinfo[3]), 'date': str(leagueinfo[4]), 'playofffmt': str(leagueinfo[5]), 'ordertype': str(leagueinfo[6]), 'conferences': str(HockeyLeagueHasConferenceStr), 'divisions': str(HockeyLeagueHasDivisionStr) };
-  leaguearray.update( tempdict );
   leaguedict.update( { str(leagueinfo[0]): tempdict } );
   if(verbose is True):
    VerbosePrintOut(" <league name=\""+EscapeXMLString(str(leagueinfo[0]), quote=True)+"\" fullname=\""+EscapeXMLString(str(leagueinfo[1]), quote=True)+"\" country=\""+EscapeXMLString(str(leagueinfo[2]), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(leagueinfo[3]), quote=True)+"\" date=\""+EscapeXMLString(str(leagueinfo[4]), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(leagueinfo[5]), quote=True)+"\" ordertype=\""+EscapeXMLString(str(leagueinfo[6]), quote=True)+"\" conferences=\""+EscapeXMLString(str(HockeyLeagueHasConferenceStr), quote=True)+"\" divisions=\""+EscapeXMLString(str(HockeyLeagueHasDivisionStr), quote=True)+"\">");
   conferencecur = sqldatacon[1].cursor();
   getconference_num = conferencecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Conferences").fetchone()[0];
   getconference = conferencecur.execute("SELECT Conference FROM "+leagueinfo[0]+"Conferences");
-  conferencelist = [];
-  divisionlist = [];
   teamlist = [];
   for conferenceinfo in getconference:
-   conferencelist.append( { 'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0]) } );
    leaguedict[str(leagueinfo[0])].update( { str(conferenceinfo[0]): { 'name': str(conferenceinfo[0]), 'league': str(leagueinfo[0]) } } );
    if(verbose is True):
     VerbosePrintOut("  <conference name=\""+EscapeXMLString(str(conferenceinfo[0]), quote=True)+"\">");
@@ -2715,7 +2690,6 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
    getdivision_num = divisioncur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Divisions WHERE Conference=\""+conferenceinfo[0]+"\"").fetchone()[0];
    getdivision = divisioncur.execute("SELECT Division FROM "+leagueinfo[0]+"Divisions WHERE Conference=\""+conferenceinfo[0]+"\"");
    for divisioninfo in getdivision:
-    divisionlist.append( { 'name': str(divisioninfo[0]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0]) } );
     leaguedict[str(leagueinfo[0])][str(conferenceinfo[0])].update( { str(divisioninfo[0]): { 'name': str(divisioninfo[0]), 'league': str(leagueinfo[0]), 'conference': str(conferenceinfo[0]) } } );
     if(verbose is True):
      VerbosePrintOut("   <division name=\""+EscapeXMLString(str(divisioninfo[0]), quote=True)+"\">");
@@ -2772,14 +2746,14 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
    if(verbose is True):
     VerbosePrintOut("  </games>");
   leaguedict[str(leagueinfo[0])].update( { "games": gamelist } );
-  leaguearrayout.update(leaguearray);
+  leaguedictout.update(leaguedict);
   if(verbose is True):
    VerbosePrintOut(" </league>");
  if(verbose is True):
   VerbosePrintOut("</hockey>");
  leaguecur.close();
  sqldatacon[1].close();
- return leaguearrayout;
+ return leaguedictout;
 
 def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
