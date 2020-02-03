@@ -36,7 +36,7 @@ __version_info__ = (0, 1, 0, "RC 1", 1);
 __version_date_info__ = (2020, 2, 2, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
-__revision_id__ = "$Id: 43cd678958fe4c7d091f2e924bb0c708c8f637e6 $";
+__revision_id__ = "$Id: ba9416d0e57df9da8566b1d7df6b84636771a58b $";
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):
@@ -1506,8 +1506,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
         VerbosePrintOut("   </division>");
      if(verbose is True):
       VerbosePrintOut("  </conference>");
-   leaguearray.update( { 'leagueinfo': leaguedict, 'conferences': conferencelist, 'divisions': divisionlist, 'teams': teamlist, 'arenas': arenalist, 'games': gamelist } );
-   leaguearrayout.update( { str(getleague.attrib['name']): leaguearray['leagueinfo'][str(getleague.attrib['name'])] } );
+   leaguearrayout.update( leaguearray['leagueinfo'] );
    if(verbose is True):
     VerbosePrintOut(" </league>");
  if(verbose is True):
@@ -1897,8 +1896,7 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
    if(verbose is True):
     VerbosePrintOut("  </games>");
   leaguedict[str(leagueinfo[0])].update( { "games": gamelist } );
-  leaguearray.update( { 'leagueinfo': leaguedict, 'conferences': conferencelist, 'divisions': divisionlist, 'teams': teamlist, 'arenas': arenalist, 'games': gamelist } );
-  leaguearrayout.update( { str(leagueinfo[0]): leaguearray['leagueinfo'][str(leagueinfo[0])] } );
+  leaguearrayout.update(leaguearray);
   if(verbose is True):
    VerbosePrintOut(" </league>");
  if(verbose is True):
@@ -2135,8 +2133,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
    if(verbose is True):
     VerbosePrintOut("  </games>");
   leaguedict[str(leagueinfo[0])].update( { "games": gamelist } );
-  leaguearray.update( { 'leagueinfo': leaguedict, 'conferences': conferencelist, 'divisions': divisionlist, 'teams': teamlist, 'arenas': arenalist, 'games': gamelist } );
-  leaguearrayout.update( { str(leagueinfo[0]): leaguearray['leagueinfo'][str(leagueinfo[0])] } );
+  leaguearrayout.update(leaguearray);
   if(verbose is True):
    VerbosePrintOut(" </league>");
  if(verbose is True):
@@ -2775,8 +2772,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
    if(verbose is True):
     VerbosePrintOut("  </games>");
   leaguedict[str(leagueinfo[0])].update( { "games": gamelist } );
-  leaguearray.update( { 'leagueinfo': leaguedict, 'conferences': conferencelist, 'divisions': divisionlist, 'teams': teamlist, 'arenas': arenalist, 'games': gamelist } );
-  leaguearrayout.update( { str(leagueinfo[0]): leaguearray['leagueinfo'][str(leagueinfo[0])] } );
+  leaguearrayout.update(leaguearray);
   if(verbose is True):
    VerbosePrintOut(" </league>");
  if(verbose is True):
@@ -2994,53 +2990,53 @@ def RemoveHockeyLeagueFromArray(hockeyarray, leaguename):
 
 def AddConferenceToArray(hockeyarray, leaguename, conference, hasconferences="yes"):
  if leaguename in hockeyarray.keys():
-  if conference not in hockeyarray[leaguename].keys():
-   hockeyarray[leaguename].update( { str(conference): { 'name': str(conference), 'league': str(leaguename) } } );
+  if conference not in hockeyarray[str(leaguename)].keys():
+   hockeyarray[str(leaguename)].update( { str(conference): { 'name': str(conference), 'league': str(leaguename) } } );
  return hockeyarray;
 
 def RemoveConferenceFromArray(hockeyarray, leaguename, conference):
  if leaguename in hockeyarray.keys():
-  if conference in hockeyarray[leaguename].keys():
-   hockeyarray[leaguename].pop(conference, None);
+  if conference in hockeyarray[str(leaguename)].keys():
+   hockeyarray[str(leaguename)].pop(conference, None);
  return hockeyarray;
 
 def AddDivisionToArray(hockeyarray, leaguename, division, conference, hasconferences="yes", hasdivisions="yes"):
  if leaguename in hockeyarray.keys():
-  if conference in hockeyarray[leaguename].keys():
-   if division not in hockeyarray[leaguename][conference].keys():
-    hockeyarray[leaguename][conference].update( { str(division): { 'name': str(division), 'league': str(leaguename), 'conference': str(conference) } } );
+  if conference in hockeyarray[str(leaguename)].keys():
+   if division not in hockeyarray[str(leaguename)][str(conference)].keys():
+    hockeyarray[str(leaguename)][str(conference)].update( { str(division): { 'name': str(division), 'league': str(leaguename), 'conference': str(conference) } } );
  return hockeyarray;
 
 def RemoveDivisionFromArray(hockeyarray, leaguename, division, conference):
  if leaguename in hockeyarray.keys():
-  if conference in hockeyarray[leaguename].keys():
-   if division in hockeyarray[leaguename][conference].keys():
-    hockeyarray[leaguename][conference].pop(division, None);
+  if conference in hockeyarray[str(leaguename)].keys():
+   if division in hockeyarray[str(leaguename)][str(conference)].keys():
+    hockeyarray[str(leaguename)][str(conference)].pop(division, None);
  return hockeyarray;
 
 def AddHockeyTeamToArray(hockeyarray, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix=""):
  if leaguename in hockeyarray.keys():
-  if conference in hockeyarray[leaguename].keys():
-   if division in hockeyarray[leaguename][conference].keys():
-    if teamname not in hockeyarray[leaguename][conference][division].keys():
-     hockeyarray[leaguename][conference][division].update( { str(teamname): { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(teamname), 'arena': str(arenaname), 'prefix': str(teamnameprefix), 'suffix': str(teamnamesuffix), 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } );
+  if conference in hockeyarray[str(leaguename)].keys():
+   if division in hockeyarray[str(leaguename)][str(conference)].keys():
+    if teamname not in hockeyarray[str(leaguename)][str(conference)][str(division)].keys():
+     hockeyarray[str(leaguename)][str(conference)][str(division)].update( { str(teamname): { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(teamname), 'arena': str(arenaname), 'prefix': str(teamnameprefix), 'suffix': str(teamnamesuffix), 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } );
  return hockeyarray;
 
 def RemoveHockeyTeamFromArray(hockeyarray, leaguename, teamname, division, conference):
- if teamname in hockeyarray[leaguename][conference][division].keys():
-  hockeyarray[leaguename][conference][division].pop(teamname, None);
+ if teamname in hockeyarray[str(leaguename)][str(conference)][str(division)].keys():
+  hockeyarray[str(leaguename)][str(conference)][str(division)].pop(teamname, None);
  return hockeyarray;
 
 def AddHockeyArenaToArray(hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
  if leaguename in hockeyarray.keys():
-  if "arenas" not in hockeyarray[leaguename].keys():
-   hockeyarray[leaguename].update( { 'arenas': [ {} ] } );
-  hockeyarray[leaguename]['arenas'].append( { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(arenaname) } );
+  if "arenas" not in hockeyarray[str(leaguename)].keys():
+   hockeyarray[str(leaguename)].update( { 'arenas': [ {} ] } );
+  hockeyarray[str(leaguename)]['arenas'].append( { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(arenaname) } );
  return hockeyarray;
 
 def AddHockeyGameToArray(hockeyarray, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
  if leaguename in hockeyarray.keys():
-  if "games" not in hockeyarray[leaguename].keys():
-   hockeyarray[leaguename].update( { 'games': [ {} ] } );
- hockeyarray[leaguename]['games'].append( { 'date': str(date), 'hometeam': str(hometeam), 'awayteam': str(awayteam), 'goals': str(periodsscore), 'sogs': str(shotsongoal), 'ppgs': str(ppgoals), 'shgs': str(shgoals), 'penalties': str(periodpens), 'pims': str(periodpims), 'hits': str(periodhits), 'takeaways': str(takeaways), 'faceoffwins': str(faceoffwins), 'atarena': str(atarena), 'isplayoffgame': str(isplayoffgame) } );
+  if "games" not in hockeyarray[str(leaguename)].keys():
+   hockeyarray[str(leaguename)].update( { 'games': [ {} ] } );
+ hockeyarray[str(leaguename)]['games'].append( { 'date': str(date), 'hometeam': str(hometeam), 'awayteam': str(awayteam), 'goals': str(periodsscore), 'sogs': str(shotsongoal), 'ppgs': str(ppgoals), 'shgs': str(shgoals), 'penalties': str(periodpens), 'pims': str(periodpims), 'hits': str(periodhits), 'takeaways': str(takeaways), 'faceoffwins': str(faceoffwins), 'atarena': str(atarena), 'isplayoffgame': str(isplayoffgame) } );
  return hockeyarray;
