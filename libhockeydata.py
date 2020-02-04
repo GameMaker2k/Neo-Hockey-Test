@@ -2994,7 +2994,7 @@ def RemoveHockeyLeagueFromArray(hockeyarray, leaguename):
 
 def ReplaceHockeyLeagueFromArray(hockeyarray, oldleaguename, newleaguename, leaguefullname=None, countryname=None, fullcountryname=None, date=None, playofffmt=None, ordertype=None, hasconferences=None, hasdivisions=None):
  if oldleaguename in hockeyarray.keys() and newleaguename not in hockeyarray.keys():
-  hockeyarray[str(newleaguename)] = hockeyarray.pop(oldleaguename);
+  hockeyarray[str(newleaguename)] = hockeyarray.pop(str(oldleaguename));
   hockeyarray[str(newleaguename)]['leagueinfo']['name'] = str(newleaguename);
   if(leaguefullname is not None):
    hockeyarray[str(newleaguename)]['leagueinfo']['fullname'] =  str(leaguefullname);
@@ -3037,7 +3037,7 @@ def RemoveHockeyConferenceFromArray(hockeyarray, leaguename, conference):
 
 def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newconference):
  if oldconference in hockeyarray[str(leaguename)].keys() and newconference not in hockeyarray[str(leaguename)].keys():
-  hockeyarray[str(leaguename)][str(newconference)] = hockeyarray[str(leaguename)].pop(oldconference);
+  hockeyarray[str(leaguename)][str(newconference)] = hockeyarray[str(leaguename)].pop(str(oldconference));
   hockeyarray[str(leaguename)][str(newconference)]['conferenceinfo']['name'] = str(newconference);
   for hckey in hockeyarray[str(leaguename)][str(newconference)].keys():
    if(hckey!="conferenceinfo"):
@@ -3063,7 +3063,7 @@ def RemoveHockeyDivisionFromArray(hockeyarray, leaguename, division, conference)
 
 def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivision, conference):
  if oldconference in hockeyarray[str(leaguename)][str(conference)].keys() and newconference not in hockeyarray[str(leaguename)][str(conference)].keys():
-  hockeyarray[str(leaguename)][str(conference)][str(newdivision)] = hockeyarray[str(leaguename)][str(conference)].pop(olddivision);
+  hockeyarray[str(leaguename)][str(conference)][str(newdivision)] = hockeyarray[str(leaguename)][str(conference)].pop(str(olddivision));
   hockeyarray[str(leaguename)][str(conference)][str(newdivision)]['divisioninfo']['name'] = str(newdivision);
   for hdkey in hockeyarray[str(leaguename)][str(conference)][str(newdivision)].keys():
    if(hdkey!="divisioninfo"):
@@ -3085,7 +3085,7 @@ def RemoveHockeyTeamFromArray(hockeyarray, leaguename, teamname, conference, div
 
 def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname, conference, division, cityname=None, areaname=None, countryname=None, fullcountryname=None, fullareaname=None, arenaname=None, teamnameprefix=None, teamnamesuffix=None):
  if oldteamname in hockeyarray[str(leaguename)][str(conference)][str(division)].keys() and newteamname not in hockeyarray[str(leaguename)][str(conference)][str(division)].keys():
-  hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)] = hockeyarray[str(leaguename)][str(conference)][str(division)].pop(oldteamname);
+  hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)] = hockeyarray[str(leaguename)][str(conference)][str(division)].pop(str(oldteamname));
   hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['name'] = str(newteamname);
   if(cityname is not None):
    hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['city'] = str(cityname);
