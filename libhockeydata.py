@@ -3143,6 +3143,18 @@ def RemoveHockeyTeamFromArray(hockeyarray, leaguename, teamname, conference, div
 def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname, conference, division, cityname=None, areaname=None, countryname=None, fullcountryname=None, fullareaname=None, arenaname=None, teamnameprefix=None, teamnamesuffix=None):
  if oldteamname in hockeyarray[str(leaguename)][str(conference)][str(division)].keys() and newteamname not in hockeyarray[str(leaguename)][str(conference)][str(division)].keys():
   hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)] = hockeyarray[str(leaguename)][str(conference)][str(division)].pop(str(oldteamname));
+  if(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip()=="" and hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip()==""):
+   oldfullteamname = str(str(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['name']));
+   teamnameprefix = hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip();
+   teamnamesuffix = hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip();
+  if(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip()!="" and hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip()==""):
+   oldfullteamname = str(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip()+" "+str(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['name']));
+   teamnamesuffix = hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip();
+  if(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip()=="" and hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip()!=""):
+   oldfullteamname = str(str(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['name'])+" "+hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip());
+   teamnameprefix = teamnameprefix.strip();
+  if(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip()!="" and hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip()!=""):
+   oldfullteamname = str(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnameprefix'].strip()+" "+str(hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['name'])+" "+hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['teamnamesuffix'].strip());
   hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['name'] = str(newteamname);
   if(cityname is not None):
    hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['city'] = str(cityname);
@@ -3163,22 +3175,22 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
   htin = hockeyarray[str(leaguename)][str(conference)][str(division)]['teamlist'].index(str(oldteamname));
   hockeyarray[str(leaguename)][str(conference)][str(division)]['teamlist'][int(htin)] = str(newteamname);
   if(teamnameprefix.strip()=="" and teamnamesuffix.strip()==""):
-   fullteamname = str(teamname);
+   newfullteamname = str(teamname);
    teamnameprefix = teamnameprefix.strip();
    teamnamesuffix = teamnamesuffix.strip();
   if(teamnameprefix.strip()!="" and teamnamesuffix.strip()==""):
-   fullteamname = str(teamnameprefix+" "+teamname);
+   newfullteamname = str(teamnameprefix+" "+teamname);
    teamnamesuffix = teamnamesuffix.strip();
   if(teamnameprefix.strip()=="" and teamnamesuffix.strip()!=""):
-   fullteamname = str(teamname+" "+teamnamesuffix);
+   newfullteamname = str(teamname+" "+teamnamesuffix);
    teamnameprefix = teamnameprefix.strip();
   if(teamnameprefix.strip()!="" and teamnamesuffix.strip()!=""):
-   fullteamname = str(teamnameprefix+" "+teamname+" "+teamnamesuffix);
+   newfullteamname = str(teamnameprefix+" "+teamname+" "+teamnamesuffix);
   for hgkey in hockeyarray[hlkey]['games']:
-   if(hgkey['hometeam']==oldteamname):
-    hgkey['hometeam'] = newteamname;
-   if(hgkey['awayteam']==oldteamname):
-    hgkey['hometeam'] = newteamname;
+   if(hgkey['hometeam']==oldfullteamname):
+    hgkey['hometeam'] = newfullteamname;
+   if(hgkey['awayteam']==oldfullteamname):
+    hgkey['hometeam'] = newfullteamname;
  return hockeyarray;
 
 def AddHockeyArenaToArray(hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
