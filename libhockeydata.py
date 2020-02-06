@@ -3059,6 +3059,8 @@ def ReplaceHockeyLeagueFromArray(hockeyarray, oldleaguename, newleaguename, leag
    hockeyarray[str(newleaguename)]['leagueinfo']['conferences'] = str(hasconferences);
   if(hasdivisions is not None):
    hockeyarray[str(newleaguename)]['leagueinfo']['divisions'] = str(hasdivisions);
+  hlin = hockeyarray['leaguelist'].index(oldleaguename);
+  hockeyarray['leaguelist'][hlin] = newleaguename;
   for hlkey in hockeyarray['leaguelist']:
    for hckey in hockeyarray[str(hlkey)]['conferencelist']:
     hockeyarray[str(newleaguename)][str(hckey)]['conferenceinfo']['league'] = str(newleaguename);
@@ -3085,6 +3087,8 @@ def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newc
  if oldconference in hockeyarray[str(leaguename)].keys() and newconference not in hockeyarray[str(leaguename)].keys():
   hockeyarray[str(leaguename)][str(newconference)] = hockeyarray[str(leaguename)].pop(str(oldconference));
   hockeyarray[str(leaguename)][str(newconference)]['conferenceinfo']['name'] = str(newconference);
+  hcin = hockeyarray[str(leaguename)]['conferencelist'].index(oldconference);
+  hockeyarray[str(leaguename)]['conferencelist'][hcin] = newconference;
   for hlkey in hockeyarray['leaguelist']:
    for hckey in hockeyarray[str(hlkey)]['conferencelist']:
     for hdkey in hockeyarray[str(hlkey)][str(hckey)]['divisionlist']:
@@ -3112,6 +3116,8 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
  if oldconference in hockeyarray[str(leaguename)][str(conference)].keys() and newconference not in hockeyarray[str(leaguename)][str(conference)].keys():
   hockeyarray[str(leaguename)][str(conference)][str(newdivision)] = hockeyarray[str(leaguename)][str(conference)].pop(str(olddivision));
   hockeyarray[str(leaguename)][str(conference)][str(newdivision)]['divisioninfo']['name'] = str(newdivision);
+  hdin = hockeyarray[str(leaguename)][str(conference)]['divisionlist'].index(olddivision);
+  hockeyarray[str(leaguename)][str(conference)]['divisionlist'][hdin] = newdivision;
   for hdkey in hockeyarray[str(leaguename)][str(conference)][str(newdivision)].keys():
    if(hdkey!="divisioninfo"):
     hockeyarray[str(leaguename)][str(conference)][str(newdivision)][str(hdkey)]['teaminfo']['division'] = str(newconference);
@@ -3154,6 +3160,8 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
    hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['prefix'] = str(teamnameprefix);
   if(teamnamesuffix is not None):
    hockeyarray[str(leaguename)][str(conference)][str(division)][str(newteamname)]['teaminfo']['suffix'] = str(teamnamesuffix);
+  htin = hockeyarray[str(leaguename)][str(conference)][str(division)]['teamlist'].index(oldteamname);
+  hockeyarray[str(leaguename)][str(conference)][str(division)]['teamlist'][htin] = newteamname;
  return hockeyarray;
 
 def AddHockeyArenaToArray(hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
