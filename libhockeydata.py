@@ -754,7 +754,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  "  GamesPlayed INTEGER NOT NULL DEFAULT 0,\n" + \
  "  GamesPlayedHome INTEGER NOT NULL DEFAULT 0,\n" + \
  "  GamesPlayedAway INTEGER NOT NULL DEFAULT 0,\n" + \
- "  Ties,\n" + \
+ "  Ties INTEGER NOT NULL DEFAULT 0,\n" + \
  "  Wins INTEGER NOT NULL DEFAULT 0,\n" + \
  "  OTWins INTEGER NOT NULL DEFAULT 0,\n" + \
  "  SOWins INTEGER NOT NULL DEFAULT 0,\n" + \
