@@ -1453,6 +1453,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, returnxml=False, ver
   leaguecount = leaguecount + 1;
   if(getleague.tag == "league"):
    conferencecount = 0;
+   conferencelist = [];
    for getconference in getleague:
     if(getconference.tag == "conference"):
      if(verbose is True):
