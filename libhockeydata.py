@@ -3207,7 +3207,7 @@ def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference):
   if conference in hockeyarray[leaguename].keys():
    if division not in hockeyarray[leaguename][conference].keys():
     hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'league': str(leaguename), 'conference': str(conference) } } } );
-    hockeyarray[leaguename][conference]['divisioninfo'].append(str(division));
+    hockeyarray[leaguename][conference]['divisionlist'].append(str(division));
  return hockeyarray;
 
 def RemoveHockeyDivisionFromArray(hockeyarray, leaguename, division, conference):
