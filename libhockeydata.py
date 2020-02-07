@@ -2803,6 +2803,136 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
   return True;
  return True;
 
+def MakeHockeySQLFromHockeyArray(inhockeyarray, returnsql=False, verbose=True):
+ sqldatacon = MakeHockeyDatabase(":memory:");
+ leaguecount = 0;
+ for hlkey in inhockeyarray['leaguelist']:
+  if(leaguecount==0):
+   MakeHockeyLeagueTable(sqldatacon);
+  MakeHockeyTeamTable(sqldatacon, hlkey);
+  MakeHockeyConferenceTable(sqldatacon, hlkey);
+  MakeHockeyGameTable(sqldatacon, hlkey);
+  MakeHockeyDivisionTable(sqldatacon, hlkey);
+  HockeyLeagueHasDivisions = True;
+  if(inhockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
+  HockeyLeagueHasConferences = True;
+  if(inhockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasConferences = False;
+  MakeHockeyLeagues(sqldatacon, hlkey, inhockeyarray[hlkey]['leagueinfo']['fullname'], inhockeyarray[hlkey]['leagueinfo']['country'], inhockeyarray[hlkey]['leagueinfo']['fullcountry'], inhockeyarray[hlkey]['leagueinfo']['date'], inhockeyarray[hlkey]['leagueinfo']['playofffmt'], inhockeyarray[hlkey]['leagueinfo']['ordertype']);
+  for hckey in inhockeyarray[hlkey]['conferencelist']:
+   MakeHockeyConferences(sqldatacon, hlkey, hckey, HockeyLeagueHasConferences);
+   for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
+    MakeHockeyDivisions(sqldatacon, hlkey, hdkey, hckey, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+    for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
+     MakeHockeyTeams(sqldatacon, hlkey, str(inhockeyarray[hlkey]['leagueinfo']['date']), inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea'], htkey, hckey, hdkey, inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+   hasarenas = False;
+   for hakey in inhockeyarray[hlkey]['arenas']:
+    if(hakey is True):
+     hasarenas = True;
+     MakeHockeyArena(sqldatacon, hlkey, hakey['city'], hakey['area'], hakey['country'], hakey['fullcountry'], hakey['fullarea'], hakey['name']);
+   hasgames = False;
+   for hgkey in inhockeyarray[hlkey]['games']:
+    if(hgkey is True):
+     hasgames = True;
+     MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'], hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame']);
+ sqldump = "-- "+__program_name__+" SQL Dumper\n";
+ sqldump = sqldump+"-- version "+__version__+"\n";
+ sqldump = sqldump+"-- "+__project_url__+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.sqlite_version+"\n";
+ sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Database: :memory:\n";
+ sqldump = sqldump+"--\n\n";
+ sqldump = sqldump+"-- --------------------------------------------------------\n\n";
+ if(verbose is True):
+  VerbosePrintOut("-- "+__program_name__+" SQL Dumper\n");
+  VerbosePrintOut("-- version "+__version__+"\n");
+  VerbosePrintOut("-- "+__project_url__+"\n");
+  VerbosePrintOut("--\n");
+  VerbosePrintOut("-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n");
+  VerbosePrintOut("-- SQLite Server version: "+sqlite3.sqlite_version+"\n");
+  VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"\n");
+  VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n");
+  VerbosePrintOut("--\n");
+  VerbosePrintOut("-- Database: :memory:\n");
+  VerbosePrintOut("--\n\n");
+  VerbosePrintOut("-- --------------------------------------------------------\n\n");
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
+ for leagueinfo_tmp in getleague_tmp:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp[0]+cur_tab);
+ for get_cur_tab in table_list:
+  tresult = sqldatacon[0].execute("SELECT * FROM "+get_cur_tab);
+  tmbcor = sqldatacon[1].cursor();
+  tabresult = tmbcor.execute("SELECT * FROM sqlite_master WHERE type=\"table\" and tbl_name=\""+get_cur_tab+"\";").fetchone()[4];
+  tabresultcol = list(map(lambda x: x[0], sqldatacon[0].description));
+  tresult_list = [];
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  sqldump = sqldump+"DROP TABLE IF EXISTS "+get_cur_tab+";\n\n"+tabresult+";\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  if(verbose is True):
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Table structure for table "+str(get_cur_tab)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+   VerbosePrintOut("DROP TABLE IF EXISTS "+get_cur_tab+";\n\n"+tabresult+";");
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Dumping data for table "+str(get_cur_tab)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+  get_insert_stmt_full = "";
+  for tresult_tmp in tresult:
+   get_insert_stmt = "INSERT INTO "+str(get_cur_tab)+" (";
+   get_insert_stmt_val = "(";
+   for result_cal_val in tabresultcol:
+    get_insert_stmt += str(result_cal_val)+", ";
+   for result_val in tresult_tmp:
+    if(isinstance(result_val, str)):
+     get_insert_stmt_val += "\""+str(result_val)+"\", ";
+    if(isinstance(result_val, int)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
+    if(isinstance(result_val, float)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
+   get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
+   if(verbose is True):
+    VerbosePrintOut(get_insert_stmt[:-2]+") VALUES ");
+   get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
+   if(verbose is True):
+    VerbosePrintOut(get_insert_stmt_val[:-2]+");");
+   get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
+  sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
+  if(verbose is True):
+   VerbosePrintOut("-- --------------------------------------------------------");
+   VerbosePrintOut(" ");
+ CloseHockeyDatabase(sqldatacon);
+ return sqldump;
+
+def MakeHockeySQLFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
+ if(sqlfile is None):
+  return False;
+ sqlfp = open(sqlfile, "w+");
+ sqlstring = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, returnsql, verbose);
+ sqlfp.write(sqlstring);
+ sqlfp.close();
+ if(returnsql is True):
+  return sqlstring;
+ if(returnsql is False):
+  return True;
+ return True;
+
 def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
