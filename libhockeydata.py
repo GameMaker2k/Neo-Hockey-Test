@@ -1396,7 +1396,7 @@ def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  xmlstring = xmlstring+"</hockey>\n";
  return xmlstring;
 
-def MakeHockeyXMLFromHockeyXMLWrite(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
  if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(outxmlfile is None and xmlisfile is True):
@@ -1471,7 +1471,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  xmlstring = xmlstring+"</hockey>\n";
  return xmlstring;
 
-def MakeHockeyXMLFromHockeyArrayWrite(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
  if(outxmlfile is None):
   return False;
  xmlfp = open(outxmlfile, "w+");
@@ -1940,6 +1940,94 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
   outpyfile = file_wo_extension+".xml";
  pyfp = open(outpyfile, "w+");
  pystring = MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile, verbose);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy is True):
+  return pystring;
+ if(returnpy is False):
+  return True;
+ return True;
+
+def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
+ pyfilename = __name__;
+ if(pyfilename=="__main__"):
+  pyfilename = os.path.splitext(os.path.basename(__file__))[0];
+ if(verbose is True):
+  VerbosePrintOut("#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n");
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
+ if(verbose is True):
+  VerbosePrintOut("sqldatacon = "+pyfilename+".MakeHockeyDatabase(\""+inhockeyarray['database']+"\");");
+ pystring = pystring+"sqldatacon = "+pyfilename+".MakeHockeyDatabase(\""+inhockeyarray['database']+"\");\n";
+ if(verbose is True):
+  VerbosePrintOut(pyfilename+".MakeHockeyLeagueTable(sqldatacon);");
+ pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n";
+ for hlkey in inhockeyarray['leaguelist']:
+  HockeyLeagueHasDivisions = True;
+  if(inhockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
+  HockeyLeagueHasConferences = True;
+  if(inhockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasConferences = False;
+  if(verbose is True):
+   VerbosePrintOut(pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyLeagues(sqldatacon, \""+hlkey+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['ordertype']+"\");");
+  pystring = pystring+pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyLeagues(sqldatacon, \""+hlkey+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['ordertype']+"\");\n";
+  for hckey in inhockeyarray[hlkey]['conferencelist']:
+   if(verbose is True):
+    VerbosePrintOut(pyfilename+".MakeHockeyConferences(sqldatacon, \""+hlkey+"\", \""+hckey+"\", "+str(HockeyLeagueHasConferences)+");");
+   pystring = pystring+pyfilename+".MakeHockeyConferences(sqldatacon, \""+hlkey+"\", \""+hckey+"\", "+str(HockeyLeagueHasConferences)+");\n";
+   for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
+    if(verbose is True):
+     VerbosePrintOut(pyfilename+".MakeHockeyDivisions(sqldatacon, \""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");");
+    pystring = pystring+pyfilename+".MakeHockeyDivisions(sqldatacon, \""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n";
+    for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
+     if(verbose is True):
+      VerbosePrintOut(pyfilename+".MakeHockeyTeams(sqldatacon, \""+hlkey+"\", \""+str(inhockeyarray[hlkey]['leagueinfo']['date'])+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");");
+     pystring = pystring+pyfilename+".MakeHockeyTeams(sqldatacon, \""+hlkey+"\", \""+str(inhockeyarray[hlkey]['leagueinfo']['date'])+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n";
+   hasarenas = False;
+   for hakey in inhockeyarray[hlkey]['arenas']:
+    if(hakey is True):
+     hasarenas = True;
+     AtArena = hakey['atarena'];
+     '''
+     if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], hakey['hometeam']), "FullArenaName", "str")==AtArena):
+      AtArena = "0";
+     if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], hakey['awayteam']), "FullArenaName", "str")==AtArena):
+      AtArena = "1";
+     '''
+     if(verbose is True):
+      VerbosePrintOut(pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hakey['date']+", \""+hakey['hometeam']+"\", \""+hakey['awayteam']+"\", \""+hakey['goals']+"\", \""+hakey['sogs']+"\", \""+hakey['ppgs']+"\", \""+hakey['shgs']+"\", \""+hakey['penalties']+"\", \""+hakey['pims']+"\", \""+hakey['hits']+"\", \""+hakey['takeaways']+"\", \""+hakey['faceoffwins']+"\", \""+AtArena+"\", \""+hakey['isplayoffgame']+"\");");
+     pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hakey['date']+", \""+hakey['hometeam']+"\", \""+hakey['awayteam']+"\", \""+hakey['goals']+"\", \""+hakey['sogs']+"\", \""+hakey['ppgs']+"\", \""+hakey['shgs']+"\", \""+hakey['penalties']+"\", \""+hakey['pims']+"\", \""+hakey['hits']+"\", \""+hakey['takeaways']+"\", \""+hakey['faceoffwins']+"\", \""+AtArena+"\", \""+hakey['isplayoffgame']+"\");\n";
+   if(hasarenas is True):
+    if(verbose is True):
+     VerbosePrintOut("  </arenas>");
+    xmlstring = xmlstring+"  </arenas>\n";
+   hasgames = False;
+   for hgkey in inhockeyarray[hlkey]['games']:
+    if(hgkey is True):
+     hasgames = True;
+     AtArena = hgkey['atarena'];
+     '''
+     if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], hgkey['hometeam']), "FullArenaName", "str")==AtArena):
+      AtArena = "0";
+     if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], hgkey['awayteam']), "FullArenaName", "str")==AtArena):
+      AtArena = "1";
+     '''
+     if(verbose is True):
+      VerbosePrintOut(pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+AtArena+"\", \""+hgkey['isplayoffgame']+"\");");
+     pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+AtArena+"\", \""+hgkey['isplayoffgame']+"\");\n";
+  if(verbose is True):
+   VerbosePrintOut(" ");
+  pystring = pystring+"\n";
+ if(verbose is True):
+  VerbosePrintOut(pyfilename+".CloseHockeyDatabase(sqldatacon);");
+ pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
+ return pystring;
+
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
+ if(outpyfile is None):
+  return False;
+ pyfp = open(outpyfile, "w+");
+ pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy is True):
