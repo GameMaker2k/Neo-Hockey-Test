@@ -16,7 +16,7 @@
     $FileInfo: example.py - Last Update: 2/4/2020 Ver. 0.1.0 RC 1 - Author: cooldude2k $
 '''
 
-import  libhockeydata;
+import libhockeydata;
 
 print("");
 print("--------------------------------------------------------------------------");
