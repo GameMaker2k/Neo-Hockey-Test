@@ -36,7 +36,7 @@ __version_info__ = (0, 1, 0, "RC 1", 1);
 __version_date_info__ = (2020, 2, 4, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
-__revision_id__ = "$Id: 89fadb766502e07f9e801dc220f6e0c5dbf3c50d $";
+__revision_id__ = "$Id: 6ae9813335907bc32267036ee751285a34350acf $";
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):
@@ -3088,6 +3088,8 @@ def ReplaceHockeyLeagueFromArray(hockeyarray, oldleaguename, newleaguename, leag
    hockeyarray[newleaguename]['leagueinfo']['conferences'] = str(hasconferences);
   if(hasdivisions is not None):
    hockeyarray[newleaguename]['leagueinfo']['divisions'] = str(hasdivisions);
+  if "conferencelist" not in hockeyarray[newleaguename].keys():
+   hockeyarray[newleaguename].update( { 'conferencelist': [] } );
   hlin = hockeyarray['leaguelist'].index(oldleaguename);
   hockeyarray['leaguelist'][hlin] = newleaguename;
   for hlkey in hockeyarray['leaguelist']:
@@ -3106,7 +3108,7 @@ def AddHockeyConferenceToArray(hockeyarray, leaguename, conference):
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
  if leaguename in hockeyarray.keys():
   if conference not in hockeyarray[leaguename].keys():
-   hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'league': str(leaguename) } } } );
+   hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'league': str(leaguename), 'divisionlist': [] } } } );
    hockeyarray[leaguename]['conferencelist'].append(str(conference));
  return hockeyarray;
 
@@ -3129,6 +3131,8 @@ def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newc
  if oldconference in hockeyarray[leaguename].keys() and newconference not in hockeyarray[leaguename].keys():
   hockeyarray[leaguename][newconference] = hockeyarray[leaguename].pop(str(oldconference));
   hockeyarray[leaguename][newconference]['conferenceinfo']['name'] = str(newconference);
+  if "divisionlist" not in hockeyarray[leaguename][newconference].keys():
+   hockeyarray[leaguename][newconference].update( { 'divisionlist': [] } );
   hcin = hockeyarray[leaguename]['conferencelist'].index(oldconference);
   hockeyarray[leaguename]['conferencelist'][hcin] = newconference;
   for hlkey in hockeyarray['leaguelist']:
@@ -3147,7 +3151,7 @@ def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference):
  if leaguename in hockeyarray.keys():
   if conference in hockeyarray[leaguename].keys():
    if division not in hockeyarray[leaguename][conference].keys():
-    hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'league': str(leaguename), 'conference': str(conference) } } } );
+    hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'league': str(leaguename), 'conference': str(conference), 'teamlist': [] } } } );
     hockeyarray[leaguename][conference]['divisionlist'].append(str(division));
  return hockeyarray;
 
@@ -3171,6 +3175,8 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
  if olddivision in hockeyarray[leaguename][conference].keys() and newdivision not in hockeyarray[leaguename][conference].keys():
   hockeyarray[leaguename][conference][newdivision] = hockeyarray[leaguename][conference].pop(str(olddivision));
   hockeyarray[leaguename][conference][newdivision]['divisioninfo']['name'] = str(newdivision);
+  if "teamlist" not in hockeyarray[leaguename][conference][newdivision].keys():
+   hockeyarray[leaguename][conference][newdivision].update( { 'teamlist': [] } );
   hdin = hockeyarray[leaguename][conference]['divisionlist'].index(olddivision);
   hockeyarray[leaguename][conference]['divisionlist'][hdin] = newdivision;
   for hdkey in hockeyarray[leaguename][conference][newdivision].keys():
@@ -3180,6 +3186,7 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
 
 def AddHockeyTeamToArray(hockeyarray, leaguename, teamname, conference, division, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname, teamnameprefix="", teamnamesuffix=""):
  if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename][conference].keys() and "teamlist" not in hockeyarray[leaguename][conference][division].keys():
+  print("test");
   hockeyarray[leaguename][conference][division].update( { 'teamlist': [] } );
  if "database" not in hockeyarray.keys():
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
