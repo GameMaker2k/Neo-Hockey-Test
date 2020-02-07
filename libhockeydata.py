@@ -3186,7 +3186,6 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
 
 def AddHockeyTeamToArray(hockeyarray, leaguename, teamname, conference, division, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname, teamnameprefix="", teamnamesuffix=""):
  if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename][conference].keys() and "teamlist" not in hockeyarray[leaguename][conference][division].keys():
-  print("test");
   hockeyarray[leaguename][conference][division].update( { 'teamlist': [] } );
  if "database" not in hockeyarray.keys():
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
