@@ -2920,11 +2920,11 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, returnsql=False, verbose=True):
  CloseHockeyDatabase(sqldatacon);
  return sqldump;
 
-def MakeHockeySQLFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
+def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
  if(sqlfile is None):
   return False;
  sqlfp = open(sqlfile, "w+");
- sqlstring = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, returnsql, verbose);
+ sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, returnsql, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql is True):
