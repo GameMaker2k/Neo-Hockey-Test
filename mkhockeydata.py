@@ -244,4 +244,4 @@ if(curaction==getactlist[9]):
  if(getargs.outfile is None):
   libhockeydata.MakeHockeyXMLFromHockeyXML(getargs.infile, verbose=verboseon);
  else:
-  libhockeydata.MakeHockeyXMLFromHockeyXMLWrite(getargs.infile, getargs.outfile, verbose=verboseon);
+  libhockeydata.MakeHockeyXMLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
