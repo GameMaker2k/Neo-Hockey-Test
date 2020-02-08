@@ -36,7 +36,7 @@ __version_info__ = (0, 1, 0, "RC 1", 1);
 __version_date_info__ = (2020, 2, 4, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
-__revision_id__ = "$Id: 32e47bac6afba9abe0b789ba8750f720c674f46a $";
+__revision_id__ = "$Id: 4ca62d10f283d43fc767538e2c13c1d4ce98db23 $";
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):
@@ -1961,10 +1961,6 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
      if(verbose is True):
       VerbosePrintOut(pyfilename+".MakeHockeyArena(sqldatacon, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey['country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\");");
      pystring = pystring+pyfilename+".MakeHockeyArena(sqldatacon, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey['country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\");\n";
-   if(hasarenas is True):
-    if(verbose is True):
-     VerbosePrintOut("  </arenas>");
-    xmlstring = xmlstring+"  </arenas>\n";
    hasgames = False;
    for hgkey in inhockeyarray[hlkey]['games']:
     if(hgkey is True):
@@ -2039,10 +2035,6 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True):
      if(verbose is True):
       VerbosePrintOut("hockeyarray = "+pyfilename+".AddHockeyArenaToArray(sqldatacon, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey['country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\");");
      pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyArenaToArray(sqldatacon, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey['country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\");\n";
-   if(hasarenas is True):
-    if(verbose is True):
-     VerbosePrintOut("  </arenas>");
-    xmlstring = xmlstring+"  </arenas>\n";
    hasgames = False;
    for hgkey in inhockeyarray[hlkey]['games']:
     if(hgkey is True):
