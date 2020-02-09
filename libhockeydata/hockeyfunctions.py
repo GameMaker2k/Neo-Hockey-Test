@@ -368,12 +368,22 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
     if(hgkey is True):
      hasgames = True;
      AtArena = hgkey['atarena'];
-     '''
-     if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], hgkey['hometeam']), "FullArenaName", "str")==AtArena):
+     ghtl = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['league'];
+     ghtc = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['conference'];
+     ghtd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['division'];
+     ghtcn = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['city'];
+     ghtan = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['arena'];
+     ghtfan = str(ghtan+", "+ghtcn);
+     gatl = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['league'];
+     gatc = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['conference'];
+     gatd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['division'];
+     gatcn = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['city'];
+     gatan = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['arena'];
+     gatfan = str(gatan+", "+gatcn);
+     if(ghtfan==AtArena):
       AtArena = "0";
-     if(GetTeamData(sqldatacon, getleague.attrib['name'], GetTeam2Num(sqldatacon, getleague.attrib['name'], hgkey['awayteam']), "FullArenaName", "str")==AtArena):
+     if(gatfan==AtArena):
       AtArena = "1";
-     '''
      if(verbose is True):
       VerbosePrintOut(pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+AtArena+"\", \""+hgkey['isplayoffgame']+"\");");
      pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+AtArena+"\", \""+hgkey['isplayoffgame']+"\");\n";
@@ -442,12 +452,22 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True):
     if(hgkey is True):
      hasgames = True;
      AtArena = hgkey['atarena'];
-     '''
-     if(GetTeamData(hockeyarray, getleague.attrib['name'], GetTeam2Num(hockeyarray, getleague.attrib['name'], hgkey['hometeam']), "FullArenaName", "str")==AtArena):
+     ghtl = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['league'];
+     ghtc = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['conference'];
+     ghtd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['division'];
+     ghtcn = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['city'];
+     ghtan = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['arena'];
+     ghtfan = str(ghtan+", "+ghtcn);
+     gatl = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['league'];
+     gatc = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['conference'];
+     gatd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['division'];
+     gatcn = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['city'];
+     gatan = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['arena'];
+     gatfan = str(gatan+", "+gatcn);
+     if(ghtfan==AtArena):
       AtArena = "0";
-     if(GetTeamData(hockeyarray, getleague.attrib['name'], GetTeam2Num(hockeyarray, getleague.attrib['name'], hgkey['awayteam']), "FullArenaName", "str")==AtArena):
+     if(gatfan==AtArena):
       AtArena = "1";
-     '''
      if(verbose is True):
       VerbosePrintOut("hockeyarray = "+pyfilename+".AddHockeyGameToArray(hockeyarray, \""+hlkey+"\", "+hgkey['date']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+AtArena+"\", \""+hgkey['isplayoffgame']+"\");");
      pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyGameToArray(hockeyarray, \""+hlkey+"\", "+hgkey['date']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+AtArena+"\", \""+hgkey['isplayoffgame']+"\");\n";
