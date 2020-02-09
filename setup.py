@@ -48,7 +48,9 @@ pymodule['downloadurl'] = 'https://github.com/GameMaker2k/Neo-Hockey-Test/archiv
 pymodule['longdescription'] = 'Just a test script dealing with hockey games and stats.';
 pymodule['platforms'] = 'OS Independent';
 pymodule['zipsafe'] = True;
-pymodule['pymodules'] = ['libhockeydata'];
+# pymodule['pymodules'] = [y for x in os.walk("upcean") for y in glob.glob(os.path.join(x[0], '*.py'))];
+pymodule['pymodules'] = [];
+pymodule['packages'] = find_packages();
 pymodule['scripts'] = ['mkhockeydata.py', 'mkhockeydatabase.py', 'mkhockeydatabasefromsql.py', 'mkhockeypyfromdatabase.py', 'mkhockeypyfromxmlfile.py', 'mkhockeysqlfromdatabase.py', 'mkhockeysqlfromxmlfile.py', 'mkhockeyxmlfile.py', 'mkhockeyxmlfileclean.py', 'mkhockeyxmlfromolddatabase.py', 'mkhockeyxmlfromsql.py'];
 pymodule['classifiers'] = [
  'Development Status :: 5 - Production/Stable',
@@ -109,6 +111,7 @@ setup(
  platforms = pymodule['platforms'],
  zip_safe = pymodule['zipsafe'],
  py_modules = pymodule['pymodules'],
+ packages = pymodule['packages'],
  scripts = pymodule['scripts'],
  classifiers = pymodule['classifiers']
 )
