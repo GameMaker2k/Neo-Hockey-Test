@@ -431,6 +431,8 @@ def GetHockeyLeaguesInfo(leaguename):
 def AddHockeyLeagueToArray(hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
  if "leaguelist" not in hockeyarray.keys():
   hockeyarray.update( { 'leaguelist': [] } );
+ if "quickinfo" not in hockeyarray.keys():
+  hockeyarray.update( { 'quickinfo': {'conferenceinfo': {}, 'divisioninfo': {}, 'teaminfo': {} } );
  if "database" not in hockeyarray.keys():
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
  if leaguename not in hockeyarray.keys():
@@ -516,6 +518,7 @@ def AddHockeyConferenceToArray(hockeyarray, leaguename, conference):
  if leaguename in hockeyarray.keys():
   if conference not in hockeyarray[leaguename].keys():
    hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'league': str(leaguename), 'divisionlist': [] } } } );
+   hockeyarray['quickinfo']['conferenceinfo'].update( { str(conference): { 'league': str(leaguename) } } );
    hockeyarray[leaguename]['conferencelist'].append(str(conference));
  return hockeyarray;
 
@@ -527,6 +530,7 @@ def RemoveHockeyConferenceFromArray(hockeyarray, leaguename, conference):
  if leaguename in hockeyarray.keys():
   if conference in hockeyarray[leaguename].keys():
    hockeyarray[leaguename].pop(conference, None);
+   hockeyarray['quickinfo']['conferenceinfo'].pop(conference, None);
    hockeyarray[leaguename]['conferencelist'].remove(conference);
  return hockeyarray;
 
@@ -537,6 +541,7 @@ def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newc
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
  if oldconference in hockeyarray[leaguename].keys() and newconference not in hockeyarray[leaguename].keys():
   hockeyarray[leaguename][newconference] = hockeyarray[leaguename].pop(str(oldconference));
+  hockeyarray['quickinfo']['conferenceinfo'][newconference] = hockeyarray['quickinfo']['conferenceinfo'].pop(str(oldconference));
   hockeyarray[leaguename][newconference]['conferenceinfo']['name'] = str(newconference);
   if "divisionlist" not in hockeyarray[leaguename][newconference].keys():
    hockeyarray[leaguename][newconference].update( { 'divisionlist': [] } );
@@ -579,6 +584,7 @@ def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference):
   if conference in hockeyarray[leaguename].keys():
    if division not in hockeyarray[leaguename][conference].keys():
     hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'league': str(leaguename), 'conference': str(conference), 'teamlist': [] } } } );
+    hockeyarray['quickinfo']['divisioninfo'].update( { str(division): { 'league': str(leaguename), 'conference': str(conference) } } );
     hockeyarray[leaguename][conference]['divisionlist'].append(str(division));
  return hockeyarray;
 
@@ -591,6 +597,7 @@ def RemoveHockeyDivisionFromArray(hockeyarray, leaguename, division, conference)
   if conference in hockeyarray[leaguename].keys():
    if division in hockeyarray[leaguename][conference].keys():
     hockeyarray[leaguename][conference].pop(division, None);
+    hockeyarray['quickinfo']['divisioninfo'].pop(division, None);
     hockeyarray[leaguename][conference]['divisionlist'].remove(division);
  return hockeyarray;
 
@@ -601,6 +608,7 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
  if olddivision in hockeyarray[leaguename][conference].keys() and newdivision not in hockeyarray[leaguename][conference].keys():
   hockeyarray[leaguename][conference][newdivision] = hockeyarray[leaguename][conference].pop(str(olddivision));
+  hockeyarray['quickinfo']['divisioninfo'][newdivision] = hockeyarray['quickinfo']['divisioninfo'].pop(str(olddivision));
   hockeyarray[leaguename][conference][newdivision]['divisioninfo']['name'] = str(newdivision);
   if "teamlist" not in hockeyarray[leaguename][conference][newdivision].keys():
    hockeyarray[leaguename][conference][newdivision].update( { 'teamlist': [] } );
@@ -643,6 +651,7 @@ def AddHockeyTeamToArray(hockeyarray, leaguename, cityname, areaname, countrynam
    if division in hockeyarray[leaguename][conference].keys():
     if teamname not in hockeyarray[leaguename][conference][division].keys():
      hockeyarray[leaguename][conference][division].update( { str(teamname): { 'teaminfo': { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(teamname), 'arena': str(arenaname), 'prefix': str(teamnameprefix), 'suffix': str(teamnamesuffix), 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } } );
+     hockeyarray['quickinfo']['teaminfo'].update( { str(teamname): { 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } );
      hockeyarray[leaguename][conference][division]['teamlist'].append(str(teamname));
  return hockeyarray;
 
@@ -656,6 +665,7 @@ def RemoveHockeyTeamFromArray(hockeyarray, leaguename, teamname, conference, div
    if division in hockeyarray[leaguename][conference].keys():
     if teamname in hockeyarray[leaguename][conference][division].keys():
      hockeyarray[leaguename][conference][division].pop(teamname, None);
+     hockeyarray['quickinfo']['teaminfo'].pop(teamname, None);
      hockeyarray[leaguename][conference][division]['teamlist'].remove(teamname);
  return hockeyarray;
 
@@ -667,6 +677,7 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
  if oldteamname in hockeyarray[leaguename][conference][division].keys() and newteamname not in hockeyarray[leaguename][conference][division].keys():
   oldfullteamname = GetFullTeamName(hockeyarray[leaguename][conference][division][oldteamname]['teaminfo']['name'], hockeyarray[leaguename][conference][division][oldteamname]['teaminfo']['prefix'], hockeyarray[leaguename][conference][division][oldteamname]['teaminfo']['suffix']);
   hockeyarray[leaguename][conference][division][newteamname] = hockeyarray[leaguename][conference][division].pop(str(oldteamname));
+  hockeyarray['quickinfo']['teaminfo'][newteamname] = hockeyarray['quickinfo']['teaminfo'].pop(str(oldteamname));
   hockeyarray[leaguename][conference][division][newteamname]['teaminfo']['name'] = str(newteamname);
   if(cityname is not None):
    hockeyarray[leaguename][conference][division][newteamname]['teaminfo']['city'] = str(cityname);
