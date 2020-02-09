@@ -18,7 +18,7 @@
 import re, os, sys, time, datetime, platform, pkg_resources;
 from setuptools import setup, find_packages;
 
-verinfofilename = os.path.realpath("."+os.path.sep+os.path.sep+"libhockeydata.py");
+verinfofilename = os.path.realpath("."+os.path.sep+"libhockeydata"+os.path.sep+"versioninfo.py");
 verinfofile = open(verinfofilename, "r");
 verinfodata = verinfofile.read();
 verinfofile.close();
