@@ -506,7 +506,7 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(sdbfile), quote=True)+"\">");
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) } };
+ leaguearrayout = { 'database': str(sdbfile) };
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
@@ -637,7 +637,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(sdbfile), quote=True)+"\">");
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) } };
+ leaguearrayout = { 'database': str(sdbfile) };
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
@@ -917,7 +917,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  gettablecur.close();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) } };
+ leaguearrayout = { 'database': str(sdbfile) };
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
