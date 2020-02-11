@@ -496,6 +496,10 @@ def RemoveHockeyConferenceFromArray(hockeyarray, leaguename, conference):
   hockeyarray.update( { 'database': "./hockeydatabase.sdb" } );
  if leaguename in hockeyarray.keys():
   if conference in hockeyarray[leaguename].keys():
+   for hdkey in hockeyarray[leaguename][conference]['divisionlist']:
+    hockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(hdkey, None);
+    for htkey in hockeyarray[leaguename][conference][hdkey]['teamlist']:
+     hockeyarray[leaguename]['quickinfo']['teaminfo'].pop(htkey, None);
    hockeyarray[leaguename].pop(conference, None);
    hockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(conference, None);
    hockeyarray[leaguename]['conferencelist'].remove(conference);
@@ -563,6 +567,8 @@ def RemoveHockeyDivisionFromArray(hockeyarray, leaguename, division, conference)
  if leaguename in hockeyarray.keys():
   if conference in hockeyarray[leaguename].keys():
    if division in hockeyarray[leaguename][conference].keys():
+    for htkey in hockeyarray[leaguename][conference][division]['teamlist']:
+     hockeyarray[leaguename]['quickinfo']['teaminfo'].pop(htkey, None);
     hockeyarray[leaguename][conference].pop(division, None);
     hockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(division, None);
     hockeyarray[leaguename][conference]['divisionlist'].remove(division);
