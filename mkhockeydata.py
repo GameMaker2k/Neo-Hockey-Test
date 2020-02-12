@@ -29,11 +29,11 @@ __version_date__ = libhockeydata.__version_date__;
 __version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
 __version__ = libhockeydata.__version__;
 
-getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
-getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "cleanup hockey xml files", "show this help page", "get version number of "+__project__, "make symbolic links"];
-gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean", "help", "version", "mksymlinks"];
-getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean"];
-defaction = getactlist[10];
+getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean", "help", "h", "version", "ver", "v", "mksymlinks", "mksymlink"];
+getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey python alt file", "convert hockey xml file to hockey python alt file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "cleanup hockey xml files", "show this help page", "get version number of "+__project__, "make symbolic links"];
+gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean", "help", "version", "mksymlinks"];
+getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyxmlfileclean"];
+defaction = getactlist[12];
 defxmlfile = "./data/hockeydata.xml";
 defsdbfile = "./data/hockeydata.db3";
 defoldsdbfile = "./data/hockeydata.db3";
@@ -66,13 +66,13 @@ if(len(sys.argv)>=2):
     curaction = curargact;
     break;
 
-if(curaction==getactlist[10] or curaction==getactlist[11]):
+if(curaction==getactlist[12] or curaction==getactlist[13]):
  print(getactstr);
 
-if(curaction==getactlist[12] or curaction==getactlist[13] or curaction==getactlist[14]):
+if(curaction==getactlist[14] or curaction==getactlist[15] or curaction==getactlist[16]):
  print(getverstr);
 
-if((curaction==getactlist[15] or curaction==getactlist[16])):
+if((curaction==getactlist[17] or curaction==getactlist[18])):
  for cursymact in getsymlist:
   curscrpath = os.path.dirname(sys.argv[0]);
   infilename = sys.argv[0];
@@ -199,6 +199,36 @@ if(curaction==getactlist[6]):
  libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[7]):
+ argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
+ argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
+ argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ getargs = argparser.parse_args();
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
+  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+ libhockeydata.MakeHockeyAltPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+
+if(curaction==getactlist[8]):
+ argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
+ argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
+ argparser.add_argument('action', nargs='?', default=curaction);
+ argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
+ argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ getargs = argparser.parse_args();
+ verboseon = getargs.verbose;
+ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+  verboseon = True;
+ if(verboseon==True):
+  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+ libhockeydata.MakeHockeyAltPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+
+if(curaction==getactlist[9]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
@@ -213,7 +243,7 @@ if(curaction==getactlist[7]):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
  libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
-if(curaction==getactlist[8]):
+if(curaction==getactlist[10]):
  argparser = argparse.ArgumentParser(description=getactdesc[8], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
@@ -228,7 +258,7 @@ if(curaction==getactlist[8]):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
  libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
-if(curaction==getactlist[9]):
+if(curaction==getactlist[11]):
  argparser = argparse.ArgumentParser(description=getactdesc[9], conflict_handler="resolve", add_help=True);
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
