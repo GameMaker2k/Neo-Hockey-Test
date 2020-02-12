@@ -472,7 +472,7 @@ def MakeHockeyLeagueTable(sqldatacon, droptable=True):
  ");");
  return True;
 
-def MakeHockeyLeagues(sqldatacon, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype):
+def MakeHockeyLeague(sqldatacon, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype):
  sqldatacon[0].execute("INSERT INTO HockeyLeagues (LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES \n" + \
  "(\""+str(leaguename)+"\", \""+str(leaguefullname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(date)+"\", \""+str(playofffmt)+"\", \""+str(ordertype)+"\", 0, 0, 0)");
  return True;
@@ -545,7 +545,7 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyConferences(sqldatacon, leaguename, conference, hasconferences=True):
+def MakeHockeyConference(sqldatacon, leaguename, conference, hasconferences=True):
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Conferences (Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES \n" + \
  "(\""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0, 0)");
  if(hasconferences is True):
@@ -617,7 +617,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyDivisions(sqldatacon, leaguename, division, conference, hasconferences=True, hasdivisions=True):
+def MakeHockeyDivision(sqldatacon, leaguename, division, conference, hasconferences=True, hasdivisions=True):
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Divisions (Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES \n" + \
  "(\""+str(division)+"\", \""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0)");
  if(hasconferences is True):
@@ -930,7 +930,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyTeams(sqldatacon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences=True, hasdivisions=True):
+def MakeHockeyTeam(sqldatacon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences=True, hasdivisions=True):
  date = str(date);
  chckyear = date[:4];
  chckmonth = date[4:6];
@@ -1032,7 +1032,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyPlayoffTeams(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
+def MakeHockeyPlayoffTeam(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
  playoffspl = playofffmt.split(',');
  playoffcnt = 0;
  while(playoffcnt<len(playoffspl)):
