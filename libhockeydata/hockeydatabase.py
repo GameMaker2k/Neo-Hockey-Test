@@ -485,7 +485,7 @@ def AddHockeyConferenceToArray(hockeyarray, leaguename, conference):
  if leaguename in hockeyarray.keys():
   if conference not in hockeyarray[leaguename].keys():
    hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'league': str(leaguename), 'divisionlist': [] } } } );
-   hockeyarray[leaguename]['quickinfo']['conferenceinfo'].update( { str(conference): { 'league': str(leaguename) } } );
+   hockeyarray[leaguename]['quickinfo']['conferenceinfo'].update( { str(conference): { 'name': str(conference), 'league': str(leaguename) } } );
    hockeyarray[leaguename]['conferencelist'].append(str(conference));
  return hockeyarray;
 
@@ -555,7 +555,7 @@ def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference):
   if conference in hockeyarray[leaguename].keys():
    if division not in hockeyarray[leaguename][conference].keys():
     hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'league': str(leaguename), 'conference': str(conference), 'teamlist': [] } } } );
-    hockeyarray[leaguename]['quickinfo']['divisioninfo'].update( { str(division): { 'league': str(leaguename), 'conference': str(conference) } } );
+    hockeyarray[leaguename]['quickinfo']['divisioninfo'].update( { str(division): { 'name': str(division), 'league': str(leaguename), 'conference': str(conference) } } );
     hockeyarray[leaguename][conference]['divisionlist'].append(str(division));
  return hockeyarray;
 
@@ -623,8 +623,9 @@ def AddHockeyTeamToArray(hockeyarray, leaguename, cityname, areaname, countrynam
   if conference in hockeyarray[leaguename].keys():
    if division in hockeyarray[leaguename][conference].keys():
     if teamname not in hockeyarray[leaguename][conference][division].keys():
-     hockeyarray[leaguename][conference][division].update( { str(teamname): { 'teaminfo': { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(teamname), 'arena': str(arenaname), 'prefix': str(teamnameprefix), 'suffix': str(teamnamesuffix), 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } } );
-     hockeyarray[leaguename]['quickinfo']['teaminfo'].update( { str(teamname): { 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } );
+     fullteamname = GetFullTeamName(str(teamname), str(teamnameprefix), str(teamnamesuffix));
+     hockeyarray[leaguename][conference][division].update( { str(teamname): { 'teaminfo': { 'city': str(cityname), 'area': str(areaname), 'fullarea': str(fullareaname), 'country': str(countryname), 'fullcountry': str(fullcountryname), 'name': str(teamname), 'fullname': fullteamname, 'arena': str(arenaname), 'prefix': str(teamnameprefix), 'suffix': str(teamnamesuffix), 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } } );
+     hockeyarray[leaguename]['quickinfo']['teaminfo'].update( { str(teamname): { 'name': str(teamname), 'fullname': fullteamname, 'league': str(leaguename), 'conference': str(conference), 'division': str(division) } } );
      hockeyarray[leaguename][conference][division]['teamlist'].append(str(teamname));
  return hockeyarray;
 
