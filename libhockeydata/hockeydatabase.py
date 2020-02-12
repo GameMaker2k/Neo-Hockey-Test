@@ -499,6 +499,12 @@ def RemoveHockeyConferenceFromArray(hockeyarray, leaguename, conference):
    for hdkey in hockeyarray[leaguename][conference]['divisionlist']:
     hockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(hdkey, None);
     for htkey in hockeyarray[leaguename][conference][hdkey]['teamlist']:
+     fullteamname = GetFullTeamName(hockeyarray[leaguename][conference][hdkey][htkey]['teaminfo']['name'], hockeyarray[leaguename][conference][hdkey][htkey]['teaminfo']['prefix'], hockeyarray[leaguename][conference][hdkey][htkey]['teaminfo']['suffix']);
+     newgamelist = [];
+     for hgkey in hockeyarray[leaguename]['games']:
+      if(hgkey['hometeam']!=fullteamname and hgkey['awayteam']!=fullteamname):
+       newgamelist.append(hgkey);
+     hockeyarray[leaguename]['games'] = newgamelist;
      hockeyarray[leaguename]['quickinfo']['teaminfo'].pop(htkey, None);
    hockeyarray[leaguename].pop(conference, None);
    hockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(conference, None);
@@ -568,6 +574,12 @@ def RemoveHockeyDivisionFromArray(hockeyarray, leaguename, division, conference)
   if conference in hockeyarray[leaguename].keys():
    if division in hockeyarray[leaguename][conference].keys():
     for htkey in hockeyarray[leaguename][conference][division]['teamlist']:
+     fullteamname = GetFullTeamName(hockeyarray[leaguename][conference][division][htkey]['teaminfo']['name'], hockeyarray[leaguename][conference][division][htkey]['teaminfo']['prefix'], hockeyarray[leaguename][conference][division][htkey]['teaminfo']['suffix']);
+     newgamelist = [];
+     for hgkey in hockeyarray[leaguename]['games']:
+      if(hgkey['hometeam']!=fullteamname and hgkey['awayteam']!=fullteamname):
+       newgamelist.append(hgkey);
+     hockeyarray[leaguename]['games'] = newgamelist;
      hockeyarray[leaguename]['quickinfo']['teaminfo'].pop(htkey, None);
     hockeyarray[leaguename][conference].pop(division, None);
     hockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(division, None);
@@ -638,6 +650,12 @@ def RemoveHockeyTeamFromArray(hockeyarray, leaguename, teamname, conference, div
   if conference in hockeyarray[leaguename].keys():
    if division in hockeyarray[leaguename][conference].keys():
     if teamname in hockeyarray[leaguename][conference][division].keys():
+     fullteamname = GetFullTeamName(hockeyarray[leaguename][conference][division][teamname]['teaminfo']['name'], hockeyarray[leaguename][conference][division][teamname]['teaminfo']['prefix'], hockeyarray[leaguename][conference][division][teamname]['teaminfo']['suffix']);
+     newgamelist = [];
+     for hgkey in hockeyarray[leaguename]['games']:
+      if(hgkey['hometeam']!=fullteamname and hgkey['awayteam']!=fullteamname):
+       newgamelist.append(hgkey);
+     hockeyarray[leaguename]['games'] = newgamelist;
      hockeyarray[leaguename][conference][division].pop(teamname, None);
      hockeyarray[leaguename]['quickinfo']['teaminfo'].pop(teamname, None);
      hockeyarray[leaguename][conference][division]['teamlist'].remove(teamname);
