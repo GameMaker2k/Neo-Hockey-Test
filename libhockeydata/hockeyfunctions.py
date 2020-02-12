@@ -394,13 +394,13 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
      ghtd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['division'];
      ghtcn = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['city'];
      ghtan = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['arena'];
-     ghtfan = str(ghtan+", "+ghtcn);
+     ghtfan = GetFullArenaName(ghtan, ghtcn);
      gatl = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['league'];
      gatc = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['conference'];
      gatd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['division'];
      gatcn = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['city'];
      gatan = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['arena'];
-     gatfan = str(gatan+", "+gatcn);
+     gatfan = GetFullArenaName(gatan, gatcn);
      if(ghtfan==AtArena):
       AtArena = "0";
      if(gatfan==AtArena):
@@ -478,13 +478,13 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True):
      ghtd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['hometeam']]['division'];
      ghtcn = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['city'];
      ghtan = inhockeyarray[ghtl][ghtc][ghtd][hgkey['hometeam']]['teaminfo']['arena'];
-     ghtfan = str(ghtan+", "+ghtcn);
+     ghtfan = GetFullArenaName(ghtan, ghtcn);
      gatl = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['league'];
      gatc = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['conference'];
      gatd = inhockeyarray[leaguename]['quickinfo']['teaminfo'][hgkey['awayteam']]['division'];
      gatcn = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['city'];
      gatan = inhockeyarray[gatl][gatc][gatd][hgkey['awayteam']]['teaminfo']['arena'];
-     gatfan = str(gatan+", "+gatcn);
+     gatfan = GetFullArenaName(gatan, gatcn);
      if(ghtfan==AtArena):
       AtArena = "0";
      if(gatfan==AtArena):
