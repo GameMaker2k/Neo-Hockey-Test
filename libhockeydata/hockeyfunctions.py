@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json;
+import sqlite3, sys, os, re, time, json, pickle;
 from libhockeydata.hockeydatabase import *;
 import xml.etree.ElementTree as ET;
 
@@ -98,6 +98,12 @@ def MakeHockeyJSONFromHockeyArray(inarray, returnjson=False, verbose=True):
  if(verbose is True):
   VerbosePrintOut(jsonstring);
  return jsonstring;
+
+def MakeHockeyPickleFromHockeyArray(inarray, returnpickle=False, verbose=True):
+ picklestring = pickle.dumps(inarray);
+ if(verbose is True):
+  VerbosePrintOut(picklestring);
+ return picklestring
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
