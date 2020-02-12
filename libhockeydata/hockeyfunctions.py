@@ -131,6 +131,22 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
   return True;
  return True
 
+def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
+ if(pickleisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
+  hockeyarray = pickle.load(inxmlfile);
+ elif(pickleisfile is False):
+  hockeyarray = pickle.loads(inxmlfile);
+ else:
+  return False;
+ if(verbose is True):
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  del xmlstring;
+ if(returnsql is True):
+  return hockeyarray;
+ if(returnsql is False):
+  return True;
+ return True;
+
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
   hockeyfile = ET.parse(inxmlfile);
