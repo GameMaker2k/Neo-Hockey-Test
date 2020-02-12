@@ -211,7 +211,7 @@ if(curaction==getactlist[7]):
   verboseon = True;
  if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyAltPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyPythonAltFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[8]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
@@ -226,7 +226,7 @@ if(curaction==getactlist[8]):
   verboseon = True;
  if(verboseon==True):
   log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
- libhockeydata.MakeHockeyAltPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyPythonAltFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[9]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
