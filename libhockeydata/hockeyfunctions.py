@@ -93,17 +93,43 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyArray(inarray, returnjson=False, verbose=True):
+def MakeHockeyJSONFromHockeyArray(inarray, verbose=True):
  jsonstring = json.dumps(inarray);
  if(verbose is True):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
-def MakeHockeyPickleFromHockeyArray(inarray, returnpickle=False, verbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, verbose=True):
+ if(outjsonfile is None):
+  return False;
+ jsonfp = open(outjsonfile, "w+");
+ jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose);
+ jsonfp.write(jsonstring);
+ jsonfp.close();
+ if(returnjson is True):
+  return jsonstring;
+ if(returnjson is False):
+  return True;
+ return True
+
+def MakeHockeyPickleFromHockeyArray(inarray, verbose=True):
  picklestring = pickle.dumps(inarray);
  if(verbose is True):
   VerbosePrintOut(picklestring);
  return picklestring
+
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True):
+ if(outpicklefile is None):
+  return False;
+ picklefp = open(outpicklefile, "w+");
+ picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose);
+ picklefp.write(picklestring);
+ picklefp.close();
+ if(returnpickle is True):
+  return picklestring;
+ if(returnpickle is False):
+  return True;
+ return True
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile is True and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
