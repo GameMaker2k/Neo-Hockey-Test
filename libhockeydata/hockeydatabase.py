@@ -293,7 +293,6 @@ def GetNum2Team(sqldatacon, leaguename, TeamNum, ReturnVar):
  return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Teams WHERE id="+str(TeamNum)).fetchone()[0]);
 
 def GetTeam2Num(sqldatacon, leaguename, TeamName):
- print(TeamName);
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Teams WHERE FullName=\""+str(TeamName)+"\"").fetchone()[0]);
 
 def GetFullTeamName(teamname, teamnameprefix="", teamnamesuffix=""):
