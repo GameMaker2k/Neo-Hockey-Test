@@ -16,6 +16,8 @@
     $FileInfo: versioninfo.py - Last Update: 2/13/2020 Ver. 0.2.1 RC 1 - Author: cooldude2k $
 '''
 
+import re;
+
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
