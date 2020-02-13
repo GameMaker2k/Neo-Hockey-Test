@@ -343,6 +343,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
    hasarenas = False;
    for hakey in inhockeyarray[hlkey]['arenas']:
     if(hakey):
+     print(hakey);
      hasarenas = True;
      MakeHockeyArena(sqldatacon, hlkey, hakey['city'], hakey['area'], hakey['country'], hakey['fullcountry'], hakey['fullarea'], hakey['name']);
      if(verbose):
@@ -355,6 +356,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
    hasgames = False;
    for hgkey in inhockeyarray[hlkey]['games']:
     if(hgkey):
+     print(hgkey);
      hasgames = True;
      MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'], hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame']);
      if(verbose):
