@@ -604,6 +604,13 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
     hockeyarray[leaguename][conference][newdivision][hdkey]['teaminfo']['division'] = str(newdivision);
  return hockeyarray;
 
+def MoveHockeyDivisionToConferenceFromArray(hockeyarray, leaguename, division, oldconference, newconference):
+ if leaguename in hockeyarray.keys() and newconference in hockeyarray[leaguename].keys() and oldconference in hockeyarray[leaguename].keys() and olddivision in hockeyarray[leaguename][conference].keys() and newdivision not in hockeyarray[leaguename][conference].keys():
+  hockeyarray[leaguename][newconference][division] = hockeyarray[leaguename][oldconference].pop(str(division));
+  hockeyarray[leaguename][newconference][division]['divisioninfo']['conference'] = str(newconference);
+  hockeyarray[leaguename]['quickinfo']['divisioninfo'][division]['conference'] = str(newconference);
+ return hockeyarray;
+
 def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
@@ -697,19 +704,18 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
     hgkey['hometeam'] = newfullteamname;
  return hockeyarray;
 
-def MoveHockeyTeamToLeagueFromArray(hockeyarray, oldleaguename, newleaguename, teamname, conference, division):
- if newleaguename in hockeyarray.keys() and oldleaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename].keys():
-  hockeyarray[newleaguename][conference][division][teamname] = hockeyarray[oldleaguename][conference][division].pop(str(teamname));
- return hockeyarray;
-
 def MoveHockeyTeamToConferenceFromArray(hockeyarray, leaguename, teamname, oldconference, newconference, division):
- if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename].keys():
+ if leaguename in hockeyarray.keys() and newconference in hockeyarray[leaguename].keys() and oldconference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename][conference].keys() and teamname in hockeyarray[leaguename][oldconference][division].keys() and teamname not in hockeyarray[leaguename][newconference][division].keys():
   hockeyarray[leaguename][newconference][division][teamname] = hockeyarray[leaguename][oldconference][division].pop(str(teamname));
+  hockeyarray[leaguename][newconference][division][teamname]['teaminfo']['conference'] = str(newconference);
+  hockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['conference'] = str(newconference);
  return hockeyarray;
 
 def MoveHockeyTeamToDivisionFromArray(hockeyarray, leaguename, teamname, conference, olddivision, newdivision):
- if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename].keys():
+ if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and olddivision in hockeyarray[leaguename][conference].keys() and newdivision in hockeyarray[leaguename][conference].keys() and teamname in hockeyarray[leaguename][conference][olddivision].keys() and teamname not in hockeyarray[leaguename][conference][newdivision].keys():
   hockeyarray[leaguename][conference][newdivision][teamname] = hockeyarray[leaguename][conference][olddivision].pop(str(teamname));
+  hockeyarray[leaguename][newconference][division][teamname]['teaminfo']['division'] = str(newdivision);
+  hockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['division'] = str(newdivision);
  return hockeyarray;
 
 def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
