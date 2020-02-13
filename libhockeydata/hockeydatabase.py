@@ -697,12 +697,18 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
     hgkey['hometeam'] = newfullteamname;
  return hockeyarray;
 
-def MoveHockeyTeamToConferenceFromArray(hockeyarray, leaguename, teamname, oldconference, newconference):
- if leaguename in hockeyarray.keys() and oldconference in hockeyarray[leaguename].keys() and newconference in hockeyarray[leaguename].keys():
+def MoveHockeyTeamToLeagueFromArray(hockeyarray, oldleaguename, newleaguename, teamname, conference, division):
+ if newleaguename in hockeyarray.keys() and oldleaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename].keys():
+  hockeyarray[newleaguename][conference][division][teamname] = hockeyarray[oldleaguename][conference][division].pop(str(teamname));
+ return hockeyarray;
+
+def MoveHockeyTeamToConferenceFromArray(hockeyarray, leaguename, teamname, oldconference, newconference, division):
+ if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename].keys():
   hockeyarray[leaguename][newconference][division][teamname] = hockeyarray[leaguename][oldconference][division].pop(str(teamname));
  return hockeyarray;
 
 def MoveHockeyTeamToDivisionFromArray(hockeyarray, leaguename, teamname, conference, olddivision, newdivision):
+ if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and division in hockeyarray[leaguename].keys():
   hockeyarray[leaguename][conference][newdivision][teamname] = hockeyarray[leaguename][conference][olddivision].pop(str(teamname));
  return hockeyarray;
 
