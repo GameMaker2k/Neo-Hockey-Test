@@ -604,6 +604,13 @@ def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivi
     hockeyarray[leaguename][conference][newdivision][hdkey]['teaminfo']['division'] = str(newdivision);
  return hockeyarray;
 
+def MoveHockeyDivisionToConferenceFromArray(hockeyarray, leaguename, division, oldconference, newconference):
+ if leaguename in hockeyarray.keys() and newconference in hockeyarray[leaguename].keys() and oldconference in hockeyarray[leaguename].keys() and olddivision in hockeyarray[leaguename][conference].keys() and newdivision not in hockeyarray[leaguename][conference].keys():
+  hockeyarray[leaguename][newconference][division] = hockeyarray[leaguename][oldconference].pop(str(division));
+  hockeyarray[leaguename][newconference][division]['divisioninfo']['conference'] = str(newconference);
+  hockeyarray[leaguename]['quickinfo']['divisioninfo'][division]['conference'] = str(newconference);
+ return hockeyarray;
+
 def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
