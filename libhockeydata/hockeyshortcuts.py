@@ -21,46 +21,46 @@ import sqlite3, sys, os, re, time;
 from libhockeydata.hockeyfunctions import *;
 
 def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
- if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(outxmlfile is None and xmlisfile is True):
+ if(outxmlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
  xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
- if(returnxml is True):
+ if(returnxml):
   return xmlstring;
- if(returnxml is False):
+ if(not returnxml):
   return True;
  return True;
 
 def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose is True):
+ if(verbose):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose is True):
+ if(verbose):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyJSONFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose is True):
+ if(verbose):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyJSONFromOldHockeyDatabase(sdbfile, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose is True):
+ if(verbose):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
@@ -70,27 +70,27 @@ def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, retur
  return hockeydbout;
 
 def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
- if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(outxmlfile is None and xmlisfile is True):
+ if(outxmlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
  xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, False, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
- if(returnxml is True):
+ if(returnxml):
   return xmlstring;
- if(returnxml is False):
+ if(not returnxml):
   return True;
  return True;
 
 def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnsql=False, returndb=False, verbose=True):
- if(sqlisfile is True and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
+ if(sqlisfile and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
   sqlfp = open(sqlfile, "r");
   sqlstring = sqlfp.read();
   sqlfp.close();
- elif(sqlisfile is False):
+ elif(not sqlisfile):
   sqlstring = sqlfile;
  else:
   return False;
@@ -103,34 +103,34 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
   sqldatacon = tuple(sdbfile);
- if(verbose is True):
+ if(verbose):
   VerbosePrintOut(sqlstring);
  sqldatacon[0].executescript(sqlstring);
- if(returndb is False):
+ if(not returndb):
   CloseHockeyDatabase(sqldatacon);
- if(returndb is True and returnsql is False):
+ if(returndb and not returnsql):
   return sqldatacon;
- if(returnsql is True and returndb is False):
+ if(returnsql and not returndb):
   return sqlstring;
- if(returnsql is True and returndb is True):
+ if(returnsql and returndb):
   return [sqlstring, sqldatacon];
- if(returnsql is False):
+ if(not returnsql):
   return True;
  return True;
 
 def MakeHockeyDatabaseFromHockeySQLWrite(insqlfile, sdbfile=None, outsqlfile=None, sqlisfile=True, returnsql=False, verbose=True):
- if(sqlisfile is True and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
+ if(sqlisfile and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
   return False;
- if(outsqlfile is None and sqlisfile is True):
+ if(outsqlfile is None and sqlisfile):
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outsqlfile = file_wo_extension+".db3";
  sqlfp = open(outsqlfile, "w+");
  sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, False, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
- if(returnsql is True):
+ if(returnsql):
   return sqlstring;
- if(returnsql is False):
+ if(not returnsql):
   return True;
  return True;
 
@@ -140,18 +140,18 @@ def MakeHockeyPythonFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
  return hockeypyout;
 
 def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True):
- if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(outpyfile is None and xmlisfile is True):
+ if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
  pyfp = open(outpyfile, "w+");
  pystring = MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy is True):
+ if(returnpy):
   return pystring;
- if(returnpy is False):
+ if(not returnpy):
   return True;
  return True;
 
@@ -161,18 +161,18 @@ def MakeHockeyPythonAltFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
  return hockeypyout;
 
 def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True):
- if(xmlisfile is True and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(outpyfile is None and xmlisfile is True):
+ if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
  pyfp = open(outpyfile, "w+");
  pystring = MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy is True):
+ if(returnpy):
   return pystring;
- if(returnpy is False):
+ if(not returnpy):
   return True;
  return True;
 
@@ -191,9 +191,9 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, 
  xmlstring = MakeHockeyXMLFromHockeyDatabase(sdbfile, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
- if(returnxml is True):
+ if(returnxml):
   return xmlstring;
- if(returnxml is False):
+ if(not returnxml):
   return True;
  return True;
 
@@ -203,18 +203,18 @@ def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=Tr
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, verbose=True):
- if(sqlisfile is True and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
+ if(sqlisfile and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
   return False;
- if(outxmlfile is None and sqlisfile is True):
+ if(outxmlfile is None and sqlisfile):
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outxmlfile = file_wo_extension+".xml";
  sqlfp = open(outxmlfile, "w+");
  xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, sdbfile, sqlisfile, verbose);
  sqlfp.write(xmlstring);
  sqlfp.close();
- if(returnxml is True):
+ if(returnxml):
   return xmlstring;
- if(returnxml is False):
+ if(not returnxml):
   return True;
  return True;
 
@@ -233,9 +233,9 @@ def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False,
  pystring = MakeHockeyPythonFromHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy is True):
+ if(returnpy):
   return pystring;
- if(returnpy is False):
+ if(not returnpy):
   return True;
  return True;
 
@@ -254,9 +254,9 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
  pystring = MakeHockeyPythonAltFromHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy is True):
+ if(returnpy):
   return pystring;
- if(returnpy is False):
+ if(not returnpy):
   return True;
  return True;
 
@@ -280,7 +280,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
  sqldump = sqldump+"-- Database: "+sdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
- if(verbose is True):
+ if(verbose):
   VerbosePrintOut("-- "+__program_name__+" SQL Dumper\n");
   VerbosePrintOut("-- version "+__version__+"\n");
   VerbosePrintOut("-- "+__project_url__+"\n");
@@ -313,7 +313,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
   sqldump = sqldump+"--\n";
   sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
-  if(verbose is True):
+  if(verbose):
    VerbosePrintOut(" ");
    VerbosePrintOut("--");
    VerbosePrintOut("-- Table structure for table "+str(get_cur_tab)+"");
@@ -339,14 +339,14 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
     if(isinstance(result_val, float)):
      get_insert_stmt_val += ""+str(result_val)+", ";
    get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
-   if(verbose is True):
+   if(verbose):
     VerbosePrintOut(get_insert_stmt[:-2]+") VALUES ");
    get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
-   if(verbose is True):
+   if(verbose):
     VerbosePrintOut(get_insert_stmt_val[:-2]+");");
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
-  if(verbose is True):
+  if(verbose):
    VerbosePrintOut(" ");
    VerbosePrintOut("-- --------------------------------------------------------");
    VerbosePrintOut(" ");
@@ -363,9 +363,9 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, 
  sqlstring = MakeHockeySQLFromHockeyDatabase(sdbfile, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
- if(returnsql is True):
+ if(returnsql):
   return sqlstring;
- if(returnsql is False):
+ if(not returnsql):
   return True;
  return True;
 
@@ -375,18 +375,18 @@ def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
  return hockeysqlout;
 
 def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, returnsql=False, verbose=True):
- if(xmlisfile is False and (not os.path.exists(xmlfile) and not os.path.isfile(xmlfile))):
+ if(not xmlisfile and (not os.path.exists(xmlfile) and not os.path.isfile(xmlfile))):
   return False;
- if(sqlfile is None and xmlisfile is True):
+ if(sqlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(xmlfile);
   sqlfile = file_wo_extension+".sql";
  sqlfp = open(sqlfile, "w+");
  sqlstring = MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
- if(returnsql is True):
+ if(returnsql):
   return sqlstring;
- if(returnsql is False):
+ if(not returnsql):
   return True;
  return True;
 
@@ -405,9 +405,9 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=Fals
  xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
- if(returnxml is True):
+ if(returnxml):
   return xmlstring;
- if(returnxml is False):
+ if(not returnxml):
   return True;
  return True;
 
@@ -426,9 +426,9 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
  pystring = MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy is True):
+ if(returnpy):
   return pystring;
- if(returnpy is False):
+ if(not returnpy):
   return True;
  return True;
 
@@ -447,9 +447,9 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=
  pystring = MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
- if(returnpy is True):
+ if(returnpy):
   return pystring;
- if(returnpy is False):
+ if(not returnpy):
   return True;
  return True;
 
@@ -468,8 +468,8 @@ def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=Fals
  sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
- if(returnsql is True):
+ if(returnsql):
   return sqlstring;
- if(returnsql is False):
+ if(not returnsql):
   return True;
  return True;

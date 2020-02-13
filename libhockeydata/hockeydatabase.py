@@ -29,7 +29,7 @@ except ImportError:
   from html import escape as html_escape;
 
 def EscapeXMLString(inxml, quote=True):
- if(quote is True):
+ if(quote):
   xml_escape_dict = { "\"": "&quot;", "'": "&apos;" };
  else:
   xml_escape_dict = {};
@@ -455,7 +455,7 @@ def ReplaceHockeyLeagueFromArray(hockeyarray, oldleaguename, newleaguename, leag
  return hockeyarray;
 
 def MakeHockeyLeagueTable(sqldatacon, droptable=True):
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
  sqldatacon[0].execute("CREATE TABLE HockeyLeagues (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -533,7 +533,7 @@ def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newc
  return hockeyarray;
 
 def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -548,7 +548,7 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
 def MakeHockeyConference(sqldatacon, leaguename, conference, hasconferences=True):
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Conferences (Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES \n" + \
  "(\""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0, 0)");
- if(hasconferences is True):
+ if(hasconferences):
   UpdateLeagueData(sqldatacon, leaguename, "NumberOfConferences", 1, "+");
  return True;
 
@@ -612,7 +612,7 @@ def MoveHockeyDivisionToConferenceFromArray(hockeyarray, leaguename, division, o
  return hockeyarray;
 
 def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -627,9 +627,9 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
 def MakeHockeyDivision(sqldatacon, leaguename, division, conference, hasconferences=True, hasdivisions=True):
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Divisions (Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES \n" + \
  "(\""+str(division)+"\", \""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0)");
- if(hasconferences is True):
+ if(hasconferences):
   UpdateConferenceData(sqldatacon, leaguename, conference, "NumberOfDivisions", 1, "+");
- if(hasdivisions is True):
+ if(hasdivisions):
   UpdateLeagueData(sqldatacon, leaguename, "NumberOfDivisions", 1, "+");
  return True;
 
@@ -719,7 +719,7 @@ def MoveHockeyTeamToDivisionFromArray(hockeyarray, leaguename, teamname, confere
  return hockeyarray;
 
 def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -737,7 +737,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
  "  GamesPlayed INTEGER NOT NULL DEFAULT ''\n" + \
  ");");
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -815,7 +815,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  LastTen TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
  "  Streak TEXT NOT NULL DEFAULT 'None'\n" + \
  ");");
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -894,7 +894,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  LastTen TEXT NOT NULL DEFAULT '0:0:0:0',\n" + \
  "  Streak TEXT NOT NULL DEFAULT 'None'\n" + \
  ");");
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -964,15 +964,15 @@ def MakeHockeyTeam(sqldatacon, leaguename, date, cityname, areaname, countryname
  "SELECT id, Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, Points, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, PCT, LastTen, Streak FROM "+leaguename+"Teams WHERE FullName=\""+fullteamname+"\";");
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas (TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES \n" + \
  "("+str(TeamID)+", \""+str(teamname)+"\", \""+fullteamname+"\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
- if(hasconferences is True):
+ if(hasconferences):
   UpdateConferenceData(sqldatacon, leaguename, conference, "NumberOfTeams", 1, "+");
- if(hasdivisions is True):
+ if(hasdivisions):
   UpdateDivisionData(sqldatacon, leaguename, division, "NumberOfTeams", 1, "+");
  UpdateLeagueData(sqldatacon, leaguename, "NumberOfTeams", 1, "+");
  return True;
 
 def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"PlayoffTeams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -1105,7 +1105,7 @@ def AddHockeyGameToArray(hockeyarray, leaguename, date, hometeam, awayteam, peri
  return hockeyarray;
 
 def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
- if(droptable is True):
+ if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Games");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
@@ -1153,9 +1153,9 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  if(isplayoffgame==2 or isplayoffgame=="2"):
   isplayoffgame = None;
  isplayoffgsql = "0";
- if(isplayoffgame is True):
+ if(isplayoffgame):
   isplayoffgsql = "1";
- if(isplayoffgame is False):
+ if(not isplayoffgame):
   isplayoffsql = "0";
  if(isplayoffgame is None):
   isplayoffsql = "2";
@@ -1173,10 +1173,10 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
   if(periodcounting <= 3):
    homescore = homescore + int(periodscoresplit[0]);
    awayscore = awayscore + int(periodscoresplit[1]);
-  if(isplayoffgame is True and periodcounting > 3):
+  if(isplayoffgame and periodcounting > 3):
    homescore = homescore + int(periodscoresplit[0]);
    awayscore = awayscore + int(periodscoresplit[1]);
-  if(isplayoffgame is False and periodcounting > 3):
+  if(not isplayoffgame and periodcounting > 3):
    if(periodscoresplit[0] > periodscoresplit[1]):
     homescore = homescore + 1;
    if(periodscoresplit[0] < periodscoresplit[1]):
@@ -1449,7 +1449,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
    if(GetLosingStreakSplit[0][0]=="Tie"):
     GetLosingStreakNext = "Tie "+str(int(GetLosingStreakSplit[0][1]) + 1);
   UpdateTeamDataString(sqldatacon, leaguename, awayteam, "Streak", GetLosingStreakNext);
- if((isplayoffgame is False and numberofperiods<5 and tiegame==0) or (isplayoffgame is True and tiegame==0)):
+ if((not isplayoffgame and numberofperiods<5 and tiegame==0) or (isplayoffgame and tiegame==0)):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "ROW", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "ROT", 1, "+");
  if(numberofperiods==3 and tiegame==0):
@@ -1478,17 +1478,17 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1] + 1)+":"+str(ATRSpit[2])+":"+str(ATRSpit[3]);
    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
  if(numberofperiods>3 and tiegame==0):
-  if((numberofperiods==4 and isplayoffgame is False) or (numberofperiods>4 and isplayoffgame is True)):
+  if((numberofperiods==4 and not isplayoffgame) or (numberofperiods>4 and isplayoffgame)):
    UpdateTeamData(sqldatacon, leaguename, winningteam, "OTWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "OTSOWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "TWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, winningteam, "Points", 2, "+");
-  if((numberofperiods==4 and isplayoffgame is False) or (numberofperiods>4 and isplayoffgame is True)):
+  if((numberofperiods==4 and not isplayoffgame) or (numberofperiods>4 and isplayoffgame)):
    UpdateTeamData(sqldatacon, leaguename, losingteam, "OTLosses", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "OTSOLosses", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "TLosses", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "Points", 1, "+");
-  if(isplayoffgame is True):
+  if(isplayoffgame):
    if(winningteam==hometeam):
     HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
     HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
@@ -1507,7 +1507,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
-  if(isplayoffgame is False and numberofperiods==4):
+  if(not isplayoffgame and numberofperiods==4):
    if(winningteam==hometeam):
     HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
     HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
@@ -1526,7 +1526,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
-  if(isplayoffgame is False and numberofperiods>4):
+  if(not isplayoffgame and numberofperiods>4):
    if(winningteam==hometeam):
     HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
     HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
@@ -1545,7 +1545,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
     ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
     NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2])+":"+str(ATRSpit[3] + 1);
     UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
- if(isplayoffgame is False and numberofperiods>4 and tiegame==0):
+ if(not isplayoffgame and numberofperiods>4 and tiegame==0):
   UpdateTeamData(sqldatacon, leaguename, winningteam, "SOWins", 1, "+");
   UpdateTeamData(sqldatacon, leaguename, losingteam, "SOLosses", 1, "+");
   WinningTeamShootouts = GetTeamData(sqldatacon, leaguename, winningteam, "Shootouts", "str");
