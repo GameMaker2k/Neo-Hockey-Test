@@ -697,6 +697,15 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
     hgkey['hometeam'] = newfullteamname;
  return hockeyarray;
 
+def MoveHockeyTeamToConferenceFromArray(hockeyarray, leaguename, teamname, oldconference, newconference):
+ if leaguename in hockeyarray.keys() and oldconference in hockeyarray[leaguename].keys() and newconference in hockeyarray[leaguename].keys():
+  hockeyarray[leaguename][newconference][division][teamname] = hockeyarray[leaguename][oldconference][division].pop(str(teamname));
+ return hockeyarray;
+
+def MoveHockeyTeamToDivisionFromArray(hockeyarray, leaguename, teamname, conference, olddivision, newdivision):
+  hockeyarray[leaguename][conference][newdivision][teamname] = hockeyarray[leaguename][conference][olddivision].pop(str(teamname));
+ return hockeyarray;
+
 def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  if(droptable is True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
