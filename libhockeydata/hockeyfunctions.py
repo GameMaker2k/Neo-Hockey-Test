@@ -21,6 +21,32 @@ import sqlite3, sys, os, re, time, json, pickle, marshal;
 from libhockeydata.hockeydatabase import *;
 import xml.etree.ElementTree as ET;
 
+def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
+ if(insdbfile is None):
+  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+ if(insdbfile is not None and isinstance(insdbfile, str)):
+  insqldatacon = MakeHockeyDatabase(insdbfile);
+ if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+  insqldatacon = tuple(insdbfile);
+ if(outsdbfile is None):
+  outsqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+ if(outsdbfile is not None and isinstance(outsdbfile, str)):
+  outsqldatacon = MakeHockeyDatabase(outsdbfile);
+ if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
+  outsqldatacon = tuple(outsdbfile);
+ insqldatacon.backup(outsqldatacon);
+ if(returninsdbfile and returnoutsdbfile):
+  return [insqldatacon, outsqldatacon];
+ elif(returninsdbfile and not returnoutsdbfile):
+  return [insqldatacon];
+ elif(not returninsdbfile and returnoutsdbfile):
+  return [outsqldatacon];
+ elif(not returninsdbfile and not returnoutsdbfile):
+  return None;
+ else:
+  return False;
+ return False;
+
 def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
