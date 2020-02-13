@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle;
+import sqlite3, sys, os, re, time, json, pickle, marshal;
 from libhockeydata.hockeydatabase import *;
 import xml.etree.ElementTree as ET;
 
@@ -110,13 +110,29 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
   return jsonstring;
  if(returnjson is False):
   return True;
- return True
+ return True;
+
+def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
+ if(jsonisfile is True and (os.path.exists(injsonfile) and os.path.isfile(injsonfile))):
+  hockeyarray = json.load(injsonfile);
+ elif(jsonisfile is False):
+  hockeyarray = json.loads(injsonfile);
+ else:
+  return False;
+ if(verbose is True):
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  del xmlstring;
+ if(returnsql is True):
+  return hockeyarray;
+ if(returnsql is False):
+  return True;
+ return True;
 
 def MakeHockeyPickleFromHockeyArray(inarray, verbose=True):
  picklestring = pickle.dumps(inarray);
  if(verbose is True):
   VerbosePrintOut(picklestring);
- return picklestring
+ return picklestring;
 
 def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True):
  if(outpicklefile is None):
@@ -129,7 +145,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
   return picklestring;
  if(returnpickle is False):
   return True;
- return True
+ return True;
 
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
  if(pickleisfile is True and (os.path.exists(inpicklefile) and os.path.isfile(inpicklefile))):
@@ -147,11 +163,30 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
   return True;
  return True;
 
-def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
- if(jsonisfile is True and (os.path.exists(injsonfile) and os.path.isfile(injsonfile))):
-  hockeyarray = json.load(injsonfile);
- elif(jsonisfile is False):
-  hockeyarray = json.loads(injsonfile);
+def MakeHockeyMarshalFromHockeyArray(inarray, verbose=True):
+ marshalstring = marshal.dumps(inarray);
+ if(verbose is True):
+  VerbosePrintOut(marshalstring);
+ return marshalstring;
+
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True):
+ if(outmarshalfile is None):
+  return False;
+ marshalfp = open(outmarshalfile, "w+");
+ marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose);
+ marshalfp.write(marshalstring);
+ marshalfp.close();
+ if(returnmarshal is True):
+  return marshalstring;
+ if(returnmarshal is False):
+  return True;
+ return True;
+
+def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
+ if(marshalisfile is True and (os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile))):
+  hockeyarray = marshal.load(inmarshalfile);
+ elif(marshalisfile is False):
+  hockeyarray = marshal.loads(inmarshalfile);
  else:
   return False;
  if(verbose is True):
