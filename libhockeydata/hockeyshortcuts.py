@@ -20,6 +20,11 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import sqlite3, sys, os, re, time;
 from libhockeydata.hockeyfunctions import *;
 
+def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
+ hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ return hockeyxmlout;
+
 def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
@@ -37,7 +42,7 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
  return True;
 
 def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, returnjson=False, verbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False, False);
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
  if(verbose):
   VerbosePrintOut(jsonstring);
