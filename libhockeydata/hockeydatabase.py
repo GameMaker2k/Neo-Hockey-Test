@@ -714,7 +714,7 @@ def MoveHockeyTeamToConferenceFromArray(hockeyarray, leaguename, teamname, oldco
 def MoveHockeyTeamToDivisionFromArray(hockeyarray, leaguename, teamname, conference, olddivision, newdivision):
  if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and olddivision in hockeyarray[leaguename][conference].keys() and newdivision in hockeyarray[leaguename][conference].keys() and teamname in hockeyarray[leaguename][conference][olddivision].keys() and teamname not in hockeyarray[leaguename][conference][newdivision].keys():
   hockeyarray[leaguename][conference][newdivision][teamname] = hockeyarray[leaguename][conference][olddivision].pop(str(teamname));
-  hockeyarray[leaguename][newconference][division][teamname]['teaminfo']['division'] = str(newdivision);
+  hockeyarray[leaguename][conference][division][teamname]['teaminfo']['division'] = str(newdivision);
   hockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['division'] = str(newdivision);
  return hockeyarray;
 
