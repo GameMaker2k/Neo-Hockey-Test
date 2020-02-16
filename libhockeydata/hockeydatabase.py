@@ -39,18 +39,30 @@ def EscapeXMLString(inxml, quote=True):
   outxml = html_escape(inxml, quote);
  return outxml;
 
-def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True):
+def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  if(outtype=="print" and dbgenable):
   print(dbgtxt);
   return True;
  elif(outtype=="log" and dbgenable):
   logging.info(dbgtxt);
   return True;
+ elif(outtype=="warning" and dbgenable):
+  logging.warning(dbgtxt);
+  return True;
  elif(outtype=="error" and dbgenable):
-  logging.info(dbgtxt);
+  logging.error(dbgtxt);
+  return True;
+ elif(outtype=="critical" and dbgenable):
+  logging.critical(dbgtxt);
+  return True;
+ elif(outtype=="exception" and dbgenable):
+  logging.exception(dbgtxt);
+  return True;
+ elif(outtype=="logalt" and dbgenable):
+  logging.log(dgblevel, dbgtxt);
   return True;
  elif(outtype=="debug" and dbgenable):
-  logging.info(dbgtxt);
+  logging.debug(dbgtxt);
   return True;
  elif(not dbgenable):
   return True;
