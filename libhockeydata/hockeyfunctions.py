@@ -942,7 +942,8 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
   VerbosePrintOut("-- Database: :memory:\n");
   VerbosePrintOut("--\n\n");
   VerbosePrintOut("-- --------------------------------------------------------\n\n");
- all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
