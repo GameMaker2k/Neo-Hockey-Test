@@ -36,4 +36,4 @@ hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "MIL", "Divisi
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "MIL", "Lawrence", "IN", "USA", "United States", "Indiana", "Walkers", "Conference 2", "Division 4", "LAW Arena", "Lawrence", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "MIL", "Garden City", "KS", "USA", "United States", "Kansas", "Jammers", "Conference 2", "Division 4", "GAR Arena", "Garden City", "");
 
-libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, False);
+libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, True);
