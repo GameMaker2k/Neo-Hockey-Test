@@ -17,10 +17,9 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle, marshal;
+import sqlite3, sys, os, re, time, json, pickle, marshal, xml.etree.ElementTree;
 from libhockeydata.hockeydatabase import *;
 from libhockeydata.versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
-import xml.etree.ElementTree as ET;
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(insdbfile is None):
@@ -259,9 +258,9 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
-  hockeyfile = ET.parse(inxmlfile);
+  hockeyfile = xml.etree.ElementTree.parse(inxmlfile);
  elif(not xmlisfile):
-  hockeyfile = ET.ElementTree(ET.fromstring(inxmlfile));
+  hockeyfile = xml.etree.ElementTree.ElementTree(xml.etree.ElementTree.fromstring(inxmlfile));
  else:
   return False;
  gethockey = hockeyfile.getroot();

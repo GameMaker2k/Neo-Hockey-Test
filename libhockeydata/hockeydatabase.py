@@ -17,8 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re;
-import logging as log;
+import sqlite3, sys, os, re, logging;
 
 try:
  from xml.sax.saxutils import xml_escape;
@@ -44,11 +43,19 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True):
  if(outtype=="print" and dbgenable):
   print(dbgtxt);
   return True;
- if(outtype=="log" and dbgenable):
-  log.info(dbgtxt);
+ elif(outtype=="log" and dbgenable):
+  logging.info(dbgtxt);
   return True;
- if(not dbgenable):
+ elif(outtype=="error" and dbgenable):
+  logging.info(dbgtxt);
   return True;
+ elif(outtype=="debug" and dbgenable):
+  logging.info(dbgtxt);
+  return True;
+ elif(not dbgenable):
+  return True;
+ else:
+  return False;
  return False;
 
 def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE"):

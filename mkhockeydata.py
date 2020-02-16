@@ -17,8 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sys, os, libhockeydata, argparse;
-import logging as log;
+import sys, os, libhockeydata, argparse, logging;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
@@ -105,7 +104,7 @@ if(curaction==getactlist[0]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[1]):
@@ -120,7 +119,7 @@ if(curaction==getactlist[1]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[2]):
@@ -135,7 +134,7 @@ if(curaction==getactlist[2]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[3]):
@@ -150,7 +149,7 @@ if(curaction==getactlist[3]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[4]):
@@ -165,7 +164,7 @@ if(curaction==getactlist[4]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[5]):
@@ -180,7 +179,7 @@ if(curaction==getactlist[5]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[6]):
@@ -195,7 +194,7 @@ if(curaction==getactlist[6]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[7]):
@@ -210,7 +209,7 @@ if(curaction==getactlist[7]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyPythonAltFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[8]):
@@ -225,7 +224,7 @@ if(curaction==getactlist[8]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeyPythonAltFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[9]):
@@ -240,7 +239,7 @@ if(curaction==getactlist[9]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[10]):
@@ -255,7 +254,7 @@ if(curaction==getactlist[10]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
 
 if(curaction==getactlist[11]):
@@ -270,7 +269,7 @@ if(curaction==getactlist[11]):
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon==True):
-  log.basicConfig(format="%(message)s", stream=sys.stdout, level=log.DEBUG);
+  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  if(getargs.outfile is None):
   libhockeydata.MakeHockeyXMLFromHockeyXML(getargs.infile, verbose=verboseon);
  else:
