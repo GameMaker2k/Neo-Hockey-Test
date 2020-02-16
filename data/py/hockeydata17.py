@@ -48,6 +48,10 @@ libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "NHL", "20171004", "Los
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "NHL", "20171004", "San Jose", "CA", "USA", "United States", "California", "Sharks", "Western", "Pacific", "SAP Center", "San Jose", "", True, True);
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "NHL", "20171004", "Vancouver", "BC", "CAN", "Canada", "British Columbia", "Canucks", "Western", "Pacific", "Rogers Arena", "Vancouver", "", True, True);
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "NHL", "20171004", "Paradise", "NV", "USA", "United States", "Nevada", "Golden Knights", "Western", "Pacific", "T-Mobile Arena", "Vegas", "", True, True);
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "NHL", "Stockholm", "AB", "SWE", "Sweden", "Stockholm County", "Ericsson Globe");
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "NHL", "Ottawa", "ON", "CAN", "Canada", "Ontario", "Lansdowne Park");
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "NHL", "New York City", "NY", "USA", "United States", "New York", "Citi Field");
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "NHL", "Annapolis", "MD", "USA", "United States", "Maryland", "United States Naval Academy");
 libhockeydata.hockeyfunctions.MakeHockeyTeamTable(sqldatacon, "AHL");
 libhockeydata.hockeyfunctions.MakeHockeyConferenceTable(sqldatacon, "AHL");
 libhockeydata.hockeyfunctions.MakeHockeyGameTable(sqldatacon, "AHL");
@@ -89,6 +93,7 @@ libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "AHL", "20171006", "San
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "AHL", "20171006", "Stockton", "CA", "USA", "United States", "California", "Heat", "Western", "Pacific", "Stockton Arena", "Stockton", "", True, True);
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "AHL", "20171006", "Cedar Park", "TX", "USA", "United States", "Texas", "Stars", "Western", "Pacific", "H-E-B Center", "Texas", "", True, True);
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "AHL", "20171006", "Tucson", "AZ", "USA", "United States", "Arizona", "Roadrunners", "Western", "Pacific", "Tucson Convention Center", "Tucson", "", True, True);
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "AHL", "Hershey", "PA", "USA", "United States", "Pennsylvania", "Hersheypark Stadium");
 libhockeydata.hockeyfunctions.MakeHockeyTeamTable(sqldatacon, "ECHL");
 libhockeydata.hockeyfunctions.MakeHockeyConferenceTable(sqldatacon, "ECHL");
 libhockeydata.hockeyfunctions.MakeHockeyGameTable(sqldatacon, "ECHL");
@@ -195,5 +200,7 @@ libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "KHL", "20170821", "Ast
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "KHL", "20170821", "Ufa", "RU", "RUS", "Russia", "Russia", "Salavat Yulaev Ufa", "Eastern", "Chernyshev", "Ufa Arena", "", "", True, True);
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "KHL", "20170821", "Novosibirsk", "RU", "RUS", "Russia", "Russia", "Sibir Novosibirsk", "Eastern", "Chernyshev", "Ice Sports Palace Sibir", "", "", True, True);
 libhockeydata.hockeyfunctions.MakeHockeyTeam(sqldatacon, "KHL", "20170821", "Beijing", "CN", "CHN", "China", "China", "Red Star Kunlun", "Eastern", "Chernyshev", "Cadillac Arena", "", "", True, True);
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "KHL", "Helsinki", "FI", "FIN", "Finland", "Finland", "Kaisaniemi Park");
+libhockeydata.hockeyfunctions.MakeHockeyArena(sqldatacon, "KHL", "Riga", "LV", "LVA", "Latvia", "Latvia", "Riga City Council Sports Complex");
 
 libhockeydata.hockeyfunctions.CloseHockeyDatabase(sqldatacon);
