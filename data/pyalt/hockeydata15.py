@@ -2149,4 +2149,4 @@ hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160127, "
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160127, "Calgary Flames", "Nashville Predators", "0:1,0:1,1:0", "4:11,7:6,16:7", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160127, "Los Angeles Kings", "Colorado Avalanche", "2:0,1:2,0:2", "18:5,9:7,11:7", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 
-libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, False);
+libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, True);
