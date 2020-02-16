@@ -469,7 +469,7 @@ def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfi
  return True;
 
 def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
- pyfilename = __name__;
+ pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
  if(verbose):
@@ -547,7 +547,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
  return True;
 
 def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True):
- pyfilename = __name__;
+ pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
  if(verbose):
