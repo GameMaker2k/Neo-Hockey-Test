@@ -178,4 +178,4 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "KHL", "Beijing", 
 hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "KHL", "Helsinki", "FI", "FIN", "Finland", "Finland", "Kaisaniemi Park");
 hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "KHL", "Riga", "LV", "LVA", "Latvia", "Latvia", "Riga City Council Sports Complex");
 
-libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, False);
+libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, True);
