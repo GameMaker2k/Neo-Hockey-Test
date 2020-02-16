@@ -1281,7 +1281,6 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
   atarenaname = GetNum2Arena(sqldatacon, leaguename, atarena, "FullArenaName");
  if(isinstance(atarena, str)):
   atarenaname = atarena;
-  print(atarena);
   atarena = GetArena2Num(sqldatacon, leaguename, atarenaname);
  if(teamscores[0] > teamscores[1]):
   losingteam = awayteam;
