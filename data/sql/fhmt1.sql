@@ -2,8 +2,8 @@
 -- version 0.2.1 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: February 13, 2020 at 07:29 PM
--- SQLite Server version: 3.31.0
+-- Generation Time: February 16, 2020 at 03:13 AM
+-- SQLite Server version: 3.31.1
 -- PySQLite version: 2.6.0
 -- Python Version: 3.8.1
 
