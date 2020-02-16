@@ -58,13 +58,9 @@ def DumpHockeyDatabase(insdbfile, outsqlfile, returninsdbfile=True):
  with open(outsqlfile, 'w+') as f:
   for line in insqldatacon[1].iterdump():
    f.write('%s\n' % line);
- if(returninsdbfile and returnoutsdbfile):
-  return [insqldatacon, outsqldatacon];
- elif(returninsdbfile and not returnoutsdbfile):
+ if(returninsdbfile):
   return [insqldatacon];
- elif(not returninsdbfile and returnoutsdbfile):
-  return [outsqldatacon];
- elif(not returninsdbfile and not returnoutsdbfile):
+ elif(not returninsdbfile):
   return None;
  else:
   return False;
