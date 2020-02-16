@@ -35,7 +35,29 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
   outsqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   outsqldatacon = tuple(outsdbfile);
- insqldatacon.backup(outsqldatacon);
+ insqldatacon[1].backup(outsqldatacon);
+ if(returninsdbfile and returnoutsdbfile):
+  return [insqldatacon, outsqldatacon];
+ elif(returninsdbfile and not returnoutsdbfile):
+  return [insqldatacon];
+ elif(not returninsdbfile and returnoutsdbfile):
+  return [outsqldatacon];
+ elif(not returninsdbfile and not returnoutsdbfile):
+  return None;
+ else:
+  return False;
+ return False;
+
+def DumpHockeyDatabase(insdbfile, outsqlfile, returninsdbfile=True):
+ if(insdbfile is None):
+  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+ if(insdbfile is not None and isinstance(insdbfile, str)):
+  insqldatacon = MakeHockeyDatabase(insdbfile);
+ if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+  insqldatacon = tuple(insdbfile);
+ with open(outsqlfile, 'w+') as f:
+  for line in insqldatacon[1].iterdump():
+   f.write('%s\n' % line);
  if(returninsdbfile and returnoutsdbfile):
   return [insqldatacon, outsqldatacon];
  elif(returninsdbfile and not returnoutsdbfile):
@@ -924,7 +946,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
   VerbosePrintOut("-- Database: :memory:\n");
   VerbosePrintOut("--\n\n");
   VerbosePrintOut("-- --------------------------------------------------------\n\n");
- all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  table_list = ['HockeyLeagues'];
  getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
