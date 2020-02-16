@@ -16,52 +16,24 @@
     $FileInfo: example.py - Last Update: 2/9/2020 Ver. 0.2.0 RC 1 - Author: cooldude2k $
 '''
 
-import libhockeydata;
+import libhockeydata, os;
 
-print("");
-print("--------------------------------------------------------------------------");
-print("");
+rootdir = "./data/xml"
+extensions = ['.xml']
 
-hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML("./data/fhmt1.xml");
-for hlkey in hockeyarray['leaguelist']:
- for hckey in hockeyarray[hlkey]['conferencelist']:
-  for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-   for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-    print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
-
-print("");
-print("--------------------------------------------------------------------------");
-print("");
-
-hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML("./data/fhmt2.xml");
-for hlkey in hockeyarray['leaguelist']:
- for hckey in hockeyarray[hlkey]['conferencelist']:
-  for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-   for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-    print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
-
-print("");
-print("--------------------------------------------------------------------------");
-print("");
-
-hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML("./data/hockeydata15.xml");
-for hlkey in hockeyarray['leaguelist']:
- for hckey in hockeyarray[hlkey]['conferencelist']:
-  for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-   for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-    print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
-
-print("");
-print("--------------------------------------------------------------------------");
-print("");
-
-hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML("./data/hockeydata17.xml");
-for hlkey in hockeyarray['leaguelist']:
- for hckey in hockeyarray[hlkey]['conferencelist']:
-  for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-   for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-    print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
-
-print("");
-print("--------------------------------------------------------------------------");
-print("");
+for subdir, dirs, files in os.walk(rootdir):
+ print("");
+ print("--------------------------------------------------------------------------");
+ print("");
+ for file in files:
+  ext = os.path.splitext(file)[-1].lower();
+  if ext in extensions:
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(os.path.join(subdir, file));
+   for hlkey in hockeyarray['leaguelist']:
+    for hckey in hockeyarray[hlkey]['conferencelist']:
+     for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
+      for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
+       print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
+   print("");
+   print("--------------------------------------------------------------------------");
+   print("");
