@@ -468,7 +468,7 @@ def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfi
   return True;
  return True;
 
-def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -533,11 +533,11 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
 
-def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
  if(outpyfile is None):
   return False;
  pyfp = open(outpyfile, "w+");
- pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
+ pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose, verbosepy);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy):
@@ -546,7 +546,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
   return True;
  return True;
 
-def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -603,16 +603,22 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut(" ");
  pystring = pystring+"\n";
+ if(verbosepy):
+  pyverboseout = "True";
+ elif(not pyverbose):
+  pyverbose = "False";
+ else:
+  pyverbose = "False";
  if(verbose):
-  VerbosePrintOut("hockeyarray = "+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, False);");
- pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, False);\n";
+  VerbosePrintOut("hockeyarray = "+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, "+pyverbose+");");
+ pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, "+pyverbose+");\n";
  return pystring;
 
-def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
+def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
  if(outpyfile is None):
   return False;
  pyfp = open(outpyfile, "w+");
- pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose);
+ pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy):
