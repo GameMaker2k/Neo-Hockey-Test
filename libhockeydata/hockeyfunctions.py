@@ -633,6 +633,8 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
+  arenalist = [];
+  gamelist = [];
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
   if(int(leagueinfo[7])<=0):
@@ -692,7 +694,6 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
   arenacur = sqldatacon[1].cursor();
   getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0").fetchone()[0];
   getarena = arenacur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, ArenaName FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0");
-  arenalist = [];
   if(getteam_num>0):
    for arenainfo in getarena:
     if(verbose):
@@ -706,7 +707,6 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
   gamecur = sqldatacon[1].cursor();
   getgame_num = gamecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Games").fetchone()[0];
   getgame = gamecur.execute("SELECT Date, HomeTeam, AwayTeam, TeamScorePeriods, ShotsOnGoal, PowerPlays, ShortHanded, Penalties, PenaltyMinutes, HitsPerPeriod, TakeAways, FaceoffWins, AtArena, IsPlayOffGame FROM "+leagueinfo[0]+"Games");
-  gamelist = [];
   if(getgame_num>0):
    if(verbose):
     VerbosePrintOut("  <games>");
@@ -758,6 +758,8 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
+  arenalist = [];
+  gamelist = [];
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
   if(int(leagueinfo[7])<=0):
@@ -817,7 +819,6 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   arenacur = sqldatacon[1].cursor();
   getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0").fetchone()[0];
   getarena = arenacur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, ArenaName FROM "+leagueinfo[0]+"Arenas WHERE TeamID=0");
-  arenalist = [];
   if(getteam_num>0):
    for arenainfo in getarena:
     if(verbose):
@@ -831,7 +832,6 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   gamecur = sqldatacon[1].cursor();
   getgame_num = gamecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Games").fetchone()[0];
   getgame = gamecur.execute("SELECT Date, HomeTeam, AwayTeam, TeamScorePeriods, ShotsOnGoal, PowerPlays, ShortHanded, Penalties, PenaltyMinutes, HitsPerPeriod, TakeAways, FaceoffWins, AtArena, IsPlayOffGame FROM "+leagueinfo[0]+"Games");
-  gamelist = [];
   if(getgame_num>0):
    if(verbose):
     VerbosePrintOut("  <games>");
@@ -1041,6 +1041,8 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
+  arenalist = [];
+  gamelist = [];
   HockeyLeagueHasDivisions = True;
   HockeyLeagueHasDivisionStr = "yes";
   if(int(leagueinfo[7])<=0):
@@ -1101,7 +1103,6 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
   arenacur = sqldatacon[1].cursor();
   getteam_num = arenacur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Arenas WHERE id>"+str(getallteam_num)).fetchone()[0];
   getarena = arenacur.execute("SELECT CityName, AreaName, ArenaName FROM "+leagueinfo[0]+"Arenas WHERE id>"+str(getallteam_num));
-  arenalist = [];
   if(getteam_num>0):
    if(verbose):
     VerbosePrintOut("  <arenas>");
@@ -1116,7 +1117,6 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
   gamecur = sqldatacon[1].cursor();
   getgame_num = gamecur.execute("SELECT COUNT(*) FROM "+leagueinfo[0]+"Games").fetchone()[0];
   getgame = gamecur.execute("SELECT Date, HomeTeam, AwayTeam, TeamScorePeriods, ShotsOnGoal, AtArena, IsPlayOffGame FROM "+leagueinfo[0]+"Games");
-  gamelist = [];
   if(getgame_num>0):
    if(verbose):
     VerbosePrintOut("  <games>");
