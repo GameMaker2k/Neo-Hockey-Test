@@ -18,7 +18,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re, time;
-from libhockeydata.hockeyfunctions import *;
+from libhockeydata.hockeyoopfuncs import *;
 
 def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
