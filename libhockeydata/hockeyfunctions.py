@@ -449,7 +449,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
  if(returnxml and not returndb):
   return [xmlstring];
  if(not returnxml and returndb):
-  return [returndb];
+  return [sqldatacon];
  if(not returnxml and not returndb):
   return True;
  return True;
