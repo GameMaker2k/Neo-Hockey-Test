@@ -91,9 +91,9 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
   sqlstring = sqlfile;
  else:
   return False;
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sdbfile))>=1):
-  sdbfile = re.findall(r"Database\:([\w\W]+)", sdbfile)[0].strip();
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sdbfile))<1):
+ if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))>=1):
+  sdbfile = re.findall(r"Database\:([\w\W]+)", sqlfile)[0].strip();
+ if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))<1):
   file_wo_extension, file_extension = os.path.splitext(sqlfile);
   sdbfile = file_wo_extension+".db3";
  if(sdbfile is not None and isinstance(sdbfile, str)):
