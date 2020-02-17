@@ -1404,7 +1404,7 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "San Jose",
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "Vancouver", "BC", "CAN", "Canada", "British Columbia", "Canucks", "Western", "Pacific", "Rogers Arena", "Vancouver", "");
 hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "Foxborough", "MA", "USA", "United States", "Massachusetts", "Gillette Stadium");
 hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "Minneapolis", "MN", "USA", "United States", "Minnesota", "TCF Bank Stadium");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "NHL", "Denver", "CO", "USA", "United States", "Colorado", "Coors Field");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "Denver", "CO", "USA", "United States", "Colorado", "Coors Field");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20151007, "Toronto Maple Leafs", "Montreal Canadiens", "0:1,1:0,0:2", "11:7,16:15,10:7", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20151007, "Chicago Blackhawks", "New York Rangers", "1:3,1:0,0:0", "12:11,8:9,14:7", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20151007, "Calgary Flames", "Vancouver Canucks", "0:2,1:1,0:2", "9:15,5:11,16:18", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
@@ -2133,7 +2133,7 @@ hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "Philadelphia Flyers", "Boston Bruins", "0:2,1:0,1:1", "8:16,15:6,13:9", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "Columbus Blue Jackets", "Montreal Canadiens", "1:1,1:1,3:0", "8:12,11:11,6:11", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "New York Rangers", "Buffalo Sabres", "1:1,1:0,4:2", "9:7,12:8,12:11", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
-hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "Dallas Stars", "Calgary Flames", "0:0,2:0,0:1", "10:3,3:12,7:9", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
+hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "Dallas Stars", "Calgary Flames", "0:0,2:0,0:1", "10:3,13:12,7:9", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160125, "Minnesota Wild", "Arizona Coyotes", "0:0,0:0,1:1,0:0,0:1", "13:4,11:2,11:17,0:1", "0:0,0:0,0:0,0:0,0:0", "0:0,0:0,0:0,0:0,0:0", "0:0,0:0,0:0,0:0,0:0", "0:0,0:0,0:0,0:0,0:0", "0:0,0:0,0:0,0:0,0:0", "0:0,0:0,0:0,0:0,0:0", "0:0,0:0,0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160126, "Boston Bruins", "Anaheim Ducks", "1:2,0:2,1:2", "13:16,12:12,9:11", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160126, "Pittsburgh Penguins", "New Jersey Devils", "1:0,1:0,0:0", "7:11,16:6,8:8", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
@@ -2150,4 +2150,3 @@ hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160127, "
 hockeyarray = libhockeydata.AddHockeyGameToArray(hockeyarray, "NHL", 20160127, "Los Angeles Kings", "Colorado Avalanche", "2:0,1:2,0:2", "18:5,9:7,11:7", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0:0,0:0,0:0", "0", "0");
 
 libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, True);
-
