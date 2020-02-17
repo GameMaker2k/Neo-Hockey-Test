@@ -13,7 +13,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeyshortcuts.py - Last Update: 2/9/2020 Ver. 0.2.0 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeyshortcuts.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -152,19 +152,19 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
   return True;
  return True;
 
-def MakeHockeyPythonAltFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
+def MakeHockeyPythonAltFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, verbosepy=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
- hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, True);
+ hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, verbosepy);
  return hockeypyout;
 
-def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True):
+def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, verbosepy=True):
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
  pyfp = open(outpyfile, "w+");
- pystring = MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile, verbose);
+ pystring = MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile, verbose, verbosepy);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy):

@@ -13,7 +13,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeydatabase.py - Last Update: 2/9/2020 Ver. 0.2.0 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeydatabase.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;

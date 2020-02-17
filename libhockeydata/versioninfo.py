@@ -13,7 +13,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: versioninfo.py - Last Update: 2/13/2020 Ver. 0.2.1 RC 1 - Author: cooldude2k $
+    $FileInfo: versioninfo.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
 '''
 
 import re;
@@ -21,12 +21,12 @@ import re;
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
-__version_info__ = (0, 2, 1, "RC 1", 1);
-__version_date_info__ = (2020, 2, 13, "RC 1", 1);
+__version_info__ = (0, 2, 6, "RC 1", 1);
+__version_date_info__ = (2020, 2, 17, "RC 1", 1);
 __version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
-__full_revision_id__ = "$Id$";
-__revision_id__ = re.findall(r"\$Id$", __full_revision_id__);
+__revision_id__ = "$Id:$";
+#__revision_id__ = re.findall(r"\$Id:$", __full_revision_id__);
 if(__version_info__[4] is not None):
  __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
 if(__version_info__[4] is None):

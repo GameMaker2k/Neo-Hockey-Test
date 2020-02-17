@@ -13,7 +13,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeyfunctions.py - Last Update: 2/9/2020 Ver. 0.2.0 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeyfunctions.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -467,7 +467,7 @@ def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfi
   return True;
  return True;
 
-def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
+def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -532,11 +532,11 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True)
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
  return pystring;
 
-def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
  if(outpyfile is None):
   return False;
  pyfp = open(outpyfile, "w+");
- pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose, verbosepy);
+ pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy):
