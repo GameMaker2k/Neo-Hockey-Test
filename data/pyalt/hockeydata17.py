@@ -43,10 +43,10 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "Los Angele
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "San Jose", "CA", "USA", "United States", "California", "Sharks", "Western", "Pacific", "SAP Center", "San Jose", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "Vancouver", "BC", "CAN", "Canada", "British Columbia", "Canucks", "Western", "Pacific", "Rogers Arena", "Vancouver", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "Paradise", "NV", "USA", "United States", "Nevada", "Golden Knights", "Western", "Pacific", "T-Mobile Arena", "Vegas", "");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "NHL", "Stockholm", "AB", "SWE", "Sweden", "Stockholm County", "Ericsson Globe");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "NHL", "Ottawa", "ON", "CAN", "Canada", "Ontario", "Lansdowne Park");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "NHL", "New York City", "NY", "USA", "United States", "New York", "Citi Field");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "NHL", "Annapolis", "MD", "USA", "United States", "Maryland", "United States Naval Academy");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "Stockholm", "AB", "SWE", "Sweden", "Stockholm County", "Ericsson Globe");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "Ottawa", "ON", "CAN", "Canada", "Ontario", "Lansdowne Park");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "New York City", "NY", "USA", "United States", "New York", "Citi Field");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "NHL", "Annapolis", "MD", "USA", "United States", "Maryland", "United States Naval Academy");
 hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "AHL", "American Hockey League", "USA", "United States", "20171006", "Division=4", "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
 hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, "AHL", "Eastern");
 hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "AHL", "Atlantic", "Eastern");
@@ -84,7 +84,7 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "San Jose",
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Stockton", "CA", "USA", "United States", "California", "Heat", "Western", "Pacific", "Stockton Arena", "Stockton", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Cedar Park", "TX", "USA", "United States", "Texas", "Stars", "Western", "Pacific", "H-E-B Center", "Texas", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Tucson", "AZ", "USA", "United States", "Arizona", "Roadrunners", "Western", "Pacific", "Tucson Convention Center", "Tucson", "");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "AHL", "Hershey", "PA", "USA", "United States", "Pennsylvania", "Hersheypark Stadium");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "AHL", "Hershey", "PA", "USA", "United States", "Pennsylvania", "Hersheypark Stadium");
 hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "ECHL", "ECHL", "USA", "United States", "20171013", "Division=4", "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
 hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, "ECHL", "Eastern");
 hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "ECHL", "North", "Eastern");
@@ -175,7 +175,7 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "KHL", "Astana", "
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "KHL", "Ufa", "RU", "RUS", "Russia", "Russia", "Salavat Yulaev Ufa", "Eastern", "Chernyshev", "Ufa Arena", "", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "KHL", "Novosibirsk", "RU", "RUS", "Russia", "Russia", "Sibir Novosibirsk", "Eastern", "Chernyshev", "Ice Sports Palace Sibir", "", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "KHL", "Beijing", "CN", "CHN", "China", "China", "Red Star Kunlun", "Eastern", "Chernyshev", "Cadillac Arena", "", "");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "KHL", "Helsinki", "FI", "FIN", "Finland", "Finland", "Kaisaniemi Park");
-hockeyarray = libhockeydata.AddHockeyArenaToArray(sqldatacon, "KHL", "Riga", "LV", "LVA", "Latvia", "Latvia", "Riga City Council Sports Complex");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "KHL", "Helsinki", "FI", "FIN", "Finland", "Finland", "Kaisaniemi Park");
+hockeyarray = libhockeydata.AddHockeyArenaToArray(hockeyarray, "KHL", "Riga", "LV", "LVA", "Latvia", "Latvia", "Riga City Council Sports Complex");
 
 libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, True);
