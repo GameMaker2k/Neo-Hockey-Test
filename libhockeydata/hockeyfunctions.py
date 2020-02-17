@@ -603,7 +603,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=Tr
   VerbosePrintOut(" ");
  pystring = pystring+"\n";
  if(verbosepy):
-  pyverboseout = "True";
+  pyverbose = "True";
  elif(not pyverbose):
   pyverbose = "False";
  else:
