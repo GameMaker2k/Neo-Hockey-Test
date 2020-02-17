@@ -44,29 +44,21 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
 def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose):
-  VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose):
-  VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyJSONFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose):
-  VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyJSONFromOldHockeyDatabase(sdbfile, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
- if(verbose):
-  VerbosePrintOut(jsonstring);
  return jsonstring;
 
 def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
@@ -81,7 +73,7 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=Non
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, False, verbose);
+ xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, False, verbose)[0];
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -99,9 +91,9 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
   sqlstring = sqlfile;
  else:
   return False;
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", "-- Database: ./hockey17-18.db3"))>=1):
-  sdbfile = re.findall(r"Database\:([\w\W]+)", "-- Database: ./hockey17-18.db3")[0].strip();
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", "-- Database: ./hockey17-18.db3"))<1):
+ if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sdbfile))>=1):
+  sdbfile = re.findall(r"Database\:([\w\W]+)", sdbfile)[0].strip();
+ if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sdbfile))<1):
   file_wo_extension, file_extension = os.path.splitext(sqlfile);
   sdbfile = file_wo_extension+".db3";
  if(sdbfile is not None and isinstance(sdbfile, str)):
@@ -114,9 +106,9 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
  if(returndb and not returnsql):
-  return sqldatacon;
+  return [sqldatacon];
  if(returnsql and not returndb):
-  return sqlstring;
+  return [sqlstring];
  if(returnsql and returndb):
   return [sqlstring, sqldatacon];
  if(not returnsql):
@@ -130,7 +122,7 @@ def MakeHockeyDatabaseFromHockeySQLWrite(insqlfile, sdbfile=None, outsqlfile=Non
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outsqlfile = file_wo_extension+".db3";
  sqlfp = open(outsqlfile, "w+");
- sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, False, verbose);
+ sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, False, verbose)[0];
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql):
