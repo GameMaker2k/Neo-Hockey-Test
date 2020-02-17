@@ -869,47 +869,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
- sqldatacon = MakeHockeyDatabase(":memory:");
- leaguecount = 0;
- for hlkey in inhockeyarray['leaguelist']:
-  if(leaguecount==0):
-   MakeHockeyLeagueTable(sqldatacon);
-  MakeHockeyTeamTable(sqldatacon, hlkey);
-  MakeHockeyConferenceTable(sqldatacon, hlkey);
-  MakeHockeyGameTable(sqldatacon, hlkey);
-  MakeHockeyDivisionTable(sqldatacon, hlkey);
-  HockeyLeagueHasDivisions = True;
-  if(inhockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
-   HockeyLeagueHasDivisions = False;
-  HockeyLeagueHasConferences = True;
-  if(inhockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
-   HockeyLeagueHasConferences = False;
-  MakeHockeyLeague(sqldatacon, hlkey, inhockeyarray[hlkey]['leagueinfo']['fullname'], inhockeyarray[hlkey]['leagueinfo']['country'], inhockeyarray[hlkey]['leagueinfo']['fullcountry'], inhockeyarray[hlkey]['leagueinfo']['date'], inhockeyarray[hlkey]['leagueinfo']['playofffmt'], inhockeyarray[hlkey]['leagueinfo']['ordertype']);
-  conferencecount = 0;
-  conferenceend = len(inhockeyarray[hlkey]['conferencelist']);
-  for hckey in inhockeyarray[hlkey]['conferencelist']:
-   MakeHockeyConference(sqldatacon, hlkey, hckey, HockeyLeagueHasConferences);
-   for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
-    MakeHockeyDivision(sqldatacon, hlkey, hdkey, hckey, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
-    for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
-     MakeHockeyTeam(sqldatacon, hlkey, str(inhockeyarray[hlkey]['leagueinfo']['date']), inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea'], htkey, hckey, hdkey, inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
-   conferencecount = conferencecount + 1;
-  leaguecount = leaguecount + 1;
-  if(conferencecount>=conferenceend):
-   hasarenas = False;
-   if(len(inhockeyarray[hlkey]['arenas'])>0):
-    hasarenas = True;
-   for hakey in inhockeyarray[hlkey]['arenas']:
-    if(hakey):
-     hasarenas = True;
-     MakeHockeyArena(sqldatacon, hlkey, hakey['city'], hakey['area'], hakey['country'], hakey['fullcountry'], hakey['fullarea'], hakey['name']);
-   hasgames = False;
-   if(len(inhockeyarray[hlkey]['games'])>0):
-    hasgames = True;
-   for hgkey in inhockeyarray[hlkey]['games']:
-    if(hgkey):
-     hasgames = True;
-     MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'], hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame']);
+ sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, True, False)[0];
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
