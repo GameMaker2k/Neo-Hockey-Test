@@ -14,7 +14,6 @@ echo '#!/usr/bin/env python${PYVER}' > ./mkhockeydata
 echo '' >> ./mkhockeydata
 cat ./mkhockeydata.zip >> ./mkhockeydata
 cd ${OLDPATH}
-rm -rfv ./bundle/python${PYVER}/mkhockeydata
 mv -v /tmp/pybundle/mkhockeydata ./bundle/python${PYVER}/mkhockeydata
 rm -rfv /tmp/pybundle
 cd ./bundle/python${PYVER}
