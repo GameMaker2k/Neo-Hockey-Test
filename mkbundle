@@ -6,16 +6,18 @@ cp -r -v ./mkhockeydata.py /tmp/pybundle/__main__.py
 cp -r -v ./libhockeydata   /tmp/pybundle/libhockeydata
 export OLDPATH="$(pwd)"
 cd ./bundle/python${PYVER}
-rm -rfv .
+rm -rfv *
 cd ${OLDPATH}
 cd /tmp/pybundle
 zip -v ./mkhockeydata.zip -r .
 echo '#!/usr/bin/env python${PYVER}' > ./mkhockeydata
 echo '' >> ./mkhockeydata
 cat ./mkhockeydata.zip >> ./mkhockeydata
+chmod -v +x ./mkhockeydata
 cd ${OLDPATH}
 mv -v /tmp/pybundle/mkhockeydata ./bundle/python${PYVER}/mkhockeydata
 rm -rfv /tmp/pybundle
 cd ./bundle/python${PYVER}
 ./mkhockeydata mksymlinks
+chmod -v +x *
 cd ${OLDPATH}
