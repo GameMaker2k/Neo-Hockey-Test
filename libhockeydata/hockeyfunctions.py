@@ -66,6 +66,10 @@ def DumpHockeyDatabase(insdbfile, outsqlfile, returninsdbfile=True):
  return False;
 
 def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
+ if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
+  return False;
+ if(not isinstance(inhockeyarray, type({}))):
+  return False;
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -162,11 +166,11 @@ def MakeHockeyJSONFromHockeyArray(inarray, verbose=True):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, verbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inarray, outjsonfile=None, returnjson=False, verbose=True):
  if(outjsonfile is None):
   return False;
  jsonfp = open(outjsonfile, "w+");
- jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(inarray, verbose);
  jsonfp.write(jsonstring);
  jsonfp.close();
  if(returnjson):
@@ -197,11 +201,11 @@ def MakeHockeyPickleFromHockeyArray(inarray, verbose=True):
   VerbosePrintOut(picklestring);
  return picklestring;
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inarray, outpicklefile=None, returnpickle=False, verbose=True):
  if(outpicklefile is None):
   return False;
  picklefp = open(outpicklefile, "w+");
- picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose);
+ picklestring = MakeHockeyPickleFromHockeyArray(inarray, verbose);
  picklefp.write(picklestring);
  picklefp.close();
  if(returnpickle):
@@ -232,11 +236,11 @@ def MakeHockeyMarshalFromHockeyArray(inarray, verbose=True):
   VerbosePrintOut(marshalstring);
  return marshalstring;
 
-def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True):
+def MakeHockeyMarshalFileFromHockeyArray(inarray, outmarshalfile=None, returnmarshal=False, verbose=True):
  if(outmarshalfile is None):
   return False;
  marshalfp = open(outmarshalfile, "w+");
- marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose);
+ marshalstring = MakeHockeyMarshalFromHockeyArray(inarray, verbose);
  marshalfp.write(marshalstring);
  marshalfp.close();
  if(returnmarshal):
@@ -351,6 +355,10 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  return leaguearrayout;
 
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True):
+ if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
+  return False;
+ if(not isinstance(inhockeyarray, type({}))):
+  return False;
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -475,6 +483,10 @@ def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfi
  return True;
 
 def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
+ if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
+  return False;
+ if(not isinstance(inhockeyarray, type({}))):
+  return False;
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -553,6 +565,10 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
  return True;
 
 def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
+ if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
+  return False;
+ if(not isinstance(inhockeyarray, type({}))):
+  return False;
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -876,6 +892,10 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
+ if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
+  return False;
+ if(not isinstance(inhockeyarray, type({}))):
+  return False;
  sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, True, False)[0];
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
