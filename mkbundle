@@ -1,0 +1,17 @@
+#!/bin/env bash
+
+export PYVER="3"
+mkdir -p -v /tmp/pybundle
+cp -r -v ./mkhockeydata.py /tmp/pybundle/__main__.py
+cp -r -v ./libhockeydata   /tmp/pybundle/libhockeydata
+export OLDPATH="$(pwd)"
+cd /tmp/pybundle
+zip ./mkhockeydata.zip -r .
+echo '#!/usr/bin/env python${PYVER}' > ./mkhockeydata
+echo '' >> ./mkhockeydata
+cat ./mkhockeydata.zip >> ./mkhockeydata
+cd ${OLDPATH}
+rm -rfv ./bundle/python${PYVER}/mkhockeydata
+mv -v /tmp/pybundle/mkhockeydata ./bundle/python${PYVER}/mkhockeydata
+rm -rfv /tmp/pybundle
+
