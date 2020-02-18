@@ -69,9 +69,14 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
- if(verbose):
-  VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">");
- xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">\n";
+ if('database' in inhockeyarray):
+  if(verbose):
+   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">");
+  xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">\n";
+ if('database' not in inhockeyarray):
+  if(verbose):
+   VerbosePrintOut("<hockey database=\"./hockeydatabase.db3\">");
+  xmlstring = xmlstring+"<hockey database=\"./hockeydatabase.db3\">\n";
  for hlkey in inhockeyarray['leaguelist']:
   if(verbose):
    VerbosePrintOut(" <league name=\""+EscapeXMLString(str(hlkey), quote=True)+"\" fullname=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['fullname']), quote=True)+"\" country=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['fullcountry']), quote=True)+"\" date=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['date']), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['playofffmt']), quote=True)+"\" ordertype=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['ordertype']), quote=True)+"\" conferences=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['conferences']), quote=True)+"\" divisions=\""+EscapeXMLString(str(inhockeyarray[hlkey]['leagueinfo']['divisions']), quote=True)+"\">");
@@ -349,8 +354,10 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
- if(sdbfile is None):
+ if(sdbfile is None and 'database' in inhockeyarray):
   sqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+ if(sdbfile is None and 'database' not in inhockeyarray):
+  sqldatacon = MakeHockeyDatabase(":memory:");
  if(sdbfile is not None and isinstance(sdbfile, str)):
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
