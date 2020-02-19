@@ -552,6 +552,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
  pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
  pyfp.write(pystring);
  pyfp.close();
+ os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
@@ -635,6 +636,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
  pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
  pyfp.write(pystring);
  pyfp.close();
+ os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
