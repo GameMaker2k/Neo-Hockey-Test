@@ -29,12 +29,12 @@ if(os.path.exists(tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py") and 
  os.unlink(tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py");
 if(os.path.exists(tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py") and os.path.isdir(tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py")):
  shutil.rmtree(tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py");
-shutil.copy2("./"+os.path.sep+"mkhockeydata.py", tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py");
+shutil.copy2("."+os.path.sep+"mkhockeydata.py", tempdir+os.path.sep+"pybundle"+os.path.sep+"__main__.py");
 if(os.path.exists(tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata") and os.path.isfile(tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata")):
  os.unlink(tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata");
 if(os.path.exists(tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata") and os.path.isdir(tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata")):
  shutil.rmtree(tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata");
-shutil.copytree("./"+os.path.sep+"libhockeydata", tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata");
+shutil.copytree("."+os.path.sep+"libhockeydata", tempdir+os.path.sep+"pybundle"+os.path.sep+"libhockeydata");
 if(os.path.exists(tempdir+os.path.sep+"mkhockeydata.zip") and os.path.isfile(tempdir+os.path.sep+"mkhockeydata.zip")):
  os.unlink(tempdir+os.path.sep+"mkhockeydata.zip");
 if(os.path.exists(tempdir+os.path.sep+"mkhockeydata.zip") and os.path.isdir(tempdir+os.path.sep+"mkhockeydata.zip")):
@@ -56,7 +56,8 @@ zipfp = open(tempdir+os.path.sep+"pybundle"+os.path.sep+"mkhockeydata.zip", "rb"
 mkbfp.write(zipfp.read());
 mkbfp.close();
 zipfp.close();
-shutil.rmtree("./"+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]));
-os.mkdir("./"+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]));
-shutil.move(tempdir+os.path.sep+"pybundle"+os.path.sep+"mkhockeydata", "./"+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0])+os.path.sep+"mkhockeydata");
+shutil.rmtree("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]));
+os.mkdir("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]));
+shutil.move(tempdir+os.path.sep+"pybundle"+os.path.sep+"mkhockeydata", "."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0])+os.path.sep+"mkhockeydata");
+os.chmod("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0])+os.path.sep+"mkhockeydata", 0o755)
 shutil.rmtree(tempdir+os.path.sep+"pybundle");
