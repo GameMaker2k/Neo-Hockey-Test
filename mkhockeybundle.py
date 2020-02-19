@@ -63,12 +63,10 @@ os.chmod("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0])+
 shutil.rmtree(tempdir+os.path.sep+"pybundle");
 oldpath = os.getcwd();
 os.chdir("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]));
-curscrpath = os.path.dirname(sys.argv[0]);
+curscrpath = os.path.dirname("."+os.path.sep+"mkhockeydata.py");
 if(curscrpath==""):
  curscrpath = ".";
-if(os.sep=="\\"):
- curscrpath = curscrpath.replace(os.sep, "/");
-curscrpath = curscrpath+"/";
+curscrpath = curscrpath+os.path.sep;
 scrfile = curscrpath+"mkhockeydata.py";
 if(os.path.exists(scrfile) and os.path.isfile(scrfile)):
  scrcmd = subprocess.Popen([sys.executable, scrfile, "mksymlinks"]);
