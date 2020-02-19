@@ -416,6 +416,15 @@ def GetHockeyLeaguesInfo(leaguename):
                 'SPHL': { 'LeagueName': "SPHL", 'FullLeagueName': "Southern Professional Hockey League", 'CountryName': "USA", 'FullCountryName': "United States", 'StartDate': 20151023, 'PlayOffFMT': "League=8", 'OrderType': "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" } };
  return leagueinfo.get(leaguename, { leaguename: { 'LeagueName': leaguename, 'FullLeagueName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown", 'StartDate': 0, 'PlayOffFMT': "Unknown", 'OrderType': "Unknown" } });
 
+def CheckHockeyArray(hockeyarray):
+ if(isinstance(hockeyarray, type(None)) or isinstance(hockeyarray, type(True)) or isinstance(hockeyarray, type(False)) or not isinstance(hockeyarray, type({}))):
+  return False;
+ if "leaguelist" not in hockeyarray.keys():
+  return False;
+ if "database" not in inhockeyarray.keys():
+  return False;
+ return True;
+
 def AddHockeyLeagueToArray(hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
  if "leaguelist" not in hockeyarray.keys():
   hockeyarray.update( { 'leaguelist': [] } );

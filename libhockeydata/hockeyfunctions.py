@@ -66,18 +66,16 @@ def DumpHockeyDatabase(insdbfile, outsqlfile, returninsdbfile=True):
  return False;
 
 def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
- if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
-  return False;
- if(not isinstance(inhockeyarray, type({}))):
+ if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
- if('database' in inhockeyarray):
+ if "database" in inhockeyarray.keys():
   if(verbose):
    VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">");
   xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">\n";
- if('database' not in inhockeyarray):
+ if "database" not in inhockeyarray.keys():
   if(verbose):
    VerbosePrintOut("<hockey database=\"./hockeydatabase.db3\">");
   xmlstring = xmlstring+"<hockey database=\"./hockeydatabase.db3\">\n";
@@ -355,16 +353,14 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  return leaguearrayout;
 
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True):
- if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
-  return False;
- if(not isinstance(inhockeyarray, type({}))):
+ if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
- if(sdbfile is None and 'database' in inhockeyarray):
+ if(sdbfile is None and "database" in inhockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
- if(sdbfile is None and 'database' not in inhockeyarray):
+ if(sdbfile is None and "database" not in inhockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(":memory:");
  if(sdbfile is not None and isinstance(sdbfile, str)):
   sqldatacon = MakeHockeyDatabase(sdbfile);
@@ -483,9 +479,7 @@ def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfi
  return True;
 
 def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
- if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
-  return False;
- if(not isinstance(inhockeyarray, type({}))):
+ if(not CheckHockeyArray(inhockeyarray)):
   return False;
  pyfilename = __package__;
  if(pyfilename=="__main__"):
@@ -565,9 +559,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
  return True;
 
 def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
- if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
-  return False;
- if(not isinstance(inhockeyarray, type({}))):
+ if(not CheckHockeyArray(inhockeyarray)):
   return False;
  pyfilename = __package__;
  if(pyfilename=="__main__"):
@@ -892,9 +884,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
- if(isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False))):
-  return False;
- if(not isinstance(inhockeyarray, type({}))):
+ if(not CheckHockeyArray(inhockeyarray)):
   return False;
  sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, True, False)[0];
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
