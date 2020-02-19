@@ -16,7 +16,7 @@
     $FileInfo: mkbundle.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
 '''
 
-import os, sys, shutil, subprocess, tempfile;
+import os, sys, shutil, subprocess, tempfile, subprocess;
 
 tempdir = tempfile.gettempdir();
 
@@ -61,3 +61,16 @@ os.mkdir("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]))
 shutil.move(tempdir+os.path.sep+"pybundle"+os.path.sep+"mkhockeydata", "."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0])+os.path.sep+"mkhockeydata");
 os.chmod("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0])+os.path.sep+"mkhockeydata", 0o755)
 shutil.rmtree(tempdir+os.path.sep+"pybundle");
+oldpath = os.getcwd();
+os.chdir("."+os.path.sep+"bundle"+os.path.sep+"python"+str(sys.version_info[0]));
+curscrpath = os.path.dirname(sys.argv[0]);
+if(curscrpath==""):
+ curscrpath = ".";
+if(os.sep=="\\"):
+ curscrpath = curscrpath.replace(os.sep, "/");
+curscrpath = curscrpath+"/";
+scrfile = curscrpath+"mkhockeydata.py";
+if(os.path.exists(scrfile) and os.path.isfile(scrfile)):
+ scrcmd = subprocess.Popen([sys.executable, scrfile, "mksymlinks"]);
+ scrcmd.wait();
+os.chdir(oldpath);
