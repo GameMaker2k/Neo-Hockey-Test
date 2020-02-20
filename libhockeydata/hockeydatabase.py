@@ -421,7 +421,7 @@ def CheckHockeyArray(hockeyarray):
   return False;
  if "leaguelist" not in hockeyarray.keys():
   return False;
- if "database" not in inhockeyarray.keys():
+ if "database" not in hockeyarray.keys():
   return False;
  return True;
 
