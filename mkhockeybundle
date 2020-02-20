@@ -10,7 +10,7 @@ rm -rfv *
 cd ${OLDPATH}
 cd /tmp/pybundle
 zip -v ./mkhockeydata.zip -r .
-echo '#!/usr/bin/env python${PYVER}' > ./mkhockeydata
+echo '#!/usr/bin/env python'${PYVER} > ./mkhockeydata
 echo '' >> ./mkhockeydata
 cat ./mkhockeydata.zip >> ./mkhockeydata
 chmod -v +x ./mkhockeydata
