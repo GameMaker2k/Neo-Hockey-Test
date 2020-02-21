@@ -1,6 +1,11 @@
 #!/bin/env bash
 
-export PYVER="3"
+if [[ -z "${PYVERSION}" ]]; then
+ export PYVER="3"
+else
+ export PYVER="${PYVERSION}"
+fi
+
 mkdir -p -v /tmp/pybundle
 cp -r -v ./mkhockeydata.py /tmp/pybundle/__main__.py
 cp -r -v ./libhockeydata   /tmp/pybundle/libhockeydata
