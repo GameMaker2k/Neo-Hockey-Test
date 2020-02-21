@@ -1,9 +1,13 @@
 #!/bin/env bash
 
-if [[ -z "${PYVERSION}" ]]; then
- export PYVER="3"
+if [[ -z "${1}" ]]; then
+ if [[ -z "${PYVERSION}" ]]; then
+  export PYVER="3"
+ else
+  export PYVER="${PYVERSION}"
+ fi
 else
- export PYVER="${PYVERSION}"
+ export PYVER="${1}"
 fi
 
 mkdir -p -v /tmp/pybundle
