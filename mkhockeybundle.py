@@ -30,9 +30,9 @@ if(pyimplementation=="CPython"):
  pystring = "python"+str(sys.version_info[0]);
 elif(pyimplementation=="PyPy"):
  if(sys.version_info[0]==2):
- pystring = "pypy";
+  pystring = "pypy";
  elif(sys.version_info[0]==3):
- pystring = "pypy"+str(sys.version_info[0]);
+  pystring = "pypy"+str(sys.version_info[0]);
  else:
   sys.exit(1);
 else:
