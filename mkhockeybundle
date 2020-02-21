@@ -10,7 +10,13 @@ else
  export PYVER="${1}"
 fi
 
-export PYTHONPATH="$(which python${PYVER})"
+#export PYTHONPATH="$(which python${PYVER})"
+export PYTHONPATH="$(command -v python${PYVER})"
+
+if ! [ -x "$(command -v python${PYVER})" ]; then
+ echo "Error: python${PYVER} is not installed." >&2
+ exit 1
+fi
 
 if [[ -f "./mkhockeybundle.py" ]]; then
  ${PYTHONPATH} ./mkhockeybundle.py
