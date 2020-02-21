@@ -28,6 +28,8 @@ pyimplementation = platform.python_implementation();
 
 if(pyimplementation=="CPython"):
  pystring = "python"+str(sys.version_info[0]);
+elif(pyimplementation=="IronPython"):
+ pystring = "ipy"+str(sys.version_info[0]);
 elif(pyimplementation=="PyPy"):
  if(sys.version_info[0]==2):
   pystring = "pypy";
