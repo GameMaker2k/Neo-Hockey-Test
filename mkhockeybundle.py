@@ -74,13 +74,13 @@ zipfp = open(tempdir+"/pybundle/mkhockeydata.zip", "rb");
 mkbfp.write(zipfp.read());
 mkbfp.close();
 zipfp.close();
-shutil.rmtree("./bundle/python"+str(sys.version_info[0]));
-os.mkdir("./bundle/python"+str(sys.version_info[0]));
+shutil.rmtree("./bundle/"+pystring);
+os.mkdir("./bundle/"+pystring);
 shutil.move(tempdir+"/pybundle/mkhockeydata", "./bundle/"+pystring+"/mkhockeydata");
 os.chmod("./bundle/"+pystring+"/mkhockeydata", 0o755)
 shutil.rmtree(tempdir+"/pybundle");
 oldpath = os.getcwd();
-os.chdir("./bundle/python"+str(sys.version_info[0]));
+os.chdir("./bundle/"+pystring);
 curscrpath = os.path.dirname("./mkhockeydata");
 if(curscrpath==""):
  curscrpath = ".";
