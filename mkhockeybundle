@@ -10,6 +10,13 @@ else
  export PYVER="${1}"
 fi
 
+export PYTHONPATH="$(which python${PYVER})"
+
+if [[ -f "./mkhockeybundle.py" ]]; then
+ ${PYTHONPATH} ./mkhockeybundle.py
+ exit 0
+fi
+
 mkdir -p -v /tmp/pybundle
 cp -r -v ./mkhockeydata.py /tmp/pybundle/__main__.py
 cp -r -v ./libhockeydata   /tmp/pybundle/libhockeydata
@@ -27,6 +34,6 @@ cd ${OLDPATH}
 mv -v /tmp/pybundle/mkhockeydata ./bundle/python${PYVER}/mkhockeydata
 rm -rfv /tmp/pybundle
 cd ./bundle/python${PYVER}
-./mkhockeydata mksymlinks
+${PYTHONPATH} ./mkhockeydata mksymlinks
 chmod -v +x *
 cd ${OLDPATH}
