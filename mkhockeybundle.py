@@ -16,13 +16,27 @@
     $FileInfo: mkbundle.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
 '''
 
-import os, sys, shutil, subprocess, tempfile, subprocess;
+import os, sys, shutil, subprocess, tempfile, subprocess, platform;
 
 tempdir = tempfile.gettempdir();
 if(os.sep=="\\"):
  tempdir = tempdir.replace(os.sep, "/");
 elif(os.path.sep=="\\"):
  tempdir = tempdir.replace(os.path.sep, "/");
+
+pyimplementation = platform.python_implementation();
+
+if(pyimplementation=="CPython"):
+ pystring = "python"+str(sys.version_info[0]);
+elif(pyimplementation=="PyPy"):
+ if(sys.version_info[0]==2):
+ pystring = "pypy";
+ elif(sys.version_info[0]==3):
+ pystring = "pypy"+str(sys.version_info[0]);
+ else:
+  sys.exit(1);
+else:
+ sys.exit(1);
 
 if(os.path.exists(tempdir+"/pybundle") and os.path.isfile(tempdir+"/pybundle")):
  os.unlink(tempdir+"/pybundle");
@@ -53,7 +67,7 @@ if(os.path.exists(tempdir+"/pybundle/mkhockeydata") and os.path.isfile(tempdir+"
  os.unlink(tempdir+"/pybundle/mkhockeydata");
 if(os.path.exists(tempdir+"/pybundle/mkhockeydata") and os.path.isdir(tempdir+"/pybundle/mkhockeydata")):
  shutil.rmtree(tempdir+"/pybundle/mkhockeydata");
-mkbstring = "#!/usr/bin/env python"+str(sys.version_info[0])+"\n\n";
+mkbstring = "#!/usr/bin/env "+pystring+"\n\n";
 mkbfp = open(tempdir+"/pybundle/mkhockeydata", "wb+");
 mkbfp.write(mkbstring.encode());
 zipfp = open(tempdir+"/pybundle/mkhockeydata.zip", "rb");
@@ -62,8 +76,8 @@ mkbfp.close();
 zipfp.close();
 shutil.rmtree("./bundle/python"+str(sys.version_info[0]));
 os.mkdir("./bundle/python"+str(sys.version_info[0]));
-shutil.move(tempdir+"/pybundle/mkhockeydata", "./bundle/python"+str(sys.version_info[0])+"/mkhockeydata");
-os.chmod("./bundle/python"+str(sys.version_info[0])+"/mkhockeydata", 0o755)
+shutil.move(tempdir+"/pybundle/mkhockeydata", "./bundle/"+pystring+"/mkhockeydata");
+os.chmod("./bundle/"+pystring+"/mkhockeydata", 0o755)
 shutil.rmtree(tempdir+"/pybundle");
 oldpath = os.getcwd();
 os.chdir("./bundle/python"+str(sys.version_info[0]));
