@@ -70,6 +70,10 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
   return False;
  return False;
 
+def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
+ VerbosePrintOut(dbgtxt, outtype, dbgenable, dgblevel);
+ return dbgtxt;
+
 def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE"):
  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
