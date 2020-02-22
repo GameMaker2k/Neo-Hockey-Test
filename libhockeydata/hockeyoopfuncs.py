@@ -84,25 +84,29 @@ class MakeHockeyArray:
 ''' // Object-oriented classes and functions by Kazuki Przyborowski '''
 class MakeHockeyClass:
  def __init__(self, databasename="./hockeydatabase.db3"):
-  self.hockeyarray = MakeHockeyDatabase(databasename);
-  MakeHockeyLeagueTable(self.hockeyarray);
+  self.hockeycon = MakeHockeyDatabase(databasename);
+  MakeHockeyLeagueTable(self.hockeycon);
+ def MakeHockeyTeamTable(self, leaguename):
+  MakeHockeyTeamTable(self.hockeycon, leaguename);
+ def MakeHockeyConferenceTable(self, leaguename):
+  MakeHockeyConferenceTable(self.hockeycon, leaguename);
+ def MakeHockeyGameTable(self, leaguename):
+  MakeHockeyGameTable(self.hockeycon, leaguename);
+ def MakeHockeyDivisionTable(self, leaguename):
+  MakeHockeyDivisionTable(self.hockeycon, leaguename);
  def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
-  MakeHockeyTeamTable(sqldatacon, leaguename);
-  MakeHockeyConferenceTable(sqldatacon, leaguename);
-  MakeHockeyGameTable(sqldatacon, leaguename);
-  MakeHockeyDivisionTable(sqldatacon, leaguename);
   HockeyLeagueHasDivisions = True;
   if(hasdivisions.lower()=="no"):
    HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
-  MakeHockeyLeague(self.hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+  MakeHockeyLeague(self.hockeycon, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
  def AddHockeyConference(self, leaguename, conference, hasconferences="yes"):
   HockeyLeagueHasConferences = True;
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
-  MakeHockeyConference(self.hockeyarray, leaguename, conference, HockeyLeagueHasConferences);
+  MakeHockeyConference(self.hockeycon, leaguename, conference, HockeyLeagueHasConferences);
  def AddHockeyDivision(self, leaguename, division, conference, hasconferences="yes", hasdivisions="yes"):
   HockeyLeagueHasDivisions = True;
   if(hasdivisions.lower()=="no"):
@@ -110,7 +114,7 @@ class MakeHockeyClass:
   HockeyLeagueHasConferences = True;
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
-  MakeHockeyDivision(self.hockeyarray, leaguename, division, conference, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+  MakeHockeyDivision(self.hockeycon, leaguename, division, conference, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
  def AddHockeyTeam(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences="yes", hasdivisions="yes"):
   HockeyLeagueHasDivisions = True;
   if(hasdivisions.lower()=="no"):
@@ -118,10 +122,10 @@ class MakeHockeyClass:
   HockeyLeagueHasConferences = True;
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
-  MakeHockeyTeam(self.hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix, teamnamesuffix, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+  MakeHockeyTeam(self.hockeycon, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix, teamnamesuffix, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
  def Close(self):
-  return CloseHockeyDatabase(self.hockeyarray);
+  return CloseHockeyDatabase(self.hockeycon);
  def CloseHockey(self):
-  return CloseHockeyDatabase(self.hockeyarray);
+  return CloseHockeyDatabase(self.hockeycon);
  def CloseHockeyDatabase(self):
-  return CloseHockeyDatabase(self.hockeyarray);
+  return CloseHockeyDatabase(self.hockeycon);
