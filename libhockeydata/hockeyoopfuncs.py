@@ -80,3 +80,47 @@ class MakeHockeyArray:
   return MakeHockeyPythonAltFileFromHockeyArray(self.hockeyarray, outpyfile, returnpy, verbose, verbosepy);
  def MakeHockeySQLFile(self, sqlfile=None, returnsql=False, verbose=True):
   return MakeHockeySQLFileFromHockeyArray(self.hockeyarray, sqlfile, returnsql, verbose);
+
+def MakeHockeyClass
+ def __init__(self, databasename="./hockeydatabase.db3"):
+  self.hockeyarray = MakeHockeyDatabase(databasename);
+  MakeHockeyLeagueTable(self.hockeyarray);
+ def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
+  MakeHockeyTeamTable(sqldatacon, leaguename);
+  MakeHockeyConferenceTable(sqldatacon, leaguename);
+  MakeHockeyGameTable(sqldatacon, leaguename);
+  MakeHockeyDivisionTable(sqldatacon, leaguename);
+  HockeyLeagueHasDivisions = True;
+  if(hasdivisions.lower()=="no"):
+   HockeyLeagueHasDivisions = False;
+  HockeyLeagueHasConferences = True;
+  if(hasconferences.lower()=="no"):
+   HockeyLeagueHasConferences = False;
+  MakeHockeyLeague(self.hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+ def AddHockeyConference(self, leaguename, conference, hasconferences="yes"):
+  HockeyLeagueHasConferences = True;
+  if(hasconferences.lower()=="no"):
+   HockeyLeagueHasConferences = False;
+  MakeHockeyConference(self.hockeyarray, leaguename, conference, HockeyLeagueHasConferences);
+ def AddHockeyDivision(self, leaguename, division, conference, hasconferences="yes", hasdivisions="yes"):
+  HockeyLeagueHasDivisions = True;
+  if(hasdivisions.lower()=="no"):
+   HockeyLeagueHasDivisions = False;
+  HockeyLeagueHasConferences = True;
+  if(hasconferences.lower()=="no"):
+   HockeyLeagueHasConferences = False;
+  MakeHockeyDivision(self.hockeyarray, leaguename, division, conference, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+ def AddHockeyTeam(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences="yes", hasdivisions="yes"):
+  HockeyLeagueHasDivisions = True;
+  if(hasdivisions.lower()=="no"):
+   HockeyLeagueHasDivisions = False;
+  HockeyLeagueHasConferences = True;
+  if(hasconferences.lower()=="no"):
+   HockeyLeagueHasConferences = False;
+  MakeHockeyTeam(self.hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix, teamnamesuffix, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+ def Close(self):
+  return CloseHockeyDatabase(self.hockeyarray);
+ def CloseHockey(self):
+  return CloseHockeyDatabase(self.hockeyarray);
+ def CloseHockeyDatabase(self):
+  return CloseHockeyDatabase(self.hockeyarray);
