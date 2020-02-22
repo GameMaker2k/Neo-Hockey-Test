@@ -81,7 +81,8 @@ class MakeHockeyArray:
  def MakeHockeySQLFile(self, sqlfile=None, returnsql=False, verbose=True):
   return MakeHockeySQLFileFromHockeyArray(self.hockeyarray, sqlfile, returnsql, verbose);
 
-def MakeHockeyClass
+''' // Object-oriented classes and functions by Kazuki Przyborowski '''
+def MakeHockeyClass:
  def __init__(self, databasename="./hockeydatabase.db3"):
   self.hockeyarray = MakeHockeyDatabase(databasename);
   MakeHockeyLeagueTable(self.hockeyarray);
