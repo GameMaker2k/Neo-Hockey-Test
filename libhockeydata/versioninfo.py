@@ -83,7 +83,7 @@ def version_info():
   return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": __version_info__[3]};
  if(__version_info__[3] is None):
   return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None};
-__version_date_info__ = (2020, 2, 17, "RC 1", 1);
+__version_date_info__ = (2020, 2, 17, __version_info__[3], __version_info__[4]);
 def version_date():
  if(__version_date_info__[3] is not None):
   return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": __version_date_info__[3]};
@@ -91,3 +91,11 @@ def version_date():
   return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": None};
 __version_date__ = "{year}.{month}.{day}".format(year=__version_date_info__[0], month=__version_date_info__[1], day=__version_date_info__[2]);
 __version_date_alt__ = "{year}.{month}.{day} {release}".format(year=__version_date_info__[0], month=__version_date_info__[1], day=__version_date_info__[2], release=__version_date_info__[2]);
+if(__version_date_info__[4] is not None):
+ __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
+if(__version_date_info__[4] is None):
+ __version_date_plusrc__ = __version_date__;
+if(__version_info__[4] is not None):
+ __version_plusrc__ = __version__+"-"+str(__version_info__[4]);
+if(__version_info__[4] is None):
+ __version_plusrc__ = __version__;
