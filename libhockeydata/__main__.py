@@ -21,7 +21,7 @@ import sys, os, argparse;
 hockeytestdir = os.path.dirname(__file__);
 sys.path.append(hockeytestdir);
 import libhockeydata;
-from libhockeytest.versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __project__, __project_url__, __revision__, __status__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_date_info__, __version_info__, version_date, version_info;
+from libhockeydata.versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __project__, __project_url__, __revision__, __status__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_date_info__, __version_info__, version_date, version_info;
 verinfotext = "{projectname} {projectver} {copyrightstr}; #Release {projectver} {projectdate}".format(projectname=__project__, projectver=__version__, copyrightstr=__copyright__, projectdate=__version_date__);
 
 parser = argparse.ArgumentParser(description=verinfotext+"\nPyHockeyStats is just a test script dealing with hockey games and stats.", conflict_handler = "resolve", add_help = True, formatter_class = argparse.RawTextHelpFormatter);
