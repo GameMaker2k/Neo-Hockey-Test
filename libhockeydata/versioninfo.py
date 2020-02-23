@@ -16,22 +16,78 @@
     $FileInfo: versioninfo.py - Last Update: 2/17/2020 Ver. 0.3.0 RC 1 - Author: cooldude2k $
 '''
 
-import re;
+from __future__ import absolute_import, division, print_function, unicode_literals;
+import datetime;
 
+getcuryear = datetime.date.today().year;
+if(getcuryear <= 2015):
+ getcuryear = 2016;
+getcuryear = str(getcuryear);
+__author__ = "Kazuki Przyborowski";
+__copyright__ = "(C) Game Maker 2k @ 2011-"+getcuryear;
+__credits__ = ["Kazuki Przyborowski", "Game Maker 2k"];
+__copyright_year__ = "2015-"+getcuryear;
+__license__ = "Revised BSD License";
+__license_string__ = """-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+		    Revised BSD License
+
+Copyright (C) 2011-2020 Game Maker 2k. 
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+     this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright 
+     notice, this list of conditions and the following disclaimer in 
+     the documentation and/or other materials provided with the distribution.
+
+  3. Neither the name of Game Maker 2k nor the names of its contributors
+     may be used to endorse or promote products derived from this software
+     without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF 
+THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those of the
+authors and should not be interpreted as representing official policies, either expressed
+or implied, of Game Maker 2k.
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-""";
+__maintainer__ = "Kazuki Przyborowski";
+__email__ = "kazuki.przyborowski@gmail.com";
+__status__ = "Production";
 __program_name__ = "PyHockeyStats";
 __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 3, 0, "RC 1", 1);
-__version_date_info__ = (2020, 2, 17, "RC 1", 1);
-__version_date__ = str(__version_date_info__[0])+"."+str(__version_date_info__[1]).zfill(2)+"."+str(__version_date_info__[2]).zfill(2);
 __revision__ = __version_info__[3];
 __revision_id__ = "$Id$";
-#__revision_id__ = re.findall(r"\$Id$", __full_revision_id__);
-if(__version_info__[4] is not None):
- __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
-if(__version_info__[4] is None):
- __version_date_plusrc__ = __version_date__;
 if(__version_info__[3] is not None):
- __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2])+" "+str(__version_info__[3]);
+ __version__ = "{major}.{minor}.{build} {release}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2], release=__version_info__[3]);
 if(__version_info__[3] is None):
- __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2]);
+ __version__ = "{major}.{minor}.{build}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2]);
+__version_alt__ = "{major}.{minor}.{build}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2]);
+def version_info():
+ if(__version_info__[3] is not None):
+  return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": __version_info__[3]};
+ if(__version_info__[3] is None):
+  return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None};
+__version_date_info__ = (2020, 2, 17, "RC 1", 1);
+def version_date():
+ if(__version_date_info__[3] is not None):
+  return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": __version_date_info__[3]};
+ if(__version_date_info__[3] is None):
+  return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": None};
+__version_date__ = "{year}.{month}.{day}".format(year=__version_date_info__[0], month=__version_date_info__[1], day=__version_date_info__[2]);
+__version_date_alt__ = "{year}.{month}.{day} {release}".format(year=__version_date_info__[0], month=__version_date_info__[1], day=__version_date_info__[2], release=__version_date_info__[2]);
