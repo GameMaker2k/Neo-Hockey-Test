@@ -13,7 +13,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeyoopfuncs.py - Last Update: 2/17/2020 Ver. 0.2.6 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeyoopfuncs.py - Last Update: 2/26/2020 Ver. 0.3.1 RC 1 - Author: cooldude2k $
 '''
 
 from libhockeydata.hockeyfunctions import *;
