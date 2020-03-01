@@ -47,7 +47,26 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
   return False;
  return False;
 
-def DumpHockeyDatabase(insdbfile, outsqlfile, returninsdbfile=True):
+def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
+ if(insdbfile is None):
+  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+ if(insdbfile is not None and isinstance(insdbfile, str)):
+  insqldatacon = MakeHockeyDatabase(insdbfile);
+ if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+  insqldatacon = tuple(insdbfile);
+ dbdumplist = [];
+ for line in insqldatacon[1].iterdump():
+  dbdumplist.append(line+"\n");
+ sqloutstring = ''.join(dbdumplist);
+ if(returninsdbfile):
+  return [sqloutstring, insqldatacon];
+ elif(not returninsdbfile):
+  return [sqloutstring];
+ else:
+  return False;
+ return False;
+
+def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
  if(insdbfile is None):
   insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
  if(insdbfile is not None and isinstance(insdbfile, str)):
