@@ -74,7 +74,7 @@ def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  VerbosePrintOut(dbgtxt, outtype, dbgenable, dgblevel);
  return dbgtxt;
 
-def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE"):
+def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT"):
  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
@@ -83,6 +83,7 @@ def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE"):
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
+ sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  return sqldatacon;
 
 def CreateHockeyArray(databasename="./hockeydatabase.db3"):
