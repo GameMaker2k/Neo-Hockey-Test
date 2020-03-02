@@ -289,7 +289,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
   VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n");
   VerbosePrintOut("--");
   VerbosePrintOut("-- Database: "+sdbfile+"");
-  VerbosePrintOut("--\n");
+  VerbosePrintOut("--");
   VerbosePrintOut("-- --------------------------------------------------------");
   VerbosePrintOut(" ");
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
