@@ -84,6 +84,40 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
   return False;
  return False;
 
+def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True):
+ if(outsdbfile is None):
+  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+ if(outsdbfile is not None and isinstance(outsdbfile, str)):
+  insqldatacon = MakeHockeyDatabase(outsdbfile);
+ if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
+  insqldatacon = tuple(outsdbfile);
+ insqldatacon[1].executescript(insqlstring);
+ if(returnoutsdbfile):
+  return [insqldatacon];
+ elif(not returnoutsdbfile):
+  return None;
+ else:
+  return False;
+ return False;
+
+def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=True):
+ if(outsdbfile is None):
+  insqldatacon = MakeHockeyDatabase(":memory:");
+ if(outsdbfile is not None and isinstance(outsdbfile, str)):
+  insqldatacon = MakeHockeyDatabase(outsdbfile);
+ if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
+  insqldatacon = tuple(outsdbfile);
+ with open(insqlfile, 'r') as f:
+  sqlinput = f.read();
+ insqldatacon[1].executescript(sqlinput);
+ if(returnoutsdbfile):
+  return [insqldatacon];
+ elif(not returnoutsdbfile):
+  return None;
+ else:
+  return False;
+ return False;
+
 def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
