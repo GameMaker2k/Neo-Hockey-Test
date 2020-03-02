@@ -23,13 +23,13 @@ from libhockeydata.versioninfo import __program_name__, __project__, __project_u
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(insdbfile is None):
-  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+  insqldatacon = MakeHockeyDatabase(":memory:");
  if(insdbfile is not None and isinstance(insdbfile, str)):
   insqldatacon = MakeHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
  if(outsdbfile is None):
-  outsqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+  outsqldatacon = MakeHockeyDatabase(":memory:");
  if(outsdbfile is not None and isinstance(outsdbfile, str)):
   outsqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
@@ -49,7 +49,7 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
 
 def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
  if(insdbfile is None):
-  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+  insqldatacon = MakeHockeyDatabase(":memory:");
  if(insdbfile is not None and isinstance(insdbfile, str)):
   insqldatacon = MakeHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
