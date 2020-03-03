@@ -89,6 +89,6 @@ if(sys.argv[1]=="exec" or sys.argv[1]=="run" or sys.argv[1]=="execute"):
  argcmd = " ".join(argcmd);
  exec(argcmd);
 
-if(taskfound==False):
+if(not taskfound):
  print(str("command: "+sys.argv[0]+os.linesep+"arguments: "+sys.argv[1]+os.linesep+"error: syntax error missing arguments"));
  sys.exit(0);
