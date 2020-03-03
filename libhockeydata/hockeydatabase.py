@@ -18,16 +18,28 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging;
+supersqlitesupport = True;
 try:
  from supersqlite import sqlite3;
 except ModuleNotFoundError:
  import sqlite3;
+ supersqlitesupport = False;
 
-apswsupport = True;
-try:
- import apsw;
-except ImportError:
- apswsupport = False;
+if(supersqlitesupport)
+ apswsupport = True;
+ try:
+  import apsw;
+ except ImportError:
+  apswsupport = False;
+else:
+ apswsupport = True;
+ try:
+  from supersqlite import apsw;
+ except ImportError:
+  apswsupport = False;
+
+if(supersqlitesupport):
+ import supersqlite;
 
 try:
  from xml.sax.saxutils import xml_escape;
@@ -84,11 +96,15 @@ def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  VerbosePrintOut(dbgtxt, outtype, dbgenable, dgblevel);
  return dbgtxt;
 
-def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_apsw=False):
+def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_apsw=False, enable_supersqlite=False):
  if(not apswsupport and enable_apsw):
   enable_apsw = False;
- if(enable_apsw):
+ if(not supersqlitesupport and enable_supersqlite):
+  enable_apsw = False;
+ if(enable_apsw and not enable_supersqlite):
   sqlcon = apsw.Connection(sdbfile);
+ elif(enable_apsw and enable_supersqlite):
+  sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
  else:
   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
@@ -105,13 +121,17 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
  hockeyarray = { 'database': databasename, 'leaguelist': [] };
  return hockeyarray;
 
-def CreateHockeyDatabase(sdbfile, enable_apsw=False):
+def CreateHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
  if(not apswsupport and enable_apsw):
+  enable_apsw = False;
+ if(not supersqlitesupport and enable_supersqlite):
   enable_apsw = False;
  if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
   return False;
- if(enable_apsw):
+ if(enable_apsw and not enable_supersqlite):
   sqlcon = apsw.Connection(sdbfile);
+ elif(enable_apsw and enable_supersqlite):
+  sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
  else:
   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
@@ -122,13 +142,17 @@ def CreateHockeyDatabase(sdbfile, enable_apsw=False):
  sqlcon.close();
  return True;
 
-def OpenHockeyDatabase(sdbfile, enable_apsw=False):
+def OpenHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
  if(not apswsupport and enable_apsw):
+  enable_apsw = False;
+ if(not supersqlitesupport and enable_supersqlite):
   enable_apsw = False;
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
- if(enable_apsw):
+ if(enable_apsw and not enable_supersqlite):
   sqlcon = apsw.Connection(sdbfile);
+ elif(enable_apsw and enable_supersqlite):
+  sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
  else:
   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
