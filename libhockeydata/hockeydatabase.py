@@ -25,7 +25,7 @@ except ModuleNotFoundError:
  import sqlite3;
  supersqlitesupport = False;
 
-if(supersqlitesupport)
+if(supersqlitesupport):
  apswsupport = True;
  try:
   import apsw;
