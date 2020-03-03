@@ -17,7 +17,11 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, logging;
+import sys, os, re, logging;
+try:
+ from supersqlite import sqlite3;
+except ModuleNotFoundError:
+ import sqlite3;
 
 apswsupport = True;
 try:
