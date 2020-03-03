@@ -33,7 +33,14 @@ for subdir, dirs, files in os.walk(rootdir):
     for hckey in hockeyarray[hlkey]['conferencelist']:
      for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
       for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-       print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
+       if(len(hckey)==0 and len(hdkey)==0):
+        print(hlkey+" / "+htkey);
+       if(len(hckey)==0 and len(hdkey)>0):
+        print(hlkey+" / "+hdkey+" / "+htkey);
+       if(len(hckey)>0 and len(hdkey)==0):
+        print(hlkey+" / "+hckey+" / "+htkey);
+       if(len(hckey)>0 and len(hdkey)>0):
+        print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkey);
    print("");
    print("--------------------------------------------------------------------------");
    print("");
