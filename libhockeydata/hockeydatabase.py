@@ -21,7 +21,7 @@ import sys, os, re, logging;
 supersqlitesupport = True;
 try:
  from supersqlite import sqlite3;
-except ModuleNotFoundError:
+except ImportError:
  import sqlite3;
  supersqlitesupport = False;
 
