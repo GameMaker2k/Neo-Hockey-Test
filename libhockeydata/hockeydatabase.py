@@ -19,6 +19,12 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re, logging;
 
+apswsupport = True;
+try:
+ import apsw;
+except ImportError:
+ apswsupport = False;
+
 try:
  from xml.sax.saxutils import xml_escape;
 except ImportError:
@@ -74,8 +80,13 @@ def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  VerbosePrintOut(dbgtxt, outtype, dbgenable, dgblevel);
  return dbgtxt;
 
-def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT"):
- sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_apsw=False):
+ if(not apswsupport and enable_apsw):
+  enable_apsw = False;
+ if(enable_apsw):
+  sqlcon = apsw.Connection(sdbfile);
+ else:
+  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
@@ -90,10 +101,15 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
  hockeyarray = { 'database': databasename, 'leaguelist': [] };
  return hockeyarray;
 
-def CreateHockeyDatabase(sdbfile):
+def CreateHockeyDatabase(sdbfile, enable_apsw=False):
+ if(not apswsupport and enable_apsw):
+  enable_apsw = False;
  if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
   return False;
- sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+ if(enable_apsw):
+  sqlcon = apsw.Connection(sdbfile);
+ else:
+  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
@@ -102,10 +118,15 @@ def CreateHockeyDatabase(sdbfile):
  sqlcon.close();
  return True;
 
-def OpenHockeyDatabase(sdbfile):
+def OpenHockeyDatabase(sdbfile, enable_apsw=False):
+ if(not apswsupport and enable_apsw):
+  enable_apsw = False;
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
- sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+ if(enable_apsw):
+  sqlcon = apsw.Connection(sdbfile);
+ else:
+  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
