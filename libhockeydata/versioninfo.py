@@ -29,7 +29,7 @@ __credits__ = ["Kazuki Przyborowski", "Game Maker 2k"];
 __copyright_year__ = "2015-"+getcuryear;
 __license__ = "Revised BSD License";
 __license_string__ = """-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-		    Revised BSD License
+            Revised BSD License
 
 Copyright (C) 2011-2020 Game Maker 2k. 
 All rights reserved.
