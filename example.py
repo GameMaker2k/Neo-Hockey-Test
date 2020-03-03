@@ -35,7 +35,7 @@ for subdir, dirs, files in os.walk(rootdir):
       for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
        teamnameprefix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'];
        teamnamesuffix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'];
-       htkeyfull = GetFullTeamName(htkey, teamnameprefix, teamnamesuffix);
+       htkeyfull = libhockeydata.GetFullTeamName(htkey, teamnameprefix, teamnamesuffix);
        if(len(hckey)==0 and len(hdkey)==0):
         print(hlkey+" / "+htkeyfull);
        if(len(hckey)==0 and len(hdkey)>0):
