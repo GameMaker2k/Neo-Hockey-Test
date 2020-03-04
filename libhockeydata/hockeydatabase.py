@@ -162,6 +162,30 @@ def OpenHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  return sqldatacon;
 
+def SQLiteCreateTableString(sqldict, droptable=True):
+ sqloutput = "";
+ if(droptable):
+  sqloutput = sqloutput+"DROP TABLE IF EXISTS "+sqldict['table_info']['table_name']+"\n";
+ sqloutput = sqloutput+"CREATE TABLE "+sqldict['table_info']['table_name']+" (\n";
+ sqltablei = 0;
+ sqltablecount = 1;
+ sqltablelen = len(sqldict['table_info']['table_columns']);
+ while(sqltablei<sqltablelen):
+  sqloutput = sqloutput+"  "+sqldict['table_info']['table_columns'][sqltablei]['column_name'];
+  sqloutput = sqloutput+" "+sqldict['table_info']['table_columns'][sqltablei]['column_type'];
+  if(sqldict['table_info']['table_columns'][sqltablei]['key_type'] is not None):
+   sqloutput = sqloutput+" "+sqldict['table_info']['table_columns'][sqltablei]['key_type'];
+  if(sqldict['table_info']['table_columns'][sqltablei]['default_value'] is not None):
+   sqloutput = sqloutput+" "+sqldict['table_info']['table_columns'][sqltablei]['default_value'];
+  if(sqltablecount<sqltablelen):
+   sqloutput = sqloutput+",\n";
+  else:
+   sqloutput = sqloutput+"\n";
+   sqloutput = sqloutput+");";
+  sqltablecount = sqltablecount + 1;
+  sqltablei = sqltablei + 1;
+ return sqloutput;
+
 def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
  wins = 0;
  losses = 0;
