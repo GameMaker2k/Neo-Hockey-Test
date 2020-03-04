@@ -162,7 +162,7 @@ def OpenHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  return sqldatacon;
 
-def SQLiteCreateTableString(sqldict, droptable=True):
+def CreateSQLiteTableString(sqldict, droptable=True):
  sqloutput = "";
  if(droptable):
   sqloutput = sqloutput+"DROP TABLE IF EXISTS "+sqldict['table_info']['table_name']+"\n";
