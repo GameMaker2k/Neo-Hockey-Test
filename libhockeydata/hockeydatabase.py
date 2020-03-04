@@ -162,11 +162,22 @@ def OpenHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  return sqldatacon;
 
-def CreateSQLiteTableString(sqldict, droptable=True):
+def CreateSQLiteTableString(sqldict, temptable=False, droptable=True):
+ if(isinstance(sqldict, type(None)) or isinstance(sqldict, type(True)) or isinstance(sqldict, type(False)) or not isinstance(sqldict, type({}))):
+  return False;
+ if "table_info" not in sqldict.keys():
+  return False;
+ if "table_name" not in sqldict['table_info'].keys():
+  return False;
+ if "table_columns" not in sqldict['table_info'].keys():
+  return False;
  sqloutput = "";
  if(droptable):
   sqloutput = sqloutput+"DROP TABLE IF EXISTS "+sqldict['table_info']['table_name']+"\n";
- sqloutput = sqloutput+"CREATE TABLE "+sqldict['table_info']['table_name']+" (\n";
+ if(not temptable):
+  sqloutput = sqloutput+"CREATE TABLE "+sqldict['table_info']['table_name']+" (\n";
+ else:
+  sqloutput = sqloutput+"CREATE TEMP TABLE "+sqldict['table_info']['table_name']+" (\n";
  sqltablei = 0;
  sqltablecount = 1;
  sqltablelen = len(sqldict['table_info']['table_columns']);
