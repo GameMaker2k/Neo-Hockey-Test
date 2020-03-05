@@ -24,10 +24,7 @@ extensions = ['.xml']
 for subdir, dirs, files in os.walk(rootdir):
  print("");
  print("--------------------------------------------------------------------------");
- print("");
- for file in files:
-  ext = os.path.splitext(file)[-1].lower();
-  if ext in extensions:
+ print("");                                                                                                                                                                                                                                                                                                                   for file in files:                                                                                                                                                                                                                                                                                                            ext = os.path.splitext(file)[-1].lower();                                                                                                                                                                                                                                                                                    if ext in extensions:
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(os.path.join(subdir, file));
    for hlkey in hockeyarray['leaguelist']:
     for hckey in hockeyarray[hlkey]['conferencelist']:
@@ -36,14 +33,15 @@ for subdir, dirs, files in os.walk(rootdir):
        teamnameprefix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'];
        teamnamesuffix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'];
        htkeyfull = libhockeydata.GetFullTeamName(htkey, teamnameprefix, teamnamesuffix);
+       hlkeyfull = hockeyarray[hlkey]['leagueinfo']['fullname'];
        if(len(hckey)==0 and len(hdkey)==0):
-        print(hlkey+" / "+htkeyfull);
+        print(hlkeyfull+" / "+htkeyfull);
        if(len(hckey)==0 and len(hdkey)>0):
-        print(hlkey+" / "+hdkey+" / "+htkeyfull);
+        print(hlkeyfull+" / "+hdkey+" Division / "+htkeyfull);
        if(len(hckey)>0 and len(hdkey)==0):
-        print(hlkey+" / "+hckey+" / "+htkeyfull);
+        print(hlkeyfull+" / "+hckey+" Conference / "+htkeyfull);
        if(len(hckey)>0 and len(hdkey)>0):
-        print(hlkey+" / "+hckey+" / "+hdkey+" / "+htkeyfull);
+        print(hlkeyfull+" / "+hckey+" Conference / "+hdkey+" Division / "+htkeyfull);
    print("");
    print("--------------------------------------------------------------------------");
    print("");
