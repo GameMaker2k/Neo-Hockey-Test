@@ -17,5 +17,5 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-from libhockeydata.hockeyshortcuts import *;
-from libhockeydata.versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
+from .hockeyshortcuts import *;
+from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;

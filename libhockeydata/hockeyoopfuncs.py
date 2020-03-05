@@ -16,7 +16,7 @@
     $FileInfo: hockeyoopfuncs.py - Last Update: 2/26/2020 Ver. 0.3.1 RC 1 - Author: cooldude2k $
 '''
 
-from libhockeydata.hockeyfunctions import *;
+from .hockeyfunctions import *;
 
 ''' // Object-oriented classes and functions by Kazuki Przyborowski '''
 class MakeHockeyArray:
