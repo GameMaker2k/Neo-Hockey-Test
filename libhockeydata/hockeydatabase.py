@@ -814,7 +814,7 @@ def ReplaceHockeyTeamFromArray(hockeyarray, leaguename, oldteamname, newteamname
   htin = hockeyarray[leaguename][conference][division]['teamlist'].index(str(oldteamname));
   hockeyarray[leaguename][conference][division]['teamlist'][htin] = str(newteamname);
   newfullteamname = GetFullTeamName(hockeyarray[leaguename][conference][division][newteamname]['teaminfo']['name'], hockeyarray[leaguename][conference][division][newteamname]['teaminfo']['prefix'], hockeyarray[leaguename][conference][division][newteamname]['teaminfo']['suffix']);
-  hockeyarray[leaguename]['quickinfo']['teaminfo'][newteamname]['fullname'] = newfullteamname;
+  hockeyarray[leaguename]['quickinfo']['teaminfo'][newteamname]['fullname'] = str(newfullteamname);
   for hgkey in hockeyarray[leaguename]['games']:
    if(hgkey['hometeam']==oldfullteamname):
     hgkey['hometeam'] = newfullteamname;
