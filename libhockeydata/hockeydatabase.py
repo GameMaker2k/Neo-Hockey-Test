@@ -42,6 +42,12 @@ else:
 if(supersqlitesupport):
  import supersqlite;
 
+oldsqlitesupport = True;
+try:
+ import sqlite;
+except ImportError:
+ oldsqlitesupport = False;
+
 try:
  from xml.sax.saxutils import xml_escape;
 except ImportError:
@@ -97,17 +103,24 @@ def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  VerbosePrintOut(dbgtxt, outtype, dbgenable, dgblevel);
  return dbgtxt;
 
-def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_apsw=False, enable_supersqlite=False):
+def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+ if(not oldsqlitesupport and enable_oldsqlite):
+  enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
   enable_apsw = False;
  if(not supersqlitesupport and enable_supersqlite):
   enable_apsw = False;
- if(enable_apsw and not enable_supersqlite):
-  sqlcon = apsw.Connection(sdbfile);
- elif(enable_apsw and enable_supersqlite):
-  sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+ if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
+  return False;
+ if(enable_oldsqlite):
+   sqlcon = sqlite.connect(sdbfile, isolation_level=None);
  else:
-  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+  if(enable_apsw and not enable_supersqlite):
+   sqlcon = apsw.Connection(sdbfile);
+  elif(enable_apsw and enable_supersqlite):
+   sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+  else:
+   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
@@ -122,19 +135,24 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
  hockeyarray = { 'database': databasename, 'leaguelist': [] };
  return hockeyarray;
 
-def CreateHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
+def CreateHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+ if(not oldsqlitesupport and enable_oldsqlite):
+  enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
   enable_apsw = False;
  if(not supersqlitesupport and enable_supersqlite):
   enable_apsw = False;
  if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
   return False;
- if(enable_apsw and not enable_supersqlite):
-  sqlcon = apsw.Connection(sdbfile);
- elif(enable_apsw and enable_supersqlite):
-  sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+ if(enable_oldsqlite):
+   sqlcon = sqlite.connect(sdbfile, isolation_level=None);
  else:
-  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+  if(enable_apsw and not enable_supersqlite):
+   sqlcon = apsw.Connection(sdbfile);
+  elif(enable_apsw and enable_supersqlite):
+   sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+  else:
+   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
@@ -143,19 +161,24 @@ def CreateHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
  sqlcon.close();
  return True;
 
-def OpenHockeyDatabase(sdbfile, enable_apsw=False, enable_supersqlite=False):
+def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+ if(not oldsqlitesupport and enable_oldsqlite):
+  enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
   enable_apsw = False;
  if(not supersqlitesupport and enable_supersqlite):
   enable_apsw = False;
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+ if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
   return False;
- if(enable_apsw and not enable_supersqlite):
-  sqlcon = apsw.Connection(sdbfile);
- elif(enable_apsw and enable_supersqlite):
-  sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+ if(enable_oldsqlite):
+   sqlcon = sqlite.connect(sdbfile, isolation_level=None);
  else:
-  sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
+  if(enable_apsw and not enable_supersqlite):
+   sqlcon = apsw.Connection(sdbfile);
+  elif(enable_apsw and enable_supersqlite):
+   sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+  else:
+   sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
