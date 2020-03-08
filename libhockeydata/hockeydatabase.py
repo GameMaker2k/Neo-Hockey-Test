@@ -169,7 +169,7 @@ def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enabl
   enable_apsw = False;
  if(not supersqlitesupport and enable_supersqlite):
   enable_apsw = False;
- if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(enable_oldsqlite):
    sqlcon = sqlite.connect(sdbfile, isolation_level=None);
