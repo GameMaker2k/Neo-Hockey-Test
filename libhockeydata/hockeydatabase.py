@@ -18,6 +18,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging;
+
 supersqlitesupport = True;
 try:
  from supersqlite import sqlite3;
