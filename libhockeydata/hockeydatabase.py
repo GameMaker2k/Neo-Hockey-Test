@@ -127,7 +127,8 @@ def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
- sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
+ if(not enable_oldsqlite):
+  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  return sqldatacon;
 
