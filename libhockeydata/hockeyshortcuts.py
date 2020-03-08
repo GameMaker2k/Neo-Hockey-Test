@@ -174,6 +174,48 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
   return True;
  return True;
 
+def MakeHockeyPythonFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+ hockeypyout = MakeHockeyPythonFromHockeyArray(hockeyarray, True);
+ return hockeypyout;
+
+def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+  return False;
+ if(outpyfile is None and xmlisfile):
+  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
+  outpyfile = file_wo_extension+".xml";
+ pyfp = open(outpyfile, "w+");
+ pystring = MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile, verbose);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy):
+  return pystring;
+ if(not returnpy):
+  return True;
+ return True;
+
+def MakeHockeyPythonAltFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+ hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, verbosepy);
+ return hockeypyout;
+
+def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, verbosepy=True):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+  return False;
+ if(outpyfile is None and xmlisfile):
+  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
+  outpyfile = file_wo_extension+".xml";
+ pyfp = open(outpyfile, "w+");
+ pystring = MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile, verbose, verbosepy);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy):
+  return pystring;
+ if(not returnpy):
+  return True;
+ return True;
+
 def MakeHockeyXMLFromHockeyDatabase(sdbfile, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
@@ -250,6 +292,48 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=
   pyfile = file_wo_extension+".xml";
  pyfp = open(pyfile, "w+");
  pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(sdbfile, verbose);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy):
+  return pystring;
+ if(not returnpy):
+  return True;
+ return True;
+
+def MakeHockeyPythonFromHockeyDatabase(sdbfile, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+ hockeypyout = MakeHockeyPythonFromHockeyArray(hockeyarray, verbose);
+ return hockeypyout;
+
+def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(pyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  pyfile = file_wo_extension+".xml";
+ pyfp = open(pyfile, "w+");
+ pystring = MakeHockeyPythonFromHockeyDatabase(sdbfile, verbose);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy):
+  return pystring;
+ if(not returnpy):
+  return True;
+ return True;
+
+def MakeHockeyPythonAltFromHockeyDatabase(sdbfile, verbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+ hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose);
+ return hockeypyout;
+
+def MakeHockeyPythonAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(pyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  pyfile = file_wo_extension+".xml";
+ pyfp = open(pyfile, "w+");
+ pystring = MakeHockeyPythonAltFromHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy):
@@ -444,6 +528,48 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, return
   pyfile = file_wo_extension+".xml";
  pyfp = open(pyfile, "w+");
  pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(sdbfile, verbose);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy):
+  return pystring;
+ if(not returnpy):
+  return True;
+ return True;
+
+def MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+ pystring = MakeHockeyPythonFromHockeyXML(xmlstring, False, verbose);
+ return pystring;
+
+def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(pyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  pyfile = file_wo_extension+".xml";
+ pyfp = open(pyfile, "w+");
+ pystring = MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose);
+ pyfp.write(pystring);
+ pyfp.close();
+ if(returnpy):
+  return pystring;
+ if(not returnpy):
+  return True;
+ return True;
+
+def MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+ pystring = MakeHockeyPythonAltFromHockeyXML(xmlstring, False, verbose);
+ return pystring;
+
+def MakeHockeyPythonAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(pyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  pyfile = file_wo_extension+".xml";
+ pyfp = open(pyfile, "w+");
+ pystring = MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, verbose);
  pyfp.write(pystring);
  pyfp.close();
  if(returnpy):
