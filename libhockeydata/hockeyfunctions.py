@@ -190,9 +190,9 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
     if(verbose):
      VerbosePrintOut("  </games>");
     xmlstring = xmlstring+"  </games>\n";
- if(verbose):
-  VerbosePrintOut(" </league>");
- xmlstring = xmlstring+" </league>\n";
+  if(verbose):
+   VerbosePrintOut(" </league>");
+  xmlstring = xmlstring+" </league>\n";
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
