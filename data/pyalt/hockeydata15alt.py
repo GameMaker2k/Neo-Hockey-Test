@@ -4,7 +4,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata;
 
-hockeyarray = libhockeydata.CreateHockeyArray("../Hockey-Test/hockey15-16.db3");
+hockeyarray = libhockeydata.CreateHockeyArray("./Hockey-Test/hockey15-16.db3");
 hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "ECHL", "ECHL", "USA", "United States", "20151007", "Division=1,Conference=5", "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
 hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, "ECHL", "Eastern");
 hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "ECHL", "East", "Eastern");
