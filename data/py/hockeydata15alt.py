@@ -4,7 +4,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata;
 
-sqldatacon = libhockeydata.MakeHockeyDatabase("../Hockey-Test/hockey15-16.db3");
+sqldatacon = libhockeydata.MakeHockeyDatabase("./Hockey-Test/hockey15-16.db3");
 libhockeydata.MakeHockeyLeagueTable(sqldatacon);
 libhockeydata.MakeHockeyTeamTable(sqldatacon, "ECHL");
 libhockeydata.MakeHockeyConferenceTable(sqldatacon, "ECHL");
