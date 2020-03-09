@@ -79,7 +79,7 @@ zipfp.close();
 shutil.rmtree("./bundle/"+pystring);
 os.mkdir("./bundle/"+pystring);
 shutil.move(tempdir+"/pybundle/mkhockeydata", "./bundle/"+pystring+"/mkhockeydata");
-os.chmod("./bundle/"+pystring+"/mkhockeydata", 0o755)
+os.chmod("./bundle/"+pystring+"/mkhockeydata", 0o755);
 shutil.rmtree(tempdir+"/pybundle");
 oldpath = os.getcwd();
 os.chdir("./bundle/"+pystring);
