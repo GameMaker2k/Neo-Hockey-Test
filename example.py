@@ -27,40 +27,79 @@ else:
  rootdir = sys.argv[1];
 extensions = ['.xml', '.db3'];
 
-for subdir, dirs, files in os.walk(rootdir):
+if(os.path.isdir(rootdir)):
+ for subdir, dirs, files in os.walk(rootdir):
+  print("");
+  print("--------------------------------------------------------------------------");
+  print("");
+  for file in files:
+   ext = os.path.splitext(file)[-1].lower();
+   if ext in extensions:
+    filepath = os.path.join(subdir, file);
+    if(ext==".xml"):
+     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+    elif(ext==".db3"):
+     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+    else:
+     sys.exit(1);
+    print("File: "+filepath);
+    print("");
+    print("--------------------------------------------------------------------------");
+    print("");
+    for hlkey in hockeyarray['leaguelist']:
+     for hckey in hockeyarray[hlkey]['conferencelist']:
+      for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
+       for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
+        teamnameprefix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'];
+        teamnamesuffix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'];
+        htkeyfull = libhockeydata.GetFullTeamName(htkey, teamnameprefix, teamnamesuffix);
+        hlkeyfull = hockeyarray[hlkey]['leagueinfo']['fullname'];
+        if(len(hckey)==0 and len(hdkey)==0):
+         print(hlkeyfull+" / "+htkeyfull);
+        if(len(hckey)==0 and len(hdkey)>0):
+         print(hlkeyfull+" / "+hdkey+" Division / "+htkeyfull);
+        if(len(hckey)>0 and len(hdkey)==0):
+         print(hlkeyfull+" / "+hckey+" Conference / "+htkeyfull);
+        if(len(hckey)>0 and len(hdkey)>0):
+         print(hlkeyfull+" / "+hckey+" Conference / "+hdkey+" Division / "+htkeyfull);
+    print("");
+    print("--------------------------------------------------------------------------");
+    print("");
+elif(os.path.isfile(rootdir)):
+ ext = os.path.splitext(rootdir)[-1].lower();
+ if ext in extensions:
+  filepath = rootdir;
+ if(ext==".xml"):
+  hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+ elif(ext==".db3"):
+  hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+ else:
+  sys.exit(1);
  print("");
  print("--------------------------------------------------------------------------");
  print("");
- for file in files:
-  ext = os.path.splitext(file)[-1].lower();
-  if ext in extensions:
-   filepath = os.path.join(subdir, file);
-   if(ext==".xml"):
-    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
-   elif(ext==".db3"):
-    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
-   else:
-    sys.exit(1);
-   print("File: "+filepath);
-   print("");
-   print("--------------------------------------------------------------------------");
-   print("");
-   for hlkey in hockeyarray['leaguelist']:
-    for hckey in hockeyarray[hlkey]['conferencelist']:
-     for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-      for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-       teamnameprefix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'];
-       teamnamesuffix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'];
-       htkeyfull = libhockeydata.GetFullTeamName(htkey, teamnameprefix, teamnamesuffix);
-       hlkeyfull = hockeyarray[hlkey]['leagueinfo']['fullname'];
-       if(len(hckey)==0 and len(hdkey)==0):
-        print(hlkeyfull+" / "+htkeyfull);
-       if(len(hckey)==0 and len(hdkey)>0):
-        print(hlkeyfull+" / "+hdkey+" Division / "+htkeyfull);
-       if(len(hckey)>0 and len(hdkey)==0):
-        print(hlkeyfull+" / "+hckey+" Conference / "+htkeyfull);
-       if(len(hckey)>0 and len(hdkey)>0):
-        print(hlkeyfull+" / "+hckey+" Conference / "+hdkey+" Division / "+htkeyfull);
-   print("");
-   print("--------------------------------------------------------------------------");
-   print("");
+ print("File: "+filepath);
+ print("");
+ print("--------------------------------------------------------------------------");
+ print("");
+ for hlkey in hockeyarray['leaguelist']:
+  for hckey in hockeyarray[hlkey]['conferencelist']:
+   for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
+    for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
+     teamnameprefix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'];
+     teamnamesuffix = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'];
+     htkeyfull = libhockeydata.GetFullTeamName(htkey, teamnameprefix, teamnamesuffix);
+     hlkeyfull = hockeyarray[hlkey]['leagueinfo']['fullname'];
+     if(len(hckey)==0 and len(hdkey)==0):
+      print(hlkeyfull+" / "+htkeyfull);
+     if(len(hckey)==0 and len(hdkey)>0):
+      print(hlkeyfull+" / "+hdkey+" Division / "+htkeyfull);
+     if(len(hckey)>0 and len(hdkey)==0):
+      print(hlkeyfull+" / "+hckey+" Conference / "+htkeyfull);
+     if(len(hckey)>0 and len(hdkey)>0):
+      print(hlkeyfull+" / "+hckey+" Conference / "+hdkey+" Division / "+htkeyfull);
+ print("");
+ print("--------------------------------------------------------------------------");
+ print("");
+else:
+ sys.exit(1);
