@@ -16,10 +16,16 @@
     $FileInfo: example.py - Last Update: 2/26/2020 Ver. 0.3.1 RC 1 - Author: cooldude2k $
 '''
 
-import libhockeydata, os;
+import libhockeydata, os, sys, random;
 
-rootdir = "./data/xml"
-extensions = ['.xml']
+defroot = ['./data/xml', './php/data'];
+randroot = random.randint(0, 1);
+rootdir = defroot[randroot];
+if(len(sys.argv)<2):
+ rootdir = defroot[randroot];
+else:
+ rootdir = sys.argv[1];
+extensions = ['.xml', '.db3'];
 
 for subdir, dirs, files in os.walk(rootdir):
  print("");
@@ -28,7 +34,17 @@ for subdir, dirs, files in os.walk(rootdir):
  for file in files:
   ext = os.path.splitext(file)[-1].lower();
   if ext in extensions:
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(os.path.join(subdir, file));
+   filepath = os.path.join(subdir, file);
+   if(ext==".xml"):
+    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+   elif(ext==".db3"):
+    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+   else:
+    sys.exit(1);
+   print("File: "+filepath);
+   print("");
+   print("--------------------------------------------------------------------------");
+   print("");
    for hlkey in hockeyarray['leaguelist']:
     for hckey in hockeyarray[hlkey]['conferencelist']:
      for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
