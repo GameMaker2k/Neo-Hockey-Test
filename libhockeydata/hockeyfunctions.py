@@ -252,10 +252,6 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
- if(returnsql):
-  return hockeyarray;
- if(not returnsql):
-  return True;
  return True;
 
 def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True):
@@ -293,10 +289,6 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
- if(returnsql):
-  return hockeyarray;
- if(not returnsql):
-  return True;
  return True;
 
 def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True):
@@ -334,10 +326,6 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
- if(returnsql):
-  return hockeyarray;
- if(not returnsql):
-  return True;
  return True;
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
