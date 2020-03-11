@@ -132,6 +132,37 @@ def CheckSQLiteDatabase(infile):
  sqlfp.close();
  return validsqlite;
 
+def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+  if(not CheckSQLiteDatabase(sdbfile)):
+   return [False];
+  sqldatacon = OpenHockeyDatabase(sdbfile);
+ else:
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return [False];
+ sqldatacur = sqldatacon[1].cursor();
+ if(sqldatacur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='HockeyLeagues';").fetchone() is None):
+  return [False];
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
+ for leagueinfo_tmp in getleague_tmp:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp[0]+cur_tab);
+ for get_cur_tab in table_list:
+  if(sqldatacur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='"+get_cur_tab+"';").fetchone() is None):
+   return [False];
+ if(not returndb):
+  CloseHockeyDatabase(sqldatacon);
+ if(returndb):
+  return [True, sqldatacon];
+ if(not returndb):
+  return [True];
+ return [True];
+
 def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
@@ -1757,4 +1788,7 @@ def CloseHockeyDatabase(sqldatacon):
  sqldatacon[0].execute("PRAGMA optimize;");
  sqldatacon[0].close();
  sqldatacon[1].close();
- return True;
+ if(db_integrity_check=="ok"):
+  return True;
+ else:
+  return False;

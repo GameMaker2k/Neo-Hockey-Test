@@ -22,7 +22,7 @@ from .hockeydatabase import *;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
- if(not CheckSQLiteDatabase(insdbfile)):
+ if(not CheckHockeySQLiteDatabase(insdbfile)):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
@@ -50,7 +50,7 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
  return False;
 
 def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
- if(not CheckSQLiteDatabase(insdbfile)):
+ if(not CheckHockeySQLiteDatabase(insdbfile)):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
@@ -71,7 +71,7 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
  return False;
 
 def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
- if(not CheckSQLiteDatabase(insdbfile)):
+ if(not CheckHockeySQLiteDatabase(insdbfile)):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
@@ -883,7 +883,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
 
 def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
-  if(not CheckSQLiteDatabase(sdbfile)):
+  if(not CheckHockeySQLiteDatabase(sdbfile)):
    return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
@@ -1162,7 +1162,6 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
- getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
  for leagueinfo_tmp in getleague_tmp:
   for cur_tab in all_table_list:
