@@ -281,7 +281,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
 
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
  if(pickleisfile and (os.path.exists(inpicklefile) and os.path.isfile(inpicklefile))):
-  picklefp = open(injsonfile, "r");
+  picklefp = open(inpicklefile, "r");
   hockeyarray = pickle.load(picklefp);
   picklefp.close();
  elif(not pickleisfile):
@@ -322,7 +322,9 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
 
 def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
  if(marshalisfile and (os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile))):
-  hockeyarray = marshal.load(inmarshalfile);
+  marshalfp = open(inmarshalfile, "r");
+  hockeyarray = marshal.load(marshalfp);
+  marshalfp.close();
  elif(not marshalisfile):
   hockeyarray = marshal.loads(inmarshalfile);
  else:
