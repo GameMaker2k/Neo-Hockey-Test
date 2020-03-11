@@ -22,7 +22,7 @@ from .hockeydatabase import *;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
- if(not CheckHockeySQLiteDatabase(insdbfile)):
+ if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
@@ -50,7 +50,7 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
  return False;
 
 def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
- if(not CheckHockeySQLiteDatabase(insdbfile)):
+ if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
@@ -71,7 +71,7 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
  return False;
 
 def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
- if(not CheckHockeySQLiteDatabase(insdbfile)):
+ if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
@@ -883,7 +883,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
 
 def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
-  if(not CheckHockeySQLiteDatabase(sdbfile)):
+  if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
