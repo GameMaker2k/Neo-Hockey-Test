@@ -281,7 +281,9 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
 
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
  if(pickleisfile and (os.path.exists(inpicklefile) and os.path.isfile(inpicklefile))):
-  hockeyarray = pickle.load(inpicklefile);
+  picklefp = open(injsonfile, "r");
+  hockeyarray = pickle.load(picklefp);
+  picklefp.close();
  elif(not pickleisfile):
   hockeyarray = pickle.loads(inpicklefile);
  else:
