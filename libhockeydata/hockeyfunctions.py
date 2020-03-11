@@ -1129,7 +1129,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   return False;
  return leaguearrayout;
 
-def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, True, False)[0];
@@ -1142,7 +1142,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
  sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n";
  sqldump = sqldump+"--\n";
- sqldump = sqldump+"-- Database: :memory:\n";
+ sqldump = sqldump+"-- Database: "+sdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  if(verbose):
@@ -1155,7 +1155,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
   VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"");
   VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"");
   VerbosePrintOut("--");
-  VerbosePrintOut("-- Database: :memory:");
+  VerbosePrintOut("-- Database: "+sdbfile);
   VerbosePrintOut("--");
   VerbosePrintOut("-- --------------------------------------------------------");
   VerbosePrintOut(" ");
@@ -1222,7 +1222,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
  if(sqlfile is None):
   return False;
  sqlfp = open(sqlfile, "w+");
- sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, verbose);
+ sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext("sqlfile")[0]+".db3", verbose);
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql):

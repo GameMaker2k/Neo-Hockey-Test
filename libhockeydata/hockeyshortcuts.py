@@ -454,7 +454,10 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, 
 
 def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
- hockeysqlout = MakeHockeySQLFromHockeyArray(hockeyarray, verbose);
+ sdbfilename = ":memory:";
+ if(xmlisfile):
+  sdbfilename = os.path.splitext(xmlfile)[0]+".db3";
+ hockeysqlout = MakeHockeySQLFromHockeyArray(hockeyarray, sdbfilename, verbose);
  return hockeysqlout;
 
 def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, returnsql=False, verbose=True):
