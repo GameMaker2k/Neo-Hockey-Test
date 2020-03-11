@@ -18,14 +18,14 @@
 
 import libhockeydata, os, sys, random;
 
-defroot = ['./data/xml', './php/data'];
+defroot = ['./data/xml', './data/sql', './php/data'];
 randroot = random.randint(0, 1);
 rootdir = defroot[randroot];
 if(len(sys.argv)<2):
  rootdir = defroot[randroot];
 else:
  rootdir = sys.argv[1];
-extensions = ['.xml', '.db3'];
+extensions = ['.xml', '.sql', '.db3'];
 
 if(os.path.isdir(rootdir)):
  for subdir, dirs, files in os.walk(rootdir):
@@ -38,8 +38,10 @@ if(os.path.isdir(rootdir)):
     filepath = os.path.join(subdir, file);
     if(ext==".xml"):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
-    elif(ext==".db3"):
+    elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+    elif(ext==".sql"):
+     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
     else:
      sys.exit(1);
     print("File: "+filepath);
@@ -71,8 +73,10 @@ elif(os.path.isfile(rootdir)):
   filepath = rootdir;
  if(ext==".xml"):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
- elif(ext==".db3"):
-  hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+ elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+ elif(ext==".sql"):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
  else:
   sys.exit(1);
  print("");
