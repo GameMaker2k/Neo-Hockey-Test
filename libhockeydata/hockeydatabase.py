@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sys, os, re, logging;
+import sys, os, re, logging, binascii;
 
 supersqlitesupport = True;
 try:
@@ -102,6 +102,35 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
 def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  VerbosePrintOut(dbgtxt, outtype, dbgenable, dgblevel);
  return dbgtxt;
+
+def RemoveWindowsPath(dpath):
+ if(os.sep!="/"):
+  dpath = dpath.replace(os.path.sep, "/");
+ dpath = dpath.rstrip("/");
+ if(dpath=="." or dpath==".."):
+  dpath = dpath + "/";
+ return dpath;
+
+def NormalizeRelativePath(inpath):
+ inpath = RemoveWindowsPath(inpath);
+ if(os.path.isabs(inpath)):
+  outpath = inpath;
+ else:
+  if(inpath.startswith("./") or inpath.startswith("../")):
+   outpath = inpath;
+  else:
+   outpath = "./" + inpath;
+ return outpath;
+
+def CheckSQLiteDatabase(infile):
+ sqlfp = open(infile, "rb");
+ sqlfp.seek(0, 0);
+ prefp = sqlfp.read(16);
+ validsqlite = False;
+ if(prefp==binascii.unhexlify("53514c69746520666f726d6174203300")):
+  validsqlite = True;
+ sqlfp.close();
+ return validsqlite;
 
 def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
  if(not oldsqlitesupport and enable_oldsqlite):

@@ -22,10 +22,12 @@ from .hockeydatabase import *;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
+ if(not CheckSQLiteDatabase(insdbfile)):
+  return False;
  if(insdbfile is None):
-  insqldatacon = MakeHockeyDatabase(":memory:");
+  insqldatacon = OpenHockeyDatabase(":memory:");
  if(insdbfile is not None and isinstance(insdbfile, str)):
-  insqldatacon = MakeHockeyDatabase(insdbfile);
+  insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
  if(outsdbfile is None):
@@ -48,10 +50,12 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
  return False;
 
 def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
+ if(not CheckSQLiteDatabase(insdbfile)):
+  return False;
  if(insdbfile is None):
-  insqldatacon = MakeHockeyDatabase(":memory:");
+  insqldatacon = OpenHockeyDatabase(":memory:");
  if(insdbfile is not None and isinstance(insdbfile, str)):
-  insqldatacon = MakeHockeyDatabase(insdbfile);
+  insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
  dbdumplist = [];
@@ -67,10 +71,12 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
  return False;
 
 def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
+ if(not CheckSQLiteDatabase(insdbfile)):
+  return False;
  if(insdbfile is None):
-  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+  insqldatacon = OpenHockeyDatabase(":memory:");
  if(insdbfile is not None and isinstance(insdbfile, str)):
-  insqldatacon = MakeHockeyDatabase(insdbfile);
+  insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
  with open(outsqlfile, 'w+') as f:
@@ -86,7 +92,7 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
 
 def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True):
  if(outsdbfile is None):
-  insqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
+  insqldatacon = MakeHockeyDatabase(":memory:");
  if(outsdbfile is not None and isinstance(outsdbfile, str)):
   insqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
@@ -211,17 +217,19 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyArray(inarray, verbose=True):
- jsonstring = json.dumps(inarray);
+def MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=True):
+ if(not CheckHockeyArray(inhockeyarray)):
+  return False;
+ jsonstring = json.dumps(inhockeyarray);
  if(verbose):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
-def MakeHockeyJSONFileFromHockeyArray(inarray, outjsonfile=None, returnjson=False, verbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, verbose=True):
  if(outjsonfile is None):
   return False;
  jsonfp = open(outjsonfile, "w+");
- jsonstring = MakeHockeyJSONFromHockeyArray(inarray, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose);
  jsonfp.write(jsonstring);
  jsonfp.close();
  if(returnjson):
@@ -237,6 +245,8 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
   hockeyarray = json.loads(injsonfile);
  else:
   return False;
+ if(not CheckHockeyArray(hockeyarray)):
+  return False;
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
@@ -246,17 +256,19 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
   return True;
  return True;
 
-def MakeHockeyPickleFromHockeyArray(inarray, verbose=True):
- picklestring = pickle.dumps(inarray);
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True):
+ if(not CheckHockeyArray(inhockeyarray)):
+  return False;
+ picklestring = pickle.dumps(inhockeyarray);
  if(verbose):
   VerbosePrintOut(picklestring);
  return picklestring;
 
-def MakeHockeyPickleFileFromHockeyArray(inarray, outpicklefile=None, returnpickle=False, verbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True):
  if(outpicklefile is None):
   return False;
  picklefp = open(outpicklefile, "w+");
- picklestring = MakeHockeyPickleFromHockeyArray(inarray, verbose);
+ picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose);
  picklefp.write(picklestring);
  picklefp.close();
  if(returnpickle):
@@ -272,6 +284,8 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
   hockeyarray = pickle.loads(inpicklefile);
  else:
   return False;
+ if(not CheckHockeyArray(hockeyarray)):
+  return False;
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
@@ -281,17 +295,19 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
   return True;
  return True;
 
-def MakeHockeyMarshalFromHockeyArray(inarray, verbose=True):
- marshalstring = marshal.dumps(inarray);
+def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True):
+ if(not CheckHockeyArray(inhockeyarray)):
+  return False;
+ marshalstring = marshal.dumps(inhockeyarray);
  if(verbose):
   VerbosePrintOut(marshalstring);
  return marshalstring;
 
-def MakeHockeyMarshalFileFromHockeyArray(inarray, outmarshalfile=None, returnmarshal=False, verbose=True):
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True):
  if(outmarshalfile is None):
   return False;
  marshalfp = open(outmarshalfile, "w+");
- marshalstring = MakeHockeyMarshalFromHockeyArray(inarray, verbose);
+ marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose);
  marshalfp.write(marshalstring);
  marshalfp.close();
  if(returnmarshal):
@@ -306,6 +322,8 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  elif(not marshalisfile):
   hockeyarray = marshal.loads(inmarshalfile);
  else:
+  return False;
+ if(not CheckHockeyArray(hockeyarray)):
   return False;
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
@@ -403,6 +421,8 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  leaguearrayout.update( { 'leaguelist': leaguelist } );
  if(verbose):
   VerbosePrintOut("</hockey>");
+ if(not CheckHockeyArray(leaguearrayout)):
+  return False;
  return leaguearrayout;
 
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True):
@@ -863,6 +883,8 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
 
 def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+  if(not CheckSQLiteDatabase(sdbfile)):
+   return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
@@ -976,6 +998,8 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
   VerbosePrintOut("</hockey>");
  leaguecur.close();
  sqldatacon[1].close();
+ if(not CheckHockeyArray(leaguearrayout)):
+  return False;
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
@@ -1101,6 +1125,8 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   VerbosePrintOut("</hockey>");
  leaguecur.close();
  sqldatacon[1].close();
+ if(not CheckHockeyArray(leaguearrayout)):
+  return False;
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeyArray(inhockeyarray, verbose=True):
@@ -1353,4 +1379,6 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
   VerbosePrintOut("</hockey>");
  leaguecur.close();
  sqldatacon[1].close();
+ if(not CheckHockeyArray(leaguearrayout)):
+  return False;
  return leaguearrayout;
