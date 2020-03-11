@@ -240,7 +240,9 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
 
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(jsonisfile and (os.path.exists(injsonfile) and os.path.isfile(injsonfile))):
-  hockeyarray = json.load(injsonfile);
+  jsonfp = open(injsonfile, "r");
+  hockeyarray = json.load(jsonfp);
+  jsonfp.close();
  elif(not jsonisfile):
   hockeyarray = json.loads(injsonfile);
  else:
