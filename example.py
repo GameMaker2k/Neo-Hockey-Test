@@ -18,14 +18,14 @@
 
 import libhockeydata, os, sys, random;
 
-defroot = ['./data/xml', './data/sql', './php/data'];
-randroot = random.randint(0, 1);
+defroot = ['./data/xml', './data/json', './data/sql', './php/data'];
+randroot = random.randint(0, 3);
 rootdir = defroot[randroot];
 if(len(sys.argv)<2):
  rootdir = defroot[randroot];
 else:
  rootdir = sys.argv[1];
-extensions = ['.xml', '.sql', '.db3'];
+extensions = ['.xml', '.json', '.sql', '.db3'];
 
 if(os.path.isdir(rootdir)):
  for subdir, dirs, files in os.walk(rootdir):
@@ -42,6 +42,8 @@ if(os.path.isdir(rootdir)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
     elif(ext==".sql"):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
+    elif(ext==".json"):
+     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
     else:
      sys.exit(1);
     print("File: "+filepath);
@@ -77,6 +79,8 @@ elif(os.path.isfile(rootdir)):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
  elif(ext==".sql"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
+ elif(ext==".json"):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
  else:
   sys.exit(1);
  print("");
