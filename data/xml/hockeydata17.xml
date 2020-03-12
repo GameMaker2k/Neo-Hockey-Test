@@ -140,8 +140,8 @@
   </conference>
  </league>
  <league name="FHL" fullname="Federal Hockey League" country="USA" fullcountry="United States" date="20171027" playofffmt="League=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
-  <conference name="">
-   <division name="">
+  <conference name="" prefix="" suffix="Conference">
+   <division name="" prefix="" suffix="Division">
     <team city="Winston-Salem" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Thunderbirds" arena="Winston-Salem Fairgrounds Annex" prefix="Carolina" suffix="" />
     <team city="Cornwall" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Nationals" arena="Ed Lumley Arena" prefix="Cornwall" suffix="" />
     <team city="Danville" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Dashers" arena="David S. Palmer Arena" prefix="Danville" suffix="" />
@@ -152,8 +152,8 @@
   </conference>
  </league>
  <league name="SPHL" fullname="Southern Professional Hockey League" country="USA" fullcountry="United States" date="20171020" playofffmt="League=8" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
-  <conference name="">
-   <division name="">
+  <conference name="" prefix="" suffix="Conference">
+   <division name="" prefix="" suffix="Division">
     <team city="Pelham" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Bulls" arena="Pelham Civic Center" prefix="Birmingham" suffix="" />
     <team city="Evansville" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Thunderbolts" arena="Ford Center" prefix="Evansville" suffix="" />
     <team city="Fayetteville" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Marksmen" arena="Crown Coliseum" prefix="Fayetteville" suffix="" />
