@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE hockey [
+
 <!ELEMENT hockey (league)+>
 <!ATTLIST hockey
   xmlns CDATA #FIXED ''
@@ -9,22 +10,22 @@
 <!ELEMENT league (conference+,(arenas,games)?)>
 <!ATTLIST league
   xmlns CDATA #FIXED ''
-  conferences NMTOKEN #REQUIRED
-  country NMTOKEN #REQUIRED
+  conferences CDATA #REQUIRED
+  country CDATA #REQUIRED
   date CDATA #REQUIRED
-  divisions NMTOKEN #REQUIRED
+  divisions CDATA #REQUIRED
   fullcountry CDATA #REQUIRED
   fullname CDATA #REQUIRED
-  name NMTOKEN #REQUIRED
+  name CDATA #REQUIRED
   ordertype CDATA #REQUIRED
   playofffmt CDATA #REQUIRED>
 
 <!ELEMENT conference (division)+>
 <!ATTLIST conference
   xmlns CDATA #FIXED ''
-  name NMTOKEN #REQUIRED
+  name CDATA #REQUIRED
   prefix CDATA #REQUIRED
-  suffix NMTOKEN #REQUIRED>
+  suffix CDATA #REQUIRED>
 
 <!ELEMENT arenas (arena)+>
 <!ATTLIST arenas
@@ -37,17 +38,17 @@
 <!ELEMENT division (team)+>
 <!ATTLIST division
   xmlns CDATA #FIXED ''
-  name NMTOKEN #REQUIRED
+  name CDATA #REQUIRED
   prefix CDATA #REQUIRED
-  suffix NMTOKEN #REQUIRED>
+  suffix CDATA #REQUIRED>
 
 <!ELEMENT arena EMPTY>
 <!ATTLIST arena
   xmlns CDATA #FIXED ''
-  area NMTOKEN #REQUIRED
+  area CDATA #REQUIRED
   city CDATA #REQUIRED
-  country NMTOKEN #REQUIRED
-  fullarea NMTOKEN #REQUIRED
+  country CDATA #REQUIRED
+  fullarea CDATA #REQUIRED
   fullcountry CDATA #REQUIRED
   name CDATA #REQUIRED>
 
@@ -72,10 +73,10 @@
 <!ELEMENT team EMPTY>
 <!ATTLIST team
   xmlns CDATA #FIXED ''
-  area NMTOKEN #REQUIRED
+  area CDATA #REQUIRED
   arena CDATA #REQUIRED
-  city NMTOKEN #REQUIRED
-  country NMTOKEN #REQUIRED
+  city CDATA #REQUIRED
+  country CDATA #REQUIRED
   fullarea CDATA #REQUIRED
   fullcountry CDATA #REQUIRED
   name CDATA #REQUIRED

@@ -5,55 +5,31 @@
       <attribute name="database"/>
       <oneOrMore>
         <element name="league">
-          <attribute name="conferences">
-            <data type="NCName"/>
-          </attribute>
-          <attribute name="country">
-            <data type="NCName"/>
-          </attribute>
-          <attribute name="date">
-            <data type="integer"/>
-          </attribute>
-          <attribute name="divisions">
-            <data type="NCName"/>
-          </attribute>
+          <attribute name="conferences"/>
+          <attribute name="country"/>
+          <attribute name="date"/>
+          <attribute name="divisions"/>
           <attribute name="fullcountry"/>
           <attribute name="fullname"/>
-          <attribute name="name">
-            <data type="NCName"/>
-          </attribute>
+          <attribute name="name"/>
           <attribute name="ordertype"/>
           <attribute name="playofffmt"/>
           <oneOrMore>
             <element name="conference">
-              <attribute name="name">
-                <data type="NCName"/>
-              </attribute>
+              <attribute name="name"/>
               <attribute name="prefix"/>
-              <attribute name="suffix">
-                <data type="NCName"/>
-              </attribute>
+              <attribute name="suffix"/>
               <oneOrMore>
                 <element name="division">
-                  <attribute name="name">
-                    <data type="NCName"/>
-                  </attribute>
+                  <attribute name="name"/>
                   <attribute name="prefix"/>
-                  <attribute name="suffix">
-                    <data type="NCName"/>
-                  </attribute>
+                  <attribute name="suffix"/>
                   <oneOrMore>
                     <element name="team">
-                      <attribute name="area">
-                        <data type="NCName"/>
-                      </attribute>
+                      <attribute name="area"/>
                       <attribute name="arena"/>
-                      <attribute name="city">
-                        <data type="NCName"/>
-                      </attribute>
-                      <attribute name="country">
-                        <data type="NCName"/>
-                      </attribute>
+                      <attribute name="city"/>
+                      <attribute name="country"/>
                       <attribute name="fullarea"/>
                       <attribute name="fullcountry"/>
                       <attribute name="name"/>
@@ -69,16 +45,10 @@
             <element name="arenas">
               <oneOrMore>
                 <element name="arena">
-                  <attribute name="area">
-                    <data type="NCName"/>
-                  </attribute>
+                  <attribute name="area"/>
                   <attribute name="city"/>
-                  <attribute name="country">
-                    <data type="NCName"/>
-                  </attribute>
-                  <attribute name="fullarea">
-                    <data type="NCName"/>
-                  </attribute>
+                  <attribute name="country"/>
+                  <attribute name="fullarea"/>
                   <attribute name="fullcountry"/>
                   <attribute name="name"/>
                 </element>
@@ -87,20 +57,14 @@
             <element name="games">
               <oneOrMore>
                 <element name="game">
-                  <attribute name="atarena">
-                    <data type="integer"/>
-                  </attribute>
+                  <attribute name="atarena"/>
                   <attribute name="awayteam"/>
-                  <attribute name="date">
-                    <data type="integer"/>
-                  </attribute>
+                  <attribute name="date"/>
                   <attribute name="faceoffwins"/>
                   <attribute name="goals"/>
                   <attribute name="hits"/>
                   <attribute name="hometeam"/>
-                  <attribute name="isplayoffgame">
-                    <data type="integer"/>
-                  </attribute>
+                  <attribute name="isplayoffgame"/>
                   <attribute name="penalties"/>
                   <attribute name="pims"/>
                   <attribute name="ppgs"/>

@@ -17,13 +17,13 @@
           <xs:element ref="games"/>
         </xs:sequence>
       </xs:sequence>
-      <xs:attribute name="conferences" use="required" type="xs:NCName"/>
-      <xs:attribute name="country" use="required" type="xs:NCName"/>
-      <xs:attribute name="date" use="required" type="xs:integer"/>
-      <xs:attribute name="divisions" use="required" type="xs:NCName"/>
+      <xs:attribute name="conferences" use="required"/>
+      <xs:attribute name="country" use="required"/>
+      <xs:attribute name="date" use="required"/>
+      <xs:attribute name="divisions" use="required"/>
       <xs:attribute name="fullcountry" use="required"/>
       <xs:attribute name="fullname" use="required"/>
-      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required"/>
       <xs:attribute name="ordertype" use="required"/>
       <xs:attribute name="playofffmt" use="required"/>
     </xs:complexType>
@@ -33,9 +33,9 @@
       <xs:sequence>
         <xs:element maxOccurs="unbounded" ref="division"/>
       </xs:sequence>
-      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required"/>
       <xs:attribute name="prefix" use="required"/>
-      <xs:attribute name="suffix" use="required" type="xs:NCName"/>
+      <xs:attribute name="suffix" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="division">
@@ -43,17 +43,17 @@
       <xs:sequence>
         <xs:element maxOccurs="unbounded" ref="team"/>
       </xs:sequence>
-      <xs:attribute name="name" use="required" type="xs:NCName"/>
+      <xs:attribute name="name" use="required"/>
       <xs:attribute name="prefix" use="required"/>
-      <xs:attribute name="suffix" use="required" type="xs:NCName"/>
+      <xs:attribute name="suffix" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="team">
     <xs:complexType>
-      <xs:attribute name="area" use="required" type="xs:NCName"/>
+      <xs:attribute name="area" use="required"/>
       <xs:attribute name="arena" use="required"/>
-      <xs:attribute name="city" use="required" type="xs:NCName"/>
-      <xs:attribute name="country" use="required" type="xs:NCName"/>
+      <xs:attribute name="city" use="required"/>
+      <xs:attribute name="country" use="required"/>
       <xs:attribute name="fullarea" use="required"/>
       <xs:attribute name="fullcountry" use="required"/>
       <xs:attribute name="name" use="required"/>
@@ -70,10 +70,10 @@
   </xs:element>
   <xs:element name="arena">
     <xs:complexType>
-      <xs:attribute name="area" use="required" type="xs:NCName"/>
+      <xs:attribute name="area" use="required"/>
       <xs:attribute name="city" use="required"/>
-      <xs:attribute name="country" use="required" type="xs:NCName"/>
-      <xs:attribute name="fullarea" use="required" type="xs:NCName"/>
+      <xs:attribute name="country" use="required"/>
+      <xs:attribute name="fullarea" use="required"/>
       <xs:attribute name="fullcountry" use="required"/>
       <xs:attribute name="name" use="required"/>
     </xs:complexType>
@@ -87,14 +87,14 @@
   </xs:element>
   <xs:element name="game">
     <xs:complexType>
-      <xs:attribute name="atarena" use="required" type="xs:integer"/>
+      <xs:attribute name="atarena" use="required"/>
       <xs:attribute name="awayteam" use="required"/>
-      <xs:attribute name="date" use="required" type="xs:integer"/>
+      <xs:attribute name="date" use="required"/>
       <xs:attribute name="faceoffwins" use="required"/>
       <xs:attribute name="goals" use="required"/>
       <xs:attribute name="hits" use="required"/>
       <xs:attribute name="hometeam" use="required"/>
-      <xs:attribute name="isplayoffgame" use="required" type="xs:integer"/>
+      <xs:attribute name="isplayoffgame" use="required"/>
       <xs:attribute name="penalties" use="required"/>
       <xs:attribute name="pims" use="required"/>
       <xs:attribute name="ppgs" use="required"/>
