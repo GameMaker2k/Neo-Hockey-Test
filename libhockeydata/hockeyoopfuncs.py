@@ -28,18 +28,18 @@ class MakeHockeyArray:
   self.hockeyarray = RemoveHockeyLeagueFromArray(self.hockeyarray, leaguename);
  def ReplaceHockeyLeague(oldleaguename, newleaguename, leaguefullname=None, countryname=None, fullcountryname=None, date=None, playofffmt=None, ordertype=None, hasconferences=None, hasdivisions=None):
   self.hockeyarray = ReplaceHockeyLeagueFromArray(self.hockeyarray, oldleaguename, newleaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences, hasdivisions);
- def AddHockeyConference(self, leaguename, conference):
-  self.hockeyarray = AddHockeyConferenceToArray(self.hockeyarray, leaguename, conference);
+ def AddHockeyConference(self, leaguename, conference, prefix="", suffix="Conference"):
+  self.hockeyarray = AddHockeyConferenceToArray(self.hockeyarray, leaguename, conference, prefix, suffix);
  def RemoveHockeyConference(self, leaguename, conference):
   self.hockeyarray = RemoveHockeyConferenceFromArray(self.hockeyarray, leaguename, conference);
- def ReplaceHockeyConferenc(self, leaguename, oldconference, newconference):
-  self.hockeyarray = ReplaceHockeyConferencFromArray(self.hockeyarray, leaguename, oldconference, newconference);
- def AddHockeyDivision(self, leaguename, division, conference):
-  self.hockeyarray = AddHockeyDivisionToArray(self.hockeyarray, leaguename, division, conference);
+ def ReplaceHockeyConferenc(self, leaguename, oldconference, newconference, prefix="", suffix="Conference"):
+  self.hockeyarray = ReplaceHockeyConferencFromArray(self.hockeyarray, leaguename, oldconference, newconference, prefix, suffix);
+ def AddHockeyDivision(self, leaguename, division, conference, prefix="", suffix="Division"):
+  self.hockeyarray = AddHockeyDivisionToArray(self.hockeyarray, leaguename, division, conference, prefix, suffix);
  def RemoveHockeyDivision(self, leaguename, division, conference):
   self.hockeyarray = RemoveHockeyDivisionFromArray(self.hockeyarray, leaguename, division, conference);
- def ReplaceHockeyDivision(self, leaguename, olddivision, newdivision, conference):
-  self.hockeyarray = ReplaceHockeyDivisionFromArray(self.hockeyarray, leaguename, olddivision, newdivision, conference);
+ def ReplaceHockeyDivision(self, leaguename, olddivision, newdivision, conference, prefix="", suffix="Division"):
+  self.hockeyarray = ReplaceHockeyDivisionFromArray(self.hockeyarray, leaguename, olddivision, newdivision, conference, prefix, suffix);
  def MoveHockeyDivisionToConference(self, leaguename, division, oldconference, newconference):
   self.hockeyarray = MoveHockeyDivisionToConferenceFromArray(self.hockeyarray, leaguename, division, oldconference, newconference);
  def AddHockeyTeam(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix=""):
@@ -88,12 +88,12 @@ class MakeHockeyClass:
   MakeHockeyLeagueTable(self.hockeycon);
  def MakeHockeyTeamTable(self, leaguename):
   MakeHockeyTeamTable(self.hockeycon, leaguename);
- def MakeHockeyConferenceTable(self, leaguename):
-  MakeHockeyConferenceTable(self.hockeycon, leaguename);
+ def MakeHockeyConferenceTable(self, leaguename, prefix="", suffix="Conference"):
+  MakeHockeyConferenceTable(self.hockeycon, leaguename, prefix, suffix);
  def MakeHockeyGameTable(self, leaguename):
   MakeHockeyGameTable(self.hockeycon, leaguename);
- def MakeHockeyDivisionTable(self, leaguename):
-  MakeHockeyDivisionTable(self.hockeycon, leaguename);
+ def MakeHockeyDivisionTable(self, leaguename, prefix="", suffix="Division"):
+  MakeHockeyDivisionTable(self.hockeycon, leaguename, prefix, suffix);
  def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
   HockeyLeagueHasDivisions = True;
   if(hasdivisions.lower()=="no"):
