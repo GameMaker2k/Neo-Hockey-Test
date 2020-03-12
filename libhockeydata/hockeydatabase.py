@@ -689,15 +689,16 @@ def MakeHockeyLeague(sqldatacon, leaguename, leaguefullname, countryname, fullco
  "(\""+str(leaguename)+"\", \""+str(leaguefullname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(date)+"\", \""+str(playofffmt)+"\", \""+str(ordertype)+"\", 0, 0, 0)");
  return True;
 
-def AddHockeyConferenceToArray(hockeyarray, leaguename, conference):
+def AddHockeyConferenceToArray(hockeyarray, leaguename, conference, prefix="", suffix="Conference"):
  if leaguename in hockeyarray.keys() and "conferencelist" not in hockeyarray[leaguename].keys():
   hockeyarray[leaguename].update( { 'conferencelist': [] } );
  if "database" not in hockeyarray.keys():
   hockeyarray.update( { 'database': "./hockeydatabase.db3" } );
  if leaguename in hockeyarray.keys():
   if conference not in hockeyarray[leaguename].keys():
-   hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'league': str(leaguename), 'divisionlist': [] } } } );
-   hockeyarray[leaguename]['quickinfo']['conferenceinfo'].update( { str(conference): { 'name': str(conference), 'league': str(leaguename) } } );
+   ConferenceFullName = GetFullTeamName(conference, prefix, suffix);
+   hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'prefix': str(prefix), 'suffix': str(suffix), 'fullname': str(ConferenceFullName), 'league': str(leaguename), 'divisionlist': [] } } } );
+   hockeyarray[leaguename]['quickinfo']['conferenceinfo'].update( { str(conference): { 'name': str(conference), 'fullname': str(ConferenceFullName), 'league': str(leaguename) } } );
    hockeyarray[leaguename]['conferencelist'].append(str(conference));
  return hockeyarray;
 
@@ -723,15 +724,20 @@ def RemoveHockeyConferenceFromArray(hockeyarray, leaguename, conference):
    hockeyarray[leaguename]['conferencelist'].remove(conference);
  return hockeyarray;
 
-def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newconference):
+def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newconference, prefix="", suffix="Conference"):
  if leaguename in hockeyarray.keys() and "conferencelist" not in hockeyarray[leaguename].keys():
   hockeyarray[leaguename].update( { 'conferencelist': [] } );
  if "database" not in hockeyarray.keys():
   hockeyarray.update( { 'database': "./hockeydatabase.db3" } );
  if oldconference in hockeyarray[leaguename].keys() and newconference not in hockeyarray[leaguename].keys():
+  ConferenceFullName = GetFullTeamName(newconference, prefix, suffix);
   hockeyarray[leaguename][newconference] = hockeyarray[leaguename].pop(str(oldconference));
   hockeyarray[leaguename]['quickinfo']['conferenceinfo'][newconference] = hockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(str(oldconference));
+  hockeyarray[leaguename]['quickinfo']['conferenceinfo'][newconference]['fullname'] = str(ConferenceFullName);
   hockeyarray[leaguename][newconference]['conferenceinfo']['name'] = str(newconference);
+  hockeyarray[leaguename][newconference]['conferenceinfo']['prefix'] = str(prefix);
+  hockeyarray[leaguename][newconference]['conferenceinfo']['suffix'] = str(suffix);
+  hockeyarray[leaguename][newconference]['conferenceinfo']['fullname'] = str(ConferenceFullName);
   if "divisionlist" not in hockeyarray[leaguename][newconference].keys():
    hockeyarray[leaguename][newconference].update( { 'divisionlist': [] } );
   hcin = hockeyarray[leaguename]['conferencelist'].index(oldconference);
@@ -750,6 +756,9 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  ConferencePrefix TEXT NOT NULL DEFAULT '',\n" + \
+ "  ConferenceSuffix TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
@@ -757,14 +766,15 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyConference(sqldatacon, leaguename, conference, hasconferences=True):
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Conferences (Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES \n" + \
- "(\""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0, 0)");
+def MakeHockeyConference(sqldatacon, leaguename, conference, prefix="", suffix="Conference", hasconferences=True):
+ ConferenceFullName = GetFullTeamName(conference, prefix, suffix);
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Conferences (Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES \n" + \
+ "(\""+str(conference)+"\", \""+prefix+"\", \""+suffix+"\", \""+ConferenceFullName+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0, 0)");
  if(hasconferences):
   UpdateLeagueData(sqldatacon, leaguename, "NumberOfConferences", 1, "+");
  return True;
 
-def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference):
+def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference, prefix="", suffix="Division"):
  if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and "divisionlist" not in hockeyarray[leaguename][conference].keys():
   hockeyarray[leaguename][conference].update( { 'divisionlist': [] } );
  if "database" not in hockeyarray.keys():
@@ -772,8 +782,9 @@ def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference):
  if leaguename in hockeyarray.keys():
   if conference in hockeyarray[leaguename].keys():
    if division not in hockeyarray[leaguename][conference].keys():
-    hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'league': str(leaguename), 'conference': str(conference), 'teamlist': [] } } } );
-    hockeyarray[leaguename]['quickinfo']['divisioninfo'].update( { str(division): { 'name': str(division), 'league': str(leaguename), 'conference': str(conference) } } );
+    DivisionFullName = GetFullTeamName(division, prefix, suffix);
+    hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'prefix': str(prefix), 'suffix': str(suffix), 'fullname': str(DivisionFullName), 'league': str(leaguename), 'conference': str(conference), 'teamlist': [] } } } );
+    hockeyarray[leaguename]['quickinfo']['divisioninfo'].update( { str(division): { 'name': str(division), 'fullname': str(DivisionFullName), 'league': str(leaguename), 'conference': str(conference) } } );
     hockeyarray[leaguename][conference]['divisionlist'].append(str(division));
  return hockeyarray;
 
@@ -798,15 +809,20 @@ def RemoveHockeyDivisionFromArray(hockeyarray, leaguename, division, conference)
     hockeyarray[leaguename][conference]['divisionlist'].remove(division);
  return hockeyarray;
 
-def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivision, conference):
+def ReplaceHockeyDivisionFromArray(hockeyarray, leaguename, olddivision, newdivision, conference, prefix="", suffix="Division"):
  if leaguename in hockeyarray.keys() and conference in hockeyarray[leaguename].keys() and "divisionlist" not in hockeyarray[leaguename][conference].keys():
   hockeyarray[leaguename][conference].update( { 'divisionlist': [] } );
  if "database" not in hockeyarray.keys():
   hockeyarray.update( { 'database': "./hockeydatabase.db3" } );
  if olddivision in hockeyarray[leaguename][conference].keys() and newdivision not in hockeyarray[leaguename][conference].keys():
+  DivisionFullName = GetFullTeamName(newdivision, prefix, suffix);
   hockeyarray[leaguename][conference][newdivision] = hockeyarray[leaguename][conference].pop(str(olddivision));
   hockeyarray[leaguename]['quickinfo']['divisioninfo'][newdivision] = hockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(str(olddivision));
   hockeyarray[leaguename][conference][newdivision]['divisioninfo']['name'] = str(newdivision);
+  hockeyarray[leaguename][conference][newdivision]['divisioninfo']['prefix'] = str(prefix);
+  hockeyarray[leaguename][conference][newdivision]['divisioninfo']['suffix'] = str(suffix);
+  hockeyarray[leaguename][conference][newdivision]['divisioninfo']['fullname'] = str(DivisionFullName);
+  hockeyarray[leaguename]['quickinfo']['divisioninfo'][newdivision]['fullname'] = str(DivisionFullName);
   if "teamlist" not in hockeyarray[leaguename][conference][newdivision].keys():
    hockeyarray[leaguename][conference][newdivision].update( { 'teamlist': [] } );
   hdin = hockeyarray[leaguename][conference]['divisionlist'].index(olddivision);
@@ -829,6 +845,9 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  DivisionPrefix TEXT NOT NULL DEFAULT '',\n" + \
+ "  DivisionSuffix TEXT NOT NULL DEFAULT '',\n" + \
+ "  FullName TEXT NOT NULL DEFAULT '',\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
@@ -836,9 +855,10 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyDivision(sqldatacon, leaguename, division, conference, hasconferences=True, hasdivisions=True):
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Divisions (Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES \n" + \
- "(\""+str(division)+"\", \""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0)");
+def MakeHockeyDivision(sqldatacon, leaguename, division, conference, prefix="", suffix="Division", hasconferences=True, hasdivisions=True):
+ DivisionFullName = GetFullTeamName(division, prefix, suffix);
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Divisions (Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES \n" + \
+ "(\""+str(division)+"\", \""+prefix+"\", \""+suffix+"\", \""+DivisionFullName+"\", \""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0)");
  if(hasconferences):
   UpdateConferenceData(sqldatacon, leaguename, conference, "NumberOfDivisions", 1, "+");
  if(hasdivisions):
