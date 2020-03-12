@@ -54,16 +54,14 @@ if(os.path.isdir(rootdir)):
      for hckey in hockeyarray[hlkey]['conferencelist']:
       for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
        for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-        htkeyfull = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'];
-        hlkeyfull = hockeyarray[hlkey]['leagueinfo']['fullname'];
         if(len(hckey)==0 and len(hdkey)==0):
-         print(hlkeyfull+" / "+htkeyfull);
+         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
         if(len(hckey)==0 and len(hdkey)>0):
-         print(hlkeyfull+" / "+hockeyarray[hlkey]['divisioninfo']['fullname']+" / "+htkeyfull);
+         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
         if(len(hckey)>0 and len(hdkey)==0):
-         print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+htkeyfull);
+         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
         if(len(hckey)>0 and len(hdkey)>0):
-         print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hdkey+" Division / "+htkeyfull);
+         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
     print("");
     print("--------------------------------------------------------------------------");
     print("");
@@ -92,16 +90,14 @@ elif(os.path.isfile(rootdir)):
   for hckey in hockeyarray[hlkey]['conferencelist']:
    for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
     for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-     htkeyfull = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'];
-     hlkeyfull = hockeyarray[hlkey]['leagueinfo']['fullname'];
      if(len(hckey)==0 and len(hdkey)==0):
-      print(hlkeyfull+" / "+htkeyfull);
+      print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
      if(len(hckey)==0 and len(hdkey)>0):
-      print(hlkeyfull+" / "+hockeyarray[hlkey]['divisioninfo']['fullname']+" / "+htkeyfull);
+      print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
      if(len(hckey)>0 and len(hdkey)==0):
-      print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+htkeyfull);
+      print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
      if(len(hckey)>0 and len(hdkey)>0):
-      print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hdkey+" Division / "+htkeyfull);
+      print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
  print("");
  print("--------------------------------------------------------------------------");
  print("");
