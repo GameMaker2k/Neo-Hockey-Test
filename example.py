@@ -61,11 +61,11 @@ if(os.path.isdir(rootdir)):
         if(len(hckey)==0 and len(hdkey)==0):
          print(hlkeyfull+" / "+htkeyfull);
         if(len(hckey)==0 and len(hdkey)>0):
-         print(hlkeyfull+" / "+hdkey+" Division / "+htkeyfull);
+         print(hlkeyfull+" / "+hockeyarray[hlkey]['divisioninfo']['fullname']+" / "+htkeyfull);
         if(len(hckey)>0 and len(hdkey)==0):
-         print(hlkeyfull+" / "+hckey+" Conference / "+htkeyfull);
+         print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+htkeyfull);
         if(len(hckey)>0 and len(hdkey)>0):
-         print(hlkeyfull+" / "+hckey+" Conference / "+hdkey+" Division / "+htkeyfull);
+         print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hdkey+" Division / "+htkeyfull);
     print("");
     print("--------------------------------------------------------------------------");
     print("");
@@ -101,11 +101,11 @@ elif(os.path.isfile(rootdir)):
      if(len(hckey)==0 and len(hdkey)==0):
       print(hlkeyfull+" / "+htkeyfull);
      if(len(hckey)==0 and len(hdkey)>0):
-      print(hlkeyfull+" / "+hdkey+" Division / "+htkeyfull);
+      print(hlkeyfull+" / "+hockeyarray[hlkey]['divisioninfo']['fullname']+" / "+htkeyfull);
      if(len(hckey)>0 and len(hdkey)==0):
-      print(hlkeyfull+" / "+hckey+" Conference / "+htkeyfull);
+      print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+htkeyfull);
      if(len(hckey)>0 and len(hdkey)>0):
-      print(hlkeyfull+" / "+hckey+" Conference / "+hdkey+" Division / "+htkeyfull);
+      print(hlkeyfull+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hdkey+" Division / "+htkeyfull);
  print("");
  print("--------------------------------------------------------------------------");
  print("");
