@@ -359,7 +359,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
     if(getconference.tag == "conference"):
      if(verbose):
       VerbosePrintOut("  <conference name=\""+EscapeXMLString(str(getconference.attrib['name']), quote=True)+"\" prefix=\""+EscapeXMLString(str(getconference.attrib['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(getconference.attrib['suffix']), quote=True)+"\">");
-     ConferenceFullName = GetFullTeamName(conference, prefix, suffix);
+     ConferenceFullName = GetFullTeamName(str(getconference.attrib['name']), str(getconference.attrib['prefix']), str(getconference.attrib['suffix']));
      leaguearray[str(getleague.attrib['name'])].update( { str(getconference.attrib['name']): { 'conferenceinfo': { 'name': str(getconference.attrib['name']), 'prefix': str(getconference.attrib['prefix']), 'suffix': str(getconference.attrib['suffix']), 'fullname': str(ConferenceFullName), 'league': str(getleague.attrib['name']) } } } );
      leaguearray[str(getleague.attrib['name'])]['quickinfo']['conferenceinfo'].update( { str(getconference.attrib['name']): { 'name': str(getconference.attrib['name']), 'fullname': str(ConferenceFullName), 'league': str(getleague.attrib['name']) } } );
      conferencelist.append(str(getconference.attrib['name']));
@@ -369,7 +369,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
      for getdivision in getconference:
       if(verbose):
        VerbosePrintOut("   <division name=\""+str(getdivision.attrib['name'])+"\" prefix=\""+EscapeXMLString(str(getdivision.attrib['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(getdivision.attrib['suffix']), quote=True)+"\">");
-      DivisionFullName = GetFullTeamName(division, prefix, suffix);
+      DivisionFullName = GetFullTeamName(str(getdivision.attrib['name']), str(getdivision.attrib['prefix']), str(getdivision.attrib['suffix']));
       leaguearray[str(getleague.attrib['name'])][str(getconference.attrib['name'])].update( { str(getdivision.attrib['name']): { 'divisioninfo': { 'name': str(getdivision.attrib['name']), 'prefix': str(getdivision.attrib['prefix']), 'suffix': str(getdivision.attrib['suffix']), 'fullname': str(DivisionFullName), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']) } } } );
       leaguearray[str(getleague.attrib['name'])]['quickinfo']['divisioninfo'].update( { str(getdivision.attrib['name']): { 'name': str(getdivision.attrib['name']), 'fullname': str(DivisionFullName), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']) } } );
       divisionlist.append(str(getdivision.attrib['name']));
