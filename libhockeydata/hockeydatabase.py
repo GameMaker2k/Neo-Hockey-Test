@@ -132,6 +132,16 @@ def CheckSQLiteDatabase(infile):
  sqlfp.close();
  return validsqlite;
 
+def CheckXMLFile(infile):
+ sqlfp = open(infile, "rb");
+ xmlfp.seek(0, 0);
+ prefp = xmlfp.read(5);
+ validxmlfile = False;
+ if(prefp==binascii.unhexlify("3c3f786d6c20")):
+  validxmlfile = True;
+ xmlfp.close();
+ return validxmlfile;
+
 def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   if(not CheckSQLiteDatabase(sdbfile)):
