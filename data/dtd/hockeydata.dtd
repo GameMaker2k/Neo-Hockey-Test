@@ -1,0 +1,82 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT hockey (league)+>
+<!ATTLIST hockey
+  xmlns CDATA #FIXED ''
+  database CDATA #REQUIRED>
+
+<!ELEMENT league (conference+,(arenas,games)?)>
+<!ATTLIST league
+  xmlns CDATA #FIXED ''
+  conferences NMTOKEN #REQUIRED
+  country NMTOKEN #REQUIRED
+  date CDATA #REQUIRED
+  divisions NMTOKEN #REQUIRED
+  fullcountry CDATA #REQUIRED
+  fullname CDATA #REQUIRED
+  name NMTOKEN #REQUIRED
+  ordertype CDATA #REQUIRED
+  playofffmt CDATA #REQUIRED>
+
+<!ELEMENT conference (division)+>
+<!ATTLIST conference
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix NMTOKEN #REQUIRED>
+
+<!ELEMENT arenas (arena)+>
+<!ATTLIST arenas
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT games (game)+>
+<!ATTLIST games
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT division (team)+>
+<!ATTLIST division
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix NMTOKEN #REQUIRED>
+
+<!ELEMENT arena EMPTY>
+<!ATTLIST arena
+  xmlns CDATA #FIXED ''
+  area NMTOKEN #REQUIRED
+  city CDATA #REQUIRED
+  country NMTOKEN #REQUIRED
+  fullarea NMTOKEN #REQUIRED
+  fullcountry CDATA #REQUIRED
+  name CDATA #REQUIRED>
+
+<!ELEMENT game EMPTY>
+<!ATTLIST game
+  xmlns CDATA #FIXED ''
+  atarena CDATA #REQUIRED
+  awayteam CDATA #REQUIRED
+  date CDATA #REQUIRED
+  faceoffwins CDATA #REQUIRED
+  goals CDATA #REQUIRED
+  hits CDATA #REQUIRED
+  hometeam CDATA #REQUIRED
+  isplayoffgame CDATA #REQUIRED
+  penalties CDATA #REQUIRED
+  pims CDATA #REQUIRED
+  ppgs CDATA #REQUIRED
+  shgs CDATA #REQUIRED
+  sogs CDATA #REQUIRED
+  takeaways CDATA #REQUIRED>
+
+<!ELEMENT team EMPTY>
+<!ATTLIST team
+  xmlns CDATA #FIXED ''
+  area NMTOKEN #REQUIRED
+  arena CDATA #REQUIRED
+  city NMTOKEN #REQUIRED
+  country NMTOKEN #REQUIRED
+  fullarea CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED>

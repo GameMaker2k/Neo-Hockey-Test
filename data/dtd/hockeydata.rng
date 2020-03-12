@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <element name="hockey">
+      <attribute name="database"/>
+      <oneOrMore>
+        <element name="league">
+          <attribute name="conferences">
+            <data type="NCName"/>
+          </attribute>
+          <attribute name="country">
+            <data type="NCName"/>
+          </attribute>
+          <attribute name="date">
+            <data type="integer"/>
+          </attribute>
+          <attribute name="divisions">
+            <data type="NCName"/>
+          </attribute>
+          <attribute name="fullcountry"/>
+          <attribute name="fullname"/>
+          <attribute name="name">
+            <data type="NCName"/>
+          </attribute>
+          <attribute name="ordertype"/>
+          <attribute name="playofffmt"/>
+          <oneOrMore>
+            <element name="conference">
+              <attribute name="name">
+                <data type="NCName"/>
+              </attribute>
+              <attribute name="prefix"/>
+              <attribute name="suffix">
+                <data type="NCName"/>
+              </attribute>
+              <oneOrMore>
+                <element name="division">
+                  <attribute name="name">
+                    <data type="NCName"/>
+                  </attribute>
+                  <attribute name="prefix"/>
+                  <attribute name="suffix">
+                    <data type="NCName"/>
+                  </attribute>
+                  <oneOrMore>
+                    <element name="team">
+                      <attribute name="area">
+                        <data type="NCName"/>
+                      </attribute>
+                      <attribute name="arena"/>
+                      <attribute name="city">
+                        <data type="NCName"/>
+                      </attribute>
+                      <attribute name="country">
+                        <data type="NCName"/>
+                      </attribute>
+                      <attribute name="fullarea"/>
+                      <attribute name="fullcountry"/>
+                      <attribute name="name"/>
+                      <attribute name="prefix"/>
+                      <attribute name="suffix"/>
+                    </element>
+                  </oneOrMore>
+                </element>
+              </oneOrMore>
+            </element>
+          </oneOrMore>
+          <optional>
+            <element name="arenas">
+              <oneOrMore>
+                <element name="arena">
+                  <attribute name="area">
+                    <data type="NCName"/>
+                  </attribute>
+                  <attribute name="city"/>
+                  <attribute name="country">
+                    <data type="NCName"/>
+                  </attribute>
+                  <attribute name="fullarea">
+                    <data type="NCName"/>
+                  </attribute>
+                  <attribute name="fullcountry"/>
+                  <attribute name="name"/>
+                </element>
+              </oneOrMore>
+            </element>
+            <element name="games">
+              <oneOrMore>
+                <element name="game">
+                  <attribute name="atarena">
+                    <data type="integer"/>
+                  </attribute>
+                  <attribute name="awayteam"/>
+                  <attribute name="date">
+                    <data type="integer"/>
+                  </attribute>
+                  <attribute name="faceoffwins"/>
+                  <attribute name="goals"/>
+                  <attribute name="hits"/>
+                  <attribute name="hometeam"/>
+                  <attribute name="isplayoffgame">
+                    <data type="integer"/>
+                  </attribute>
+                  <attribute name="penalties"/>
+                  <attribute name="pims"/>
+                  <attribute name="ppgs"/>
+                  <attribute name="shgs"/>
+                  <attribute name="sogs"/>
+                  <attribute name="takeaways"/>
+                </element>
+              </oneOrMore>
+            </element>
+          </optional>
+        </element>
+      </oneOrMore>
+    </element>
+  </start>
+</grammar>

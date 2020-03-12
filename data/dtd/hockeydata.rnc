@@ -1,0 +1,66 @@
+default namespace = ""
+
+start =
+  element hockey {
+    attribute database { text },
+    element league {
+      attribute conferences { xsd:NCName },
+      attribute country { xsd:NCName },
+      attribute date { xsd:integer },
+      attribute divisions { xsd:NCName },
+      attribute fullcountry { text },
+      attribute fullname { text },
+      attribute name { xsd:NCName },
+      attribute ordertype { text },
+      attribute playofffmt { text },
+      element conference {
+        attribute name { xsd:NCName },
+        attribute prefix { text },
+        attribute suffix { xsd:NCName },
+        element division {
+          attribute name { xsd:NCName },
+          attribute prefix { text },
+          attribute suffix { xsd:NCName },
+          element team {
+            attribute area { xsd:NCName },
+            attribute arena { text },
+            attribute city { xsd:NCName },
+            attribute country { xsd:NCName },
+            attribute fullarea { text },
+            attribute fullcountry { text },
+            attribute name { text },
+            attribute prefix { text },
+            attribute suffix { text }
+          }+
+        }+
+      }+,
+      (element arenas {
+         element arena {
+           attribute area { xsd:NCName },
+           attribute city { text },
+           attribute country { xsd:NCName },
+           attribute fullarea { xsd:NCName },
+           attribute fullcountry { text },
+           attribute name { text }
+         }+
+       },
+       element games {
+         element game {
+           attribute atarena { xsd:integer },
+           attribute awayteam { text },
+           attribute date { xsd:integer },
+           attribute faceoffwins { text },
+           attribute goals { text },
+           attribute hits { text },
+           attribute hometeam { text },
+           attribute isplayoffgame { xsd:integer },
+           attribute penalties { text },
+           attribute pims { text },
+           attribute ppgs { text },
+           attribute shgs { text },
+           attribute sogs { text },
+           attribute takeaways { text }
+         }+
+       })?
+    }+
+  }
