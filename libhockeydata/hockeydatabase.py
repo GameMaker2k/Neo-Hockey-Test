@@ -462,20 +462,20 @@ def UpdateConferenceData(sqldatacon, leaguename, conference, dataname, addtodata
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
-  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Conferences WHERE Conference=\""+str(conference)+"\"").fetchone()[0]) + addtodata;
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Conferences WHERE FullName=\""+str(conference)+"\"").fetchone()[0]) + addtodata;
  if(addtype=="-"):
-  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Conferences WHERE Conference=\""+str(conference)+"\"").fetchone()[0]) - addtodata;
- sqldatacon[0].execute("UPDATE "+leaguename+"Conferences SET "+dataname+"="+str(TMPData)+" WHERE Conference=\""+str(conference)+"\"");
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Conferences WHERE FullName=\""+str(conference)+"\"").fetchone()[0]) - addtodata;
+ sqldatacon[0].execute("UPDATE "+leaguename+"Conferences SET "+dataname+"="+str(TMPData)+" WHERE FullName=\""+str(conference)+"\"");
  return int(TMPData);
 
 def UpdateDivisionData(sqldatacon, leaguename, division, dataname, addtodata, addtype):
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
-  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Divisions WHERE Division=\""+str(division)+"\"").fetchone()[0]) + addtodata;
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Divisions WHERE FullName=\""+str(division)+"\"").fetchone()[0]) + addtodata;
  if(addtype=="-"):
-  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Divisions WHERE Division=\""+str(division)+"\"").fetchone()[0]) - addtodata;
- sqldatacon[0].execute("UPDATE "+leaguename+"Divisions SET "+dataname+"="+str(TMPData)+" WHERE Division=\""+str(division)+"\"");
+  TMPData = int(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Divisions WHERE FullName=\""+str(division)+"\"").fetchone()[0]) - addtodata;
+ sqldatacon[0].execute("UPDATE "+leaguename+"Divisions SET "+dataname+"="+str(TMPData)+" WHERE FullName=\""+str(division)+"\"");
  return int(TMPData);
 
 def UpdateLeagueData(sqldatacon, leaguename, dataname, addtodata, addtype):
