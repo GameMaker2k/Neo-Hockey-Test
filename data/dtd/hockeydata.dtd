@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!DOCTYPE hockey [
 <!ELEMENT hockey (league)+>
 <!ATTLIST hockey
   xmlns CDATA #FIXED ''
@@ -80,3 +81,4 @@
   name CDATA #REQUIRED
   prefix CDATA #REQUIRED
   suffix CDATA #REQUIRED>
+]>
