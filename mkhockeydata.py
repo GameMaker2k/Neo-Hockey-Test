@@ -32,7 +32,7 @@ getactlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfroms
 getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old hockey sqlite database to hockey xml file", "convert hockey sql dump file to hockey xml file", "convert hockey xml file to hockey sqlite database", "convert hockey sql dump file to sqlite database", "convert hockey sqlite database to hockey python file", "convert hockey xml file to hockey python file", "convert hockey sqlite database to hockey python alt file", "convert hockey xml file to hockey python alt file", "convert hockey sqlite database to hockey sql dump file", "convert hockey xml file to hockey sql dump file", "convert hockey xml file to hockey json file", "convert hockey json file to hockey xml file", "cleanup hockey xml files", "show this help page", "get version number of "+__project__, "make symbolic links"];
 gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean", "help", "version", "mksymlinks"];
 getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean"];
-defaction = getactlist[15];
+defaction = getactlist[14];
 defxmlfile = "./data/hockeydata.xml";
 defsdbfile = "./data/hockeydata.db3";
 defoldsdbfile = "./data/hockeydata.db3";
@@ -65,10 +65,10 @@ if(len(sys.argv)>=2):
     curaction = curargact;
     break;
 
-if(curaction==getactlist[15] or curaction==getactlist[16]):
+if(curaction==getactlist[14] or curaction==getactlist[15]):
  print(getactstr);
 
-if(curaction==getactlist[17] or curaction==getactlist[18] or curaction==getactlist[16]):
+if(curaction==getactlist[16] or curaction==getactlist[17] or curaction==getactlist[18]):
  print(getverstr);
 
 if((curaction==getactlist[19] or curaction==getactlist[20])):
