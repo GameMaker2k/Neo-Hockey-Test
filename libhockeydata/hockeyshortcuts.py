@@ -59,9 +59,9 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, returnjson=False, verbose=True):
+def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
- jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, verbose);
  return jsonstring;
 
 def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True, returnjson=False, verbose=True):
@@ -71,7 +71,7 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outjsonfile = file_wo_extension+".xml";
  pyfp = open(outjsonfile, "w+");
- jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, returnjson, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, verbose);
  pyfp.write(jsonstring);
  pyfp.close();
  if(returnjson):
