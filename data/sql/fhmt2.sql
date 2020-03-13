@@ -1,14 +1,14 @@
 -- PyHockeyStats SQL Dumper
--- version 0.2.1 RC 1
+-- version 0.3.1 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: February 16, 2020 at 04:54 AM
--- SQLite Server version: 3.31.1
+-- Generation Time: March 12, 2020 at 07:27 PM
+-- SQLite Server version: 3.30.0
 -- PySQLite version: 2.6.0
--- Python Version: 3.8.1
+-- Python Version: 3.7.4
 
 --
--- Database: :memory:
+-- Database: ./php/data/fhmt2y17-18.db3
 --
 
 -- --------------------------------------------------------
@@ -53,6 +53,9 @@ DROP TABLE IF EXISTS HOLConferences;
 CREATE TABLE HOLConferences (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   Conference TEXT NOT NULL DEFAULT '',
+  ConferencePrefix TEXT NOT NULL DEFAULT '',
+  ConferenceSuffix TEXT NOT NULL DEFAULT '',
+  FullName TEXT NOT NULL DEFAULT '',
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
   NumberOfTeams INTEGER NOT NULL DEFAULT 0,
@@ -63,10 +66,10 @@ CREATE TABLE HOLConferences (
 -- Dumping data for table HOLConferences
 --
 
-INSERT INTO HOLConferences (id, Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
-(1, "Conference 1", "HOL", "Hockey League", 4, 2);
-INSERT INTO HOLConferences (id, Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
-(2, "Conference 2", "HOL", "Hockey League", 4, 2);
+INSERT INTO HOLConferences (id, Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
+(1, "Conference 1", "", "", "Conference 1", "HOL", "Hockey League", 4, 2);
+INSERT INTO HOLConferences (id, Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
+(2, "Conference 2", "", "", "Conference 2", "HOL", "Hockey League", 4, 2);
 
 -- --------------------------------------------------------
 
@@ -79,6 +82,9 @@ DROP TABLE IF EXISTS HOLDivisions;
 CREATE TABLE HOLDivisions (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   Division TEXT NOT NULL DEFAULT '',
+  DivisionPrefix TEXT NOT NULL DEFAULT '',
+  DivisionSuffix TEXT NOT NULL DEFAULT '',
+  FullName TEXT NOT NULL DEFAULT '',
   Conference TEXT NOT NULL DEFAULT '',
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
@@ -89,14 +95,14 @@ CREATE TABLE HOLDivisions (
 -- Dumping data for table HOLDivisions
 --
 
-INSERT INTO HOLDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(1, "Division 1", "Conference 1", "HOL", "Hockey League", 2);
-INSERT INTO HOLDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(2, "Division 2", "Conference 1", "HOL", "Hockey League", 2);
-INSERT INTO HOLDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(3, "Division 3", "Conference 2", "HOL", "Hockey League", 2);
-INSERT INTO HOLDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(4, "Division 4", "Conference 2", "HOL", "Hockey League", 2);
+INSERT INTO HOLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(1, "Division 1", "", "", "Division 1", "Conference 1", "HOL", "Hockey League", 2);
+INSERT INTO HOLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(2, "Division 2", "", "", "Division 2", "Conference 1", "HOL", "Hockey League", 2);
+INSERT INTO HOLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(3, "Division 3", "", "", "Division 3", "Conference 2", "HOL", "Hockey League", 2);
+INSERT INTO HOLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(4, "Division 4", "", "", "Division 4", "Conference 2", "HOL", "Hockey League", 2);
 
 -- --------------------------------------------------------
 
@@ -483,6 +489,9 @@ DROP TABLE IF EXISTS MILConferences;
 CREATE TABLE MILConferences (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   Conference TEXT NOT NULL DEFAULT '',
+  ConferencePrefix TEXT NOT NULL DEFAULT '',
+  ConferenceSuffix TEXT NOT NULL DEFAULT '',
+  FullName TEXT NOT NULL DEFAULT '',
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
   NumberOfTeams INTEGER NOT NULL DEFAULT 0,
@@ -493,10 +502,10 @@ CREATE TABLE MILConferences (
 -- Dumping data for table MILConferences
 --
 
-INSERT INTO MILConferences (id, Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
-(1, "Conference 1", "MIL", "Minor League", 4, 2);
-INSERT INTO MILConferences (id, Conference, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
-(2, "Conference 2", "MIL", "Minor League", 4, 2);
+INSERT INTO MILConferences (id, Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
+(1, "Conference 1", "", "", "Conference 1", "MIL", "Minor League", 4, 2);
+INSERT INTO MILConferences (id, Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
+(2, "Conference 2", "", "", "Conference 2", "MIL", "Minor League", 4, 2);
 
 -- --------------------------------------------------------
 
@@ -509,6 +518,9 @@ DROP TABLE IF EXISTS MILDivisions;
 CREATE TABLE MILDivisions (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   Division TEXT NOT NULL DEFAULT '',
+  DivisionPrefix TEXT NOT NULL DEFAULT '',
+  DivisionSuffix TEXT NOT NULL DEFAULT '',
+  FullName TEXT NOT NULL DEFAULT '',
   Conference TEXT NOT NULL DEFAULT '',
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
@@ -519,14 +531,14 @@ CREATE TABLE MILDivisions (
 -- Dumping data for table MILDivisions
 --
 
-INSERT INTO MILDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(1, "Division 1", "Conference 1", "MIL", "Minor League", 2);
-INSERT INTO MILDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(2, "Division 2", "Conference 1", "MIL", "Minor League", 2);
-INSERT INTO MILDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(3, "Division 3", "Conference 2", "MIL", "Minor League", 2);
-INSERT INTO MILDivisions (id, Division, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(4, "Division 4", "Conference 2", "MIL", "Minor League", 2);
+INSERT INTO MILDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(1, "Division 1", "", "", "Division 1", "Conference 1", "MIL", "Minor League", 2);
+INSERT INTO MILDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(2, "Division 2", "", "", "Division 2", "Conference 1", "MIL", "Minor League", 2);
+INSERT INTO MILDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(3, "Division 3", "", "", "Division 3", "Conference 2", "MIL", "Minor League", 2);
+INSERT INTO MILDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
+(4, "Division 4", "", "", "Division 4", "Conference 2", "MIL", "Minor League", 2);
 
 -- --------------------------------------------------------
 
