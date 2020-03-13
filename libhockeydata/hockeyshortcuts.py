@@ -42,10 +42,43 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
   return True;
  return True;
 
+def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True, returnxml=False, verbose=True):
+ if(jsonisfile and (not os.path.exists(injsonfile) or not os.path.isfile(injsonfile))):
+  return False;
+ if(outxmlfile is None and jsonisfile):
+  file_wo_extension, file_extension = os.path.splitext(injsonfile);
+  outxmlfile = file_wo_extension+".xml";
+ hockeyarray = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, False);
+ xmlfp = open(outxmlfile, "w+");
+ xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
+
 def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
  return jsonstring;
+
+def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True, returnjson=False, verbose=True):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+  return False;
+ if(outjsonfile is None and xmlisfile):
+  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
+  outjsonfile = file_wo_extension+".xml";
+ pyfp = open(outjsonfile, "w+");
+ jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, returnjson, verbose);
+ pyfp.write(jsonstring);
+ pyfp.close();
+ if(returnjson):
+  return jsonstring;
+ if(not returnjson):
+  return True;
+ return True;
 
 def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
