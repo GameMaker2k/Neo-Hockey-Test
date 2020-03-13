@@ -849,6 +849,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  "  DivisionSuffix TEXT NOT NULL DEFAULT '',\n" + \
  "  FullName TEXT NOT NULL DEFAULT '',\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  ConferenceFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  NumberOfTeams INTEGER NOT NULL DEFAULT ''\n" + \
@@ -857,7 +858,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
 
 def MakeHockeyDivision(sqldatacon, leaguename, division, conference, prefix="", suffix="Division", hasconferences=True, hasdivisions=True):
  DivisionFullName = GetFullTeamName(division, prefix, suffix);
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Divisions (Division, DivisionPrefix, DivisionSuffix, FullName, Conference, LeagueName, LeagueFullName, NumberOfTeams) VALUES \n" + \
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Divisions (Division, DivisionPrefix, DivisionSuffix, FullName, Conference, ConferenceFullName, LeagueName, LeagueFullName, NumberOfTeams) VALUES \n" + \
  "(\""+str(division)+"\", \""+prefix+"\", \""+suffix+"\", \""+DivisionFullName+"\", \""+str(conference)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", 0)");
  if(hasconferences):
   UpdateConferenceData(sqldatacon, leaguename, conference, "NumberOfDivisions", 1, "+");
@@ -987,7 +988,9 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
  "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  ConferenceFullName TEXT NOT NULL DEFAULT '',\n" +
  "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  DivisionFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
@@ -1066,7 +1069,9 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
  "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  ConferenceFullName TEXT NOT NULL DEFAULT '',\n" +
  "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  DivisionFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
@@ -1190,13 +1195,13 @@ def MakeHockeyTeam(sqldatacon, leaguename, date, cityname, areaname, countryname
  chckmonth = date[4:6];
  chckday = date[6:8];
  fullteamname = GetFullTeamName(teamname, teamnameprefix, teamnamesuffix);
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Teams (Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak) VALUES \n" + \
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Teams (Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak) VALUES \n" + \
  "(\""+str(chckyear+chckmonth+"00")+"\", \""+fullteamname+"\", \""+str(cityname)+"\", \""+str(teamnameprefix)+"\", \""+str(teamnamesuffix)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(teamname)+"\", \""+str(conference)+"\", \""+str(division)+"\", \""+leaguename+"\", \""+GetLeagueName(sqldatacon, leaguename)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \"0:0:0:0\", \"0:0:0:0\", \"0:0\", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \"0:0:0:0\", \"None\")");
  try:
   TeamID = int(sqldatacon[0].lastrowid);
  except AttributeError:
   TeamID = int(sqldatacon[1].last_insert_rowid());
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Stats (TeamID, Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak)\n" + \
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Stats (TeamID, Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak)\n" + \
  "SELECT id, Date, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, Division, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, Points, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, PCT, LastTen, Streak FROM "+leaguename+"Teams WHERE FullName=\""+fullteamname+"\";");
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas (TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES \n" + \
  "("+str(TeamID)+", \""+str(teamname)+"\", \""+fullteamname+"\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
