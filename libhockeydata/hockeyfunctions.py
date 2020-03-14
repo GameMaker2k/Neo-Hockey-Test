@@ -534,7 +534,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   return True;
  return True;
 
-def Make"+str()+"FromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True):
+def HockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True):
  if(outxmlfile is None):
   return False;
  xmlfp = open(outxmlfile, "w+");
@@ -877,7 +877,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
   return True;
  return True;
 
-def MakeHockeyArray"+str()+"(sdbfile, verbose=True):
+def MakeHockeyArrayHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
