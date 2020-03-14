@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hockey database="./hockey17-18.db3">
+<hockey database="./php/data/hockey17-18.db3">
  <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="20171004" playofffmt="Division=3,Conference=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="Atlantic" prefix="" suffix="Division">
