@@ -85,12 +85,12 @@ if((curaction==getactlist[19] or curaction==getactlist[20])):
   outfilename = curscrpath+cursymact;
   outfileext = str(infilenameinfo[1]).rstrip(".");
   outfilefull = outfilename+outfileext;
-  print("'"+outfilefull+"' -> '"+infilename+"'");
   try:
    os.symlink(infilename, outfilefull);
    print("'"+outfilefull+"' -> '"+infilename+"'");
   except OSError:
-   break;
+   shutil.copy2(infilename, outfilefull);
+   print("'"+outfilefull+"' -> '"+infilename+"'");
 
 if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
