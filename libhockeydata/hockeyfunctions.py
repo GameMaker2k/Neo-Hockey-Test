@@ -877,7 +877,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
   return True;
  return True;
 
-def MakeHockeyArrayHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
