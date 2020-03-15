@@ -217,19 +217,19 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- jsonstring = json.dumps(inhockeyarray);
+ jsonstring = json.dumps(inhockeyarray, indent=jsonindent);
  if(verbose):
   VerbosePrintOut(jsonstring);
  return jsonstring;
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, verbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, verbose=True):
  if(outjsonfile is None):
   return False;
  jsonfp = open(outjsonfile, "w+");
- jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, verbose);
  jsonfp.write(jsonstring);
  jsonfp.close();
  if(returnjson):
