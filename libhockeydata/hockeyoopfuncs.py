@@ -102,19 +102,19 @@ class MakeHockeyClass:
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
   MakeHockeyLeague(self.hockeycon, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
- def AddHockeyConference(self, leaguename, conference, hasconferences="yes"):
+ def AddHockeyConference(self, leaguename, conference, prefix="", suffix="Conference", hasconferences="yes"):
   HockeyLeagueHasConferences = True;
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
-  MakeHockeyConference(self.hockeycon, leaguename, conference, HockeyLeagueHasConferences);
- def AddHockeyDivision(self, leaguename, division, conference, hasconferences="yes", hasdivisions="yes"):
+  MakeHockeyConference(self.hockeycon, leaguename, conference, prefix, suffix, HockeyLeagueHasConferences);
+ def AddHockeyDivision(self, leaguename, division, conference, prefix="", suffix="Division", hasconferences="yes", hasdivisions="yes"):
   HockeyLeagueHasDivisions = True;
   if(hasdivisions.lower()=="no"):
    HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
-  MakeHockeyDivision(self.hockeycon, leaguename, division, conference, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+  MakeHockeyDivision(self.hockeycon, leaguename, division, conference, prefix, suffix, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
  def AddHockeyTeam(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences="yes", hasdivisions="yes"):
   HockeyLeagueHasDivisions = True;
   if(hasdivisions.lower()=="no"):
