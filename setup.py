@@ -51,6 +51,7 @@ pymodule['zipsafe'] = True;
 # pymodule['pymodules'] = [y for x in os.walk("upcean") for y in glob.glob(os.path.join(x[0], '*.py'))];
 pymodule['pymodules'] = [];
 pymodule['packages'] = find_packages();
+pymodule['packagedata'] = {'libhockeydata/xml': ['*.dtd', '*.xsl', '*.xsd', '*.rng', '*.rnc']};
 pymodule['scripts'] = ['mkhockeydata.py', 'mkhockeydatabase.py', 'mkhockeydatabasefromsql.py', 'mkhockeypyfromdatabase.py', 'mkhockeypyfromxmlfile.py', 'mkhockeysqlfromdatabase.py', 'mkhockeysqlfromxmlfile.py', 'mkhockeyxmlfile.py', 'mkhockeyxmlfileclean.py', 'mkhockeyxmlfromolddatabase.py', 'mkhockeyxmlfromsql.py'];
 pymodule['classifiers'] = [
  'Development Status :: 5 - Production/Stable',
@@ -112,6 +113,7 @@ setup(
  zip_safe = pymodule['zipsafe'],
  py_modules = pymodule['pymodules'],
  packages = pymodule['packages'],
+ package_data = pymodule['packagedata'],
  scripts = pymodule['scripts'],
  classifiers = pymodule['classifiers']
 )
