@@ -59,19 +59,19 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, jsonindent=1, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
- jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, jsonindent, verbose);
  return jsonstring;
 
-def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True, returnjson=False, verbose=True):
+def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True, returnjson=False, jsonindent=1, verbose=True):
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(outjsonfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outjsonfile = file_wo_extension+".xml";
  pyfp = open(outjsonfile, "w+");
- jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, jsonindent, verbose);
  pyfp.write(jsonstring);
  pyfp.close();
  if(returnjson):
@@ -80,19 +80,19 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, verbose=True):
+def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, jsonindent=1, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
- jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, jsonindent, verbose);
  return jsonstring;
 
-def MakeHockeyJSONFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnjson=False, verbose=True):
+def MakeHockeyJSONFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnjson=False, jsonindent=1, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
- jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, jsonindent, verbose);
  return jsonstring;
 
-def MakeHockeyJSONFromOldHockeyDatabase(sdbfile, returnjson=False, verbose=True):
+def MakeHockeyJSONFromOldHockeyDatabase(sdbfile, returnjson=False, jsonindent=1, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
- jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, jsonindent, verbose);
  return jsonstring;
 
 def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True):
