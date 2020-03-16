@@ -688,7 +688,7 @@ def MakeHockeyLeagueTable(sqldatacon, droptable=True):
  "  OrderType TEXT NOT NULL DEFAULT '',\n" + \
  "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
  "  NumberOfConferences INTEGER NOT NULL DEFAULT 0,\n" + \
- "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
+ "  NumberOfDivisions INTEGER NOT NULL DEFAULT 0\n" + \
  ");");
  return True;
 
@@ -770,7 +770,7 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  NumberOfTeams INTEGER NOT NULL DEFAULT 0,\n" + \
- "  NumberOfDivisions INTEGER NOT NULL DEFAULT ''\n" + \
+ "  NumberOfDivisions INTEGER NOT NULL DEFAULT 0\n" + \
  ");");
  return True;
 
@@ -861,7 +861,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  "  ConferenceFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
- "  NumberOfTeams INTEGER NOT NULL DEFAULT ''\n" + \
+ "  NumberOfTeams INTEGER NOT NULL DEFAULT 0\n" + \
  ");");
  return True;
 
@@ -980,7 +980,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
  "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
  "  FullArenaName TEXT NOT NULL DEFAULT '',\n" + \
- "  GamesPlayed INTEGER NOT NULL DEFAULT ''\n" + \
+ "  GamesPlayed INTEGER NOT NULL DEFAULT 0\n" + \
  ");");
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams");
@@ -1394,7 +1394,7 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
  "  TeamWin TEXT NOT NULL DEFAULT '',\n" + \
  "  TeamLost TEXT NOT NULL DEFAULT '',\n" + \
  "  TieGame INTEGER NOT NULL DEFAULT 0,\n" + \
- "  IsPlayOffGame INTEGER NOT NULL DEFAULT ''\n" + \
+ "  IsPlayOffGame INTEGER NOT NULL DEFAULT 0\n" + \
  ");");
  return True;
 
