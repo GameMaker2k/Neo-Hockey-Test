@@ -135,7 +135,7 @@ def CheckSQLiteDatabase(infile):
 def CheckXMLFile(infile):
  xmlfp = open(infile, "rb");
  xmlfp.seek(0, 0);
- prefp = xmlfp.read(5);
+ prefp = xmlfp.read(6);
  validxmlfile = False;
  if(prefp==binascii.unhexlify("3c3f786d6c20")):
   validxmlfile = True;
