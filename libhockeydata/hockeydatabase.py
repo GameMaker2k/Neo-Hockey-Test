@@ -133,7 +133,7 @@ def CheckSQLiteDatabase(infile):
  return validsqlite;
 
 def CheckXMLFile(infile):
- sqlfp = open(infile, "rb");
+ xmlfp = open(infile, "rb");
  xmlfp.seek(0, 0);
  prefp = xmlfp.read(5);
  validxmlfile = False;
