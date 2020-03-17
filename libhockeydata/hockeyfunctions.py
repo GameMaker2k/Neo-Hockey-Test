@@ -40,10 +40,14 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
  if(returninsdbfile and returnoutsdbfile):
   return [insqldatacon, outsqldatacon];
  elif(returninsdbfile and not returnoutsdbfile):
+  CloseHockeyDatabase(outsqldatacon);
   return [insqldatacon];
  elif(not returninsdbfile and returnoutsdbfile):
+  CloseHockeyDatabase(insqldatacon);
   return [outsqldatacon];
  elif(not returninsdbfile and not returnoutsdbfile):
+  CloseHockeyDatabase(insqldatacon);
+  CloseHockeyDatabase(outsqldatacon);
   return None;
  else:
   return False;
@@ -65,6 +69,7 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
  if(returninsdbfile):
   return [sqloutstring, insqldatacon];
  elif(not returninsdbfile):
+  CloseHockeyDatabase(insqldatacon);
   return [sqloutstring];
  else:
   return False;
@@ -85,6 +90,7 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
  if(returninsdbfile):
   return [insqldatacon];
  elif(not returninsdbfile):
+  CloseHockeyDatabase(insqldatacon);
   return None;
  else:
   return False;
@@ -101,6 +107,7 @@ def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True)
  if(returnoutsdbfile):
   return [insqldatacon];
  elif(not returnoutsdbfile):
+  CloseHockeyDatabase(insqldatacon);
   return None;
  else:
   return False;
@@ -119,6 +126,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
  if(returnoutsdbfile):
   return [insqldatacon];
  elif(not returnoutsdbfile):
+  CloseHockeyDatabase(insqldatacon);
   return None;
  else:
   return False;
@@ -1375,7 +1383,36 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  leaguecur.close();
- sqldatacon[1].close();
+ CloseHockeyDatabase(sqldatacon);
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  return leaguearrayout;
+
+def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+  if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
+   return False;
+  sqldatacon = OpenHockeyDatabase(sdbfile);
+ else:
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return False;
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
+ sqlitedict = {};
+ for leagueinfo_tmp in getleague_tmp:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp[0]+cur_tab);
+ for get_cur_tab in table_list:
+  gettableinfo = sqldatacon[0].execute("PRAGMA table_xinfo("+get_cur_tab+");").fetchall();
+  sqlitedict.update( { get_cur_tab: {} } );
+  for tableinfo in gettableinfo:
+   sqlitedict[get_cur_tab].update( { tableinfo[1]: { 'info': {'id': tableinfo[0], 'Name': tableinfo[1], 'Type': tableinfo[2], 'NotNull': tableinfo[3], 'DefualtValue': tableinfo[4], 'PK': tableinfo[5], 'Hidden': tableinfo[6] }, 'values': [] } } );
+   gettabledata = sqldatacon[0].execute("SELECT "+tableinfo[1]+" FROM "+get_cur_tab);
+   for tabledata in gettabledata:
+    sqlitedict[get_cur_tab][tableinfo[1]]['values'].append(tabledata[0]);
+ sqldatacon[1].close();
+ return sqlitedict;
