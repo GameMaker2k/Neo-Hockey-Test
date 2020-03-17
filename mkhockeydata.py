@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sys, os, libhockeydata, argparse, logging;
+import sys, os, libhockeydata, argparse, logging, shutil;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
