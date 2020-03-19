@@ -1408,11 +1408,22 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
    table_list.append(leagueinfo_tmp[0]+cur_tab);
  for get_cur_tab in table_list:
   gettableinfo = sqldatacon[0].execute("PRAGMA table_xinfo("+get_cur_tab+");").fetchall();
-  sqlitedict.update( { get_cur_tab: {} } );
+  sqlitedict.update( { get_cur_tab: { } } );
+  collist = [];
   for tableinfo in gettableinfo:
-   sqlitedict[get_cur_tab].update( { tableinfo[1]: { 'info': {'id': tableinfo[0], 'Name': tableinfo[1], 'Type': tableinfo[2], 'NotNull': tableinfo[3], 'DefualtValue': tableinfo[4], 'PK': tableinfo[5], 'Hidden': tableinfo[6] }, 'values': [] } } );
-   gettabledata = sqldatacon[0].execute("SELECT "+tableinfo[1]+" FROM "+get_cur_tab);
+   sqlitedict[get_cur_tab].update( { tableinfo[1]: { 'info': {'id': tableinfo[0], 'Name': tableinfo[1], 'Type': tableinfo[2], 'NotNull': tableinfo[3], 'DefualtValue': tableinfo[4], 'PrimaryKey': tableinfo[5], 'Hidden': tableinfo[6] } } } );
+   collist.append(tableinfo[1]);
+   gettabledata = sqldatacon[0].execute("SELECT "+', '.join(collist)+" FROM "+get_cur_tab);
+   subcollist = [];
    for tabledata in gettabledata:
-    sqlitedict[get_cur_tab][tableinfo[1]]['values'].append(tabledata[0]);
+    subcolarray = {};
+    collen = len(tabledata);
+    colleni = 0;
+    while(colleni < collen):
+     subcolarray.update({collist[colleni]: tabledata[colleni]});
+     colleni = colleni + 1;
+    subcollist.append(subcolarray);
+   sqlitedict[get_cur_tab].update( { 'values': subcollist, 'rows': collist } );
+  sqlitedict[get_cur_tab].update( { 'rows': collist } );
  sqldatacon[1].close();
  return sqlitedict;
