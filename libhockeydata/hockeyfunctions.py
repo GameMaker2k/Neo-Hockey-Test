@@ -1423,7 +1423,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
      subcolarray.update({collist[colleni]: tabledata[colleni]});
      colleni = colleni + 1;
     subcollist.append(subcolarray);
-   sqlitedict[get_cur_tab].update( { 'values': subcollist, 'rows': collist } );
+   sqlitedict[get_cur_tab].update( { 'values': subcollist } );
   sqlitedict[get_cur_tab].update( { 'rows': collist } );
  sqldatacon[1].close();
  return sqlitedict;
