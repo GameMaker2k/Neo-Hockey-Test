@@ -21,6 +21,11 @@ import sqlite3, sys, os, re, time, json, pickle, marshal, xml.etree.ElementTree;
 from .hockeydatabase import *;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
+try:
+ basestring;
+except NameError:
+ basestring = str;
+
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
@@ -1520,3 +1525,98 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  return leaguearrayout;
+
+def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, droptable=True, verbose=True):
+ if(not CheckHockeySQLiteArray(inhockeyarray)):
+  return False;
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
+ sqldump = "-- "+__program_name__+" SQL Dumper\n";
+ sqldump = sqldump+"-- version "+__version__+"\n";
+ sqldump = sqldump+"-- "+__project_url__+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.sqlite_version+"\n";
+ sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Database: "+inhockeyarray['database']+"\n";
+ sqldump = sqldump+"--\n\n";
+ sqldump = sqldump+"-- --------------------------------------------------------\n\n";
+ if(verbose):
+  VerbosePrintOut("-- "+__program_name__+" SQL Dumper");
+  VerbosePrintOut("-- version "+__version__+"");
+  VerbosePrintOut("-- "+__project_url__+"");
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"");
+  VerbosePrintOut("-- SQLite Server version: "+sqlite3.sqlite_version+"");
+  VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"");
+  VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"");
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- Database: "+inhockeyarray['database']);
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- --------------------------------------------------------");
+  VerbosePrintOut(" ");
+ for tablei in table_list:
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Table structure for table "+str(tablei)+"\n";
+  sqldump = sqldump+"--\n\n";
+  if(verbose):
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Table structure for table "+str(tablei)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+  if(droptable):
+   sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n\n";
+   if(verbose):
+    VerbosePrintOut("DROP TABLE IF EXISTS "+tablei+"\n");
+  sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
+  if(verbose):
+   VerbosePrintOut("CREATE TEMP TABLE "+tablei+" (");
+  rowlen = len(inhockeyarray[tablei]['rows']);
+  rowi = 0;
+  sqlrowlist = [];
+  for rowinfo in inhockeyarray[tablei]['rows']:
+   sqlrowline = inhockeyarray[tablei][rowinfo]['info']['Name']+" "+inhockeyarray[tablei][rowinfo]['info']['Type'];
+   if(inhockeyarray[tablei][rowinfo]['info']['NotNull']==1):
+    sqlrowline = sqlrowline+" NOT NULL";
+   if(inhockeyarray[tablei][rowinfo]['info']['DefualtValue'] is not None):
+    sqlrowline = sqlrowline+" "+inhockeyarray[tablei][rowinfo]['info']['DefualtValue'];
+   if(inhockeyarray[tablei][rowinfo]['info']['PrimaryKey']==1):
+    sqlrowline = sqlrowline+" PRIMARY KEY";
+   if(inhockeyarray[tablei][rowinfo]['info']['AutoIncrement']==1):
+    sqlrowline = sqlrowline+" AUTOINCREMENT";
+   sqlrowlist.append(sqlrowline);
+  sqldump = sqldump+str(',\n'.join(sqlrowlist))+"\n);\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(tablei)+"\n";
+  sqldump = sqldump+"--\n\n";
+  if(verbose):
+   VerbosePrintOut(str(',\n'.join(sqlrowlist))+"\n);\n");
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Dumping data for table "+str(tablei)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+  for rowvalues in inhockeyarray[tablei]['values']:
+   rkeylist = [];
+   rvaluelist = [];
+   for rkey, rvalue in rowvalues.items():
+    rkeylist.append(rkey);
+    if(isinstance(rvalue, basestring)):
+     rvalue = "\""+rvalue+"\"";
+    rvaluelist.append(str(rvalue));
+   sqldump = sqldump+"INSERT INTO "+str(tablei)+" ("+str(', '.join(rkeylist))+") VALUES\n";
+   sqldump = sqldump+"("+str(', '.join(rvaluelist))+");\n";
+   if(verbose):
+    VerbosePrintOut("INSERT INTO "+str(tablei)+" ("+str(', '.join(rkeylist))+") VALUES");
+    VerbosePrintOut("("+str(', '.join(rvaluelist))+");");
+  sqldump = sqldump+"\n-- --------------------------------------------------------\n\n";
+  if(verbose):
+   VerbosePrintOut("-- --------------------------------------------------------");
+   VerbosePrintOut(" ");
+ return sqldump;
