@@ -1411,7 +1411,10 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
   sqlitedict.update( { get_cur_tab: { } } );
   collist = [];
   for tableinfo in gettableinfo:
-   sqlitedict[get_cur_tab].update( { tableinfo[1]: { 'info': {'id': tableinfo[0], 'Name': tableinfo[1], 'Type': tableinfo[2], 'NotNull': tableinfo[3], 'DefualtValue': tableinfo[4], 'PrimaryKey': tableinfo[5], 'Hidden': tableinfo[6] } } } );
+   autoincrement = 0;
+   if(tableinfo[1]=="id" and tableinfo[5]==1):
+    autoincrement = 1;
+   sqlitedict[get_cur_tab].update( { tableinfo[1]: { 'info': {'id': tableinfo[0], 'Name': tableinfo[1], 'Type': tableinfo[2], 'NotNull': tableinfo[3], 'DefualtValue': tableinfo[4], 'PrimaryKey': tableinfo[5], 'AutoIncrement': autoincrement, 'Hidden': tableinfo[6] } } } );
    collist.append(tableinfo[1]);
    gettabledata = sqldatacon[0].execute("SELECT "+', '.join(collist)+" FROM "+get_cur_tab);
    subcollist = [];
