@@ -304,10 +304,16 @@ def CreateSQLiteTableString(inhockeyarray, temptable=False, droptable=True, verb
    VerbosePrintOut(" ");
   if(droptable):
    sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n";
+   if(verbose):
+    VerbosePrintOut("DROP TABLE IF EXISTS "+tablei);
   if(not temptable):
    sqldump = sqldump+"CREATE TABLE "+tablei+" (\n";
+   if(verbose):
+    VerbosePrintOut("CREATE TABLE "+tablei+" (");
   else:
    sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
+   if(verbose):
+    VerbosePrintOut("CREATE TEMP TABLE "+tablei+" (");
   rowlen = len(inhockeyarray[tablei]['rows']);
   rowi = 0;
   sqlrowlist = [];
@@ -327,6 +333,7 @@ def CreateSQLiteTableString(inhockeyarray, temptable=False, droptable=True, verb
   sqldump = sqldump+"-- Dumping data for table "+str(tablei)+"\n";
   sqldump = sqldump+"--\n\n";
   if(verbose):
+   VerbosePrintOut(str(',\n'.join(sqlrowlist))+"\n);\n");
    VerbosePrintOut(" ");
    VerbosePrintOut("--");
    VerbosePrintOut("-- Dumping data for table "+str(tablei)+"");
