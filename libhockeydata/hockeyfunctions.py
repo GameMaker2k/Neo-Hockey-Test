@@ -1432,7 +1432,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
  return sqlitedict;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
- if(not CheckHockeyArray(inhockeyarray)):
+ if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  leaguearrayout = { 'database': str(inhockeyarray['database']) };
  leaguelist = [];
