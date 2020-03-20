@@ -617,6 +617,15 @@ def CheckHockeyArray(hockeyarray):
   return False;
  return True;
 
+def CheckHockeySQLiteArray(hockeyarray):
+ if(isinstance(hockeyarray, type(None)) or isinstance(hockeyarray, type(True)) or isinstance(hockeyarray, type(False)) or not isinstance(hockeyarray, type({}))):
+  return False;
+ if "HockeyLeagues" not in hockeyarray.keys():
+  return False;
+ if "database" not in hockeyarray.keys():
+  return False;
+ return True;
+
 def AddHockeyLeagueToArray(hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
  if "leaguelist" not in hockeyarray.keys():
   hockeyarray.update( { 'leaguelist': [] } );
