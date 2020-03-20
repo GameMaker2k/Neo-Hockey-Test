@@ -17,7 +17,8 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sys, os, re, logging, binascii;
+import sys, os, re, time, logging, binascii;
+from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
 supersqlitesupport = True;
 try:
@@ -257,40 +258,85 @@ def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enabl
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  return sqldatacon;
 
-def CreateSQLiteTableString(sqldict, temptable=False, droptable=True):
- if(isinstance(sqldict, type(None)) or isinstance(sqldict, type(True)) or isinstance(sqldict, type(False)) or not isinstance(sqldict, type({}))):
+def CreateSQLiteTableString(inhockeyarray, temptable=False, droptable=True, verbose=True):
+ if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- if "table_info" not in sqldict.keys():
-  return False;
- if "table_name" not in sqldict['table_info'].keys():
-  return False;
- if "table_columns" not in sqldict['table_info'].keys():
-  return False;
- sqloutput = "";
- if(droptable):
-  sqloutput = sqloutput+"DROP TABLE IF EXISTS "+sqldict['table_info']['table_name']+"\n";
- if(not temptable):
-  sqloutput = sqloutput+"CREATE TABLE "+sqldict['table_info']['table_name']+" (\n";
- else:
-  sqloutput = sqloutput+"CREATE TEMP TABLE "+sqldict['table_info']['table_name']+" (\n";
- sqltablei = 0;
- sqltablecount = 1;
- sqltablelen = len(sqldict['table_info']['table_columns']);
- while(sqltablei<sqltablelen):
-  sqloutput = sqloutput+"  "+sqldict['table_info']['table_columns'][sqltablei]['column_name'];
-  sqloutput = sqloutput+" "+sqldict['table_info']['table_columns'][sqltablei]['column_type'];
-  if(sqldict['table_info']['table_columns'][sqltablei]['key_type'] is not None):
-   sqloutput = sqloutput+" "+sqldict['table_info']['table_columns'][sqltablei]['key_type'];
-  if(sqldict['table_info']['table_columns'][sqltablei]['default_value'] is not None):
-   sqloutput = sqloutput+" "+sqldict['table_info']['table_columns'][sqltablei]['default_value'];
-  if(sqltablecount<sqltablelen):
-   sqloutput = sqloutput+",\n";
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
+ sqldump = "-- "+__program_name__+" SQL Dumper\n";
+ sqldump = sqldump+"-- version "+__version__+"\n";
+ sqldump = sqldump+"-- "+__project_url__+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.sqlite_version+"\n";
+ sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Database: "+inhockeyarray['database']+"\n";
+ sqldump = sqldump+"--\n\n";
+ sqldump = sqldump+"-- --------------------------------------------------------\n\n";
+ if(verbose):
+  VerbosePrintOut("-- "+__program_name__+" SQL Dumper");
+  VerbosePrintOut("-- version "+__version__+"");
+  VerbosePrintOut("-- "+__project_url__+"");
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"");
+  VerbosePrintOut("-- SQLite Server version: "+sqlite3.sqlite_version+"");
+  VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"");
+  VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"");
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- Database: "+inhockeyarray['database']);
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- --------------------------------------------------------");
+  VerbosePrintOut(" ");
+ for tablei in table_list:
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Table structure for table "+str(tablei)+"\n";
+  sqldump = sqldump+"--\n\n";
+  if(verbose):
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Table structure for table "+str(tablei)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+  if(droptable):
+   sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n";
+  if(not temptable):
+   sqldump = sqldump+"CREATE TABLE "+tablei+" (\n";
   else:
-   sqloutput = sqloutput+"\n";
-   sqloutput = sqloutput+");";
-  sqltablecount = sqltablecount + 1;
-  sqltablei = sqltablei + 1;
- return sqloutput;
+   sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
+  rowlen = len(inhockeyarray[tablei]['rows']);
+  rowi = 0;
+  sqlrowlist = [];
+  for rowinfo in inhockeyarray[tablei]['rows']:
+   sqlrowline = inhockeyarray[tablei][rowinfo]['info']['Name']+" "+inhockeyarray[tablei][rowinfo]['info']['Type'];
+   if(inhockeyarray[tablei][rowinfo]['info']['NotNull']==1):
+    sqlrowline = sqlrowline+" NOT NULL";
+   if(inhockeyarray[tablei][rowinfo]['info']['DefualtValue'] is not None):
+    sqlrowline = sqlrowline+" "+inhockeyarray[tablei][rowinfo]['info']['DefualtValue'];
+   if(inhockeyarray[tablei][rowinfo]['info']['PrimaryKey']==1):
+    sqlrowline = sqlrowline+" PRIMARY KEY";
+   if(inhockeyarray[tablei][rowinfo]['info']['AutoIncrement']==1):
+    sqlrowline = sqlrowline+" AUTOINCREMENT";
+   sqlrowlist.append(sqlrowline);
+  sqldump = sqldump+str(',\n'.join(sqlrowlist))+"\n);\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(tablei)+"\n";
+  sqldump = sqldump+"--\n\n";
+  if(verbose):
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Dumping data for table "+str(tablei)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+  sqldump = sqldump+"\n-- --------------------------------------------------------\n\n";
+  if(verbose):
+   VerbosePrintOut("-- --------------------------------------------------------");
+   VerbosePrintOut(" ");
+ return sqldump;
 
 def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
  wins = 0;
