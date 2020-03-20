@@ -226,7 +226,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
  return True;
 
 def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, verbose=True):
- if(not CheckHockeyArray(inhockeyarray)):
+ if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  jsonstring = json.dumps(inhockeyarray, indent=jsonindent);
  if(verbose):
@@ -255,7 +255,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
   hockeyarray = json.loads(injsonfile);
  else:
   return False;
- if(not CheckHockeyArray(hockeyarray)):
+ if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
@@ -263,7 +263,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  return hockeyarray;
 
 def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True):
- if(not CheckHockeyArray(inhockeyarray)):
+ if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  picklestring = pickle.dumps(inhockeyarray);
  if(verbose):
@@ -292,7 +292,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
   hockeyarray = pickle.loads(inpicklefile);
  else:
   return False;
- if(not CheckHockeyArray(hockeyarray)):
+ if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
@@ -300,7 +300,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  return hockeyarray;
 
 def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True):
- if(not CheckHockeyArray(inhockeyarray)):
+ if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  marshalstring = marshal.dumps(inhockeyarray);
  if(verbose):
@@ -329,7 +329,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
   hockeyarray = marshal.loads(inmarshalfile);
  else:
   return False;
- if(not CheckHockeyArray(hockeyarray)):
+ if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
   xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
@@ -1520,4 +1520,3 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  return leaguearrayout;
-
