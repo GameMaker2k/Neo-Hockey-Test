@@ -1526,9 +1526,11 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
   return False;
  return leaguearrayout;
 
-def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, droptable=True, verbose=True):
+def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
+ if(sdbfile is None or sdbfile==":memory:"):
+  sdbfile = inhockeyarray['database'];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
@@ -1543,7 +1545,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, droptable=True, verbose=Tr
  sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n";
  sqldump = sqldump+"--\n";
- sqldump = sqldump+"-- Database: "+inhockeyarray['database']+"\n";
+ sqldump = sqldump+"-- Database: "+sdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  if(verbose):
@@ -1556,7 +1558,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, droptable=True, verbose=Tr
   VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"");
   VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"");
   VerbosePrintOut("--");
-  VerbosePrintOut("-- Database: "+inhockeyarray['database']);
+  VerbosePrintOut("-- Database: "+sdbfile);
   VerbosePrintOut("--");
   VerbosePrintOut("-- --------------------------------------------------------");
   VerbosePrintOut(" ");
@@ -1570,10 +1572,9 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, droptable=True, verbose=Tr
    VerbosePrintOut("-- Table structure for table "+str(tablei)+"");
    VerbosePrintOut("--");
    VerbosePrintOut(" ");
-  if(droptable):
-   sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n\n";
-   if(verbose):
-    VerbosePrintOut("DROP TABLE IF EXISTS "+tablei+"\n");
+  sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n\n";
+  if(verbose):
+   VerbosePrintOut("DROP TABLE IF EXISTS "+tablei+"\n");
   sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
   if(verbose):
    VerbosePrintOut("CREATE TEMP TABLE "+tablei+" (");
@@ -1620,3 +1621,16 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, droptable=True, verbose=Tr
    VerbosePrintOut("-- --------------------------------------------------------");
    VerbosePrintOut(" ");
  return sqldump;
+
+def MakeHockeySQLFileHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
+ if(sqlfile is None):
+  return False;
+ sqlfp = open(sqlfile, "w+");
+ sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext("sqlfile")[0]+".db3", verbose);
+ sqlfp.write(sqlstring);
+ sqlfp.close();
+ if(returnsql):
+  return sqlstring;
+ if(not returnsql):
+  return True;
+ return True;
