@@ -1469,7 +1469,6 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
     divisionlist.append(str(divisioninfo['Division']));
     if(verbose):
      VerbosePrintOut("   <division name=\""+EscapeXMLString(str(divisioninfo['Division']), quote=True)+"\" prefix=\""+EscapeXMLString(str(divisioninfo['DivisionPrefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(divisioninfo['DivisionSuffix']), quote=True)+"\">");
-    '''getteam = teamcur.execute("SELECT CityName, AreaName, FullAreaName, CountryName, FullCountryName, TeamName, ArenaName, TeamPrefix, TeamSuffix FROM "+leagueinfo['LeagueName']+"Teams WHERE LeagueName=\""+leagueinfo['LeagueName']+"\" AND LeagueFullName=\""+leagueinfo['LeagueFullName']+"\" AND Conference=\""+conferenceinfo['Conference']+"\" AND Division=\""+divisioninfo['Division']+"\"");'''
     teamlist = [];
     teamarrayname = leagueinfo['LeagueName']+"Teams";
     for teaminfo in inhockeyarray[teamarrayname]['values']:
