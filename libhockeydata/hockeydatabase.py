@@ -20,6 +20,11 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import sys, os, re, time, logging, binascii;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
+try:
+ basestring;
+except NameError:
+ basestring = str;
+
 supersqlitesupport = True;
 try:
  from supersqlite import sqlite3;
@@ -258,7 +263,7 @@ def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enabl
  sqlcur.execute("PRAGMA foreign_keys = 0;");
  return sqldatacon;
 
-def CreateSQLiteTableString(inhockeyarray, temptable=False, droptable=True, verbose=True):
+def CreateSQLiteTableString(inhockeyarray, droptable=True, verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
@@ -303,17 +308,12 @@ def CreateSQLiteTableString(inhockeyarray, temptable=False, droptable=True, verb
    VerbosePrintOut("--");
    VerbosePrintOut(" ");
   if(droptable):
-   sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n";
+   sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n\n";
    if(verbose):
-    VerbosePrintOut("DROP TABLE IF EXISTS "+tablei);
-  if(not temptable):
-   sqldump = sqldump+"CREATE TABLE "+tablei+" (\n";
-   if(verbose):
-    VerbosePrintOut("CREATE TABLE "+tablei+" (");
-  else:
-   sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
-   if(verbose):
-    VerbosePrintOut("CREATE TEMP TABLE "+tablei+" (");
+    VerbosePrintOut("DROP TABLE IF EXISTS "+tablei+"\n");
+  sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
+  if(verbose):
+   VerbosePrintOut("CREATE TEMP TABLE "+tablei+" (");
   rowlen = len(inhockeyarray[tablei]['rows']);
   rowi = 0;
   sqlrowlist = [];
@@ -339,6 +339,19 @@ def CreateSQLiteTableString(inhockeyarray, temptable=False, droptable=True, verb
    VerbosePrintOut("-- Dumping data for table "+str(tablei)+"");
    VerbosePrintOut("--");
    VerbosePrintOut(" ");
+  for rowvalues in inhockeyarray[tablei]['values']:
+   rkeylist = [];
+   rvaluelist = [];
+   for rkey, rvalue in rowvalues.items():
+    rkeylist.append(rkey);
+    if(isinstance(rvalue, basestring)):
+     rvalue = "\""+rvalue+"\"";
+    rvaluelist.append(str(rvalue));
+   sqldump = sqldump+"INSERT INTO "+str(tablei)+" ("+str(', '.join(rkeylist))+") VALUES\n";
+   sqldump = sqldump+"("+str(', '.join(rvaluelist))+");\n";
+   if(verbose):
+    VerbosePrintOut("INSERT INTO "+str(tablei)+" ("+str(', '.join(rkeylist))+") VALUES");
+    VerbosePrintOut("("+str(', '.join(rvaluelist))+");");
   sqldump = sqldump+"\n-- --------------------------------------------------------\n\n";
   if(verbose):
    VerbosePrintOut("-- --------------------------------------------------------");
