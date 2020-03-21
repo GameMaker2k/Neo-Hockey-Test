@@ -1636,3 +1636,4 @@ def MakeHockeySQLFileHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsql=Fa
  if(not returnsql):
   return True;
  return True;
+ 
