@@ -40,3 +40,4 @@ if(strlen($qstring)>0) {
  $qstring = str_replace("=&", "&", $qstring);
  $qstring = preg_replace("/".preg_quote("=", '/')."$/", "", $qstring);
  header("Location: ".$fullurl."index.php?html&".$qstring, true, 303); }
+?>
