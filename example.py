@@ -48,6 +48,8 @@ if(os.path.isdir(rootdir)):
      sys.exit(1);
     if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
+    if(not libhockeydata.CheckHockeyArray(hockeyarray)):
+     sys.exit(1);
     print("File: "+filepath);
     print("");
     print("--------------------------------------------------------------------------");
@@ -83,6 +85,8 @@ elif(os.path.isfile(rootdir)):
   sys.exit(1);
  if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
+ if(not libhockeydata.CheckHockeyArray(hockeyarray)):
+  sys.exit(1);
  print("");
  print("--------------------------------------------------------------------------");
  print("");
