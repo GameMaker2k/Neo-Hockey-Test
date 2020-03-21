@@ -589,6 +589,14 @@ def CheckHockeySQLiteArray(hockeyarray):
   return False;
  if "database" not in hockeyarray.keys():
   return False;
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ for leagueinfo_tmp in hockeyarray['HockeyLeagues']['values']:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
+ for get_cur_tab in table_list:
+  if get_cur_tab not in hockeyarray.keys():
+   return False;
  return True;
 
 def AddHockeyLeagueToArray(hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):

@@ -1403,6 +1403,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
    sqldatacon = tuple(sdbfile);
   else:
    return False;
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
@@ -1531,6 +1532,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
   return False;
  if(sdbfile is None or sdbfile==":memory:"):
   sdbfile = inhockeyarray['database'];
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
