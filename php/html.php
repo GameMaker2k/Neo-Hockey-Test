@@ -11,7 +11,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: html.php - Last Update: 2/26/2020 Ver. 0.3.1 RC 1 - Author: cooldude2k $
+    $FileInfo: html.php - Last Update: 3/21/2020 Ver. 0.3.9 RC 1 - Author: cooldude2k $
 */
 if(!ob_start("ob_gzhandler")) { ob_start(); }
 date_default_timezone_set("UTC");
