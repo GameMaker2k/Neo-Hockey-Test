@@ -18,8 +18,8 @@
 
 import libhockeydata, os, sys, random;
 
-defroot = ['./data/xml', './data/json', './data/sql', './php/data'];
-randroot = random.randint(0, 3);
+defroot = ['./data/xml', './data/json', './data/jsonalt', './data/sql', './php/data'];
+randroot = random.randint(0, 4);
 rootdir = defroot[randroot];
 if(len(sys.argv)<2):
  rootdir = defroot[randroot];
@@ -46,7 +46,7 @@ if(os.path.isdir(rootdir)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
     else:
      sys.exit(1);
-    if(CheckHockeySQLiteArray(hockeyarray)):
+    if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
     print("File: "+filepath);
     print("");
@@ -81,7 +81,7 @@ elif(os.path.isfile(rootdir)):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
  else:
   sys.exit(1);
- if(CheckHockeySQLiteArray(hockeyarray)):
+ if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
  print("");
  print("--------------------------------------------------------------------------");
