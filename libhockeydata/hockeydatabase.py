@@ -584,19 +584,13 @@ def CheckHockeyArray(hockeyarray):
   if hlkey not in hockeyarray.keys():
    return False;
   for hckey in hockeyarray[hlkey]['conferencelist']:
-   if hckey not in hockeyarray[hlkey].keys():
-    return False;
-   if hckey not in hockeyarray[hlkey]['quickinfo']['conferenceinfo'].keys():
+   if hckey not in hockeyarray[hlkey].keys() or hckey not in hockeyarray[hlkey]['quickinfo']['conferenceinfo'].keys():
     return False;
    for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-    if hdkey not in hockeyarray[hlkey][hckey].keys():
-     return False;
-    if hdkey not in hockeyarray[hlkey]['quickinfo']['divisioninfo'].keys():
+    if hdkey not in hockeyarray[hlkey][hckey].keys() or hdkey not in hockeyarray[hlkey]['quickinfo']['divisioninfo'].keys():
      return False;
     for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-     if htkey not in hockeyarray[hlkey][hckey][hdkey].keys():
-      return False;
-     if htkey not in hockeyarray[hlkey]['quickinfo']['teaminfo'].keys():
+     if htkey not in hockeyarray[hlkey][hckey][hdkey].keys() or htkey not in hockeyarray[hlkey]['quickinfo']['teaminfo'].keys():
       return False;
  return True;
 
