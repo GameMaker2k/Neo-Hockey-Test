@@ -638,7 +638,7 @@ def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=Fals
 def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, sdbfile, verbose):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, True);
+ hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, True, False);
  hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
  if(not CheckHockeySQLiteArray(hockeyarray)):
   return False;

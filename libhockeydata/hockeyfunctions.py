@@ -1564,48 +1564,48 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
   VerbosePrintOut("--");
   VerbosePrintOut("-- --------------------------------------------------------");
   VerbosePrintOut(" ");
- for tablei in table_list:
+ for get_cur_tab in table_list:
   sqldump = sqldump+"--\n";
-  sqldump = sqldump+"-- Table structure for table "+str(tablei)+"\n";
+  sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
   if(verbose):
    VerbosePrintOut(" ");
    VerbosePrintOut("--");
-   VerbosePrintOut("-- Table structure for table "+str(tablei)+"");
+   VerbosePrintOut("-- Table structure for table "+str(get_cur_tab)+"");
    VerbosePrintOut("--");
    VerbosePrintOut(" ");
-  sqldump = sqldump+"DROP TABLE IF EXISTS "+tablei+"\n\n";
+  sqldump = sqldump+"DROP TABLE IF EXISTS "+get_cur_tab+"\n\n";
   if(verbose):
-   VerbosePrintOut("DROP TABLE IF EXISTS "+tablei+"\n");
-  sqldump = sqldump+"CREATE TEMP TABLE "+tablei+" (\n";
+   VerbosePrintOut("DROP TABLE IF EXISTS "+get_cur_tab+"\n");
+  sqldump = sqldump+"CREATE TEMP TABLE "+get_cur_tab+" (\n";
   if(verbose):
-   VerbosePrintOut("CREATE TEMP TABLE "+tablei+" (");
-  rowlen = len(inhockeyarray[tablei]['rows']);
+   VerbosePrintOut("CREATE TEMP TABLE "+get_cur_tab+" (");
+  rowlen = len(inhockeyarray[get_cur_tab]['rows']);
   rowi = 0;
   sqlrowlist = [];
-  for rowinfo in inhockeyarray[tablei]['rows']:
-   sqlrowline = inhockeyarray[tablei][rowinfo]['info']['Name']+" "+inhockeyarray[tablei][rowinfo]['info']['Type'];
-   if(inhockeyarray[tablei][rowinfo]['info']['NotNull']==1):
+  for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+   sqlrowline = inhockeyarray[get_cur_tab][rowinfo]['info']['Name']+" "+inhockeyarray[get_cur_tab][rowinfo]['info']['Type'];
+   if(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']==1):
     sqlrowline = sqlrowline+" NOT NULL";
-   if(inhockeyarray[tablei][rowinfo]['info']['DefualtValue'] is not None):
-    sqlrowline = sqlrowline+" "+inhockeyarray[tablei][rowinfo]['info']['DefualtValue'];
-   if(inhockeyarray[tablei][rowinfo]['info']['PrimaryKey']==1):
+   if(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'] is not None):
+    sqlrowline = sqlrowline+" "+inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'];
+   if(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']==1):
     sqlrowline = sqlrowline+" PRIMARY KEY";
-   if(inhockeyarray[tablei][rowinfo]['info']['AutoIncrement']==1):
+   if(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']==1):
     sqlrowline = sqlrowline+" AUTOINCREMENT";
    sqlrowlist.append(sqlrowline);
   sqldump = sqldump+str(',\n'.join(sqlrowlist))+"\n);\n\n";
   sqldump = sqldump+"--\n";
-  sqldump = sqldump+"-- Dumping data for table "+str(tablei)+"\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
   if(verbose):
    VerbosePrintOut(str(',\n'.join(sqlrowlist))+"\n);\n");
    VerbosePrintOut(" ");
    VerbosePrintOut("--");
-   VerbosePrintOut("-- Dumping data for table "+str(tablei)+"");
+   VerbosePrintOut("-- Dumping data for table "+str(get_cur_tab)+"");
    VerbosePrintOut("--");
    VerbosePrintOut(" ");
-  for rowvalues in inhockeyarray[tablei]['values']:
+  for rowvalues in inhockeyarray[get_cur_tab]['values']:
    rkeylist = [];
    rvaluelist = [];
    for rkey, rvalue in rowvalues.items():
@@ -1613,10 +1613,10 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
     if(isinstance(rvalue, basestring)):
      rvalue = "\""+rvalue+"\"";
     rvaluelist.append(str(rvalue));
-   sqldump = sqldump+"INSERT INTO "+str(tablei)+" ("+str(', '.join(rkeylist))+") VALUES\n";
+   sqldump = sqldump+"INSERT INTO "+str(get_cur_tab)+" ("+str(', '.join(rkeylist))+") VALUES\n";
    sqldump = sqldump+"("+str(', '.join(rvaluelist))+");\n";
    if(verbose):
-    VerbosePrintOut("INSERT INTO "+str(tablei)+" ("+str(', '.join(rkeylist))+") VALUES");
+    VerbosePrintOut("INSERT INTO "+str(get_cur_tab)+" ("+str(', '.join(rkeylist))+") VALUES");
     VerbosePrintOut("("+str(', '.join(rvaluelist))+");");
   sqldump = sqldump+"\n-- --------------------------------------------------------\n\n";
   if(verbose):
