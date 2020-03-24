@@ -31,13 +31,13 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
- if(insdbfile is not None and isinstance(insdbfile, str)):
+ if(insdbfile is not None and isinstance(insdbfile, basestring)):
   insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
  if(outsdbfile is None):
   outsqldatacon = MakeHockeyDatabase(":memory:");
- if(outsdbfile is not None and isinstance(outsdbfile, str)):
+ if(outsdbfile is not None and isinstance(outsdbfile, basestring)):
   outsqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   outsqldatacon = tuple(outsdbfile);
@@ -63,7 +63,7 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
- if(insdbfile is not None and isinstance(insdbfile, str)):
+ if(insdbfile is not None and isinstance(insdbfile, basestring)):
   insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
@@ -85,7 +85,7 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
   return False;
  if(insdbfile is None):
   insqldatacon = OpenHockeyDatabase(":memory:");
- if(insdbfile is not None and isinstance(insdbfile, str)):
+ if(insdbfile is not None and isinstance(insdbfile, basestring)):
   insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
@@ -104,7 +104,7 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
 def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True):
  if(outsdbfile is None):
   insqldatacon = MakeHockeyDatabase(":memory:");
- if(outsdbfile is not None and isinstance(outsdbfile, str)):
+ if(outsdbfile is not None and isinstance(outsdbfile, basestring)):
   insqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   insqldatacon = tuple(outsdbfile);
@@ -121,7 +121,7 @@ def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True)
 def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=True):
  if(outsdbfile is None):
   insqldatacon = MakeHockeyDatabase(":memory:");
- if(outsdbfile is not None and isinstance(outsdbfile, str)):
+ if(outsdbfile is not None and isinstance(outsdbfile, basestring)):
   insqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   insqldatacon = tuple(outsdbfile);
@@ -444,7 +444,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   sqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
  if(sdbfile is None and "database" not in inhockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(":memory:");
- if(sdbfile is not None and isinstance(sdbfile, str)):
+ if(sdbfile is not None and isinstance(sdbfile, basestring)):
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
   sqldatacon = tuple(sdbfile);
@@ -891,7 +891,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
  return True;
 
 def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
@@ -1209,7 +1209,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
    for result_cal_val in tabresultcol:
     get_insert_stmt += str(result_cal_val)+", ";
    for result_val in tresult_tmp:
-    if(isinstance(result_val, str)):
+    if(isinstance(result_val, basestring)):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
     if(isinstance(result_val, int)):
      get_insert_stmt_val += ""+str(result_val)+", ";
@@ -1243,7 +1243,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
  return True;
 
 def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
@@ -1394,7 +1394,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  return leaguearrayout;
 
 def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
@@ -1412,27 +1412,77 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
  for leagueinfo_tmp in getleague_tmp:
   for cur_tab in all_table_list:
    table_list.append(leagueinfo_tmp[0]+cur_tab);
+ if(verbose):
+  VerbosePrintOut("-- "+__program_name__+" SQL Dumper");
+  VerbosePrintOut("-- version "+__version__+"");
+  VerbosePrintOut("-- "+__project_url__+"");
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"");
+  VerbosePrintOut("-- SQLite Server version: "+sqlite3.sqlite_version+"");
+  VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"");
+  VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"");
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- Database: "+sdbfile);
+  VerbosePrintOut("--");
+  VerbosePrintOut("-- --------------------------------------------------------");
  for get_cur_tab in table_list:
+  if(verbose):
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Table structure for table "+str(get_cur_tab)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+   VerbosePrintOut("DROP TABLE IF EXISTS "+get_cur_tab+"\n");
+   VerbosePrintOut("CREATE TEMP TABLE "+get_cur_tab+" (");
   gettableinfo = sqldatacon[0].execute("PRAGMA table_xinfo("+get_cur_tab+");").fetchall();
   sqlitedict.update( { get_cur_tab: { } } );
   collist = [];
+  sqlrowlist = [];
   for tableinfo in gettableinfo:
    autoincrement = 0;
    if(tableinfo[1]=="id" and tableinfo[5]==1):
     autoincrement = 1;
    sqlitedict[get_cur_tab].update( { tableinfo[1]: { 'info': {'id': tableinfo[0], 'Name': tableinfo[1], 'Type': tableinfo[2], 'NotNull': tableinfo[3], 'DefualtValue': tableinfo[4], 'PrimaryKey': tableinfo[5], 'AutoIncrement': autoincrement, 'Hidden': tableinfo[6] } } } );
+   sqlrowline = tableinfo[1]+" "+tableinfo[2];
+   if(tableinfo[3]==1):
+    sqlrowline = sqlrowline+" NOT NULL";
+   if(tableinfo[4] is not None):
+    sqlrowline = sqlrowline+" "+tableinfo[4];
+   if(tableinfo[5]==1):
+    sqlrowline = sqlrowline+" PRIMARY KEY";
+   if(autoincrement==1):
+    sqlrowline = sqlrowline+" AUTOINCREMENT";
+   sqlrowlist.append(sqlrowline);
    collist.append(tableinfo[1]);
    gettabledata = sqldatacon[0].execute("SELECT "+', '.join(collist)+" FROM "+get_cur_tab);
    subcollist = [];
+   rkeylist = [];
+   rvaluelist = [];
    for tabledata in gettabledata:
     subcolarray = {};
     collen = len(tabledata);
     colleni = 0;
     while(colleni < collen):
+     rkeylist.append(collist[colleni]);
+     tabledataalt = tabledata[colleni];
+     if(isinstance(tabledata[colleni], basestring)):
+      tabledataalt = "\""+tabledata[colleni]+"\"";
+     rvaluelist.append(str(tabledata[colleni]));
      subcolarray.update({collist[colleni]: tabledata[colleni]});
      colleni = colleni + 1;
     subcollist.append(subcolarray);
    sqlitedict[get_cur_tab].update( { 'values': subcollist } );
+  if(verbose):
+   VerbosePrintOut(str(',\n'.join(sqlrowlist))+"\n);\n");
+   VerbosePrintOut(" ");
+   VerbosePrintOut("--");
+   VerbosePrintOut("-- Dumping data for table "+str(get_cur_tab)+"");
+   VerbosePrintOut("--");
+   VerbosePrintOut(" ");
+   if(len(rvaluelist)>0):
+    VerbosePrintOut("INSERT INTO "+str(get_cur_tab)+" ("+str(', '.join(rkeylist))+") VALUES");
+    VerbosePrintOut("("+str(', '.join(rvaluelist))+");\n");
+    VerbosePrintOut("-- --------------------------------------------------------");
   sqlitedict[get_cur_tab].update( { 'rows': collist } );
  sqldatacon[1].close();
  return sqlitedict;

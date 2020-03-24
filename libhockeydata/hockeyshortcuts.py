@@ -21,6 +21,11 @@ import sqlite3, sys, os, re, time;
 from .hockeyoopfuncs import *;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
+try:
+ basestring;
+except NameError:
+ basestring = str;
+
 def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
@@ -130,7 +135,7 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
  if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))<1):
   file_wo_extension, file_extension = os.path.splitext(sqlfile);
   sdbfile = file_wo_extension+".db3";
- if(sdbfile is not None and isinstance(sdbfile, str)):
+ if(sdbfile is not None and isinstance(sdbfile, basestring)):
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
   sqldatacon = tuple(sdbfile);
@@ -376,7 +381,7 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
  return True;
 
 def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
@@ -448,7 +453,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
    for result_cal_val in tabresultcol:
     get_insert_stmt += str(result_cal_val)+", ";
    for result_val in tresult_tmp:
-    if(isinstance(result_val, str)):
+    if(isinstance(result_val, basestring)):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
     if(isinstance(result_val, int)):
      get_insert_stmt_val += ""+str(result_val)+", ";

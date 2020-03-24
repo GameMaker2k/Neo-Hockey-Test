@@ -19,6 +19,11 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
 
+try:
+ basestring;
+except NameError:
+ basestring = str;
+
 supersqlitesupport = True;
 try:
  from supersqlite import sqlite3;
@@ -143,7 +148,7 @@ def CheckXMLFile(infile):
  return validxmlfile;
 
 def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, str)):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   if(not CheckSQLiteDatabase(sdbfile)):
    return [False];
   sqldatacon = OpenHockeyDatabase(sdbfile);
@@ -1528,7 +1533,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
   atarenaname = GetTeamData(sqldatacon, leaguename, awayteam, "FullArenaName", "str");
  if(isinstance(atarena, int) and atarena>0):
   atarenaname = GetNum2Arena(sqldatacon, leaguename, atarena, "FullArenaName");
- if(isinstance(atarena, str)):
+ if(isinstance(atarena, basestring)):
   atarenaname = atarena;
   atarena = GetArena2Num(sqldatacon, leaguename, atarenaname);
  if(teamscores[0] > teamscores[1]):
