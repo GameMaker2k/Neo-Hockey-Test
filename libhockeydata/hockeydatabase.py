@@ -263,6 +263,8 @@ def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enabl
  return sqldatacon;
 
 def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  wins = 0;
  losses = 0;
  otlosses = 0;
@@ -284,6 +286,8 @@ def GetLastTenGames(sqldatacon, leaguename, teamname):
  return GetLastGames(sqldatacon, leaguename, teamname, 10);
 
 def GetLastGamesWithShootout(sqldatacon, leaguename, teamname, gamelimit=10):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  wins = 0;
  losses = 0;
  otlosses = 0;
@@ -310,6 +314,8 @@ def GetLastTenGamesWithShootout(sqldatacon, leaguename, teamname):
  return GetLastGamesWithShootout(sqldatacon, leaguename, teamname, 10);
 
 def GetLastGamesWithoutShootout(sqldatacon, leaguename, teamname, gamelimit=10):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  wins = 0;
  losses = 0;
  otlosses = 0;
@@ -331,6 +337,8 @@ def GetLastTenGamesWithoutShootout(sqldatacon, leaguename, teamname):
  return GetLastGamesWithoutShootout(sqldatacon, leaguename, teamname, 10);
 
 def UpdateHockeyData(sqldatacon, leaguename, tablename, wherename, wheredata, wheretype, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  wheretype = wheretype.lower();
  if(wheretype!="int" and wheretype!="str"):
   wheretype = "int";
@@ -353,6 +361,8 @@ def UpdateHockeyData(sqldatacon, leaguename, tablename, wherename, wheredata, wh
  return int(TMPData);
 
 def UpdateHockeyDataString(sqldatacon, leaguename, tablename, wherename, wheredata, wheretype, dataname, newdata):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(wheretype=="int"):
   sqldatacon[0].execute("UPDATE "+leaguename+tablename+" SET "+dataname+"=\""+str(newdata)+"\" WHERE "+wherename+"="+str(wheredata));
  if(wheretype=="str"):
@@ -360,6 +370,8 @@ def UpdateHockeyDataString(sqldatacon, leaguename, tablename, wherename, whereda
  return True;
 
 def UpdateTeamData(sqldatacon, leaguename, teamid, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
@@ -370,10 +382,14 @@ def UpdateTeamData(sqldatacon, leaguename, teamid, dataname, addtodata, addtype)
  return int(TMPData);
 
 def UpdateTeamDataString(sqldatacon, leaguename, teamid, dataname, newdata):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldatacon[0].execute("UPDATE "+leaguename+"Teams SET "+dataname+"=\""+str(newdata)+"\" WHERE id="+str(teamid));
  return True;
 
 def GetTeamData(sqldatacon, leaguename, teamid, dataname, datatype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(datatype=="float"):
   TMPData = float(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Teams WHERE id="+str(teamid)).fetchone()[0]);
  if(datatype=="int"):
@@ -383,6 +399,8 @@ def GetTeamData(sqldatacon, leaguename, teamid, dataname, datatype):
  return TMPData;
 
 def UpdateGameData(sqldatacon, leaguename, gameid, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
@@ -393,10 +411,14 @@ def UpdateGameData(sqldatacon, leaguename, gameid, dataname, addtodata, addtype)
  return int(TMPData);
 
 def UpdateGameDataString(sqldatacon, leaguename, gameid, dataname, newdata):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldatacon[0].execute("UPDATE "+leaguename+"Games SET "+dataname+"=\""+str(newdata)+"\" WHERE id="+str(gameid));
  return True;
 
 def GetGameData(sqldatacon, leaguename, gameid, dataname, datatype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(datatype=="float"):
   TMPData = float(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Games WHERE id="+str(gameid)).fetchone()[0]);
  if(datatype=="int"):
@@ -406,6 +428,8 @@ def GetGameData(sqldatacon, leaguename, gameid, dataname, datatype):
  return TMPData;
 
 def UpdateArenaData(sqldatacon, leaguename, arenaid, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
@@ -416,10 +440,14 @@ def UpdateArenaData(sqldatacon, leaguename, arenaid, dataname, addtodata, addtyp
  return int(TMPData);
 
 def UpdateArenaDataString(sqldatacon, leaguename, arenaid, dataname, newdata):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldatacon[0].execute("UPDATE "+leaguename+"Arenas SET "+dataname+"=\""+str(newdata)+"\" WHERE id="+str(arenaid));
  return True;
 
 def GetArenaData(sqldatacon, leaguename, arenaid, dataname, datatype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(datatype=="float"):
   TMPData = float(sqldatacon[0].execute("SELECT "+dataname+" FROM "+leaguename+"Arenas WHERE id="+str(arenaid)).fetchone()[0]);
  if(datatype=="int"):
@@ -429,6 +457,8 @@ def GetArenaData(sqldatacon, leaguename, arenaid, dataname, datatype):
  return TMPData;
 
 def UpdateConferenceData(sqldatacon, leaguename, conference, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
@@ -439,6 +469,8 @@ def UpdateConferenceData(sqldatacon, leaguename, conference, dataname, addtodata
  return int(TMPData);
 
 def UpdateDivisionData(sqldatacon, leaguename, division, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
@@ -449,6 +481,8 @@ def UpdateDivisionData(sqldatacon, leaguename, division, dataname, addtodata, ad
  return int(TMPData);
 
 def UpdateLeagueData(sqldatacon, leaguename, dataname, addtodata, addtype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(addtype=="="):
   TMPData = addtodata;
  if(addtype=="+"):
@@ -459,21 +493,31 @@ def UpdateLeagueData(sqldatacon, leaguename, dataname, addtodata, addtype):
  return int(TMPData);
 
 def GetLeagueName(sqldatacon, leaguename):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  TMPData = str(sqldatacon[0].execute("SELECT LeagueFullName FROM HockeyLeagues WHERE LeagueName=\""+str(leaguename)+"\"").fetchone()[0]);
  return TMPData;
 
 def GetConferenceName(sqldatacon, leaguename, conference):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  TMPData = str(sqldatacon[0].execute("SELECT FullName FROM "+leaguename+"Conferences WHERE Conference=\""+str(conference)+"\"").fetchone()[0]);
  return TMPData;
 
 def GetDivisionName(sqldatacon, leaguename, division, conference):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  TMPData = str(sqldatacon[0].execute("SELECT FullName FROM "+leaguename+"Divisions WHERE Conference=\""+str(conference)+"\" AND Division=\""+str(division)+"\"").fetchone()[0]);
  return TMPData;
 
 def GetNum2Team(sqldatacon, leaguename, TeamNum, ReturnVar):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Teams WHERE id="+str(TeamNum)).fetchone()[0]);
 
 def GetTeam2Num(sqldatacon, leaguename, TeamName):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Teams WHERE FullName=\""+str(TeamName)+"\"").fetchone()[0]);
 
 def GetFullTeamName(teamname, teamnameprefix="", teamnamesuffix=""):
@@ -492,12 +536,18 @@ def GetFullTeamName(teamname, teamnameprefix="", teamnamesuffix=""):
  return fullteamname;
 
 def GetNum2Arena(sqldatacon, leaguename, ArenaNum, ReturnVar):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  return str(sqldatacon[0].execute("SELECT "+ReturnVar+" FROM "+leaguename+"Arenas WHERE id="+str(ArenaNum)).fetchone()[0]);
 
 def GetArena2Num(sqldatacon, leaguename, ArenaName):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
 
 def GetFullArenaName(arenaname, cityname):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  return str(arenaname)+", "+str(cityname);
 
 def GetAreaInfoFromUSCA(areaname):
@@ -674,6 +724,8 @@ def ReplaceHockeyLeagueFromArray(hockeyarray, oldleaguename, newleaguename, leag
  return hockeyarray;
 
 def MakeHockeyLeagueTable(sqldatacon, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues");
  sqldatacon[0].execute("CREATE TABLE HockeyLeagues (\n" + \
@@ -692,6 +744,8 @@ def MakeHockeyLeagueTable(sqldatacon, droptable=True):
  return True;
 
 def MakeHockeyLeague(sqldatacon, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldatacon[0].execute("INSERT INTO HockeyLeagues (LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES \n" + \
  "(\""+str(leaguename)+"\", \""+str(leaguefullname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(date)+"\", \""+str(playofffmt)+"\", \""+str(ordertype)+"\", 0, 0, 0)");
  return True;
@@ -758,6 +812,8 @@ def ReplaceHockeyConferencFromArray(hockeyarray, leaguename, oldconference, newc
  return hockeyarray;
 
 def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n" + \
@@ -774,6 +830,8 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
  return True;
 
 def MakeHockeyConference(sqldatacon, leaguename, conference, prefix="", suffix="Conference", hasconferences=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  ConferenceFullName = GetFullTeamName(conference, prefix, suffix);
  LeagueFullName = GetLeagueName(sqldatacon, leaguename);
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Conferences (Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES \n" + \
@@ -848,6 +906,8 @@ def MoveHockeyDivisionToConferenceFromArray(hockeyarray, leaguename, division, o
  return hockeyarray;
 
 def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n" + \
@@ -865,6 +925,8 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
  return True;
 
 def MakeHockeyDivision(sqldatacon, leaguename, division, conference, prefix="", suffix="Division", hasconferences=True, hasdivisions=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  DivisionFullName = GetFullTeamName(division, prefix, suffix);
  ConferenceFullName = GetConferenceName(sqldatacon, leaguename, conference);
  LeagueFullName = GetLeagueName(sqldatacon, leaguename);
@@ -963,6 +1025,8 @@ def MoveHockeyTeamToDivisionFromArray(hockeyarray, leaguename, teamname, confere
  return hockeyarray;
 
 def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (\n" + \
@@ -1200,6 +1264,8 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  return True;
 
 def MakeHockeyTeam(sqldatacon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", hasconferences=True, hasdivisions=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  date = str(date);
  chckyear = date[:4];
  chckmonth = date[4:6];
@@ -1226,6 +1292,8 @@ def MakeHockeyTeam(sqldatacon, leaguename, date, cityname, areaname, countryname
  return True;
 
 def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"PlayoffTeams");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (\n" + \
@@ -1308,6 +1376,8 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  return True;
 
 def MakeHockeyPlayoffTeam(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  playoffspl = playofffmt.split(',');
  playoffcnt = 0;
  while(playoffcnt<len(playoffspl)):
@@ -1347,6 +1417,8 @@ def AddHockeyArenaToArray(hockeyarray, leaguename, cityname, areaname, countryna
  return hockeyarray;
 
 def MakeHockeyArena(sqldatacon, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldatacon[0].execute("INSERT INTO "+leaguename+"Arenas (TeamID, TeamName, TeamFullName, CityName, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, ArenaName, FullArenaName, GamesPlayed) VALUES \n" + \
  "(0, \"\", \"\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
  return True;
@@ -1359,6 +1431,8 @@ def AddHockeyGameToArray(hockeyarray, leaguename, date, hometeam, awayteam, peri
  return hockeyarray;
 
 def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(droptable):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Games");
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n" + \
@@ -1398,6 +1472,8 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
  return True;
 
 def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  if(isplayoffgame.isdigit()):
   isplayoffgame = int(isplayoffgame);
  if(isplayoffgame==0 or isplayoffgame=="0"):
@@ -1832,6 +1908,8 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  return True;
 
 def CloseHockeyDatabase(sqldatacon):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  db_integrity_check = sqldatacon[0].execute("PRAGMA integrity_check(100);").fetchone()[0];
  sqldatacon[0].execute("PRAGMA optimize;");
  sqldatacon[0].close();

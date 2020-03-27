@@ -41,6 +41,10 @@ def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdb
   outsqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   outsqldatacon = tuple(outsdbfile);
+ if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
+  return False;
+ if(not isinstance(outsqldatacon, (tuple, list)) and not outsqldatacon):
+  return False;
  insqldatacon[1].backup(outsqldatacon);
  if(returninsdbfile and returnoutsdbfile):
   return [insqldatacon, outsqldatacon];
@@ -67,6 +71,8 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
   insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
+ if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
+  return False;
  dbdumplist = [];
  for line in insqldatacon[1].iterdump():
   dbdumplist.append(line+"\n");
@@ -89,6 +95,8 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
   insqldatacon = OpenHockeyDatabase(insdbfile);
  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
   insqldatacon = tuple(insdbfile);
+ if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
+  return False;
  with open(outsqlfile, 'w+') as f:
   for line in insqldatacon[1].iterdump():
    f.write('%s\n' % line);
@@ -108,6 +116,8 @@ def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True)
   insqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   insqldatacon = tuple(outsdbfile);
+ if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
+  return False;
  insqldatacon[1].executescript(insqlstring);
  if(returnoutsdbfile):
   return [insqldatacon];
@@ -125,6 +135,8 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   insqldatacon = MakeHockeyDatabase(outsdbfile);
  if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
   insqldatacon = tuple(outsdbfile);
+ if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
+  return False;
  with open(insqlfile, 'r') as f:
   sqlinput = f.read();
  insqldatacon[1].executescript(sqlinput);
@@ -437,9 +449,6 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- if(verbose):
-  VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
- xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if(sdbfile is None and "database" in inhockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(inhockeyarray['database']);
  if(sdbfile is None and "database" not in inhockeyarray.keys()):
@@ -448,6 +457,11 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
   sqldatacon = tuple(sdbfile);
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
+ if(verbose):
+  VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+ xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if(verbose):
   VerbosePrintOut("<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">");
  xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">\n";
@@ -900,6 +914,8 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
    sqldatacon = tuple(sdbfile);
   else:
    return False;
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  leaguecur = sqldatacon[1].cursor();
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -1026,6 +1042,8 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   file_wo_extension, file_extension = os.path.splitext(sqlfile);
   sdbfile = file_wo_extension+".db3";
  sqldatacon = MakeHockeyDatabase(":memory:");
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldatacon[0].executescript(sqlstring);
  leaguecur = sqldatacon[1].cursor();
  if(verbose):
@@ -1144,6 +1162,8 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
  if(sdbfile is None):
   sdbfile = ":memory:";
  sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, True, False)[0];
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
@@ -1250,6 +1270,8 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
    sqldatacon = tuple(sdbfile);
   else:
    return False;
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  leaguecur = sqldatacon[1].cursor();
  if(verbose):
   VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -1403,6 +1425,8 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
    sqldatacon = tuple(sdbfile);
   else:
    return False;
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
