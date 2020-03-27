@@ -546,8 +546,6 @@ def GetArena2Num(sqldatacon, leaguename, ArenaName):
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Arenas WHERE FullArenaName=\""+str(ArenaName)+"\"").fetchone()[0]);
 
 def GetFullArenaName(arenaname, cityname):
- if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
-  return False;
  return str(arenaname)+", "+str(cityname);
 
 def GetAreaInfoFromUSCA(areaname):
