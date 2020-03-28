@@ -17,9 +17,22 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle, marshal, xml.etree.ElementTree;
+import sqlite3, sys, os, re, time, json, pickle, marshal, platform;
+
+try:
+ import xml.etree.cElementTree as cElementTree;
+except ImportError:
+ import xml.etree.ElementTree as cElementTree;
+
 from .hockeydatabase import *;
 from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
+
+''' // User-Agent string for http/https requests '''
+useragent_string = "Mozilla/5.0 (compatible; {proname}/{prover}; +{prourl})".format(proname=__project__, prover=__version_alt__, prourl=__project_url__);
+if(platform.python_implementation()!=""):
+ useragent_string_alt = "Mozilla/5.0 ({osver}; {archtype}; +{prourl}) {pyimp}/{pyver} (KHTML, like Gecko) {proname}/{prover}".format(osver=platform.system()+" "+platform.release(), archtype=platform.machine(), prourl=__project_url__, pyimp=platform.python_implementation(), pyver=platform.python_version(), proname=__project__, prover=__version_alt__);
+if(platform.python_implementation()==""):
+ useragent_string_alt = "Mozilla/5.0 ({osver}; {archtype}; +{prourl}) {pyimp}/{pyver} (KHTML, like Gecko) {proname}/{prover}".format(osver=platform.system()+" "+platform.release(), archtype=platform.machine(), prourl=__project_url__, pyimp="Python", pyver=platform.python_version(), proname=__project__, prover=__version_alt__);
 
 try:
  basestring;
@@ -265,9 +278,13 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
 
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(jsonisfile and (os.path.exists(injsonfile) and os.path.isfile(injsonfile))):
-  jsonfp = open(injsonfile, "r");
-  hockeyarray = json.load(jsonfp);
-  jsonfp.close();
+  if(re.findall("^(http|https)\:\/\/", jsonfile)):
+   jsonheaders = {'User-Agent': useragent_string};
+   hockeyarray = json.load(urllib2.urlopen(urllib2.Request(injsonfile, None, jsonheaders)));
+  else:
+   jsonfp = open(injsonfile, "r");
+   hockeyarray = json.load(jsonfp);
+   jsonfp.close();
  elif(not jsonisfile):
   hockeyarray = json.loads(injsonfile);
  else:
@@ -302,9 +319,13 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
 
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
  if(pickleisfile and (os.path.exists(inpicklefile) and os.path.isfile(inpicklefile))):
-  picklefp = open(inpicklefile, "r");
-  hockeyarray = pickle.load(picklefp);
-  picklefp.close();
+  if(re.findall("^(http|https)\:\/\/", picklefile)):
+   pickleheaders = {'User-Agent': useragent_string};
+   hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, pickleheaders)));
+  else:
+   picklefp = open(inpicklefile, "r");
+   hockeyarray = pickle.load(picklefp);
+   picklefp.close();
  elif(not pickleisfile):
   hockeyarray = pickle.loads(inpicklefile);
  else:
@@ -339,9 +360,13 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
 
 def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
  if(marshalisfile and (os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile))):
-  marshalfp = open(inmarshalfile, "r");
-  hockeyarray = marshal.load(marshalfp);
-  marshalfp.close();
+  if(re.findall("^(http|https)\:\/\/", marshalfile)):
+   marshalheaders = {'User-Agent': useragent_string};
+   hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, marshalheaders)));
+  else:
+   marshalfp = open(inmarshalfile, "r");
+   hockeyarray = marshal.load(marshalfp);
+   marshalfp.close();
  elif(not marshalisfile):
   hockeyarray = marshal.loads(inmarshalfile);
  else:
@@ -355,9 +380,19 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
-  hockeyfile = xml.etree.ElementTree.parse(inxmlfile);
+  xmlheaders = {'User-Agent': useragent_string};
+  try:
+   if(check_if_string(xmlfile) and re.findall("^(http|https)\:\/\/", xmlfile)):
+    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   else:
+    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+  except cElementTree.ParseError: 
+   return False;
  elif(not xmlisfile):
-  hockeyfile = xml.etree.ElementTree.ElementTree(xml.etree.ElementTree.fromstring(inxmlfile));
+  try:
+   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+  except cElementTree.ParseError: 
+   return False;
  else:
   return False;
  gethockey = hockeyfile.getroot();

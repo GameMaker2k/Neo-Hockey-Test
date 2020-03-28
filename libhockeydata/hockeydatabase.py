@@ -19,6 +19,18 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
 
+if(sys.version[0]=="2"):
+ try:
+  from cStringIO import StringIO;
+ except ImportError:
+  from StringIO import StringIO;
+ import urllib2, urlparse;
+if(sys.version[0]>="3"):
+ from io import StringIO, BytesIO;
+ import urllib.request as urllib2;
+ import urllib.parse as urlparse;
+'''from xml.sax.saxutils import XMLGenerator;'''
+
 try:
  basestring;
 except NameError:
@@ -60,6 +72,15 @@ except ImportError:
   from cgi import escape as html_escape;
  if(sys.version[0]>="3"):
   from html import escape as html_escape;
+
+def check_if_string(strtext):
+ if(sys.version[0]=="2"):
+  if(isinstance(strtext, basestring)):
+   return True;
+ if(sys.version[0]>="3"):
+  if(isinstance(strtext, str)):
+   return True;
+ return False;
 
 def EscapeXMLString(inxml, quote=True):
  if(quote):
