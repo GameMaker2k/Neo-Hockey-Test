@@ -277,8 +277,8 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
  return True;
 
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
- if(jsonisfile and (os.path.exists(injsonfile) and os.path.isfile(injsonfile))):
-  if(re.findall("^(http|https)\:\/\/", jsonfile)):
+ if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https)\:\/\/", injsonfile))):
+  if(re.findall("^(http|https)\:\/\/", injsonfile)):
    jsonheaders = {'User-Agent': useragent_string};
    hockeyarray = json.load(urllib2.urlopen(urllib2.Request(injsonfile, None, jsonheaders)));
   else:
@@ -318,8 +318,8 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
  return True;
 
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
- if(pickleisfile and (os.path.exists(inpicklefile) and os.path.isfile(inpicklefile))):
-  if(re.findall("^(http|https)\:\/\/", picklefile)):
+ if(pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https)\:\/\/", inpicklefile))):
+  if(re.findall("^(http|https)\:\/\/", inpicklefile)):
    pickleheaders = {'User-Agent': useragent_string};
    hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, pickleheaders)));
   else:
@@ -359,8 +359,8 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
  return True;
 
 def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
- if(marshalisfile and (os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile))):
-  if(re.findall("^(http|https)\:\/\/", marshalfile)):
+ if(marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https)\:\/\/", inmarshalfile))):
+  if(re.findall("^(http|https)\:\/\/", inmarshalfile)):
    marshalheaders = {'User-Agent': useragent_string};
    hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, marshalheaders)));
   else:
@@ -379,10 +379,10 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  return hockeyarray;
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
- if(xmlisfile and (os.path.exists(inxmlfile) and os.path.isfile(inxmlfile))):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
   xmlheaders = {'User-Agent': useragent_string};
   try:
-   if(check_if_string(xmlfile) and re.findall("^(http|https)\:\/\/", xmlfile)):
+   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
     hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
    else:
     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
