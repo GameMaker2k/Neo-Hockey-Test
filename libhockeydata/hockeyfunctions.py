@@ -25,7 +25,7 @@ except ImportError:
  import xml.etree.ElementTree as cElementTree;
 
 from .hockeydatabase import *;
-from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
+from .versioninfo import __program_name__, __project__, __project_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
 ''' // User-Agent string for http/https requests '''
 useragent_string = "Mozilla/5.0 (compatible; {proname}/{prover}; +{prourl})".format(proname=__project__, prover=__version_alt__, prourl=__project_url__);
