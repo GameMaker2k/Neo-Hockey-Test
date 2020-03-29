@@ -1654,7 +1654,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
  if(atarena==-1):
   atarena = awayteam;
   atarenaname = GetTeamData(sqldatacon, leaguename, awayteam, "FullArenaName", "str");
- if(isinstance(atarena, int) and atarena>0):
+ if(isinstance(atarena, baseint) and atarena>0):
   atarenaname = GetNum2Arena(sqldatacon, leaguename, atarena, "FullArenaName");
  if(isinstance(atarena, basestring)):
   atarenaname = atarena;

@@ -26,6 +26,15 @@ try:
 except NameError:
  basestring = str;
 
+baseint = [];
+try:
+ long;
+ baseint.append(int);
+ baseint.append(long);
+except NameError:
+ baseint.append(int);
+baseint = tuple(baseint);
+
 def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
@@ -455,7 +464,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
    for result_val in tresult_tmp:
     if(isinstance(result_val, basestring)):
      get_insert_stmt_val += "\""+str(result_val)+"\", ";
-    if(isinstance(result_val, int)):
+    if(isinstance(result_val, baseint)):
      get_insert_stmt_val += ""+str(result_val)+", ";
     if(isinstance(result_val, float)):
      get_insert_stmt_val += ""+str(result_val)+", ";
