@@ -1428,6 +1428,25 @@ def MakeHockeyPlayoffTeam(sqldatacon, leaguename, playofffmt="Division=3,Confere
   playoffcnt = playoffcnt + 1;
  return True;
 
+def MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable=True):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
+ if(droptable):
+  sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Standings");
+ SelectWhere = "";
+ try:
+  if(date.isdigit())
+   date = int(date);
+ except AttributeError:
+  SelectWhere = "";
+ if(isinstance(date, (int, long)) and len(date)==8):
+  SelectWhere = "WHERE Date<="+date;
+ sqldatacon[0].execute("CREATE TEMP TABLE "+leaguename+"Standings AS SELECT * FROM "+leaguename+"Stats "+SelectWhere+" GROUP BY TeamID ORDER BY TeamID ASC, Date DESC");
+ return True;
+
+def MakeHockeyStandings(sqldatacon, leaguename, date, droptable=True):
+ return MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable);
+
 def AddHockeyArenaToArray(hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
  if leaguename in hockeyarray.keys():
   if "arenas" not in hockeyarray[leaguename].keys():
