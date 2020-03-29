@@ -36,6 +36,15 @@ try:
 except NameError:
  basestring = str;
 
+baseint = [];
+try:
+ long;
+ baseint.append(int);
+ baseint.append(long);
+except NameError:
+ baseint.append(int);
+baseint = tuple(baseint);
+
 supersqlitesupport = True;
 try:
  from supersqlite import sqlite3;
@@ -1439,12 +1448,8 @@ def MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable=True):
    date = int(date);
  except AttributeError:
   SelectWhere = "";
- try:
-  if(isinstance(date, (int, long)) and len(date)==8):
-   SelectWhere = "WHERE Date<="+date;
- except NameError:
-  if(isinstance(date, (int)) and len(date)==8):
-   SelectWhere = "WHERE Date<="+date;
+ if(isinstance(date, baseint) and len(str(date))==8):
+  SelectWhere = "WHERE Date<="+date;
  sqldatacon[0].execute("CREATE TEMP TABLE "+leaguename+"Standings AS SELECT * FROM "+leaguename+"Stats "+SelectWhere+" GROUP BY TeamID ORDER BY TeamID ASC, Date DESC");
  return True;
 
