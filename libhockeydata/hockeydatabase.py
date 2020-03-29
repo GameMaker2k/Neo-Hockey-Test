@@ -1435,7 +1435,7 @@ def MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable=True):
   sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Standings");
  SelectWhere = "";
  try:
-  if(date.isdigit())
+  if(date.isdigit()):
    date = int(date);
  except AttributeError:
   SelectWhere = "";
