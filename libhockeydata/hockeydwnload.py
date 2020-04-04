@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 '''
     This program is free software; you can redistribute it and/or modify
     it under the terms of the Revised BSD License.
@@ -7,10 +10,10 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     Revised BSD License for more details.
 
-    Copyright 2011-2020 Game Maker 2k - https://github.com/GameMaker2k
-    Copyright 2011-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
+    Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
+    Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: downloader.py - Last Update: 12/3/2019 Ver. 2.7.19 RC 1 - Author: cooldude2k $
+    $FileInfo: downloader.py - Last Update: 4/4/2020 Ver. 0.4.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import division, absolute_import, print_function;
