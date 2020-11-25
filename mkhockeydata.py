@@ -37,6 +37,7 @@ defxmlfile = "./data/hockeydata.xml";
 defsdbfile = "./data/hockeydata.db3";
 defoldsdbfile = "./data/hockeydata.db3";
 defsqlfile = "./data/hockeydata.sql";
+defjsonfile = "./data/hockeydata.json";
 getactstr = "Actions: ";
 getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
