@@ -263,7 +263,7 @@ if(curaction==getactlist[11]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="json file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', defjsonfile), help="json file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
@@ -281,7 +281,7 @@ if(curaction==getactlist[12]):
  argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
  argparser.add_argument('action', nargs='?', default=curaction);
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="json file to convert");
- argparser.add_argument("-o", "-t", "--outfile", default=None, help="xml file to output");
+ argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', defjsonfile), default=None, help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
