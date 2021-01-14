@@ -30,7 +30,7 @@ keep_loop = True;
 #hockeydict = libhockeydata.CreateHockeyArray();
 hockeydict = libhockeydata.MakeHockeyArrayFromHockeyXML("./fhmt1.xml");
 while(keep_loop is True):
- menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Database Tool\nWhat do you want to do? ");
+ menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
  if(menuact.upper()!="E" and not menuact.isdigit()):
   print("ERROR: Invalid Command");
   menuact = " ";
