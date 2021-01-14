@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import libhockeydata, os;
+import libhockeydata, os, sys;
 
 extensions = ['.xml', '.json', '.sql', '.db3'];
 
