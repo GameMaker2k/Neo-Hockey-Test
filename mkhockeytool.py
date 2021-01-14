@@ -74,7 +74,7 @@ while(keep_loop is True):
     if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
-    if( HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<1)):
+    if( HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
     if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeydict['leaguelist']) and int(HockeyLeaguePreSN)>-1):
