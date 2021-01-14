@@ -29,8 +29,31 @@ def get_user_input(txt):
  return False;
 
 keep_loop = True;
-HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
-hockeydict = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
+premenuact = get_user_input("1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
+if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
+ print("ERROR: Invalid Command");
+ premenuact = "";
+if(premenuact=="1"):
+ HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
+ hockeyarray = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
+if(premenuact=="2"):
+ HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
+ ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
+ if(ext in extensions):
+  if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN);
+  elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN);
+  elif(ext==".sql"):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN);
+  elif(ext==".json"):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN);
+  else:
+   print("ERROR: Invalid Command");
+  if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
+  if(not libhockeydata.CheckHockeyArray(hockeyarray)):
+   print("ERROR: Invalid Command");
 while(keep_loop is True):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
  if(menuact.upper()!="E" and not menuact.isdigit()):
@@ -51,9 +74,9 @@ while(keep_loop is True):
     submenuact = "";
    if(submenuact=="1"):
     HockeyLeagueSN = get_user_input("Enter Hockey League short name: ");
-    if(HockeyLeagueSN in hockeydict['leaguelist']):
+    if(HockeyLeagueSN in hockeyarray['leaguelist']):
      print("ERROR: Hockey League with that short name exists");
-    if(HockeyLeagueSN not in hockeydict['leaguelist']):
+    if(HockeyLeagueSN not in hockeyarray['leaguelist']):
      HockeyLeagueFN = get_user_input("Enter Hockey League full name: ");
      HockeyLeagueCSN = get_user_input("Enter Hockey League country short name: ");
      HockeyLeagueCFN = get_user_input("Enter Hockey League country full name: ");
@@ -62,15 +85,15 @@ while(keep_loop is True):
      HockeyLeagueOT = get_user_input("Enter Hockey League ordertype: ");
      HockeyLeagueHC = get_user_input("Does Hockey League have conferences: ");
      HockeyLeagueHD = get_user_input("Does Hockey League have divisions: ");
-     hockeydict = libhockeydata.AddHockeyLeagueToArray(hockeydict, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD);
-   if(submenuact=="2" and len(hockeydict['leaguelist'])<=0):
+     hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD);
+   if(submenuact=="2" and len(hockeyarray['leaguelist'])<=0):
     print("ERROR: There are no Hockey Leagues to delete");
-   if(submenuact=="2" and len(hockeydict['leaguelist'])>0):
+   if(submenuact=="2" and len(hockeyarray['leaguelist'])>0):
     leaguec = 0;
     print("E: Back to Hockey League Tool");
-    while(leaguec<len(hockeydict['leaguelist'])):
-     lshn = hockeydict['leaguelist'][leaguec];
-     print(str(leaguec)+": "+hockeydict[lshn]['leagueinfo']['fullname']);
+    while(leaguec<len(hockeyarray['leaguelist'])):
+     lshn = hockeyarray['leaguelist'][leaguec];
+     print(str(leaguec)+": "+hockeyarray[lshn]['leagueinfo']['fullname']);
      leaguec = leaguec + 1;
     HockeyLeaguePreSN = get_user_input("Enter Hockey League short name: ");
     if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
@@ -79,23 +102,23 @@ while(keep_loop is True):
     if( HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
-    if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeydict['leaguelist']) and int(HockeyLeaguePreSN)>-1):
+    if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN)>-1):
      HockeyLeaguePreSN = int(HockeyLeaguePreSN);
-     HockeyLeagueSN = hockeydict['leaguelist'][HockeyLeaguePreSN];
-     hockeydict = libhockeydata.RemoveHockeyLeagueFromArray(hockeydict, HockeyLeagueSN);
+     HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeaguePreSN];
+     hockeyarray = libhockeydata.RemoveHockeyLeagueFromArray(hockeyarray, HockeyLeagueSN);
    if(submenuact.upper()=="E"):
     sub_keep_loop = False;
- if(menuact=="2" and len(hockeydict['leaguelist'])<=0):
+ if(menuact=="2" and len(hockeyarray['leaguelist'])<=0):
   print("ERROR: There are no Hockey Leagues");
- if(menuact=="2" and len(hockeydict['leaguelist'])>0):
+ if(menuact=="2" and len(hockeyarray['leaguelist'])>0):
   sub_keep_loop = True;
   while(sub_keep_loop is True):
    leaguec = 0;
    print("E: Back to Hockey League Tool");
-   while(leaguec<len(hockeydict['leaguelist'])):
-    lshn = hockeydict['leaguelist'][leaguec];
-    print(str(leaguec)+": "+hockeydict[lshn]['leagueinfo']['fullname']);
-    if(hockeydict[lshn]['leagueinfo']['conferences']=="no"):
+   while(leaguec<len(hockeyarray['leaguelist'])):
+    lshn = hockeyarray['leaguelist'][leaguec];
+    print(str(leaguec)+": "+hockeyarray[lshn]['leagueinfo']['fullname']);
+    if(hockeyarray[lshn]['leagueinfo']['conferences']=="no"):
      print("ERROR: Hockey League can not have any conferences");
     leaguec = leaguec + 1;
    sub_keep_loop = False;
@@ -105,30 +128,30 @@ while(keep_loop is True):
    submenuact = get_user_input("E: Back to Main Menu\n1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
    if(submenuact.upper()!="E" and not submenuact.isdigit()):
     print("ERROR: Invalid Command");
-    submenuact = " ";
+    submenuact = "";
    if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>2 or int(submenuact)<1)):
     print("ERROR: Invalid Command");
     submenuact = "";
    if(submenuact=="1"):
     HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
-    hockeydict = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
+    hockeyarray = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
    if(submenuact=="2"):
     HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
     ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
     if(ext in extensions):
      if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
-      hockeydict = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN);
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN);
      elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
-      hockeydict = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN);
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN);
      elif(ext==".sql"):
-      hockeydict = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN);
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN);
      elif(ext==".json"):
-      hockeydict = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN);
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN);
      else:
       print("ERROR: Invalid Command");
-     if(libhockeydata.CheckHockeySQLiteArray(hockeydict)):
-      hockeydict = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeydict);
-     if(not libhockeydata.CheckHockeyArray(hockeydict)):
+     if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
+     if(not libhockeydata.CheckHockeyArray(hockeyarray)):
       print("ERROR: Invalid Command");
    if(submenuact.upper()=="E"):
     sub_keep_loop = False;
