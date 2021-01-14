@@ -38,7 +38,7 @@ while(keep_loop is True):
    if(submenuact=="1"):
     HockeyLeagueSN = get_user_input("Enter Hockey League short name: ");
     if(HockeyLeagueSN in hockeydict['leaguelist']):
-     print("ERROR: Hockey League with that short name exists");
+     print("ERROR: Hockey League with that short name exists");
     if(HockeyLeagueSN not in hockeydict['leaguelist']):
      HockeyLeagueFN = get_user_input("Enter Hockey League full name: ");
      HockeyLeagueCSN = get_user_input("Enter Hockey League country short name: ");
