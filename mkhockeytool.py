@@ -95,7 +95,7 @@ while(keep_loop is True):
      lshn = hockeyarray['leaguelist'][leaguec];
      print(str(leaguec)+": "+hockeyarray[lshn]['leagueinfo']['fullname']);
      leaguec = leaguec + 1;
-    HockeyLeaguePreSN = get_user_input("Enter Hockey League short name: ");
+    HockeyLeaguePreSN = get_user_input("Enter Hockey League number: ");
     if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
@@ -115,7 +115,7 @@ while(keep_loop is True):
      lshn = hockeyarray['leaguelist'][leaguec];
      print(str(leaguec)+": "+hockeyarray[lshn]['leagueinfo']['fullname']);
      leaguec = leaguec + 1;
-    HockeyLeaguePreSN = get_user_input("Enter Hockey League short name: ");
+    HockeyLeaguePreSN = get_user_input("Enter Hockey League number: ");
     if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
@@ -151,7 +151,7 @@ while(keep_loop is True):
     lshn = hockeyarray['leaguelist'][leaguec];
     print(str(leaguec)+": "+hockeyarray[lshn]['leagueinfo']['fullname']);
     leaguec = leaguec + 1;
-   HockeyLeaguePreSN = get_user_input("Enter Hockey League short name: ");
+   HockeyLeaguePreSN = get_user_input("Enter Hockey League number: ");
    if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
     print("ERROR: Invalid Command");
     HockeyLeaguePreSN = "E";
@@ -191,7 +191,7 @@ while(keep_loop is True):
         lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec];
         print(str(conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname']);
         conferencec = conferencec + 1;
-       HockeyConferencePreCN = get_user_input("Enter Hockey Conference name: ");
+       HockeyConferencePreCN = get_user_input("Enter Hockey Conference number: ");
        if(HockeyConferencePreCN.upper()!="E" and not HockeyConferencePreCN.isdigit()):
         print("ERROR: Invalid Command");
         HockeyConferencePreCN = "E";
@@ -211,7 +211,7 @@ while(keep_loop is True):
         lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec];
         print(str(conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname']);
         conferencec = conferencec + 1;
-       HockeyConferencePreCN = get_user_input("Enter Hockey Conference name: ");
+       HockeyConferencePreCN = get_user_input("Enter Hockey Conference number: ");
        if(HockeyConferencePreCN.upper()!="E" and not HockeyConferencePreCN.isdigit()):
         print("ERROR: Invalid Command");
         HockeyConferencePreCN = "E";
