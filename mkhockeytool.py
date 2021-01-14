@@ -17,7 +17,9 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import libhockeydata;
+import libhockeydata, os;
+
+extensions = ['.xml', '.json', '.sql', '.db3'];
 
 def get_user_input(txt):
  try:
@@ -27,8 +29,8 @@ def get_user_input(txt):
  return False;
 
 keep_loop = True;
-#hockeydict = libhockeydata.CreateHockeyArray();
-hockeydict = libhockeydata.MakeHockeyArrayFromHockeyXML("./fhmt1.xml");
+HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
+hockeydict = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
 while(keep_loop is True):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
  if(menuact.upper()!="E" and not menuact.isdigit()):
@@ -107,6 +109,27 @@ while(keep_loop is True):
    if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>2 or int(submenuact)<1)):
     print("ERROR: Invalid Command");
     submenuact = "";
+   if(submenuact=="1"):
+    HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
+    hockeydict = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
+   if(submenuact=="2"):
+    HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
+    ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
+    if(ext in extensions):
+     if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
+      hockeydict = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN);
+     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
+      hockeydict = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN);
+     elif(ext==".sql"):
+      hockeydict = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN);
+     elif(ext==".json"):
+      hockeydict = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN);
+     else:
+      print("ERROR: Invalid Command");
+     if(libhockeydata.CheckHockeySQLiteArray(hockeydict)):
+      hockeydict = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeydict);
+     if(not libhockeydata.CheckHockeyArray(hockeydict)):
+      print("ERROR: Invalid Command");
    if(submenuact.upper()=="E"):
     sub_keep_loop = False;
  if(menuact.upper()=="E"):
