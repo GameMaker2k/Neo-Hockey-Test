@@ -29,15 +29,21 @@ def get_user_input(txt):
  return False;
 
 keep_loop = True;
-premenuact = get_user_input("1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
-if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
- print("ERROR: Invalid Command");
- premenuact = "";
+if(len(sys.argv)==1):
+ premenuact = get_user_input("1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
+ if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
+  print("ERROR: Invalid Command");
+  premenuact = "";
+if(len(sys.argv)>1):
+ premenuact = "2";
 if(premenuact=="1"):
  HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
  hockeyarray = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
 if(premenuact=="2"):
- HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
+ if(len(sys.argv)==1):
+  HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
+ if(len(sys.argv)>1):
+  HockeyDatabaseFN = sys.argv[1];
  ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
  if(ext in extensions):
   if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
