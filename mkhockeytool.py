@@ -97,5 +97,17 @@ while(keep_loop is True):
      print("ERROR: Hockey League can not have any conferences");
     leaguec = leaguec + 1;
    sub_keep_loop = False;
+ if(menuact=="7"):
+  sub_keep_loop = True;
+  while(sub_keep_loop is True):
+   submenuact = get_user_input("E: Back to Main Menu\n1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
+   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+    print("ERROR: Invalid Command");
+    submenuact = " ";
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>2 or int(submenuact)<1)):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()=="E"):
+    sub_keep_loop = False;
  if(menuact.upper()=="E"):
   keep_loop = False;
