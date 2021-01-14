@@ -272,7 +272,7 @@ while(keep_loop is True):
    if(submenuact.upper()=="3"):
     sub_sub_keep_loop = True;
     while(sub_sub_keep_loop is True):
-     subsubmenuact = get_user_input("E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey JSON\n3: Export Hockey Database to Hockey Py\n4: Export Hockey Database to Hockey Py Alt\n5: Export Hockey Database to Hockey SQL\n5: Export Hockey Database to Hockey Database File\nWhat do you want to do? ");
+     subsubmenuact = get_user_input("E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey JSON\n3: Export Hockey Database to Hockey Py\n4: Export Hockey Database to Hockey Py Alt\n5: Export Hockey Database to Hockey SQL\n6: Export Hockey Database to Hockey Database File\nWhat do you want to do? ");
      if(subsubmenuact.upper()!="E" and not subsubmenuact.isdigit()):
       print("ERROR: Invalid Command");
       subsubmenuact = "E";
