@@ -31,10 +31,22 @@ keep_loop = True;
 hockeydict = libhockeydata.MakeHockeyArrayFromHockeyXML("./fhmt1.xml");
 while(keep_loop is True):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Database Tool\nWhat do you want to do? ");
+ if(menuact.upper()!="E" and not menuact.isdigit()):
+  print("ERROR: Invalid Command");
+  menuact = " ";
+ if(menuact.upper()!="E" and menuact.isdigit() and (int(menuact)>6 or int(menuact)<1)):
+  print("ERROR: Invalid Command");
+  menuact = "";
  if(menuact=="1"):
   sub_keep_loop = True;
   while(sub_keep_loop is True):
    submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey League\n2: Remove Hockey League\nWhat do you want to do? ");
+   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+    print("ERROR: Invalid Command");
+    submenuact = " ";
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>2 or int(submenuact)<1)):
+    print("ERROR: Invalid Command");
+    submenuact = "";
    if(submenuact=="1"):
     HockeyLeagueSN = get_user_input("Enter Hockey League short name: ");
     if(HockeyLeagueSN in hockeydict['leaguelist']):
@@ -59,7 +71,13 @@ while(keep_loop is True):
      print(str(leaguec)+": "+hockeydict[lshn]['leagueinfo']['fullname']);
      leaguec = leaguec + 1;
     HockeyLeaguePreSN = get_user_input("Enter Hockey League short name: ");
-    if(HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeydict['leaguelist']) and int(HockeyLeaguePreSN) > -1):
+    if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
+     print("ERROR: Invalid Command");
+     HockeyLeaguePreSN = "E";
+    if( HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<1)):
+     print("ERROR: Invalid Command");
+     HockeyLeaguePreSN = "E";
+    if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeydict['leaguelist']) and int(HockeyLeaguePreSN)>-1):
      HockeyLeaguePreSN = int(HockeyLeaguePreSN);
      HockeyLeagueSN = hockeydict['leaguelist'][HockeyLeaguePreSN];
      hockeydict = libhockeydata.RemoveHockeyLeagueFromArray(hockeydict, HockeyLeagueSN);
