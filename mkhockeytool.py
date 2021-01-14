@@ -34,7 +34,7 @@ while(keep_loop is True):
  if(menuact.upper()!="E" and not menuact.isdigit()):
   print("ERROR: Invalid Command");
   menuact = " ";
- if(menuact.upper()!="E" and menuact.isdigit() and (int(menuact)>6 or int(menuact)<1)):
+ if(menuact.upper()!="E" and menuact.isdigit() and (int(menuact)>7 or int(menuact)<1)):
   print("ERROR: Invalid Command");
   menuact = "";
  if(menuact=="1"):
