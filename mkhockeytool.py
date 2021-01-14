@@ -58,8 +58,10 @@ while(keep_loop is True):
      lshn = hockeydict['leaguelist'][leaguec];
      print(str(leaguec)+": "+hockeydict[lshn]['leagueinfo']['fullname']);
      leaguec = leaguec + 1;
-    HockeyLeagueSN = get_user_input("Enter Hockey League short name: ");
-    if(HockeyLeagueSN.upper() != "E" and int(HockeyLeagueSN) < len(hockeydict['leaguelist']) and int(HockeyLeagueSN) > -1):
+    HockeyLeaguePreSN = get_user_input("Enter Hockey League short name: ");
+    if(HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeydict['leaguelist']) and int(HockeyLeaguePreSN) > -1):
+     HockeyLeaguePreSN = int(HockeyLeaguePreSN);
+     HockeyLeagueSN = hockeydict['leaguelist'][HockeyLeaguePreSN];
      hockeydict = libhockeydata.RemoveHockeyLeagueFromArray(hockeydict, HockeyLeagueSN);
    if(submenuact.upper()=="E"):
     sub_keep_loop = False;
