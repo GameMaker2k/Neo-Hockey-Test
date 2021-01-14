@@ -125,11 +125,11 @@ while(keep_loop is True):
  if(menuact=="7"):
   sub_keep_loop = True;
   while(sub_keep_loop is True):
-   submenuact = get_user_input("E: Back to Main Menu\n1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
+   submenuact = get_user_input("E: Back to Main Menu\n1: Empty Hockey Database\n2: Import Hockey Database From File\n3: Export Hockey Database to File\nWhat do you want to do? ");
    if(submenuact.upper()!="E" and not submenuact.isdigit()):
     print("ERROR: Invalid Command");
     submenuact = "";
-   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>2 or int(submenuact)<1)):
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
     print("ERROR: Invalid Command");
     submenuact = "";
    if(submenuact=="1"):
@@ -153,6 +153,36 @@ while(keep_loop is True):
       hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
      if(not libhockeydata.CheckHockeyArray(hockeyarray)):
       print("ERROR: Invalid Command");
+   if(submenuact.upper()=="3"):
+    sub_sub_keep_loop = True;
+    while(sub_sub_keep_loop is True):
+     subsubmenuact = get_user_input("E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey JSON\n3: Export Hockey Database to Hockey Py\n4: Export Hockey Database to Hockey Py Alt\n5: Export Hockey Database to Hockey SQL\n5: Export Hockey Database to Hockey Database File\nWhat do you want to do? ");
+     if(subsubmenuact.upper()!="E" and not subsubmenuact.isdigit()):
+      print("ERROR: Invalid Command");
+      subsubmenuact = "E";
+     if(subsubmenuact.upper()!="E" and subsubmenuact.isdigit() and (int(subsubmenuact)>6 or int(subsubmenuact)<1)):
+      print("ERROR: Invalid Command");
+      subsubmenuact = "E";
+     if(subsubmenuact=="1"):
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database XML File Name to Export: ");
+      libhockeydata.MakeHockeyXMLFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
+     if(subsubmenuact=="2"):
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database JSON File Name to Export: ");
+      libhockeydata.MakeHockeyJSONFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
+     if(subsubmenuact=="3"):
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
+      libhockeydata.MakeHockeyPythonFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
+     if(subsubmenuact=="4"):
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
+      libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
+     if(subsubmenuact=="5"):
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
+      libhockeydata.MakeHockeySQLFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
+     if(subsubmenuact=="6"):
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name to Export: ");
+      libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, HockeyDatabaseFN);
+     if(subsubmenuact.upper()=="E"):
+      sub_sub_keep_loop = False;
    if(submenuact.upper()=="E"):
     sub_keep_loop = False;
  if(menuact.upper()=="E"):
