@@ -184,7 +184,7 @@ while(keep_loop is True):
        HockeyConferenceCN = get_user_input("Enter Hockey Conference name: ");
        if(HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']):
         print("ERROR: Hockey Conference with that name exists");
-       if(HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
+       if(HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']):
         HockeyConferenceCPFN = get_user_input("Enter Hockey Conference prefix: ");
         HockeyConferenceCSFN = get_user_input("Enter Hockey Conference suffix: ");
         hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, HockeyLeagueSN, HockeyConferenceCPFN, HockeyConferenceCSFN);
