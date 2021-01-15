@@ -19,6 +19,20 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata, os, sys, readline;
 
+__project__ = libhockeydata.__project__;
+__program_name__ = libhockeydata.__program_name__;
+__project_url__ = libhockeydata.__project_url__;
+__version_info__ = libhockeydata.__version_info__;
+__version_date_info__ = libhockeydata.__version_date_info__;
+__version_date__ = libhockeydata.__version_date__;
+__version_date_plusrc__ = libhockeydata.__version_date_plusrc__;
+__version__ = libhockeydata.__version__;
+
+defxmlfile = "./data/hockeydata.xml";
+defsdbfile = "./data/hockeydata.db3";
+defoldsdbfile = "./data/hockeydata.db3";
+defsqlfile = "./data/hockeydata.sql";
+defjsonfile = "./data/hockeydata.json";
 extensions = ['.xml', '.json', '.sql', '.db3'];
 
 def get_user_input(txt):
