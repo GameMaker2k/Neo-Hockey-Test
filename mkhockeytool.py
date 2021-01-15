@@ -271,6 +271,18 @@ while(keep_loop):
        sub_sub_keep_loop = False;
    if(HockeyLeaguePreSN.upper()=="E"):
     sub_keep_loop = False;
+ if(menuact=="3"):
+  print("ERROR: Sorry Command not Implemented yet");
+  raise NotImplementedError;
+ if(menuact=="4"):
+  print("ERROR: Sorry Command not Implemented yet");
+  raise NotImplementedError;
+ if(menuact=="5"):
+  print("ERROR: Sorry Command not Implemented yet");
+  raise NotImplementedError;
+ if(menuact=="6"):
+  print("ERROR: Sorry Command not Implemented yet");
+  raise NotImplementedError;
  if(menuact=="7"):
   sub_keep_loop = True;
   while(sub_keep_loop):
