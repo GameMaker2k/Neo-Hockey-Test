@@ -196,19 +196,19 @@ while(keep_loop is True):
        subsubmenuact = "";
       if(subsubmenuact.upper()=="1"):
        HockeyConferenceCN = get_user_input("Enter Hockey Conference name: ");
-       if(HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']):
+       if(HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['conferencelist']):
         print("ERROR: Hockey Conference with that name exists");
-       if(HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']):
+       if(HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
         HockeyConferenceCPFN = get_user_input("Enter Hockey Conference prefix: ");
         HockeyConferenceCSFN = get_user_input("Enter Hockey Conference suffix: ");
-        hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, HockeyLeagueSN, HockeyConferenceCPFN, HockeyConferenceCSFN);
-      if(subsubmenuact=="2" and (len(hockeyarray['leaguelist'])<=0 or len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'])<=0)):
+        hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, HockeyLeagueSN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN);
+      if(subsubmenuact=="2" and (len(hockeyarray['leaguelist'])<=0 or len(hockeyarray[HockeyLeagueSN]['conferencelist'])<=0)):
        print("ERROR: There are no Hockey Conferences to delete");
-      if(subsubmenuact=="2" and len(hockeyarray['leaguelist'])>0 and len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'])>0):
+      if(subsubmenuact=="2" and len(hockeyarray['leaguelist'])>0 and len(hockeyarray[HockeyLeagueSN]['conferencelist'])>0):
        conferencec = 0;
        print("E: Back to Hockey Conference Tool");
-       while(conferencec<len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'])):
-        lshn = hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'][conferencec];
+       while(conferencec<len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
+        lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec];
         print(str(conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname']);
         conferencec = conferencec + 1;
        HockeyConferencePreCN = get_user_input("Enter Hockey Conference number: ");
@@ -218,17 +218,17 @@ while(keep_loop is True):
        if(HockeyConferencePreCN.upper()!="E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN)>6 or int(HockeyConferencePreCN)<0)):
         print("ERROR: Invalid Command");
         HockeyConferencePreCN = "E";
-       if(HockeyConferencePreCN.upper()!="E" and int(HockeyConferencePreCN)<len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']) and int(HockeyConferencePreCN)>-1):
+       if(HockeyConferencePreCN.upper()!="E" and int(HockeyConferencePreCN)<len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN)>-1):
         HockeyConferenceIntCN = int(HockeyConferencePreCN);
-        HockeyConferenceCN = hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'][HockeyConferenceIntCN];
+        HockeyConferenceCN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntCN];
         hockeyarray = libhockeydata.RemoveHockeyConferenceFromArray(hockeyarray, HockeyLeagueSN, HockeyConferenceCN);
-      if(subsubmenuact=="3" and (len(hockeyarray['leaguelist'])<=0 or len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'])<=0)):
+      if(subsubmenuact=="3" and (len(hockeyarray['leaguelist'])<=0 or len(hockeyarray[HockeyLeagueSN]['conferencelist'])<=0)):
        print("ERROR: There are no Hockey Conferences to edit");
-      if(subsubmenuact=="3" and len(hockeyarray['leaguelist'])>0 and len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'])>0):
+      if(subsubmenuact=="3" and len(hockeyarray['leaguelist'])>0 and len(hockeyarray[HockeyLeagueSN]['conferencelist'])>0):
        conferencec = 0;
        print("E: Back to Hockey Conference Tool");
-       while(conferencec<len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'])):
-        lshn = hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'][conferencec];
+       while(conferencec<len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
+        lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec];
         print(str(conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname']);
         conferencec = conferencec + 1;
        HockeyConferencePreCN = get_user_input("Enter Hockey Conference number: ");
@@ -238,13 +238,13 @@ while(keep_loop is True):
        if(HockeyConferencePreCN.upper()!="E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN)>6 or int(HockeyConferencePreCN)<0)):
         print("ERROR: Invalid Command");
         HockeyConferencePreCN = "E";
-       if(HockeyConferencePreCN.upper()!="E" and int(HockeyConferencePreCN)<len(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']) and int(HockeyConferencePreCN)>-1):
+       if(HockeyConferencePreCN.upper()!="E" and int(HockeyConferencePreCN)<len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN)>-1):
         HockeyConferenceIntCN = int(HockeyConferencePreCN);
-        HockeyConferenceOldCN = hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist'][HockeyConferenceIntCN];
+        HockeyConferenceOldCN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntCN];
         HockeyConferenceCN = get_user_input("Enter Hockey Conference name: ");
-        if(HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']):
+        if(HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['conferencelist']):
          print("ERROR: Hockey Conference with that name exists");
-        if(HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['leagueinfo']['conferencelist']):
+        if(HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
          HockeyConferenceCPFN = get_user_input("Enter Hockey Conference prefix: ");
          HockeyConferenceCSFN = get_user_input("Enter Hockey Conference suffix: ");
         hockeyarray = libhockeydata.ReplaceHockeyConferencFromArray(hockeyarray, HockeyLeagueSN, HockeyConferenceOldCN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN);
