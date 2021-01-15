@@ -62,9 +62,9 @@ if(getargs.infile is None):
   premenuact = "";
 if(getargs.infile is not None):
  premenuact = "2";
- if(getargs.empty is True):
+ if(getargs.empty):
   premenuact = "1";
- if(getargs.empty is False):
+ if(not getargs.empty):
   premenuact = "2";
 if(premenuact=="1"):
  if(getargs.infile is None):
@@ -93,7 +93,7 @@ if(premenuact=="2"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
   if(not libhockeydata.CheckHockeyArray(hockeyarray)):
    print("ERROR: Invalid Command");
-while(keep_loop is True):
+while(keep_loop):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
  if(menuact.upper()!="E" and not menuact.isdigit()):
   print("ERROR: Invalid Command");
@@ -103,7 +103,7 @@ while(keep_loop is True):
   menuact = "";
  if(menuact=="1"):
   sub_keep_loop = True;
-  while(sub_keep_loop is True):
+  while(sub_keep_loop):
    submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey League\n2: Remove Hockey League\n3: Edit Hockey League\nWhat do you want to do? ");
    if(submenuact.upper()!="E" and not submenuact.isdigit()):
     print("ERROR: Invalid Command");
@@ -183,7 +183,7 @@ while(keep_loop is True):
   print("ERROR: There are no Hockey Leagues");
  if(menuact=="2" and len(hockeyarray['leaguelist'])>0):
   sub_keep_loop = True;
-  while(sub_keep_loop is True):
+  while(sub_keep_loop):
    leaguec = 0;
    print("E: Back to Main Menu");
    while(leaguec<len(hockeyarray['leaguelist'])):
@@ -205,7 +205,7 @@ while(keep_loop is True):
      HockeyLeaguePreSN = "E";
     if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="yes"):
      sub_sub_keep_loop = True;
-     while(sub_sub_keep_loop is True):
+     while(sub_sub_keep_loop):
       subsubmenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Conference\n2: Remove Hockey Conference\n3: Edit Hockey Conference\nWhat do you want to do? ");
       if(subsubmenuact.upper()!="E" and not subsubmenuact.isdigit()):
        print("ERROR: Invalid Command");
@@ -273,7 +273,7 @@ while(keep_loop is True):
     sub_keep_loop = False;
  if(menuact=="7"):
   sub_keep_loop = True;
-  while(sub_keep_loop is True):
+  while(sub_keep_loop):
    submenuact = get_user_input("E: Back to Main Menu\n1: Empty Hockey Database\n2: Import Hockey Database From File\n3: Export Hockey Database to File\nWhat do you want to do? ");
    if(submenuact.upper()!="E" and not submenuact.isdigit()):
     print("ERROR: Invalid Command");
@@ -304,7 +304,7 @@ while(keep_loop is True):
       print("ERROR: Invalid Command");
    if(submenuact.upper()=="3"):
     sub_sub_keep_loop = True;
-    while(sub_sub_keep_loop is True):
+    while(sub_sub_keep_loop):
      subsubmenuact = get_user_input("E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey JSON\n3: Export Hockey Database to Hockey Py\n4: Export Hockey Database to Hockey Py Alt\n5: Export Hockey Database to Hockey SQL\n6: Export Hockey Database to Hockey Database File\nWhat do you want to do? ");
      if(subsubmenuact.upper()!="E" and not subsubmenuact.isdigit()):
       print("ERROR: Invalid Command");
