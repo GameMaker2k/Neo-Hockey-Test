@@ -13,7 +13,7 @@
     Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: example.py - Last Update: 1/15/2021 Ver. 0.4.0 RC 1 - Author: cooldude2k $
+    $FileInfo: example.py - Last Update: 1/15/2021 Ver. 0.5.0 RC 1 - Author: cooldude2k $
 '''
 
 import libhockeydata, os, sys, random;
