@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import libhockeydata, os, sys, readline;
+import libhockeydata, os, sys, readline, argparse, logging;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
@@ -42,22 +42,41 @@ def get_user_input(txt):
   return input(txt);
  return False;
 
+argparser = argparse.ArgumentParser(description="Just a test script dealing with hockey games and stats", conflict_handler="resolve", add_help=True);
+argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
+argparser.add_argument("-i", "-f", "--infile", nargs="?", default=None, help="database file to load");
+argparser.add_argument("-e", "-n", "--empty", action="store_true", help="create empty database file");
+argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+getargs = argparser.parse_args();
+verboseon = getargs.verbose;
+if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+ verboseon = True;
+if(verboseon):
+ logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
+
 keep_loop = True;
-if(len(sys.argv)==1):
+if(getargs.infile is None):
  premenuact = get_user_input("1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
  if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
   print("ERROR: Invalid Command");
   premenuact = "";
-if(len(sys.argv)>1):
+if(getargs.infile is not None):
  premenuact = "2";
+ if(getargs.empty is True):
+  premenuact = "1";
+ if(getargs.empty is False):
+  premenuact = "2";
 if(premenuact=="1"):
- HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
+ if(getargs.infile is None):
+  HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Output: ");
+ if(getargs.infile is not None):
+  HockeyDatabaseFN = getargs.infile;
  hockeyarray = libhockeydata.CreateHockeyArray(HockeyDatabaseFN);
 if(premenuact=="2"):
- if(len(sys.argv)==1):
+ if(getargs.infile is None):
   HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
- if(len(sys.argv)>1):
-  HockeyDatabaseFN = sys.argv[1];
+ if(getargs.infile is not None):
+  HockeyDatabaseFN = getargs.infile;
  ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
  if(ext in extensions):
   if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
