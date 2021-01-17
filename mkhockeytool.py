@@ -309,17 +309,61 @@ while(keep_loop):
    if(HockeyLeaguePreSN.upper()=="E"):
     sub_keep_loop = False;
  if(menuact=="3"):
-  print("ERROR: Sorry Command not Implemented yet");
-  raise NotImplementedError;
+  sub_keep_loop = True;
+  while(sub_keep_loop):
+   submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ");
+   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()=="E"):
+    sub_keep_loop = False;
+   print("ERROR: Sorry Command not Implemented yet");
+   raise NotImplementedError;
  if(menuact=="4"):
-  print("ERROR: Sorry Command not Implemented yet");
-  raise NotImplementedError;
+  sub_keep_loop = True;
+  while(sub_keep_loop):
+   submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Team\n2: Remove Hockey Team\n3: Edit Hockey Team\nWhat do you want to do? ");
+   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()=="E"):
+    sub_keep_loop = False;
+   print("ERROR: Sorry Command not Implemented yet");
+   raise NotImplementedError;
  if(menuact=="5"):
-  print("ERROR: Sorry Command not Implemented yet");
-  raise NotImplementedError;
+  sub_keep_loop = True;
+  while(sub_keep_loop):
+   submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Arena\n2: Remove Hockey Arena\n3: Edit Hockey Arena\nWhat do you want to do? ");
+   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()=="E"):
+    sub_keep_loop = False;
+   print("ERROR: Sorry Command not Implemented yet");
+   raise NotImplementedError;
  if(menuact=="6"):
-  print("ERROR: Sorry Command not Implemented yet");
-  raise NotImplementedError;
+  sub_keep_loop = True;
+  while(sub_keep_loop):
+   submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Game\n2: Remove Hockey Game\n3: Edit Hockey Game\nWhat do you want to do? ");
+   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+    print("ERROR: Invalid Command");
+    submenuact = "";
+   if(submenuact.upper()=="E"):
+    sub_keep_loop = False;
+   print("ERROR: Sorry Command not Implemented yet");
+   raise NotImplementedError;
  if(menuact=="7"):
   sub_keep_loop = True;
   while(sub_keep_loop):
