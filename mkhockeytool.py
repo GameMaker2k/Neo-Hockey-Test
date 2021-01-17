@@ -46,6 +46,9 @@ argparser = argparse.ArgumentParser(description="Just a test script dealing with
 argparser.add_argument("-v", "--ver", "--version", action="version", version=__program_name__+" "+__version__);
 argparser.add_argument("-i", "-f", "--infile", nargs="?", default=None, help="database file to load");
 argparser.add_argument("-e", "-n", "--empty", action="store_true", help="create empty database file");
+argparser.add_argument("-o", "-e", "--outfile", nargs="?", default=None, help="database file to save");
+argparser.add_argument("-x", "-p", "--export", action="store_true", help="export file to database");
+argparser.add_argument("-t", "-y", "--type", nargs="?", default=None, help="type of file to export");
 argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
 getargs = argparser.parse_args();
 verboseon = getargs.verbose;
@@ -93,6 +96,40 @@ if(premenuact=="2"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
   if(not libhockeydata.CheckHockeyArray(hockeyarray)):
    print("ERROR: Invalid Command");
+
+if(getargs.export):
+ if(getargs.type.lower()=="xml"):
+  if(getargs.outfile is None):
+   HockeyDatabaseFN = get_user_input("Enter Hockey Database XML File Name to Export: ");
+   getargs.outfile = HockeyDatabaseFN;
+  libhockeydata.MakeHockeyXMLFileFromHockeyArray(hockeyarray, getargs.outfile);
+ if(getargs.type.lower()=="json"):
+  if(getargs.outfile is None):
+   HockeyDatabaseFN = get_user_input("Enter Hockey Database JSON File Name to Export: ");
+   getargs.outfile = HockeyDatabaseFN;
+  libhockeydata.MakeHockeyJSONFileFromHockeyArray(hockeyarray, getargs.outfile);
+ if(getargs.type.lower()=="py"):
+  if(getargs.outfile is None):
+   HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
+   getargs.outfile = HockeyDatabaseFN;
+  libhockeydata.MakeHockeyPythonFileFromHockeyArray(hockeyarray, getargs.outfile);
+ if(getargs.type.lower()=="pyalt"):
+  if(getargs.outfile is None):
+   HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
+   getargs.outfile = HockeyDatabaseFN;
+  libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, getargs.outfile);
+ if(getargs.type.lower()=="sql"):
+  if(getargs.outfile is None):
+   HockeyDatabaseFN = get_user_input("Enter Hockey Database SQL File Name to Export: ");
+   getargs.outfile = HockeyDatabaseFN;
+  libhockeydata.MakeHockeySQLFileFromHockeyArray(hockeyarray, getargs.outfile);
+ if(getargs.type.lower()=="db3"):
+  if(getargs.outfile is None):
+   HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name to Export: ");
+   getargs.outfile = HockeyDatabaseFN;
+  libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, getargs.outfile);
+ sys.exit();
+
 while(keep_loop):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
  if(menuact.upper()!="E" and not menuact.isdigit()):
@@ -337,7 +374,7 @@ while(keep_loop):
       HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
       libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
      if(subsubmenuact=="5"):
-      HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
+      HockeyDatabaseFN = get_user_input("Enter Hockey Database SQL File Name to Export: ");
       libhockeydata.MakeHockeySQLFileFromHockeyArray(hockeyarray, HockeyDatabaseFN);
      if(subsubmenuact=="6"):
       HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name to Export: ");
