@@ -57,7 +57,6 @@ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
 if(verboseon):
  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
 
-keep_loop = True;
 if(getargs.infile is None):
  premenuact = get_user_input("1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
  if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
@@ -130,6 +129,7 @@ if(getargs.export):
   libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, getargs.outfile);
  sys.exit();
 
+keep_loop = True;
 while(keep_loop):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
  if(menuact.upper()!="E" and not menuact.isdigit()):
