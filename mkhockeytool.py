@@ -33,7 +33,8 @@ defsdbfile = "./data/hockeydata.db3";
 defoldsdbfile = "./data/hockeydata.db3";
 defsqlfile = "./data/hockeydata.sql";
 defjsonfile = "./data/hockeydata.json";
-extensions = ['.xml', '.json', '.sql', '.db3'];
+extensions = ['.xml', '.json', '.sql', '.db3', '.py'];
+filetypes = ['xml', 'json', 'sql', 'db3', 'py', 'pyalt'];
 
 def get_user_input(txt):
  try:
@@ -97,7 +98,7 @@ if(premenuact=="2"):
    print("ERROR: Invalid Command");
 
 if(getargs.export):
- if(getargs.type is not None and getargs.type not in extensions):
+ if(getargs.type is not None and getargs.type not in filetypes):
   getargs.type = None;
  if(getargs.type is not None and getargs.type.lower()=="xml"):
   if(getargs.outfile is None):
