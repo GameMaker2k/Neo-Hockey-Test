@@ -204,7 +204,7 @@ while(keep_loop):
     if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
-    if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
+    if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN)<0)):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
     if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN)>-1):
@@ -224,7 +224,7 @@ while(keep_loop):
     if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
-    if( HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
+    if( HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN)<0)):
      print("ERROR: Invalid Command");
      HockeyLeaguePreSN = "E";
     if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN)>-1):
@@ -260,7 +260,7 @@ while(keep_loop):
    if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
     print("ERROR: Invalid Command");
     HockeyLeaguePreSN = "E";
-   if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
+   if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN)<0)):
     print("ERROR: Invalid Command");
     HockeyLeaguePreSN = "E";
    if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN)>-1):
@@ -352,7 +352,7 @@ while(keep_loop):
    if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
     print("ERROR: Invalid Command");
     HockeyLeaguePreSN = "E";
-   if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
+   if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN)<0)):
     print("ERROR: Invalid Command");
     HockeyLeaguePreSN = "E";
    if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN)>-1):
@@ -362,29 +362,68 @@ while(keep_loop):
      print("ERROR: Hockey League can not have any divisions");
      HockeyLeaguePreSN = "E";
     if(hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions']=="yes"):
-     sub_sub_keep_loop = True;
-     while(sub_sub_keep_loop):
-      submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ");
-      if(submenuact.upper()!="E" and not submenuact.isdigit()):
-       print("ERROR: Invalid Command");
-       submenuact = "";
-      if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
-       print("ERROR: Invalid Command");
-       submenuact = "";
-      if(submenuact.upper()=="1"):
-       if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="no"):
-        pass;
-       if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="yes"):
+     if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="no"):
+      sub_sub_keep_loop = True;
+      while(sub_sub_keep_loop):
+       submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ");
+       if(submenuact.upper()!="E" and not submenuact.isdigit()):
+        print("ERROR: Invalid Command");
+        submenuact = "";
+       if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+        print("ERROR: Invalid Command");
+        submenuact = "";
+       if(submenuact.upper()=="1"):
+        HockeyDivisionDN = get_user_input("Enter Hockey Division name: ");
+        if(HockeyDivisionDN in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
+         print("ERROR: Hockey Division with that name exists");
+        if(HockeyDivisionDN not in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
+         HockeyDivisionDPFN = get_user_input("Enter Hockey Division prefix: ");
+         HockeyDivisionDSFN = get_user_input("Enter Hockey Division suffix: ");
+        libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN);
+       if(submenuact.upper()=="E"):
+        sub_sub_keep_loop = False;
+      if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="yes"):
+       sub_sub_keep_loop = True;
+       while(sub_sub_keep_loop):
         conferencec = 0;
-        print("E: Back to Hockey Division Tool");
+        print("E: Back to Main Menu");
         while(conferencec<len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
          lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec];
          print(str(conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname']);
          conferencec = conferencec + 1;
-      if(submenuact.upper()=="E"):
-       sub_keep_loop = False;
-      print("ERROR: Sorry Command not Implemented yet");
-      raise NotImplementedError;
+        HockeyConferencePreSN = get_user_input("Enter Hockey Conference number: ");
+        if(HockeyConferencePreSN.upper()!="E" and not HockeyConferencePreSN.isdigit()):
+         print("ERROR: Invalid Command");
+         HockeyConferencePreSN = "E";
+        if(HockeyConferencePreSN.upper()!="E" and HockeyConferencePreSN.isdigit() and (int(HockeyConferencePreSN)>len(hockeyarray[HockeyLeagueSN]['conferencelist']) or int(HockeyConferencePreSN)<0)):
+         print("ERROR: Invalid Command");
+         HockeyConferencePreSN = "E";
+        if(HockeyConferencePreSN.upper()!="E" and int(HockeyConferencePreSN)<len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreSN)>-1):
+         HockeyConferenceIntSN = int(HockeyConferencePreSN);
+         HockeyConferenceSN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntSN];
+         sub_sub_sub_keep_loop = True;
+         while(sub_sub_sub_keep_loop):
+          submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ");
+          if(submenuact.upper()!="E" and not submenuact.isdigit()):
+           print("ERROR: Invalid Command");
+           submenuact = "";
+          if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+           print("ERROR: Invalid Command");
+           submenuact = "";
+          if(submenuact.upper()=="1"):
+           HockeyDivisionDN = get_user_input("Enter Hockey Division name: ");
+           if(HockeyDivisionDN in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
+            print("ERROR: Hockey Division with that name exists");
+           if(HockeyDivisionDN not in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
+            HockeyDivisionDPFN = get_user_input("Enter Hockey Division prefix: ");
+            HockeyDivisionDSFN = get_user_input("Enter Hockey Division suffix: ");
+           libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN);
+          if(submenuact.upper()=="E"):
+           sub_sub_sub_keep_loop = False;
+        if(HockeyConferencePreSN.upper()=="E"):
+         sub_sub_keep_loop = False;
+   if(HockeyLeaguePreSN.upper()=="E"):
+    sub_keep_loop = False;
  if(menuact=="4" and len(hockeyarray['leaguelist'])<=0):
   print("ERROR: There are no Hockey Leagues");
  if(menuact=="4" and len(hockeyarray['leaguelist'])>0):
