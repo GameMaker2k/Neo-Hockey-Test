@@ -786,7 +786,7 @@ def AddHockeyConferenceToArray(hockeyarray, leaguename, conference, prefix="", s
  if leaguename in hockeyarray.keys():
   if conference not in hockeyarray[leaguename].keys():
    ConferenceFullName = GetFullTeamName(conference, prefix, suffix);
-   hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'prefix': str(prefix), 'suffix': str(suffix), 'fullname': str(ConferenceFullName), 'league': str(leaguename), 'divisionlist': [] } } } );
+   hockeyarray[leaguename].update( { str(conference): { 'conferenceinfo': { 'name': str(conference), 'prefix': str(prefix), 'suffix': str(suffix), 'fullname': str(ConferenceFullName), 'league': str(leaguename) }, 'divisionlist': [] } } );
    hockeyarray[leaguename]['quickinfo']['conferenceinfo'].update( { str(conference): { 'name': str(conference), 'fullname': str(ConferenceFullName), 'league': str(leaguename) } } );
    hockeyarray[leaguename]['conferencelist'].append(str(conference));
  return hockeyarray;
@@ -877,7 +877,7 @@ def AddHockeyDivisionToArray(hockeyarray, leaguename, division, conference, pref
   if conference in hockeyarray[leaguename].keys():
    if division not in hockeyarray[leaguename][conference].keys():
     DivisionFullName = GetFullTeamName(division, prefix, suffix);
-    hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'prefix': str(prefix), 'suffix': str(suffix), 'fullname': str(DivisionFullName), 'league': str(leaguename), 'conference': str(conference), 'teamlist': [] } } } );
+    hockeyarray[leaguename][conference].update( { str(division): { 'divisioninfo': { 'name': str(division), 'prefix': str(prefix), 'suffix': str(suffix), 'fullname': str(DivisionFullName), 'league': str(leaguename), 'conference': str(conference) }, 'teamlist': [] } } );
     hockeyarray[leaguename]['quickinfo']['divisioninfo'].update( { str(division): { 'name': str(division), 'fullname': str(DivisionFullName), 'league': str(leaguename), 'conference': str(conference) } } );
     hockeyarray[leaguename][conference]['divisionlist'].append(str(division));
  return hockeyarray;
