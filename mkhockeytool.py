@@ -99,7 +99,7 @@ if(premenuact=="2"):
 if(getargs.export):
  if(getargs.type is not None and getargs.type not in extensions):
   getargs.type = None;
- if(getargs.type.lower()=="xml"):
+ if(getargs.type is None or getargs.type.lower()=="xml"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database XML File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
