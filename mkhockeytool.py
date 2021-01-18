@@ -102,9 +102,9 @@ if(getargs.export):
  if(getargs.type is None):
   ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
   if(ext in extensions):
-   if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
+   if(ext==".xml"):
     getargs.type = "xml";
-   elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
+   elif(ext==".db3"):
     getargs.type = "db3";
    elif(ext==".sql"):
     getargs.type = "sql";
