@@ -82,18 +82,21 @@ if(premenuact=="2"):
   HockeyDatabaseFN = getargs.infile;
  ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
  if(ext in extensions):
+  verbosein = True;
+  if(getargs.export):
+   verbosein = False;
   if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN, verbose=verbosein);
   elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN, verbose=verbosein);
   elif(ext==".sql"):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN, verbose=verbosein);
   elif(ext==".json"):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN, verbose=verbosein);
   else:
    print("ERROR: Invalid Command");
   if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray, verbose=verbosein);
   if(not libhockeydata.CheckHockeyArray(hockeyarray)):
    print("ERROR: Invalid Command");
 
