@@ -97,6 +97,21 @@ if(premenuact=="2"):
    print("ERROR: Invalid Command");
 
 if(getargs.export):
+ if(getargs.type is not None and getargs.type not in extensions):
+  getargs.type = None;
+ if(getargs.type is None):
+  ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
+  if(ext in extensions):
+   if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
+    getargs.type = "xml";
+   elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
+    getargs.type = "db3";
+   elif(ext==".sql"):
+    getargs.type = "sql";
+   elif(ext==".json"):
+    getargs.type = "json";
+   else:
+    getargs.type = "db3";
  if(getargs.type.lower()=="xml"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database XML File Name to Export: ");
