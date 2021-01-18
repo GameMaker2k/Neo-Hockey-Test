@@ -187,6 +187,10 @@ while(keep_loop):
      HockeyLeagueHC = get_user_input("Does Hockey League have conferences: ");
      HockeyLeagueHD = get_user_input("Does Hockey League have divisions: ");
      hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD);
+     if(HockeyLeagueHC=="no"):
+      hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, HockeyLeagueSN, "");
+     if(HockeyLeagueHD=="no"):
+      hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, "", "");
    if(submenuact=="2" and len(hockeyarray['leaguelist'])<=0):
     print("ERROR: There are no Hockey Leagues to delete");
    if(submenuact=="2" and len(hockeyarray['leaguelist'])>0):
@@ -333,21 +337,57 @@ while(keep_loop):
        sub_sub_keep_loop = False;
    if(HockeyLeaguePreSN.upper()=="E"):
     sub_keep_loop = False;
- if(menuact=="3"):
+ if(menuact=="3" and len(hockeyarray['leaguelist'])<=0):
+  print("ERROR: There are no Hockey Leagues");
+ if(menuact=="3" and len(hockeyarray['leaguelist'])>0):
   sub_keep_loop = True;
   while(sub_keep_loop):
-   submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ");
-   if(submenuact.upper()!="E" and not submenuact.isdigit()):
+   leaguec = 0;
+   print("E: Back to Main Menu");
+   while(leaguec<len(hockeyarray['leaguelist'])):
+    lshn = hockeyarray['leaguelist'][leaguec];
+    print(str(leaguec)+": "+hockeyarray[lshn]['leagueinfo']['fullname']);
+    leaguec = leaguec + 1;
+   HockeyLeaguePreSN = get_user_input("Enter Hockey League number: ");
+   if(HockeyLeaguePreSN.upper()!="E" and not HockeyLeaguePreSN.isdigit()):
     print("ERROR: Invalid Command");
-    submenuact = "";
-   if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+    HockeyLeaguePreSN = "E";
+   if(HockeyLeaguePreSN.upper()!="E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN)>6 or int(HockeyLeaguePreSN)<0)):
     print("ERROR: Invalid Command");
-    submenuact = "";
-   if(submenuact.upper()=="E"):
-    sub_keep_loop = False;
-   print("ERROR: Sorry Command not Implemented yet");
-   raise NotImplementedError;
- if(menuact=="4"):
+    HockeyLeaguePreSN = "E";
+   if(HockeyLeaguePreSN.upper()!="E" and int(HockeyLeaguePreSN)<len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN)>-1):
+    HockeyLeagueIntSN = int(HockeyLeaguePreSN);
+    HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN];
+    if(hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions']=="no"):
+     print("ERROR: Hockey League can not have any divisions");
+     HockeyLeaguePreSN = "E";
+    if(hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions']=="yes"):
+     sub_sub_keep_loop = True;
+     while(sub_sub_keep_loop):
+      submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ");
+      if(submenuact.upper()!="E" and not submenuact.isdigit()):
+       print("ERROR: Invalid Command");
+       submenuact = "";
+      if(submenuact.upper()!="E" and submenuact.isdigit() and (int(submenuact)>3 or int(submenuact)<1)):
+       print("ERROR: Invalid Command");
+       submenuact = "";
+      if(submenuact.upper()=="1"):
+       if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="no"):
+        pass;
+       if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="yes"):
+        conferencec = 0;
+        print("E: Back to Hockey Division Tool");
+        while(conferencec<len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
+         lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec];
+         print(str(conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname']);
+         conferencec = conferencec + 1;
+      if(submenuact.upper()=="E"):
+       sub_keep_loop = False;
+      print("ERROR: Sorry Command not Implemented yet");
+      raise NotImplementedError;
+ if(menuact=="4" and len(hockeyarray['leaguelist'])<=0):
+  print("ERROR: There are no Hockey Leagues");
+ if(menuact=="4" and len(hockeyarray['leaguelist'])>0):
   sub_keep_loop = True;
   while(sub_keep_loop):
    submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Team\n2: Remove Hockey Team\n3: Edit Hockey Team\nWhat do you want to do? ");
@@ -361,7 +401,9 @@ while(keep_loop):
     sub_keep_loop = False;
    print("ERROR: Sorry Command not Implemented yet");
    raise NotImplementedError;
- if(menuact=="5"):
+ if(menuact=="5" and len(hockeyarray['leaguelist'])<=0):
+  print("ERROR: There are no Hockey Leagues");
+ if(menuact=="5" and len(hockeyarray['leaguelist'])>0):
   sub_keep_loop = True;
   while(sub_keep_loop):
    submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Arena\n2: Remove Hockey Arena\n3: Edit Hockey Arena\nWhat do you want to do? ");
@@ -375,7 +417,9 @@ while(keep_loop):
     sub_keep_loop = False;
    print("ERROR: Sorry Command not Implemented yet");
    raise NotImplementedError;
- if(menuact=="6"):
+ if(menuact=="6" and len(hockeyarray['leaguelist'])<=0):
+  print("ERROR: There are no Hockey Leagues");
+ if(menuact=="6" and len(hockeyarray['leaguelist'])>0):
   sub_keep_loop = True;
   while(sub_keep_loop):
    submenuact = get_user_input("E: Back to Main Menu\n1: Add Hockey Game\n2: Remove Hockey Game\n3: Edit Hockey Game\nWhat do you want to do? ");
