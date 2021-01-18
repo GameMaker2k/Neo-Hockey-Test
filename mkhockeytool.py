@@ -99,27 +99,27 @@ if(premenuact=="2"):
 if(getargs.export):
  if(getargs.type is not None and getargs.type not in extensions):
   getargs.type = None;
- if(getargs.type is None or getargs.type.lower()=="xml"):
+ if(getargs.type is not None and getargs.type.lower()=="xml"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database XML File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type.lower()=="json"):
+ if(getargs.type is not None and getargs.type.lower()=="json"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database JSON File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type.lower()=="py"):
+ if(getargs.type is not None and getargs.type.lower()=="py"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type.lower()=="pyalt"):
+ if(getargs.type is not None and getargs.type.lower()=="pyalt"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type.lower()=="sql"):
+ if(getargs.type is not None and getargs.type.lower()=="sql"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database SQL File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type.lower()=="db3"):
+ if(getargs.type is not None and getargs.type.lower()=="db3"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
