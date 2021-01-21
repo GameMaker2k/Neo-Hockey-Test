@@ -1,0 +1,677 @@
+{
+ "database": "./php/data/fhmt2y17-18.db3",
+ "HOL": {
+  "leagueinfo": {
+   "name": "HOL",
+   "fullname": "Hockey League",
+   "country": "USA",
+   "fullcountry": "United States",
+   "date": "20171001",
+   "playofffmt": "Division=1,Conference=1",
+   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "conferences": "yes",
+   "divisions": "yes"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "Conference 1": {
+     "name": "Conference 1",
+     "fullname": "Conference 1",
+     "league": "HOL"
+    },
+    "Conference 2": {
+     "name": "Conference 2",
+     "fullname": "Conference 2",
+     "league": "HOL"
+    }
+   },
+   "divisioninfo": {
+    "Division 1": {
+     "name": "Division 1",
+     "fullname": "Division 1",
+     "league": "HOL",
+     "conference": "Conference 1"
+    },
+    "Division 2": {
+     "name": "Division 2",
+     "fullname": "Division 2",
+     "league": "HOL",
+     "conference": "Conference 1"
+    },
+    "Division 3": {
+     "name": "Division 3",
+     "fullname": "Division 3",
+     "league": "HOL",
+     "conference": "Conference 2"
+    },
+    "Division 4": {
+     "name": "Division 4",
+     "fullname": "Division 4",
+     "league": "HOL",
+     "conference": "Conference 2"
+    }
+   },
+   "teaminfo": {
+    "Blasters": {
+     "name": "Blasters",
+     "fullname": "Detroit Blasters",
+     "league": "HOL",
+     "conference": "Conference 1",
+     "division": "Division 1"
+    },
+    "Sabres": {
+     "name": "Sabres",
+     "fullname": "Indianapolis Sabres",
+     "league": "HOL",
+     "conference": "Conference 1",
+     "division": "Division 1"
+    },
+    "River Bandits": {
+     "name": "River Bandits",
+     "fullname": "Chicago River Bandits",
+     "league": "HOL",
+     "conference": "Conference 1",
+     "division": "Division 2"
+    },
+    "Chariots": {
+     "name": "Chariots",
+     "fullname": "Kansas City Chariots",
+     "league": "HOL",
+     "conference": "Conference 1",
+     "division": "Division 2"
+    },
+    "Smoking Guns": {
+     "name": "Smoking Guns",
+     "fullname": "St. Paul Smoking Guns",
+     "league": "HOL",
+     "conference": "Conference 2",
+     "division": "Division 3"
+    },
+    "Armada": {
+     "name": "Armada",
+     "fullname": "Minneapolis Armada",
+     "league": "HOL",
+     "conference": "Conference 2",
+     "division": "Division 3"
+    },
+    "Jammers": {
+     "name": "Jammers",
+     "fullname": "Peoria Jammers",
+     "league": "HOL",
+     "conference": "Conference 2",
+     "division": "Division 4"
+    },
+    "Gears": {
+     "name": "Gears",
+     "fullname": "Chicago Gears",
+     "league": "HOL",
+     "conference": "Conference 2",
+     "division": "Division 4"
+    }
+   }
+  },
+  "Conference 1": {
+   "conferenceinfo": {
+    "name": "Conference 1",
+    "prefix": "",
+    "suffix": "",
+    "fullname": "Conference 1",
+    "league": "HOL"
+   },
+   "Division 1": {
+    "divisioninfo": {
+     "name": "Division 1",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 1",
+     "league": "HOL",
+     "conference": "Conference 1"
+    },
+    "Blasters": {
+     "teaminfo": {
+      "city": "Detroit",
+      "area": "MI",
+      "fullarea": "Michigan",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Blasters",
+      "fullname": "Detroit Blasters",
+      "arena": "DET Arena",
+      "prefix": "Detroit",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 1",
+      "division": "Division 1"
+     }
+    },
+    "Sabres": {
+     "teaminfo": {
+      "city": "Indianapolis",
+      "area": "IN",
+      "fullarea": "Indiana",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Sabres",
+      "fullname": "Indianapolis Sabres",
+      "arena": "IND Arena",
+      "prefix": "Indianapolis",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 1",
+      "division": "Division 1"
+     }
+    },
+    "teamlist": [
+     "Blasters",
+     "Sabres"
+    ]
+   },
+   "Division 2": {
+    "divisioninfo": {
+     "name": "Division 2",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 2",
+     "league": "HOL",
+     "conference": "Conference 1"
+    },
+    "River Bandits": {
+     "teaminfo": {
+      "city": "Chicago",
+      "area": "IL",
+      "fullarea": "Illionis",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "River Bandits",
+      "fullname": "Chicago River Bandits",
+      "arena": "CHI Arena",
+      "prefix": "Chicago",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 1",
+      "division": "Division 2"
+     }
+    },
+    "Chariots": {
+     "teaminfo": {
+      "city": "Kansas City",
+      "area": "MO",
+      "fullarea": "Missouri",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Chariots",
+      "fullname": "Kansas City Chariots",
+      "arena": "KAN Arena",
+      "prefix": "Kansas City",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 1",
+      "division": "Division 2"
+     }
+    },
+    "teamlist": [
+     "River Bandits",
+     "Chariots"
+    ]
+   },
+   "divisionlist": [
+    "Division 1",
+    "Division 2"
+   ]
+  },
+  "arenas": [],
+  "games": [],
+  "Conference 2": {
+   "conferenceinfo": {
+    "name": "Conference 2",
+    "prefix": "",
+    "suffix": "",
+    "fullname": "Conference 2",
+    "league": "HOL"
+   },
+   "Division 3": {
+    "divisioninfo": {
+     "name": "Division 3",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 3",
+     "league": "HOL",
+     "conference": "Conference 2"
+    },
+    "Smoking Guns": {
+     "teaminfo": {
+      "city": "St. Paul",
+      "area": "MN",
+      "fullarea": "Minnesota",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Smoking Guns",
+      "fullname": "St. Paul Smoking Guns",
+      "arena": "SMO Arena",
+      "prefix": "St. Paul",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 2",
+      "division": "Division 3"
+     }
+    },
+    "Armada": {
+     "teaminfo": {
+      "city": "Minneapolis",
+      "area": "MN",
+      "fullarea": "Minnesota",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Armada",
+      "fullname": "Minneapolis Armada",
+      "arena": "MIN Arena",
+      "prefix": "Minneapolis",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 2",
+      "division": "Division 3"
+     }
+    },
+    "teamlist": [
+     "Smoking Guns",
+     "Armada"
+    ]
+   },
+   "Division 4": {
+    "divisioninfo": {
+     "name": "Division 4",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 4",
+     "league": "HOL",
+     "conference": "Conference 2"
+    },
+    "Jammers": {
+     "teaminfo": {
+      "city": "Peoria",
+      "area": "IL",
+      "fullarea": "Illionis",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Jammers",
+      "fullname": "Peoria Jammers",
+      "arena": "PEO Arena",
+      "prefix": "Peoria",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 2",
+      "division": "Division 4"
+     }
+    },
+    "Gears": {
+     "teaminfo": {
+      "city": "Joliet",
+      "area": "IL",
+      "fullarea": "Illionis",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Gears",
+      "fullname": "Chicago Gears",
+      "arena": "JOL Arena",
+      "prefix": "Chicago",
+      "suffix": "",
+      "league": "HOL",
+      "conference": "Conference 2",
+      "division": "Division 4"
+     }
+    },
+    "teamlist": [
+     "Jammers",
+     "Gears"
+    ]
+   },
+   "divisionlist": [
+    "Division 3",
+    "Division 4"
+   ]
+  },
+  "conferencelist": [
+   "Conference 1",
+   "Conference 2"
+  ]
+ },
+ "MIL": {
+  "leagueinfo": {
+   "name": "MIL",
+   "fullname": "Minor League",
+   "country": "USA",
+   "fullcountry": "United States",
+   "date": "20171001",
+   "playofffmt": "Division=1,Conference=1",
+   "ordertype": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "conferences": "yes",
+   "divisions": "yes"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "Conference 1": {
+     "name": "Conference 1",
+     "fullname": "Conference 1",
+     "league": "MIL"
+    },
+    "Conference 2": {
+     "name": "Conference 2",
+     "fullname": "Conference 2",
+     "league": "MIL"
+    }
+   },
+   "divisioninfo": {
+    "Division 1": {
+     "name": "Division 1",
+     "fullname": "Division 1",
+     "league": "MIL",
+     "conference": "Conference 1"
+    },
+    "Division 2": {
+     "name": "Division 2",
+     "fullname": "Division 2",
+     "league": "MIL",
+     "conference": "Conference 1"
+    },
+    "Division 3": {
+     "name": "Division 3",
+     "fullname": "Division 3",
+     "league": "MIL",
+     "conference": "Conference 2"
+    },
+    "Division 4": {
+     "name": "Division 4",
+     "fullname": "Division 4",
+     "league": "MIL",
+     "conference": "Conference 2"
+    }
+   },
+   "teaminfo": {
+    "Loggerheads": {
+     "name": "Loggerheads",
+     "fullname": "Northview Loggerheads",
+     "league": "MIL",
+     "conference": "Conference 1",
+     "division": "Division 1"
+    },
+    "Caravans": {
+     "name": "Caravans",
+     "fullname": "Gulivoire Park Caravans",
+     "league": "MIL",
+     "conference": "Conference 1",
+     "division": "Division 1"
+    },
+    "Ramblers": {
+     "name": "Ramblers",
+     "fullname": "Wheeling Ramblers",
+     "league": "MIL",
+     "conference": "Conference 1",
+     "division": "Division 2"
+    },
+    "Skychiefs": {
+     "name": "Skychiefs",
+     "fullname": "Columbia Skychiefs",
+     "league": "MIL",
+     "conference": "Conference 1",
+     "division": "Division 2"
+    },
+    "Vipers": {
+     "name": "Vipers",
+     "fullname": "Winona Vipers",
+     "league": "MIL",
+     "conference": "Conference 2",
+     "division": "Division 3"
+    },
+    "Chaos": {
+     "name": "Chaos",
+     "fullname": "New Hope Chaos",
+     "league": "MIL",
+     "conference": "Conference 2",
+     "division": "Division 3"
+    },
+    "Gappers": {
+     "name": "Gappers",
+     "fullname": "Tinley Park Gappers",
+     "league": "MIL",
+     "conference": "Conference 2",
+     "division": "Division 4"
+    },
+    "Spirits": {
+     "name": "Spirits",
+     "fullname": "Franklin Park Spirits",
+     "league": "MIL",
+     "conference": "Conference 2",
+     "division": "Division 4"
+    }
+   }
+  },
+  "Conference 1": {
+   "conferenceinfo": {
+    "name": "Conference 1",
+    "prefix": "",
+    "suffix": "",
+    "fullname": "Conference 1",
+    "league": "MIL"
+   },
+   "Division 1": {
+    "divisioninfo": {
+     "name": "Division 1",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 1",
+     "league": "MIL",
+     "conference": "Conference 1"
+    },
+    "Loggerheads": {
+     "teaminfo": {
+      "city": "Northview",
+      "area": "MI",
+      "fullarea": "Michigan",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Loggerheads",
+      "fullname": "Northview Loggerheads",
+      "arena": "NOR Arena",
+      "prefix": "Northview",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 1",
+      "division": "Division 1"
+     }
+    },
+    "Caravans": {
+     "teaminfo": {
+      "city": "Gulivoire Park",
+      "area": "IN",
+      "fullarea": "Indiana",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Caravans",
+      "fullname": "Gulivoire Park Caravans",
+      "arena": "GUL Arena",
+      "prefix": "Gulivoire Park",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 1",
+      "division": "Division 1"
+     }
+    },
+    "teamlist": [
+     "Loggerheads",
+     "Caravans"
+    ]
+   },
+   "Division 2": {
+    "divisioninfo": {
+     "name": "Division 2",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 2",
+     "league": "MIL",
+     "conference": "Conference 1"
+    },
+    "Ramblers": {
+     "teaminfo": {
+      "city": "Wheeling",
+      "area": "IL",
+      "fullarea": "Illionis",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Ramblers",
+      "fullname": "Wheeling Ramblers",
+      "arena": "WHE Arena",
+      "prefix": "Wheeling",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 1",
+      "division": "Division 2"
+     }
+    },
+    "Skychiefs": {
+     "teaminfo": {
+      "city": "Columbia",
+      "area": "MO",
+      "fullarea": "Missouri",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Skychiefs",
+      "fullname": "Columbia Skychiefs",
+      "arena": "COL Arena",
+      "prefix": "Columbia",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 1",
+      "division": "Division 2"
+     }
+    },
+    "teamlist": [
+     "Ramblers",
+     "Skychiefs"
+    ]
+   },
+   "divisionlist": [
+    "Division 1",
+    "Division 2"
+   ]
+  },
+  "arenas": [],
+  "games": [],
+  "Conference 2": {
+   "conferenceinfo": {
+    "name": "Conference 2",
+    "prefix": "",
+    "suffix": "",
+    "fullname": "Conference 2",
+    "league": "MIL"
+   },
+   "Division 3": {
+    "divisioninfo": {
+     "name": "Division 3",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 3",
+     "league": "MIL",
+     "conference": "Conference 2"
+    },
+    "Vipers": {
+     "teaminfo": {
+      "city": "Winona",
+      "area": "MN",
+      "fullarea": "Minnesota",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Vipers",
+      "fullname": "Winona Vipers",
+      "arena": "WIN Arena",
+      "prefix": "Winona",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 2",
+      "division": "Division 3"
+     }
+    },
+    "Chaos": {
+     "teaminfo": {
+      "city": "New Hope",
+      "area": "MN",
+      "fullarea": "Minnesota",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Chaos",
+      "fullname": "New Hope Chaos",
+      "arena": "NEW Arena",
+      "prefix": "New Hope",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 2",
+      "division": "Division 3"
+     }
+    },
+    "teamlist": [
+     "Vipers",
+     "Chaos"
+    ]
+   },
+   "Division 4": {
+    "divisioninfo": {
+     "name": "Division 4",
+     "prefix": "",
+     "suffix": "",
+     "fullname": "Division 4",
+     "league": "MIL",
+     "conference": "Conference 2"
+    },
+    "Gappers": {
+     "teaminfo": {
+      "city": "Tinley Park",
+      "area": "IL",
+      "fullarea": "Illionis",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Gappers",
+      "fullname": "Tinley Park Gappers",
+      "arena": "TIN Arena",
+      "prefix": "Tinley Park",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 2",
+      "division": "Division 4"
+     }
+    },
+    "Spirits": {
+     "teaminfo": {
+      "city": "Franklin Park",
+      "area": "IL",
+      "fullarea": "Illionis",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Spirits",
+      "fullname": "Franklin Park Spirits",
+      "arena": "FRA Arena",
+      "prefix": "Franklin Park",
+      "suffix": "",
+      "league": "MIL",
+      "conference": "Conference 2",
+      "division": "Division 4"
+     }
+    },
+    "teamlist": [
+     "Gappers",
+     "Spirits"
+    ]
+   },
+   "divisionlist": [
+    "Division 3",
+    "Division 4"
+   ]
+  },
+  "conferencelist": [
+   "Conference 1",
+   "Conference 2"
+  ]
+ },
+ "leaguelist": [
+  "HOL",
+  "MIL"
+ ]
+}
