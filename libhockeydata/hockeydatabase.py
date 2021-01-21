@@ -1686,8 +1686,6 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
   GameID = int(sqldatacon[1].last_insert_rowid());
  UpdateArenaData(sqldatacon, leaguename, atarena, "GamesPlayed", 1, "+");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "Date", int(date), "=");
- UpdateTeamData(sqldatacon, leaguename, hometeam, "Time", int(time), "=");
- UpdateTeamData(sqldatacon, leaguename, hometeam, "DateTime", int(str(date)+str(time)), "=");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "GamesPlayed", 1, "+");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "GamesPlayedHome", 1, "+");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "GoalsFor", int(teamscores[0]), "+");
