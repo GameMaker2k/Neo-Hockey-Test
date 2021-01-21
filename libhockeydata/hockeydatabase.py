@@ -1470,11 +1470,11 @@ def MakeHockeyArena(sqldatacon, leaguename, cityname, areaname, countryname, ful
  "(0, \"\", \"\", \""+str(cityname)+"\", \""+str(areaname)+"\", \""+str(countryname)+"\", \""+str(fullcountryname)+"\", \""+str(cityname+", "+areaname)+"\", \""+str(fullareaname)+"\", \""+str(cityname+", "+fullareaname)+"\", \""+str(arenaname)+"\", \""+str(arenaname+", "+cityname)+"\", 0)");
  return True;
 
-def AddHockeyGameToArray(hockeyarray, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+def AddHockeyGameToArray(hockeyarray, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
  if leaguename in hockeyarray.keys():
   if "games" not in hockeyarray[leaguename].keys():
    hockeyarray[leaguename].update( { 'games': [ {} ] } );
- hockeyarray[leaguename]['games'].append( { 'date': str(date), 'hometeam': str(hometeam), 'awayteam': str(awayteam), 'goals': str(periodsscore), 'sogs': str(shotsongoal), 'ppgs': str(ppgoals), 'shgs': str(shgoals), 'penalties': str(periodpens), 'pims': str(periodpims), 'hits': str(periodhits), 'takeaways': str(takeaways), 'faceoffwins': str(faceoffwins), 'atarena': str(atarena), 'isplayoffgame': str(isplayoffgame) } );
+ hockeyarray[leaguename]['games'].append( { 'date': str(date), 'time': str(date), 'hometeam': str(hometeam), 'awayteam': str(awayteam), 'goals': str(periodsscore), 'sogs': str(shotsongoal), 'ppgs': str(ppgoals), 'shgs': str(shgoals), 'penalties': str(periodpens), 'pims': str(periodpims), 'hits': str(periodhits), 'takeaways': str(takeaways), 'faceoffwins': str(faceoffwins), 'atarena': str(atarena), 'isplayoffgame': str(isplayoffgame) } );
  return hockeyarray;
 
 def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
@@ -1485,6 +1485,8 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
  sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n" + \
  "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" + \
  "  Date INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  Time INTEGER NOT NULL DEFAULT 0,\n" + \
+ "  DateTime INTEGER NOT NULL DEFAULT 0,\n" + \
  "  HomeTeam TEXT NOT NULL DEFAULT '',\n" + \
  "  AwayTeam TEXT NOT NULL DEFAULT '',\n" + \
  "  AtArena TEXT NOT NULL DEFAULT '',\n" + \
@@ -1518,7 +1520,7 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
  if(isplayoffgame.isdigit()):
@@ -1676,14 +1678,16 @@ def MakeHockeyGame(sqldatacon, leaguename, date, hometeam, awayteam, periodsscor
   tiegame = 1;
   winningteamname = "";
   losingteamname = "";
- sqldatacon[0].execute("INSERT INTO "+leaguename+"Games (Date, HomeTeam, AwayTeam, AtArena, TeamScorePeriods, TeamFullScore, ShotsOnGoal, FullShotsOnGoal, ShotsBlocked, FullShotsBlocked, PowerPlays, FullPowerPlays, ShortHanded, FullShortHanded, Penalties, FullPenalties, PenaltyMinutes, FullPenaltyMinutes, HitsPerPeriod, FullHitsPerPeriod, TakeAways, FullTakeAways, GiveAways, FullGiveAways, FaceoffWins, FullFaceoffWins, NumberPeriods, TeamWin, TeamLost, TieGame, IsPlayOffGame) VALUES \n" + \
- "("+str(date)+", \""+str(hometeamname)+"\", \""+str(awayteamname)+"\", \""+str(atarenaname)+"\", \""+str(periodsscore)+"\", \""+str(totalscore)+"\", \""+str(shotsongoal)+"\", \""+str(totalsog)+"\", \""+str(sbstr)+"\", \""+str(tsbstr)+"\", \""+str(ppgoals)+"\", \""+str(totalppg)+"\", \""+str(shgoals)+"\", \""+str(totalshg)+"\", \""+str(periodpens)+"\", \""+str(totalpens)+"\", \""+str(periodpims)+"\", \""+str(totalpims)+"\", \""+str(periodhits)+"\", \""+str(totalhits)+"\", \""+str(takeaways)+"\", \""+str(totaltaws)+"\", \""+str(gaws_str)+"\", \""+str(totalgaws)+"\", \""+str(faceoffwins)+"\", \""+str(totalfows)+"\", "+str(numberofperiods)+", \""+str(winningteamname)+"\", \""+str(losingteamname)+"\", \""+str(tiegame)+"\", "+str(isplayoffgsql)+")");
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Games (Date, Time, DateTime, HomeTeam, AwayTeam, AtArena, TeamScorePeriods, TeamFullScore, ShotsOnGoal, FullShotsOnGoal, ShotsBlocked, FullShotsBlocked, PowerPlays, FullPowerPlays, ShortHanded, FullShortHanded, Penalties, FullPenalties, PenaltyMinutes, FullPenaltyMinutes, HitsPerPeriod, FullHitsPerPeriod, TakeAways, FullTakeAways, GiveAways, FullGiveAways, FaceoffWins, FullFaceoffWins, NumberPeriods, TeamWin, TeamLost, TieGame, IsPlayOffGame) VALUES \n" + \
+ "("+str(date)+", "+str(time)+", "+str(str(date)+str(time))+", \""+str(hometeamname)+"\", \""+str(awayteamname)+"\", \""+str(atarenaname)+"\", \""+str(periodsscore)+"\", \""+str(totalscore)+"\", \""+str(shotsongoal)+"\", \""+str(totalsog)+"\", \""+str(sbstr)+"\", \""+str(tsbstr)+"\", \""+str(ppgoals)+"\", \""+str(totalppg)+"\", \""+str(shgoals)+"\", \""+str(totalshg)+"\", \""+str(periodpens)+"\", \""+str(totalpens)+"\", \""+str(periodpims)+"\", \""+str(totalpims)+"\", \""+str(periodhits)+"\", \""+str(totalhits)+"\", \""+str(takeaways)+"\", \""+str(totaltaws)+"\", \""+str(gaws_str)+"\", \""+str(totalgaws)+"\", \""+str(faceoffwins)+"\", \""+str(totalfows)+"\", "+str(numberofperiods)+", \""+str(winningteamname)+"\", \""+str(losingteamname)+"\", \""+str(tiegame)+"\", "+str(isplayoffgsql)+")");
  try:
   GameID = int(sqldatacon[0].lastrowid);
  except AttributeError:
   GameID = int(sqldatacon[1].last_insert_rowid());
  UpdateArenaData(sqldatacon, leaguename, atarena, "GamesPlayed", 1, "+");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "Date", int(date), "=");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "Time", int(time), "=");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "DateTime", int(str(date)+str(time)), "=");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "GamesPlayed", 1, "+");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "GamesPlayedHome", 1, "+");
  UpdateTeamData(sqldatacon, leaguename, hometeam, "GoalsFor", int(teamscores[0]), "+");

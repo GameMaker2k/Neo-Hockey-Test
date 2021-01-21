@@ -72,7 +72,7 @@ __project__ = __program_name__;
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
 __version_info__ = (0, 5, 0, "RC 1", 1);
 __revision__ = __version_info__[3];
-__revision_id__ = "$Id: 9e95b4a5e628085cf4bb6a09f1518f2b0ef0317d $";
+__revision_id__ = "$Id: 8ea1b1744f9ee8f01b75fe0cd31209b11126fcd3 $";
 if(__version_info__[3] is not None):
  __version__ = "{major}.{minor}.{build} {release}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2], release=__version_info__[3]);
 if(__version_info__[3] is None):
