@@ -7,7 +7,7 @@
 -- PySQLite version: 2.6.0
 -- Python Version: 3.9.1
 --
--- Database: ./data/xml/hockeydata15.db3
+-- Database: ./php/data/hockey15-16.db3
 --
 
 -- --------------------------------------------------------
