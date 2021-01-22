@@ -1,14 +1,13 @@
 -- PyHockeyStats SQL Dumper
--- version 0.3.1 RC 1
+-- version 0.5.0 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: March 14, 2020 at 04:25 PM
--- SQLite Server version: 3.31.1
+-- Generation Time: January 21, 2021 at 04:41 AM
+-- SQLite Server version: 3.34.0
 -- PySQLite version: 2.6.0
--- Python Version: 3.8.2
-
+-- Python Version: 3.9.1
 --
--- Database: ./php/data/fhmt1y17-18.db3
+-- Database: ./data/xml/fhmt1.db3
 --
 
 -- --------------------------------------------------------
@@ -30,7 +29,7 @@ CREATE TABLE HockeyLeagues (
   OrderType TEXT NOT NULL DEFAULT '',
   NumberOfTeams INTEGER NOT NULL DEFAULT 0,
   NumberOfConferences INTEGER NOT NULL DEFAULT 0,
-  NumberOfDivisions INTEGER NOT NULL DEFAULT ''
+  NumberOfDivisions INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -59,7 +58,7 @@ CREATE TABLE HOLConferences (
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
   NumberOfTeams INTEGER NOT NULL DEFAULT 0,
-  NumberOfDivisions INTEGER NOT NULL DEFAULT ''
+  NumberOfDivisions INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -89,7 +88,7 @@ CREATE TABLE HOLDivisions (
   ConferenceFullName TEXT NOT NULL DEFAULT '',
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
-  NumberOfTeams INTEGER NOT NULL DEFAULT ''
+  NumberOfTeams INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -127,7 +126,7 @@ CREATE TABLE HOLArenas (
   FullCityNameAlt TEXT NOT NULL DEFAULT '',
   ArenaName TEXT NOT NULL DEFAULT '',
   FullArenaName TEXT NOT NULL DEFAULT '',
-  GamesPlayed INTEGER NOT NULL DEFAULT ''
+  GamesPlayed INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -446,6 +445,8 @@ DROP TABLE IF EXISTS HOLGames;
 CREATE TABLE HOLGames (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   Date INTEGER NOT NULL DEFAULT 0,
+  Time INTEGER NOT NULL DEFAULT 0,
+  DateTime INTEGER NOT NULL DEFAULT 0,
   HomeTeam TEXT NOT NULL DEFAULT '',
   AwayTeam TEXT NOT NULL DEFAULT '',
   AtArena TEXT NOT NULL DEFAULT '',
@@ -475,7 +476,7 @@ CREATE TABLE HOLGames (
   TeamWin TEXT NOT NULL DEFAULT '',
   TeamLost TEXT NOT NULL DEFAULT '',
   TieGame INTEGER NOT NULL DEFAULT 0,
-  IsPlayOffGame INTEGER NOT NULL DEFAULT ''
+  IsPlayOffGame INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -500,7 +501,7 @@ CREATE TABLE MILConferences (
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
   NumberOfTeams INTEGER NOT NULL DEFAULT 0,
-  NumberOfDivisions INTEGER NOT NULL DEFAULT ''
+  NumberOfDivisions INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -530,7 +531,7 @@ CREATE TABLE MILDivisions (
   ConferenceFullName TEXT NOT NULL DEFAULT '',
   LeagueName TEXT NOT NULL DEFAULT '',
   LeagueFullName TEXT NOT NULL DEFAULT '',
-  NumberOfTeams INTEGER NOT NULL DEFAULT ''
+  NumberOfTeams INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -568,7 +569,7 @@ CREATE TABLE MILArenas (
   FullCityNameAlt TEXT NOT NULL DEFAULT '',
   ArenaName TEXT NOT NULL DEFAULT '',
   FullArenaName TEXT NOT NULL DEFAULT '',
-  GamesPlayed INTEGER NOT NULL DEFAULT ''
+  GamesPlayed INTEGER NOT NULL DEFAULT 0
 );
 
 --
@@ -887,6 +888,8 @@ DROP TABLE IF EXISTS MILGames;
 CREATE TABLE MILGames (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   Date INTEGER NOT NULL DEFAULT 0,
+  Time INTEGER NOT NULL DEFAULT 0,
+  DateTime INTEGER NOT NULL DEFAULT 0,
   HomeTeam TEXT NOT NULL DEFAULT '',
   AwayTeam TEXT NOT NULL DEFAULT '',
   AtArena TEXT NOT NULL DEFAULT '',
@@ -916,7 +919,7 @@ CREATE TABLE MILGames (
   TeamWin TEXT NOT NULL DEFAULT '',
   TeamLost TEXT NOT NULL DEFAULT '',
   TieGame INTEGER NOT NULL DEFAULT 0,
-  IsPlayOffGame INTEGER NOT NULL DEFAULT ''
+  IsPlayOffGame INTEGER NOT NULL DEFAULT 0
 );
 
 --
