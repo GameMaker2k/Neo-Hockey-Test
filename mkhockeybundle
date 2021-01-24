@@ -13,33 +13,51 @@ fi
 #export PYTHONPATH="$(which python${PYVER})"
 export PYTHONPATH="$(command -v python${PYVER})"
 
+if [[ -z "${2}" ]]; then
+ infile="mkhockeydata.py"
+ outfilebin="${infile%.*}"
+ outfilezip="${infile%.*}.zip"
+else
+ if [[ -f "./${2}" ]]; then
+  infile="${2}"
+  outfilebin="${infile%.*}"
+  outfilezip="${infile%.*}.zip"
+ else
+  infile="mkhockeydata.py"
+  outfilebin="${infile%.*}"
+  outfilezip="${infile%.*}.zip"
+ fi
+fi
+
 if ! [ -x "$(command -v python${PYVER})" ]; then
  echo "Error: python${PYVER} is not installed." >&2
  exit 1
 fi
 
 if [[ -f "./mkhockeybundle.py" ]]; then
- ${PYTHONPATH} ./mkhockeybundle.py
+ ${PYTHONPATH} ./mkhockeybundle.py "${infile}"
  exit 0
 fi
 
 mkdir -p -v /tmp/pybundle
-cp -r -v ./mkhockeydata.py /tmp/pybundle/__main__.py
+cp -r -v ./${infile} /tmp/pybundle/__main__.py
 cp -r -v ./libhockeydata   /tmp/pybundle/libhockeydata
 export OLDPATH="$(pwd)"
 cd ./bundle/python${PYVER}
 rm -rfv *
 cd ${OLDPATH}
 cd /tmp/pybundle
-zip -v ./mkhockeydata.zip -r .
-echo '#!/usr/bin/env python'${PYVER} > ./mkhockeydata
-echo '' >> ./mkhockeydata
-cat ./mkhockeydata.zip >> ./mkhockeydata
-chmod -v +x ./mkhockeydata
+zip -v ./${outfilezip} -r .
+echo '#!/usr/bin/env python'${PYVER} > ./${outfilebin}
+echo '' >> ./${outfilebin}
+cat ./${outfilezip} >> ./${outfilebin}
+chmod -v +x ./${outfilebin}
 cd ${OLDPATH}
-mv -v /tmp/pybundle/mkhockeydata ./bundle/python${PYVER}/mkhockeydata
+mv -v /tmp/pybundle/${outfilebin} ./bundle/python${PYVER}/${outfilebin}
 rm -rfv /tmp/pybundle
 cd ./bundle/python${PYVER}
-${PYTHONPATH} ./mkhockeydata mksymlinks
-chmod -v +x *
+if [[ ${infile} = "mkhockeydata.py" ]]; then
+ ${PYTHONPATH} ./${outfilebin} mksymlinks
+fi
+chmod -v +x ./${outfilebin}
 cd ${OLDPATH}
