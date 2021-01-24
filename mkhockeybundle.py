@@ -25,27 +25,58 @@ elif(os.path.sep=="\\"):
  tempdir = tempdir.replace(os.path.sep, "/");
 
 pyimplementation = platform.python_implementation();
-
-if(pyimplementation=="CPython"):
- pystring = "python"+str(sys.version_info[0]);
-elif(pyimplementation=="IronPython"):
- pystring = "ipy"+str(sys.version_info[0]);
-elif(pyimplementation=="PyPy"):
- if(sys.version_info[0]==2):
-  pystring = "pypy";
- elif(sys.version_info[0]==3):
-  pystring = "pypy"+str(sys.version_info[0]);
- else:
-  sys.exit(1);
-else:
- sys.exit(1);
+pylist = ['CPython', 'IronPython', 'PyPy', 'CPython2', 'CPython3', 'Python2', 'Python3', 'Python', 'PyPy2', 'PyPy3', 'IronPython2', 'IronPython3'];
 
 if(len(sys.argv) > 1):
- if(os.path.exists("./"+sys.argv[1]) and os.path.isfile("./"+sys.argv[1])):
-  infile = sys.argv[1];
+ if(sys.argv[1] in pylist):
+  if(sys.argv[1]=="CPython"):
+   pystring = "python3";
+  elif(sys.argv[1]=="IronPython"):
+   pystring = "ipy3";
+  elif(sys.argv[1]=="PyPy"):
+   pystring = "pypy3";
+  elif(sys.argv[1]=="CPython2"):
+   pystring = "python2";
+  elif(sys.argv[1]=="CPython3"):
+   pystring = "python3";
+  elif(sys.argv[1]=="Python2"):
+   pystring = "python2";
+  elif(sys.argv[1]=="Python3"):
+   pystring = "python3";
+  elif(sys.argv[1]=="PyPy2"):
+   pystring = "pypy";
+  elif(sys.argv[1]=="PyPy3"):
+   pystring = "pypy3";
+  elif(sys.argv[1]=="IronPython2"):
+   pystring = "ipy2";
+  elif(sys.argv[1]=="IronPython3"):
+   pystring = "ipy3";
+  else:
+   sys.exit();
+ else:
+  sys.exit();
+ 
+if(len(sys.argv) < 1):
+ if(pyimplementation=="CPython"):
+  pystring = "python"+str(sys.version_info[0]);
+ elif(pyimplementation=="IronPython"):
+  pystring = "ipy"+str(sys.version_info[0]);
+ elif(pyimplementation=="PyPy"):
+  if(sys.version_info[0]==2):
+   pystring = "pypy";
+  elif(sys.version_info[0]==3):
+   pystring = "pypy"+str(sys.version_info[0]);
+  else:
+   sys.exit(1);
+ else:
+  sys.exit(1);
+
+if(len(sys.argv) > 2):
+ if(os.path.exists("./"+sys.argv[2]) and os.path.isfile("./"+sys.argv[2])):
+  infile = sys.argv[2];
   outfilebin = os.path.splitext(infile)[0];
   outfilezip = outfilebin+".zip";
- elif(os.path.exists("./"+sys.argv[1]) and os.path.isdir("./"+sys.argv[1])):
+ elif(os.path.exists("./"+sys.argv[2]) and os.path.isdir("./"+sys.argv[2])):
   infile = "mkhockeydata.py";
   outfilebin = os.path.splitext(infile)[0];
   outfilezip = outfilebin+".zip";
