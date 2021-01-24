@@ -32,7 +32,7 @@ if(len(sys.argv) > 1):
   if(sys.argv[1]=="CPython"):
    pystring = "python3";
   elif(sys.argv[1]=="IronPython"):
-   pystring = "ipy3";
+   pystring = "ipy2";
   elif(sys.argv[1]=="PyPy"):
    pystring = "pypy3";
   elif(sys.argv[1]=="CPython2"):
