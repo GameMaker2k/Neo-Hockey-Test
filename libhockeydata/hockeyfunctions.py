@@ -1555,6 +1555,39 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
  sqldatacon[1].close();
  return sqlitedict;
 
+def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
+ if(not CheckHockeySQLiteArray(inhockeyarray)):
+  return False;
+ if(verbose):
+  VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+ xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+ if "database" in inhockeyarray.keys():
+  if(verbose):
+   VerbosePrintOut("<hockeydb database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">");
+  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">\n";
+ if "database" not in inhockeyarray.keys():
+  if(verbose):
+   VerbosePrintOut("<hockeydb database=\"./hockeydatabase.db3\">");
+  xmlstring = xmlstring+"<hockeydb database=\"./hockeydatabase.db3\">\n";
+ if(verbose):
+  VerbosePrintOut(" <table name=\"HockeyLeagues\">");
+ xmlstring = xmlstring+" <table name=\"HockeyLeagues\">\n";
+ for hlkey in inhockeyarray['HockeyLeagues']:
+  if(hlkey!="values" and hlkey!="rows"):
+   if(verbose):
+    VerbosePrintOut("  <column name=\""+hlkey+"\">");
+   xmlstring = xmlstring+"  <column name=\""+hlkey+"\">\n";
+   if(verbose):
+    VerbosePrintOut("   <info id=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['id'])+"\" name=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Name']+"\" type=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Type']+"\" notnull=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['Hidden'])+"\">");
+   xmlstring = xmlstring+"   <info id=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['id'])+"\" name=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Name']+"\" type=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Type']+"\" notnull=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['Hidden'])+"\">\n"; 
+   if(verbose):
+    VerbosePrintOut("  </column>");
+   xmlstring = xmlstring+"  </column>\n";
+ if(verbose):
+  VerbosePrintOut(" </table>");
+ xmlstring = xmlstring+" </table>\n";
+ return xmlstring;
+
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
