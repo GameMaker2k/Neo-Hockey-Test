@@ -1646,6 +1646,46 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
   return True;
  return True;
 
+def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+  xmlheaders = {'User-Agent': useragent_string};
+  try:
+   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   else:
+    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+  except cElementTree.ParseError: 
+   return False;
+ elif(not xmlisfile):
+  try:
+   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+  except cElementTree.ParseError: 
+   return False;
+ else:
+  return False;
+ gethockey = hockeyfile.getroot();
+ if(verbose):
+  VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+ if(gethockey.tag == "hockeydb"):
+  if(verbose):
+   VerbosePrintOut("<hockeydb database=\""+EscapeXMLString(str(gethockey.attrib['database']), quote=True)+"\">");
+ leaguearrayout = { 'database': str(gethockey.attrib['database']) };
+ for gettable in gethockey:
+  leaguearrayout.update( { gettable.attrib['name']: {} } );
+  if(gettable.tag=="table"):
+   for getcolumn in gettable:
+    for getcolumninfo in getcolumn:
+     if(getcolumninfo.tag=="info"):
+      defaultvale = getcolumninfo.attrib['defaultvalue'];
+      if(defaultvale.isdigit()):
+       defaultvale = int(defaultvale);
+      if(defaultvale=="None"):
+       defaultvale = None;
+      leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': defaultvale, 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
+     if(getcolumninfo.tag=="row"):
+      print(getcolumninfo.attrib['id']); exit();
+ return leaguearrayout;
+
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
