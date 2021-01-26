@@ -23,7 +23,7 @@ start =
   }
 row =
   element row {
-    attribute id { xsd:NCName }?,
+    attribute id { xsd:integer }?,
     attribute name { xsd:NCName }?,
     element rowdata {
       attribute name { xsd:NCName },

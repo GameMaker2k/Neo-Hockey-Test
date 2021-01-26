@@ -37,7 +37,7 @@
 <!ELEMENT row (rowdata)*>
 <!ATTLIST row
   xmlns CDATA #FIXED ''
-  id NMTOKEN #IMPLIED
+  id CDATA #IMPLIED
   name NMTOKEN #IMPLIED>
 
 <!ELEMENT rowdata EMPTY>

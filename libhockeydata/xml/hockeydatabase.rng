@@ -54,7 +54,7 @@
     <element name="row">
       <optional>
         <attribute name="id">
-          <data type="NCName"/>
+          <data type="integer"/>
         </attribute>
       </optional>
       <optional>

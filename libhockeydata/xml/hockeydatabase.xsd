@@ -56,7 +56,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="rowdata"/>
       </xs:sequence>
-      <xs:attribute name="id" type="xs:NCName"/>
+      <xs:attribute name="id" type="xs:integer"/>
       <xs:attribute name="name" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
