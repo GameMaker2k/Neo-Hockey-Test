@@ -1596,10 +1596,12 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
    if(verbose):
     VerbosePrintOut("  <data>");
    xmlstring = xmlstring+"  <data>\n";
+  rowid = 0;
   for rowvalues in inhockeyarray[get_cur_tab]['values']:
    if(verbose):
     VerbosePrintOut("   <row id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\">");
    xmlstring = xmlstring+"   <row id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\">\n"; 
+   rowid = rowid + 1;
    for rkey, rvalue in rowvalues.items():
     if(verbose):
      VerbosePrintOut("    <rowdata name=\""+rkey+"\" value=\""+str(rvalue)+"\" />");
