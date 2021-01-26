@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <element name="hockeydb">
+      <attribute name="database"/>
+      <oneOrMore>
+        <element name="table">
+          <attribute name="name">
+            <data type="NCName"/>
+          </attribute>
+          <element name="column">
+            <oneOrMore>
+              <element name="info">
+                <attribute name="autoincrement">
+                  <data type="integer"/>
+                </attribute>
+                <attribute name="defaultvalue"/>
+                <attribute name="hidden">
+                  <data type="integer"/>
+                </attribute>
+                <attribute name="id">
+                  <data type="integer"/>
+                </attribute>
+                <attribute name="name">
+                  <data type="NCName"/>
+                </attribute>
+                <attribute name="notnull">
+                  <data type="integer"/>
+                </attribute>
+                <attribute name="primarykey">
+                  <data type="integer"/>
+                </attribute>
+                <attribute name="type">
+                  <data type="NCName"/>
+                </attribute>
+              </element>
+            </oneOrMore>
+          </element>
+          <element name="data">
+            <zeroOrMore>
+              <ref name="row"/>
+            </zeroOrMore>
+          </element>
+          <element name="rows">
+            <oneOrMore>
+              <ref name="row"/>
+            </oneOrMore>
+          </element>
+        </element>
+      </oneOrMore>
+    </element>
+  </start>
+  <define name="row">
+    <element name="row">
+      <optional>
+        <attribute name="id">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="name">
+          <data type="NCName"/>
+        </attribute>
+      </optional>
+      <zeroOrMore>
+        <element name="rowdata">
+          <attribute name="name">
+            <data type="NCName"/>
+          </attribute>
+          <attribute name="value"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+</grammar>

@@ -1,0 +1,47 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT hockeydb (table)+>
+<!ATTLIST hockeydb
+  xmlns CDATA #FIXED ''
+  database CDATA #REQUIRED>
+
+<!ELEMENT table (column,data,rows)>
+<!ATTLIST table
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED>
+
+<!ELEMENT column (info)+>
+<!ATTLIST column
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT data (row)*>
+<!ATTLIST data
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT rows (row)+>
+<!ATTLIST rows
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT info EMPTY>
+<!ATTLIST info
+  xmlns CDATA #FIXED ''
+  autoincrement CDATA #REQUIRED
+  defaultvalue CDATA #REQUIRED
+  hidden CDATA #REQUIRED
+  id CDATA #REQUIRED
+  name NMTOKEN #REQUIRED
+  notnull CDATA #REQUIRED
+  primarykey CDATA #REQUIRED
+  type NMTOKEN #REQUIRED>
+
+<!ELEMENT row (rowdata)*>
+<!ATTLIST row
+  xmlns CDATA #FIXED ''
+  id NMTOKEN #IMPLIED
+  name NMTOKEN #IMPLIED>
+
+<!ELEMENT rowdata EMPTY>
+<!ATTLIST rowdata
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED
+  value CDATA #REQUIRED>

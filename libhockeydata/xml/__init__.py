@@ -31,6 +31,11 @@ if(pkgres):
  hockeyxsd = pkg_resources.resource_filename(__name__, "hockeydata.xsd");
  hockeyrng = pkg_resources.resource_filename(__name__, "hockeydata.rng");
  hockeyrnc = pkg_resources.resource_filename(__name__, "hockeydata.rnc");
+ hockeyaltdtd = pkg_resources.resource_filename(__name__, "hockeydatabase.dtd");
+ hockeyaltxsl = pkg_resources.resource_filename(__name__, "hockeydatabase.xsl");
+ hockeyaltxsd = pkg_resources.resource_filename(__name__, "hockeydatabase.xsd");
+ hockeyaltrng = pkg_resources.resource_filename(__name__, "hockeydatabase.rng");
+ hockeyaltrnc = pkg_resources.resource_filename(__name__, "hockeydatabase.rnc");
  hockeyxmlpath = os.path.dirname(hockeydtd);
 
 if(not pkgres):
@@ -39,4 +44,9 @@ if(not pkgres):
  hockeyxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd";
  hockeyrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng";
  hockeyrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc";
+ hockeyaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd";
+ hockeyaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl";
+ hockeyaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd";
+ hockeyaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng";
+ hockeyaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc";
  hockeyxmlpath = os.path.dirname(hockeydtd);
