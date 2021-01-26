@@ -1599,8 +1599,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   rowid = 0;
   for rowvalues in inhockeyarray[get_cur_tab]['values']:
    if(verbose):
-    VerbosePrintOut("   <row id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\">");
-   xmlstring = xmlstring+"   <row id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\">\n"; 
+    VerbosePrintOut("   <row id=\""+str(rowid)+"\">");
+   xmlstring = xmlstring+"   <row id=\""+str(rowid)+"\">\n"; 
    rowid = rowid + 1;
    for rkey, rvalue in rowvalues.items():
     if(verbose):
