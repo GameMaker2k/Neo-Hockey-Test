@@ -1592,13 +1592,14 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   if(verbose):
    VerbosePrintOut("  </column>");
   xmlstring = xmlstring+"  </column>\n";
-  if(verbose):
-   VerbosePrintOut("  <data>");
-  xmlstring = xmlstring+"  <data>\n";
+  if(len(inhockeyarray[get_cur_tab]['values'])>0):
+   if(verbose):
+    VerbosePrintOut("  <data>");
+   xmlstring = xmlstring+"  <data>\n";
   for rowvalues in inhockeyarray[get_cur_tab]['values']:
    if(verbose):
     VerbosePrintOut("   <row id=\""+str(rowinfo)+"\">");
-   xmlstring = xmlstring+"   <row id==\""+str(rowinfo)+"\">\n"; 
+   xmlstring = xmlstring+"   <row id=\""+str(rowinfo)+"\">\n"; 
    for rkey, rvalue in rowvalues.items():
     if(verbose):
      VerbosePrintOut("    <rowdata name=\""+rkey+"\" value=\""+str(rvalue)+"\" />");
@@ -1606,16 +1607,21 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
    if(verbose):
     VerbosePrintOut("   </row>");
    xmlstring = xmlstring+"   </row>\n"; 
-  if(verbose):
-   VerbosePrintOut("  </data>");
-  xmlstring = xmlstring+"  </data>\n";
+  if(len(inhockeyarray[get_cur_tab]['values'])>0):
+   if(verbose):
+    VerbosePrintOut("  </data>");
+   xmlstring = xmlstring+"  </data>\n";
+  else:
+   if(verbose):
+    VerbosePrintOut("  <data />");
+   xmlstring = xmlstring+"  <data />\n";
   if(verbose):
    VerbosePrintOut("  <rows>");
   xmlstring = xmlstring+"  <rows>\n";
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <row name=\""+rowinfo+"\">");
-   xmlstring = xmlstring+"   <row name=\""+rowinfo+"\">\n";   
+    VerbosePrintOut("   <row name=\""+rowinfo+"\" />");
+   xmlstring = xmlstring+"   <row name=\""+rowinfo+"\" />\n";   
   if(verbose):
    VerbosePrintOut("  </rows>");
   xmlstring = xmlstring+"  </rows>\n";
