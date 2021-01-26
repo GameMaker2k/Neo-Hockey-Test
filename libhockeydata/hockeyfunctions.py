@@ -1569,24 +1569,76 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   if(verbose):
    VerbosePrintOut("<hockeydb database=\"./hockeydatabase.db3\">");
   xmlstring = xmlstring+"<hockeydb database=\"./hockeydatabase.db3\">\n";
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
+ for get_cur_tab in table_list:
+  if(verbose):
+   VerbosePrintOut(" <table name=\""+str(get_cur_tab)+"\">");
+  xmlstring = xmlstring+" <table name=\""+str(get_cur_tab)+"\">\n";
+  rowlen = len(inhockeyarray[get_cur_tab]['rows']);
+  rowi = 0;
+  sqlrowlist = [];
+  if(verbose):
+   VerbosePrintOut("  <column>");
+  xmlstring = xmlstring+"  <column>\n";
+  for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+   if(verbose):
+    VerbosePrintOut("   <info id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\" name=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Name']+"\" type=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Type']+"\" notnull=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden'])+"\" />");
+   xmlstring = xmlstring+"   <info id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\" name=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Name']+"\" type=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Type']+"\" notnull=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden'])+"\" />\n";
+  if(verbose):
+   VerbosePrintOut("  </column>");
+  xmlstring = xmlstring+"  </column>\n";
+  if(verbose):
+   VerbosePrintOut("  <data>");
+  xmlstring = xmlstring+"  <data>\n";
+  for rowvalues in inhockeyarray[get_cur_tab]['values']:
+   if(verbose):
+    VerbosePrintOut("   <row id=\""+str(rowinfo)+"\">");
+   xmlstring = xmlstring+"   <row id==\""+str(rowinfo)+"\">\n"; 
+   for rkey, rvalue in rowvalues.items():
+    if(verbose):
+     VerbosePrintOut("    <rowdata name=\""+rkey+"\" value=\""+str(rvalue)+"\" />");
+    xmlstring = xmlstring+"    <rowdata name=\""+rkey+"\" value=\""+str(rvalue)+"\" />\n";
+   if(verbose):
+    VerbosePrintOut("   </row>");
+   xmlstring = xmlstring+"   </row>\n"; 
+  if(verbose):
+   VerbosePrintOut("  </data>");
+  xmlstring = xmlstring+"  </data>\n";
+  if(verbose):
+   VerbosePrintOut("  <rows>");
+  xmlstring = xmlstring+"  <rows>\n";
+  for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+   if(verbose):
+    VerbosePrintOut("   <row name=\""+rowinfo+"\">");
+   xmlstring = xmlstring+"   <row name=\""+rowinfo+"\">\n";   
+  if(verbose):
+   VerbosePrintOut("  </rows>");
+  xmlstring = xmlstring+"  </rows>\n";
+  if(verbose):
+   VerbosePrintOut(" </table>");
+  xmlstring = xmlstring+" </table>\n";
  if(verbose):
-  VerbosePrintOut(" <table name=\"HockeyLeagues\">");
- xmlstring = xmlstring+" <table name=\"HockeyLeagues\">\n";
- for hlkey in inhockeyarray['HockeyLeagues']:
-  if(hlkey!="values" and hlkey!="rows"):
-   if(verbose):
-    VerbosePrintOut("  <column name=\""+hlkey+"\">");
-   xmlstring = xmlstring+"  <column name=\""+hlkey+"\">\n";
-   if(verbose):
-    VerbosePrintOut("   <info id=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['id'])+"\" name=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Name']+"\" type=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Type']+"\" notnull=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['Hidden'])+"\">");
-   xmlstring = xmlstring+"   <info id=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['id'])+"\" name=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Name']+"\" type=\""+inhockeyarray['HockeyLeagues'][hlkey]['info']['Type']+"\" notnull=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray['HockeyLeagues'][hlkey]['info']['Hidden'])+"\">\n"; 
-   if(verbose):
-    VerbosePrintOut("  </column>");
-   xmlstring = xmlstring+"  </column>\n";
- if(verbose):
-  VerbosePrintOut(" </table>");
- xmlstring = xmlstring+" </table>\n";
+  VerbosePrintOut("</hockeydb>");
+ xmlstring = xmlstring+"</hockeydb>\n";
  return xmlstring;
+
+def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+ if(outxmlfile is None):
+  return False;
+ xmlfp = open(outxmlfile, "w+");
+ xmlstring = MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose);
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
