@@ -1673,19 +1673,30 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
    VerbosePrintOut("<hockeydb database=\""+EscapeXMLString(str(gethockey.attrib['database']), quote=True)+"\">");
  leaguearrayout = { 'database': str(gethockey.attrib['database']) };
  for gettable in gethockey:
-  leaguearrayout.update( { gettable.attrib['name']: {} } );
+  leaguearrayout.update( { gettable.attrib['name']: { 'rows': [], 'values': [] } } );
   if(gettable.tag=="table"):
    for getcolumn in gettable:
-    for getcolumninfo in getcolumn:
-     if(getcolumninfo.tag=="info"):
-      defaultvale = getcolumninfo.attrib['defaultvalue'];
-      if(defaultvale.isdigit()):
-       defaultvale = int(defaultvale);
-      if(defaultvale=="None"):
-       defaultvale = None;
-      leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': defaultvale, 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
-     if(getcolumninfo.tag=="row"):
-      print(getcolumninfo.attrib['id']); exit();
+    if(getcolumn.tag=="column"):
+     for getcolumninfo in getcolumn:
+      if(getcolumninfo.tag=="rowinfo"):
+       defaultvale = getcolumninfo.attrib['defaultvalue'];
+       if(defaultvale.isdigit()):
+        defaultvale = int(defaultvale);
+       if(defaultvale=="None"):
+        defaultvale = None;
+       leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': defaultvale, 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
+   for getrows in gettable:
+    if(getrows.tag=="rows"):
+     for getrowlist in getcolumn:
+      if(getrowlist.tag=="rowlist"):
+       leaguearrayout[gettable.attrib['name']]['rows'].append(getrowlist.attrib['name']);
+   for getdata in gettable:
+    if(getdata.tag=="data"):
+     for getrow in getdata:
+      if(getrow.tag=="row"):
+       for getrowdata in getrow:
+        if(getrowdata.tag=="rowdata"):
+         leaguearrayout[gettable.attrib['name']]['values'].append( { getrowdata.attrib['name']: getrowdata.attrib['value'] } );
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
