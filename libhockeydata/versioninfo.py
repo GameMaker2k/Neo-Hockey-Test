@@ -19,6 +19,21 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import datetime;
 
+linuxdist = None;
+try:
+ linuxdist = platform.linux_distribution();
+except AttributeError:
+ linuxdist = None;
+
+python_info = {'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(), 'uname': platform.uname(), 'architecture': platform.architecture(), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()};
+def get_python_info(infotype=None):
+ global python_info;
+ python_info = python_info;
+ if(infotype is None):
+  return python_info;
+ if(infotype is not None):
+  return python_info.get(infotype, python_info);
+
 getcuryear = datetime.date.today().year;
 if(getcuryear <= 2015):
  getcuryear = 2016;
