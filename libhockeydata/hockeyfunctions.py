@@ -171,7 +171,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   return False;
  return False;
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
+def Makepyshell-oldFromHockeyArray(inhockeyarray, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(verbose):
@@ -251,11 +251,11 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  xmlstring = xmlstring+"</hockey>\n";
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def Makepyshell-oldFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
  if(outxmlfile is None):
   return False;
  xmlfp = open(outxmlfile, "w+");
- xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose);
+ xmlstring = Makepyshell-oldFromHockeyArray(inhockeyarray, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -301,7 +301,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  xmlstring = Makepyshell-oldFromHockeyArray(hockeyarray, True);
   del xmlstring;
  return hockeyarray;
 
@@ -342,7 +342,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  xmlstring = Makepyshell-oldFromHockeyArray(hockeyarray, True);
   del xmlstring;
  return hockeyarray;
 
@@ -383,7 +383,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  xmlstring = Makepyshell-oldFromHockeyArray(hockeyarray, True);
   del xmlstring;
  return hockeyarray;
 
@@ -1587,8 +1587,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   xmlstring = xmlstring+"  <column>\n";
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowinfo id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\" name=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Name']+"\" type=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Type']+"\" notnull=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden'])+"\" />");
-   xmlstring = xmlstring+"   <rowinfo id=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['id'])+"\" name=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Name']+"\" type=\""+inhockeyarray[get_cur_tab][rowinfo]['info']['Type']+"\" notnull=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull'])+"\" defaultvalue=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])+"\" primarykey=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey'])+"\" autoincrement=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement'])+"\" hidden=\""+str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden'])+"\" />\n";
+    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue']))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
+   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue']))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />\n";
   if(verbose):
    VerbosePrintOut("  </column>");
   xmlstring = xmlstring+"  </column>\n";
@@ -1599,13 +1599,13 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   rowid = 0;
   for rowvalues in inhockeyarray[get_cur_tab]['values']:
    if(verbose):
-    VerbosePrintOut("   <row id=\""+str(rowid)+"\">");
-   xmlstring = xmlstring+"   <row id=\""+str(rowid)+"\">\n"; 
+    VerbosePrintOut("   <row id=\""+EscapeXMLString(str(rowid))+"\">");
+   xmlstring = xmlstring+"   <row id=\""+EscapeXMLString(str(rowid))+"\">\n"; 
    rowid = rowid + 1;
    for rkey, rvalue in rowvalues.items():
     if(verbose):
-     VerbosePrintOut("    <rowdata name=\""+rkey+"\" value=\""+str(rvalue)+"\" />");
-    xmlstring = xmlstring+"    <rowdata name=\""+rkey+"\" value=\""+str(rvalue)+"\" />\n";
+     VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(rkey)+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />");
+    xmlstring = xmlstring+"    <rowdata name=\""+EscapeXMLString(rkey)+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />\n";
    if(verbose):
     VerbosePrintOut("   </row>");
    xmlstring = xmlstring+"   </row>\n"; 
@@ -1622,8 +1622,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   xmlstring = xmlstring+"  <rows>\n";
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowlist name=\""+rowinfo+"\" />");
-   xmlstring = xmlstring+"   <rowlist name=\""+rowinfo+"\" />\n";   
+    VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(rowinfo)+"\" />");
+   xmlstring = xmlstring+"   <rowlist name=\""+EscapeXMLString(rowinfo)+"\" />\n";   
   if(verbose):
    VerbosePrintOut("  </rows>");
   xmlstring = xmlstring+"  </rows>\n";
@@ -1693,7 +1693,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
        if(defaultvale=="None"):
         defaultvale = None;
        if(verbose):
-        VerbosePrintOut("   <info id=\""+str(getcolumninfo.attrib['id'])+"\" name=\""+getcolumninfo.attrib['name']+"\" type=\""+getcolumninfo.attrib['type']+"\" notnull=\""+str(getcolumninfo.attrib['notnull'])+"\" defaultvalue=\""+str(getcolumninfo.attrib['defaultvalue'])+"\" primarykey=\""+str(getcolumninfo.attrib['primarykey'])+"\" autoincrement=\""+str(getcolumninfo.attrib['autoincrement'])+"\" hidden=\""+str(getcolumninfo.attrib['hidden'])+"\" />");
+        VerbosePrintOut("   <info id=\""+EscapeXMLString(str(getcolumninfo.attrib['id']))+"\" name=\""+EscapeXMLString(getcolumninfo.attrib['name'])+"\" type=\""+EscapeXMLString(getcolumninfo.attrib['type'])+"\" notnull=\""+EscapeXMLString(str(getcolumninfo.attrib['notnull']))+"\" defaultvalue=\""+EscapeXMLString(str(getcolumninfo.attrib['defaultvalue']))+"\" primarykey=\""+EscapeXMLString(str(getcolumninfo.attrib['primarykey']))+"\" autoincrement=\""+EscapeXMLString(str(getcolumninfo.attrib['autoincrement']))+"\" hidden=\""+EscapeXMLString(str(getcolumninfo.attrib['hidden']))+"\" />");
        leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': defaultvale, 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
        rowinfonum = rowinfonum + 1;
      if(columnstart>0 and rowinfonum>0):
@@ -1714,9 +1714,9 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
          if(rowdatanum==0):
           if(verbose):
            VerbosePrintOut("  <data>");
-           VerbosePrintOut("   <row id\""+str(getrow.attrib['id'])+"\">");
+           VerbosePrintOut("   <row id\""+EscapeXMLString(str(getrow.attrib['id']))+"\">");
          if(verbose):
-          VerbosePrintOut("    <rowdata name=\""+getrowdata.attrib['name']+"\" value=\""+str(getrowdata.attrib['value'])+"\" />");
+          VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(getrowdata.attrib['name'])+"\" value=\""+EscapeXMLString(str(getrowdata.attrib['value']))+"\" />");
          leaguearrayout[gettable.attrib['name']]['values'].append( { getrowdata.attrib['name']: getrowdata.attrib['value'] } );
          rowdatanum = rowdatanum + 1;
       if(rowstart>0):
@@ -1740,7 +1740,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
         if(verbose):
          VerbosePrintOut("  <rows>");
        if(verbose):
-        VerbosePrintOut("   <row name=\""+getrowlist.attrib['name']+"\" />");
+        VerbosePrintOut("   <row name=\""+EscapeXMLString(getrowlist.attrib['name'])+"\" />");
        leaguearrayout[gettable.attrib['name']]['rows'].append(getrowlist.attrib['name']);
        rowscount = rowscount + 1;
     if(rowscount>0 and rowscount>0):
