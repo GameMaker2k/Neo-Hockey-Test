@@ -171,7 +171,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   return False;
  return False;
 
-def Makepyshell-oldFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(verbose):
@@ -251,11 +251,11 @@ def Makepyshell-oldFromHockeyArray(inhockeyarray, verbose=True):
  xmlstring = xmlstring+"</hockey>\n";
  return xmlstring;
 
-def Makepyshell-oldFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
  if(outxmlfile is None):
   return False;
  xmlfp = open(outxmlfile, "w+");
- xmlstring = Makepyshell-oldFromHockeyArray(inhockeyarray, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -301,7 +301,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = Makepyshell-oldFromHockeyArray(hockeyarray, True);
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
  return hockeyarray;
 
@@ -342,7 +342,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = Makepyshell-oldFromHockeyArray(hockeyarray, True);
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
  return hockeyarray;
 
@@ -383,7 +383,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = Makepyshell-oldFromHockeyArray(hockeyarray, True);
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
   del xmlstring;
  return hockeyarray;
 
