@@ -10,7 +10,7 @@
   xmlns CDATA #FIXED ''
   name NMTOKEN #REQUIRED>
 
-<!ELEMENT column (info)+>
+<!ELEMENT column (rowinfo)+>
 <!ATTLIST column
   xmlns CDATA #FIXED ''>
 
@@ -18,12 +18,12 @@
 <!ATTLIST data
   xmlns CDATA #FIXED ''>
 
-<!ELEMENT rows (row)+>
+<!ELEMENT rows (rowlist)+>
 <!ATTLIST rows
   xmlns CDATA #FIXED ''>
 
-<!ELEMENT info EMPTY>
-<!ATTLIST info
+<!ELEMENT rowinfo EMPTY>
+<!ATTLIST rowinfo
   xmlns CDATA #FIXED ''
   autoincrement CDATA #REQUIRED
   defaultvalue CDATA #REQUIRED
@@ -34,11 +34,15 @@
   primarykey CDATA #REQUIRED
   type NMTOKEN #REQUIRED>
 
-<!ELEMENT row (rowdata)*>
+<!ELEMENT row (rowdata)+>
 <!ATTLIST row
   xmlns CDATA #FIXED ''
-  id CDATA #IMPLIED
-  name NMTOKEN #IMPLIED>
+  id CDATA #REQUIRED>
+
+<!ELEMENT rowlist EMPTY>
+<!ATTLIST rowlist
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED>
 
 <!ELEMENT rowdata EMPTY>
 <!ATTLIST rowdata

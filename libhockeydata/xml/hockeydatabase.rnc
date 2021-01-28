@@ -6,7 +6,7 @@ start =
     element table {
       attribute name { xsd:NCName },
       element column {
-        element info {
+        element rowinfo {
           attribute autoincrement { xsd:integer },
           attribute defaultvalue { text },
           attribute hidden { xsd:integer },
@@ -17,16 +17,19 @@ start =
           attribute type { xsd:NCName }
         }+
       },
-      element data { row* },
-      element rows { row+ }
+      element data {
+        element row {
+          attribute id { xsd:integer },
+          element rowdata {
+            attribute name { xsd:NCName },
+            attribute value { text }
+          }+
+        }*
+      },
+      element rows {
+        element rowlist {
+          attribute name { xsd:NCName }
+        }+
+      }
     }+
-  }
-row =
-  element row {
-    attribute id { xsd:integer }?,
-    attribute name { xsd:NCName }?,
-    element rowdata {
-      attribute name { xsd:NCName },
-      attribute value { text }
-    }*
   }

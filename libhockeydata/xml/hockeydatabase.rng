@@ -10,7 +10,7 @@
           </attribute>
           <element name="column">
             <oneOrMore>
-              <element name="info">
+              <element name="rowinfo">
                 <attribute name="autoincrement">
                   <data type="integer"/>
                 </attribute>
@@ -38,38 +38,32 @@
           </element>
           <element name="data">
             <zeroOrMore>
-              <ref name="row"/>
+              <element name="row">
+                <attribute name="id">
+                  <data type="integer"/>
+                </attribute>
+                <oneOrMore>
+                  <element name="rowdata">
+                    <attribute name="name">
+                      <data type="NCName"/>
+                    </attribute>
+                    <attribute name="value"/>
+                  </element>
+                </oneOrMore>
+              </element>
             </zeroOrMore>
           </element>
           <element name="rows">
             <oneOrMore>
-              <ref name="row"/>
+              <element name="rowlist">
+                <attribute name="name">
+                  <data type="NCName"/>
+                </attribute>
+              </element>
             </oneOrMore>
           </element>
         </element>
       </oneOrMore>
     </element>
   </start>
-  <define name="row">
-    <element name="row">
-      <optional>
-        <attribute name="id">
-          <data type="integer"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="name">
-          <data type="NCName"/>
-        </attribute>
-      </optional>
-      <zeroOrMore>
-        <element name="rowdata">
-          <attribute name="name">
-            <data type="NCName"/>
-          </attribute>
-          <attribute name="value"/>
-        </element>
-      </zeroOrMore>
-    </element>
-  </define>
 </grammar>
