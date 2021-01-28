@@ -1553,6 +1553,8 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
     VerbosePrintOut("-- --------------------------------------------------------");
   sqlitedict[get_cur_tab].update( { 'rows': collist } );
  sqldatacon[1].close();
+ if(not CheckHockeySQLiteArray(sqlitedict)):
+  return False;
  return sqlitedict;
 
 def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
@@ -1748,6 +1750,8 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
       VerbosePrintOut("  </rows>");
    if(verbose):
     VerbosePrintOut(" </table>");
+ if(not CheckHockeySQLiteArray(leaguearrayout)):
+  return False;
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
