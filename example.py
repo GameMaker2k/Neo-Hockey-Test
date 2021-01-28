@@ -18,7 +18,7 @@
 
 import libhockeydata, os, sys, random;
 
-defroot = ['./data/xml', './data/json', './data/jsonalt', './data/sql', './php/data'];
+defroot = ['./data/xml', './data/json', './data/sql', './php/data'];
 randroot = random.randint(0, 4);
 rootdir = defroot[randroot];
 if(len(sys.argv)<2):
