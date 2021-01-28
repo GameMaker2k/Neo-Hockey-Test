@@ -1675,28 +1675,79 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  for gettable in gethockey:
   leaguearrayout.update( { gettable.attrib['name']: { 'rows': [], 'values': [] } } );
   if(gettable.tag=="table"):
+   if(verbose):
+    VerbosePrintOut(" <table>");
+   columnstart = 0;
    for getcolumn in gettable:
     if(getcolumn.tag=="column"):
+     columnstart = 1;
+     rowinfonum = 0;
      for getcolumninfo in getcolumn:
       if(getcolumninfo.tag=="rowinfo"):
+       if(rowinfonum==0):
+        if(verbose):
+         VerbosePrintOut("  <column>");
        defaultvale = getcolumninfo.attrib['defaultvalue'];
        if(defaultvale.isdigit()):
         defaultvale = int(defaultvale);
        if(defaultvale=="None"):
         defaultvale = None;
+       if(verbose):
+        VerbosePrintOut("   <info id=\""+str(getcolumninfo.attrib['id'])+"\" name=\""+getcolumninfo.attrib['name']+"\" type=\""+getcolumninfo.attrib['type']+"\" notnull=\""+str(getcolumninfo.attrib['notnull'])+"\" defaultvalue=\""+str(getcolumninfo.attrib['defaultvalue'])+"\" primarykey=\""+str(getcolumninfo.attrib['primarykey'])+"\" autoincrement=\""+str(getcolumninfo.attrib['autoincrement'])+"\" hidden=\""+str(getcolumninfo.attrib['hidden'])+"\" />");
        leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': defaultvale, 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
-   for getrows in gettable:
-    if(getrows.tag=="rows"):
-     for getrowlist in getcolumn:
-      if(getrowlist.tag=="rowlist"):
-       leaguearrayout[gettable.attrib['name']]['rows'].append(getrowlist.attrib['name']);
+       rowinfonum = rowinfonum + 1;
+     if(columnstart>0 and rowinfonum>0):
+      if(verbose):
+       VerbosePrintOut("  </column>");
+   datastart = 0;
    for getdata in gettable:
     if(getdata.tag=="data"):
+     datastart = 1;
+     rowstart = 0;
+     rowdatanum = 0;
      for getrow in getdata:
       if(getrow.tag=="row"):
+       rowstart = 1;
+       rowdatanum = 0;
        for getrowdata in getrow:
         if(getrowdata.tag=="rowdata"):
+         if(rowdatanum==0):
+          if(verbose):
+           VerbosePrintOut("  <data>");
+           VerbosePrintOut("   <row id\""+str(getrow.attrib['id'])+"\">");
+         if(verbose):
+          VerbosePrintOut("    <rowdata name=\""+getrowdata.attrib['name']+"\" value=\""+str(getrowdata.attrib['value'])+"\" />");
          leaguearrayout[gettable.attrib['name']]['values'].append( { getrowdata.attrib['name']: getrowdata.attrib['value'] } );
+         rowdatanum = rowdatanum + 1;
+      if(rowstart>0):
+       if(verbose):
+        VerbosePrintOut("   </row>");
+     if(rowdatanum==0):
+      if(verbose):
+       VerbosePrintOut("  <data />");
+     else:
+      if(verbose):
+       VerbosePrintOut("  </data>");
+   rowsstart = 0;
+   rowscount = 0;
+   for getrows in gettable:
+    if(getrows.tag=="rows"):
+     rowsstart = 1;
+     rowscount = 0;
+     for getrowlist in getcolumn:
+      if(getrowlist.tag=="rowlist"):
+       if(rowscount==0):
+        if(verbose):
+         VerbosePrintOut("  <rows>");
+       if(verbose):
+        VerbosePrintOut("   <row name=\""+getrowlist.attrib['name']+"\" />");
+       leaguearrayout[gettable.attrib['name']]['rows'].append(getrowlist.attrib['name']);
+       rowscount = rowscount + 1;
+    if(rowscount>0 and rowscount>0):
+     if(verbose):
+      VerbosePrintOut("  </rows>");
+   if(verbose):
+    VerbosePrintOut(" </table>");
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
