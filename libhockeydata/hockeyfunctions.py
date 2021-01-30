@@ -365,44 +365,10 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  xmlstring = xmlstring+"</hockey>\n";
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, compression="auto", verbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
  if(outxmlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- if(not compression or compression or compression=="catfile"):
-  compression = None;
- if(compression not in compressionlist and compression is None):
-  compression = "auto";
- fbasename = os.path.splitext(outxmlfile)[0];
- fextname = os.path.splitext(outxmlfile)[1];
- if(fextname not in outextlistwd and (compression=="auto" or compression is None)):
-  xmlfp = open(outxmlfile, "wb+");
- elif((fextname==".gz" and compression=="auto") or compression=="gzip"):
-  try:
-   import gzip;
-  except ImportError:
-   return False;
-  xmlfp = gzip.open(outxmlfile, "wb+", 9);
- elif((fextname==".bz2" and compression=="auto") or compression=="bzip2"):
-  try:
-   import bz2;
-  except ImportError:
-   return False;
-  xmlfp = bz2.BZ2File(outxmlfile, "wb+", 9);
- elif((fextname==".xz" and compression=="auto") or compression=="xz"):
-  try:
-   import lzma;
-  except ImportError:
-   return False;
-  xmlfp = lzma.open(outxmlfile, "wb+", format=lzma.FORMAT_XZ, preset=9);
- elif((fextname==".lzma" and compression=="auto") or compression=="lzma"):
-  try:
-   import lzma;
-  except ImportError:
-   return False;
-  xmlfp = lzma.open(outxmlfile, "wb+", format=lzma.FORMAT_ALONE, preset=9);
+ xmlfp = open(outxmlfile, "w+");
  xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose);
  xmlfp.write(xmlstring);
  xmlfp.close();
