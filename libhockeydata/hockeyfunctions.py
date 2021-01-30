@@ -120,6 +120,48 @@ def UncompressCatFileAlt(fp):
   outfp = fp;
  return outfp;
 
+def CompressCatFile(fp, compression="auto"):
+ compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
+ if(not hasattr(fp, "read") and not hasattr(fp, "write")):
+  return False;
+ fp.seek(0, 0);
+ if(not compression or compression):
+  compression = None;
+ if(compression not in compressionlist and compression is None):
+  compression = "auto";
+ if(compression=="gzip"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  infp = BytesIO();
+  infp.write(GZipCompress(fp.read(), compresslevel=9));
+ if(compression=="bzip2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  infp = BytesIO();
+  infp.write(bz2.compress(fp.read(), compresslevel=9));
+ if(compression=="lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  infp = BytesIO();
+  infp.write(lzma.compress(fp.read(), format=lzma.FORMAT_ALONE, preset=9));
+ if(compression=="xz"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  infp = BytesIO();
+  infp.write(lzma.compress(fp.read(), format=lzma.FORMAT_XZ, preset=9));
+ if(compression=="auto" or compression is None):
+  infp = fp;
+ infp.seek(0, 0);
+ return infp;
+
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
