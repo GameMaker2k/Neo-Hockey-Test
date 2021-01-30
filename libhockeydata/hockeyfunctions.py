@@ -397,7 +397,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   except ImportError:
    return False;
   xmlfp = lzma.open(outfile, "wb+", format=lzma.FORMAT_XZ, preset=9);
- elif(fextname==".lzma" and compression=="auto") or compression=="lzma"):
+ elif((fextname==".lzma" and compression=="auto") or compression=="lzma"):
   try:
    import lzma;
   except ImportError:
