@@ -68,7 +68,7 @@ def CheckCompressionType(infile, closefp=True):
   filefp.close();
  return filetype;
 
-def UncompressCatFile(infile, mode="rb"):
+def UncompressFile(infile, mode="rb"):
  compresscheck = CheckCompressionType(infile, False);
  if(compresscheck=="gzip"):
   try:
@@ -92,7 +92,7 @@ def UncompressCatFile(infile, mode="rb"):
   filefp = open(infile, mode);
  return filefp;
 
-def UncompressCatFileAlt(fp):
+def UncompressFileAlt(fp):
  if(not hasattr(fp, "read") and not hasattr(fp, "write")):
   return False;
  compresscheck = CheckCompressionType(fp, False);
@@ -120,7 +120,7 @@ def UncompressCatFileAlt(fp):
   outfp = fp;
  return outfp;
 
-def CompressCatFile(fp, compression="auto"):
+def CompressFile(fp, compression="auto"):
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  if(not hasattr(fp, "read") and not hasattr(fp, "write")):
   return False;
@@ -405,7 +405,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
    jsonheaders = {'User-Agent': useragent_string};
    hockeyarray = json.load(urllib2.urlopen(urllib2.Request(injsonfile, None, jsonheaders)));
   else:
-   jsonfp = UncompressCatFile(injsonfile);
+   jsonfp = UncompressFile(injsonfile);
    hockeyarray = json.load(jsonfp);
    jsonfp.close();
  elif(not jsonisfile):
@@ -446,7 +446,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
    pickleheaders = {'User-Agent': useragent_string};
    hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, pickleheaders)));
   else:
-   picklefp = UncompressCatFile(inpicklefile);
+   picklefp = UncompressFile(inpicklefile);
    hockeyarray = pickle.load(picklefp);
    picklefp.close();
  elif(not pickleisfile):
@@ -487,7 +487,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
    marshalheaders = {'User-Agent': useragent_string};
    hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, marshalheaders)));
   else:
-   marshalfp = UncompressCatFile(inmarshalfile);
+   marshalfp = UncompressFile(inmarshalfile);
    hockeyarray = marshal.load(marshalfp);
    marshalfp.close();
  elif(not marshalisfile):
@@ -508,7 +508,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
     hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
    else:
-    hockeyfile = cElementTree.ElementTree(file=UncompressCatFile(inxmlfile));
+    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
@@ -1187,7 +1187,7 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
 
 def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
  if(sqlisfile and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
-  sqlfp = UncompressCatFile(sqlfile);
+  sqlfp = UncompressFile(sqlfile);
   sqlstring = sqlfp.read();
   sqlfp.close();
  elif(not sqlisfile):
@@ -1771,7 +1771,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
     hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
    else:
-    hockeyfile = cElementTree.ElementTree(file=UncompressCatFile(inxmlfile));
+    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
