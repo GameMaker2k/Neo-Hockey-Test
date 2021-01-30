@@ -92,6 +92,34 @@ def UncompressCatFile(infile, mode="rb"):
   filefp = open(infile, mode);
  return filefp;
 
+def UncompressCatFileAlt(fp):
+ if(not hasattr(fp, "read") and not hasattr(fp, "write")):
+  return False;
+ compresscheck = CheckCompressionType(fp, False);
+ if(compresscheck=="gzip"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  outfp = gzip.GzipFile(fileobj=fp, mode="rb");
+ if(compresscheck=="bzip2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  outfp = BytesIO();
+  outfp.write(bz2.decompress(fp.read()));
+ if(compresscheck=="lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  outfp = BytesIO();
+  outfp.write(lzma.decompress(fp.read()));
+ if(not compresscheck):
+  outfp = fp;
+ return outfp;
+
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
