@@ -488,7 +488,10 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
    hockeyarray = json.load(jsonfp);
    jsonfp.close();
  elif(not jsonisfile):
-  hockeyarray = json.loads(injsonfile);
+   jsonfp = BytesIO(injsonfile);
+   jsonfp = UncompressFileAlt(jsonfp);
+   hockeyarray = json.load(jsonfp);
+   jsonfp.close();
  else:
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
@@ -561,7 +564,10 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
    hockeyarray = pickle.load(picklefp);
    picklefp.close();
  elif(not pickleisfile):
-  hockeyarray = pickle.loads(inpicklefile);
+  picklefp = BytesIO(inpicklefile);
+  picklefp = UncompressFileAlt(picklefp);
+  hockeyarray = json.load(picklefp);
+  picklefp.close();
  else:
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
@@ -634,7 +640,10 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
    hockeyarray = marshal.load(marshalfp);
    marshalfp.close();
  elif(not marshalisfile):
-  hockeyarray = marshal.loads(inmarshalfile);
+  marshalfp = BytesIO(inmarshalfile);
+  marshalfp = UncompressFileAlt(marshalfp);
+  hockeyarray = json.load(marshalfp);
+  marshalfp.close();
  else:
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
@@ -655,8 +664,9 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
+  inxmlsfile = BytesIO(inxmlfile);
   try:
-   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+   hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlsfile));
   except cElementTree.ParseError: 
    return False;
  else:
@@ -1498,7 +1508,10 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   sqlstring = sqlfp.read();
   sqlfp.close();
  elif(not sqlisfile):
-  sqlstring = sqlfile;
+  sqlfp = BytesIO(sqlfile);
+  sqlfp = UncompressFileAlt(sqlfp);
+  sqlstring = sqlfp.read();
+  sqlfp.close();
  else:
   return False;
  if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))>=1):
@@ -2146,8 +2159,9 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
+  inxmlsfile = BytesIO(inxmlfile);
   try:
-   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+   hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlsfile));
   except cElementTree.ParseError: 
    return False;
  else:
