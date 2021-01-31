@@ -768,6 +768,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
   sqldatacon = tuple(sdbfile);
+  sdbfile = ":memory:";
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
  if(verbose):
@@ -1380,13 +1381,14 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
  return True;
 
 def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
+ if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
    sqldatacon = tuple(sdbfile);
+   sdbfile = ":memory:";
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
@@ -1773,11 +1775,12 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
  return True;
 
 def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
+ if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
    sqldatacon = tuple(sdbfile);
+   sdbfile = ":memory:";
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
@@ -1926,13 +1929,14 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  return leaguearrayout;
 
 def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
+ if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
   if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
    sqldatacon = tuple(sdbfile);
+   sdbfile = ":memory:";
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
@@ -2055,8 +2059,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   xmlstring = xmlstring+"  <column>\n";
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue']))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
-   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue']))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />\n";
+    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
+   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />\n";
   if(verbose):
    VerbosePrintOut("  </column>");
   xmlstring = xmlstring+"  </column>\n";
@@ -2195,7 +2199,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
         defaultvale = None;
        if(verbose):
         VerbosePrintOut("   <info id=\""+EscapeXMLString(str(getcolumninfo.attrib['id']))+"\" name=\""+EscapeXMLString(getcolumninfo.attrib['name'])+"\" type=\""+EscapeXMLString(getcolumninfo.attrib['type'])+"\" notnull=\""+EscapeXMLString(str(getcolumninfo.attrib['notnull']))+"\" defaultvalue=\""+EscapeXMLString(str(getcolumninfo.attrib['defaultvalue']))+"\" primarykey=\""+EscapeXMLString(str(getcolumninfo.attrib['primarykey']))+"\" autoincrement=\""+EscapeXMLString(str(getcolumninfo.attrib['autoincrement']))+"\" hidden=\""+EscapeXMLString(str(getcolumninfo.attrib['hidden']))+"\" />");
-       leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': defaultvale, 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
+       leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': ConvertXMLValuesForPython(defaultvale), 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
        rowinfonum = rowinfonum + 1;
      if(columnstart>0 and rowinfonum>0):
       if(verbose):

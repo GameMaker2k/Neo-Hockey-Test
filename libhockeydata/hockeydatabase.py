@@ -177,6 +177,32 @@ def CheckXMLFile(infile):
  xmlfp.close();
  return validxmlfile;
 
+def ConvertPythonValuesForXML(invalue):
+ if(invalue):
+  outvalue = "true";
+ elif(not invalue):
+  outvalue = "false";
+ elif(invalue is None):
+  outvalue = "null";
+ elif(invalue=="''"):
+  outvalue = "";
+ else:
+  outvalue = outvalue;
+ return outvalue;
+
+def ConvertXMLValuesForPython(invalue):
+ if(invalue=="true"):
+  outvalue = True;
+ elif(invalue=="false"):
+  outvalue = False;
+ elif(invalue=="null"):
+  outvalue = "None";
+ elif(invalue==""):
+  outvalue = "''";
+ else:
+  outvalue = outvalue;
+ return outvalue;
+
 def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   if(not CheckSQLiteDatabase(sdbfile)):

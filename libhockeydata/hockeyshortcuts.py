@@ -1417,5 +1417,5 @@ def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True):
  if(not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  print(hockeydbin[0]);
+  VerbosePrintOut(hockeydbin[0]);
  return hockeyarray;
