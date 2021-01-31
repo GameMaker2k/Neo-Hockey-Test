@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle, marshal, platform;
+import sqlite3, sys, os, re, time, json, pickle, marshal, platform, binascii;
 
 try:
  import xml.etree.cElementTree as cElementTree;
