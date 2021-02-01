@@ -51,14 +51,17 @@ baseint = tuple(baseint);
 teststringio = 0;
 try:
  from io import BytesIO;
+ from io import StringIO;
  teststringio = 3;
 except ImportError:
  try:
   from cStringIO import StringIO as BytesIO;
+  from cStringIO import StringIO;
   teststringio = 1;
  except ImportError:
   try:
    from StringIO import StringIO as BytesIO;
+   from StringIO import StringIO;
    teststringio = 2;
   except ImportError:
    teststringio = 0;
@@ -190,7 +193,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8"):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
-  inxmlsfile = BytesIO(inxmlfile);
+  inxmlsfile = StringIO(inxmlfile);
   try:
    hockeyfile = xml.dom.minidom.parse(file=UncompressFile(inxmlsfile));
   except: 
