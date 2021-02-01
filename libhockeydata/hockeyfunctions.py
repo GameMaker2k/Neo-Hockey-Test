@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle, marshal, platform, binascii;
+import sqlite3, sys, os, re, time, json, pickle, marshal, platform, binascii, xml.dom.minidom;
 
 try:
  import xml.etree.cElementTree as cElementTree;
@@ -497,6 +497,8 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("utf-8");
+ xmldom = xml.dom.minidom.parse(xmlstring);
+ xmlstring = xmldom.toprettyxml(encoding="UTF-8");
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
@@ -2342,6 +2344,8 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = cElementTree.tostring(xmlstring_hockeydb, encoding="UTF-8", method="xml").decode("utf-8");
+ xmldom = xml.dom.minidom.parse(xmlstring);
+ xmlstring = xmldom.toprettyxml(encoding="UTF-8");
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
