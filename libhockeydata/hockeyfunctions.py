@@ -201,7 +201,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8"):
  return outxmlcode;
 
 def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", returnxml=False):
-if(outxmlfile is None):
+ if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
