@@ -177,8 +177,13 @@ def CompressFile(fp, compression="auto"):
  infp.seek(0, 0);
  return infp;
 
-def BeautifyXMLCode(inxmlcode):
- xmldom = xml.dom.minidom.parseString(inxmlcode);
+def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8"):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+  return False;
+ if(xmlisfile):
+  xmldom = xml.dom.minidom.parse(inxmlfile);
+ else:
+  xmldom = xml.dom.minidom.parseString(inxmlfile);
  outxmlcode = xmldom.toprettyxml(indent=" ", encoding="UTF-8").decode("utf-8");
  return outxmlcode;
 
