@@ -498,7 +498,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose=True):
   VerbosePrintOut("</hockey>");
  xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("utf-8");
  xmldom = xml.dom.minidom.parseString(xmlstring);
- xmlstring = xmldom.toprettyxml(encoding="UTF-8").decode("utf-8");
+ xmlstring = xmldom.toprettyxml(indent="\s", encoding="UTF-8").decode("utf-8");
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
@@ -2345,7 +2345,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
   VerbosePrintOut("</hockeydb>");
  xmlstring = cElementTree.tostring(xmlstring_hockeydb, encoding="UTF-8", method="xml").decode("utf-8");
  xmldom = xml.dom.minidom.parseString(xmlstring);
- xmlstring = xmldom.toprettyxml(encoding="UTF-8").decode("utf-8");
+ xmlstring = xmldom.toprettyxml(indent="\s", encoding="UTF-8").decode("utf-8");
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
