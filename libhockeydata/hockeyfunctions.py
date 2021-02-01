@@ -180,12 +180,70 @@ def CompressFile(fp, compression="auto"):
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8"):
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
- if(xmlisfile):
-  xmldom = xml.dom.minidom.parse(inxmlfile);
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+  xmlheaders = {'User-Agent': useragent_string};
+  try:
+   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+    hockeyfile = xml.dom.minidom.parse(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   else:
+    hockeyfile = xml.dom.minidom.parse(file=UncompressFile(inxmlfile));
+  except cElementTree.ParseError: 
+   return False;
+ elif(not xmlisfile):
+  inxmlsfile = BytesIO(inxmlfile);
+  try:
+   hockeyfile = xml.dom.minidom.parse(file=UncompressFile(inxmlsfile));
+  except: 
+   return False;
  else:
-  xmldom = xml.dom.minidom.parseString(inxmlfile);
+  return False;
  outxmlcode = xmldom.toprettyxml(indent=" ", encoding="UTF-8").decode("utf-8");
  return outxmlcode;
+
+def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", returnxml=False):
+if(outxmlfile is None):
+  return False;
+ compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ fbasename = os.path.splitext(outxmlfile)[0];
+ fextname = os.path.splitext(outxmlfile)[1];
+ if(fextname not in outextlistwd):
+  xmlfp = open(outxmlfile, "w+");
+ elif(fextname==".gz"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  xmlfp = gzip.open(outxmlfile, "wb", 9);
+ elif(fextname==".bz2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  xmlfp = bz2.open(outxmlfile, "wb", 9);
+ elif(fextname==".xz"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+ xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, encoding);
+ if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+  xmlstring = xmlstring.encode();
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
