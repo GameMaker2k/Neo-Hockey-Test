@@ -177,6 +177,11 @@ def CompressFile(fp, compression="auto"):
  infp.seek(0, 0);
  return infp;
 
+def BeautifyXMLCode(inxmlcode):
+ xmldom = xml.dom.minidom.parseString(inxmlcode);
+ outxmlcode = xmldom.toprettyxml(indent=" ", encoding="UTF-8").decode("utf-8");
+ return outxmlcode;
+
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
