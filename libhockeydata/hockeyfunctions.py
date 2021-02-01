@@ -823,7 +823,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
     if(getconference.tag == "conference"):
      for getdivision in getconference:
       if(verbose):
-       VerbosePrintOut("   <division name=\""+str(getdivision.attrib['name'])+"\" prefix=\""+EscapeXMLString(str(getdivision.attrib['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(getdivision.attrib['suffix']), quote=True)+"\">");
+       VerbosePrintOut("   <division name=\""+EscapeXMLString(str(getdivision.attrib['name']))+"\" prefix=\""+EscapeXMLString(str(getdivision.attrib['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(getdivision.attrib['suffix']), quote=True)+"\">");
       DivisionFullName = GetFullTeamName(str(getdivision.attrib['name']), str(getdivision.attrib['prefix']), str(getdivision.attrib['suffix']));
       leaguearray[str(getleague.attrib['name'])][str(getconference.attrib['name'])].update( { str(getdivision.attrib['name']): { 'divisioninfo': { 'name': str(getdivision.attrib['name']), 'prefix': str(getdivision.attrib['prefix']), 'suffix': str(getdivision.attrib['suffix']), 'fullname': str(DivisionFullName), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']) } } } );
       leaguearray[str(getleague.attrib['name'])]['quickinfo']['divisioninfo'].update( { str(getdivision.attrib['name']): { 'name': str(getdivision.attrib['name']), 'fullname': str(DivisionFullName), 'league': str(getleague.attrib['name']), 'conference': str(getconference.attrib['name']) } } );
@@ -2168,8 +2168,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
    table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
  for get_cur_tab in table_list:
   if(verbose):
-   VerbosePrintOut(" <table name=\""+str(get_cur_tab)+"\">");
-  xmlstring = xmlstring+" <table name=\""+str(get_cur_tab)+"\">\n";
+   VerbosePrintOut(" <table name=\""+EscapeXMLString(str(get_cur_tab))+"\">");
+  xmlstring = xmlstring+" <table name=\""+EscapeXMLString(str(get_cur_tab))+"\">\n";
   rowlen = len(inhockeyarray[get_cur_tab]['rows']);
   rowi = 0;
   sqlrowlist = [];
@@ -2178,8 +2178,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   xmlstring = xmlstring+"  <column>\n";
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
-   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />\n";
+    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Name']))+"\" type=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Type']))+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
+   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Name']))+"\" type=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Type']))+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />\n";
   if(verbose):
    VerbosePrintOut("  </column>");
   xmlstring = xmlstring+"  </column>\n";
@@ -2195,8 +2195,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
    rowid = rowid + 1;
    for rkey, rvalue in rowvalues.items():
     if(verbose):
-     VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(rkey)+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />");
-    xmlstring = xmlstring+"    <rowdata name=\""+EscapeXMLString(rkey)+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />\n";
+     VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(str(rkey))+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />");
+    xmlstring = xmlstring+"    <rowdata name=\""+EscapeXMLString(str(rkey))+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />\n";
    if(verbose):
     VerbosePrintOut("   </row>");
    xmlstring = xmlstring+"   </row>\n"; 
@@ -2213,8 +2213,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
   xmlstring = xmlstring+"  <rows>\n";
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(rowinfo)+"\" />");
-   xmlstring = xmlstring+"   <rowlist name=\""+EscapeXMLString(rowinfo)+"\" />\n";   
+    VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(str(rowinfo))+"\" />");
+   xmlstring = xmlstring+"   <rowlist name=\""+EscapeXMLString(str(rowinfo))+"\" />\n";   
   if(verbose):
    VerbosePrintOut("  </rows>");
   xmlstring = xmlstring+"  </rows>\n";
@@ -2292,7 +2292,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
    table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
  for get_cur_tab in table_list:
   if(verbose):
-   VerbosePrintOut(" <table name=\""+str(get_cur_tab)+"\">");
+   VerbosePrintOut(" <table name=\""+EscapeXMLString(str(get_cur_tab))+"\">");
   xmlstring_table = cElementTree.SubElement(xmlstring_hockeydb, "table", { 'name': str(get_cur_tab) } );
   rowlen = len(inhockeyarray[get_cur_tab]['rows']);
   rowi = 0;
@@ -2302,7 +2302,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
   xmlstring_column = cElementTree.SubElement(xmlstring_table, "column");
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
+    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Name']))+"\" type=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Type']))+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
    xmlstring_rowinfo = cElementTree.SubElement(xmlstring_column, "rowinfo", { 'id': str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']), 'name': str(inhockeyarray[get_cur_tab][rowinfo]['info']['Name']), 'type': str(inhockeyarray[get_cur_tab][rowinfo]['info']['Type']), 'notnull': str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']), 'defaultvalue': ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])), 'primarykey': str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']), 'autoincrement': str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']), 'hidden': str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']) } );
   if(verbose):
    VerbosePrintOut("  </column>");
@@ -2318,7 +2318,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
    rowid = rowid + 1;
    for rkey, rvalue in rowvalues.items():
     if(verbose):
-     VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(rkey)+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />");
+     VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(str(rkey))+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />");
     xmlstring_rowdata = cElementTree.SubElement(xmlstring_row, "rowdata", { 'name': str(rkey), 'value': str(rvalue) } );
    if(verbose):
     VerbosePrintOut("   </row>");
@@ -2333,7 +2333,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
   xmlstring_rows = cElementTree.SubElement(xmlstring_table, "rows");
   for rowinfo in inhockeyarray[get_cur_tab]['rows']:
    if(verbose):
-    VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(rowinfo)+"\" />");
+    VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(str(rowinfo))+"\" />");
    xmlstring_rowlist = cElementTree.SubElement(xmlstring_rows, "rowlist", { 'name': str(rowinfo) } );
   if(verbose):
    VerbosePrintOut("  </rows>");
