@@ -496,7 +496,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose=True):
    VerbosePrintOut(" </league>");
  if(verbose):
   VerbosePrintOut("</hockey>");
- xmlstring = cElementTree.tostring(xmlstring_hockey, encoding='UTF-8', method='xml')
+ xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("utf-8");
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
