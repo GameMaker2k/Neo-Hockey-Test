@@ -187,15 +187,15 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8"):
   xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    hockeyfile = xml.dom.minidom.parse(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+    xmldom = xml.dom.minidom.parse(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
    else:
-    hockeyfile = xml.dom.minidom.parse(file=UncompressFile(inxmlfile));
-  except cElementTree.ParseError: 
+    xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlfile));
+  except: 
    return False;
  elif(not xmlisfile):
   inxmlsfile = StringIO(inxmlfile);
   try:
-   hockeyfile = xml.dom.minidom.parse(file=UncompressFile(inxmlsfile));
+   xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlsfile));
   except: 
    return False;
  else:
