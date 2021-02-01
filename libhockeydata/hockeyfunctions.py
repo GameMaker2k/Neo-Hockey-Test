@@ -2271,6 +2271,124 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
   return True;
  return True;
 
+def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
+ if(not CheckHockeySQLiteArray(inhockeyarray)):
+  return False;
+ if(verbose):
+  VerbosePrintOut("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+ if "database" in inhockeyarray.keys():
+  if(verbose):
+   VerbosePrintOut("<hockeydb database=\""+EscapeXMLString(str(inhockeyarray['database']), quote=True)+"\">");
+  xmlstring_hockeydb = cElementTree.Element("hockeydb", { 'database': str(inhockeyarray['database']) } );
+ if "database" not in inhockeyarray.keys():
+  if(verbose):
+   VerbosePrintOut("<hockeydb database=\"./hockeydatabase.db3\">");
+  xmlstring_hockeydb = cElementTree.Element("hockeydb", { 'database': "./hockeydatabase.db3" } );
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
+ for get_cur_tab in table_list:
+  if(verbose):
+   VerbosePrintOut(" <table name=\""+str(get_cur_tab)+"\">");
+  xmlstring_table = cElementTree.SubElement(xmlstring_hockeydb, "table", { 'name': str(get_cur_tab) } );
+  rowlen = len(inhockeyarray[get_cur_tab]['rows']);
+  rowi = 0;
+  sqlrowlist = [];
+  if(verbose):
+   VerbosePrintOut("  <column>");
+  xmlstring_column = cElementTree.SubElement(xmlstring_table, "column");
+  for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+   if(verbose):
+    VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Name'])+"\" type=\""+EscapeXMLString(inhockeyarray[get_cur_tab][rowinfo]['info']['Type'])+"\" notnull=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />");
+   xmlstring_rowinfo = cElementTree.SubElement(xmlstring_column, "rowinfo", { 'id': str(inhockeyarray[get_cur_tab][rowinfo]['info']['id']), 'name': str(inhockeyarray[get_cur_tab][rowinfo]['info']['Name']), 'type': str(inhockeyarray[get_cur_tab][rowinfo]['info']['Type']), 'notnull': str(inhockeyarray[get_cur_tab][rowinfo]['info']['NotNull']), 'defaultvalue': ConvertPythonValuesForXML(str(inhockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])), 'primarykey': str(inhockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']), 'autoincrement': str(inhockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']), 'hidden': str(inhockeyarray[get_cur_tab][rowinfo]['info']['Hidden']) } );
+  if(verbose):
+   VerbosePrintOut("  </column>");
+  if(len(inhockeyarray[get_cur_tab]['values'])>0):
+   if(verbose):
+    VerbosePrintOut("  <data>");
+   xmlstring_data = cElementTree.SubElement(xmlstring_table, "data");
+  rowid = 0;
+  for rowvalues in inhockeyarray[get_cur_tab]['values']:
+   if(verbose):
+    VerbosePrintOut("   <row id=\""+EscapeXMLString(str(rowid))+"\">");
+   xmlstring_row = cElementTree.SubElement(xmlstring_data, "row", { 'id': str(rowid) } );
+   rowid = rowid + 1;
+   for rkey, rvalue in rowvalues.items():
+    if(verbose):
+     VerbosePrintOut("    <rowdata name=\""+EscapeXMLString(rkey)+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />");
+    xmlstring_rowdata = cElementTree.SubElement(xmlstring_row, "rowdata", { 'name': str(rkey), 'value': str(rvalue) } );
+   if(verbose):
+    VerbosePrintOut("   </row>");
+  if(len(inhockeyarray[get_cur_tab]['values'])>0):
+   if(verbose):
+    VerbosePrintOut("  </data>");
+  else:
+   if(verbose):
+    VerbosePrintOut("  <data />");
+  if(verbose):
+   VerbosePrintOut("  <rows>");
+  xmlstring_rows = cElementTree.SubElement(xmlstring_table, "rows");
+  for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+   if(verbose):
+    VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(rowinfo)+"\" />");
+   xmlstring_rowlist = cElementTree.SubElement(xmlstring_rows, "rowlist", { 'name': str(rowinfo) } );
+  if(verbose):
+   VerbosePrintOut("  </rows>");
+  if(verbose):
+   VerbosePrintOut(" </table>");
+ if(verbose):
+  VerbosePrintOut("</hockeydb>");
+ xmlstring = cElementTree.tostring(xmlstring_hockeydb, encoding="UTF-8", method="xml").decode("utf-8");
+ return xmlstring;
+
+def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+ if(outxmlfile is None):
+  return False;
+ compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ fbasename = os.path.splitext(outxmlfile)[0];
+ fextname = os.path.splitext(outxmlfile)[1];
+ if(fextname not in outextlistwd):
+  xmlfp = open(outxmlfile, "w+");
+ elif(fextname==".gz"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  xmlfp = gzip.open(outxmlfile, "wb", 9);
+ elif(fextname==".bz2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  xmlfp = bz2.open(outxmlfile, "wb", 9);
+ elif(fextname==".xz"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+ xmlstring = MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose);
+ if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+  xmlstring = xmlstring.encode();
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
+
 def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
   xmlheaders = {'User-Agent': useragent_string};
