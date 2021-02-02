@@ -35,9 +35,9 @@ except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
 
-def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
- hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
@@ -88,7 +88,7 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
   return True;
  return True;
 
-def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True, returnxml=False, beautify=True, verbose=True):
  if(jsonisfile and (not os.path.exists(injsonfile) or not os.path.isfile(injsonfile))):
   return False;
  if(outxmlfile is None and jsonisfile):
@@ -126,7 +126,7 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -559,9 +559,9 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeyXMLFromHockeyDatabase(sdbfile, beautify=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
- hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, verbose=True):
@@ -612,9 +612,9 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, 
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
+def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, beautify=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
- hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, verbose=True):
@@ -1083,9 +1083,9 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
   return True;
  return True;
 
-def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
  hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(sdbfile, False);
- hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, verbose);
+ hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, verbose=True):

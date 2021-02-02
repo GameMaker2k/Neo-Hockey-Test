@@ -379,7 +379,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   return False;
  return False;
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(verbose):
@@ -457,10 +457,11 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ if(beautify)
+  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -494,7 +495,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -505,7 +506,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose=True):
+def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(verbose):
@@ -576,11 +577,12 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose=True):
    VerbosePrintOut(" </league>");
  if(verbose):
   VerbosePrintOut("</hockey>");
- xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("utf-8");
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");
+ if(beautify)
+  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -614,7 +616,7 @@ def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxm
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -697,7 +699,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True, True);
   del xmlstring;
  return hockeyarray;
 
@@ -773,7 +775,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True, True);
   del xmlstring;
  return hockeyarray;
 
@@ -849,7 +851,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True);
+  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, True, True);
   del xmlstring;
  return hockeyarray;
 
@@ -2228,7 +2230,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
   return False;
  return sqlitedict;
 
-def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
+def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  if(verbose):
@@ -2306,10 +2308,11 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = xmlstring+"</hockeydb>\n";
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ if(beautify)
+  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -2343,7 +2346,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose);
+ xmlstring = MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -2354,7 +2357,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
+def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  if(verbose):
@@ -2425,11 +2428,12 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
    VerbosePrintOut(" </table>");
  if(verbose):
   VerbosePrintOut("</hockeydb>");
- xmlstring = cElementTree.tostring(xmlstring_hockeydb, encoding="UTF-8", method="xml").decode("utf-8");
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");
+ if(beautify)
+  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -2463,7 +2467,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose);
+ xmlstring = MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
