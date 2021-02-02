@@ -2410,6 +2410,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
   else:
    if(verbose):
     VerbosePrintOut("  <data />");
+   xmlstring_data = cElementTree.SubElement(xmlstring_table, "data");
   if(verbose):
    VerbosePrintOut("  <rows>");
   xmlstring_rows = cElementTree.SubElement(xmlstring_table, "rows");
