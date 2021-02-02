@@ -457,8 +457,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
- if(beautify):
-  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -577,9 +576,9 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
    VerbosePrintOut(" </league>");
  if(verbose):
   VerbosePrintOut("</hockey>");
- xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");
- if(beautify):
-  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");'''
+ xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml").decode("UTF-8");
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -2308,8 +2307,7 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=Tru
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = xmlstring+"</hockeydb>\n";
- if(beautify):
-  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -2428,9 +2426,9 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=
    VerbosePrintOut(" </table>");
  if(verbose):
   VerbosePrintOut("</hockeydb>");
- xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");
- if(beautify):
-  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
+ '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");'''
+ xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml").decode("UTF-8");
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
