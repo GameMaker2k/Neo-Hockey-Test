@@ -457,7 +457,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
- if(beautify)
+ if(beautify):
   xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
@@ -578,7 +578,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");
- if(beautify)
+ if(beautify):
   xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
@@ -2308,7 +2308,7 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=Tru
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = xmlstring+"</hockeydb>\n";
- if(beautify)
+ if(beautify):
   xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
@@ -2429,7 +2429,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");
- if(beautify)
+ if(beautify):
   xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 

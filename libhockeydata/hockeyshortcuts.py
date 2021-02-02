@@ -40,7 +40,7 @@ def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, beautify=True, verbose=True):
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(outxmlfile is None and xmlisfile):
@@ -77,7 +77,7 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -564,7 +564,7 @@ def MakeHockeyXMLFromHockeyDatabase(sdbfile, beautify=True, verbose=True):
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(xmlfile is None):
@@ -601,7 +601,7 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, 
   except ImportError:
    return False;
   xmlfp = lzma.open(xmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeyDatabase(sdbfile, verbose);
+ xmlstring = MakeHockeyXMLFromHockeyDatabase(sdbfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -617,7 +617,7 @@ def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, beautify=T
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, beautify=True, verbose=True):
  if(sqlisfile and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
   return False;
  if(outxmlfile is None and sqlisfile):
@@ -654,7 +654,7 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sql
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, sdbfile, sqlisfile, verbose);
+ xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, sdbfile, sqlisfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -1088,7 +1088,7 @@ def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(xmlfile is None):
@@ -1125,7 +1125,7 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=Fals
   except ImportError:
    return False;
   xmlfp = lzma.open(xmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, verbose);
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -1136,8 +1136,8 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=Fals
   return True;
  return True;
 
-def MakeHockeyPythonOOPFromOldHockeyDatabase(sdbfile, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonOOPFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
  pystring = MakeHockeyPythonOOPFromHockeyXML(xmlstring, False, verbose);
  return pystring;
 
@@ -1191,8 +1191,8 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromOldHockeyDatabase(sdbfile, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonOOPAltFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
  pystring = MakeHockeyPythonOOPAltFromHockeyXML(xmlstring, False, verbose);
  return pystring;
 
@@ -1246,8 +1246,8 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, return
   return True;
  return True;
 
-def MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
  pystring = MakeHockeyPythonFromHockeyXML(xmlstring, False, verbose);
  return pystring;
 
@@ -1301,8 +1301,8 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
   return True;
  return True;
 
-def MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
  pystring = MakeHockeyPythonAltFromHockeyXML(xmlstring, False, verbose);
  return pystring;
 
@@ -1356,8 +1356,8 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=
   return True;
  return True;
 
-def MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, False);
+def MakeHockeySQLFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
  sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, verbose);
  return sqldump;
 
