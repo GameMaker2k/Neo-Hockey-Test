@@ -207,7 +207,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", be
  if(beautify):
   outxmlcode = xmldom.toprettyxml(indent=" ", encoding=encoding).decode("utf-8");
  else:
-  outxmlcode = xmldom.toxml(indent=" ", encoding=encoding).decode("utf-8");
+  outxmlcode = xmldom.toxml(encoding=encoding).decode("utf-8");
  return outxmlcode;
 
 def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", beautify=True, returnxml=False):
