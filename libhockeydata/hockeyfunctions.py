@@ -67,7 +67,10 @@ except ImportError:
    teststringio = 0;
 
 def CheckCompressionType(infile, closefp=True):
- filefp = open(infile, "rb");
+ if(not hasattr(infile, "read") and not hasattr(infile, "write")):
+  filefp = open(infile, "rb");
+ else:
+  filefp = infile;
  filefp.seek(0, 0);
  prefp = filefp.read(2);
  filetype = False;
@@ -193,9 +196,10 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8"):
   except: 
    return False;
  elif(not xmlisfile):
-  inxmlsfile = StringIO(inxmlfile);
+  inxmlsfile = BytesIO(inxmlfile.encode());
+  inxmlfile = UncompressFileAlt(inxmlsfile);
   try:
-   xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlsfile));
+   xmldom = xml.dom.minidom.parse(file=inxmlfile);
   except: 
    return False;
  else:
@@ -680,7 +684,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
    hockeyarray = json.load(jsonfp);
    jsonfp.close();
  elif(not jsonisfile):
-   jsonfp = BytesIO(injsonfile);
+   jsonfp = BytesIO(injsonfile.encode());
    jsonfp = UncompressFileAlt(jsonfp);
    hockeyarray = json.load(jsonfp);
    jsonfp.close();
@@ -756,7 +760,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
    hockeyarray = pickle.load(picklefp);
    picklefp.close();
  elif(not pickleisfile):
-  picklefp = BytesIO(inpicklefile);
+  picklefp = BytesIO(inpicklefile.encode());
   picklefp = UncompressFileAlt(picklefp);
   hockeyarray = json.load(picklefp);
   picklefp.close();
@@ -832,7 +836,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
    hockeyarray = marshal.load(marshalfp);
    marshalfp.close();
  elif(not marshalisfile):
-  marshalfp = BytesIO(inmarshalfile);
+  marshalfp = BytesIO(inmarshalfile.encode());
   marshalfp = UncompressFileAlt(marshalfp);
   hockeyarray = json.load(marshalfp);
   marshalfp.close();
@@ -856,9 +860,10 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
-  inxmlsfile = BytesIO(inxmlfile);
+  inxmlsfile = BytesIO(inxmlfile.encode());
+  inxmlfile = UncompressFileAlt(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlsfile));
+   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
   except cElementTree.ParseError: 
    return False;
  else:
@@ -2475,9 +2480,10 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
-  inxmlsfile = BytesIO(inxmlfile);
+  inxmlsfile = BytesIO(inxmlfile.encode());
+  inxmlfile = UncompressFileAlt(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlsfile));
+   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
   except cElementTree.ParseError: 
    return False;
  else:
