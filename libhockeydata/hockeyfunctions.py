@@ -183,7 +183,7 @@ def CompressFile(fp, compression="auto"):
  infp.seek(0, 0);
  return infp;
 
-def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", beautify=True):
+def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
@@ -205,12 +205,13 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", be
  else:
   return False;
  if(beautify):
-  outxmlcode = xmldom.toprettyxml(indent=" ", encoding=encoding).decode("utf-8");
+  outxmlcode = xmldom.toprettyxml(indent, newl, encoding, None).decode(encoding);
  else:
-  outxmlcode = xmldom.toxml(encoding=encoding).decode("utf-8");
+  outxmlcode = xmldom.toxml(encoding, None).decode(encoding);
+ xmldom.unlink();
  return outxmlcode;
 
-def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", encoding="UTF-8", beautify=True, returnxml=False):
+def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True, returnxml=False):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -244,7 +245,7 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", en
   except ImportError:
    return False;
   xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
- xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, encoding, beautify);
+ xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, newl, encoding, beautify);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -456,7 +457,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "UTF-8", True);
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
@@ -576,7 +577,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockey>");
  xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("utf-8");
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "UTF-8", True);
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
@@ -2305,7 +2306,7 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = xmlstring+"</hockeydb>\n";
- xmlstring = BeautifyXMLCode(xmlstringFalse, " ", "UTF-8", True);
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
@@ -2425,7 +2426,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, verbose=True):
  if(verbose):
   VerbosePrintOut("</hockeydb>");
  xmlstring = cElementTree.tostring(xmlstring_hockeydb, encoding="UTF-8", method="xml").decode("utf-8");
- xmlstring = BeautifyXMLCode(xmlstringFalse, " ", "UTF-8", True);
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", True);
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, verbose=True):
