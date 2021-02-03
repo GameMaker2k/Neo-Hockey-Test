@@ -58,25 +58,25 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
    import gzip;
   except ImportError:
    return False;
-  xmlfp = gzip.open(outxmlfile, "wb", 9);
+  xmlfp = gzip.open(outxmlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  xmlfp = bz2.open(outxmlfile, "wb", 9);
+  xmlfp = bz2.open(outxmlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
@@ -107,25 +107,25 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
    import gzip;
   except ImportError:
    return False;
-  xmlfp = gzip.open(outxmlfile, "wb", 9);
+  xmlfp = gzip.open(outxmlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  xmlfp = bz2.open(outxmlfile, "wb", 9);
+  xmlfp = bz2.open(outxmlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
@@ -160,25 +160,25 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
    import gzip;
   except ImportError:
    return False;
-  jsonfp = gzip.open(outjsonfile, "wb", 9);
+  jsonfp = gzip.open(outjsonfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  jsonfp = bz2.open(outjsonfile, "wb", 9);
+  jsonfp = bz2.open(outjsonfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  jsonfp = lzma.open(outjsonfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  jsonfp = lzma.open(outjsonfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  jsonfp = lzma.open(outjsonfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  jsonfp = lzma.open(outjsonfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, jsonindent, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   jsonstring = jsonstring.encode();
@@ -228,25 +228,25 @@ def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=Non
    import gzip;
   except ImportError:
    return False;
-  xmlfp = gzip.open(outxmlfile, "wb", 9);
+  xmlfp = gzip.open(outxmlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  xmlfp = bz2.open(outxmlfile, "wb", 9);
+  xmlfp = bz2.open(outxmlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, False, verbose)[0];
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
@@ -309,25 +309,25 @@ def MakeHockeyDatabaseFromHockeySQLWrite(insqlfile, sdbfile=None, outsqlfile=Non
    import gzip;
   except ImportError:
    return False;
-  sqlfp = gzip.open(outsqlfile, "wb", 9);
+  sqlfp = gzip.open(outsqlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  sqlfp = bz2.open(outsqlfile, "wb", 9);
+  sqlfp = bz2.open(outsqlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, False, verbose)[0];
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
@@ -362,25 +362,25 @@ def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(outpyfile, "wb", 9);
+  pyfp = gzip.open(outpyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(outpyfile, "wb", 9);
+  pyfp = bz2.open(outpyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonOOPFromHockeyXML(inxmlfile, xmlisfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -417,25 +417,25 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(outpyfile, "wb", 9);
+  pyfp = gzip.open(outpyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(outpyfile, "wb", 9);
+  pyfp = bz2.open(outpyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonOOPAltFromHockeyXML(inxmlfile, xmlisfile, verbose, verbosepy);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -472,25 +472,25 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(outpyfile, "wb", 9);
+  pyfp = gzip.open(outpyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(outpyfile, "wb", 9);
+  pyfp = bz2.open(outpyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -527,25 +527,25 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(outpyfile, "wb", 9);
+  pyfp = gzip.open(outpyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(outpyfile, "wb", 9);
+  pyfp = bz2.open(outpyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(outpyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(outpyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile, verbose, verbosepy);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -582,25 +582,25 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, 
    import gzip;
   except ImportError:
    return False;
-  xmlfp = gzip.open(xmlfile, "wb", 9);
+  xmlfp = gzip.open(xmlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  xmlfp = bz2.open(xmlfile, "wb", 9);
+  xmlfp = bz2.open(xmlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(xmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  xmlfp = lzma.open(xmlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(xmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  xmlfp = lzma.open(xmlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  xmlstring = MakeHockeyXMLFromHockeyDatabase(sdbfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
@@ -635,25 +635,25 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sql
    import gzip;
   except ImportError:
    return False;
-  xmlfp = gzip.open(outxmlfile, "wb", 9);
+  xmlfp = gzip.open(outxmlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  xmlfp = bz2.open(outxmlfile, "wb", 9);
+  xmlfp = bz2.open(outxmlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(outxmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  xmlfp = lzma.open(outxmlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, sdbfile, sqlisfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
@@ -688,25 +688,25 @@ def MakeHockeyPythonOOPFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonOOPFromHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -743,25 +743,25 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -798,25 +798,25 @@ def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False,
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonFromHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -853,25 +853,25 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonAltFromHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -997,25 +997,25 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, 
    import gzip;
   except ImportError:
    return False;
-  sqlfp = gzip.open(outsqlfile, "wb", 9);
+  sqlfp = gzip.open(outsqlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  sqlfp = bz2.open(outsqlfile, "wb", 9);
+  sqlfp = bz2.open(outsqlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  sqlstring = MakeHockeySQLFromHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
@@ -1053,25 +1053,25 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
    import gzip;
   except ImportError:
    return False;
-  sqlfp = gzip.open(outsqlfile, "wb", 9);
+  sqlfp = gzip.open(outsqlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  sqlfp = bz2.open(outsqlfile, "wb", 9);
+  sqlfp = bz2.open(outsqlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  sqlstring = MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
@@ -1106,25 +1106,25 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=Fals
    import gzip;
   except ImportError:
    return False;
-  xmlfp = gzip.open(xmlfile, "wb", 9);
+  xmlfp = gzip.open(xmlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  xmlfp = bz2.open(xmlfile, "wb", 9);
+  xmlfp = bz2.open(xmlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(xmlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  xmlfp = lzma.open(xmlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  xmlfp = lzma.open(xmlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  xmlfp = lzma.open(xmlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
@@ -1159,25 +1159,25 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonOOPFromOldHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -1214,25 +1214,25 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, return
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -1269,25 +1269,25 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=Fal
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -1324,25 +1324,25 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=
    import gzip;
   except ImportError:
    return False;
-  pyfp = gzip.open(pyfile, "wb", 9);
+  pyfp = gzip.open(pyfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  pyfp = bz2.open(pyfile, "wb", 9);
+  pyfp = bz2.open(pyfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  pyfp = lzma.open(pyfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  pyfp = lzma.open(pyfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  pystring = MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
@@ -1379,25 +1379,25 @@ def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=Fals
    import gzip;
   except ImportError:
    return False;
-  sqlfp = gzip.open(outsqlfile, "wb", 9);
+  sqlfp = gzip.open(outsqlfile, "w+b", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  sqlfp = bz2.open(outsqlfile, "wb", 9);
+  sqlfp = bz2.open(outsqlfile, "w+b", 9);
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  sqlfp = lzma.open(outsqlfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  sqlfp = lzma.open(outsqlfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
