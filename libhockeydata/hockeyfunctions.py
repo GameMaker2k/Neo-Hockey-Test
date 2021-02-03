@@ -997,7 +997,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   return True;
  return True;
 
-def HockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
