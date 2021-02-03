@@ -67,7 +67,7 @@ except ImportError:
    teststringio = 0;
 
 def CheckCompressionType(infile, closefp=True):
- if(not hasattr(infile, "read") and not hasattr(infile, "write")):
+ if(not hasattr(infile, "read")):
   filefp = open(infile, "rb");
  else:
   filefp = infile;
@@ -114,7 +114,7 @@ def UncompressFile(infile, mode="rb"):
  return filefp;
 
 def UncompressFileAlt(fp):
- if(not hasattr(fp, "read") and not hasattr(fp, "write")):
+ if(not hasattr(fp, "read")):
   return False;
  compresscheck = CheckCompressionType(fp, False);
  if(compresscheck=="gzip"):
@@ -143,7 +143,7 @@ def UncompressFileAlt(fp):
 
 def CompressFile(fp, compression="auto"):
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- if(not hasattr(fp, "read") and not hasattr(fp, "write")):
+ if(not hasattr(fp, "read")):
   return False;
  fp.seek(0, 0);
  if(not compression or compression):
