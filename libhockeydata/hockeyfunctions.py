@@ -205,9 +205,9 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
  else:
   return False;
  if(beautify):
-  outxmlcode = xmldom.toprettyxml(indent, newl, encoding, None).decode(encoding);
+  outxmlcode = xmldom.toprettyxml(indent, newl, encoding).decode(encoding);
  else:
-  outxmlcode = xmldom.toxml(encoding, None).decode(encoding);
+  outxmlcode = xmldom.toxml(encoding).decode(encoding);
  xmldom.unlink();
  return outxmlcode;
 
