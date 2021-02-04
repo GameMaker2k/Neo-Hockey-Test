@@ -780,7 +780,12 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    hockeyfile = cElementTree.ElementTree(file=UncompressFile(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders))));
+    inxmlsfile = urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read();
+    inxmlfile = UncompressFileAlt(inxmlsfile);
+    try:
+     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+    except cElementTree.ParseError: 
+     return False;
    else:
     hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
