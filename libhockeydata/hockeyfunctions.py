@@ -638,7 +638,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
- if(not CheckHockeyXML(inxmlfile, False)):
+ if(not CheckHockeyXML(xmlstring, False)):
   return False;
  return xmlstring;
 
@@ -737,7 +737,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
  '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");'''
  xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml").decode("UTF-8");
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
- if(not CheckHockeyXML(inxmlfile, False)):
+ if(not CheckHockeyXML(xmlstring, False)):
   return False;
  return xmlstring;
 
