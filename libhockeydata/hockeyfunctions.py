@@ -376,6 +376,65 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
   return False;
  return True;
 
+def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+  xmlheaders = {'User-Agent': useragent_string};
+  try:
+   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   else:
+    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+  except cElementTree.ParseError: 
+   return False;
+ elif(not xmlisfile):
+  try:
+   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+  except cElementTree.ParseError: 
+   return False;
+ else:
+  return False;
+ hockeyroot = hockeyfile.getroot();
+ if(hockeyroot.tag=="hockeydb"):
+  if("database" not in hockeyroot.attrib):
+   return False;
+  for hockeytable in hockeyroot:
+   if(hockeytable.tag=="table"):
+    if(not CheckKeyInArray(["name"], dict(hockeytable.attrib))):
+     return False;
+    for hockeycolumn in hockeytable:
+     if(hockeycolumn.tag=="column"):
+      for hockeyrowinfo in hockeycolumn:
+       if(hockeyrowinfo.tag=="rowinfo"):
+        if(not CheckKeyInArray(["id", "name", "type", "notnull", "defaultvalue", "primarykey", "autoincrement", "hidden"], dict(hockeyrowinfo.attrib))):
+         return False;
+       else:
+        return False;
+     elif(hockeycolumn.tag=="data"):
+      for hockeydata in hockeycolumn:
+       if(hockeydata.tag=="row"):
+        if(not CheckKeyInArray(["id"], dict(hockeydata.attrib))):
+         return False;
+        for rowdata in hockeydata:
+         if(rowdata.tag=="rowdata"):
+          if(not CheckKeyInArray(["name", "value"], dict(rowdata.attrib))):
+           return False;
+         else:
+          return False;
+       else:
+        return False;
+     elif(hockeycolumn.tag=="rows"):
+      for hockeyrows in hockeycolumn:
+       if(hockeyrows.tag=="rowlist"):
+        if(not CheckKeyInArray(["name"], dict(hockeyrows.attrib))):
+         return False;
+       else:
+        return False;
+     else:
+      return False;
+ else:
+  return False;
+ return True;
+
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
@@ -579,6 +638,8 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
   VerbosePrintOut("</hockey>");
  xmlstring = xmlstring+"</hockey>\n";
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
+ if(not CheckHockeyXML(inxmlfile, False)):
+  return False;
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -676,6 +737,8 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
  '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");'''
  xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml").decode("UTF-8");
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
+ if(not CheckHockeyXML(inxmlfile, False)):
+  return False;
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -2169,6 +2232,8 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=Tru
   VerbosePrintOut("</hockeydb>");
  xmlstring = xmlstring+"</hockeydb>\n";
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
+ if(not CheckHockeySQLiteXML(xmlstring, False)):
+  return False;
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -2266,6 +2331,8 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=
  '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True).decode("UTF-8");'''
  xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml").decode("UTF-8");
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
+ if(not CheckHockeySQLiteXML(xmlstring, False)):
+  return False;
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -2289,6 +2356,8 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
  return True;
 
 def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+ if(not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
+  return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
