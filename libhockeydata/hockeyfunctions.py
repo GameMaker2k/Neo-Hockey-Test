@@ -720,7 +720,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https)\:\/\/", injsonfile))):
   if(re.findall("^(http|https)\:\/\/", injsonfile)):
-   injsonfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
+   injsonfile = UncompressFileURL(injsonfile, geturls_headers, geturls_cj);
    try:
     hockeyarray = json.load(injsonfile);
    except json.JSONDecodeError:
@@ -846,6 +846,8 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  return hockeyarray;
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+ if(not CheckHockeyXML(inxmlfile, xmlisfile)):
+  return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
@@ -2592,4 +2594,3 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsq
  if(not returnsql):
   return True;
  return True;
- 
