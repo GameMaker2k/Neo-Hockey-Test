@@ -582,7 +582,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
      hasarenas = True;
      if(verbose):
       VerbosePrintOut("   <arena city=\""+EscapeXMLString(str(hakey['city']), quote=True)+"\" area=\""+EscapeXMLString(str(hakey['area']), quote=True)+"\" fullarea=\""+EscapeXMLString(str(hakey['fullarea']), quote=True)+"\" country=\""+EscapeXMLString(str(hakey['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(hakey['fullcountry']), quote=True)+"\" name=\""+EscapeXMLString(str(hakey['name']), quote=True)+"\" />");
-     xmlstring_arena = cElementTree.SubElement(xmlstring_arenas, "arena", { 'city': str(hakey['city']), 'area': str(hakey['area']), 'fullarea': str(hakey['fullarea']), 'country': str(hakey['country']), 'fullcountry': str(hakey['fullcountry']), 'name': str(htkey), 'arena': str(hakey['arena']) } );
+     xmlstring_arena = cElementTree.SubElement(xmlstring_arenas, "arena", { 'city': str(hakey['city']), 'area': str(hakey['area']), 'fullarea': str(hakey['fullarea']), 'country': str(hakey['country']), 'fullcountry': str(hakey['fullcountry']), 'name': str(htkey) } );
    if(hasarenas):
     if(verbose):
      VerbosePrintOut("  </arenas>");
