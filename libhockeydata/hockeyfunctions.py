@@ -261,8 +261,6 @@ def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, re
  return MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring);
 
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
- if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
-  return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
