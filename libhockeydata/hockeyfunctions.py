@@ -260,7 +260,9 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
   xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    xmldom = xml.dom.minidom.parse(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+    inxmlsfile = BytesIO(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read());
+    inxmlfile = UncompressFileAlt(inxmlsfile);
+    xmldom = xml.dom.minidom.parse(file=inxmlfile);
    else:
     xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlfile));
   except: 
