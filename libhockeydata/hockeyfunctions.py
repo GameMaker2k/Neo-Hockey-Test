@@ -306,6 +306,15 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", ne
   return True;
  return True;
 
+def CheckKeyInArray(validkeys, checkdict):
+ ivalidkeys = 0;
+ ilvalidkeys = len(validkeys);
+ while(ivalidkeys<ilvalidkeys):
+  if(validkeys[ivalidkeys] not in checkdict):
+   return False;
+  ivalidkeys = ivalidkeys + 1;
+ return True;
+
 def CheckHockeyXML(inxmlfile, xmlisfile=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
   xmlheaders = {'User-Agent': useragent_string};
