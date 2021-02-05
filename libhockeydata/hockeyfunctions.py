@@ -2306,7 +2306,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   leaguearrayout.update( { gettable.attrib['name']: { 'rows': [], 'values': [] } } );
   if(gettable.tag=="table"):
    if(verbose):
-    VerbosePrintOut(" <table>");
+    VerbosePrintOut(" <table name=\""+EscapeXMLString(str(gettable.attrib['name']))+"\">");
    columnstart = 0;
    for getcolumn in gettable:
     if(getcolumn.tag=="column"):
@@ -2323,7 +2323,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
        if(defaultvale=="None"):
         defaultvale = None;
        if(verbose):
-        VerbosePrintOut("   <info id=\""+EscapeXMLString(str(getcolumninfo.attrib['id']))+"\" name=\""+EscapeXMLString(getcolumninfo.attrib['name'])+"\" type=\""+EscapeXMLString(getcolumninfo.attrib['type'])+"\" notnull=\""+EscapeXMLString(str(getcolumninfo.attrib['notnull']))+"\" defaultvalue=\""+EscapeXMLString(str(getcolumninfo.attrib['defaultvalue']))+"\" primarykey=\""+EscapeXMLString(str(getcolumninfo.attrib['primarykey']))+"\" autoincrement=\""+EscapeXMLString(str(getcolumninfo.attrib['autoincrement']))+"\" hidden=\""+EscapeXMLString(str(getcolumninfo.attrib['hidden']))+"\" />");
+        VerbosePrintOut("   <rowinfo id=\""+EscapeXMLString(str(getcolumninfo.attrib['id']))+"\" name=\""+EscapeXMLString(getcolumninfo.attrib['name'])+"\" type=\""+EscapeXMLString(getcolumninfo.attrib['type'])+"\" notnull=\""+EscapeXMLString(str(getcolumninfo.attrib['notnull']))+"\" defaultvalue=\""+EscapeXMLString(str(getcolumninfo.attrib['defaultvalue']))+"\" primarykey=\""+EscapeXMLString(str(getcolumninfo.attrib['primarykey']))+"\" autoincrement=\""+EscapeXMLString(str(getcolumninfo.attrib['autoincrement']))+"\" hidden=\""+EscapeXMLString(str(getcolumninfo.attrib['hidden']))+"\" />");
        leaguearrayout[gettable.attrib['name']].update( { getcolumninfo.attrib['name']: { 'info': {'id': int(getcolumninfo.attrib['id']), 'Name': getcolumninfo.attrib['name'], 'Type': getcolumninfo.attrib['type'], 'NotNull': int(getcolumninfo.attrib['notnull']), 'DefualtValue': ConvertXMLValuesForPython(defaultvale), 'PrimaryKey': int(getcolumninfo.attrib['primarykey']), 'AutoIncrement': int(getcolumninfo.attrib['autoincrement']), 'Hidden': int(getcolumninfo.attrib['hidden']) } } } );
        rowinfonum = rowinfonum + 1;
      if(columnstart>0 and rowinfonum>0):
@@ -2370,7 +2370,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
         if(verbose):
          VerbosePrintOut("  <rows>");
        if(verbose):
-        VerbosePrintOut("   <row name=\""+EscapeXMLString(getrowlist.attrib['name'])+"\" />");
+        VerbosePrintOut("   <rowlist name=\""+EscapeXMLString(getrowlist.attrib['name'])+"\" />");
        leaguearrayout[gettable.attrib['name']]['rows'].append(getrowlist.attrib['name']);
        rowscount = rowscount + 1;
     if(rowscount>0 and rowscount>0):
@@ -2378,6 +2378,8 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
       VerbosePrintOut("  </rows>");
    if(verbose):
     VerbosePrintOut(" </table>");
+ if(verbose):
+  VerbosePrintOut("</hockeydb>");
  if(not CheckHockeySQLiteArray(leaguearrayout)):
   return False;
  return leaguearrayout;
