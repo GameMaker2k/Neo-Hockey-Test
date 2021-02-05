@@ -780,7 +780,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    inxmlsfile = urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read();
+    inxmlsfile = BytesIO(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read());
     inxmlfile = UncompressFileAlt(inxmlsfile);
     try:
      hockeyfile = cElementTree.ElementTree(file=inxmlfile);
@@ -2214,7 +2214,8 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
   xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+    inxmlsfile = BytesIO(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read());
+    inxmlfile = UncompressFileAlt(inxmlsfile);
    else:
     hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
