@@ -142,6 +142,14 @@ def UncompressFileAlt(fp):
   outfp = fp;
  return outfp;
 
+def UncompressFileURL(inurl, inheaders, incookiejar):
+ if(re.findall("^(http|https)\:\/\/", inurl)):
+  inbfile = BytesIO(download_from_url(inurl, inheaders, incookiejar)['Content']);
+  inufile = UncompressFileAlt(inbfile);
+ else:
+  return False;
+ return inufile;
+
 def CompressFile(fp, compression="auto"):
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  if(not hasattr(fp, "read")):
@@ -222,10 +230,8 @@ def CompressOpenFile(outfile):
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
  if(stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall("^(http|https)\:\/\/", instringfile))):
-  stringheaders = {'User-Agent': useragent_string};
   if(re.findall("^(http|https)\:\/\/", instringfile)):
-   instringsfile = BytesIO(urllib2.urlopen(urllib2.Request(instringfile, None, stringheaders)).read());
-   stringfile = UncompressFileAlt(instringsfile);
+   stringfile = UncompressFileURL(instringfile, geturls_headers, geturls_cj);
   else:
    instringsfile = open(instringfile, "rb");
    stringfile = UncompressFileAlt(instringsfile);
@@ -258,11 +264,9 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
  if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
-  xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    inxmlsfile = BytesIO(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read());
-    inxmlfile = UncompressFileAlt(inxmlsfile);
+    inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     xmldom = xml.dom.minidom.parse(file=inxmlfile);
    else:
     xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlfile));
@@ -657,8 +661,11 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https)\:\/\/", injsonfile))):
   if(re.findall("^(http|https)\:\/\/", injsonfile)):
-   jsonheaders = {'User-Agent': useragent_string};
-   hockeyarray = json.load(urllib2.urlopen(urllib2.Request(injsonfile, None, jsonheaders)));
+   injsonfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
+   try:
+    hockeyarray = json.load(injsonfile);
+   except json.JSONDecodeError:
+    return False;
   else:
    jsonfp = UncompressFile(injsonfile);
    hockeyarray = json.load(jsonfp);
@@ -708,8 +715,8 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
  if(pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https)\:\/\/", inpicklefile))):
   if(re.findall("^(http|https)\:\/\/", inpicklefile)):
-   pickleheaders = {'User-Agent': useragent_string};
-   hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, pickleheaders)));
+   inpicklefile = UncompressFileURL(inpicklefile, geturls_headers, geturls_cj);
+   hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, geturls_headers)));
   else:
    picklefp = UncompressFile(inpicklefile);
    hockeyarray = pickle.load(picklefp);
@@ -759,8 +766,8 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
 def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
  if(marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https)\:\/\/", inmarshalfile))):
   if(re.findall("^(http|https)\:\/\/", inmarshalfile)):
-   marshalheaders = {'User-Agent': useragent_string};
-   hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, marshalheaders)));
+   inmarshalfile = UncompressFileURL(inmarshalfile, geturls_headers, geturls_cj);
+   hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, geturls_headers)));
   else:
    marshalfp = UncompressFile(inmarshalfile);
    hockeyarray = marshal.load(marshalfp);
@@ -781,11 +788,9 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
-  xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    inxmlsfile = BytesIO(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read());
-    inxmlfile = UncompressFileAlt(inxmlsfile);
+    inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     try:
      hockeyfile = cElementTree.ElementTree(file=inxmlfile);
     except cElementTree.ParseError: 
@@ -2215,11 +2220,9 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
 
 def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
-  xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    inxmlsfile = BytesIO(urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)).read());
-    inxmlfile = UncompressFileAlt(inxmlsfile);
+    inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
    else:
     hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
