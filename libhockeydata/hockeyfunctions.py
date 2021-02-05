@@ -306,6 +306,67 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", ne
   return True;
  return True;
 
+def CheckHockeyXML(inxmlfile, xmlisfile=True):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+  xmlheaders = {'User-Agent': useragent_string};
+  try:
+   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   else:
+    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+  except cElementTree.ParseError: 
+   return False;
+ elif(not xmlisfile):
+  try:
+   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+  except cElementTree.ParseError: 
+   return False;
+ else:
+  return False;
+ hockeyroot = hockeyfile.getroot();
+ if(hockeyroot.tag=="hockey"):
+  if("database" not in hockeyroot.attrib):
+   return False;
+  for hockeyleague in hockeyroot:
+   if(hockeyleague.tag=="league"):
+    if(not CheckKeyInArray(["name", "fullname", "country", "fullcountry", "date", "playofffmt", "ordertype", "conferences", "divisions"], dict(hockeyleague.attrib))):
+     return False;
+    for hockeyconference in hockeyleague:
+     if(hockeyconference.tag=="conference"):
+      if(not CheckKeyInArray(["name", "prefix", "suffix"], dict(hockeyconference.attrib))):
+       return False;
+      for hockeydivision in hockeyconference:
+       if(hockeydivision.tag=="division"):
+        if(not CheckKeyInArray(["name", "prefix", "suffix"], dict(hockeydivision.attrib))):
+         return False;
+        for hockeyteam in hockeydivision:
+         if(hockeyteam.tag=="team"):
+          if(not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "arena", "prefix", "suffix"], dict(hockeyteam.attrib))):
+           return False;
+         else:
+          return False;
+       else:
+        return False;
+     elif(hockeyconference.tag=="arenas"):
+      for hockeyarenas in hockeyconference:
+       if(hockeyarenas.tag=="arena"):
+        if(not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name"], dict(hockeyarenas.attrib))):
+         return False;
+       else:
+        return False;
+     elif(hockeyconference.tag=="games"):
+      for hockeygames in hockeyconference:
+       if(hockeygames.tag=="game"):
+        if(not CheckKeyInArray(["date", "time", "hometeam", "awayteam", "goals", "sogs", "ppgs", "shgs", "penalties", "pims", "hits", "takeaways", "faceoffwins", "atarena", "isplayoffgame"], dict(hockeygames.attrib))):
+         return False;
+       else:
+        return False;
+     else:
+      return False;
+ else:
+  return False;
+ return True;
+
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
   return False;
