@@ -223,7 +223,8 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
  if(stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall("^(http|https)\:\/\/", instringfile))):
   stringheaders = {'User-Agent': useragent_string};
   if(re.findall("^(http|https)\:\/\/", instringfile)):
-   stringfile = file=urllib2.urlopen(urllib2.Request(instringfile, None, stringheaders));
+   instringsfile = BytesIO(urllib2.urlopen(urllib2.Request(instringfile, None, stringheaders)).read());
+   stringfile = UncompressFileAlt(instringsfile);
   else:
    instringsfile = open(instringfile, "rb");
    stringfile = UncompressFileAlt(instringsfile);
