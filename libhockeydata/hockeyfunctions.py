@@ -168,6 +168,8 @@ def download_file_from_ftp_file(url):
   return False;
  ftp.connect(urlparts.hostname, urlparts.port);
  ftp.login(urlparts.username, urlparts.password);
+ if(urlparts.scheme=="ftps"):
+  ftp.prot_p();
  ftpfile = BytesIO();
  ftp.retrbinary("RETR "+urlparts.path, ftpfile.write);
  #ftp.storbinary("STOR "+urlparts.path, ftpfile.write);
