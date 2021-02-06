@@ -158,7 +158,7 @@ def download_file_from_ftp_file(url):
  ftpfile = BytesIO();
  ftp.retrbinary("RETR "+urlparts.path, ftpfile.write);
  ftp.close();
- ftpfile.seek(0);
+ ftpfile.seek(0, 0);
  return ftpfile;
 
 def download_file_from_ftp_string(url):
