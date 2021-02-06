@@ -149,7 +149,7 @@ def UncompressFileAlt(fp):
  return outfp;
 
 def download_file_from_ftp_file(url):
- urlparts = urlparse(url);
+ urlparts = urlparse.urlparse(url);
  file_name = os.path.basename(urlparts.path);
  file_dir = os.path.dirname(urlparts.path);
  if(urlparts.scheme=="ftp"):
