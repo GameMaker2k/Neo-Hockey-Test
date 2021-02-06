@@ -152,6 +152,14 @@ def download_file_from_ftp_file(url):
  urlparts = urlparse.urlparse(url);
  file_name = os.path.basename(urlparts.path);
  file_dir = os.path.dirname(urlparts.path);
+ if(urlparts.username!=None):
+  ftp_username = urlparts.username;
+ else:
+  ftp_username = "anonymous";
+ if(urlparts.password!=None):
+  ftp_password = urlparts.password;
+ else:
+  ftp_password = "anonymous";
  if(urlparts.scheme=="ftp"):
   ftp = FTP(urlparts.hostname, urlparts.username, urlparts.password);
  elif(urlparts.scheme=="ftps"):
