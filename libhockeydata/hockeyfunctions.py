@@ -170,6 +170,7 @@ def download_file_from_ftp_file(url):
  ftp.login(urlparts.username, urlparts.password);
  ftpfile = BytesIO();
  ftp.retrbinary("RETR "+urlparts.path, ftpfile.write);
+ #ftp.storbinary("STOR "+urlparts.path, ftpfile.write);
  ftp.close();
  ftpfile.seek(0, 0);
  return ftpfile;
