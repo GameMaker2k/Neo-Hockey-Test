@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle, marshal, platform, binascii, xml.dom.minidom;
+import sqlite3, sys, os, re, time, json, ftplib, pickle, marshal, platform, binascii, xml.dom.minidom;
 
 try:
  import xml.etree.cElementTree as cElementTree;
@@ -142,9 +142,35 @@ def UncompressFileAlt(fp):
   outfp = fp;
  return outfp;
 
+def download_file_from_ftp_file(url):
+ urlparts = urlparse(url);
+ file_name = os.path.basename(urlparts.path);
+ file_dir = os.path.dirname(urlparts.path);
+ if(urlparts.scheme=="ftp"):
+  ftp = FTP(urlparts.hostname, urlparts.username, urlparts.password);
+ elif(urlparts.scheme=="ftps"):
+  ftp = FTP_TLS(urlparts.hostnam, urlparts.username, urlparts.password);
+ else:
+  return False;
+ ftp.sendcmd("USER "+urlparts.username);
+ ftp.sendcmd("PASS "+urlparts.password);
+ ftp.login();
+ ftpfile = BytesIO();
+ ftp.retrbinary("RETR "+urlparts.path, ftpfile.write);
+ ftp.close();
+ ftpfile.seek(0);
+ return ftpfile;
+
+def download_file_from_ftp_string(url):
+ ftpfile = download_file_from_ftp_file(url);
+ return ftpfile.read();
+
 def UncompressFileURL(inurl, inheaders, incookiejar):
  if(re.findall("^(http|https)\:\/\/", inurl)):
   inbfile = BytesIO(download_from_url(inurl, inheaders, incookiejar)['Content']);
+  inufile = UncompressFileAlt(inbfile);
+ elif(re.findall("^(ftp|ftps)\:\/\/", inurl)):
+  inbfile = BytesIO(download_file_from_ftp_string(inurl));
   inufile = UncompressFileAlt(inbfile);
  else:
   return False;
@@ -229,8 +255,8 @@ def CompressOpenFile(outfile):
  return outfp;
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
- if(stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall("^(http|https)\:\/\/", instringfile))):
-  if(re.findall("^(http|https)\:\/\/", instringfile)):
+ if(stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", instringfile))):
+  if(re.findall("^(http|https|ftp|ftps)\:\/\/", instringfile)):
    stringfile = UncompressFileURL(instringfile, geturls_headers, geturls_cj);
   else:
    instringsfile = open(instringfile, "rb");
@@ -261,9 +287,9 @@ def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, re
  return MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring);
 
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
- if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
   try:
-   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     xmldom = xml.dom.minidom.parse(file=inxmlfile);
    else:
@@ -316,11 +342,15 @@ def CheckKeyInArray(validkeys, checkdict):
  return True;
 
 def CheckHockeyXML(inxmlfile, xmlisfile=True):
- if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
   xmlheaders = {'User-Agent': useragent_string};
   try:
-   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
+    inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
+    try:
+     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+    except cElementTree.ParseError: 
+     return False;
    else:
     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
   except cElementTree.ParseError: 
@@ -377,11 +407,15 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
  return True;
 
 def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
- if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
   xmlheaders = {'User-Agent': useragent_string};
   try:
-   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
-    hockeyfile = cElementTree.ElementTree(file=urllib2.urlopen(urllib2.Request(inxmlfile, None, xmlheaders)));
+   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
+    inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
+    try:
+     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+    except cElementTree.ParseError: 
+     return False;
    else:
     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
   except cElementTree.ParseError: 
@@ -790,8 +824,8 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
  return True;
 
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
- if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https)\:\/\/", injsonfile))):
-  if(re.findall("^(http|https)\:\/\/", injsonfile)):
+ if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", injsonfile))):
+  if(re.findall("^(http|https|ftp|ftps)\:\/\/", injsonfile)):
    injsonfile = UncompressFileURL(injsonfile, geturls_headers, geturls_cj);
    try:
     hockeyarray = json.load(injsonfile);
@@ -844,8 +878,8 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
  return True;
 
 def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
- if(pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https)\:\/\/", inpicklefile))):
-  if(re.findall("^(http|https)\:\/\/", inpicklefile)):
+ if(pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inpicklefile))):
+  if(re.findall("^(http|https|ftp|ftps)\:\/\/", inpicklefile)):
    inpicklefile = UncompressFileURL(inpicklefile, geturls_headers, geturls_cj);
    hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, geturls_headers)));
   else:
@@ -895,8 +929,8 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
  return True;
 
 def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
- if(marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https)\:\/\/", inmarshalfile))):
-  if(re.findall("^(http|https)\:\/\/", inmarshalfile)):
+ if(marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inmarshalfile))):
+  if(re.findall("^(http|https|ftp|ftps)\:\/\/", inmarshalfile)):
    inmarshalfile = UncompressFileURL(inmarshalfile, geturls_headers, geturls_cj);
    hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, geturls_headers)));
   else:
@@ -920,9 +954,9 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(not CheckHockeyXML(inxmlfile, xmlisfile)):
   return False;
- if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
   try:
-   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     try:
      hockeyfile = cElementTree.ElementTree(file=inxmlfile);
@@ -2358,9 +2392,9 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
 def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
   return False;
- if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https)\:\/\/", inxmlfile))):
+ if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
   try:
-   if(re.findall("^(http|https)\:\/\/", inxmlfile)):
+   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
    else:
     hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
