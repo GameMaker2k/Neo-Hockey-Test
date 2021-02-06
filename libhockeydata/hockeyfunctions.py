@@ -161,14 +161,13 @@ def download_file_from_ftp_file(url):
  else:
   ftp_password = "anonymous";
  if(urlparts.scheme=="ftp"):
-  ftp = FTP(urlparts.hostname, urlparts.username, urlparts.password);
+  ftp = FTP();
  elif(urlparts.scheme=="ftps"):
-  ftp = FTP_TLS(urlparts.hostnam, urlparts.username, urlparts.password);
+  ftp = FTP_TLS();
  else:
   return False;
- ftp.sendcmd("USER "+urlparts.username);
- ftp.sendcmd("PASS "+urlparts.password);
- ftp.login();
+ ftp.connect(urlparts.hostname, urlparts.port);
+ ftp.login(urlparts.username, urlparts.password);
  ftpfile = BytesIO();
  ftp.retrbinary("RETR "+urlparts.path, ftpfile.write);
  ftp.close();
