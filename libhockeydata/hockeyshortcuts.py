@@ -176,8 +176,6 @@ def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, retur
   sqldatacon = MakeHockeyDatabase(sdbfile);
  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
   sqldatacon = tuple(sdbfile);
- if(verbose):
-  VerbosePrintOut(sqlstring);
  sqldatacon[0].executescript(sqlstring);
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
@@ -530,20 +528,6 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
  sqldump = sqldump+"-- Database: "+sdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
- if(verbose):
-  VerbosePrintOut("-- "+__program_name__+" SQL Dumper");
-  VerbosePrintOut("-- version "+__version__+"");
-  VerbosePrintOut("-- "+__project_url__+"");
-  VerbosePrintOut("--");
-  VerbosePrintOut("-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"");
-  VerbosePrintOut("-- SQLite Server version: "+sqlite3.sqlite_version+"");
-  VerbosePrintOut("-- PySQLite version: "+sqlite3.version+"");
-  VerbosePrintOut("-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n");
-  VerbosePrintOut("--");
-  VerbosePrintOut("-- Database: "+sdbfile+"");
-  VerbosePrintOut("--");
-  VerbosePrintOut("-- --------------------------------------------------------");
-  VerbosePrintOut(" ");
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
@@ -564,18 +548,6 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
   sqldump = sqldump+"--\n";
   sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
   sqldump = sqldump+"--\n\n";
-  if(verbose):
-   VerbosePrintOut(" ");
-   VerbosePrintOut("--");
-   VerbosePrintOut("-- Table structure for table "+str(get_cur_tab)+"");
-   VerbosePrintOut("--");
-   VerbosePrintOut(" ");
-   VerbosePrintOut("DROP TABLE IF EXISTS "+get_cur_tab+";\n\n"+tabresult+";");
-   VerbosePrintOut(" ");
-   VerbosePrintOut("--");
-   VerbosePrintOut("-- Dumping data for table "+str(get_cur_tab)+"");
-   VerbosePrintOut("--");
-   VerbosePrintOut(" ");
   get_insert_stmt_full = "";
   for tresult_tmp in tresult:
    get_insert_stmt = "INSERT INTO "+str(get_cur_tab)+" (";
@@ -590,17 +562,9 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
     if(isinstance(result_val, float)):
      get_insert_stmt_val += ""+str(result_val)+", ";
    get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
-   if(verbose):
-    VerbosePrintOut(get_insert_stmt[:-2]+") VALUES ");
    get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
-   if(verbose):
-    VerbosePrintOut(get_insert_stmt_val[:-2]+");");
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
-  if(verbose):
-   VerbosePrintOut(" ");
-   VerbosePrintOut("-- --------------------------------------------------------");
-   VerbosePrintOut(" ");
  CloseHockeyDatabase(sqldatacon);
  return sqldump;
 
@@ -841,6 +805,4 @@ def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True):
  hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
  if(not CheckHockeySQLiteArray(hockeyarray)):
   return False;
- if(verbose):
-  VerbosePrintOut(hockeydbin[0]);
  return hockeyarray;
