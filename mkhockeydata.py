@@ -100,13 +100,14 @@ if(curaction==getactlist[0]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=None, help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[1]):
  argparser = argparse.ArgumentParser(description=getactdesc[1], conflict_handler="resolve", add_help=True);
@@ -115,13 +116,14 @@ if(curaction==getactlist[1]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defoldsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[2]):
  argparser = argparse.ArgumentParser(description=getactdesc[2], conflict_handler="resolve", add_help=True);
@@ -130,13 +132,14 @@ if(curaction==getactlist[2]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsqlfile), help="sql dump file to import");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyXMLFileFromHockeySQL(getargs.infile, None, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[3]):
  argparser = argparse.ArgumentParser(description=getactdesc[3], conflict_handler="resolve", add_help=True);
@@ -145,13 +148,14 @@ if(curaction==getactlist[3]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyDatabaseFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[4]):
  argparser = argparse.ArgumentParser(description=getactdesc[4], conflict_handler="resolve", add_help=True);
@@ -160,13 +164,14 @@ if(curaction==getactlist[4]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsqlfile), help="sql dump file to import");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sqlite database to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyDatabaseFromHockeySQL(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[5]):
  argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
@@ -175,13 +180,14 @@ if(curaction==getactlist[5]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[6]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
@@ -190,13 +196,14 @@ if(curaction==getactlist[6]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyPythonFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[7]):
  argparser = argparse.ArgumentParser(description=getactdesc[5], conflict_handler="resolve", add_help=True);
@@ -205,13 +212,14 @@ if(curaction==getactlist[7]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyPythonAltFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyPythonAltFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[8]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
@@ -220,13 +228,14 @@ if(curaction==getactlist[8]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="python file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyPythonAltFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyPythonAltFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[9]):
  argparser = argparse.ArgumentParser(description=getactdesc[7], conflict_handler="resolve", add_help=True);
@@ -235,13 +244,14 @@ if(curaction==getactlist[9]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="sqlite database to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeySQLFileFromHockeyDatabase(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[10]):
  argparser = argparse.ArgumentParser(description=getactdesc[8], conflict_handler="resolve", add_help=True);
@@ -250,13 +260,14 @@ if(curaction==getactlist[10]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="sql dump file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeySQLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[11]):
  argparser = argparse.ArgumentParser(description=getactdesc[6], conflict_handler="resolve", add_help=True);
@@ -265,6 +276,7 @@ if(curaction==getactlist[11]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', defjsonfile), help="json file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
@@ -272,9 +284,9 @@ if(curaction==getactlist[11]):
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  if(getargs.outfile is None):
-  libhockeydata.MakeHockeyJSONFromHockeyXML(getargs.infile, verbose=verboseon);
+  libhockeydata.MakeHockeyJSONFromHockeyXML(getargs.infile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  else:
-  libhockeydata.MakeHockeyJSONFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+  libhockeydata.MakeHockeyJSONFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[12]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
@@ -283,13 +295,14 @@ if(curaction==getactlist[12]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defsdbfile), help="json file to convert");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', defjsonfile), help="xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
   verboseon = True;
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
- libhockeydata.MakeHockeyXMLFileFromHockeyJSON(getargs.infile, getargs.outfile, verbose=verboseon);
+ libhockeydata.MakeHockeyXMLFileFromHockeyJSON(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
 
 if(curaction==getactlist[13]):
  argparser = argparse.ArgumentParser(description=getactdesc[9], conflict_handler="resolve", add_help=True);
@@ -298,6 +311,7 @@ if(curaction==getactlist[13]):
  argparser.add_argument("-i", "-f", "--infile", default=os.environ.get('INFILE', defxmlfile), help="xml file to clean");
  argparser.add_argument("-o", "-t", "--outfile", default=os.environ.get('OUTFILE', None), help="clean xml file to output");
  argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+ argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
  getargs = argparser.parse_args();
  verboseon = getargs.verbose;
  if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
@@ -305,6 +319,6 @@ if(curaction==getactlist[13]):
  if(verboseon):
   logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
  if(getargs.outfile is None):
-  libhockeydata.MakeHockeyXMLFromHockeyXML(getargs.infile, verbose=verboseon);
+  libhockeydata.MakeHockeyXMLFromHockeyXML(getargs.infile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  else:
-  libhockeydata.MakeHockeyXMLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon);
+  libhockeydata.MakeHockeyXMLFileFromHockeyXML(getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
