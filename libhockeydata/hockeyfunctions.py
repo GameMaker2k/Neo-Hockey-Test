@@ -659,7 +659,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -724,7 +724,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -797,7 +797,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False));
  return hockeyarray;
 
 def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True):
@@ -805,7 +805,7 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True):
   return False;
  picklestring = pickle.dumps(inhockeyarray);
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return picklestring;
 
 def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True):
@@ -847,7 +847,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False));
  return hockeyarray;
 
 def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True):
@@ -855,7 +855,7 @@ def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True):
   return False;
  marshalstring = marshal.dumps(inhockeyarray);
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return marshalstring;
 
 def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True):
@@ -897,7 +897,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False));
  return hockeyarray;
 
 def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
@@ -976,7 +976,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True):
@@ -1053,7 +1053,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
  xmlstring = xmlstring+" </league>\n";
  xmlstring = xmlstring+"</hockey>\n";
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
  if(returndb and returnxml):
@@ -1131,7 +1131,7 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
  pystring = pystring+"\n";
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return pystring;
 
 def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
@@ -1206,7 +1206,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=Tr
   pyverbose = "False";
  pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, "+pyverbose+");\n";
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return pystring;
 
 def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
@@ -1276,7 +1276,7 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True):
  pystring = pystring+"\n";
  pystring = pystring+"sqldatacon.CloseHockeyDatabase(sqldatacon);\n";
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return pystring;
 
 def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
@@ -1351,7 +1351,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy
   pyverbose = "False";
  pystring = pystring+"hockeyarray.MakeHockeyDatabase(None, False, False, "+pyverbose+");\n";
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return pystring;
 
 def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
@@ -1468,7 +1468,7 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
@@ -1571,7 +1571,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True):
@@ -1633,7 +1633,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return sqldump;
 
 def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
@@ -1778,7 +1778,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
@@ -1847,7 +1847,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
  if(not CheckHockeySQLiteArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True):
@@ -1897,7 +1897,7 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=Tru
  if(not CheckHockeySQLiteXML(xmlstring, False)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -1961,7 +1961,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=
  if(not CheckHockeySQLiteXML(xmlstring, False)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return xmlstring;
 
 def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
@@ -2052,7 +2052,7 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  if(not CheckHockeySQLiteArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
@@ -2117,7 +2117,7 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbose=True):
@@ -2180,7 +2180,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
    sqldump = sqldump+"("+str(', '.join(rvaluelist))+");\n";
   sqldump = sqldump+"\n-- --------------------------------------------------------\n\n";
  if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
  return sqldump;
 
 def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):

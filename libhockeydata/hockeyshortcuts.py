@@ -566,6 +566,8 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True):
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
+ if(verbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(leaguearrayout, verbose=FalseFalse), verbose=False));
  return sqldump;
 
 def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True):
