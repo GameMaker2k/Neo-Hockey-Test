@@ -304,6 +304,16 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
 def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, returnstring=False):
  return MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring);
 
+# From https://stackoverflow.com/a/16919069
+def RemoveBlanks(node):
+ for(x in node.childNodes):
+  if(x.nodeType == Node.TEXT_NODE):
+   if(x.nodeValue):
+    x.nodeValue = x.nodeValue.strip();
+  elif(x.nodeType == Node.ELEMENT_NODE):
+   remove_blanks(x);
+ return True;
+
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
   try:
@@ -323,6 +333,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
    return False;
  else:
   return False;
+ RemoveBlanks(xmldom);
  xmldom.normalize();
  if(beautify):
   outxmlcode = xmldom.toprettyxml(indent, newl, encoding).decode(encoding);
