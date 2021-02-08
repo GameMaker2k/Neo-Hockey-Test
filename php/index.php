@@ -136,6 +136,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"; }
 if(!isset($_GET['act'])&&isset($_GET['view'])) { $_GET['act'] = "view"; }
 if(!isset($_GET['act'])&&isset($_GET['games'])) { $_GET['act'] = "view"; }
 if(!isset($_GET['act'])&&isset($_GET['stats'])) { $_GET['act'] = "stats"; }
+if(!isset($_GET['act'])&&isset($_GET['standing'])) { $_GET['act'] = "standing"; }
 if(!isset($_GET['act'])&&isset($_GET['calendar'])) { $_GET['act'] = "calendar"; }
 if(!isset($_GET['order'])&&isset($_GET['asc'])) { $_GET['order'] = "ascending"; }
 if(isset($_GET['order'])&&$_GET['order']=="asc") { $_GET['order'] = "ascending"; }
