@@ -610,7 +610,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   return False;
  return False;
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -658,11 +658,13 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True):
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(xmlstring);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -682,7 +684,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
+def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -723,11 +725,13 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True):
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(xmlstring);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
+def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -747,15 +751,17 @@ def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxm
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, verbose=True):
+def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  jsonstring = json.dumps(inhockeyarray, indent=jsonindent);
- if(verbose):
+ if(verbose and jsonverbose):
   VerbosePrintOut(jsonstring);
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyJSON(inhockeyarray, verbose=False, jsonverbose=True), verbose=False, jsonverbose=False));
  return jsonstring;
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, verbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
  if(outjsonfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -775,7 +781,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
   return True;
  return True;
 
-def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
+def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
  if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", injsonfile))):
   if(re.findall("^(http|https|ftp|ftps)\:\/\/", injsonfile)):
    injsonfile = UncompressFileURL(injsonfile, geturls_headers, geturls_cj);
@@ -796,19 +802,23 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True):
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  picklestring = pickle.dumps(inhockeyarray);
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return picklestring;
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True, jsonverbose=True):
  if(outpicklefile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -828,7 +838,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
   return True;
  return True;
 
-def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True):
+def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True, jsonverbose=True):
  if(pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inpicklefile))):
   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inpicklefile)):
    inpicklefile = UncompressFileURL(inpicklefile, geturls_headers, geturls_cj);
@@ -846,19 +856,23 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  marshalstring = marshal.dumps(inhockeyarray);
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return marshalstring;
 
-def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True):
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True, jsonverbose=True):
  if(outmarshalfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -878,7 +892,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
   return True;
  return True;
 
-def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True):
+def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True, jsonverbose=True):
  if(marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inmarshalfile))):
   if(re.findall("^(http|https|ftp|ftps)\:\/\/", inmarshalfile)):
    inmarshalfile = UncompressFileURL(inmarshalfile, geturls_headers, geturls_cj);
@@ -896,11 +910,13 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
  if(not CheckHockeyXML(inxmlfile, xmlisfile)):
   return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
@@ -975,11 +991,13 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
  leaguearrayout.update( { 'leaguelist': leaguelist } );
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True):
+def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -1052,8 +1070,10 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
     xmlstring = xmlstring+"  </games>\n";
  xmlstring = xmlstring+" </league>\n";
  xmlstring = xmlstring+"</hockey>\n";
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
  if(returndb and returnxml):
@@ -1066,7 +1086,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   return True;
  return True;
 
-def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True):
+def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1086,7 +1106,7 @@ def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfi
   return True;
  return True;
 
-def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -1130,11 +1150,13 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True):
      pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\");\n";
  pystring = pystring+"\n";
  pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n";
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return pystring;
 
-def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
  if(outpyfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1156,7 +1178,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
   return True;
  return True;
 
-def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
+def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -1205,11 +1227,13 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=Tr
  else:
   pyverbose = "False";
  pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, False, "+pyverbose+");\n";
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return pystring;
 
-def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
+def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(outpyfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1231,7 +1255,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
   return True;
  return True;
 
-def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True):
+def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -1275,11 +1299,13 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True):
      pystring = pystring+"sqldatacon.AddHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey['ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\");\n";
  pystring = pystring+"\n";
  pystring = pystring+"sqldatacon.CloseHockeyDatabase(sqldatacon);\n";
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return pystring;
 
-def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True):
+def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
  if(outpyfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1301,7 +1327,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeyArray(inchockeyarray)):
   return False;
@@ -1350,11 +1376,13 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, verbosepy
  else:
   pyverbose = "False";
  pystring = pystring+"hockeyarray.MakeHockeyDatabase(None, False, False, "+pyverbose+");\n";
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return pystring;
 
-def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(outpyfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1376,7 +1404,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
   return True;
  return True;
 
-def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
@@ -1467,11 +1495,13 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True):
  sqldatacon[1].close();
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
+def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True, jsonverbose=True):
  if(sqlisfile and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
   sqlfp = UncompressFile(sqlfile);
   sqlstring = sqlfp.read();
@@ -1570,11 +1600,13 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  sqldatacon[1].close();
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True):
+def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  if(sdbfile is None):
@@ -1632,11 +1664,13 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
    get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return sqldump;
 
-def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
+def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
  if(sqlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1656,7 +1690,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
   return True;
  return True;
 
-def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   sqldatacon = OpenHockeyDatabase(sdbfile);
  else:
@@ -1777,11 +1811,13 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True):
  CloseHockeyDatabase(sqldatacon);
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
+def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
    return False;
@@ -1846,11 +1882,13 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True):
  sqldatacon[1].close();
  if(not CheckHockeySQLiteArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True):
+def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeySQLiteArray(inchockeyarray)):
   return False;
@@ -1896,11 +1934,13 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=Tru
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  if(not CheckHockeySQLiteXML(xmlstring, False)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
+def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1920,7 +1960,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=True):
+def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeySQLiteArray(inchockeyarray)):
   return False;
@@ -1960,11 +2000,13 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  if(not CheckHockeySQLiteXML(xmlstring, False)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True):
+def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1984,7 +2026,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
   return True;
  return True;
 
-def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
+def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
   return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
@@ -2035,8 +2077,6 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
        rowdatanum = 0;
        for getrowdata in getrow:
         if(getrowdata.tag=="rowdata"):
-         if(rowdatanum==0):
-           VerbosePrintOut("   <row id\""+EscapeXMLString(str(getrow.attrib['id']))+"\">");
          leaguearrayout[gettable.attrib['name']]['values'].append( { getrowdata.attrib['name']: getrowdata.attrib['value'] } );
          rowdatanum = rowdatanum + 1;
    rowsstart = 0;
@@ -2051,11 +2091,13 @@ def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True):
        rowscount = rowscount + 1;
  if(not CheckHockeySQLiteArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
+def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeySQLiteArray(inchockeyarray)):
   return False;
@@ -2116,11 +2158,13 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True):
  leaguearrayout.update( { 'leaguelist': leaguelist } );
  if(not CheckHockeyArray(leaguearrayout)):
   return False;
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbose=True):
+def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbose=True, jsonverbose=True):
  inchockeyarray = inhockeyarray.copy();
  if(not CheckHockeySQLiteArray(inchockeyarray)):
   return False;
@@ -2179,11 +2223,13 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
    sqldump = sqldump+"INSERT INTO "+str(get_cur_tab)+" ("+str(', '.join(rkeylist))+") VALUES\n";
    sqldump = sqldump+"("+str(', '.join(rvaluelist))+");\n";
   sqldump = sqldump+"\n-- --------------------------------------------------------\n\n";
- if(verbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False));
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return sqldump;
 
-def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True):
+def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
  if(sqlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
