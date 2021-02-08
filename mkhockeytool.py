@@ -51,6 +51,7 @@ argparser.add_argument("-o", "-e", "--outfile", nargs="?", default=None, help="d
 argparser.add_argument("-x", "-p", "--export", action="store_true", help="export file to database");
 argparser.add_argument("-t", "-y", "--type", nargs="?", default=None, help="type of file to export");
 argparser.add_argument("-V", "-d", "--verbose", action="store_true", help="print various debugging information");
+argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true", help="print various debugging information in json");
 getargs = argparser.parse_args();
 verboseon = getargs.verbose;
 if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
@@ -86,17 +87,17 @@ if(premenuact=="2"):
   if(getargs.export):
    verbosein = False;
   if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN, verbose=verbosein);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN, verbose=verbosein);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   elif(ext==".sql"):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN, verbose=verbosein);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   elif(ext==".json"):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN, verbose=verbosein);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   else:
    print("ERROR: Invalid Command");
   if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray, verbose=verbosein);
+   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   if(not libhockeydata.CheckHockeyArray(hockeyarray)):
    print("ERROR: Invalid Command");
 
@@ -141,17 +142,17 @@ if(getargs.export):
    else:
     getargs.type = "db3";
  if(getargs.type.lower()=="xml"):
-  libhockeydata.MakeHockeyXMLFileFromHockeyArray(hockeyarray, getargs.outfile);
+  libhockeydata.MakeHockeyXMLFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  if(getargs.type.lower()=="json"):
-  libhockeydata.MakeHockeyJSONFileFromHockeyArray(hockeyarray, getargs.outfile);
+  libhockeydata.MakeHockeyJSONFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  if(getargs.type.lower()=="py"):
-  libhockeydata.MakeHockeyPythonFileFromHockeyArray(hockeyarray, getargs.outfile);
+  libhockeydata.MakeHockeyPythonFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  if(getargs.type.lower()=="pyalt"):
-  libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, getargs.outfile);
+  libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  if(getargs.type.lower()=="sql"):
-  libhockeydata.MakeHockeySQLFileFromHockeyArray(hockeyarray, getargs.outfile);
+  libhockeydata.MakeHockeySQLFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  if(getargs.type.lower()=="db3"):
-  libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, getargs.outfile);
+  libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
  sys.exit();
 
 keep_loop = True;
