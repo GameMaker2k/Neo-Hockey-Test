@@ -323,6 +323,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
    return False;
  else:
   return False;
+ xmldom.normalize();
  if(beautify):
   outxmlcode = xmldom.toprettyxml(indent, newl, encoding).decode(encoding);
  else:
