@@ -158,8 +158,10 @@ def download_file_from_ftp_file(url):
   ftp_username = "anonymous";
  if(urlparts.password!=None):
   ftp_password = urlparts.password;
- else:
+ elif(urlparts.password==None and urlparts.username=="anonymous"):
   ftp_password = "anonymous";
+ else:
+  ftp_password = "";
  if(urlparts.scheme=="ftp"):
   ftp = FTP();
  elif(urlparts.scheme=="ftps"):
