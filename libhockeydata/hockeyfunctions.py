@@ -311,7 +311,7 @@ def RemoveBlanks(node):
    if(x.nodeValue):
     x.nodeValue = x.nodeValue.strip();
   elif(x.nodeType == xml.dom.minidom.Node.ELEMENT_NODE):
-   remove_blanks(x);
+   RemoveBlanks(x);
  return True;
 
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
