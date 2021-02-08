@@ -307,10 +307,10 @@ def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, re
 # From https://stackoverflow.com/a/16919069
 def RemoveBlanks(node):
  for x in node.childNodes:
-  if(x.nodeType == Node.TEXT_NODE):
+  if(x.nodeType == xml.dom.minidom.TEXT_NODE):
    if(x.nodeValue):
     x.nodeValue = x.nodeValue.strip();
-  elif(x.nodeType == Node.ELEMENT_NODE):
+  elif(x.nodeType == xml.dom.minidom.ELEMENT_NODE):
    remove_blanks(x);
  return True;
 
