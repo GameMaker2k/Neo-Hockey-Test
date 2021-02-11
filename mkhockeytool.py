@@ -108,27 +108,27 @@ if(getargs.export):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database XML File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type is not None and getargs.type.lower()=="json"):
+ elif(getargs.type is not None and getargs.type.lower()=="json"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database JSON File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type is not None and getargs.type.lower()=="py"):
+ elif(getargs.type is not None and getargs.type.lower()=="py"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type is not None and getargs.type.lower()=="pyalt"):
+ elif(getargs.type is not None and getargs.type.lower()=="pyalt"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database Python File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type is not None and getargs.type.lower()=="sql"):
+ elif(getargs.type is not None and getargs.type.lower()=="sql"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database SQL File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type is not None and getargs.type.lower()=="db3"):
+ elif(getargs.type is not None and getargs.type.lower()=="db3"):
   if(getargs.outfile is None):
    HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name to Export: ");
    getargs.outfile = HockeyDatabaseFN;
- if(getargs.type is None):
+ else:
   ext = os.path.splitext(getargs.outfile)[-1].lower();
   if(ext in extensions):
    if(ext==".xml"):
@@ -139,20 +139,24 @@ if(getargs.export):
     getargs.type = "sql";
    elif(ext==".json"):
     getargs.type = "json";
+   elif(ext==".py"):
+    getargs.type = "py";
    else:
     getargs.type = "db3";
  if(getargs.type.lower()=="xml"):
   libhockeydata.MakeHockeyXMLFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
- if(getargs.type.lower()=="json"):
+ elif(getargs.type.lower()=="json"):
   libhockeydata.MakeHockeyJSONFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
- if(getargs.type.lower()=="py"):
+ elif(getargs.type.lower()=="py"):
   libhockeydata.MakeHockeyPythonFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
- if(getargs.type.lower()=="pyalt"):
+ elif(getargs.type.lower()=="pyalt"):
   libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
- if(getargs.type.lower()=="sql"):
+ elif(getargs.type.lower()=="sql"):
   libhockeydata.MakeHockeySQLFileFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
- if(getargs.type.lower()=="db3"):
+ elif(getargs.type.lower()=="db3"):
   libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose);
+ else:
+  print("ERROR: Invalid Command");
  sys.exit();
 
 keep_loop = True;
