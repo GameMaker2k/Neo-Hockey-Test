@@ -33,10 +33,10 @@ if(os.path.isdir(rootdir)):
   print("--------------------------------------------------------------------------");
   print("");
   for file in files:
-   if(os.path.isfile(file)):
-    ext = os.path.splitext(file)[-1].lower();
+   ext = os.path.splitext(file)[-1].lower();
+   filepath = os.path.join(subdir, file);
+   if(os.path.isfile(filepath)):
     if ext in extensions:
-     filepath = os.path.join(subdir, file);
      if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
       hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
      elif(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
