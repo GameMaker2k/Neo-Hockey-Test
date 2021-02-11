@@ -34,11 +34,15 @@ if(os.path.isdir(rootdir)):
   print("--------------------------------------------------------------------------");
   print("");
   for file in files:
-   ext = os.path.splitext(file)[-1].lower();
+   fileinfo = os.path.splitext(file);
+   ext = fileinfo[1].lower();
+   subfileinfo = None;
    subext = None;
    if ext in extensionsc:
-    subext = os.path.splitext(ext)[-1].lower();
+    subfileinfo = os.path.splitext(fileinfo[0]);
+    subext = subfileinfo[1].lower();
    else:
+    subfileinfo = None;
     subext = None;
    if ext in extensions or subext in extensions:
     filepath = os.path.join(subdir, file);
@@ -78,8 +82,17 @@ if(os.path.isdir(rootdir)):
     print("--------------------------------------------------------------------------");
     print("");
 elif(os.path.isfile(rootdir)):
- ext = os.path.splitext(rootdir)[-1].lower();
- if ext in extensions:
+ fileinfo = os.path.splitext(rootdir);
+ ext = fileinfo[1].lower();
+ subfileinfo = None;
+ subext = None;
+ if ext in extensionsc:
+  subfileinfo = os.path.splitext(fileinfo[0]);
+  subext = subfileinfo[1].lower();
+ else:
+  subfileinfo = None;
+  subext = None;
+ if ext in extensions or subext in extensions:
   filepath = rootdir;
  if(ext==".xml" and libhockeydata.CheckXMLFile(filepath)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
