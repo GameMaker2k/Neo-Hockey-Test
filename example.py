@@ -29,13 +29,13 @@ extensions = ['.xml', '.json', '.sql', '.db3'];
 
 if(os.path.isdir(rootdir)):
  for subdir, dirs, files in os.walk(rootdir):
-  print("");
-  print("--------------------------------------------------------------------------");
-  print("");
   for file in files:
    ext = os.path.splitext(file)[-1].lower();
    filepath = os.path.join(subdir, file);
    if(os.path.isfile(filepath)):
+    print("");
+    print("--------------------------------------------------------------------------");
+    print("");
     if ext in extensions:
      if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
       hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
