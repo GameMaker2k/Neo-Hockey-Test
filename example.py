@@ -46,15 +46,15 @@ if(os.path.isdir(rootdir)):
     subext = None;
    if ext in extensions or subext in extensions:
     filepath = os.path.join(subdir, file);
-    if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
+    if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
-    elif(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
+    elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
      hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
-    elif(ext==".sql"):
+    elif(ext==".sql" or subext==".sql"):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
-    elif(ext==".json"):
+    elif(ext==".json" or subext==".json"):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
     else:
      sys.exit(1);
@@ -94,13 +94,15 @@ elif(os.path.isfile(rootdir)):
   subext = None;
  if ext in extensions or subext in extensions:
   filepath = rootdir;
- if(ext==".xml" and libhockeydata.CheckXMLFile(filepath)):
+ if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+ elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
+  hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
  elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
- elif(ext==".sql"):
+ elif(ext==".sql" or subext==".sql"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
- elif(ext==".json"):
+ elif(ext==".json" or subext==".json"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
  else:
   sys.exit(1);
