@@ -19,6 +19,10 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
 
+enable_oldsqlite = False;
+enable_apsw = False;
+enable_supersqlite = False;
+
 if(sys.version[0]=="2"):
  try:
   from cStringIO import StringIO;
@@ -45,33 +49,42 @@ except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
 
-supersqlitesupport = True;
-try:
- from supersqlite import sqlite3;
-except ImportError:
- import sqlite3;
+if(enable_supersqlite):
+ supersqlitesupport = True;
+ try:
+  from supersqlite import sqlite3;
+ except ImportError:
+  import sqlite3;
+  supersqlitesupport = False;
+else:
  supersqlitesupport = False;
 
-if(supersqlitesupport):
- apswsupport = True;
- try:
-  import apsw;
- except ImportError:
-  apswsupport = False;
+if(enable_apsw):
+ if(supersqlitesupport):
+  apswsupport = True;
+  try:
+   import apsw;
+  except ImportError:
+   apswsupport = False;
+ else:
+  apswsupport = True;
+  try:
+   from supersqlite import apsw;
+  except ImportError:
+   apswsupport = False;
 else:
- apswsupport = True;
- try:
-  from supersqlite import apsw;
- except ImportError:
-  apswsupport = False;
+ apswsupport = False;
 
-if(supersqlitesupport):
+if(supersqlitesupport and enable_supersqlite):
  import supersqlite;
 
-oldsqlitesupport = True;
-try:
- import sqlite;
-except ImportError:
+if(enable_oldsqlite):
+ oldsqlitesupport = True;
+ try:
+  import sqlite;
+ except ImportError:
+  oldsqlitesupport = False;
+else:
  oldsqlitesupport = False;
 
 try:
