@@ -21,9 +21,12 @@ import sqlite3, sys, os, re, time, json, pickle, marshal, platform, binascii, xm
 from ftplib import FTP, FTP_TLS;
 
 try:
- import xml.etree.cElementTree as cElementTree;
+ from lxml import etree as cElementTree;
 except ImportError:
- import xml.etree.ElementTree as cElementTree;
+ try:
+  import xml.etree.cElementTree as cElementTree;
+ except ImportError:
+  import xml.etree.ElementTree as cElementTree;
 
 try:
  from urlparse import urlparse;
