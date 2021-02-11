@@ -384,7 +384,6 @@ def CheckKeyInArray(validkeys, checkdict):
 
 def CheckHockeyXML(inxmlfile, xmlisfile=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
-  xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
@@ -393,12 +392,14 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
     except cElementTree.ParseError: 
      return False;
    else:
-    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
+  inxmlsfile = BytesIO(inxmlfile.encode());
+  inxmlfile = UncompressFileAlt(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
   except cElementTree.ParseError: 
    return False;
  else:
@@ -449,7 +450,6 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
 
 def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
-  xmlheaders = {'User-Agent': useragent_string};
   try:
    if(re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
@@ -458,12 +458,14 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
     except cElementTree.ParseError: 
      return False;
    else:
-    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
+  inxmlsfile = BytesIO(inxmlfile.encode());
+  inxmlfile = UncompressFileAlt(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile));
+   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
   except cElementTree.ParseError: 
    return False;
  else:
