@@ -26,6 +26,7 @@ if(len(sys.argv)<2):
 else:
  rootdir = sys.argv[1];
 extensions = ['.xml', '.json', '.sql', '.db3'];
+extensionsc = ['.gz', '.bz2', '.lzma', '.xz'];
 
 if(os.path.isdir(rootdir)):
  for subdir, dirs, files in os.walk(rootdir):
@@ -34,9 +35,9 @@ if(os.path.isdir(rootdir)):
   print("");
   for file in files:
    ext = os.path.splitext(file)[-1].lower();
-   if(ext==".gz" or ext==".bz2" or ext==".lzma" or ext==".xz"):
-    ext = os.path.splitext(ext)[-1].lower();
-   if ext in extensions:
+   if ext in extensionsc:
+    subext = os.path.splitext(ext)[-1].lower();
+   if ext in extensions or subext in extensions:
     filepath = os.path.join(subdir, file);
     if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
