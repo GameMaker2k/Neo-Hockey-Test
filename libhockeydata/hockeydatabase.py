@@ -167,16 +167,6 @@ def CheckSQLiteDatabase(infile):
  sqlfp.close();
  return validsqlite;
 
-def CheckXMLFile(infile):
- xmlfp = open(infile, "rb");
- xmlfp.seek(0, 0);
- prefp = xmlfp.read(6);
- validxmlfile = False;
- if(prefp==binascii.unhexlify("3c3f786d6c20")):
-  validxmlfile = True;
- xmlfp.close();
- return validxmlfile;
-
 def ConvertPythonValuesForXML(invalue):
  if(invalue):
   outvalue = "true";
