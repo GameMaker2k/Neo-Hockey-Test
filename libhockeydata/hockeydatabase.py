@@ -87,6 +87,12 @@ if(enable_oldsqlite):
 else:
  oldsqlitesupport = False;
 
+if 'sqlite3' not in sys.modules:
+ try:
+  import sqlite3;
+ except ImportError:
+  sys.exit();
+
 try:
  from xml.sax.saxutils import xml_escape;
 except ImportError:
