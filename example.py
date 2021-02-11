@@ -36,8 +36,10 @@ if(os.path.isdir(rootdir)):
    ext = os.path.splitext(file)[-1].lower();
    if ext in extensions:
     filepath = os.path.join(subdir, file);
-    if(ext==".xml" and libhockeydata.CheckXMLFile(filepath)):
+    if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+    elif(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
+     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
     elif(ext==".sql"):
