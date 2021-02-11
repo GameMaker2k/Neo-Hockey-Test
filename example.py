@@ -34,7 +34,7 @@ if(os.path.isdir(rootdir)):
   print("");
   for file in files:
    ext = os.path.splitext(file)[-1].lower();
-   if(ext=="gz" or ext=="bz2" or ext=="lzma" or ext=="xz"):
+   if(ext==".gz" or ext==".bz2" or ext==".lzma" or ext==".xz"):
     ext = os.path.splitext(ext)[-1].lower();
    if ext in extensions:
     filepath = os.path.join(subdir, file);
