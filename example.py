@@ -33,48 +33,51 @@ if(os.path.isdir(rootdir)):
   print("--------------------------------------------------------------------------");
   print("");
   for file in files:
-   ext = os.path.splitext(file)[-1].lower();
-   if ext in extensions:
-    filepath = os.path.join(subdir, file);
-    if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
-    elif(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
-    elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
-    elif(ext==".sql"):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
-    elif(ext==".json"):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
-    else:
-     sys.exit(1);
-    if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
-    if(not libhockeydata.CheckHockeyArray(hockeyarray)):
-     sys.exit(1);
-    print("File: "+filepath);
-    print("");
-    print("--------------------------------------------------------------------------");
-    print("");
-    for hlkey in hockeyarray['leaguelist']:
-     for hckey in hockeyarray[hlkey]['conferencelist']:
-      for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-       for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-        if(len(hckey)==0 and len(hdkey)==0):
-         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
-        if(len(hckey)==0 and len(hdkey)>0):
-         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
-        if(len(hckey)>0 and len(hdkey)==0):
-         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
-        if(len(hckey)>0 and len(hdkey)>0):
-         print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
-    print("");
-    print("--------------------------------------------------------------------------");
-    print("");
+   if(os.path.isfile(file)):
+    ext = os.path.splitext(file)[-1].lower();
+    if ext in extensions:
+     filepath = os.path.join(subdir, file);
+     if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+     elif(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
+      hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
+     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+     elif(ext==".sql"):
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
+     elif(ext==".json"):
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
+     else:
+      sys.exit(1);
+     if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
+      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
+     if(not libhockeydata.CheckHockeyArray(hockeyarray)):
+      sys.exit(1);
+     print("File: "+filepath);
+     print("");
+     print("--------------------------------------------------------------------------");
+     print("");
+     for hlkey in hockeyarray['leaguelist']:
+      for hckey in hockeyarray[hlkey]['conferencelist']:
+       for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
+        for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
+         if(len(hckey)==0 and len(hdkey)==0):
+          print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
+         if(len(hckey)==0 and len(hdkey)>0):
+          print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
+         if(len(hckey)>0 and len(hdkey)==0):
+          print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
+         if(len(hckey)>0 and len(hdkey)>0):
+          print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']);
+     print("");
+     print("--------------------------------------------------------------------------");
+     print("");
 elif(os.path.isfile(rootdir)):
  ext = os.path.splitext(rootdir)[-1].lower();
  if ext in extensions:
   filepath = rootdir;
+ if(not os.path.isfile(filepath)):
+  sys.exit();
  if(ext==".xml" and libhockeydata.CheckXMLFile(filepath)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
  elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
