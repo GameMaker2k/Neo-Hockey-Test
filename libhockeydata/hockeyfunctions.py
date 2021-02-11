@@ -304,6 +304,17 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
 def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, returnstring=False):
  return MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring);
 
+def CheckXMLFile(infile):
+ xmlfp = open(infile, "rb");
+ xmlfp = UncompressFileAlt(xmlfp);
+ xmlfp.seek(0, 0);
+ prefp = xmlfp.read(6);
+ validxmlfile = False;
+ if(prefp==binascii.unhexlify("3c3f786d6c20")):
+  validxmlfile = True;
+ xmlfp.close();
+ return validxmlfile;
+
 # From https://stackoverflow.com/a/16919069
 def RemoveBlanks(node):
  for x in node.childNodes:
