@@ -37,6 +37,8 @@ if(os.path.isdir(rootdir)):
    ext = os.path.splitext(file)[-1].lower();
    if ext in extensionsc:
     subext = os.path.splitext(ext)[-1].lower();
+   else:
+    subext = None;
    if ext in extensions or subext in extensions:
     filepath = os.path.join(subdir, file);
     if(ext==".xml" and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
