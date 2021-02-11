@@ -35,6 +35,7 @@ if(os.path.isdir(rootdir)):
   print("");
   for file in files:
    ext = os.path.splitext(file)[-1].lower();
+   subext = None;
    if ext in extensionsc:
     subext = os.path.splitext(ext)[-1].lower();
    else:
