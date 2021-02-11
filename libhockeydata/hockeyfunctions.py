@@ -1533,7 +1533,10 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  sqldatacon = MakeHockeyDatabase(":memory:");
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
- sqldatacon[0].executescript(sqlstring);
+ try:
+  sqldatacon[0].executescript(sqlstring);
+ except ValueError:
+  sqldatacon[0].executescript(sqlstring.decode("UTF-8"));
  leaguecur = sqldatacon[1].cursor();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
