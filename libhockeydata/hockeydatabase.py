@@ -57,6 +57,7 @@ if(enable_supersqlite):
   import sqlite3;
   supersqlitesupport = False;
 else:
+ import sqlite3;
  supersqlitesupport = False;
 
 if(enable_apsw):
@@ -86,12 +87,6 @@ if(enable_oldsqlite):
   oldsqlitesupport = False;
 else:
  oldsqlitesupport = False;
-
-if 'sqlite3' not in sys.modules:
- try:
-  import sqlite3;
- except ImportError:
-  sys.exit();
 
 try:
  from xml.sax.saxutils import xml_escape;
