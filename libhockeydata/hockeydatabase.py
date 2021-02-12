@@ -19,13 +19,13 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
 from .hockeydwnload import *;
-from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
+from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
 enable_oldsqlite = False;
 enable_apsw = False;
 enable_supersqlite = False;
 
-def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl="https://github.com/GameMaker2k/Neo-Hockey-Test/releases/latest"):
+def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
  try:
   from packaging import version;
  except ImportError:
