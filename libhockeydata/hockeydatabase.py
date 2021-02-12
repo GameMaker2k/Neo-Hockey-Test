@@ -33,7 +33,7 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
  prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
  newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
  myvercheck = re.findall("([0-9\.]+)", myversion)[0];
- print(myvercheck, newvercheck);
+ #print(myvercheck, newvercheck);
  if(version.parse(myvercheck) == version.parse(newvercheck)):
   return 0;
  elif(version.parse(myvercheck) < version.parse(newvercheck)):
