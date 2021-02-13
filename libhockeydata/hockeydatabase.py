@@ -28,7 +28,7 @@ enable_supersqlite = False;
 def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
  overcheck = 0;
  try:
-  from packaging import version;
+  from packaging import Version, LegacyVersion;
   vercheck = 1;
  except ImportError:
   try:
