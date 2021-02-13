@@ -35,7 +35,11 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
    from distutils.version import LooseVersion, StrictVersion;
    vercheck = 2;
   except ImportError:
-   return 5;
+   try:
+    from pkg_resources import parse_version;
+    vercheck = 3;
+   except ImportError:
+    return 5;
  prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
  newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
  myvercheck = re.findall("([0-9\.]+)", myversion)[0];
@@ -55,6 +59,15 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
   elif(StrictVersion(myvercheck) < StrictVersion(newvercheck)):
    return 1;
   elif(StrictVersion(myvercheck) > StrictVersion(newvercheck)):
+   return 2;
+  else:
+   return 3;
+ elif(vercheck==3):
+  if(parse_version(myvercheck) == parse_version(newvercheck)):
+   return 0;
+  elif(parse_version(myvercheck) < parse_version(newvercheck)):
+   return 1;
+  elif(parse_version(myvercheck) > parse_version(newvercheck)):
    return 2;
   else:
    return 3;
