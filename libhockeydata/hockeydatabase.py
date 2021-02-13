@@ -784,6 +784,7 @@ def CheckHockeySQLiteArray(hockeyarray):
   return False;
  if "database" not in hockeyarray.keys():
   return False;
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
  for leagueinfo_tmp in hockeyarray['HockeyLeagues']['values']:

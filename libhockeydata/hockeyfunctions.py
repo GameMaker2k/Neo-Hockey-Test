@@ -479,11 +479,14 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
  else:
   return False;
  hockeyroot = hockeyfile.getroot();
+ leaguelist = [];
+ tablelist = [];
  if(hockeyroot.tag=="hockeydb"):
   if("database" not in hockeyroot.attrib):
    return False;
   for hockeytable in hockeyroot:
    if(hockeytable.tag=="table"):
+    tablelist.append(hockeytable.attrib['name']);
     if(not CheckKeyInArray(["name"], dict(hockeytable.attrib))):
      return False;
     for hockeycolumn in hockeytable:
@@ -501,6 +504,8 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
          return False;
         for rowdata in hockeydata:
          if(rowdata.tag=="rowdata"):
+          if(hockeytable.attrib['name']=="HockeyLeagues" and rowdata.attrib['name']=="LeagueName"):
+           leaguelist.append(rowdata.attrib['value']);
           if(not CheckKeyInArray(["name", "value"], dict(rowdata.attrib))):
            return False;
          else:
@@ -518,6 +523,15 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
       return False;
  else:
   return False;
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ for leagueinfo_tmp in leaguelist:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp+cur_tab);
+ for get_cur_tab in table_list:
+  if get_cur_tab not in tablelist:
+   return False;
  return True;
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):
@@ -1726,6 +1740,94 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
   return True;
  return True;
 
+def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
+  sqldatacon = OpenHockeyDatabase(sdbfile);
+ else:
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   sqldatacon = tuple(sdbfile);
+  else:
+   return False;
+ sqldump = "-- "+__program_name__+" SQL Dumper\n";
+ sqldump = sqldump+"-- version "+__version__+"\n";
+ sqldump = sqldump+"-- "+__project_url__+"\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Generation Time: "+time.strftime("%B %d, %Y at %I:%M %p", time.localtime())+"\n";
+ sqldump = sqldump+"-- SQLite Server version: "+sqlite3.sqlite_version+"\n";
+ sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
+ sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
+ sqldump = sqldump+"--\n";
+ sqldump = sqldump+"-- Database: "+sdbfile+"\n";
+ sqldump = sqldump+"--\n\n";
+ sqldump = sqldump+"-- --------------------------------------------------------\n\n";
+ #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+ all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
+ table_list = ['HockeyLeagues'];
+ getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
+ getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
+ for leagueinfo_tmp in getleague_tmp:
+  for cur_tab in all_table_list:
+   table_list.append(leagueinfo_tmp[0]+cur_tab);
+ for get_cur_tab in table_list:
+  tresult = sqldatacon[0].execute("SELECT * FROM "+get_cur_tab);
+  tmbcor = sqldatacon[1].cursor();
+  tabresult = tmbcor.execute("SELECT * FROM sqlite_master WHERE type=\"table\" and tbl_name=\""+get_cur_tab+"\";").fetchone()[4];
+  tabresultcol = list(map(lambda x: x[0], sqldatacon[0].description));
+  tresult_list = [];
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Table structure for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  sqldump = sqldump+"DROP TABLE IF EXISTS "+get_cur_tab+";\n\n"+tabresult+";\n\n";
+  sqldump = sqldump+"--\n";
+  sqldump = sqldump+"-- Dumping data for table "+str(get_cur_tab)+"\n";
+  sqldump = sqldump+"--\n\n";
+  get_insert_stmt_full = "";
+  for tresult_tmp in tresult:
+   get_insert_stmt = "INSERT INTO "+str(get_cur_tab)+" (";
+   get_insert_stmt_val = "(";
+   for result_cal_val in tabresultcol:
+    get_insert_stmt += str(result_cal_val)+", ";
+   for result_val in tresult_tmp:
+    if(isinstance(result_val, basestring)):
+     get_insert_stmt_val += "\""+str(result_val)+"\", ";
+    if(isinstance(result_val, baseint)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
+    if(isinstance(result_val, float)):
+     get_insert_stmt_val += ""+str(result_val)+", ";
+   get_insert_stmt = get_insert_stmt[:-2]+") VALUES \n";
+   get_insert_stmt_val = get_insert_stmt_val[:-2]+");";
+   get_insert_stmt_full += str(get_insert_stmt+get_insert_stmt_val)+"\n";
+  sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
+ CloseHockeyDatabase(sqldatacon);
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(leaguearrayout, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(leaguearrayout, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
+ return sqldump;
+
+def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+  return False;
+ if(sqlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  sqlfile = file_wo_extension+".sql";
+ compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ fbasename = os.path.splitext(outsqlfile)[0];
+ fextname = os.path.splitext(outsqlfile)[1];
+ sqlfp = CompressOpenFile(outsqlfile);
+ sqlstring = MakeHockeySQLFromHockeyDatabase(sdbfile, verbose, jsonverbose);
+ if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+  sqlstring = sqlstring.encode();
+ sqlfp.write(sqlstring);
+ sqlfp.close();
+ if(returnsql):
+  return sqlstring;
+ if(not returnsql):
+  return True;
+ return True;
+
 def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
   sqldatacon = OpenHockeyDatabase(sdbfile);
@@ -1924,7 +2026,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=T
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  inchockeyarray = inhockeyarray.copy();
@@ -1976,7 +2078,7 @@ def MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=Tru
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -1985,7 +2087,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
+ xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -1996,7 +2098,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, retur
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  inchockeyarray = inhockeyarray.copy();
@@ -2042,7 +2144,7 @@ def MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -2051,7 +2153,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify, verbose);
+ xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -2062,7 +2164,7 @@ def MakeHockeyXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, re
   return True;
  return True;
 
-def MakeHockeySQLiteArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
   return False;
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps)\:\/\/", inxmlfile))):
