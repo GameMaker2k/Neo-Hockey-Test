@@ -17,8 +17,13 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, json, pickle, marshal, platform, binascii, xml.dom.minidom;
+import sqlite3, sys, os, re, time, pickle, marshal, platform, binascii, xml.dom.minidom;
 from ftplib import FTP, FTP_TLS;
+
+try:
+ import simplejson as json;
+except ImportError:
+ import json;
 
 try:
  from lxml import etree as cElementTree;
