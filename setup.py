@@ -18,6 +18,8 @@
 import re, os, sys, time, datetime, platform, pkg_resources;
 from setuptools import setup, find_packages;
 
+install_requires = [];
+extras_requires = [];
 pygenbuildinfo = True;
 verinfofilename = os.path.realpath("."+os.path.sep+"libhockeydata"+os.path.sep+"versioninfo.py");
 verinfofile = open(verinfofilename, "r");
@@ -53,6 +55,9 @@ pymodule['zipsafe'] = True;
 pymodule['pymodules'] = [];
 pymodule['packages'] = find_packages();
 pymodule['packagedata'] = {'libhockeydata/xml': ['*.dtd', '*.xsl', '*.xsd', '*.rng', '*.rnc']};
+pymodule['includepackagedata'] = True;
+pymodule['installrequires'] = install_requires;
+pymodule['extrasrequires'] = extras_requires_dict;
 pymodule['scripts'] = ['mkhockeytool.py', 'mkhockeydata.py', 'mkhockeydatabase.py', 'mkhockeydatabasefromsql.py', 'mkhockeypyfromdatabase.py', 'mkhockeypyfromxmlfile.py', 'mkhockeysqlfromdatabase.py', 'mkhockeysqlfromxmlfile.py', 'mkhockeyxmlfile.py', 'mkhockeyxmlfileclean.py', 'mkhockeyxmlfromolddatabase.py', 'mkhockeyxmlfromsql.py'];
 pymodule['classifiers'] = [
  'Development Status :: 5 - Production/Stable',
@@ -143,6 +148,9 @@ setup(
  py_modules = pymodule['pymodules'],
  packages = pymodule['packages'],
  package_data = pymodule['packagedata'],
+ include_package_data = pymodule['includepackagedata'],
+ install_requires = pymodule['installrequires'],
+ extras_require = pymodule['extrasrequires'],
  scripts = pymodule['scripts'],
  classifiers = pymodule['classifiers']
 )
