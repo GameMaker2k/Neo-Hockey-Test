@@ -25,7 +25,15 @@ enable_oldsqlite = False;
 enable_apsw = False;
 enable_supersqlite = False;
 
-def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
+# From: https://stackoverflow.com/a/28568003
+# By Phaxmohdem
+def versiontuple(v):
+ filled = [];
+ for point in v.split("."):
+  filled.append(point.zfill(8));
+ return tuple(filled);
+
+def version_check(myvercheck, newvercheck):
  overcheck = 0;
  try:
   from packaging import version;
@@ -39,10 +47,7 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
     from pkg_resources import parse_version;
     vercheck = 3;
    except ImportError:
-    return 6;
- prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
- newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
- myvercheck = re.findall("([0-9\.]+)", myversion)[0];
+    return 5;
  #print(myvercheck, newvercheck);
  if(vercheck==1):
   if(version.parse(myvercheck) == version.parse(newvercheck)):
@@ -72,8 +77,21 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
   else:
    return 3;
  else:
-  return 4;
- return 5;
+  if(versiontuple(myvercheck) == versiontuple(newvercheck)):
+   return 0;
+  elif(versiontuple(myvercheck) < versiontuple(newvercheck)):
+   return 1;
+  elif(versiontuple(myvercheck) > versiontuple(newvercheck)):
+   return 2;
+  else:
+   return 3;
+ return 4;
+
+def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
+ prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
+ newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
+ myvercheck = re.findall("([0-9\.]+)", myversion)[0];
+ return version_check(myvercheck, newvercheck);
 
 if(sys.version[0]=="2"):
  try:
