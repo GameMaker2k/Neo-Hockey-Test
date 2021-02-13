@@ -20,6 +20,7 @@ from setuptools import setup, find_packages;
 
 install_requires = [];
 extras_requires = [];
+extras_requires_dict = {};
 pygenbuildinfo = True;
 verinfofilename = os.path.realpath("."+os.path.sep+"libhockeydata"+os.path.sep+"versioninfo.py");
 verinfofile = open(verinfofilename, "r");
