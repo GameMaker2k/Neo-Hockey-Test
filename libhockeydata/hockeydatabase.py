@@ -26,20 +26,38 @@ enable_apsw = False;
 enable_supersqlite = False;
 
 def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
+ overcheck = 0;
  try:
   from packaging import version;
+  vercheck = 1;
  except ImportError:
-  return 5;
+  try:
+   from distutils.version import LooseVersion, StrictVersion;
+   vercheck = 2;
+  except ImportError:
+   return 5;
  prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
  newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
  myvercheck = re.findall("([0-9\.]+)", myversion)[0];
  #print(myvercheck, newvercheck);
- if(version.parse(myvercheck) == version.parse(newvercheck)):
-  return 0;
- elif(version.parse(myvercheck) < version.parse(newvercheck)):
-  return 1;
- elif(version.parse(myvercheck) > version.parse(newvercheck)):
-  return 2;
+ if(vercheck==1):
+  if(version.parse(myvercheck) == version.parse(newvercheck)):
+   return 0;
+  elif(version.parse(myvercheck) < version.parse(newvercheck)):
+   return 1;
+  elif(version.parse(myvercheck) > version.parse(newvercheck)):
+   return 2;
+  else:
+   return 3;
+ elif(vercheck==2):
+  if(StrictVersion(myvercheck) == StrictVersion(newvercheck)):
+   return 0;
+  elif(StrictVersion(myvercheck) < StrictVersion(newvercheck)):
+   return 1;
+  elif(StrictVersion(myvercheck) > StrictVersion(newvercheck)):
+   return 2;
+  else:
+   return 3;
  else:
   return 3;
  return 4;
