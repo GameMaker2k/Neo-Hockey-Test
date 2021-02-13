@@ -39,7 +39,7 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
     from pkg_resources import parse_version;
     vercheck = 3;
    except ImportError:
-    return 5;
+    return 6;
  prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
  newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
  myvercheck = re.findall("([0-9\.]+)", myversion)[0];
@@ -72,8 +72,8 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
   else:
    return 3;
  else:
-  return 3;
- return 4;
+  return 4;
+ return 5;
 
 if(sys.version[0]=="2"):
  try:
