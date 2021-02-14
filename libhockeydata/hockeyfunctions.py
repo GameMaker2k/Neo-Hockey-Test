@@ -421,7 +421,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
    if(hockeyleague.tag=="league"):
     if(not CheckKeyInArray(["name", "fullname", "country", "fullcountry", "date", "playofffmt", "ordertype", "conferences", "divisions"], dict(hockeyleague.attrib))):
      return False;
-    if(rowdata.attrib['value'] in leaguelist):
+    if(hockeyleague.attrib['name'] in leaguelist):
      return False;
     leaguelist.append(hockeyleague.attrib['name']);
     for hockeyconference in hockeyleague:
