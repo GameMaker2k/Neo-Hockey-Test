@@ -56,6 +56,7 @@ pymodule['zipsafe'] = True;
 pymodule['pymodules'] = [];
 pymodule['packages'] = find_packages();
 pymodule['packagedata'] = {'libhockeydata/xml': ['*.dtd', '*.xsl', '*.xsd', '*.rng', '*.rnc']};
+pymodule['datafiles'] = {'libhockeydata/xml': ['*.dtd', '*.xsl', '*.xsd', '*.rng', '*.rnc']};
 pymodule['includepackagedata'] = True;
 pymodule['installrequires'] = install_requires;
 pymodule['extrasrequires'] = extras_requires_dict;
@@ -149,6 +150,7 @@ setup(
  py_modules = pymodule['pymodules'],
  packages = pymodule['packages'],
  package_data = pymodule['packagedata'],
+ data_files = pymodule['datafiles'],
  include_package_data = pymodule['includepackagedata'],
  install_requires = pymodule['installrequires'],
  extras_require = pymodule['extrasrequires'],
