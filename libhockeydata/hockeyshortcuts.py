@@ -725,6 +725,7 @@ def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbos
  return hockeyarray;
 
 def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
+ informat = informat.lower();
  if(informat=="xml"):
   return MakeHockeyArrayFromHockeyXML(**kwargs);
  elif(informat=="json"):
@@ -742,6 +743,7 @@ def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
  return False;
 
 def MakeHockeyDataFromHockeyArray(outformat="xml", **kwargs):
+ outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeyXMLFromHockeyArray(**kwargs);
  elif(outformat=="xmlalt"):
@@ -771,6 +773,7 @@ def MakeHockeyDataFromHockeyArray(outformat="xml", **kwargs):
  return False;
 
 def MakeHockeyDataFileFromHockeyArray(outformat="xml", **kwargs):
+ outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeyXMLFileFromHockeyArray(**kwargs);
  elif(outformat=="xmlalt"):
@@ -796,6 +799,7 @@ def MakeHockeyDataFileFromHockeyArray(outformat="xml", **kwargs):
  return False;
 
 def MakeHockeySQLiteArrayFromHockeyData(informat="xml", **kwargs):
+ informat = informat.lower();
  if(informat=="xml"):
   return MakeHockeySQLiteArrayFromHockeySQLiteXML(**kwargs);
  elif(informat=="json"):
@@ -811,6 +815,7 @@ def MakeHockeySQLiteArrayFromHockeyData(informat="xml", **kwargs):
  return False;
 
 def MakeHockeyDataFromHockeySQLiteArray(outformat="xml", **kwargs):
+ outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFromHockeySQLiteArray(**kwargs);
  elif(outformat=="xmlalt"):
@@ -830,6 +835,7 @@ def MakeHockeyDataFromHockeySQLiteArray(outformat="xml", **kwargs):
  return False;
 
 def MakeHockeySQLiteArrayFromHockeyData(outformat="xml", **kwargs):
+ outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**kwargs);
  elif(outformat=="xmlalt"):
