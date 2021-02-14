@@ -763,9 +763,13 @@ def CheckHockeyArray(hockeyarray):
   return False;
  if "database" not in hockeyarray.keys():
   return False;
+ leaguelist = [];
  for hlkey in hockeyarray['leaguelist']:
   if hlkey not in hockeyarray.keys():
    return False;
+  if(hlkey in leaguelist):
+   return False;
+  leaguelist.append(hlkey);
   for hckey in hockeyarray[hlkey]['conferencelist']:
    if hckey not in hockeyarray[hlkey].keys() or hckey not in hockeyarray[hlkey]['quickinfo']['conferenceinfo'].keys():
     return False;
@@ -787,8 +791,12 @@ def CheckHockeySQLiteArray(hockeyarray):
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
+ leaguelist = [];
  for leagueinfo_tmp in hockeyarray['HockeyLeagues']['values']:
   for cur_tab in all_table_list:
+   if(leagueinfo_tmp['LeagueName'] in leaguelist):
+    return False;
+   leaguelist.append(leagueinfo_tmp['LeagueName']);
    table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
  for get_cur_tab in table_list:
   if get_cur_tab not in hockeyarray.keys():
@@ -797,6 +805,8 @@ def CheckHockeySQLiteArray(hockeyarray):
 
 def AddHockeyLeagueToArray(hockeyarray, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
  chockeyarray = hockeyarray.copy();
+ if(leaguename in chockeyarray['leaguelist']):
+  return False;
  if "leaguelist" not in chockeyarray.keys():
   chockeyarray.update( { 'leaguelist': [] } );
  if "database" not in chockeyarray.keys():
