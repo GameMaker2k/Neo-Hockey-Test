@@ -737,7 +737,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  inchockeyarray = inhockeyarray.copy();
@@ -784,7 +784,7 @@ def MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify=True, verbose=True, 
   VerbosePrintOut(xmlstring);
  return xmlstring;
 
-def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -793,7 +793,7 @@ def MakeHockeyXMLFileFromHockeyArrayAlt(inhockeyarray, outxmlfile=None, returnxm
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyXMLFromHockeyArrayAlt(inhockeyarray, beautify, verbose);
+ xmlstring = MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -2104,7 +2104,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
   return True;
  return True;
 
-def MakeHockeySQLiteXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  inchockeyarray = inhockeyarray.copy();
@@ -2150,7 +2150,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify=True, ve
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return xmlstring;
 
-def MakeHockeySQLiteXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -2159,7 +2159,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArrayAlt(inhockeyarray, outxmlfile=No
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArrayAlt(inhockeyarray, beautify, verbose);
+ xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);

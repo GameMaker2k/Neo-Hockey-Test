@@ -723,3 +723,125 @@ def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbos
  if(not CheckHockeySQLiteArray(hockeyarray)):
   return False;
  return hockeyarray;
+
+def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
+ if(informat=="xml"):
+  return MakeHockeyArrayFromHockeyXML(**kwargs);
+ elif(informat=="json"):
+  return MakeHockeyArrayFromHockeyJSON(**kwargs);
+ elif(informat=="pickle"):
+  return MakeHockeyArrayFromHockeyPickle(**kwargs);
+ elif(informat=="marshal"):
+  return MakeHockeyArrayFromHockeyPickle(**kwargs);
+ elif(informat=="database"):
+  return MakeHockeyArrayFromHockeyPickle(**kwargs);
+ elif(informat=="sqlitearray"):
+  return MakeHockeyArrayFromHockeySQLiteArray(**kwargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeyDataFromHockeyArray(outformat="xml", **kwargs):
+ if(outformat=="xml"):
+  return MakeHockeyXMLFromHockeyArray(**kwargs);
+ elif(outformat=="xmlalt"):
+  return MakeHockeyXMLAltFromHockeyArray(**kwargs);
+ elif(outformat=="json"):
+  return MakeHockeyJSONFromHockeyArray(**kwargs);
+ elif(outformat=="pickle"):
+  return MakeHockeyPickleFromHockeyArray(**kwargs);
+ elif(outformat=="marshal"):
+  return MakeHockeyMarshalFromHockeyArray(**kwargs);
+ elif(outformat=="database"):
+  return MakeHockeyDatabaseFromHockeyArray(**kwargs);
+ elif(outformat=="py"):
+  return MakeHockeyPythonFromHockeyArray(**kwargs);
+ elif(outformat=="pyalt"):
+  return MakeHockeyPythonAltFromHockeyArray(**kwargs);
+ elif(outformat=="pyoop"):
+  return MakeHockeyPythonOOPFromHockeyArray(**kwargs);
+ elif(outformat=="pyoopalt"):
+  return MakeHockeyPythonOOPAltFromHockeyArray(**kwargs);
+ elif(outformat=="sql"):
+  return MakeHockeySQLFromHockeyArray(**kwargs);
+ elif(outformat=="sqlitearray"):
+  return MakeHockeySQLiteArrayFromHockeyArray(**kwargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeyDataFileFromHockeyArray(outformat="xml", **kwargs):
+ if(outformat=="xml"):
+  return MakeHockeyXMLFileFromHockeyArray(**kwargs);
+ elif(outformat=="xmlalt"):
+  return MakeHockeyXMLAltFileFromHockeyArray(**kwargs);
+ elif(outformat=="json"):
+  return MakeHockeyJSONFileFromHockeyArray(**kwargs);
+ elif(outformat=="pickle"):
+  return MakeHockeyPickleFileFromHockeyArray(**kwargs);
+ elif(outformat=="marshal"):
+  return MakeHockeyMarshalFileFromHockeyArray(**kwargs);
+ elif(outformat=="py"):
+  return MakeHockeyPythonFileFromHockeyArray(**kwargs);
+ elif(outformat=="pyalt"):
+  return MakeHockeyPythonAltFileFromHockeyArray(**kwargs);
+ elif(outformat=="pyoop"):
+  return MakeHockeyPythonOOPFileFromHockeyArray(**kwargs);
+ elif(outformat=="pyoopalt"):
+  return MakeHockeyPythonOOPAltFileFromHockeyArray(**kwargs);
+ elif(outformat=="sql"):
+  return MakeHockeySQLFileFromHockeyArray(**kwargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeySQLiteArrayFromHockeyData(informat="xml", **kwargs):
+ if(informat=="xml"):
+  return MakeHockeySQLiteArrayFromHockeySQLiteXML(**kwargs);
+ elif(informat=="json"):
+  return MakeHockeyArrayFromHockeyJSON(**kwargs);
+ elif(informat=="pickle"):
+  return MakeHockeyArrayFromHockeyPickle(**kwargs);
+ elif(informat=="marshal"):
+  return MakeHockeyArrayFromHockeyPickle(**kwargs);
+ elif(informat=="database"):
+  return MakeHockeySQLiteArrayFromHockeyDatabase(**kwargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeyDataFromHockeySQLiteArray(outformat="xml", **kwargs):
+ if(outformat=="xml"):
+  return MakeHockeySQLiteXMLFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="xmlalt"):
+  return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="json"):
+  return MakeHockeyJSONFromHockeyArray(**kwargs);
+ elif(outformat=="pickle"):
+  return MakeHockeyPickleFromHockeyArray(**kwargs);
+ elif(outformat=="marshal"):
+  return MakeHockeyMarshalFromHockeyArray(**kwargs);
+ elif(outformat=="sql"):
+  return MakeHockeySQLFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="array"):
+  return MakeHockeyArrayFromHockeySQLiteArray(**kwargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeySQLiteArrayFromHockeyData(outformat="xml", **kwargs):
+ if(outformat=="xml"):
+  return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="xmlalt"):
+  return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="json"):
+  return MakeHockeyJSONFileFromHockeyArray(**kwargs);
+ elif(outformat=="pickle"):
+  return MakeHockeyPickleFileFromHockeyArray(**kwargs);
+ elif(outformat=="marshal"):
+  return MakeHockeyMarshalFileFromHockeyArray(**kwargs);
+ elif(outformat=="sql"):
+  return MakeHockeySQLFileFromHockeySQLiteArray(**kwargs);
+ else:
+  return False;
+ return False;
