@@ -416,10 +416,14 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
  if(hockeyroot.tag=="hockey"):
   if("database" not in hockeyroot.attrib):
    return False;
+  leaguelist = [];
   for hockeyleague in hockeyroot:
    if(hockeyleague.tag=="league"):
     if(not CheckKeyInArray(["name", "fullname", "country", "fullcountry", "date", "playofffmt", "ordertype", "conferences", "divisions"], dict(hockeyleague.attrib))):
      return False;
+    if(rowdata.attrib['value'] in leaguelist):
+     return False;
+    leaguelist.append(hockeyleague.attrib['name']);
     for hockeyconference in hockeyleague:
      if(hockeyconference.tag=="conference"):
       if(not CheckKeyInArray(["name", "prefix", "suffix"], dict(hockeyconference.attrib))):
@@ -486,9 +490,9 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
    return False;
   for hockeytable in hockeyroot:
    if(hockeytable.tag=="table"):
-    tablelist.append(hockeytable.attrib['name']);
     if(not CheckKeyInArray(["name"], dict(hockeytable.attrib))):
      return False;
+    tablelist.append(hockeytable.attrib['name']);
     for hockeycolumn in hockeytable:
      if(hockeycolumn.tag=="column"):
       for hockeyrowinfo in hockeycolumn:
@@ -504,10 +508,12 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
          return False;
         for rowdata in hockeydata:
          if(rowdata.tag=="rowdata"):
-          if(hockeytable.attrib['name']=="HockeyLeagues" and rowdata.attrib['name']=="LeagueName"):
-           leaguelist.append(rowdata.attrib['value']);
           if(not CheckKeyInArray(["name", "value"], dict(rowdata.attrib))):
            return False;
+          if(hockeytable.attrib['name']=="HockeyLeagues" and rowdata.attrib['name']=="LeagueName"):
+           if(rowdata.attrib['value'] in leaguelist):
+            return False;
+           leaguelist.append(rowdata.attrib['value']);
          else:
           return False;
        else:
