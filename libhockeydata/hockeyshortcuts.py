@@ -724,6 +724,13 @@ def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbos
   return False;
  return hockeyarray;
 
+def MakeHockeySQLiteArrayFromHockeySQL(sqlfile, sqlisfile=True, verbose=True, jsonverbose=True):
+ hockeydbin = MakeHockeyDatabaseFromHockeySQL(sqlfile, ":memory:", sqlisfile, False, True, False, False);
+ hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
+ if(not CheckHockeySQLiteArray(hockeyarray)):
+  return False;
+ return hockeyarray;
+
 def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
  informat = informat.lower();
  if(informat=="xml"):
@@ -736,7 +743,9 @@ def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
   return MakeHockeyArrayFromHockeyPickle(**kwargs);
  elif(informat=="database"):
   return MakeHockeyArrayFromHockeyPickle(**kwargs);
- elif(informat=="sqlitearray"):
+ elif(informat=="sql"):
+  return MakeHockeyArrayFromHockeySQL(**kwargs);
+ elif(informat=="array"):
   return MakeHockeyArrayFromHockeySQLiteArray(**kwargs);
  else:
   return False;
@@ -766,7 +775,7 @@ def MakeHockeyDataFromHockeyArray(outformat="xml", **kwargs):
   return MakeHockeyPythonOOPAltFromHockeyArray(**kwargs);
  elif(outformat=="sql"):
   return MakeHockeySQLFromHockeyArray(**kwargs);
- elif(outformat=="sqlitearray"):
+ elif(outformat=="array"):
   return MakeHockeySQLiteArrayFromHockeyArray(**kwargs);
  else:
   return False;
@@ -810,6 +819,8 @@ def MakeHockeySQLiteArrayFromHockeyData(informat="xml", **kwargs):
   return MakeHockeyArrayFromHockeyPickle(**kwargs);
  elif(informat=="database"):
   return MakeHockeySQLiteArrayFromHockeyDatabase(**kwargs);
+ elif(informat=="sql"):
+  return MakeHockeySQLiteArrayFromHockeySQL(**kwargs);
  else:
   return False;
  return False;
