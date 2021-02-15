@@ -28,9 +28,8 @@ except NameError:
 
 baseint = [];
 try:
- long;
- baseint.append(int);
  baseint.append(long);
+ baseint.insert(0, int);
 except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
