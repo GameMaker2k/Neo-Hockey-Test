@@ -59,11 +59,13 @@ if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
 if(verboseon):
  logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.DEBUG);
 
-if(getargs.infile is None):
+if(not getargs.empty and getargs.infile is None):
  premenuact = get_user_input("1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
  if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
   print("ERROR: Invalid Command");
   premenuact = "";
+if(getargs.empty and getargs.infile is None):
+ premenuact = "1";
 if(getargs.infile is not None):
  premenuact = "2";
  if(getargs.empty):
