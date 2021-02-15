@@ -877,7 +877,7 @@ def MakeHockeyDataFromHockeySQLiteArray(outformat="xml", **kwargs):
  elif(outformat=="pickle"):
   return MakeHockeyPickleFromHockeyArray(**kwargs);
  elif(outformat=="marshal"):
-  return MakeHockeyMarshalFromHockeyArray(**kwargs);\
+  return MakeHockeyMarshalFromHockeyArray(**kwargs);
  elif(outformat=="database"):
   return MakeHockeyDatabaseFromHockeySQLiteArray(**kwargs);
  elif(outformat=="py"):
