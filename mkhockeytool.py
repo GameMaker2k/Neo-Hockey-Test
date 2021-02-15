@@ -387,6 +387,24 @@ while(keep_loop):
          HockeyDivisionDPFN = get_user_input("Enter Hockey Division prefix: ");
          HockeyDivisionDSFN = get_user_input("Enter Hockey Division suffix: ");
         libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN);
+       if(submenuact.upper()=="2"):
+        divisionc = 0;
+        print("E: Back to Hockey Division Tool");
+        while(divisionc<len(hockeyarray[HockeyLeagueSN]['']['divisionlist'])):
+         lshn = hockeyarray[HockeyLeagueSN]['']['divisionlist'][divisionc];
+         print(str(divisionc)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['divisioninfo'][lshn]['fullname']);
+         divisionc = divisionc + 1;
+        HockeyDivisionPreDN = get_user_input("Enter Hockey Division number: ");
+        if(HockeyDivisionPreDN.upper()!="E" and not HockeyDivisionPreDN.isdigit()):
+         print("ERROR: Invalid Command");
+         HockeyDivisionPreDN = "E";
+        if(HockeyDivisionPreDN.upper()!="E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN)>6 or int(HockeyDivisionPreDN)<0)):
+         print("ERROR: Invalid Command");
+         HockeyDivisionPreDN = "E";
+        if(HockeyDivisionPreDN.upper()!="E" and int(HockeyDivisionPreDN)<len(hockeyarray[HockeyLeagueSN]['']['divisionlist']) and int(HockeyDivisionPreDN)>-1):
+         HockeyDivisionIntCN = int(HockeyDivisionPreDN);
+         HockeyDivisionDN = hockeyarray[HockeyLeagueSN]['']['divisionlist'][HockeyDivisionIntCN];
+         hockeyarray = libhockeydata.RemoveHockeyDivisionFromArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "");
        if(submenuact.upper()=="E"):
         sub_sub_keep_loop = False;
      if(hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences']=="yes"):
@@ -425,6 +443,24 @@ while(keep_loop):
            HockeyDivisionDPFN = get_user_input("Enter Hockey Division prefix: ");
            HockeyDivisionDSFN = get_user_input("Enter Hockey Division suffix: ");
           libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN);
+         if(submenuact.upper()=="2"):
+          divisionc = 0;
+          print("E: Back to Hockey Division Tool");
+          while(divisionc<len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist'])):
+           lshn = hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist'][divisionc];
+           print(str(divisionc)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['divisioninfo'][lshn]['fullname']);
+           divisionc = divisionc + 1;
+          HockeyDivisionPreDN = get_user_input("Enter Hockey Division number: ");
+          if(HockeyDivisionPreDN.upper()!="E" and not HockeyDivisionPreDN.isdigit()):
+           print("ERROR: Invalid Command");
+           HockeyDivisionPreDN = "E";
+          if(HockeyDivisionPreDN.upper()!="E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN)>6 or int(HockeyDivisionPreDN)<0)):
+           print("ERROR: Invalid Command");
+           HockeyDivisionPreDN = "E";
+          if(HockeyDivisionPreDN.upper()!="E" and int(HockeyDivisionPreDN)<len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']) and int(HockeyDivisionPreDN)>-1):
+           HockeyDivisionIntCN = int(HockeyDivisionPreDN);
+           HockeyDivisionDN = hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist'][HockeyDivisionIntCN];
+           hockeyarray = libhockeydata.RemoveHockeyDivisionFromArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN);
          if(submenuact.upper()=="E"):
           sub_sub_sub_keep_loop = False;
        if(HockeyConferencePreSN.upper()=="E"):
