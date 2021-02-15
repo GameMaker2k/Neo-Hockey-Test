@@ -27,7 +27,7 @@ except ImportError:
 
 testlxml = False;
 try:
- from lxmls import etree as cElementTree;
+ from lxml import etree as cElementTree;
  testlxml = True;
 except ImportError:
  try:
