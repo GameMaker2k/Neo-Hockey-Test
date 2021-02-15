@@ -85,7 +85,8 @@ if(premenuact=="2"):
   HockeyDatabaseFN = get_user_input("Enter Hockey Database File Name For Import: ");
  if(getargs.infile is not None):
   HockeyDatabaseFN = getargs.infile;
- ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
+ fileinfo = os.path.splitext(HockeyDatabaseFN);
+ ext = fileinfo[-1].lower();
  subfileinfo = None;
  subext = None;
  if(ext in extensionsc):
