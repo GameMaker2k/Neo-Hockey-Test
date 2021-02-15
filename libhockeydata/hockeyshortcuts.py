@@ -895,6 +895,8 @@ def MakeHockeySQLiteArrayFromHockeyData(informat="xml", **kwargs):
   return MakeHockeySQLiteArrayFromHockeyDatabase(**kwargs);
  elif(informat=="sql"):
   return MakeHockeySQLiteArrayFromHockeySQL(**kwargs);
+ elif(informat=="array"):
+  return MakeHockeySQLiteArrayFromHockeyArray(**kwargs);
  else:
   return False;
  return False;
