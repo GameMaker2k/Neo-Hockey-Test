@@ -161,6 +161,10 @@ if(getargs.export):
   print("ERROR: Invalid Command");
  sys.exit();
 
+if(premenuact=="1"):
+ print("Using Empty Database at Location: "+HockeyDatabaseFN);
+if(premenuact=="2"):
+ print("Using Populated Database at Location: "+HockeyDatabaseFN);
 keep_loop = True;
 while(keep_loop):
  menuact = get_user_input("E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ");
