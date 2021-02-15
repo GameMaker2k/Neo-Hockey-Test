@@ -834,7 +834,7 @@ def MakeHockeyDataFromHockeySQLiteArray(outformat="xml", **kwargs):
   return False;
  return False;
 
-def MakeHockeySQLiteArrayFromHockeyData(outformat="xml", **kwargs):
+def MakeHockeyDataFileFromHockeySQLiteArray(outformat="xml", **kwargs):
  outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**kwargs);
