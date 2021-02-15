@@ -720,16 +720,57 @@ def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbos
   return False;
  hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, True, False);
  hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
- if(not CheckHockeySQLiteArray(hockeyarray)):
-  return False;
  return hockeyarray;
 
 def MakeHockeySQLiteArrayFromHockeySQL(sqlfile, sqlisfile=True, verbose=True, jsonverbose=True):
  hockeydbin = MakeHockeyDatabaseFromHockeySQL(sqlfile, ":memory:", sqlisfile, False, True, False, False);
  hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
- if(not CheckHockeySQLiteArray(hockeyarray)):
-  return False;
  return hockeyarray;
+
+def MakeHockeyPythonFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonFromHockeyArray(hockeyarray, verbose, jsonverbose);
+ return pystring;
+
+def MakeHockeyPythonFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose);
+ return pystring;
+
+def MakeHockeyPythonAltFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, jsonverbose, verbosepy);
+ return pystring;
+
+def MakeHockeyPythonAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonAltFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose, verbosepy);
+ return pystring;
+
+def MakeHockeyPythonOOPFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonOOPFromHockeyArray(hockeyarray, verbose, jsonverbose);
+ return pystring;
+
+def MakeHockeyPythonOOPFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonOOPFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose);
+ return pystring;
+
+def MakeHockeyPythonOOPAltFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonOOPAltFromHockeyArray(hockeyarray, verbose, jsonverbose, verbosepy);
+ return pystring;
+
+def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True);
+ pystring = MakeHockeyPythonOOPAltFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose, verbosepy);
+ return pystring;
+
+def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnsql=False, returndb=False, verbose=True, jsonverbose=True):
+ sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile, False, False);
+ outhockeydb = MakeHockeyDatabaseFromHockeySQL(sqlstring, sdbfile, False, returnsql, returndb, verbose, jsonverbose);
+ return outhockeydb;
 
 def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
  informat = informat.lower();
@@ -836,7 +877,17 @@ def MakeHockeyDataFromHockeySQLiteArray(outformat="xml", **kwargs):
  elif(outformat=="pickle"):
   return MakeHockeyPickleFromHockeyArray(**kwargs);
  elif(outformat=="marshal"):
-  return MakeHockeyMarshalFromHockeyArray(**kwargs);
+  return MakeHockeyMarshalFromHockeyArray(**kwargs);\
+ elif(outformat=="database"):
+  return MakeHockeyDatabaseFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="py"):
+  return MakeHockeyPythonFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="pyalt"):
+  return MakeHockeyPythonAltFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="pyoop"):
+  return MakeHockeyPythonOOPFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="pyoopalt"):
+  return MakeHockeyPythonOOPAltFromHockeySQLiteArray(**kwargs);
  elif(outformat=="sql"):
   return MakeHockeySQLFromHockeySQLiteArray(**kwargs);
  elif(outformat=="array"):
@@ -857,6 +908,14 @@ def MakeHockeyDataFileFromHockeySQLiteArray(outformat="xml", **kwargs):
   return MakeHockeyPickleFileFromHockeyArray(**kwargs);
  elif(outformat=="marshal"):
   return MakeHockeyMarshalFileFromHockeyArray(**kwargs);
+ elif(outformat=="py"):
+  return MakeHockeyPythonFileFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="pyalt"):
+  return MakeHockeyPythonAltFileFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="pyoop"):
+  return MakeHockeyPythonOOPFileFromHockeySQLiteArray(**kwargs);
+ elif(outformat=="pyoopalt"):
+  return MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(**kwargs);
  elif(outformat=="sql"):
   return MakeHockeySQLFileFromHockeySQLiteArray(**kwargs);
  else:
