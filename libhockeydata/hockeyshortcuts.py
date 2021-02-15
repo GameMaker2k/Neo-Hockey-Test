@@ -767,10 +767,10 @@ def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=Non
  pystring = MakeHockeyPythonOOPAltFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose, verbosepy);
  return pystring;
 
-def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnxml=False, beautify=True, returndb=False, verbose=True, jsonverbose=True):
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile, False, False);
  outhockeydb = MakeHockeyDatabaseFromHockeySQL(sqlstring, sdbfile, False, False, returndb, False, False);
- xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, verbose=False, jsonverbose=True);
+ xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose=False, jsonverbose=True);
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
@@ -785,7 +785,7 @@ def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnx
   return True;
  return True;
 
-def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
@@ -794,7 +794,7 @@ def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, ou
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile, True, False, verbose);
+ xmlstring = MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile, True, beautify, False, verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
