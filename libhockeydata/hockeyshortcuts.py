@@ -767,10 +767,43 @@ def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=Non
  pystring = MakeHockeyPythonOOPAltFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose, verbosepy);
  return pystring;
 
-def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnsql=False, returndb=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnxml=False, returndb=False, verbose=True, jsonverbose=True):
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile, False, False);
- outhockeydb = MakeHockeyDatabaseFromHockeySQL(sqlstring, sdbfile, False, returnsql, returndb, verbose, jsonverbose);
- return outhockeydb;
+ outhockeydb = MakeHockeyDatabaseFromHockeySQL(sqlstring, sdbfile, False, False, returndb, False, False);
+ xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, verbose=False, jsonverbose=True);
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(xmlstring);
+ if(returndb and returnxml):
+  return [xmlstring, outhockeydb[0]];
+ if(returnxml and not returndb):
+  return [xmlstring];
+ if(not returnxml and returndb):
+  return [outhockeydb[0]];
+ if(not returnxml and not returndb):
+  return True;
+ return True;
+
+def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True, jsonverbose=True):
+ if(outxmlfile is None):
+  return False;
+ compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ fbasename = os.path.splitext(outxmlfile)[0];
+ fextname = os.path.splitext(outxmlfile)[1];
+ xmlfp = CompressOpenFile(outxmlfile);
+ xmlstring = MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile, True, False, verbose);
+ if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+  xmlstring = xmlstring.encode();
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
 
 def MakeHockeyArrayFromHockeyData(informat="xml", **kwargs):
  informat = informat.lower();
