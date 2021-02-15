@@ -27,7 +27,7 @@ except ImportError:
 
 testlxml = False;
 try:
- from lxml import etree as cElementTree;
+ from lxmls import etree as cElementTree;
  testlxml = True;
 except ImportError:
  try:
@@ -781,7 +781,10 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, 
  if(testlxml):
   xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True, pretty_print=True).decode("UTF-8");
  else:
-  xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True).decode("UTF-8");
+  try:
+   xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True).decode("UTF-8");
+  except TypeError:
+   xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("UTF-8");
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
@@ -2150,7 +2153,10 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
  if(testlxml):
   xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True, pretty_print=True).decode("UTF-8");
  else:
-  xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True).decode("UTF-8");
+  try:
+   xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True).decode("UTF-8");
+  except TypeError:
+   xmlstring = cElementTree.tostring(xmlstring_hockey, encoding="UTF-8", method="xml").decode("UTF-8");
  xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
  if(not CheckHockeySQLiteXML(xmlstring, False)):
   return False;
