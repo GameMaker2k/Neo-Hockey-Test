@@ -1133,10 +1133,13 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
     xmlstring = xmlstring+"  </games>\n";
  xmlstring = xmlstring+" </league>\n";
  xmlstring = xmlstring+"</hockey>\n";
+ xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
+ if(not CheckHockeyXML(xmlstring, False)):
+  return False;
  if(verbose and jsonverbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyXML(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+  VerbosePrintOut(xmlstring);
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
  if(returndb and returnxml):
