@@ -34,6 +34,8 @@ defoldsdbfile = "./data/hockeydata.db3";
 defsqlfile = "./data/hockeydata.sql";
 defjsonfile = "./data/hockeydata.json";
 extensions = ['.xml', '.json', '.sql', '.db3', '.py'];
+extensionsin = ['.xml', '.json', '.sql', '.db3'];
+extensionsc = ['.gz', '.bz2', '.lzma', '.xz'];
 filetypes = ['xml', 'json', 'sql', 'db3', 'py', 'pyalt'];
 
 def get_user_input(txt):
@@ -84,17 +86,27 @@ if(premenuact=="2"):
  if(getargs.infile is not None):
   HockeyDatabaseFN = getargs.infile;
  ext = os.path.splitext(HockeyDatabaseFN)[-1].lower();
- if(ext in extensions):
+ subfileinfo = None;
+ subext = None;
+ if(ext in extensionsc):
+  subfileinfo = os.path.splitext(fileinfo[0]);
+  subext = subfileinfo[1].lower();
+ else:
+  subfileinfo = None;
+  subext = None;
+ if(ext in extensionsin or subext in extensions):
   verbosein = True;
   if(getargs.export):
    verbosein = False;
-  if(ext==".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
+  if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(HockeyDatabaseFN) and libhockeydata.CheckHockeyXML(HockeyDatabaseFN)):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
+  if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(HockeyDatabaseFN) and libhockeydata.CheckHockeySQLiteXML(HockeyDatabaseFN)):
+   hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
-  elif(ext==".sql"):
+  elif(ext==".sql" or subext==".sql"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
-  elif(ext==".json"):
+  elif(ext==".json" or subext==".json"):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose);
   else:
    print("ERROR: Invalid Command");
