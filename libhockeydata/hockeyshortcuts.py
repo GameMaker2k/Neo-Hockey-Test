@@ -793,7 +793,7 @@ def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, ou
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile, True, beautify, False, verbose);
+ xmlstring = MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile, True, beautify, False, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
