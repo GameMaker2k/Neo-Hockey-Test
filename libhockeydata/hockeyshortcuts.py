@@ -847,7 +847,7 @@ def MakeHockeyArrayFromHockeyDataByList(informat="xml", *funcargs):
 def MakeHockeyArrayFromHockeyData(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
   return MakeHockeyArrayFromHockeyDataByList(*funcargs);
- elif(funcargs is not None and isinstance(funcargs, (dict)):
+ elif(funcargs is not None and isinstance(funcargs, (dict))):
   return MakeHockeyArrayFromHockeyDataByDict(**funcargs);
  else:
   return False;
@@ -916,7 +916,7 @@ def MakeHockeyDataFromHockeyArrayByList(outformat="xml", *funcargs):
 def MakeHockeyDataFromHockeyArray(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
   return MakeHockeyDataFromHockeyArrayByList(*funcargs);
- elif(funcargs is not None and isinstance(funcargs, (dict)):
+ elif(funcargs is not None and isinstance(funcargs, (dict))):
   return MakeHockeyDataFromHockeyArrayByDict(**funcargs);
  else:
   return False;
@@ -977,7 +977,7 @@ def MakeHockeyDataFileFromHockeyArrayByList(outformat="xml", *funcargs):
 def MakeHockeyDataFileFromHockeyArray(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
   return MakeHockeyDataFileFromHockeyArrayByList(*funcargs);
- elif(funcargs is not None and isinstance(funcargs, (dict)):
+ elif(funcargs is not None and isinstance(funcargs, (dict))):
   return MakeHockeyDataFileFromHockeyArrayByDict(**funcargs);
  else:
   return False;
@@ -1026,7 +1026,7 @@ def MakeHockeySQLiteArrayFromHockeyDataByList(informat="xml", *funcargs):
 def MakeHockeySQLiteArrayFromHockeyData(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
   return MakeHockeySQLiteArrayFromHockeyDataByList(*funcargs);
- elif(funcargs is not None and isinstance(funcargs, (dict)):
+ elif(funcargs is not None and isinstance(funcargs, (dict))):
   return MakeHockeySQLiteArrayFromHockeyDataByDict(**funcargs);
  else:
   return False;
@@ -1095,7 +1095,7 @@ def MakeHockeyDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
 def MakeHockeyDataFromHockeySQLiteArray(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
   return MakeHockeyDataFromHockeySQLiteArrayByList(*funcargs);
- elif(funcargs is not None and isinstance(funcargs, (dict)):
+ elif(funcargs is not None and isinstance(funcargs, (dict))):
   return MakeHockeyDataFromHockeySQLiteArrayByDict(**funcargs);
  else:
   return False;
@@ -1156,7 +1156,7 @@ def MakeHockeyDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
 def MakeHockeyDataFileFromHockeySQLiteArray(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
   return MakeHockeyDataFileFromHockeySQLiteArrayByList(*funcargs);
- elif(funcargs is not None and isinstance(funcargs, (dict)):
+ elif(funcargs is not None and isinstance(funcargs, (dict))):
   return MakeHockeyDataFileFromHockeySQLiteArrayByDict(**funcargs);
  else:
   return False;
