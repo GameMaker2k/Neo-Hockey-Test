@@ -1075,8 +1075,6 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   sdbfile = ":memory:";
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
- xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
- xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inchockeyarray['database']), quote=True)+"\">\n";
  leaguecount = 0;
  for hlkey in inchockeyarray['leaguelist']:
   if(leaguecount==0):
@@ -1092,48 +1090,32 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
    HockeyLeagueHasConferences = False;
   MakeHockeyLeague(sqldatacon, hlkey, inchockeyarray[hlkey]['leagueinfo']['fullname'], inchockeyarray[hlkey]['leagueinfo']['country'], inchockeyarray[hlkey]['leagueinfo']['fullcountry'], inchockeyarray[hlkey]['leagueinfo']['date'], inchockeyarray[hlkey]['leagueinfo']['playofffmt'], inchockeyarray[hlkey]['leagueinfo']['ordertype']);
-  xmlstring = xmlstring+" <league name=\""+EscapeXMLString(str(hlkey), quote=True)+"\" fullname=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['fullname']), quote=True)+"\" country=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['fullcountry']), quote=True)+"\" date=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['date']), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['playofffmt']), quote=True)+"\" ordertype=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['ordertype']), quote=True)+"\" conferences=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['conferences']), quote=True)+"\" divisions=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['divisions']), quote=True)+"\">\n";
   leaguecount = leaguecount + 1;
   conferencecount = 0;
   conferenceend = len(inchockeyarray[hlkey]['conferencelist']);
   for hckey in inchockeyarray[hlkey]['conferencelist']:
    MakeHockeyConference(sqldatacon, hlkey, hckey, inchockeyarray[hlkey][hckey]['conferenceinfo']['prefix'], inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix'], HockeyLeagueHasConferences);
-   xmlstring = xmlstring+"  <conference name=\""+EscapeXMLString(str(hckey), quote=True)+"\" prefix=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey]['conferenceinfo']['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']), quote=True)+"\">\n";
    for hdkey in inchockeyarray[hlkey][hckey]['divisionlist']:
     MakeHockeyDivision(sqldatacon, hlkey, hdkey, hckey, inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['prefix'], inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
-    xmlstring = xmlstring+"   <division name=\""+EscapeXMLString(str(hdkey), quote=True)+"\" prefix=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']), quote=True)+"\">\n";
     for htkey in inchockeyarray[hlkey][hckey][hdkey]['teamlist']:
      MakeHockeyTeam(sqldatacon, hlkey, str(inchockeyarray[hlkey]['leagueinfo']['date']), inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea'], htkey, inchockeyarray[hlkey][hckey]['conferenceinfo']['name'], inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['name'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix'], inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix'], HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
-     xmlstring = xmlstring+"    <team city=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']), quote=True)+"\" area=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']), quote=True)+"\" fullarea=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea']), quote=True)+"\" country=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']), quote=True)+"\" name=\""+EscapeXMLString(str(htkey), quote=True)+"\" arena=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']), quote=True)+"\" prefix=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']), quote=True)+"\" suffix=\""+EscapeXMLString(str(inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']), quote=True)+"\" />\n";
-    xmlstring = xmlstring+"   </division>\n";
-   xmlstring = xmlstring+"  </conference>\n";
    conferencecount = conferencecount + 1;
   if(conferencecount>=conferenceend):
    hasarenas = False;
    if(len(inchockeyarray[hlkey]['arenas'])>0):
     hasarenas = True;
-    xmlstring = xmlstring+"  <arenas>\n";
    for hakey in inchockeyarray[hlkey]['arenas']:
     if(hakey):
      hasarenas = True;
      MakeHockeyArena(sqldatacon, hlkey, hakey['city'], hakey['area'], hakey['country'], hakey['fullcountry'], hakey['fullarea'], hakey['name']);
-     xmlstring = xmlstring+"   <arena city=\""+EscapeXMLString(str(hakey['city']), quote=True)+"\" area=\""+EscapeXMLString(str(hakey['area']), quote=True)+"\" fullarea=\""+EscapeXMLString(str(hakey['fullarea']), quote=True)+"\" country=\""+EscapeXMLString(str(hakey['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(hakey['fullcountry']), quote=True)+"\" name=\""+EscapeXMLString(str(hakey['name']), quote=True)+"\" />\n";
-   if(hasarenas):
-    xmlstring = xmlstring+"  </arenas>\n";
    hasgames = False;
    if(len(inchockeyarray[hlkey]['games'])>0):
     hasgames = True;
-    xmlstring = xmlstring+"  <games>\n";
    for hgkey in inchockeyarray[hlkey]['games']:
     if(hgkey):
      hasgames = True;
      MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['time'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'], hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame']);
-     xmlstring = xmlstring+"   <game date=\""+EscapeXMLString(str(hgkey['date']), quote=True)+"\" time=\""+EscapeXMLString(str(hgkey['time']), quote=True)+"\" hometeam=\""+EscapeXMLString(str(hgkey['hometeam']), quote=True)+"\" awayteam=\""+EscapeXMLString(str(hgkey['awayteam']), quote=True)+"\" goals=\""+EscapeXMLString(str(hgkey['goals']), quote=True)+"\" sogs=\""+EscapeXMLString(str(hgkey['sogs']), quote=True)+"\" ppgs=\""+EscapeXMLString(str(hgkey['ppgs']), quote=True)+"\" shgs=\""+EscapeXMLString(str(hgkey['shgs']), quote=True)+"\" penalties=\""+EscapeXMLString(str(hgkey['penalties']), quote=True)+"\" pims=\""+EscapeXMLString(str(hgkey['pims']), quote=True)+"\" hits=\""+EscapeXMLString(str(hgkey['hits']), quote=True)+"\" takeaways=\""+EscapeXMLString(str(hgkey['takeaways']), quote=True)+"\" faceoffwins=\""+EscapeXMLString(str(hgkey['faceoffwins']), quote=True)+"\" atarena=\""+EscapeXMLString(str(hgkey['atarena']), quote=True)+"\" isplayoffgame=\""+EscapeXMLString(str(hgkey['isplayoffgame']), quote=True)+"\" />\n";
-   if(hasgames):
-    xmlstring = xmlstring+"  </games>\n";
- xmlstring = xmlstring+" </league>\n";
- xmlstring = xmlstring+"</hockey>\n";
- xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify);
+ xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, True, False, False);
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
  if(verbose and jsonverbose):
