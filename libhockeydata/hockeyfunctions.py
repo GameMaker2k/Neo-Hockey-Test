@@ -1680,7 +1680,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
   return False;
  if(sdbfile is None):
   sdbfile = ":memory:";
- sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, True, True, False, False)[0];
+ sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, False, True, False, False)[0];
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
