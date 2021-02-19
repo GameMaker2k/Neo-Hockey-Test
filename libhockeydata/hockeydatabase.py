@@ -1379,7 +1379,9 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
  "  FullCityNameAlt TEXT NOT NULL DEFAULT '',\n" + \
  "  TeamName TEXT NOT NULL DEFAULT '',\n" + \
  "  Conference TEXT NOT NULL DEFAULT '',\n" + \
+ "  ConferenceFullName TEXT NOT NULL DEFAULT '',\n" +
  "  Division TEXT NOT NULL DEFAULT '',\n" + \
+ "  DivisionFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueName TEXT NOT NULL DEFAULT '',\n" + \
  "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" + \
  "  ArenaName TEXT NOT NULL DEFAULT '',\n" + \
