@@ -1532,10 +1532,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  "  Streak TEXT NOT NULL DEFAULT 'None'\n" + \
  ");");
  return True;
- "  Conference TEXT NOT NULL DEFAULT '',\n" + \
- "  ConferenceFullName TEXT NOT NULL DEFAULT '',\n" +
- "  Division TEXT NOT NULL DEFAULT '',\n" + \
- "  DivisionFullName TEXT NOT NULL DEFAULT '',\n" + \
+
 ConferenceFullName, DivisionFullName, 
 def MakeHockeyPlayoffTeam(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
