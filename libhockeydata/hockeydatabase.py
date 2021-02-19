@@ -1533,7 +1533,6 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
  ");");
  return True;
 
-ConferenceFullName, DivisionFullName, 
 def MakeHockeyPlayoffTeam(sqldatacon, leaguename, playofffmt="Division=3,Conference=2"):
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
