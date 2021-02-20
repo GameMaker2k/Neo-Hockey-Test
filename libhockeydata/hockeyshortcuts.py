@@ -686,12 +686,12 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=
   return True;
  return True;
 
-def MakeHockeySQLFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
+def MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, True, False);
  sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, verbose, jsonverbose);
  return sqldump;
 
-def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, returnsql=False, verbose=True, jsonverbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(sqlfile is None):
@@ -804,6 +804,11 @@ def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, ou
   return True;
  return True;
 
+def MakeHockeySQLiteArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
+ inhockeyarray = MakeHockeyArrayFromOldHockeyDatabase(sdbfile, False, False);
+ hockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose, jsonverbose);
+ return hockeyarray;
+
 def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
  informat = informat.lower();
  if(informat=="xml"):
@@ -815,7 +820,9 @@ def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
  elif(informat=="marshal"):
   return MakeHockeyArrayFromHockeyPickle(**funcargs);
  elif(informat=="database"):
-  return MakeHockeyArrayFromHockeyPickle(**funcargs);
+  return MakeHockeyArrayFromHockeyDatabase(**funcargs);
+ elif(informat=="olddatabase"):
+  return MakeHockeyArrayFromOldHockeyDatabase(**funcargs);
  elif(informat=="sql"):
   return MakeHockeyArrayFromHockeySQL(**funcargs);
  elif(informat=="array"):
@@ -835,7 +842,9 @@ def MakeHockeyArrayFromHockeyDataByList(informat="xml", *funcargs):
  elif(informat=="marshal"):
   return MakeHockeyArrayFromHockeyPickle(*funcargs);
  elif(informat=="database"):
-  return MakeHockeyArrayFromHockeyPickle(*funcargs);
+  return MakeHockeyArrayFromHockeyDatabase(*funcargs);
+ elif(informat=="olddatabase"):
+  return MakeHockeyArrayFromOldHockeyDatabase(*funcargs);
  elif(informat=="sql"):
   return MakeHockeyArrayFromHockeySQL(*funcargs);
  elif(informat=="array"):
@@ -995,6 +1004,8 @@ def MakeHockeySQLiteArrayFromHockeyDataByDict(informat="xml", **funcargs):
   return MakeHockeyArrayFromHockeyPickle(**funcargs);
  elif(informat=="database"):
   return MakeHockeySQLiteArrayFromHockeyDatabase(**funcargs);
+ elif(informat=="olddatabase"):
+  return MakeHockeySQLiteArrayFromOldHockeyDatabase(**funcargs);
  elif(informat=="sql"):
   return MakeHockeySQLiteArrayFromHockeySQL(**funcargs);
  elif(informat=="array"):
@@ -1015,6 +1026,8 @@ def MakeHockeySQLiteArrayFromHockeyDataByList(informat="xml", *funcargs):
   return MakeHockeyArrayFromHockeyPickle(*funcargs);
  elif(informat=="database"):
   return MakeHockeySQLiteArrayFromHockeyDatabase(*funcargs);
+ elif(informat=="olddatabase"):
+  return MakeHockeySQLiteArrayFromOldHockeyDatabase(*funcargs);
  elif(informat=="sql"):
   return MakeHockeySQLiteArrayFromHockeySQL(*funcargs);
  elif(informat=="array"):
