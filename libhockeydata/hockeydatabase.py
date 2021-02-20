@@ -93,16 +93,23 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
  myvercheck = re.findall("([0-9\.]+)", myversion)[0];
  return version_check(myvercheck, newvercheck);
 
-if(sys.version[0]=="2"):
+teststringio = 0;
+try:
+ from io import BytesIO;
+ from io import StringIO;
+ teststringio = 3;
+except ImportError:
  try:
+  from cStringIO import StringIO as BytesIO;
   from cStringIO import StringIO;
+  teststringio = 1;
  except ImportError:
-  from StringIO import StringIO;
- import urllib2, urlparse;
-if(sys.version[0]>="3"):
- from io import StringIO, BytesIO;
- import urllib.request as urllib2;
- import urllib.parse as urlparse;
+  try:
+   from StringIO import StringIO as BytesIO;
+   from StringIO import StringIO;
+   teststringio = 2;
+  except ImportError:
+   teststringio = 0;
 from xml.sax.saxutils import XMLGenerator;
 
 try:
@@ -112,9 +119,8 @@ except NameError:
 
 baseint = [];
 try:
- long;
- baseint.append(int);
  baseint.append(long);
+ baseint.insert(0, int);
 except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
@@ -161,9 +167,9 @@ else:
 try:
  from xml.sax.saxutils import xml_escape;
 except ImportError:
- if(sys.version[0]=="2"):
+ try:
   from cgi import escape as html_escape;
- if(sys.version[0]>="3"):
+ except ImportError:
   from html import escape as html_escape;
 
 def check_if_string(strtext):
