@@ -799,10 +799,10 @@ def CheckHockeySQLiteArray(hockeyarray):
  table_list = ['HockeyLeagues'];
  leaguelist = [];
  for leagueinfo_tmp in hockeyarray['HockeyLeagues']['values']:
+  if(leagueinfo_tmp['LeagueName'] in leaguelist):
+   return False;
+  leaguelist.append(leagueinfo_tmp['LeagueName']);
   for cur_tab in all_table_list:
-   if(leagueinfo_tmp['LeagueName'] in leaguelist):
-    return False;
-   leaguelist.append(leagueinfo_tmp['LeagueName']);
    table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
  for get_cur_tab in table_list:
   if get_cur_tab not in hockeyarray.keys():
