@@ -25,6 +25,13 @@ try:
 except ImportError:
  import json;
 
+testparamiko = False;
+try:
+ import paramiko;
+ testparamiko = True;
+except ImportError:
+ testparamiko = False;
+
 testlxml = False;
 try:
  from lxml import etree as cElementTree;
@@ -194,12 +201,54 @@ def download_file_from_ftp_string(url):
  ftpfile = download_file_from_ftp_file(url);
  return ftpfile.read();
 
+if(testparamiko):
+ def download_file_from_sftp_file(url):
+  urlparts = urlparse.urlparse(url);
+  file_name = os.path.basename(urlparts.path);
+  file_dir = os.path.dirname(urlparts.path);
+  if(urlparts.username!=None):
+   sftp_username = urlparts.username;
+  else:
+   sftp_username = "anonymous";
+  if(urlparts.password!=None):
+   sftp_password = urlparts.password;
+  elif(urlparts.password==None and urlparts.username=="anonymous"):
+   sftp_password = "anonymous";
+  else:
+   sftp_password = "";
+  if(urlparts.scheme!="sftp"):
+   return False;
+  ssh = paramiko.SSHClient()
+  ssh.load_system_host_keys()
+  ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+  ssh.connect(urlparts.hostname, port=urlparts.port, username=urlparts.username, password=urlparts.password)
+  sftp = ssh.open_sftp()
+  sftpfile = BytesIO();
+  sftp.getfo(urlparts.path, sftpfile);
+  sftp.close();
+  sftpfile.seek(0, 0);
+  return sftpfile;
+else:
+ def download_file_from_sftp_file(url):
+  return False;
+
+if(testparamiko):
+ def download_file_from_sftp_string(url):
+  sftpfile = download_file_from_sftp_file(url);
+  return sftpfile.read();
+else:
+ def download_file_from_ftp_string(url):
+  return False;
+
 def UncompressFileURL(inurl, inheaders, incookiejar):
  if(re.findall("^(http|https)\:\/\/", inurl)):
   inbfile = BytesIO(download_from_url(inurl, inheaders, incookiejar)['Content']);
   inufile = UncompressFileAlt(inbfile);
  elif(re.findall("^(ftp|ftps)\:\/\/", inurl)):
   inbfile = BytesIO(download_file_from_ftp_string(inurl));
+  inufile = UncompressFileAlt(inbfile);
+ elif(re.findall("^(sftp)\:\/\/", inurl) and testparamiko):
+  inbfile = BytesIO(download_file_from_sftp_string(inurl));
   inufile = UncompressFileAlt(inbfile);
  else:
   return False;
