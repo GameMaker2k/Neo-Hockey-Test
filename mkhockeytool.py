@@ -65,10 +65,10 @@ if(not getargs.empty and getargs.infile is None):
  premenuact = get_user_input("E: Exit Hockey Tool\n1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ");
  if(premenuact.upper()!="E" and not premenuact.isdigit()):
   print("ERROR: Invalid Command");
-  premenuact = "1";
+  premenuact = "E";
  if(premenuact.upper()!="E" and premenuact.isdigit() and (int(premenuact)>2 or int(premenuact)<1)):
   print("ERROR: Invalid Command");
-  premenuact = "1";
+  premenuact = "E";
  if(premenuact.upper()=="E"):
   sys.exit();
 if(getargs.empty and getargs.infile is None):
