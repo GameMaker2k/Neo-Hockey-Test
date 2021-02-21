@@ -2087,7 +2087,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
+ xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
