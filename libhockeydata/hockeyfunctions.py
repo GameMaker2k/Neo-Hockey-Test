@@ -226,7 +226,6 @@ if(testparamiko):
   ssh = paramiko.SSHClient();
   ssh.load_system_host_keys();
   ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy());
-  print(urlparts.username, urlparts.password);
   ssh.connect(urlparts.hostname, port=sftp_port, username=urlparts.username, password=urlparts.password);
   sftp = ssh.open_sftp();
   sftpfile = BytesIO();
