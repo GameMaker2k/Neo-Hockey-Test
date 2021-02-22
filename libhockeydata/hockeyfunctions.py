@@ -1128,6 +1128,10 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
   sdbfile = ":memory:";
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
  leaguecount = 0;
  for hlkey in inchockeyarray['leaguelist']:
   if(leaguecount==0):
@@ -1518,6 +1522,10 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
  leaguecur = sqldatacon[1].cursor();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
@@ -1622,6 +1630,10 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  sqldatacon = MakeHockeyDatabase(":memory:");
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
  try:
   sqldatacon[0].executescript(sqlstring);
  except ValueError:
@@ -1718,6 +1730,10 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
  sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, False, True, False, False)[0];
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
@@ -1802,6 +1818,10 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
    sqldatacon = tuple(sdbfile);
   else:
    return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
  sqldump = "-- "+__program_name__+" SQL Dumper\n";
  sqldump = sqldump+"-- version "+__version__+"\n";
  sqldump = sqldump+"-- "+__project_url__+"\n";
@@ -1892,6 +1912,10 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
   return False;
  leaguecur = sqldatacon[1].cursor();
  gettablecur = sqldatacon[1].cursor();
@@ -2021,6 +2045,10 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=T
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
   return False;
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
