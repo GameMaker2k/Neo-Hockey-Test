@@ -208,7 +208,7 @@ if(testparamiko):
   file_dir = os.path.dirname(urlparts.path);
   sftp_port = urlparts.port;
   if(urlparts.port is None):
-   sftp_port = 21;
+   sftp_port = 22;
   else:
    sftp_port = urlparts.port;
   if(urlparts.username is not None):
