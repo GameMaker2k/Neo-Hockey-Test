@@ -33,11 +33,11 @@ getactdesc = ["convert hockey sqlite database to hockey xml file", "convert old 
 gethelplist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean", "help", "version", "mksymlinks"];
 getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean"];
 defaction = getactlist[14];
-defxmlfile = "./data/hockeydata.xml";
-defsdbfile = "./data/hockeydata.db3";
-defoldsdbfile = "./data/hockeydata.db3";
-defsqlfile = "./data/hockeydata.sql";
-defjsonfile = "./data/hockeydata.json";
+defxmlfile = libhockeydata.defaultxmlfile;
+defsdbfile = libhockeydata.defaultsdbfile;
+defoldsdbfile = libhockeydata.defaultoldsdbfile;
+defsqlfile = libhockeydata.defaultsqlfile;
+defjsonfile = libhockeydata.defaultjsonfile;
 getactstr = "Actions: ";
 getverstr = __project__+" "+__version__;
 for getactsublist, getactsubdesc in zip(gethelplist, getactdesc):
