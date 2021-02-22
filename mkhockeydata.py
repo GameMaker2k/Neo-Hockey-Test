@@ -36,6 +36,7 @@ defaction = getactlist[14];
 defxmlfile = libhockeydata.defaultxmlfile;
 defsdbfile = libhockeydata.defaultsdbfile;
 defoldsdbfile = libhockeydata.defaultoldsdbfile;
+defpyfile = libhockeydata.defaultpyfile;
 defsqlfile = libhockeydata.defaultsqlfile;
 defjsonfile = libhockeydata.defaultjsonfile;
 getactstr = "Actions: ";
