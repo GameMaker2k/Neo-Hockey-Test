@@ -27,6 +27,8 @@ enable_supersqlite = False;
 defaultxmlfile = "./data/hockeydata.xml";
 defaultsdbfile = "./data/hockeydata.db3";
 defaultoldsdbfile = "./data/hockeydata.db3";
+defaultpyfile = "./data/hockeydata.py";
+defaultpythonfile = defaultpyfile;
 defaultsqlfile = "./data/hockeydata.sql";
 defaultjsonfile = "./data/hockeydata.json";
 
