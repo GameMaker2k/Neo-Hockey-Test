@@ -24,6 +24,11 @@ from .versioninfo import __program_name__, __program_alt_name__, __project__, __
 enable_oldsqlite = False;
 enable_apsw = False;
 enable_supersqlite = False;
+defaultxmlfile = "./data/hockeydata.xml";
+defaultsdbfile = "./data/hockeydata.db3";
+defaultoldsdbfile = "./data/hockeydata.db3";
+defaultsqlfile = "./data/hockeydata.sql";
+defaultjsonfile = "./data/hockeydata.json";
 
 # From: https://stackoverflow.com/a/28568003
 # By Phaxmohdem
