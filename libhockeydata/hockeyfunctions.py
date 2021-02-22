@@ -256,7 +256,7 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
   inurlcheck = urlparse(inurl);
   if(inurlcheck.username is not None or inurlcheck.password is not None):
    inurlencode = b64encode(str(inurlcheck.username+":"+inurlcheck.password).encode()).decode("UTF-8");
-   inheadersc.update('Authorization': "Basic "+inurlencode);
+   inheadersc.update( { 'Authorization': "Basic "+inurlencode } );
    inurlfix = list(urlparse(inurl));
    inurlfix[1] = inurlcheck.hostname;
    inurl = urlunparse(inurlfix);
