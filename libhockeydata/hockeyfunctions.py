@@ -728,7 +728,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jso
  if "database" in inchockeyarray.keys():
   xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inchockeyarray['database']), quote=True)+"\">\n";
  if "database" not in inchockeyarray.keys():
-  xmlstring = xmlstring+"<hockey database=\"./hockeydatabase.db3\">\n";
+  xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(defaultsdbfile))+"\">\n";
  for hlkey in inchockeyarray['leaguelist']:
   xmlstring = xmlstring+" <league name=\""+EscapeXMLString(str(hlkey), quote=True)+"\" fullname=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['fullname']), quote=True)+"\" country=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['country']), quote=True)+"\" fullcountry=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['fullcountry']), quote=True)+"\" date=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['date']), quote=True)+"\" playofffmt=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['playofffmt']), quote=True)+"\" ordertype=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['ordertype']), quote=True)+"\" conferences=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['conferences']), quote=True)+"\" divisions=\""+EscapeXMLString(str(inchockeyarray[hlkey]['leagueinfo']['divisions']), quote=True)+"\">\n";
   conferencecount = 0;
@@ -801,7 +801,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, 
  if "database" in inchockeyarray.keys():
   xmlstring_hockey = cElementTree.Element("hockey", { 'database': str(inchockeyarray['database']) } );
  if "database" not in inchockeyarray.keys():
-  xmlstring_hockey = cElementTree.Element("hockey", { 'database': "./hockeydatabase.db3" } );
+  xmlstring_hockey = cElementTree.Element("hockey", { 'database': str(defaultsdbfile) } );
  for hlkey in inchockeyarray['leaguelist']:
   xmlstring_league = cElementTree.SubElement(xmlstring_hockey, "league", { 'name': str(hlkey), 'fullname': str(inchockeyarray[hlkey]['leagueinfo']['fullname']), 'country': str(inchockeyarray[hlkey]['leagueinfo']['country']), 'fullcountry': str(inchockeyarray[hlkey]['leagueinfo']['fullcountry']), 'date': str(inchockeyarray[hlkey]['leagueinfo']['date']), 'playofffmt': str(inchockeyarray[hlkey]['leagueinfo']['playofffmt']), 'ordertype': str(inchockeyarray[hlkey]['leagueinfo']['ordertype']), 'conferences': str(inchockeyarray[hlkey]['leagueinfo']['conferences']), 'divisions': str(inchockeyarray[hlkey]['leagueinfo']['divisions']) } );
   conferencecount = 0;
@@ -2088,7 +2088,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
  if "database" in inchockeyarray.keys():
   xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inchockeyarray['database']), quote=True)+"\">\n";
  if "database" not in inchockeyarray.keys():
-  xmlstring = xmlstring+"<hockeydb database=\"./hockeydatabase.db3\">\n";
+  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(defaultsdbfile))+"\">\n";
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
@@ -2159,7 +2159,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
  if "database" in inchockeyarray.keys():
   xmlstring_hockeydb = cElementTree.Element("hockeydb", { 'database': str(inchockeyarray['database']) } );
  if "database" not in inchockeyarray.keys():
-  xmlstring_hockeydb = cElementTree.Element("hockeydb", { 'database': "./hockeydatabase.db3" } );
+  xmlstring_hockeydb = cElementTree.Element("hockeydb", { 'database': str(defaultsdbfile) } );
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
