@@ -19,6 +19,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re, time, pickle, marshal, platform, binascii, xml.dom.minidom;
 from ftplib import FTP, FTP_TLS;
+from base64 import b64encode;
 
 try:
  import simplejson as json;
@@ -45,9 +46,9 @@ except ImportError:
   testlxml = False;
 
 try:
- from urlparse import urlparse;
+ from urlparse import urlparse, urlunparse;
 except ImportError:
- from urllib.parse import urlparse;
+ from urllib.parse import urlparse, urlunparse;
 
 from .hockeydatabase import *;
 from .hockeydwnload import *;
@@ -250,8 +251,16 @@ else:
   return False;
 
 def UncompressFileURL(inurl, inheaders, incookiejar):
+ inheadersc = inheaders.copy();
  if(re.findall("^(http|https)\:\/\/", inurl)):
-  inbfile = BytesIO(download_from_url(inurl, inheaders, incookiejar)['Content']);
+  inurlcheck = urlparse(inurl);
+  if(inurlcheck.username not None or inurlcheck.password not None):
+   inurlencode = b64encode(str(inurlcheck.username+":"+inurlcheck.password).encode()).decode("UTF-8");
+   inheadersc.update('Authorization': "Basic "+inurlencode);
+   inurlfix = list(urlparse(inurl));
+   inurlfix[1] = inurlcheck.hostname;
+   inurl = urlunparse(inurlfix);
+  inbfile = BytesIO(download_from_url(inurl, inheadersc, incookiejar)['Content']);
   inufile = UncompressFileAlt(inbfile);
  elif(re.findall("^(ftp|ftps)\:\/\/", inurl)):
   inbfile = BytesIO(download_file_from_ftp_string(inurl));
