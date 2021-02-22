@@ -231,6 +231,7 @@ if(testparamiko):
   sftpfile = BytesIO();
   sftp.getfo(urlparts.path, sftpfile);
   sftp.close();
+  ssh.close();
   sftpfile.seek(0, 0);
   return sftpfile;
 else:
