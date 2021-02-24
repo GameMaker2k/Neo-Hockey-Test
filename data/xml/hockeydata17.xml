@@ -3,45 +3,45 @@
  <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="20171004" playofffmt="Division=3,Conference=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="Atlantic" prefix="" suffix="Division">
-    <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" />
-    <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Sabres" arena="KeyBank Center" prefix="Buffalo" suffix="" />
-    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Red Wings" arena="Little Caesars Arena" prefix="Detroit" suffix="" />
-    <team city="Sunrise" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Panthers" arena="BB&amp;T Center" prefix="Florida" suffix="" />
-    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Bell Centre" prefix="Montreal" suffix="" />
-    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Ottawa" suffix="" />
-    <team city="Tampa Bay" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Lightning" arena="Amalie Arena" prefix="Tampa Bay" suffix="" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Air Canada Centre" prefix="Toronto" suffix="" />
+    <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" affiliates="" />
+    <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Sabres" arena="KeyBank Center" prefix="Buffalo" suffix="" affiliates="" />
+    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Red Wings" arena="Little Caesars Arena" prefix="Detroit" suffix="" affiliates="" />
+    <team city="Sunrise" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Panthers" arena="BB&amp;T Center" prefix="Florida" suffix="" affiliates="" />
+    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Bell Centre" prefix="Montreal" suffix="" affiliates="" />
+    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Ottawa" suffix="" affiliates="" />
+    <team city="Tampa Bay" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Lightning" arena="Amalie Arena" prefix="Tampa Bay" suffix="" affiliates="" />
+    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Air Canada Centre" prefix="Toronto" suffix="" affiliates="" />
    </division>
    <division name="Metropolitan" prefix="" suffix="Division">
-    <team city="Carolina" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Hurricanes" arena="PNC Arena" prefix="Carolina" suffix="" />
-    <team city="Columbus" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Blue Jackets" arena="Nationwide Arena" prefix="Columbus" suffix="" />
-    <team city="New Jersey" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Prudential Center" prefix="New Jersey" suffix="" />
-    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Islanders" arena="Barclays Center" prefix="New York" suffix="" />
-    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" />
-    <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Flyers" arena="Wells Fargo Center" prefix="Philadelphia" suffix="" />
-    <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="PPG Paints Arena" prefix="Pittsburgh" suffix="" />
-    <team city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Capitals" arena="Capital One Arena" prefix="Washington" suffix="" />
+    <team city="Carolina" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Hurricanes" arena="PNC Arena" prefix="Carolina" suffix="" affiliates="" />
+    <team city="Columbus" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Blue Jackets" arena="Nationwide Arena" prefix="Columbus" suffix="" affiliates="" />
+    <team city="New Jersey" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Prudential Center" prefix="New Jersey" suffix="" affiliates="" />
+    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Islanders" arena="Barclays Center" prefix="New York" suffix="" affiliates="" />
+    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" affiliates="" />
+    <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Flyers" arena="Wells Fargo Center" prefix="Philadelphia" suffix="" affiliates="" />
+    <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="PPG Paints Arena" prefix="Pittsburgh" suffix="" affiliates="" />
+    <team city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Capitals" arena="Capital One Arena" prefix="Washington" suffix="" affiliates="" />
    </division>
   </conference>
   <conference name="Western" prefix="" suffix="Conference">
    <division name="Central" prefix="" suffix="Division">
-    <team city="Chicago" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Blackhawks" arena="United Center" prefix="Chicago" suffix="" />
-    <team city="Denver" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Avalanche" arena="Pepsi Center" prefix="Colorado" suffix="" />
-    <team city="Dallas" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="American Airlines Center" prefix="Dallas" suffix="" />
-    <team city="St. Paul" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Wild" arena="Xcel Energy Center" prefix="Minnesota" suffix="" />
-    <team city="Nashville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Predators" arena="Bridgestone Arena" prefix="Nashville" suffix="" />
-    <team city="St. Louis" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Blues" arena="Scottrade Center" prefix="St. Louis" suffix="" />
-    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Jets" arena="Bell MTS Place" prefix="Winnipeg" suffix="" />
+    <team city="Chicago" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Blackhawks" arena="United Center" prefix="Chicago" suffix="" affiliates="" />
+    <team city="Denver" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Avalanche" arena="Pepsi Center" prefix="Colorado" suffix="" affiliates="" />
+    <team city="Dallas" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="American Airlines Center" prefix="Dallas" suffix="" affiliates="" />
+    <team city="St. Paul" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Wild" arena="Xcel Energy Center" prefix="Minnesota" suffix="" affiliates="" />
+    <team city="Nashville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Predators" arena="Bridgestone Arena" prefix="Nashville" suffix="" affiliates="" />
+    <team city="St. Louis" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Blues" arena="Scottrade Center" prefix="St. Louis" suffix="" affiliates="" />
+    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Jets" arena="Bell MTS Place" prefix="Winnipeg" suffix="" affiliates="" />
    </division>
    <division name="Pacific" prefix="" suffix="Division">
-    <team city="Anaheim" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Ducks" arena="Honda Center" prefix="Anaheim" suffix="" />
-    <team city="Glendale" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Coyotes" arena="Gila River Arena" prefix="Arizona" suffix="" />
-    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Flames" arena="Scotiabank Saddledome" prefix="Calgary" suffix="" />
-    <team city="Edmonton" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Oilers" arena="Rogers Place" prefix="Edmonton" suffix="" />
-    <team city="Los Angeles" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Kings" arena="Staples Center" prefix="Los Angeles" suffix="" />
-    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Sharks" arena="SAP Center" prefix="San Jose" suffix="" />
-    <team city="Vancouver" area="BC" fullarea="British Columbia" country="CAN" fullcountry="Canada" name="Canucks" arena="Rogers Arena" prefix="Vancouver" suffix="" />
-    <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" suffix="" />
+    <team city="Anaheim" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Ducks" arena="Honda Center" prefix="Anaheim" suffix="" affiliates="" />
+    <team city="Glendale" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Coyotes" arena="Gila River Arena" prefix="Arizona" suffix="" affiliates="" />
+    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Flames" arena="Scotiabank Saddledome" prefix="Calgary" suffix="" affiliates="" />
+    <team city="Edmonton" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Oilers" arena="Rogers Place" prefix="Edmonton" suffix="" affiliates="" />
+    <team city="Los Angeles" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Kings" arena="Staples Center" prefix="Los Angeles" suffix="" affiliates="" />
+    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Sharks" arena="SAP Center" prefix="San Jose" suffix="" affiliates="" />
+    <team city="Vancouver" area="BC" fullarea="British Columbia" country="CAN" fullcountry="Canada" name="Canucks" arena="Rogers Arena" prefix="Vancouver" suffix="" affiliates="" />
+    <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" suffix="" affiliates="" />
    </division>
   </conference>
   <arenas>
@@ -54,44 +54,44 @@
  <league name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States" date="20171006" playofffmt="Division=4" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="Atlantic" prefix="" suffix="Division">
-    <team city="Bridgeport" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Sound Tigers" arena="Webster Bank Arena" prefix="Bridgeport" suffix="" />
-    <team city="Charlotte" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Checkers" arena="Bojangles' Coliseum" prefix="Charlotte" suffix="" />
-    <team city="Hartford" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Wolf Pack" arena="XL Center" prefix="Hartford" suffix="" />
-    <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" />
-    <team city="Allentown" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Phantoms" arena="PPL Center" prefix="Lehigh Valley" suffix="" />
-    <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Bruins" arena="Dunkin' Donuts Center" prefix="Providence" suffix="" />
-    <team city="Springfield" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Thunderbirds" arena="MassMutual Center" prefix="Springfield" suffix="" />
-    <team city="Wilkes-Barre" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="Mohegan Sun Arena" prefix="Wilkes-Barre/Scranton" suffix="" />
+    <team city="Bridgeport" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Sound Tigers" arena="Webster Bank Arena" prefix="Bridgeport" suffix="" affiliates="" />
+    <team city="Charlotte" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Checkers" arena="Bojangles' Coliseum" prefix="Charlotte" suffix="" affiliates="" />
+    <team city="Hartford" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Wolf Pack" arena="XL Center" prefix="Hartford" suffix="" affiliates="" />
+    <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" affiliates="" />
+    <team city="Allentown" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Phantoms" arena="PPL Center" prefix="Lehigh Valley" suffix="" affiliates="" />
+    <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Bruins" arena="Dunkin' Donuts Center" prefix="Providence" suffix="" affiliates="" />
+    <team city="Springfield" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Thunderbirds" arena="MassMutual Center" prefix="Springfield" suffix="" affiliates="" />
+    <team city="Wilkes-Barre" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="Mohegan Sun Arena" prefix="Wilkes-Barre/Scranton" suffix="" affiliates="" />
    </division>
    <division name="North" prefix="" suffix="Division">
-    <team city="Belleville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Yardmen Arena" prefix="Belleville" suffix="" />
-    <team city="Binghamton" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Devils" arena="Veterans Memorial Arena" prefix="Binghamton" suffix="" />
-    <team city="Laval" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Rocket" arena="Place Bell" prefix="Laval" suffix="" />
-    <team city="Rochester" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Americans" arena="Blue Cross Arena" prefix="Rochester" suffix="" />
-    <team city="Syracuse" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Crunch" arena="Oncenter War Memorial Arena" prefix="Syracuse" suffix="" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Marlies" arena="Ricoh Coliseum" prefix="Toronto" suffix="" />
-    <team city="Utica" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Comets" arena="Adirondack Bank Center" prefix="Utica" suffix="" />
+    <team city="Belleville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Yardmen Arena" prefix="Belleville" suffix="" affiliates="" />
+    <team city="Binghamton" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Devils" arena="Veterans Memorial Arena" prefix="Binghamton" suffix="" affiliates="" />
+    <team city="Laval" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Rocket" arena="Place Bell" prefix="Laval" suffix="" affiliates="" />
+    <team city="Rochester" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Americans" arena="Blue Cross Arena" prefix="Rochester" suffix="" affiliates="" />
+    <team city="Syracuse" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Crunch" arena="Oncenter War Memorial Arena" prefix="Syracuse" suffix="" affiliates="" />
+    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Marlies" arena="Ricoh Coliseum" prefix="Toronto" suffix="" affiliates="" />
+    <team city="Utica" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Comets" arena="Adirondack Bank Center" prefix="Utica" suffix="" affiliates="" />
    </division>
   </conference>
   <conference name="Western" prefix="" suffix="Conference">
    <division name="Central" prefix="" suffix="Division">
-    <team city="Rosemont" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Wolves" arena="Allstate Arena" prefix="Chicago" suffix="" />
-    <team city="Cleveland" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Monsters" arena="Quicken Loans Arena" prefix="Lake Erie" suffix="" />
-    <team city="Grand Rapids" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Griffins" arena="Van Andel Arena" prefix="Grand Rapids" suffix="" />
-    <team city="Des Moines" area="IA" fullarea="Iowa" country="USA" fullcountry="United States" name="Wild" arena="Wells Fargo Arena" prefix="Iowa" suffix="" />
-    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Moose" arena="Bell MTS Place" prefix="Manitoba" suffix="" />
-    <team city="Milwaukee" area="WI" fullarea="Wisconsin" country="USA" fullcountry="United States" name="Admirals" arena="UW-Milwaukee Panther Arena" prefix="Milwaukee" suffix="" />
-    <team city="Rockford" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="IceHogs" arena="BMO Harris Bank Center" prefix="Rockford" suffix="" />
+    <team city="Rosemont" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Wolves" arena="Allstate Arena" prefix="Chicago" suffix="" affiliates="" />
+    <team city="Cleveland" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Monsters" arena="Quicken Loans Arena" prefix="Lake Erie" suffix="" affiliates="" />
+    <team city="Grand Rapids" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Griffins" arena="Van Andel Arena" prefix="Grand Rapids" suffix="" affiliates="" />
+    <team city="Des Moines" area="IA" fullarea="Iowa" country="USA" fullcountry="United States" name="Wild" arena="Wells Fargo Arena" prefix="Iowa" suffix="" affiliates="" />
+    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Moose" arena="Bell MTS Place" prefix="Manitoba" suffix="" affiliates="" />
+    <team city="Milwaukee" area="WI" fullarea="Wisconsin" country="USA" fullcountry="United States" name="Admirals" arena="UW-Milwaukee Panther Arena" prefix="Milwaukee" suffix="" affiliates="" />
+    <team city="Rockford" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="IceHogs" arena="BMO Harris Bank Center" prefix="Rockford" suffix="" affiliates="" />
    </division>
    <division name="Pacific" prefix="" suffix="Division">
-    <team city="Bakersfield" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Condors" arena="Rabobank Arena" prefix="Bakersfield" suffix="" />
-    <team city="Ontario" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Reign" arena="Citizens Business Bank Arena" prefix="Ontario" suffix="" />
-    <team city="San Antonio" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Rampage" arena="AT&amp;T Center" prefix="San Antonio" suffix="" />
-    <team city="San Diego" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Valley View Casino Center" prefix="San Diego" suffix="" />
-    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" suffix="" />
-    <team city="Stockton" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Heat" arena="Stockton Arena" prefix="Stockton" suffix="" />
-    <team city="Cedar Park" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="H-E-B Center" prefix="Texas" suffix="" />
-    <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" suffix="" />
+    <team city="Bakersfield" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Condors" arena="Rabobank Arena" prefix="Bakersfield" suffix="" affiliates="" />
+    <team city="Ontario" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Reign" arena="Citizens Business Bank Arena" prefix="Ontario" suffix="" affiliates="" />
+    <team city="San Antonio" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Rampage" arena="AT&amp;T Center" prefix="San Antonio" suffix="" affiliates="" />
+    <team city="San Diego" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Valley View Casino Center" prefix="San Diego" suffix="" affiliates="" />
+    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" suffix="" affiliates="" />
+    <team city="Stockton" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Heat" arena="Stockton Arena" prefix="Stockton" suffix="" affiliates="" />
+    <team city="Cedar Park" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Stars" arena="H-E-B Center" prefix="Texas" suffix="" affiliates="" />
+    <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" suffix="" affiliates="" />
    </division>
   </conference>
   <arenas>
@@ -101,110 +101,110 @@
  <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States" date="20171013" playofffmt="Division=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="North" prefix="" suffix="Division">
-    <team city="Glens Falls" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Thunder" arena="Cool Insuring Arena" prefix="Adirondack" suffix="" />
-    <team city="Brampton" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Beast" arena="Powerade Centre" prefix="Brampton" suffix="" />
-    <team city="Manchester" area="NH" fullarea="New Hampshire" country="USA" fullcountry="United States" name="Monarchs" arena="SNHU Arena" prefix="Manchester" suffix="" />
-    <team city="Reading" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Royals" arena="Santander Arena" prefix="Reading" suffix="" />
-    <team city="Wheeling" area="WV" fullarea="West Virginia" country="USA" fullcountry="United States" name="Nailers" arena="WesBanco Arena" prefix="Wheeling" suffix="" />
-    <team city="Worcester" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Railers" arena="DCU Center" prefix="Worcester" suffix="" />
+    <team city="Glens Falls" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Thunder" arena="Cool Insuring Arena" prefix="Adirondack" suffix="" affiliates="" />
+    <team city="Brampton" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Beast" arena="Powerade Centre" prefix="Brampton" suffix="" affiliates="" />
+    <team city="Manchester" area="NH" fullarea="New Hampshire" country="USA" fullcountry="United States" name="Monarchs" arena="SNHU Arena" prefix="Manchester" suffix="" affiliates="" />
+    <team city="Reading" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Royals" arena="Santander Arena" prefix="Reading" suffix="" affiliates="" />
+    <team city="Wheeling" area="WV" fullarea="West Virginia" country="USA" fullcountry="United States" name="Nailers" arena="WesBanco Arena" prefix="Wheeling" suffix="" affiliates="" />
+    <team city="Worcester" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Railers" arena="DCU Center" prefix="Worcester" suffix="" affiliates="" />
    </division>
    <division name="South" prefix="" suffix="Division">
-    <team city="Duluth" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Gladiators" arena="Infinite Energy Arena" prefix="Atlanta" suffix="" />
-    <team city="Estero" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Everblades" arena="Germain Arena" prefix="Florida" suffix="" />
-    <team city="Greenville" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Swamp Rabbits" arena="Bon Secours Wellness Arena" prefix="Greenville" suffix="" />
-    <team city="Jacksonville" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Icemen" arena="Jacksonville Veterans Memorial Arena" prefix="Jacksonville" suffix="" />
-    <team city="Norfolk" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Admirals" arena="Norfolk Scope" prefix="Norfolk" suffix="" />
-    <team city="Orlando" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Solar Bears" arena="Amway Center" prefix="Orlando" suffix="" />
-    <team city="North Charleston" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Stingrays" arena="North Charleston Coliseum" prefix="South Carolina" suffix="" />
+    <team city="Duluth" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Gladiators" arena="Infinite Energy Arena" prefix="Atlanta" suffix="" affiliates="" />
+    <team city="Estero" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Everblades" arena="Germain Arena" prefix="Florida" suffix="" affiliates="" />
+    <team city="Greenville" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Swamp Rabbits" arena="Bon Secours Wellness Arena" prefix="Greenville" suffix="" affiliates="" />
+    <team city="Jacksonville" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Icemen" arena="Jacksonville Veterans Memorial Arena" prefix="Jacksonville" suffix="" affiliates="" />
+    <team city="Norfolk" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Admirals" arena="Norfolk Scope" prefix="Norfolk" suffix="" affiliates="" />
+    <team city="Orlando" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Solar Bears" arena="Amway Center" prefix="Orlando" suffix="" affiliates="" />
+    <team city="North Charleston" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Stingrays" arena="North Charleston Coliseum" prefix="South Carolina" suffix="" affiliates="" />
    </division>
   </conference>
   <conference name="Western" prefix="" suffix="Conference">
    <division name="Central" prefix="" suffix="Division">
-    <team city="Cincinnati" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Cyclones" arena="US Bank Arena" prefix="Cincinnati" suffix="" />
-    <team city="Fort Wayne" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Komets" arena="Allen County War Memorial Coliseum" prefix="Fort Wayne" suffix="" />
-    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Fuel" arena="Indiana Farmers Coliseum" prefix="Indy" suffix="" />
-    <team city="Kalamazoo" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Wings" arena="Wings Event Center" prefix="Kalamazoo" suffix="" />
-    <team city="Independence" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Mavericks" arena="Silverstein Eye Centers Arena" prefix="Kansas City" suffix="" />
-    <team city="Moline" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Mallards" arena="TaxSlayer Center" prefix="Quad City" suffix="" />
-    <team city="Toledo" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Walleye" arena="Huntington Center" prefix="Toledo" suffix="" />
+    <team city="Cincinnati" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Cyclones" arena="US Bank Arena" prefix="Cincinnati" suffix="" affiliates="" />
+    <team city="Fort Wayne" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Komets" arena="Allen County War Memorial Coliseum" prefix="Fort Wayne" suffix="" affiliates="" />
+    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Fuel" arena="Indiana Farmers Coliseum" prefix="Indy" suffix="" affiliates="" />
+    <team city="Kalamazoo" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Wings" arena="Wings Event Center" prefix="Kalamazoo" suffix="" affiliates="" />
+    <team city="Independence" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Mavericks" arena="Silverstein Eye Centers Arena" prefix="Kansas City" suffix="" affiliates="" />
+    <team city="Moline" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Mallards" arena="TaxSlayer Center" prefix="Quad City" suffix="" affiliates="" />
+    <team city="Toledo" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Walleye" arena="Huntington Center" prefix="Toledo" suffix="" affiliates="" />
    </division>
    <division name="Mountain" prefix="" suffix="Division">
-    <team city="Allen" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Americans" arena="Allen Event Center" prefix="Allen" suffix="" />
-    <team city="Loveland" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Eagles" arena="Budweiser Events Center" prefix="Colorado" suffix="" />
-    <team city="Boise" area="ID" fullarea="Idaho" country="USA" fullcountry="United States" name="Steelheads" arena="CenturyLink Arena" prefix="Idaho" suffix="" />
-    <team city="Rapid City" area="SD" fullarea="South Dakota" country="USA" fullcountry="United States" name="Rush" arena="Rushmore Plaza Civic Center" prefix="Rapid City" suffix="" />
-    <team city="Tulsa" area="OK" fullarea="Oklahoma" country="USA" fullcountry="United States" name="Oilers" arena="BOK Center" prefix="Tulsa" suffix="" />
-    <team city="West Valley City" area="UT" fullarea="Utah" country="USA" fullcountry="United States" name="Grizzlies" arena="Maverik Center" prefix="Utah" suffix="" />
-    <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Thunder" arena="Intrust Bank Arena" prefix="Wichita" suffix="" />
+    <team city="Allen" area="TX" fullarea="Texas" country="USA" fullcountry="United States" name="Americans" arena="Allen Event Center" prefix="Allen" suffix="" affiliates="" />
+    <team city="Loveland" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Eagles" arena="Budweiser Events Center" prefix="Colorado" suffix="" affiliates="" />
+    <team city="Boise" area="ID" fullarea="Idaho" country="USA" fullcountry="United States" name="Steelheads" arena="CenturyLink Arena" prefix="Idaho" suffix="" affiliates="" />
+    <team city="Rapid City" area="SD" fullarea="South Dakota" country="USA" fullcountry="United States" name="Rush" arena="Rushmore Plaza Civic Center" prefix="Rapid City" suffix="" affiliates="" />
+    <team city="Tulsa" area="OK" fullarea="Oklahoma" country="USA" fullcountry="United States" name="Oilers" arena="BOK Center" prefix="Tulsa" suffix="" affiliates="" />
+    <team city="West Valley City" area="UT" fullarea="Utah" country="USA" fullcountry="United States" name="Grizzlies" arena="Maverik Center" prefix="Utah" suffix="" affiliates="" />
+    <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Thunder" arena="Intrust Bank Arena" prefix="Wichita" suffix="" affiliates="" />
    </division>
   </conference>
  </league>
  <league name="FHL" fullname="Federal Hockey League" country="USA" fullcountry="United States" date="20171027" playofffmt="League=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
   <conference name="" prefix="" suffix="Conference">
    <division name="" prefix="" suffix="Division">
-    <team city="Winston-Salem" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Thunderbirds" arena="Winston-Salem Fairgrounds Annex" prefix="Carolina" suffix="" />
-    <team city="Cornwall" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Nationals" arena="Ed Lumley Arena" prefix="Cornwall" suffix="" />
-    <team city="Danville" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Dashers" arena="David S. Palmer Arena" prefix="Danville" suffix="" />
-    <team city="Kingsville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Knights" arena="Kingsville Arena Complex" prefix="North Shore" suffix="" />
-    <team city="Port Huron" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Prowlers" arena="McMorran Place" prefix="Port Huron" suffix="" />
-    <team city="Watertown" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Wolves" arena="Watertown Municipal Arena" prefix="Watertown" suffix="" />
+    <team city="Winston-Salem" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Thunderbirds" arena="Winston-Salem Fairgrounds Annex" prefix="Carolina" suffix="" affiliates="" />
+    <team city="Cornwall" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Nationals" arena="Ed Lumley Arena" prefix="Cornwall" suffix="" affiliates="" />
+    <team city="Danville" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Dashers" arena="David S. Palmer Arena" prefix="Danville" suffix="" affiliates="" />
+    <team city="Kingsville" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Knights" arena="Kingsville Arena Complex" prefix="North Shore" suffix="" affiliates="" />
+    <team city="Port Huron" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Prowlers" arena="McMorran Place" prefix="Port Huron" suffix="" affiliates="" />
+    <team city="Watertown" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Wolves" arena="Watertown Municipal Arena" prefix="Watertown" suffix="" affiliates="" />
    </division>
   </conference>
  </league>
  <league name="SPHL" fullname="Southern Professional Hockey League" country="USA" fullcountry="United States" date="20171020" playofffmt="League=8" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
   <conference name="" prefix="" suffix="Conference">
    <division name="" prefix="" suffix="Division">
-    <team city="Pelham" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Bulls" arena="Pelham Civic Center" prefix="Birmingham" suffix="" />
-    <team city="Evansville" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Thunderbolts" arena="Ford Center" prefix="Evansville" suffix="" />
-    <team city="Fayetteville" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Marksmen" arena="Crown Coliseum" prefix="Fayetteville" suffix="" />
-    <team city="Huntsville" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Havoc" arena="Von Braun Center" prefix="Huntsville" suffix="" />
-    <team city="Knoxville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Ice Bears" arena="Knoxville Civic Coliseum" prefix="Knoxville" suffix="" />
-    <team city="Macon" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Mayhem" arena="Macon Coliseum" prefix="Macon" suffix="" />
-    <team city="Southaven" area="MS" fullarea="Mississippi" country="USA" fullcountry="United States" name="RiverKings" arena="Landers Center" prefix="Mississippi" suffix="" />
-    <team city="Pensacola" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Ice Flyers" arena="Pensacola Bay Center" prefix="Pensacola" suffix="" />
-    <team city="Peoria" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Rivermen" arena="Carver Arena" prefix="Peoria" suffix="" />
-    <team city="Roanoke" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Rail Yard Dawgs" arena="Berglund Center" prefix="Roanoke" suffix="" />
+    <team city="Pelham" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Bulls" arena="Pelham Civic Center" prefix="Birmingham" suffix="" affiliates="" />
+    <team city="Evansville" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Thunderbolts" arena="Ford Center" prefix="Evansville" suffix="" affiliates="" />
+    <team city="Fayetteville" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Marksmen" arena="Crown Coliseum" prefix="Fayetteville" suffix="" affiliates="" />
+    <team city="Huntsville" area="AL" fullarea="Alabama" country="USA" fullcountry="United States" name="Havoc" arena="Von Braun Center" prefix="Huntsville" suffix="" affiliates="" />
+    <team city="Knoxville" area="TN" fullarea="Tennessee" country="USA" fullcountry="United States" name="Ice Bears" arena="Knoxville Civic Coliseum" prefix="Knoxville" suffix="" affiliates="" />
+    <team city="Macon" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Mayhem" arena="Macon Coliseum" prefix="Macon" suffix="" affiliates="" />
+    <team city="Southaven" area="MS" fullarea="Mississippi" country="USA" fullcountry="United States" name="RiverKings" arena="Landers Center" prefix="Mississippi" suffix="" affiliates="" />
+    <team city="Pensacola" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Ice Flyers" arena="Pensacola Bay Center" prefix="Pensacola" suffix="" affiliates="" />
+    <team city="Peoria" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Rivermen" arena="Carver Arena" prefix="Peoria" suffix="" affiliates="" />
+    <team city="Roanoke" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Rail Yard Dawgs" arena="Berglund Center" prefix="Roanoke" suffix="" affiliates="" />
    </division>
   </conference>
  </league>
  <league name="KHL" fullname="Kontinental Hockey League" country="RUS" fullcountry="Russia" date="20170821" playofffmt="Conference=8" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Western" prefix="" suffix="Conference">
    <division name="Bobrov" prefix="" suffix="Division">
-    <team city="Minsk" area="BY" fullarea="Belarus" country="BLR" fullcountry="Belarus" name="Dinamo Minsk" arena="Minsk-Arena" prefix="" suffix="" />
-    <team city="Riga" area="LV" fullarea="Latvia" country="LVA" fullcountry="Latvia" name="Dinamo Riga" arena="Arena Riga" prefix="" suffix="" />
-    <team city="Helsinki" area="FI" fullarea="Finland" country="FIN" fullcountry="Finland" name="Jokerit Helsinki" arena="Hartwall Arena" prefix="" suffix="" />
-    <team city="Saint Petersburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="SKA Saint Petersburg" arena="Ice Palace Saint Petersburg" prefix="" suffix="" />
-    <team city="Bratislava" area="SK" fullarea="Slovakia" country="SVK" fullcountry="Slovakia" name="Slovan Bratislava" arena="Ondrej Nepela Arena" prefix="" suffix="" />
-    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Spartak Moscow" arena="Luzhniki Minor Arena" prefix="" suffix="" />
+    <team city="Minsk" area="BY" fullarea="Belarus" country="BLR" fullcountry="Belarus" name="Dinamo Minsk" arena="Minsk-Arena" prefix="" suffix="" affiliates="" />
+    <team city="Riga" area="LV" fullarea="Latvia" country="LVA" fullcountry="Latvia" name="Dinamo Riga" arena="Arena Riga" prefix="" suffix="" affiliates="" />
+    <team city="Helsinki" area="FI" fullarea="Finland" country="FIN" fullcountry="Finland" name="Jokerit Helsinki" arena="Hartwall Arena" prefix="" suffix="" affiliates="" />
+    <team city="Saint Petersburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="SKA Saint Petersburg" arena="Ice Palace Saint Petersburg" prefix="" suffix="" affiliates="" />
+    <team city="Bratislava" area="SK" fullarea="Slovakia" country="SVK" fullcountry="Slovakia" name="Slovan Bratislava" arena="Ondrej Nepela Arena" prefix="" suffix="" affiliates="" />
+    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Spartak Moscow" arena="Luzhniki Minor Arena" prefix="" suffix="" affiliates="" />
    </division>
    <division name="Tarasov" prefix="" suffix="Division">
-    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="CSKA Moscow" arena="CSKA Ice Palace" prefix="" suffix="" />
-    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Dynamo Moscow" arena="VTB Ice Palace" prefix="" suffix="" />
-    <team city="Yaroslavl" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lokomotiv Yaroslavl" arena="Arena 2000" prefix="" suffix="" />
-    <team city="Cherepovets" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Severstal Cherepovets" arena="Ice Palace" prefix="" suffix="" />
-    <team city="Sochi" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="HC Sochi" arena="Bolshoy Ice Dome" prefix="" suffix="" />
-    <team city="Nizhny Novgorod" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Torpedo Nizhny Novgorod" arena="Trade Union Sport Palace" prefix="" suffix="" />
-    <team city="Podolsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Vityaz Moscow Oblast" arena="Vityaz Ice Palace" prefix="" suffix="" />
+    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="CSKA Moscow" arena="CSKA Ice Palace" prefix="" suffix="" affiliates="" />
+    <team city="Moscow" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Dynamo Moscow" arena="VTB Ice Palace" prefix="" suffix="" affiliates="" />
+    <team city="Yaroslavl" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lokomotiv Yaroslavl" arena="Arena 2000" prefix="" suffix="" affiliates="" />
+    <team city="Cherepovets" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Severstal Cherepovets" arena="Ice Palace" prefix="" suffix="" affiliates="" />
+    <team city="Sochi" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="HC Sochi" arena="Bolshoy Ice Dome" prefix="" suffix="" affiliates="" />
+    <team city="Nizhny Novgorod" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Torpedo Nizhny Novgorod" arena="Trade Union Sport Palace" prefix="" suffix="" affiliates="" />
+    <team city="Podolsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Vityaz Moscow Oblast" arena="Vityaz Ice Palace" prefix="" suffix="" affiliates="" />
    </division>
   </conference>
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="Kharlamov" prefix="" suffix="Division">
-    <team city="Kazan" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Ak Bars Kazan" arena="TatNeft Arena" prefix="" suffix="" />
-    <team city="Yekaterinburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avtomobilist Yekaterinburg" arena="KRK Uralets" prefix="" suffix="" />
-    <team city="Tolyatti" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lada Togliatti" arena="Lada Arena a" prefix="" suffix="" />
-    <team city="Magnitogorsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Metallurg Magnitogorsk" arena="Arena Metallurg" prefix="" suffix="" />
-    <team city="Nizhnekamsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Neftekhimik Nizhnekamsk" arena="SCC Arena" prefix="" suffix="" />
-    <team city="Chelyabinsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Traktor Chelyabinsk" arena="Traktor Sport Palace" prefix="" suffix="" />
-    <team city="Khanty-Mansiysk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Yugra Khanty-Mansiysk" arena="Arena Ugra" prefix="" suffix="" />
+    <team city="Kazan" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Ak Bars Kazan" arena="TatNeft Arena" prefix="" suffix="" affiliates="" />
+    <team city="Yekaterinburg" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avtomobilist Yekaterinburg" arena="KRK Uralets" prefix="" suffix="" affiliates="" />
+    <team city="Tolyatti" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Lada Togliatti" arena="Lada Arena a" prefix="" suffix="" affiliates="" />
+    <team city="Magnitogorsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Metallurg Magnitogorsk" arena="Arena Metallurg" prefix="" suffix="" affiliates="" />
+    <team city="Nizhnekamsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Neftekhimik Nizhnekamsk" arena="SCC Arena" prefix="" suffix="" affiliates="" />
+    <team city="Chelyabinsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Traktor Chelyabinsk" arena="Traktor Sport Palace" prefix="" suffix="" affiliates="" />
+    <team city="Khanty-Mansiysk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Yugra Khanty-Mansiysk" arena="Arena Ugra" prefix="" suffix="" affiliates="" />
    </division>
    <division name="Chernyshev" prefix="" suffix="Division">
-    <team city="Vladivostok" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Admiral Vladivostok" arena="Fetisov Arena" prefix="" suffix="" />
-    <team city="Khabarovsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Amur Khabarovsk" arena="Platinum Arena" prefix="" suffix="" />
-    <team city="Omsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avangard Omsk" arena="Omsk Arena" prefix="" suffix="" />
-    <team city="Astana" area="RU" fullarea="Kazakhstan" country="RUS" fullcountry="Kazakhstan" name="Barys Astana" arena="Barys Arena" prefix="" suffix="" />
-    <team city="Ufa" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Salavat Yulaev Ufa" arena="Ufa Arena" prefix="" suffix="" />
-    <team city="Novosibirsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Sibir Novosibirsk" arena="Ice Sports Palace Sibir" prefix="" suffix="" />
-    <team city="Beijing" area="CN" fullarea="China" country="CHN" fullcountry="China" name="Red Star Kunlun" arena="Cadillac Arena" prefix="" suffix="" />
+    <team city="Vladivostok" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Admiral Vladivostok" arena="Fetisov Arena" prefix="" suffix="" affiliates="" />
+    <team city="Khabarovsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Amur Khabarovsk" arena="Platinum Arena" prefix="" suffix="" affiliates="" />
+    <team city="Omsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Avangard Omsk" arena="Omsk Arena" prefix="" suffix="" affiliates="" />
+    <team city="Astana" area="RU" fullarea="Kazakhstan" country="RUS" fullcountry="Kazakhstan" name="Barys Astana" arena="Barys Arena" prefix="" suffix="" affiliates="" />
+    <team city="Ufa" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Salavat Yulaev Ufa" arena="Ufa Arena" prefix="" suffix="" affiliates="" />
+    <team city="Novosibirsk" area="RU" fullarea="Russia" country="RUS" fullcountry="Russia" name="Sibir Novosibirsk" arena="Ice Sports Palace Sibir" prefix="" suffix="" affiliates="" />
+    <team city="Beijing" area="CN" fullarea="China" country="CHN" fullcountry="China" name="Red Star Kunlun" arena="Cadillac Arena" prefix="" suffix="" affiliates="" />
    </division>
   </conference>
   <arenas>
