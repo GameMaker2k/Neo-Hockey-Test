@@ -1189,7 +1189,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
  if(verbose and jsonverbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyXML(inhockeyarray, verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
   VerbosePrintOut(xmlstring);
  if(not returndb):
