@@ -92,7 +92,7 @@ except ImportError:
   except ImportError:
    teststringio = 0;
 
-injsonfile
+def CheckCompressionType(infile, closefp=True):
  if(not hasattr(infile, "read")):
   filefp = open(infile, "rb");
  else:
