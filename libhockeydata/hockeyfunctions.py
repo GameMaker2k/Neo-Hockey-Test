@@ -1344,7 +1344,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
   pyverbose = "False";
  else:
   pyverbose = "False";
- pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, True, False, "+pyverbose+", "+jsonverbose+");\n";
+ pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, True, False, "+str(pyverbose)+", "+str(jsonverbose)+");\n";
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
@@ -1493,7 +1493,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
   pyverbose = "False";
  else:
   pyverbose = "False";
- pystring = pystring+"hockeyarray.MakeHockeyDatabase(None, False, False, "+pyverbose+");\n";
+ pystring = pystring+"hockeyarray.MakeHockeyDatabase(None, False, False, "+str(pyverbose)+", "+str(jsonverbose)+");\n";
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
