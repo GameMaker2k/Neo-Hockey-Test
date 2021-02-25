@@ -1887,9 +1887,9 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
  if(verbose and jsonverbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(leaguearrayout, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(leaguearrayout, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
  return sqldump;
 
 def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
