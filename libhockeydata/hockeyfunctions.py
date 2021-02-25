@@ -1809,9 +1809,9 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outsqlfile)[0];
- fextname = os.path.splitext(outsqlfile)[1];
- sqlfp = CompressOpenFile(outsqlfile);
+ fbasename = os.path.splitext(sqlfile)[0];
+ fextname = os.path.splitext(sqlfile)[1];
+ sqlfp = CompressOpenFile(sqlfile);
  sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext("sqlfile")[0]+".db3", verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
@@ -1901,9 +1901,9 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, 
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outsqlfile)[0];
- fextname = os.path.splitext(outsqlfile)[1];
- sqlfp = CompressOpenFile(outsqlfile);
+ fbasename = os.path.splitext(sqlfile)[0];
+ fextname = os.path.splitext(sqlfile)[1];
+ sqlfp = CompressOpenFile(sqlfile);
  sqlstring = MakeHockeySQLFromHockeyDatabase(sdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
@@ -2474,9 +2474,9 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsq
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outsqlfile)[0];
- fextname = os.path.splitext(outsqlfile)[1];
- sqlfp = CompressOpenFile(outsqlfile);
+ fbasename = os.path.splitext(sqlfile)[0];
+ fextname = os.path.splitext(sqlfile)[1];
+ sqlfp = CompressOpenFile(sqlfile);
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext("sqlfile")[0]+".db3", verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
