@@ -1185,7 +1185,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
     if(hgkey):
      hasgames = True;
      MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['time'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'], hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame']);
- xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, True, False, False);
+ xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True);
  if(not CheckHockeyXML(xmlstring, False)):
   return False;
  if(verbose and jsonverbose):
