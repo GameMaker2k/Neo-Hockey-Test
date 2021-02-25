@@ -30,7 +30,8 @@ start =
             attribute fullcountry { text },
             attribute name { text },
             attribute prefix { text },
-            attribute suffix { text }
+            attribute suffix { text },
+            attribute affiliates { text }
           }+
         }+
       }+,
@@ -49,6 +50,7 @@ start =
            attribute atarena { text },
            attribute awayteam { text },
            attribute date { text },
+           attribute time { text },
            attribute faceoffwins { text },
            attribute goals { text },
            attribute hits { text },

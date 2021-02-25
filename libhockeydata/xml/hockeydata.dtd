@@ -58,6 +58,7 @@
   atarena CDATA #REQUIRED
   awayteam CDATA #REQUIRED
   date CDATA #REQUIRED
+  time CDATA #REQUIRED
   faceoffwins CDATA #REQUIRED
   goals CDATA #REQUIRED
   hits CDATA #REQUIRED
@@ -81,5 +82,6 @@
   fullcountry CDATA #REQUIRED
   name CDATA #REQUIRED
   prefix CDATA #REQUIRED
-  suffix CDATA #REQUIRED>
+  suffix CDATA #REQUIRED
+  affiliates CDATA #REQUIRED>
 ]>

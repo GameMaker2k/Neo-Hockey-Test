@@ -2,39 +2,40 @@
 <grammar ns="" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   <start>
     <element name="hockey">
-      <attribute name="database"/>
+      <attribute name="database" />
       <oneOrMore>
         <element name="league">
-          <attribute name="conferences"/>
-          <attribute name="country"/>
-          <attribute name="date"/>
-          <attribute name="divisions"/>
-          <attribute name="fullcountry"/>
-          <attribute name="fullname"/>
-          <attribute name="name"/>
-          <attribute name="ordertype"/>
-          <attribute name="playofffmt"/>
+          <attribute name="conferences" />
+          <attribute name="country" />
+          <attribute name="date" />
+          <attribute name="divisions" />
+          <attribute name="fullcountry" />
+          <attribute name="fullname" />
+          <attribute name="name" />
+          <attribute name="ordertype" />
+          <attribute name="playofffmt" />
           <oneOrMore>
             <element name="conference">
-              <attribute name="name"/>
-              <attribute name="prefix"/>
-              <attribute name="suffix"/>
+              <attribute name="name" />
+              <attribute name="prefix" />
+              <attribute name="suffix" />
               <oneOrMore>
                 <element name="division">
-                  <attribute name="name"/>
-                  <attribute name="prefix"/>
-                  <attribute name="suffix"/>
+                  <attribute name="name" />
+                  <attribute name="prefix" />
+                  <attribute name="suffix" />
                   <oneOrMore>
                     <element name="team">
-                      <attribute name="area"/>
-                      <attribute name="arena"/>
-                      <attribute name="city"/>
-                      <attribute name="country"/>
-                      <attribute name="fullarea"/>
-                      <attribute name="fullcountry"/>
-                      <attribute name="name"/>
-                      <attribute name="prefix"/>
-                      <attribute name="suffix"/>
+                      <attribute name="area" />
+                      <attribute name="arena" />
+                      <attribute name="city" />
+                      <attribute name="country" />
+                      <attribute name="fullarea" />
+                      <attribute name="fullcountry" />
+                      <attribute name="name" />
+                      <attribute name="prefix" />
+                      <attribute name="suffix" />
+                      <attribute name="affiliates" />
                     </element>
                   </oneOrMore>
                 </element>
@@ -45,32 +46,33 @@
             <element name="arenas">
               <oneOrMore>
                 <element name="arena">
-                  <attribute name="area"/>
-                  <attribute name="city"/>
-                  <attribute name="country"/>
-                  <attribute name="fullarea"/>
-                  <attribute name="fullcountry"/>
-                  <attribute name="name"/>
+                  <attribute name="area" />
+                  <attribute name="city" />
+                  <attribute name="country" />
+                  <attribute name="fullarea" />
+                  <attribute name="fullcountry" />
+                  <attribute name="name" />
                 </element>
               </oneOrMore>
             </element>
             <element name="games">
               <oneOrMore>
                 <element name="game">
-                  <attribute name="atarena"/>
-                  <attribute name="awayteam"/>
-                  <attribute name="date"/>
-                  <attribute name="faceoffwins"/>
-                  <attribute name="goals"/>
-                  <attribute name="hits"/>
-                  <attribute name="hometeam"/>
-                  <attribute name="isplayoffgame"/>
-                  <attribute name="penalties"/>
-                  <attribute name="pims"/>
-                  <attribute name="ppgs"/>
-                  <attribute name="shgs"/>
-                  <attribute name="sogs"/>
-                  <attribute name="takeaways"/>
+                  <attribute name="atarena" />
+                  <attribute name="awayteam" />
+                  <attribute name="date" />
+                  <attribute name="time" />
+                  <attribute name="faceoffwins" />
+                  <attribute name="goals" />
+                  <attribute name="hits" />
+                  <attribute name="hometeam" />
+                  <attribute name="isplayoffgame" />
+                  <attribute name="penalties" />
+                  <attribute name="pims" />
+                  <attribute name="ppgs" />
+                  <attribute name="shgs" />
+                  <attribute name="sogs" />
+                  <attribute name="takeaways" />
                 </element>
               </oneOrMore>
             </element>
