@@ -72,8 +72,6 @@ class MakeHockeyArray:
   return MakeHockeySQLFromHockeyArray(self.hockeyarray, verbose);
  def MakeHockeyXMLFile(self, outxmlfile=None, returnxml=False, verbose=True):
   return MakeHockeyXMLFileFromHockeyArray(self.hockeyarray, outxmlfile, returnxml, verbose);
- def MakeHockeyDatabaseWrite(self, sdbfile=None, outxmlfile=None, returnxml=False, verbose=True):
-  return MakeHockeyDatabaseFromHockeyArrayWrite(self.hockeyarray, sdbfile, outxmlfile, returnxml, verbose);
  def MakeHockeyPythonFile(self, outpyfile=None, returnpy=False, verbose=True):
   return MakeHockeyPythonFileFromHockeyArray(self.hockeyarray, outpyfile, returnpy, verbose);
  def MakeHockeyPythonAltFileFromHockeyArray(self, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):

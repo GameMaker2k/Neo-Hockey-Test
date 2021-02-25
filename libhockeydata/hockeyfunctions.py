@@ -92,7 +92,7 @@ except ImportError:
   except ImportError:
    teststringio = 0;
 
-def CheckCompressionType(infile, closefp=True):
+injsonfile
  if(not hasattr(infile, "read")):
   filefp = open(infile, "rb");
  else:
@@ -1126,19 +1126,19 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=False, beautify=True, returndb=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
  inchockeyarray = inhockeyarray.copy();
- if(sdbfile is None and "database" in inchockeyarray.keys()):
+ if(outsdbfile is None and "database" in inchockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(inchockeyarray['database']);
- if(sdbfile is None and "database" not in inchockeyarray.keys()):
+ if(outsdbfile is None and "database" not in inchockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(":memory:");
- if(sdbfile is not None and isinstance(sdbfile, basestring)):
-  sqldatacon = MakeHockeyDatabase(sdbfile);
- if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-  sqldatacon = tuple(sdbfile);
-  sdbfile = ":memory:";
+ if(outsdbfile is not None and isinstance(outsdbfile, basestring)):
+  sqldatacon = MakeHockeyDatabase(outsdbfile);
+ if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
+  sqldatacon = tuple(outsdbfile);
+  outsdbfile = ":memory:";
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
  if(not hasattr(sqldatacon[0], "execute")):
@@ -1185,42 +1185,15 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile=None, returnxml=Fal
     if(hgkey):
      hasgames = True;
      MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['time'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'], hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame']);
- xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True);
- if(not CheckHockeyXML(xmlstring, False)):
-  return False;
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(xmlstring);
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
- if(returndb and returnxml):
-  return [xmlstring, sqldatacon];
- if(returnxml and not returndb):
-  return [xmlstring];
- if(not returnxml and returndb):
-  return [sqldatacon];
- if(not returnxml and not returndb):
-  return True;
- return True;
-
-def MakeHockeyDatabaseFromHockeyArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
- if(outxmlfile is None):
-  return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outxmlfile)[0];
- fextname = os.path.splitext(outxmlfile)[1];
- xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, sdbfile, True, beautify, False, verbose, jsonverbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
-  xmlstring = xmlstring.encode();
- xmlfp.write(xmlstring);
- xmlfp.close();
- if(returnxml):
-  return xmlstring;
- if(not returnxml):
+ if(returndb):
+  return sqldatacon;
+ if(not returndb):
   return True;
  return True;
 
@@ -1344,7 +1317,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
   pyverbose = "False";
  else:
   pyverbose = "False";
- pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, True, False, "+str(pyverbose)+", "+str(jsonverbose)+");\n";
+ pystring = pystring+pyfilename+".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, "+str(pyverbose)+", "+str(jsonverbose)+");\n";
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
@@ -1522,15 +1495,15 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
   return True;
  return True;
 
-def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
-  if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
+def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ if(isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
+  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
    return False;
-  sqldatacon = OpenHockeyDatabase(sdbfile);
+  sqldatacon = OpenHockeyDatabase(insdbfile);
  else:
-  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-   sqldatacon = tuple(sdbfile);
-   sdbfile = ":memory:";
+  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+   sqldatacon = tuple(insdbfile);
+   insdbfile = ":memory:";
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
@@ -1542,7 +1515,7 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  leaguecur = sqldatacon[1].cursor();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) };
+ leaguearrayout = { 'database': str(insdbfile) };
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
@@ -1623,23 +1596,23 @@ def MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=True, jsonverbose=True):
- if(sqlisfile and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
-  sqlfp = UncompressFile(sqlfile);
+def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, verbose=True, jsonverbose=True):
+ if(sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
+  sqlfp = UncompressFile(insqlfile);
   sqlstring = sqlfp.read();
   sqlfp.close();
  elif(not sqlisfile):
-  sqlfp = BytesIO(sqlfile);
+  sqlfp = BytesIO(insqlfile);
   sqlfp = UncompressFileAlt(sqlfp);
   sqlstring = sqlfp.read();
   sqlfp.close();
  else:
   return False;
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))>=1):
-  sdbfile = re.findall(r"Database\:([\w\W]+)", sqlfile)[0].strip();
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))<1):
-  file_wo_extension, file_extension = os.path.splitext(sqlfile);
-  sdbfile = file_wo_extension+".db3";
+ if(insdbfile is None and len(re.findall(r"Database\:([\w\W]+)", insqlfile))>=1):
+  insdbfile = re.findall(r"Database\:([\w\W]+)", insqlfile)[0].strip();
+ if(insdbfile is None and len(re.findall(r"Database\:([\w\W]+)", insqlfile))<1):
+  file_wo_extension, file_extension = os.path.splitext(insqlfile);
+  insdbfile = file_wo_extension+".db3";
  sqldatacon = MakeHockeyDatabase(":memory:");
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
@@ -1654,7 +1627,7 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
  leaguecur = sqldatacon[1].cursor();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) };
+ leaguearrayout = { 'database': str(insdbfile) };
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
@@ -1735,12 +1708,12 @@ def MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, verbose=
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True, jsonverbose=True):
+def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- if(sdbfile is None):
-  sdbfile = ":memory:";
- sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", False, False, True, False, False)[0];
+ if(insdbfile is None):
+  insdbfile = ":memory:";
+ sqldatacon = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, False, False);
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
  if(not hasattr(sqldatacon[0], "execute")):
@@ -1756,7 +1729,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
  sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n";
  sqldump = sqldump+"--\n";
- sqldump = sqldump+"-- Database: "+sdbfile+"\n";
+ sqldump = sqldump+"-- Database: "+insdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
@@ -1803,16 +1776,16 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, sdbfile=":memory:", verbose=True
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return sqldump;
 
-def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
- if(sqlfile is None):
+def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+ if(outsqlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(sqlfile)[0];
- fextname = os.path.splitext(sqlfile)[1];
- sqlfp = CompressOpenFile(sqlfile);
- sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext("sqlfile")[0]+".db3", verbose);
+ fbasename = os.path.splitext(outsqlfile)[0];
+ fextname = os.path.splitext(outsqlfile)[1];
+ sqlfp = CompressOpenFile(outsqlfile);
+ sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
@@ -1823,12 +1796,12 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, sqlfile=None, returnsql=Fals
   return True;
  return True;
 
-def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
-  sqldatacon = OpenHockeyDatabase(sdbfile);
+def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ if(os.path.exists(insdbfile) and os.path.isfile(insdbfile) and isinstance(insdbfile, basestring)):
+  sqldatacon = OpenHockeyDatabase(insdbfile);
  else:
-  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-   sqldatacon = tuple(sdbfile);
+  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+   sqldatacon = tuple(insdbfile);
   else:
    return False;
  if(not hasattr(sqldatacon[0], "execute")):
@@ -1844,7 +1817,7 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n\n";
  sqldump = sqldump+"--\n";
- sqldump = sqldump+"-- Database: "+sdbfile+"\n";
+ sqldump = sqldump+"-- Database: "+insdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
@@ -1887,24 +1860,24 @@ def MakeHockeySQLFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
   sqldump = sqldump+get_insert_stmt_full+"\n-- --------------------------------------------------------\n\n";
  CloseHockeyDatabase(sqldatacon);
  if(verbose and jsonverbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True));
  return sqldump;
 
-def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(sqlfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  sqlfile = file_wo_extension+".sql";
+ if(outsqlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outsqlfile = file_wo_extension+".sql";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(sqlfile)[0];
- fextname = os.path.splitext(sqlfile)[1];
- sqlfp = CompressOpenFile(sqlfile);
- sqlstring = MakeHockeySQLFromHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outsqlfile)[0];
+ fextname = os.path.splitext(outsqlfile)[1];
+ sqlfp = CompressOpenFile(outsqlfile);
+ sqlstring = MakeHockeySQLFromHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
@@ -1915,13 +1888,13 @@ def MakeHockeySQLFileFromHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, 
   return True;
  return True;
 
-def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
-  sqldatacon = OpenHockeyDatabase(sdbfile);
+def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ if(isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
+  sqldatacon = OpenHockeyDatabase(insdbfile);
  else:
-  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-   sqldatacon = tuple(sdbfile);
-   sdbfile = ":memory:";
+  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+   sqldatacon = tuple(insdbfile);
+   insdbfile = ":memory:";
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
@@ -1960,7 +1933,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True
  gettablecur.close();
  getleague_num = leaguecur.execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague = leaguecur.execute("SELECT LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) };
+ leaguearrayout = { 'database': str(insdbfile) };
  leaguelist = [];
  for leagueinfo in getleague:
   leaguearray = {};
@@ -2046,15 +2019,15 @@ def MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- if(isinstance(sdbfile, basestring) and (os.path.exists(sdbfile) and os.path.isfile(sdbfile))):
-  if(not CheckHockeySQLiteDatabase(sdbfile)[0]):
+def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ if(isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
+  if(not CheckHockeySQLiteDatabase(insdbfile)[0]):
    return False;
-  sqldatacon = OpenHockeyDatabase(sdbfile);
+  sqldatacon = OpenHockeyDatabase(insdbfile);
  else:
-  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-   sqldatacon = tuple(sdbfile);
-   sdbfile = ":memory:";
+  if(insdbfile is not None and isinstance(insdbfile, (tuple, list))):
+   sqldatacon = tuple(insdbfile);
+   insdbfile = ":memory:";
   else:
    return False;
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
@@ -2068,7 +2041,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=T
  table_list = ['HockeyLeagues'];
  getleague_num_tmp = sqldatacon[0].execute("SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0];
  getleague_tmp = sqldatacon[0].execute("SELECT LeagueName FROM HockeyLeagues");
- leaguearrayout = { 'database': str(sdbfile) };
+ leaguearrayout = { 'database': str(insdbfile) };
  for leagueinfo_tmp in getleague_tmp:
   for cur_tab in all_table_list:
    table_list.append(leagueinfo_tmp[0]+cur_tab);
@@ -2403,12 +2376,12 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
-def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbose=True, jsonverbose=True):
+def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  inchockeyarray = inhockeyarray.copy();
- if(sdbfile is None or sdbfile==":memory:"):
-  sdbfile = inchockeyarray['database'];
+ if(insdbfile is None or insdbfile==":memory:"):
+  insdbfile = inchockeyarray['database'];
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
@@ -2424,7 +2397,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
  sqldump = sqldump+"-- PySQLite version: "+sqlite3.version+"\n";
  sqldump = sqldump+"-- Python Version: "+str(sys.version_info[0])+"."+str(sys.version_info[1])+"."+str(sys.version_info[2])+"\n";
  sqldump = sqldump+"--\n";
- sqldump = sqldump+"-- Database: "+sdbfile+"\n";
+ sqldump = sqldump+"-- Database: "+insdbfile+"\n";
  sqldump = sqldump+"--\n\n";
  sqldump = sqldump+"-- --------------------------------------------------------\n\n";
  for get_cur_tab in table_list:
@@ -2468,16 +2441,16 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile=":memory:", verbos
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return sqldump;
 
-def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
- if(sqlfile is None):
+def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+ if(outsqlfile is None):
   return False;
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(sqlfile)[0];
- fextname = os.path.splitext(sqlfile)[1];
- sqlfp = CompressOpenFile(sqlfile);
- sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext("sqlfile")[0]+".db3", verbose);
+ fbasename = os.path.splitext(outsqlfile)[0];
+ fextname = os.path.splitext(outsqlfile)[1];
+ sqlfp = CompressOpenFile(outsqlfile);
+ sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);

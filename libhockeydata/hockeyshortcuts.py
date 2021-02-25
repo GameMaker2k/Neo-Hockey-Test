@@ -114,105 +114,55 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
   return True;
  return True;
 
-def MakeHockeyJSONFromHockeyDatabase(sdbfile, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyJSONFromHockeyDatabase(insdbfile, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, jsonindent, verbose, jsonverbose);
  return jsonstring;
 
-def MakeHockeyJSONFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
+def MakeHockeyJSONFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile, sqlisfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, jsonindent, verbose, jsonverbose);
  return jsonstring;
 
-def MakeHockeyJSONFromOldHockeyDatabase(sdbfile, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyJSONFromOldHockeyDatabase(insdbfile, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  jsonstring = MakeHockeyJSONFromHockeyArray(hockeyarray, returnjson, jsonindent, verbose, jsonverbose);
  return jsonstring;
 
-def MakeHockeyDatabaseFromHockeyXML(xmlfile, sdbfile=None, xmlisfile=True, returnxml=False, returndb=False, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
- hockeydbout = MakeHockeyDatabaseFromHockeyArray(hockeyarray, sdbfile, returnxml, returndb, verbose, jsonverbose);
+def MakeHockeyDatabaseFromHockeyXML(inxmlfile, outsdbfile=None, xmlisfile=True, returndb=False, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
+ hockeydbout = MakeHockeyDatabaseFromHockeyArray(hockeyarray, outinsdbfile, returndb, verbose, jsonverbose);
  return hockeydbout;
 
-def MakeHockeyDatabaseFromHockeyXMLWrite(inxmlfile, sdbfile=None, outxmlfile=None, xmlisfile=True, returnxml=False, verbose=True, jsonverbose=True):
- if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
-  return False;
- if(outxmlfile is None and xmlisfile):
-  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
-  outxmlfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outxmlfile)[0];
- fextname = os.path.splitext(outxmlfile)[1];
- xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyDatabaseFromHockeyXML(inxmlfile, sdbfile, xmlisfile, True, False, verbose, jsonverbose)[0];
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
-  xmlstring = xmlstring.encode();
- xmlfp.write(xmlstring);
- xmlfp.close();
- if(returnxml):
-  return xmlstring;
- if(not returnxml):
-  return True;
- return True;
-
-def MakeHockeyDatabaseFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, returnsql=False, returndb=False, verbose=True, jsonverbose=True):
- if(sqlisfile and (os.path.exists(sqlfile) and os.path.isfile(sqlfile))):
-  sqlfp = open(sqlfile, "r");
+def MakeHockeyDatabaseFromHockeySQL(insqlfile, outsdbfile=None, sqlisfile=True, returndb=False, verbose=True, jsonverbose=True):
+ if(sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
+  sqlfp = open(insqlfile, "r");
   sqlstring = sqlfp.read();
   sqlfp.close();
  elif(not sqlisfile):
-  sqlstring = sqlfile;
+  sqlstring = insqlfile;
  else:
   return False;
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))>=1):
-  sdbfile = re.findall(r"Database\:([\w\W]+)", sqlfile)[0].strip();
- if(sdbfile is None and len(re.findall(r"Database\:([\w\W]+)", sqlfile))<1):
-  file_wo_extension, file_extension = os.path.splitext(sqlfile);
-  sdbfile = file_wo_extension+".db3";
- if(sdbfile is not None and isinstance(sdbfile, basestring)):
-  sqldatacon = MakeHockeyDatabase(sdbfile);
- if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
-  sqldatacon = tuple(sdbfile);
+ if(outsdbfile is None and len(re.findall(r"Database\:([\w\W]+)", insqlfile))>=1):
+  outsdbfile = re.findall(r"Database\:([\w\W]+)", insqlfile)[0].strip();
+ if(outsdbfile is None and len(re.findall(r"Database\:([\w\W]+)", insqlfile))<1):
+  file_wo_extension, file_extension = os.path.splitext(insqlfile);
+  outsdbfile = file_wo_extension+".db3";
+ if(outsdbfile is not None and isinstance(outsdbfile, basestring)):
+  sqldatacon = MakeHockeyDatabase(outsdbfile);
+ if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
+  sqldatacon = tuple(outsdbfile);
  sqldatacon[0].executescript(sqlstring);
  if(not returndb):
   CloseHockeyDatabase(sqldatacon);
- if(returndb and not returnsql):
-  return [sqldatacon];
- if(returnsql and not returndb):
-  return [sqlstring];
- if(returnsql and returndb):
-  return [sqlstring, sqldatacon];
- if(not returnsql):
+ if(returndb):
+  return sqldatacon;
+ if(not returndb):
   return True;
  return True;
 
-def MakeHockeyDatabaseFromHockeySQLWrite(insqlfile, sdbfile=None, outsqlfile=None, sqlisfile=True, returnsql=False, verbose=True, jsonverbose=True):
- if(sqlisfile and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
-  return False;
- if(outsqlfile is None and sqlisfile):
-  file_wo_extension, file_extension = os.path.splitext(insqlfile);
-  outsqlfile = file_wo_extension+".db3";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outsqlfile)[0];
- fextname = os.path.splitext(outsqlfile)[1];
- sqlfp = CompressOpenFile(outsqlfile);
- sqlstring = MakeHockeyDatabaseFromHockeySQL(insqlfile, sdbfile, sqlisfile, True, False, verbose, jsonverbose)[0];
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
-  sqlstring = sqlstring.encode();
- sqlfp.write(sqlstring);
- sqlfp.close();
- if(returnsql):
-  return sqlstring;
- if(not returnsql):
-  return True;
- return True;
-
-def MakeHockeyPythonOOPFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+def MakeHockeyPythonOOPFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeypyout = MakeHockeyPythonOOPFromHockeyArray(hockeyarray, True);
  return hockeypyout;
 
@@ -241,8 +191,8 @@ def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, jsonverbose=True, verbosepy=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+def MakeHockeyPythonOOPAltFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeypyout = MakeHockeyPythonOOPAltFromHockeyArray(hockeyarray, verbose, jsonverbose, verbosepy);
  return hockeypyout;
 
@@ -271,8 +221,8 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
   return True;
  return True;
 
-def MakeHockeyPythonFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+def MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeypyout = MakeHockeyPythonFromHockeyArray(hockeyarray, True);
  return hockeypyout;
 
@@ -301,8 +251,8 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
   return True;
  return True;
 
-def MakeHockeyPythonAltFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, jsonverbose=True, verbosepy=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+def MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True, verbosepy=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, jsonverbose, verbosepy);
  return hockeypyout;
 
@@ -331,16 +281,16 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyXMLFromHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose, jsonverbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
  if(xmlfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
   xmlfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
@@ -348,7 +298,7 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, 
  fbasename = os.path.splitext(xmlfile)[0];
  fextname = os.path.splitext(xmlfile)[1];
  xmlfp = CompressOpenFile(xmlfile);
- xmlstring = MakeHockeyXMLFromHockeyDatabase(sdbfile, beautify, verbose, jsonverbose);
+ xmlstring = MakeHockeyXMLFromHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -359,12 +309,12 @@ def MakeHockeyXMLFileFromHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, 
   return True;
  return True;
 
-def MakeHockeyXMLFromHockeySQL(sqlfile, sdbfile=None, sqlisfile=True, beautify=True, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, False);
+def MakeHockeyXMLFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, beautify=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile, sqlisfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose, jsonverbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFileFromHockeySQL(insqlfile, insdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(sqlisfile and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
   return False;
  if(outxmlfile is None and sqlisfile):
@@ -376,7 +326,7 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sql
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, sdbfile, sqlisfile, beautify, verbose, jsonverbose);
+ xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, insdbfile, sqlisfile, beautify, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -387,147 +337,147 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, sdbfile=None, outxmlfile=None, sql
   return True;
  return True;
 
-def MakeHockeyPythonOOPFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonOOPFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  hockeypyout = MakeHockeyPythonOOPFromHockeyArray(hockeyarray, verbose, jsonverbose);
  return hockeypyout;
 
-def MakeHockeyPythonOOPFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonOOPFromHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonOOPFromHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  hockeypyout = MakeHockeyPythonOOPAltFromHockeyArray(hockeyarray, verbose, jsonverbose);
  return hockeypyout;
 
-def MakeHockeyPythonOOPAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeyPythonFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  hockeypyout = MakeHockeyPythonFromHockeyArray(hockeyarray, verbose, jsonverbose);
  return hockeypyout;
 
-def MakeHockeyPythonFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonFromHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonFromHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeyPythonAltFromHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, False);
+def MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
  hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, jsonverbose);
  return hockeypyout;
 
-def MakeHockeyPythonAltFileFromHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonAltFromHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromHockeyXML(xmlfile, xmlisfile, False);
+def MakeHockeySQLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  sdbfilename = ":memory:";
  if(xmlisfile):
-  sdbfilename = os.path.splitext(xmlfile)[0]+".db3";
+  sdbfilename = os.path.splitext(inxmlfile)[0]+".db3";
  hockeysqlout = MakeHockeySQLFromHockeyArray(hockeyarray, sdbfilename, verbose, jsonverbose);
  return hockeysqlout;
 
-def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, returnsql=False, verbose=True, jsonverbose=True):
- if(not xmlisfile and (not os.path.exists(xmlfile) and not os.path.isfile(xmlfile))):
+def MakeHockeySQLFileFromHockeyXML(inxmlfile, outsqlfile=None, xmlisfile=True, returnsql=False, verbose=True, jsonverbose=True):
+ if(not xmlisfile and (not os.path.exists(inxmlfile) and not os.path.isfile(inxmlfile))):
   return False;
- if(sqlfile is None and xmlisfile):
-  file_wo_extension, file_extension = os.path.splitext(xmlfile);
-  sqlfile = file_wo_extension+".sql";
+ if(outsqlfile is None and xmlisfile):
+  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
+  outsqlfile = file_wo_extension+".sql";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(sqlfile)[0];
- fextname = os.path.splitext(sqlfile)[1];
- sqlfp = CompressOpenFile(sqlfile);
- sqlstring = MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outsqlfile)[0];
+ fextname = os.path.splitext(outsqlfile)[1];
+ sqlfp = CompressOpenFile(outsqlfile);
+ sqlstring = MakeHockeySQLFromHockeyXML(inxmlfile, xmlisfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
@@ -538,24 +488,24 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
   return True;
  return True;
 
-def MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(sdbfile, False);
+def MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(insdbfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose, jsonverbose);
  return hockeyxmlout;
 
-def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyXMLFileFromOldHockeyDatabase(insdbfile, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(xmlfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  xmlfile = file_wo_extension+".xml";
+ if(outxmlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  otxmlfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(xmlfile)[0];
- fextname = os.path.splitext(xmlfile)[1];
- xmlfp = CompressOpenFile(xmlfile);
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, verbose, jsonverbose);
+ fbasename = os.path.splitext(outxmlfile)[0];
+ fextname = os.path.splitext(outxmlfile)[1];
+ xmlfp = CompressOpenFile(outxmlfile);
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
@@ -566,144 +516,144 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(sdbfile, xmlfile=None, returnxml=Fals
   return True;
  return True;
 
-def MakeHockeyPythonOOPFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
+def MakeHockeyPythonOOPFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False);
  pystring = MakeHockeyPythonOOPFromHockeyXML(xmlstring, False, verbose, jsonverbose);
  return pystring;
 
-def MakeHockeyPythonOOPFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonOOPFromOldHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonOOPFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
+def MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False);
  pystring = MakeHockeyPythonOOPAltFromHockeyXML(xmlstring, False, verbose, jsonverbose);
  return pystring;
 
-def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeyPythonFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
+def MakeHockeyPythonFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False);
  pystring = MakeHockeyPythonFromHockeyXML(xmlstring, False, verbose, jsonverbose);
  return pystring;
 
-def MakeHockeyPythonFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonFromOldHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, beautify=True, verbose=True, jsonverbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, beautify, False);
+def MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False);
  pystring = MakeHockeyPythonAltFromHockeyXML(xmlstring, False, verbose, jsonverbose);
  return pystring;
 
-def MakeHockeyPythonAltFileFromOldHockeyDatabase(sdbfile, pyfile=None, returnpy=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(pyfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  pyfile = file_wo_extension+".xml";
+ if(outpyfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outpyfile = file_wo_extension+".xml";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(pyfile)[0];
- fextname = os.path.splitext(pyfile)[1];
- pyfp = CompressOpenFile(pyfile);
- pystring = MakeHockeyPythonAltFromOldHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outpyfile)[0];
+ fextname = os.path.splitext(outpyfile)[1];
+ pyfp = CompressOpenFile(outpyfile);
+ pystring = MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
-  os.chmod(pyfile, 0o755);
+  os.chmod(outpyfile, 0o755);
  if(returnpy):
   return pystring;
  if(not returnpy):
   return True;
  return True;
 
-def MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- xmlstring = MakeHockeyXMLFromOldHockeyDatabase(sdbfile, True, False);
+def MakeHockeySQLFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, True, False);
  sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, verbose, jsonverbose);
  return sqldump;
 
-def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
- if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
+def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
- if(sqlfile is None):
-  file_wo_extension, file_extension = os.path.splitext(sdbfile);
-  sqlfile = file_wo_extension+".sql";
+ if(outsqlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  outsqlfile = file_wo_extension+".sql";
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(sqlfile)[0];
- fextname = os.path.splitext(sqlfile)[1];
- sqlfp = CompressOpenFile(sqlfile);
- sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose, jsonverbose);
+ fbasename = os.path.splitext(outsqlfile)[0];
+ fextname = os.path.splitext(outsqlfile)[1];
+ sqlfp = CompressOpenFile(outsqlfile);
+ sqlstring = MakeHockeySQLFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
@@ -717,13 +667,13 @@ def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=Fals
 def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, True, False);
- hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
+ hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, False, False);
+ hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin, True);
  return hockeyarray;
 
-def MakeHockeySQLiteArrayFromHockeySQL(sqlfile, sqlisfile=True, verbose=True, jsonverbose=True):
- hockeydbin = MakeHockeyDatabaseFromHockeySQL(sqlfile, ":memory:", sqlisfile, False, True, False, False);
- hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin[1], True);
+def MakeHockeySQLiteArrayFromHockeySQL(insqlfile, sqlisfile=True, verbose=True, jsonverbose=True):
+ hockeydbin = MakeHockeyDatabaseFromHockeySQL(insqlfile, ":memory:", sqlisfile, True, False, False);
+ hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin, True);
  return hockeyarray;
 
 def MakeHockeyPythonFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
@@ -766,46 +716,21 @@ def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=Non
  pystring = MakeHockeyPythonOOPAltFileFromHockeyArray(hockeyarray, outpyfile, returnpy, verbose, jsonverbose, verbosepy);
  return pystring;
 
-def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile=None, returnxml=False, beautify=True, returndb=False, verbose=True, jsonverbose=True):
- sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, sdbfile, False, False);
- outhockeydb = MakeHockeyDatabaseFromHockeySQL(sqlstring, sdbfile, False, False, returndb, False, False);
- xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose=False, jsonverbose=True);
+def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, jsonverbose=True):
+ sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, outsdbfile, False, False);
+ outhockeydb = MakeHockeyDatabaseFromHockeySQL(sqlstring, outsdbfile, False, False, returndb, False, False);
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(xmlstring);
- if(returndb and returnxml):
-  return [xmlstring, outhockeydb[0]];
- if(returnxml and not returndb):
-  return [xmlstring];
- if(not returnxml and returndb):
-  return [outhockeydb[0]];
- if(not returnxml and not returndb):
+  VerbosePrintOut(MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose=False, jsonverbose=True));
+ if(returndb):
+  return outhockeydb;
+ if(not returndb):
   return True;
  return True;
 
-def MakeHockeyDatabaseFromHockeySQLiteArrayWrite(inhockeyarray, sdbfile=None, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
- if(outxmlfile is None):
-  return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outxmlfile)[0];
- fextname = os.path.splitext(outxmlfile)[1];
- xmlfp = CompressOpenFile(outxmlfile);
- xmlstring = MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, sdbfile, True, beautify, False, verbose, jsonverbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
-  xmlstring = xmlstring.encode();
- xmlfp.write(xmlstring);
- xmlfp.close();
- if(returnxml):
-  return xmlstring;
- if(not returnxml):
-  return True;
- return True;
-
-def MakeHockeySQLiteArrayFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
- inhockeyarray = MakeHockeyArrayFromOldHockeyDatabase(sdbfile, False, False);
+def MakeHockeySQLiteArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+ inhockeyarray = MakeHockeyArrayFromOldHockeyDatabase(insdbfile, False, False);
  hockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose, jsonverbose);
  return hockeyarray;
 
