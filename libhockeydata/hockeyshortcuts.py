@@ -691,7 +691,7 @@ def MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose=True, jsonverbose=True):
  sqldump = MakeHockeySQLFromHockeyXML(xmlstring, False, True, verbose, jsonverbose);
  return sqldump;
 
-def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, returnsql=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, sqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
  if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
   return False;
  if(sqlfile is None):
@@ -700,9 +700,9 @@ def MakeHockeySQLFileFromOldHockeyDatabase(sdbfile, returnsql=False, verbose=Tru
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outsqlfile)[0];
- fextname = os.path.splitext(outsqlfile)[1];
- sqlfp = CompressOpenFile(outsqlfile);
+ fbasename = os.path.splitext(sqlfile)[0];
+ fextname = os.path.splitext(sqlfile)[1];
+ sqlfp = CompressOpenFile(sqlfile);
  sqlstring = MakeHockeySQLFromOldHockeyDatabase(sdbfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
