@@ -286,7 +286,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "East"
+      "division": "East",
+      "affiliates": "AHL:Rochester Americans,NHL:Buffalo Sabres"
      }
     },
     "Royals": {
@@ -303,7 +304,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "East"
+      "division": "East",
+      "affiliates": "AHL:Lehigh Valley Phantoms,NHL:Philadelphia Flyers"
      }
     },
     "Admirals": {
@@ -320,7 +322,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "East"
+      "division": "East",
+      "affiliates": "AHL:Bakersfield Condors,NHL:Edmonton Oilers"
      }
     },
     "Thunder": {
@@ -337,7 +340,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "East"
+      "division": "East",
+      "affiliates": "AHL:Stockton Heat,NHL:Calgary Flames"
      }
     },
     "Monarchs": {
@@ -354,7 +358,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "East"
+      "division": "East",
+      "affiliates": "AHL:Ontario Reign,NHL:Los Angeles Kings"
      }
     },
     "teamlist": [
@@ -388,7 +393,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "AHL:Lake Erie Monsters,NHL:Columbus Blue Jackets"
      }
     },
     "Walleye": {
@@ -405,7 +411,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "AHL:Grand Rapids Griffins,NHL:Detroit Red Wings"
      }
     },
     "Nailers": {
@@ -422,7 +429,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "AHL:Wilkes-Barre/Scranton Penguins,NHL:Pittsburgh Penguins"
      }
     },
     "Beast": {
@@ -439,7 +447,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "AHL:St. John's IceCaps,NHL:Montreal Canadiens"
      }
     },
     "teamlist": [
@@ -472,7 +481,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": "AHL:Providence Bruins,NHL:Boston Bruins"
      }
     },
     "Swamp Rabbits": {
@@ -489,7 +499,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": "AHL:Hartford Wolf Pack,NHL:New York Rangers"
      }
     },
     "Everblades": {
@@ -506,7 +517,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": "AHL:Charlotte Checkers,NHL:Carolina Hurricanes"
      }
     },
     "Solar Bears": {
@@ -523,7 +535,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": "AHL:Toronto Marlies,NHL:Toronto Maple Leafs"
      }
     },
     "Stingrays": {
@@ -540,7 +553,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": "AHL:Hershey Bears,NHL:Washington Capitals"
      }
     },
     "teamlist": [
@@ -590,7 +604,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Midwest"
+      "division": "Midwest",
+      "affiliates": "AHL:Iowa Wild,NHL:Minnesota Wild"
      }
     },
     "IceMen": {
@@ -607,7 +622,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Midwest"
+      "division": "Midwest",
+      "affiliates": "AHL:Binghamton Senators,NHL:Ottawa Senators"
      }
     },
     "Fuel": {
@@ -624,7 +640,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Midwest"
+      "division": "Midwest",
+      "affiliates": "AHL:Rockford IceHogs,NHL:Chicago Blackhawks"
      }
     },
     "Komets": {
@@ -641,7 +658,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Midwest"
+      "division": "Midwest",
+      "affiliates": "AHL:San Antonio Rampage,NHL:Colorado Avalanche"
      }
     },
     "Cyclones": {
@@ -658,7 +676,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Midwest"
+      "division": "Midwest",
+      "affiliates": "AHL:Milwaukee Admirals,NHL:Nashville Predators"
      }
     },
     "teamlist": [
@@ -692,7 +711,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "AHL:None,NHL:None"
      }
     },
     "Americans": {
@@ -709,7 +729,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "AHL:San Jose Barracuda,NHL:San Jose Sharks"
      }
     },
     "Oilers": {
@@ -726,7 +747,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "AHL:Manitoba Moose,NHL:Winnipeg Jets"
      }
     },
     "Mavericks": {
@@ -743,7 +765,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "AHL:Bridgeport Sound Tigers,NHL:New York Islanders"
      }
     },
     "teamlist": [
@@ -776,7 +799,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "West"
+      "division": "West",
+      "affiliates": "AHL:None,NHL:None"
      }
     },
     "Steelheads": {
@@ -793,7 +817,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "West"
+      "division": "West",
+      "affiliates": "AHL:Texas Stars,NHL:Dallas Stars"
      }
     },
     "Grizzlies": {
@@ -810,7 +835,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "West"
+      "division": "West",
+      "affiliates": "AHL:San Diego Gulls,NHL:Anaheim Ducks"
      }
     },
     "Eagles": {
@@ -827,7 +853,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "West"
+      "division": "West",
+      "affiliates": "AHL:None,NHL:None"
      }
     },
     "Rush": {
@@ -844,7 +871,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "West"
+      "division": "West",
+      "affiliates": "AHL:Springfield Falcons,NHL:Arizona Coyotes"
      }
     },
     "teamlist": [
@@ -1161,7 +1189,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Missouri Mavericks,NHL:New York Islanders"
      }
     },
     "Wolf Pack": {
@@ -1178,7 +1207,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Greenville Swamp Rabbits,NHL:New York Rangers"
      }
     },
     "Bears": {
@@ -1195,7 +1225,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:South Carolina Stingrays,NHL:Washington Capitals"
      }
     },
     "Phantoms": {
@@ -1212,7 +1243,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Reading Royals,NHL:Philadelphia Flyers"
      }
     },
     "Pirates": {
@@ -1229,7 +1261,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:None,NHL:Florida Panthers"
      }
     },
     "Bruins": {
@@ -1246,7 +1279,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Atlanta Gladiators,NHL:Boston Bruins"
      }
     },
     "Falcons": {
@@ -1263,7 +1297,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Rapid City Rush,NHL:Arizona Coyotes"
      }
     },
     "Penguins": {
@@ -1280,7 +1315,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Wheeling Nailers,NHL:Pittsburgh Penguins"
      }
     },
     "teamlist": [
@@ -1317,7 +1353,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:None,NHL:New Jersey Devils"
      }
     },
     "Senators": {
@@ -1334,7 +1371,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:Evansville IceMen,NHL:Ottawa Senators"
      }
     },
     "Americans": {
@@ -1351,7 +1389,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:Elmira Jackals,NHL:Buffalo Sabres"
      }
     },
     "IceCaps": {
@@ -1368,7 +1407,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:Brampton Beast,NHL:Montreal Canadiens"
      }
     },
     "Crunch": {
@@ -1385,7 +1425,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:None,NHL:Tampa Bay Lightning"
      }
     },
     "Marlies": {
@@ -1402,7 +1443,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:Orlando Solar Bears,NHL:Toronto Maple Leafs"
      }
     },
     "Comets": {
@@ -1419,7 +1461,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": "ECHL:None,NHL:Vancouver Canucks"
      }
     },
     "teamlist": [
@@ -1479,7 +1522,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Florida Everblades,NHL:Carolina Hurricanes"
      }
     },
     "Wolves": {
@@ -1496,7 +1540,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:None,NHL:St. Louis Blues"
      }
     },
     "Griffins": {
@@ -1513,7 +1558,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Toledo Walleye,NHL:Detroit Red Wings"
      }
     },
     "Wild": {
@@ -1530,7 +1576,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Quad City Mallards,NHL:Minnesota Wild"
      }
     },
     "Monsters": {
@@ -1547,7 +1594,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Kalamazoo Wings,NHL:Columbus Blue Jackets"
      }
     },
     "Moose": {
@@ -1564,7 +1612,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Tulsa Oilers,NHL:Winnipeg Jets"
      }
     },
     "Admirals": {
@@ -1581,7 +1630,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Cincinnati Cyclones,NHL:Nashville Predators"
      }
     },
     "IceHogs": {
@@ -1598,7 +1648,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Indy Fuel,NHL:Chicago Blackhawks"
      }
     },
     "teamlist": [
@@ -1635,7 +1686,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Norfolk Admirals,NHL:Edmonton Oilers"
      }
     },
     "Reign": {
@@ -1652,7 +1704,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Manchester Monarchs,NHL:Los Angeles Kings"
      }
     },
     "Rampage": {
@@ -1669,7 +1722,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Fort Wayne Komets,NHL:Colorado Avalanche"
      }
     },
     "Gulls": {
@@ -1686,7 +1740,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Utah Grizzlies,NHL:Anaheim Ducks"
      }
     },
     "Barracuda": {
@@ -1703,7 +1758,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Allen Americans,NHL:San Jose Sharks"
      }
     },
     "Heat": {
@@ -1720,7 +1776,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Adirondack Thunder,NHL:Calgary Flames"
      }
     },
     "Stars": {
@@ -1737,7 +1794,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Idaho Steelheads,NHL:Dallas Stars"
      }
     },
     "teamlist": [
@@ -2055,7 +2113,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Atlanta Gladiators,AHL:Providence Bruins"
      }
     },
     "Sabres": {
@@ -2072,7 +2131,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Elmira Jackals,AHL:Rochester Americans"
      }
     },
     "Red Wings": {
@@ -2089,7 +2149,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Toledo Walleye,AHL:Grand Rapids Griffins"
      }
     },
     "Panthers": {
@@ -2106,7 +2167,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:None,AHL:Portland Pirates"
      }
     },
     "Canadiens": {
@@ -2123,7 +2185,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Brampton Beast,AHL:St. John's Icecaps"
      }
     },
     "Senators": {
@@ -2140,7 +2203,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Evansville IceMen,AHL:Binghamton Senators"
      }
     },
     "Lightning": {
@@ -2157,7 +2221,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:None,AHL:Syracuse Crunch"
      }
     },
     "Maple Leafs": {
@@ -2174,7 +2239,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": "ECHL:Orlando Solar Bears,AHL:Toronto Marlies"
      }
     },
     "teamlist": [
@@ -2211,7 +2277,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:Florida Everblades,AHL:Charlotte Checkers"
      }
     },
     "Blue Jackets": {
@@ -2228,7 +2295,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:Kalamazoo Wings,AHL:Lake Erie Monsters"
      }
     },
     "Devils": {
@@ -2245,7 +2313,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:None,AHL:Albany Devils"
      }
     },
     "Islanders": {
@@ -2262,7 +2331,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:Missouri Mavericks,AHL:Bridgeport Sound Tigers"
      }
     },
     "Rangers": {
@@ -2279,7 +2349,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:Greenville Swamp Rabbits,AHL:Hartford Wolf Pack"
      }
     },
     "Flyers": {
@@ -2296,7 +2367,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:Reading Royals,AHL:Lehigh Valley Phantoms"
      }
     },
     "Penguins": {
@@ -2313,7 +2385,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:Wheeling Nailers,AHL:Wilkes-Barre/Scranton Penguins"
      }
     },
     "Capitals": {
@@ -2330,7 +2403,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": "ECHL:South Carolina Stingrays,AHL:Hershey Bears"
      }
     },
     "teamlist": [
@@ -2407,7 +2481,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Indy Fuel,AHL:Rockford IceHogs"
      }
     },
     "Avalanche": {
@@ -2424,7 +2499,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Fort Wayne Komets,AHL:San Antonio Rampage"
      }
     },
     "Stars": {
@@ -2441,7 +2517,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Idaho Steelheads,AHL:Texas Stars"
      }
     },
     "Wild": {
@@ -2458,7 +2535,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Quad City Mallards,AHL:Iowa Wild"
      }
     },
     "Predators": {
@@ -2475,7 +2553,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Cincinnati Cyclones,AHL:Milwaukee Admirals"
      }
     },
     "Blues": {
@@ -2492,7 +2571,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:None,AHL:Chicago Wolves"
      }
     },
     "Jets": {
@@ -2509,7 +2589,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": "ECHL:Tulsa Oilers,AHL:Manitoba Moose"
      }
     },
     "teamlist": [
@@ -2545,7 +2626,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Utah Grizzlies,AHL:San Diego Gulls"
      }
     },
     "Coyotes": {
@@ -2562,7 +2644,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Rapid City Rush,AHL:Springfield Falcons"
      }
     },
     "Flames": {
@@ -2579,7 +2662,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Adirondack Thunder,AHL:Stockton Heat"
      }
     },
     "Oilers": {
@@ -2596,7 +2680,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Norfolk Admirals,AHL:Bakersfield Condors"
      }
     },
     "Kings": {
@@ -2613,7 +2698,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Manchester Monarchs,AHL:Ontario Reign"
      }
     },
     "Sharks": {
@@ -2630,7 +2716,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:Allen Americans,AHL:San Jose Barracuda"
      }
     },
     "Canucks": {
@@ -2647,7 +2734,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": "ECHL:None,AHL:Utica Comets"
      }
     },
     "teamlist": [

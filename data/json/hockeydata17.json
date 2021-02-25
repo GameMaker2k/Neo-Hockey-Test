@@ -302,7 +302,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Sabres": {
@@ -319,7 +320,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Red Wings": {
@@ -336,7 +338,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Panthers": {
@@ -353,7 +356,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Canadiens": {
@@ -370,7 +374,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Senators": {
@@ -387,7 +392,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Lightning": {
@@ -404,7 +410,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Maple Leafs": {
@@ -421,7 +428,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -458,7 +466,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Blue Jackets": {
@@ -475,7 +484,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Devils": {
@@ -492,7 +502,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Islanders": {
@@ -509,7 +520,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Rangers": {
@@ -526,7 +538,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Flyers": {
@@ -543,7 +556,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Penguins": {
@@ -560,7 +574,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Capitals": {
@@ -577,7 +592,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Eastern",
-      "division": "Metropolitan"
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -662,7 +678,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Avalanche": {
@@ -679,7 +696,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Stars": {
@@ -696,7 +714,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Wild": {
@@ -713,7 +732,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Predators": {
@@ -730,7 +750,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Blues": {
@@ -747,7 +768,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Jets": {
@@ -764,7 +786,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -800,7 +823,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Coyotes": {
@@ -817,7 +841,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Flames": {
@@ -834,7 +859,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Oilers": {
@@ -851,7 +877,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Kings": {
@@ -868,7 +895,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Sharks": {
@@ -885,7 +913,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Canucks": {
@@ -902,7 +931,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Golden Knights": {
@@ -919,7 +949,8 @@
       "suffix": "",
       "league": "NHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -1238,7 +1269,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Checkers": {
@@ -1255,7 +1287,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Wolf Pack": {
@@ -1272,7 +1305,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Bears": {
@@ -1289,7 +1323,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Phantoms": {
@@ -1306,7 +1341,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Bruins": {
@@ -1323,7 +1359,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Thunderbirds": {
@@ -1340,7 +1377,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Penguins": {
@@ -1357,7 +1395,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "Atlantic"
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -1394,7 +1433,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Devils": {
@@ -1411,7 +1451,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Rocket": {
@@ -1428,7 +1469,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Americans": {
@@ -1445,7 +1487,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Crunch": {
@@ -1462,7 +1505,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Marlies": {
@@ -1479,7 +1523,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Comets": {
@@ -1496,7 +1541,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -1556,7 +1602,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Monsters": {
@@ -1573,7 +1620,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Griffins": {
@@ -1590,7 +1638,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Wild": {
@@ -1607,7 +1656,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Moose": {
@@ -1624,7 +1674,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Admirals": {
@@ -1641,7 +1692,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "IceHogs": {
@@ -1658,7 +1710,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -1694,7 +1747,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Reign": {
@@ -1711,7 +1765,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Rampage": {
@@ -1728,7 +1783,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Gulls": {
@@ -1745,7 +1801,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Barracuda": {
@@ -1762,7 +1819,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Heat": {
@@ -1779,7 +1837,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Stars": {
@@ -1796,7 +1855,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Roadrunners": {
@@ -1813,7 +1873,8 @@
       "suffix": "",
       "league": "AHL",
       "conference": "Western",
-      "division": "Pacific"
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -2104,7 +2165,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Beast": {
@@ -2121,7 +2183,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Monarchs": {
@@ -2138,7 +2201,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Royals": {
@@ -2155,7 +2219,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Nailers": {
@@ -2172,7 +2237,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Railers": {
@@ -2189,7 +2255,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "North"
+      "division": "North",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -2224,7 +2291,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "Everblades": {
@@ -2241,7 +2309,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "Swamp Rabbits": {
@@ -2258,7 +2327,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "Icemen": {
@@ -2275,7 +2345,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "Admirals": {
@@ -2292,7 +2363,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "Solar Bears": {
@@ -2309,7 +2381,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "Stingrays": {
@@ -2326,7 +2399,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Eastern",
-      "division": "South"
+      "division": "South",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -2377,7 +2451,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Komets": {
@@ -2394,7 +2469,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Fuel": {
@@ -2411,7 +2487,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Wings": {
@@ -2428,7 +2505,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Mavericks": {
@@ -2445,7 +2523,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Mallards": {
@@ -2462,7 +2541,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Walleye": {
@@ -2479,7 +2559,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Central"
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -2515,7 +2596,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Eagles": {
@@ -2532,7 +2614,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Steelheads": {
@@ -2549,7 +2632,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Rush": {
@@ -2566,7 +2650,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Oilers": {
@@ -2583,7 +2668,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Grizzlies": {
@@ -2600,7 +2686,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Thunder": {
@@ -2617,7 +2704,8 @@
       "suffix": "",
       "league": "ECHL",
       "conference": "Western",
-      "division": "Mountain"
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -2744,7 +2832,8 @@
       "suffix": "",
       "league": "FHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Nationals": {
@@ -2761,7 +2850,8 @@
       "suffix": "",
       "league": "FHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Dashers": {
@@ -2778,7 +2868,8 @@
       "suffix": "",
       "league": "FHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Knights": {
@@ -2795,7 +2886,8 @@
       "suffix": "",
       "league": "FHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Prowlers": {
@@ -2812,7 +2904,8 @@
       "suffix": "",
       "league": "FHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Wolves": {
@@ -2829,7 +2922,8 @@
       "suffix": "",
       "league": "FHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -2983,7 +3077,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Thunderbolts": {
@@ -3000,7 +3095,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Marksmen": {
@@ -3017,7 +3113,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Havoc": {
@@ -3034,7 +3131,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Ice Bears": {
@@ -3051,7 +3149,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Mayhem": {
@@ -3068,7 +3167,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "RiverKings": {
@@ -3085,7 +3185,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Ice Flyers": {
@@ -3102,7 +3203,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Rivermen": {
@@ -3119,7 +3221,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "Rail Yard Dawgs": {
@@ -3136,7 +3239,8 @@
       "suffix": "",
       "league": "SPHL",
       "conference": "",
-      "division": ""
+      "division": "",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -3436,7 +3540,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Bobrov"
+      "division": "Bobrov",
+      "affiliates": ""
      }
     },
     "Dinamo Riga": {
@@ -3453,7 +3558,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Bobrov"
+      "division": "Bobrov",
+      "affiliates": ""
      }
     },
     "Jokerit Helsinki": {
@@ -3470,7 +3576,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Bobrov"
+      "division": "Bobrov",
+      "affiliates": ""
      }
     },
     "SKA Saint Petersburg": {
@@ -3487,7 +3594,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Bobrov"
+      "division": "Bobrov",
+      "affiliates": ""
      }
     },
     "Slovan Bratislava": {
@@ -3504,7 +3612,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Bobrov"
+      "division": "Bobrov",
+      "affiliates": ""
      }
     },
     "Spartak Moscow": {
@@ -3521,7 +3630,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Bobrov"
+      "division": "Bobrov",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -3556,7 +3666,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "Dynamo Moscow": {
@@ -3573,7 +3684,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "Lokomotiv Yaroslavl": {
@@ -3590,7 +3702,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "Severstal Cherepovets": {
@@ -3607,7 +3720,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "HC Sochi": {
@@ -3624,7 +3738,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "Torpedo Nizhny Novgorod": {
@@ -3641,7 +3756,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "Vityaz Moscow Oblast": {
@@ -3658,7 +3774,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Western",
-      "division": "Tarasov"
+      "division": "Tarasov",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -3726,7 +3843,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "Avtomobilist Yekaterinburg": {
@@ -3743,7 +3861,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "Lada Togliatti": {
@@ -3760,7 +3879,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "Metallurg Magnitogorsk": {
@@ -3777,7 +3897,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "Neftekhimik Nizhnekamsk": {
@@ -3794,7 +3915,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "Traktor Chelyabinsk": {
@@ -3811,7 +3933,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "Yugra Khanty-Mansiysk": {
@@ -3828,7 +3951,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Kharlamov"
+      "division": "Kharlamov",
+      "affiliates": ""
      }
     },
     "teamlist": [
@@ -3864,7 +3988,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "Amur Khabarovsk": {
@@ -3881,7 +4006,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "Avangard Omsk": {
@@ -3898,7 +4024,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "Barys Astana": {
@@ -3915,7 +4042,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "Salavat Yulaev Ufa": {
@@ -3932,7 +4060,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "Sibir Novosibirsk": {
@@ -3949,7 +4078,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "Red Star Kunlun": {
@@ -3966,7 +4096,8 @@
       "suffix": "",
       "league": "KHL",
       "conference": "Eastern",
-      "division": "Chernyshev"
+      "division": "Chernyshev",
+      "affiliates": ""
      }
     },
     "teamlist": [
