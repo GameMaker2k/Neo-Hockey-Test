@@ -131,7 +131,7 @@ def MakeHockeyJSONFromOldHockeyDatabase(insdbfile, returnjson=False, jsonindent=
 
 def MakeHockeyDatabaseFromHockeyXML(inxmlfile, outsdbfile=None, xmlisfile=True, returndb=False, verbose=True, jsonverbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
- hockeydbout = MakeHockeyDatabaseFromHockeyArray(hockeyarray, outinsdbfile, returndb, verbose, jsonverbose);
+ hockeydbout = MakeHockeyDatabaseFromHockeyArray(hockeyarray, outsdbfile, returndb, verbose, jsonverbose);
  return hockeydbout;
 
 def MakeHockeyDatabaseFromHockeySQL(insqlfile, outsdbfile=None, sqlisfile=True, returndb=False, verbose=True, jsonverbose=True):
