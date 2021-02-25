@@ -504,7 +504,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
          return False;
         for hockeyteam in hockeydivision:
          if(hockeyteam.tag=="team"):
-          if(not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "arena", "prefix", "suffix"], dict(hockeyteam.attrib))):
+          if(not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "arena", "affiliates", "prefix", "suffix"], dict(hockeyteam.attrib))):
            return False;
          else:
           return False;
