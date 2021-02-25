@@ -524,9 +524,9 @@ def MakeHockeySQLFileFromHockeyXML(xmlfile, sqlfile=None, xmlisfile=True, return
  compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
  outextlist = ['gz', 'bz2', 'lzma', 'xz'];
  outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
- fbasename = os.path.splitext(outsqlfile)[0];
- fextname = os.path.splitext(outsqlfile)[1];
- sqlfp = CompressOpenFile(outsqlfile);
+ fbasename = os.path.splitext(sqlfile)[0];
+ fextname = os.path.splitext(sqlfile)[1];
+ sqlfp = CompressOpenFile(sqlfile);
  sqlstring = MakeHockeySQLFromHockeyXML(xmlfile, xmlisfile, verbose, jsonverbose);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
