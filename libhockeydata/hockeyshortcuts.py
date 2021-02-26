@@ -917,7 +917,7 @@ def MakeHockeyDataFileFromHockeyArray(funcargs):
   return False;
  return False;
 
-def MakeHockeySQLiteArrayFromHockeyDataByDict(informat="xml", **funcargs):
+def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
  informat = informat.lower();
  if(informat=="xml"):
   return MakeHockeySQLiteArrayFromHockeySQLiteXML(**funcargs);
@@ -939,7 +939,7 @@ def MakeHockeySQLiteArrayFromHockeyDataByDict(informat="xml", **funcargs):
   return False;
  return False;
 
-def MakeHockeySQLiteArrayFromHockeyDataByList(informat="xml", *funcargs):
+def MakeHockeySQLiteArrayFromHockeySQLiteDataByList(informat="xml", *funcargs):
  informat = informat.lower();
  if(informat=="xml"):
   return MakeHockeySQLiteArrayFromHockeySQLiteXML(*funcargs);
@@ -961,16 +961,16 @@ def MakeHockeySQLiteArrayFromHockeyDataByList(informat="xml", *funcargs):
   return False;
  return False;
 
-def MakeHockeySQLiteArrayFromHockeyData(funcargs):
+def MakeHockeySQLiteArrayFromHockeySQLiteData(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
-  return MakeHockeySQLiteArrayFromHockeyDataByList(*funcargs);
+  return MakeHockeySQLiteArrayFromHockeySQLiteDataByList(*funcargs);
  elif(funcargs is not None and isinstance(funcargs, (dict))):
-  return MakeHockeySQLiteArrayFromHockeyDataByDict(**funcargs);
+  return MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**funcargs);
  else:
   return False;
  return False;
 
-def MakeHockeyDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
+def MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
  outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFromHockeySQLiteArray(**funcargs);
@@ -1000,7 +1000,7 @@ def MakeHockeyDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
   return False;
  return False;
 
-def MakeHockeyDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
+def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
  outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFromHockeySQLiteArray(*funcargs);
@@ -1030,16 +1030,16 @@ def MakeHockeyDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
   return False;
  return False;
 
-def MakeHockeyDataFromHockeySQLiteArray(funcargs):
+def MakeHockeySQLiteDataFromHockeySQLiteArray(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
-  return MakeHockeyDataFromHockeySQLiteArrayByList(*funcargs);
+  return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*funcargs);
  elif(funcargs is not None and isinstance(funcargs, (dict))):
-  return MakeHockeyDataFromHockeySQLiteArrayByDict(**funcargs);
+  return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**funcargs);
  else:
   return False;
  return False;
 
-def MakeHockeyDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
+def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
  outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**funcargs);
@@ -1065,7 +1065,7 @@ def MakeHockeyDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
   return False;
  return False;
 
-def MakeHockeyDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
+def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
  outformat = outformat.lower();
  if(outformat=="xml"):
   return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(*funcargs);
@@ -1091,11 +1091,11 @@ def MakeHockeyDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
   return False;
  return False;
 
-def MakeHockeyDataFileFromHockeySQLiteArray(funcargs):
+def MakeHockeySQLiteDataFileFromHockeySQLiteArray(funcargs):
  if(funcargs is not None and isinstance(funcargs, (tuple, list))):
-  return MakeHockeyDataFileFromHockeySQLiteArrayByList(*funcargs);
+  return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*funcargs);
  elif(funcargs is not None and isinstance(funcargs, (dict))):
-  return MakeHockeyDataFileFromHockeySQLiteArrayByDict(**funcargs);
+  return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**funcargs);
  else:
   return False;
  return False;
