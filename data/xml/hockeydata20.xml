@@ -81,9 +81,9 @@
     <team city="Loveland" area="CO" fullarea="Colorado" country="USA" fullcountry="United States" name="Eagles" arena="Budweiser Events Center" prefix="Colorado" suffix="" affiliates="NHL:Colorado Avalanche" />
     <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Silver Knights" arena="Orleans Arena" prefix="Henderson" suffix="" affiliates="NHL:Vegas Golden Knights" />
     <team city="El Segundo" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Reign" arena="Toyota Sports Center" prefix="Ontario" suffix="" affiliates="NHL:Los Angeles Kings" />
-    <team city="Irvine" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Great Park Ice &amp; FivePoint Arena" prefix="San Diego" suffix="" affiliates="NHL:" />
-    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" suffix="" affiliates="NHL:" />
-    <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" suffix="" affiliates="NHL:" />
+    <team city="Irvine" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Gulls" arena="Great Park Ice &amp; FivePoint Arena" prefix="San Diego" suffix="" affiliates="NHL:Anaheim Ducks" />
+    <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Barracuda" arena="SAP Center" prefix="San Jose" suffix="" affiliates="NHL:San Jose Sharks" />
+    <team city="Tucson" area="AZ" fullarea="Arizona" country="USA" fullcountry="United States" name="Roadrunners" arena="Tucson Convention Center" prefix="Tucson" suffix="" affiliates="NHL:Arizona Coyotes" />
    </division>
   </conference>
  </league>
