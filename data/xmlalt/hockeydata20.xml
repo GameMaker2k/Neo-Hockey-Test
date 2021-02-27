@@ -38,8 +38,8 @@
     <rowdata name="PlayOffFMT" value="Division=4"/>
     <rowdata name="OrderType" value="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"/>
     <rowdata name="NumberOfTeams" value="28"/>
-    <rowdata name="NumberOfConferences" value="1"/>
-    <rowdata name="NumberOfDivisions" value="0"/>
+    <rowdata name="NumberOfConferences" value="0"/>
+    <rowdata name="NumberOfDivisions" value="5"/>
    </row>
   </data>
   <rows>
@@ -6314,8 +6314,8 @@
     <rowdata name="FullName" value=" Conference"/>
     <rowdata name="LeagueName" value="AHL"/>
     <rowdata name="LeagueFullName" value="American Hockey League"/>
-    <rowdata name="NumberOfTeams" value="28"/>
-    <rowdata name="NumberOfDivisions" value="5"/>
+    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
    </row>
   </data>
   <rows>
@@ -6354,7 +6354,7 @@
     <rowdata name="ConferenceFullName" value=" Conference"/>
     <rowdata name="LeagueName" value="AHL"/>
     <rowdata name="LeagueFullName" value="American Hockey League"/>
-    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfTeams" value="3"/>
    </row>
    <row id="1">
     <rowdata name="id" value="2"/>
@@ -6366,7 +6366,7 @@
     <rowdata name="ConferenceFullName" value=" Conference"/>
     <rowdata name="LeagueName" value="AHL"/>
     <rowdata name="LeagueFullName" value="American Hockey League"/>
-    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfTeams" value="5"/>
    </row>
    <row id="2">
     <rowdata name="id" value="3"/>
@@ -6378,7 +6378,7 @@
     <rowdata name="ConferenceFullName" value=" Conference"/>
     <rowdata name="LeagueName" value="AHL"/>
     <rowdata name="LeagueFullName" value="American Hockey League"/>
-    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfTeams" value="7"/>
    </row>
    <row id="3">
     <rowdata name="id" value="4"/>
@@ -6390,7 +6390,7 @@
     <rowdata name="ConferenceFullName" value=" Conference"/>
     <rowdata name="LeagueName" value="AHL"/>
     <rowdata name="LeagueFullName" value="American Hockey League"/>
-    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfTeams" value="6"/>
    </row>
    <row id="4">
     <rowdata name="id" value="5"/>
@@ -6402,7 +6402,7 @@
     <rowdata name="ConferenceFullName" value=" Conference"/>
     <rowdata name="LeagueName" value="AHL"/>
     <rowdata name="LeagueFullName" value="American Hockey League"/>
-    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfTeams" value="7"/>
    </row>
   </data>
   <rows>

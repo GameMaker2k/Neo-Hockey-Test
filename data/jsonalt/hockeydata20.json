@@ -37,8 +37,8 @@
     "PlayOffFMT": "Division=4",
     "OrderType": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
     "NumberOfTeams": 28,
-    "NumberOfConferences": 1,
-    "NumberOfDivisions": 0
+    "NumberOfConferences": 0,
+    "NumberOfDivisions": 5
    }
   ],
   "LeagueName": {
@@ -9522,8 +9522,8 @@
     "FullName": " Conference",
     "LeagueName": "AHL",
     "LeagueFullName": "American Hockey League",
-    "NumberOfTeams": 28,
-    "NumberOfDivisions": 5
+    "NumberOfTeams": 0,
+    "NumberOfDivisions": 0
    }
   ],
   "Conference": {
@@ -9658,7 +9658,7 @@
     "ConferenceFullName": " Conference",
     "LeagueName": "AHL",
     "LeagueFullName": "American Hockey League",
-    "NumberOfTeams": 0
+    "NumberOfTeams": 3
    },
    {
     "id": 2,
@@ -9670,7 +9670,7 @@
     "ConferenceFullName": " Conference",
     "LeagueName": "AHL",
     "LeagueFullName": "American Hockey League",
-    "NumberOfTeams": 0
+    "NumberOfTeams": 5
    },
    {
     "id": 3,
@@ -9682,7 +9682,7 @@
     "ConferenceFullName": " Conference",
     "LeagueName": "AHL",
     "LeagueFullName": "American Hockey League",
-    "NumberOfTeams": 0
+    "NumberOfTeams": 7
    },
    {
     "id": 4,
@@ -9694,7 +9694,7 @@
     "ConferenceFullName": " Conference",
     "LeagueName": "AHL",
     "LeagueFullName": "American Hockey League",
-    "NumberOfTeams": 0
+    "NumberOfTeams": 6
    },
    {
     "id": 5,
@@ -9706,7 +9706,7 @@
     "ConferenceFullName": " Conference",
     "LeagueName": "AHL",
     "LeagueFullName": "American Hockey League",
-    "NumberOfTeams": 0
+    "NumberOfTeams": 7
    }
   ],
   "Division": {

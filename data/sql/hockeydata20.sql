@@ -2,7 +2,7 @@
 -- version 0.5.0 RC 1
 -- https://github.com/GameMaker2k/Neo-Hockey-Test
 --
--- Generation Time: February 27, 2021 at 04:19 AM
+-- Generation Time: February 27, 2021 at 04:32 AM
 -- SQLite Server version: 3.34.1
 -- PySQLite version: 2.6.0
 -- Python Version: 3.9.2
@@ -40,7 +40,7 @@ CREATE TABLE HockeyLeagues (
 INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES 
 (1, "NHL", "National Hockey League", "USA", "United States", 20210113, "Division=3,Conference=2", "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", 31, 2, 4);
 INSERT INTO HockeyLeagues (id, LeagueName, LeagueFullName, CountryName, FullCountryName, Date, PlayOffFMT, OrderType, NumberOfTeams, NumberOfConferences, NumberOfDivisions) VALUES 
-(2, "AHL", "American Hockey League", "USA", "United States", 20210205, "Division=4", "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", 28, 1, 0);
+(2, "AHL", "American Hockey League", "USA", "United States", 20210205, "Division=4", "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", 28, 0, 5);
 
 -- --------------------------------------------------------
 
@@ -659,7 +659,7 @@ CREATE TABLE AHLConferences (
 --
 
 INSERT INTO AHLConferences (id, Conference, ConferencePrefix, ConferenceSuffix, FullName, LeagueName, LeagueFullName, NumberOfTeams, NumberOfDivisions) VALUES 
-(1, "", "", "Conference", " Conference", "AHL", "American Hockey League", 28, 5);
+(1, "", "", "Conference", " Conference", "AHL", "American Hockey League", 0, 0);
 
 -- --------------------------------------------------------
 
@@ -687,15 +687,15 @@ CREATE TABLE AHLDivisions (
 --
 
 INSERT INTO AHLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, ConferenceFullName, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(1, "Atlantic", "", "Division", "Atlantic Division", "", " Conference", "AHL", "American Hockey League", 0);
+(1, "Atlantic", "", "Division", "Atlantic Division", "", " Conference", "AHL", "American Hockey League", 3);
 INSERT INTO AHLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, ConferenceFullName, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(2, "Canadian", "", "Division", "Canadian Division", "", " Conference", "AHL", "American Hockey League", 0);
+(2, "Canadian", "", "Division", "Canadian Division", "", " Conference", "AHL", "American Hockey League", 5);
 INSERT INTO AHLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, ConferenceFullName, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(3, "North", "", "Division", "North Division", "", " Conference", "AHL", "American Hockey League", 0);
+(3, "North", "", "Division", "North Division", "", " Conference", "AHL", "American Hockey League", 7);
 INSERT INTO AHLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, ConferenceFullName, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(4, "Central", "", "Division", "Central Division", "", " Conference", "AHL", "American Hockey League", 0);
+(4, "Central", "", "Division", "Central Division", "", " Conference", "AHL", "American Hockey League", 6);
 INSERT INTO AHLDivisions (id, Division, DivisionPrefix, DivisionSuffix, FullName, Conference, ConferenceFullName, LeagueName, LeagueFullName, NumberOfTeams) VALUES 
-(5, "Pacific", "", "Division", "Pacific Division", "", " Conference", "AHL", "American Hockey League", 0);
+(5, "Pacific", "", "Division", "Pacific Division", "", " Conference", "AHL", "American Hockey League", 7);
 
 -- --------------------------------------------------------
 
