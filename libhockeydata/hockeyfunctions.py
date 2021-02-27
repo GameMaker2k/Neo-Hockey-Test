@@ -1153,12 +1153,12 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
   MakeHockeyConferenceTable(sqldatacon, hlkey);
   MakeHockeyGameTable(sqldatacon, hlkey);
   MakeHockeyDivisionTable(sqldatacon, hlkey);
-  HockeyLeagueHasDivisions = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
-   HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
    HockeyLeagueHasConferences = False;
+  HockeyLeagueHasDivisions = True;
+  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
   MakeHockeyLeague(sqldatacon, hlkey, inchockeyarray[hlkey]['leagueinfo']['fullname'], inchockeyarray[hlkey]['leagueinfo']['country'], inchockeyarray[hlkey]['leagueinfo']['fullcountry'], inchockeyarray[hlkey]['leagueinfo']['date'], inchockeyarray[hlkey]['leagueinfo']['playofffmt'], inchockeyarray[hlkey]['leagueinfo']['ordertype']);
   leaguecount = leaguecount + 1;
   conferencecount = 0;
