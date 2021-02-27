@@ -1743,7 +1743,7 @@
       "league": "AHL",
       "conference": "",
       "division": "Pacific",
-      "affiliates": "NHL:"
+      "affiliates": "NHL:Anaheim Ducks"
      }
     },
     "Barracuda": {
@@ -1761,7 +1761,7 @@
       "league": "AHL",
       "conference": "",
       "division": "Pacific",
-      "affiliates": "NHL:"
+      "affiliates": "NHL:San Jose Sharks"
      }
     },
     "Roadrunners": {
@@ -1779,7 +1779,7 @@
       "league": "AHL",
       "conference": "",
       "division": "Pacific",
-      "affiliates": "NHL:"
+      "affiliates": "NHL:Arizona Coyotes"
      }
     },
     "teamlist": [

@@ -43,7 +43,7 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "St. Paul",
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "St. Louis", "MO", "USA", "United States", "Missouri", "Blues", "Western", "West", "Enterprise Center", "St. Louis", "", "AHL:Utica Comets");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "San Jose", "CA", "USA", "United States", "California", "Sharks", "Western", "West", "SAP Center", "San Jose", "", "AHL:San Jose Barracuda");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "NHL", "Paradise", "NV", "USA", "United States", "Nevada", "Golden Knights", "Western", "West", "T-Mobile Arena", "Vegas", "", "AHL:Henderson Silver Knights");
-hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "AHL", "American Hockey League", "USA", "United States", "20210205", "Division=4", "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, False);
+hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "AHL", "American Hockey League", "USA", "United States", "20210205", "Division=4", "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", False, True);
 hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, "AHL", "");
 hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "AHL", "Atlantic", "", "", "Division");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Bridgeport", "CT", "USA", "United States", "Connecticut", "Sound Tigers", "", "Atlantic", "Webster Bank Arena", "Bridgeport", "", "NHL:New York Islanders");
@@ -75,8 +75,8 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Bakersfiel
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Loveland", "CO", "USA", "United States", "Colorado", "Eagles", "", "Pacific", "Budweiser Events Center", "Colorado", "", "NHL:Colorado Avalanche");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Paradise", "NV", "USA", "United States", "Nevada", "Silver Knights", "", "Pacific", "Orleans Arena", "Henderson", "", "NHL:Vegas Golden Knights");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "El Segundo", "CA", "USA", "United States", "California", "Reign", "", "Pacific", "Toyota Sports Center", "Ontario", "", "NHL:Los Angeles Kings");
-hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Irvine", "CA", "USA", "United States", "California", "Gulls", "", "Pacific", "Great Park Ice & FivePoint Arena", "San Diego", "", "NHL:");
-hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "San Jose", "CA", "USA", "United States", "California", "Barracuda", "", "Pacific", "SAP Center", "San Jose", "", "NHL:");
-hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Tucson", "AZ", "USA", "United States", "Arizona", "Roadrunners", "", "Pacific", "Tucson Convention Center", "Tucson", "", "NHL:");
+hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Irvine", "CA", "USA", "United States", "California", "Gulls", "", "Pacific", "Great Park Ice & FivePoint Arena", "San Diego", "", "NHL:Anaheim Ducks");
+hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "San Jose", "CA", "USA", "United States", "California", "Barracuda", "", "Pacific", "SAP Center", "San Jose", "", "NHL:San Jose Sharks");
+hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Tucson", "AZ", "USA", "United States", "Arizona", "Roadrunners", "", "Pacific", "Tucson Convention Center", "Tucson", "", "NHL:Arizona Coyotes");
 
 libhockeydata.MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, True, False);

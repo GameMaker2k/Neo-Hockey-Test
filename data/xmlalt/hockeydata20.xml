@@ -9034,7 +9034,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Great Park Ice &amp; FivePoint Arena"/>
     <rowdata name="FullArenaName" value="Great Park Ice &amp; FivePoint Arena, Irvine"/>
-    <rowdata name="Affiliates" value="NHL:"/>
+    <rowdata name="Affiliates" value="NHL:Anaheim Ducks"/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -9115,7 +9115,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="SAP Center"/>
     <rowdata name="FullArenaName" value="SAP Center, San Jose"/>
-    <rowdata name="Affiliates" value="NHL:"/>
+    <rowdata name="Affiliates" value="NHL:San Jose Sharks"/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -9196,7 +9196,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Tucson Convention Center"/>
     <rowdata name="FullArenaName" value="Tucson Convention Center, Tucson"/>
-    <rowdata name="Affiliates" value="NHL:"/>
+    <rowdata name="Affiliates" value="NHL:Arizona Coyotes"/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -11495,7 +11495,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Great Park Ice &amp; FivePoint Arena"/>
     <rowdata name="FullArenaName" value="Great Park Ice &amp; FivePoint Arena, Irvine"/>
-    <rowdata name="Affiliates" value="NHL:"/>
+    <rowdata name="Affiliates" value="NHL:Anaheim Ducks"/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -11577,7 +11577,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="SAP Center"/>
     <rowdata name="FullArenaName" value="SAP Center, San Jose"/>
-    <rowdata name="Affiliates" value="NHL:"/>
+    <rowdata name="Affiliates" value="NHL:San Jose Sharks"/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -11659,7 +11659,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Tucson Convention Center"/>
     <rowdata name="FullArenaName" value="Tucson Convention Center, Tucson"/>
-    <rowdata name="Affiliates" value="NHL:"/>
+    <rowdata name="Affiliates" value="NHL:Arizona Coyotes"/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
