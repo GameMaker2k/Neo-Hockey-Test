@@ -1208,12 +1208,12 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
  pystring = pystring+"sqldatacon = "+pyfilename+".MakeHockeyDatabase(\""+inchockeyarray['database']+"\");\n";
  pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n";
  for hlkey in inchockeyarray['leaguelist']:
-  HockeyLeagueHasDivisions = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
-   HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
    HockeyLeagueHasConferences = False;
+  HockeyLeagueHasDivisions = True;
+  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
   pystring = pystring+pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyLeague(sqldatacon, \""+hlkey+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\");\n";
   conferencecount = 0;
   conferenceend = len(inchockeyarray[hlkey]['conferencelist']);
@@ -1279,12 +1279,12 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
  pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
  pystring = pystring+"hockeyarray = "+pyfilename+".CreateHockeyArray(\""+inchockeyarray['database']+"\");\n";
  for hlkey in inchockeyarray['leaguelist']:
-  HockeyLeagueHasDivisions = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
-   HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
    HockeyLeagueHasConferences = False;
+  HockeyLeagueHasDivisions = True;
+  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
   pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyLeagueToArray(hockeyarray, \""+hlkey+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n";
   conferencecount = 0;
   conferenceend = len(inchockeyarray[hlkey]['conferencelist']);
@@ -1357,12 +1357,12 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
  pystring = pystring+"sqldatacon = "+pyfilename+".MakeHockeyClass(\""+inchockeyarray['database']+"\");\n";
  pystring = pystring+"sqldatacon.MakeHockeyLeagueTable(sqldatacon);\n";
  for hlkey in inchockeyarray['leaguelist']:
-  HockeyLeagueHasDivisions = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
-   HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
    HockeyLeagueHasConferences = False;
+  HockeyLeagueHasDivisions = True;
+  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
   pystring = pystring+"sqldatacon.MakeHockeyTeamTable(sqldatacon, \""+hlkey+"\");\n"+"sqldatacon.MakeHockeyConferenceTable(sqldatacon, \""+hlkey+"\");\n"+"sqldatacon.MakeHockeyGameTable(sqldatacon, \""+hlkey+"\");\n"+"sqldatacon.MakeHockeyDivisionTable(sqldatacon, \""+hlkey+"\");\n"+"sqldatacon.AddHockeyLeague(sqldatacon, \""+hlkey+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\");\n";
   conferencecount = 0;
   conferenceend = len(inchockeyarray[hlkey]['conferencelist']);
@@ -1428,12 +1428,12 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
  pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
  pystring = pystring+"hockeyarray = "+pyfilename+".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n";
  for hlkey in inchockeyarray['leaguelist']:
-  HockeyLeagueHasDivisions = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
-   HockeyLeagueHasDivisions = False;
   HockeyLeagueHasConferences = True;
-  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+  if(inchockeyarray[hlkey]['leagueinfo']['conferences'].lower()=="no"):
    HockeyLeagueHasConferences = False;
+  HockeyLeagueHasDivisions = True;
+  if(inchockeyarray[hlkey]['leagueinfo']['divisions'].lower()=="no"):
+   HockeyLeagueHasDivisions = False;
   pystring = pystring+"hockeyarray = hockeyarray.AddHockeyLeague(\""+hlkey+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n";
   conferencecount = 0;
   conferenceend = len(inchockeyarray[hlkey]['conferencelist']);
