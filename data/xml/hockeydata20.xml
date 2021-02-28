@@ -50,13 +50,6 @@
     <team city="Hartford" area="CT" fullarea="Connecticut" country="USA" fullcountry="United States" name="Wolf Pack" arena="XL Center" prefix="Hartford" suffix="" affiliates="NHL:New York Rangers" />
     <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Bruins" arena="Dunkin' Donuts Center" prefix="Providence" suffix="" affiliates="NHL:Boston Bruins" />
    </division>
-   <division name="Canadian" prefix="" suffix="Division">
-    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Belleville" suffix="" affiliates="NHL:Ottawa Senators" />
-    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Rocket" arena="Bell Centre" prefix="Laval" suffix="" affiliates="NHL:Montreal Canadiens" />
-    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Moose" arena="Bell MTS Iceplex" prefix="Manitoba" suffix="" affiliates="NHL:Winnipeg Jets" />
-    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Heat" arena="Scotiabank Saddledome" prefix="Stockton" suffix="" affiliates="NHL:Calgary Flames" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Marlies" arena="Scotiabank Arena" prefix="Toronto" suffix="" affiliates="NHL:Toronto Maple Leafs" />
-   </division>
    <division name="North" prefix="" suffix="Division">
     <team city="Newark" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Barnabas Health Hockey House" prefix="Binghamton" suffix="" affiliates="NHL:New Jersey Devils" />
     <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" affiliates="NHL:Washington Capitals" />
@@ -65,6 +58,13 @@
     <team city="Syracuse" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Crunch" arena="Oncenter War Memorial Arena" prefix="Syracuse" suffix="" affiliates="NHL:Tampa Bay Lightning;Florida Panthers" />
     <team city="Utica" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Comets" arena="Adirondack Bank Center" prefix="Utica" suffix="" affiliates="NHL:Vancouver Canucks;St. Louis Blues" />
     <team city="Wilkes-Barre" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="Mohegan Sun Arena" prefix="Wilkes-Barre/Scranton" suffix="" affiliates="NHL:Pittsburgh Penguins" />
+   </division>
+   <division name="Canadian" prefix="" suffix="Division">
+    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Belleville" suffix="" affiliates="NHL:Ottawa Senators" />
+    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Rocket" arena="Bell Centre" prefix="Laval" suffix="" affiliates="NHL:Montreal Canadiens" />
+    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Moose" arena="Bell MTS Iceplex" prefix="Manitoba" suffix="" affiliates="NHL:Winnipeg Jets" />
+    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Heat" arena="Scotiabank Saddledome" prefix="Stockton" suffix="" affiliates="NHL:Calgary Flames" />
+    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Marlies" arena="Scotiabank Arena" prefix="Toronto" suffix="" affiliates="NHL:Toronto Maple Leafs" />
    </division>
    <division name="Central" prefix="" suffix="Division">
     <team city="Rosemont" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Wolves" arena="Allstate Arena" prefix="Chicago" suffix="" affiliates="NHL:Carolina Hurricanes" />
