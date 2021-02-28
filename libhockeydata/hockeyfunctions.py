@@ -741,7 +741,7 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, verbose=True, jso
  if(verbose and jsonverbose):
   VerbosePrintOut(jsonstring);
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyJSON(inhockeyarray, verbose=False, jsonverbose=True), verbose=False, jsonverbose=False));
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True), verbose=False, jsonverbose=False);
  return jsonstring;
 
 def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
