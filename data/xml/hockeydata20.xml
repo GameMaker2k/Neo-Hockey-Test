@@ -1,28 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <hockey database="./php/data/hockey20-21.db3">
- <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="20210113" playofffmt="Division=3,Conference=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
-  <conference name="Eastern" prefix="" suffix="Conference">
-   <division name="North" prefix="Scotia" suffix="Division">
-    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Flames" arena="Scotiabank Saddledome" prefix="Calgary" suffix="" affiliates="AHL:Stockton Heat" />
-    <team city="Edmonton" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Oilers" arena="Rogers Place" prefix="Edmonton" suffix="" affiliates="AHL:Bakersfield Condors" />
-    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Bell Centre" prefix="Montreal" suffix="" affiliates="AHL:Laval Rocket" />
-    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Ottawa" suffix="" affiliates="AHL:Belleville Senators" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Scotiabank Arena" prefix="Toronto" suffix="" affiliates="AHL:Toronto Marlies" />
-    <team city="Vancouver" area="BC" fullarea="British Columbia" country="CAN" fullcountry="Canada" name="Canucks" arena="Rogers Arena" prefix="Vancouver" suffix="" affiliates="AHL:Utica Comets" />
-    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Jets" arena="Bell MTS Place" prefix="Winnipeg" suffix="" affiliates="AHL:Manitoba Moose" />
-   </division>
-   <division name="East" prefix="Massmutual" suffix="Division">
-    <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" affiliates="AHL:Providence Bruins" />
-    <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Sabres" arena="KeyBank Center" prefix="Buffalo" suffix="" affiliates="AHL:Rochester Americans" />
-    <team city="New Jersey" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Prudential Center" prefix="New Jersey" suffix="" affiliates="AHL:Binghamton Devils" />
-    <team city="Uniondale" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Islanders" arena="Nassau Coliseum" prefix="New York" suffix="" affiliates="AHL:Bridgeport Sound Tigers" />
-    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" affiliates="AHL:Hartford Wolf Pack" />
-    <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Flyers" arena="Wells Fargo Center" prefix="Philadelphia" suffix="" affiliates="AHL:Lehigh Valley Phantoms" />
-    <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="PPG Paints Arena" prefix="Pittsburgh" suffix="" affiliates="AHL:Wilkes-Barre/Scranton Penguins" />
-    <team city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Capitals" arena="Capital One Arena" prefix="Washington" suffix="" affiliates="AHL:Hershey Bears" />
-   </division>
-  </conference>
-  <conference name="Western" prefix="" suffix="Conference">
+ <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="20210113" playofffmt="Division=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="yes">
+  <conference name="" prefix="" suffix="Conference">
    <division name="Central" prefix="Discover" suffix="Division">
     <team city="Carolina" area="NC" fullarea="North Carolina" country="USA" fullcountry="United States" name="Hurricanes" arena="PNC Arena" prefix="Carolina" suffix="" affiliates="AHL:Chicago Wolves" />
     <team city="Chicago" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Blackhawks" arena="United Center" prefix="Chicago" suffix="" affiliates="AHL:Rockford IceHogs" />
@@ -42,6 +21,25 @@
     <team city="St. Louis" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Blues" arena="Enterprise Center" prefix="St. Louis" suffix="" affiliates="AHL:Utica Comets" />
     <team city="San Jose" area="CA" fullarea="California" country="USA" fullcountry="United States" name="Sharks" arena="SAP Center" prefix="San Jose" suffix="" affiliates="AHL:San Jose Barracuda" />
     <team city="Paradise" area="NV" fullarea="Nevada" country="USA" fullcountry="United States" name="Golden Knights" arena="T-Mobile Arena" prefix="Vegas" suffix="" affiliates="AHL:Henderson Silver Knights" />
+   </division>
+   <division name="North" prefix="Scotia" suffix="Division">
+    <team city="Calgary" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Flames" arena="Scotiabank Saddledome" prefix="Calgary" suffix="" affiliates="AHL:Stockton Heat" />
+    <team city="Edmonton" area="AB" fullarea="Alberta" country="CAN" fullcountry="Canada" name="Oilers" arena="Rogers Place" prefix="Edmonton" suffix="" affiliates="AHL:Bakersfield Condors" />
+    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Bell Centre" prefix="Montreal" suffix="" affiliates="AHL:Laval Rocket" />
+    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="Canadian Tire Centre" prefix="Ottawa" suffix="" affiliates="AHL:Belleville Senators" />
+    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Scotiabank Arena" prefix="Toronto" suffix="" affiliates="AHL:Toronto Marlies" />
+    <team city="Vancouver" area="BC" fullarea="British Columbia" country="CAN" fullcountry="Canada" name="Canucks" arena="Rogers Arena" prefix="Vancouver" suffix="" affiliates="AHL:Utica Comets" />
+    <team city="Winnipeg" area="MB" fullarea="Manitoba" country="CAN" fullcountry="Canada" name="Jets" arena="Bell MTS Place" prefix="Winnipeg" suffix="" affiliates="AHL:Manitoba Moose" />
+   </division>
+   <division name="East" prefix="Massmutual" suffix="Division">
+    <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="TD Garden" prefix="Boston" suffix="" affiliates="AHL:Providence Bruins" />
+    <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Sabres" arena="KeyBank Center" prefix="Buffalo" suffix="" affiliates="AHL:Rochester Americans" />
+    <team city="New Jersey" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Prudential Center" prefix="New Jersey" suffix="" affiliates="AHL:Binghamton Devils" />
+    <team city="Uniondale" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Islanders" arena="Nassau Coliseum" prefix="New York" suffix="" affiliates="AHL:Bridgeport Sound Tigers" />
+    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" affiliates="AHL:Hartford Wolf Pack" />
+    <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Flyers" arena="Wells Fargo Center" prefix="Philadelphia" suffix="" affiliates="AHL:Lehigh Valley Phantoms" />
+    <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="PPG Paints Arena" prefix="Pittsburgh" suffix="" affiliates="AHL:Wilkes-Barre/Scranton Penguins" />
+    <team city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Capitals" arena="Capital One Arena" prefix="Washington" suffix="" affiliates="AHL:Hershey Bears" />
    </division>
   </conference>
  </league>
