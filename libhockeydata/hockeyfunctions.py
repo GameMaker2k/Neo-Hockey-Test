@@ -902,7 +902,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
 def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if "database" in inchockeyarray.keys():
   xmlstring = xmlstring+"<hockey database=\""+EscapeXMLString(str(inchockeyarray['database']), quote=True)+"\">\n";
@@ -976,7 +976,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
 def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  if "database" in inchockeyarray.keys():
   xmlstring_hockey = cElementTree.Element("hockey", { 'database': str(inchockeyarray['database']) } );
  if "database" not in inchockeyarray.keys():
