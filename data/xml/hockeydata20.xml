@@ -61,7 +61,7 @@
    </division>
    <division name="North" prefix="" suffix="Division">
     <team city="Newark" area="NJ" fullarea="New Jersey" country="USA" fullcountry="United States" name="Devils" arena="Barnabas Health Hockey House" prefix="Binghamton" suffix="" affiliates="NHL:New Jersey Devils" />
-	<team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" affiliates="NHL:Washington Capitals" />
+    <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" affiliates="NHL:Washington Capitals" />
     <team city="Allentown" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Phantoms" arena="PPL Center" prefix="Lehigh Valley" suffix="" affiliates="NHL:Philadelphia Flyers" />
     <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Americans" arena="KeyBank Center" prefix="Rochester" suffix="" affiliates="NHL:Buffalo Sabres" />
     <team city="Syracuse" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Crunch" arena="Oncenter War Memorial Arena" prefix="Syracuse" suffix="" affiliates="NHL:Tampa Bay Lightning;Florida Panthers" />
