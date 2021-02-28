@@ -52,6 +52,10 @@ class MakeHockeyArray:
   self.hockeyarray = MoveHockeyTeamToConferenceFromArray(self.hockeyarray, leaguename, teamname, oldconference, newconference, division);
  def MoveHockeyTeamToDivision(self, leaguename, teamname, conference, olddivision, newdivision):
   self.hockeyarray = MoveHockeyTeamToDivisionFromArray(self.hockeyarray, leaguename, teamname, conference, olddivision, newdivision);
+ def AddHockeyArena(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
+  self.hockeyarray = AddHockeyArenaToArray(self.hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname);
+ def AddHockeyGame(self, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+  self.hockeyarray = AddHockeyGameToArray(self.hockeyarray, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame);
  def LoadHockeyXML(self, inxmlfile, xmlisfile=True, verbose=True):
   self.hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, verbose);
  def LoadHockeyDatabase(self, sdbfile, verbose=True):
@@ -121,6 +125,10 @@ class MakeHockeyData:
   if(hasconferences.lower()=="no"):
    HockeyLeagueHasConferences = False;
   MakeHockeyTeam(self.hockeycon, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix, teamnamesuffix, HockeyLeagueHasConferences, HockeyLeagueHasDivisions);
+ def AddHockeyGame(self, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+  MakeHockeyGame(self.hockeycon, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame);
+ def AddHockeyArena(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
+  MakeHockeyArena(self.hockeycon, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname);
  def Close(self):
   return CloseHockeyDatabase(self.hockeycon);
  def CloseHockey(self):
