@@ -20,6 +20,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import sqlite3, sys, os, re, time, pickle, marshal, platform, binascii, xml.dom.minidom;
 from ftplib import FTP, FTP_TLS;
 from base64 import b64encode;
+from copy import copy, deepcopy;
 
 try:
  import simplejson as json;
@@ -251,7 +252,7 @@ else:
   return False;
 
 def UncompressFileURL(inurl, inheaders, incookiejar):
- inheadersc = inheaders.copy();
+ inheadersc = deepcopy(inheaders);
  if(re.findall("^(http|https)\:\/\/", inurl)):
   inurlcheck = urlparse(inurl);
   if(inurlcheck.username is not None or inurlcheck.password is not None):
@@ -1129,7 +1130,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  if(outsdbfile is None and "database" in inchockeyarray.keys()):
   sqldatacon = MakeHockeyDatabase(inchockeyarray['database']);
  if(outsdbfile is None and "database" not in inchockeyarray.keys()):
@@ -1200,7 +1201,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
 def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -1272,7 +1273,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
 def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -1349,7 +1350,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
 def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -1421,7 +1422,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
 def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
@@ -2097,7 +2098,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose
 def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if "database" in inchockeyarray.keys():
   xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inchockeyarray['database']), quote=True)+"\">\n";
@@ -2169,7 +2170,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
 def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  if "database" in inchockeyarray.keys():
   xmlstring_hockeydb = cElementTree.Element("hockeydb", { 'database': str(inchockeyarray['database']) } );
  if "database" not in inchockeyarray.keys():
@@ -2312,7 +2313,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  leaguearrayout = { 'database': str(inchockeyarray['database']) };
  leaguelist = [];
  for leagueinfo in inchockeyarray['HockeyLeagues']['values']:
@@ -2379,7 +2380,7 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
 def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=True, jsonverbose=True):
  if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- inchockeyarray = inhockeyarray.copy();
+ inchockeyarray = deepcopy(inhockeyarray);
  if(insdbfile is None or insdbfile==":memory:"):
   insdbfile = inchockeyarray['database'];
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
