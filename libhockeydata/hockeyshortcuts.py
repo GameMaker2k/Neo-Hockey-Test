@@ -163,7 +163,7 @@ def MakeHockeyDatabaseFromHockeySQL(insqlfile, outsdbfile=None, sqlisfile=True, 
 
 def MakeHockeyPythonOOPFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
- hockeypyout = MakeHockeyPythonOOPFromHockeyArray(hockeyarray, True);
+ hockeypyout = MakeHockeyPythonOOPFromHockeyArray(hockeyarray, verbose, jsonverbose);
  return hockeypyout;
 
 def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, jsonverbose=True):
@@ -223,7 +223,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
 
 def MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
- hockeypyout = MakeHockeyPythonFromHockeyArray(hockeyarray, True);
+ hockeypyout = MakeHockeyPythonFromHockeyArray(hockeyarray, verbose, jsonverbose);
  return hockeypyout;
 
 def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, jsonverbose=True):
@@ -367,12 +367,12 @@ def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True, verbosepy=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
- hockeypyout = MakeHockeyPythonOOPAltFromHockeyArray(hockeyarray, verbose, jsonverbose);
+ hockeypyout = MakeHockeyPythonOOPAltFromHockeyArray(hockeyarray, verbose, jsonverbose, verbosepy);
  return hockeypyout;
 
-def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
  if(outpyfile is None):
@@ -384,7 +384,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, retu
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
- pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose, jsonverbose);
+ pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
@@ -427,12 +427,12 @@ def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=F
   return True;
  return True;
 
-def MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True, verbosepy=True):
  hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False);
- hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, jsonverbose);
+ hockeypyout = MakeHockeyPythonAltFromHockeyArray(hockeyarray, verbose, jsonverbose, verbosepy);
  return hockeypyout;
 
-def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
  if(outpyfile is None):
@@ -444,7 +444,7 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
- pystring = MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose, jsonverbose);
+ pystring = MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
@@ -546,12 +546,12 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
   return True;
  return True;
 
-def MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True, verbosepy=True):
  xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False);
- pystring = MakeHockeyPythonOOPAltFromHockeyXML(xmlstring, False, verbose, jsonverbose);
+ pystring = MakeHockeyPythonOOPAltFromHockeyXML(xmlstring, False, verbose, jsonverbose, verbosepy);
  return pystring;
 
-def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
  if(outpyfile is None):
@@ -563,7 +563,7 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, r
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
- pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
+ pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
@@ -606,12 +606,12 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnp
   return True;
  return True;
 
-def MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True, verbosepy=True):
  xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False);
- pystring = MakeHockeyPythonAltFromHockeyXML(xmlstring, False, verbose, jsonverbose);
+ pystring = MakeHockeyPythonAltFromHockeyXML(xmlstring, False, verbose, jsonverbose, verbosepy);
  return pystring;
 
-def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
   return False;
  if(outpyfile is None):
@@ -623,7 +623,7 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
- pystring = MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
+ pystring = MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
  if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
