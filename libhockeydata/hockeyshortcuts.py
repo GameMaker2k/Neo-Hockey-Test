@@ -43,7 +43,7 @@ def MakeHockeySQLiteJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=Non
  return jsonstring;
 
 def MakeHockeySQLiteArrayFromHockeySQLiteJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
- jsonstring = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, verbose, jsonverbose):
+ jsonstring = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, verbose, jsonverbose);
  return jsonstring;
 
 def MakeHockeySQLitePickleFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
@@ -55,7 +55,7 @@ def MakeHockeySQLitePickleFileFromHockeySQLiteArray(inhockeyarray, outpicklefile
  return picklestring;
 
 def MakeHockeySQLiteArrayFromHockeySQLitePickle(inpicklefile, pickleisfile=True, verbose=True, jsonverbose=True):
- picklestring = MakeHockeyArrayFromHockeyPickle(injsonfile, pickleisfile, verbose, jsonverbose):
+ picklestring = MakeHockeyArrayFromHockeyPickle(injsonfile, pickleisfile, verbose, jsonverbose);
  return picklestring;
 
 def MakeHockeySQLiteMarshalFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
@@ -67,7 +67,7 @@ def MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(inhockeyarray, outmarshalfi
  return marshalstring;
 
 def MakeHockeySQLiteArrayFromHockeySQLiteMarshal(inmarshalfile, pickleisfile=True, verbose=True, jsonverbose=True):
- marshalstring = MakeHockeyArrayFromHockeyMarshal(injsonfile, pickleisfile, verbose, jsonverbose):
+ marshalstring = MakeHockeyArrayFromHockeyMarshal(injsonfile, pickleisfile, verbose, jsonverbose);
  return marshalstring;
 
 def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose=True, jsonverbose=True):
@@ -76,7 +76,7 @@ def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
- if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile)));
   return False;
  if(outxmlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
