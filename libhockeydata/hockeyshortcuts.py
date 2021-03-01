@@ -1135,3 +1135,163 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArray(funcargs):
  else:
   return False;
  return False;
+
+def MakeHockeyDataFromHockeyData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeyDataFromHockeyArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeyDataFromHockeyArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeyDataFileFromHockeyData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeyDataFileFromHockeyArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeyDataFileFromHockeyArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeyDataFromHockeySQLiteData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeyArrayFromHockeySQLiteDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeyArrayFromHockeySQLiteDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeyDataFromHockeyArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeyDataFromHockeyArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeyDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeyArrayFromHockeySQLiteDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeyArrayFromHockeySQLiteDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeyDataFileFromHockeyArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeyDataFileFromHockeyArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeySQLiteDataFromHockeySQLiteData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeySQLiteDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeySQLiteDataFromHockeyData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeyDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeyDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
+
+def MakeHockeySQLiteDataFileFromHockeyData(infuncargs, outfuncargs):
+ if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeyDataByList(*infuncargs);
+ elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeyDataByDict(**infuncargs);
+ else:
+  return False;
+ if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  if(len(outfuncargs)>1):
+   outfuncargs[1] = inhockeyarray;
+  else:
+   outfuncargs.append(inhockeyarray);
+  return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*outfuncargs);
+ elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+  outfuncargs.update( { 'inhockeyarray': inhockeyarray } );
+  return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**outfuncargs);
+ else:
+  return False;
+ return False;
