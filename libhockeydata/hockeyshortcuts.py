@@ -34,6 +34,42 @@ except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
 
+def MakeHockeySQLiteJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, verbose=True, jsonverbose=True):
+ jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, verbose, jsonverbose);
+ return jsonstring;
+
+def MakeHockeySQLiteJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+ jsonstring = MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile, returnjson, jsonindent, verbose, jsonverbose);
+ return jsonstring;
+
+def MakeHockeySQLiteArrayFromHockeySQLiteJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
+ jsonstring = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, verbose, jsonverbose):
+ return jsonstring;
+
+def MakeHockeySQLitePickleFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+ picklestringp = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose, jsonverbose);
+ return picklestring;
+
+def MakeHockeySQLitePickleFileFromHockeySQLiteArray(inhockeyarray, outpicklefile=None, returnjson=False, verbose=True, jsonverbose=True):
+ picklestring = MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile, returnjson, verbose, jsonverbose);
+ return picklestring;
+
+def MakeHockeySQLiteArrayFromHockeySQLitePickle(inpicklefile, pickleisfile=True, verbose=True, jsonverbose=True):
+ picklestring = MakeHockeyArrayFromHockeyPickle(injsonfile, pickleisfile, verbose, jsonverbose):
+ return picklestring;
+
+def MakeHockeySQLiteMarshalFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+ marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose, jsonverbose);
+ return marshalstring;
+
+def MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(inhockeyarray, outmarshalfile=None, returnjson=False, verbose=True, jsonverbose=True):
+ marshalstring = MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile, returnjson, verbose, jsonverbose);
+ return marshalstring;
+
+def MakeHockeySQLiteArrayFromHockeySQLiteMarshal(inmarshalfile, pickleisfile=True, verbose=True, jsonverbose=True):
+ marshalstring = MakeHockeyArrayFromHockeyMarshal(injsonfile, pickleisfile, verbose, jsonverbose):
+ return marshalstring;
+
 def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose=True, jsonverbose=True):
  hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False);
  hockeyxmlout = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose, jsonverbose);
