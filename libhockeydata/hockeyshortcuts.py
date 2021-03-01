@@ -701,7 +701,7 @@ def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql
  return True;
 
 def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
- if(not CheckHockeyArray(inhockeyarray)):
+ if(not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, False, False);
  hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin, True);
@@ -1183,8 +1183,8 @@ def MakeHockeyDataFromHockeySQLiteData(infuncargs, outfuncargs):
   inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**infuncargs);
  else:
   return False;
+ inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, False, False);
  if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-  inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, False, False);
   if(len(outfuncargs)>1):
    outfuncargs[1] = inhockeyarray;
   else:
@@ -1204,8 +1204,8 @@ def MakeHockeyDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
   inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**infuncargs);
  else:
   return False;
+ inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, False, False);
  if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-  inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, False, False);
   if(len(outfuncargs)>1):
    outfuncargs[1] = inhockeyarray;
   else:
@@ -1265,8 +1265,8 @@ def MakeHockeySQLiteDataFromHockeyData(infuncargs, outfuncargs):
   inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs);
  else:
   return False;
+ inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, False, False);
  if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-  inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, False, False);
   if(len(outfuncargs)>1):
    outfuncargs[1] = inhockeyarray;
   else:
@@ -1286,8 +1286,8 @@ def MakeHockeySQLiteDataFileFromHockeyData(infuncargs, outfuncargs):
   inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs);
  else:
   return False;
+ inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, False, False);
  if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-  inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, False, False);
   if(len(outfuncargs)>1):
    outfuncargs[1] = inhockeyarray;
   else:
