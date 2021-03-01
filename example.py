@@ -49,7 +49,7 @@ if(os.path.isdir(rootdir)):
     if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
     elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
+     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteXML(filepath);
     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
     elif(ext==".sql" or subext==".sql"):
@@ -97,7 +97,7 @@ elif(os.path.isfile(rootdir)):
  if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
  elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-  hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(filepath);
+  hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteXML(filepath);
  elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
  elif(ext==".sql" or subext==".sql"):
