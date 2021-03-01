@@ -2284,17 +2284,16 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
      datastart = 1;
      rowstart = 0;
      rowdatanum = 0;
-     rowdatadict = {};
      for getrow in getdata:
       if(getrow.tag=="row"):
        rowstart = 1;
        rowdatanum = 0;
+       rowdatadict = {};
        for getrowdata in getrow:
         if(getrowdata.tag=="rowdata"):
          rowdatadict.update( { getrowdata.attrib['name']: getrowdata.attrib['value'] } );
          rowdatanum = rowdatanum + 1;
-     if(rowdatadict):
-      leaguearrayout[gettable.attrib['name']]['values'].append( rowdatadict );
+       leaguearrayout[gettable.attrib['name']]['values'].append( rowdatadict );
    rowsstart = 0;
    rowscount = 0;
    for getrows in gettable:
