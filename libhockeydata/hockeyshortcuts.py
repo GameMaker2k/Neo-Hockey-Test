@@ -76,7 +76,7 @@ def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose
  return hockeyxmlout;
 
 def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
- if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile)));
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
   return False;
  if(outxmlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
