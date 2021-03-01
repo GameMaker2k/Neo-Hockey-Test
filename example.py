@@ -18,8 +18,20 @@
 
 import libhockeydata, os, sys, random;
 
-defroot = ['./data/xml', './data/xmlalt', './data/json', './data/jsonalt', './data/sql', './php/data'];
-randroot = random.randint(0, 5);
+defroot = [];
+if(os.path.exists("./data/xml") and os.path.isdir("./data/xml")):
+ defroot.append("./data/xml");
+if(os.path.exists("./data/xmlalt") and os.path.isdir("./data/xmlalt")):
+ defroot.append("./data/xmlalt");
+if(os.path.exists("./data/json") and os.path.isdir("./data/json")):
+ defroot.append("./data/json");
+if(os.path.exists("./data/jsonalt") and os.path.isdir("./data/jsonalt")):
+ defroot.append("./data/jsonalt");
+if(os.path.exists("./data/sql") and os.path.isdir("./data/sql")):
+ defroot.append("./data/sql");
+if(os.path.exists("./php/data") and os.path.isdir("./php/data")):
+ defroot.append("./php/data");
+randroot = random.randint(0, len(defroot)-1);
 rootdir = defroot[randroot];
 if(len(sys.argv)<2):
  rootdir = defroot[randroot];
