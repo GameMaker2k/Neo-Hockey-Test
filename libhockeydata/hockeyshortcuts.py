@@ -1013,11 +1013,11 @@ def MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs)
  elif(outformat=="xmlalt"):
   return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(**funcargs);
  elif(outformat=="json"):
-  return MakeHockeyJSONFromHockeyArray(**funcargs);
+  return MakeHockeySQLiteJSONFromHockeyArray(**funcargs);
  elif(outformat=="pickle"):
-  return MakeHockeyPickleFromHockeyArray(**funcargs);
+  return MakeHockeySQLitePickleFromHockeyArray(**funcargs);
  elif(outformat=="marshal"):
-  return MakeHockeyMarshalFromHockeyArray(**funcargs);
+  return MakeHockeySQLiteMarshalFromHockeyArray(**funcargs);
  elif(outformat=="database"):
   return MakeHockeyDatabaseFromHockeySQLiteArray(**funcargs);
  elif(outformat=="py"):
@@ -1043,11 +1043,11 @@ def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
  elif(outformat=="xmlalt"):
   return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(*funcargs);
  elif(outformat=="json"):
-  return MakeHockeyJSONFromHockeyArray(*funcargs);
+  return MakeHockeySQLiteJSONFromHockeyArray(*funcargs);
  elif(outformat=="pickle"):
-  return MakeHockeyPickleFromHockeyArray(*funcargs);
+  return MakeHockeySQLitePickleFromHockeyArray(*funcargs);
  elif(outformat=="marshal"):
-  return MakeHockeyMarshalFromHockeyArray(*funcargs);
+  return MakeHockeySQLiteMarshalFromHockeyArray(*funcargs);
  elif(outformat=="database"):
   return MakeHockeyDatabaseFromHockeySQLiteArray(*funcargs);
  elif(outformat=="py"):
@@ -1082,11 +1082,11 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funca
  elif(outformat=="xmlalt"):
   return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(**funcargs);
  elif(outformat=="json"):
-  return MakeHockeyJSONFileFromHockeyArray(**funcargs);
+  return MakeHockeySQLiteJSONFileFromHockeyArray(**funcargs);
  elif(outformat=="pickle"):
-  return MakeHockeyPickleFileFromHockeyArray(**funcargs);
+  return MakeHockeySQLitePickleFileFromHockeyArray(**funcargs);
  elif(outformat=="marshal"):
-  return MakeHockeyMarshalFileFromHockeyArray(**funcargs);
+  return MakeHockeySQLiteMarshalFileFromHockeyArray(**funcargs);
  elif(outformat=="py"):
   return MakeHockeyPythonFileFromHockeySQLiteArray(**funcargs);
  elif(outformat=="pyalt"):
@@ -1108,11 +1108,11 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcar
  elif(outformat=="xmlalt"):
   return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(*funcargs);
  elif(outformat=="json"):
-  return MakeHockeyJSONFileFromHockeyArray(*funcargs);
+  return MakeHockeySQLiteJSONFileFromHockeyArray(*funcargs);
  elif(outformat=="pickle"):
-  return MakeHockeyPickleFileFromHockeyArray(*funcargs);
+  return MakeHockeySQLitePickleFileFromHockeyArray(*funcargs);
  elif(outformat=="marshal"):
-  return MakeHockeyMarshalFileFromHockeyArray(*funcargs);
+  return MakeHockeySQLiteMarshalFileFromHockeyArray(*funcargs);
  elif(outformat=="py"):
   return MakeHockeyPythonFileFromHockeySQLiteArray(*funcargs);
  elif(outformat=="pyalt"):
