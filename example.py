@@ -60,19 +60,19 @@ if(os.path.isdir(rootdir)):
     filepath = os.path.join(subdir, file);
     if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
      sqlitedatatype = False;
-     funcarray = { 'informat': "xml", 'inxmlfile: filepath }
+     funcarray = { 'informat': "xml", 'inxmlfile': filepath }
     elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
      sqlitedatatype = True;
-     funcarray = { 'informat': "xml", 'inxmlfile: filepath }
+     funcarray = { 'informat': "xml", 'inxmlfile': filepath }
     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
      sqlitedatatype = False;
-     funcarray = { 'informat': "database", 'inxmlfile: filepath }
+     funcarray = { 'informat': "database", 'insdbfile': filepath }
     elif(ext==".sql" or subext==".sql"):
      sqlitedatatype = False;
-     funcarray = { 'informat': "sql", 'inxmlfile: filepath }
+     funcarray = { 'informat': "sql", 'insqlfile': filepath }
     elif(ext==".json" or subext==".json"):
      sqlitedatatype = False;
-     funcarray = { 'informat': "sql", 'inxmlfile: filepath }
+     funcarray = { 'informat': "json", 'injsonfile': filepath }
     else:
      sys.exit(1);
     if(sqlitedatatype):
@@ -117,19 +117,19 @@ elif(os.path.isfile(rootdir)):
   filepath = rootdir;
  if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
   sqlitedatatype = False;
-  funcarray = { 'informat': "xml", 'inxmlfile: filepath }
+  funcarray = { 'informat': "xml", 'inxmlfile': filepath }
  elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
   sqlitedatatype = True;
-  funcarray = { 'informat': "xml", 'inxmlfile: filepath }
+  funcarray = { 'informat': "xml", 'inxmlfile': filepath }
  elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
   sqlitedatatype = False;
-  funcarray = { 'informat': "database", 'inxmlfile: filepath }
+  funcarray = { 'informat': "database", 'insdbfile': filepath }
  elif(ext==".sql" or subext==".sql"):
   sqlitedatatype = False;
-  funcarray = { 'informat': "sql", 'inxmlfile: filepath }
+  funcarray = { 'informat': "sql", 'insqlfile': filepath }
  elif(ext==".json" or subext==".json"):
   sqlitedatatype = False;
-  funcarray = { 'informat': "sql", 'inxmlfile: filepath }
+  funcarray = { 'informat': "json", 'injsonfile': filepath }
  else:
   sys.exit(1);
  if(sqlitedatatype):
