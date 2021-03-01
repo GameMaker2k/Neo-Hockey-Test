@@ -59,17 +59,26 @@ if(os.path.isdir(rootdir)):
    if ext in extensions or subext in extensions:
     filepath = os.path.join(subdir, file);
     if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+     sqlitedatatype = False;
+     funcarray = { 'informat': "xml", 'inxmlfile: filepath }
     elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteXML(filepath);
+     sqlitedatatype = True;
+     funcarray = { 'informat': "xml", 'inxmlfile: filepath }
     elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+     sqlitedatatype = False;
+     funcarray = { 'informat': "database", 'inxmlfile: filepath }
     elif(ext==".sql" or subext==".sql"):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
+     sqlitedatatype = False;
+     funcarray = { 'informat': "sql", 'inxmlfile: filepath }
     elif(ext==".json" or subext==".json"):
-     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
+     sqlitedatatype = False;
+     funcarray = { 'informat': "sql", 'inxmlfile: filepath }
     else:
      sys.exit(1);
+    if(sqlitedatatype):
+     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyData(funcarray);
+    else:
+     hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(funcarray);
     if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
     if(not libhockeydata.CheckHockeyArray(hockeyarray)):
@@ -106,18 +115,27 @@ elif(os.path.isfile(rootdir)):
   subext = None;
  if ext in extensions or subext in extensions:
   filepath = rootdir;
- if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath)):
-  hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(filepath);
+ if((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
+  sqlitedatatype = False;
+  funcarray = { 'informat': "xml", 'inxmlfile: filepath }
  elif((ext==".xml" or subext==".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-  hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteXML(filepath);
+  sqlitedatatype = True;
+  funcarray = { 'informat': "xml", 'inxmlfile: filepath }
  elif(ext==".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(filepath);
+  sqlitedatatype = False;
+  funcarray = { 'informat': "database", 'inxmlfile: filepath }
  elif(ext==".sql" or subext==".sql"):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(filepath);
+  sqlitedatatype = False;
+  funcarray = { 'informat': "sql", 'inxmlfile: filepath }
  elif(ext==".json" or subext==".json"):
-   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(filepath);
+  sqlitedatatype = False;
+  funcarray = { 'informat': "sql", 'inxmlfile: filepath }
  else:
   sys.exit(1);
+ if(sqlitedatatype):
+  hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyData(funcarray);
+ else:
+  hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(funcarray);
  if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
   hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray);
  if(not libhockeydata.CheckHockeyArray(hockeyarray)):
