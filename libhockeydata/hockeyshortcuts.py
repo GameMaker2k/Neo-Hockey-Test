@@ -701,10 +701,12 @@ def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql
  return True;
 
 def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
- if(not CheckHockeySQLiteArray(inhockeyarray)):
+ if(not CheckHockeyArray(inhockeyarray)):
   return False;
  hockeydbin = MakeHockeyDatabaseFromHockeyArray(inhockeyarray, ":memory:", True, False, False);
  hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin, True);
+ if(not CheckHockeySQLiteArray(hockeyarray)):
+  return False;
  return hockeyarray;
 
 def MakeHockeySQLiteArrayFromHockeySQL(insqlfile, sqlisfile=True, verbose=True, jsonverbose=True):
