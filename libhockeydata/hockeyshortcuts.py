@@ -1287,6 +1287,7 @@ def MakeHockeySQLiteDataFileFromHockeyData(infuncargs, outfuncargs):
  else:
   return False;
  if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+  inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, False, False);
   if(len(outfuncargs)>1):
    outfuncargs[1] = inhockeyarray;
   else:
