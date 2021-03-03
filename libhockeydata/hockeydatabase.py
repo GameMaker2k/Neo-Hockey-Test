@@ -2299,6 +2299,446 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
  "SELECT id, Date, Time, DateTime, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, Affiliates, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak FROM "+leaguename+"Teams WHERE FullName=\""+str(awayteamname)+"\";");
  return True;
 
+def MakeHockeyGameOld(sqldatacon, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
+ if(isplayoffgame.isdigit()):
+  isplayoffgame = int(isplayoffgame);
+ if(isplayoffgame==0 or isplayoffgame=="0"):
+  isplayoffgame = False;
+ if(isplayoffgame==1 or isplayoffgame=="1"):
+  isplayoffgame = True;
+ if(isplayoffgame==2 or isplayoffgame=="2"):
+  isplayoffgame = None;
+ isplayoffgsql = "0";
+ if(isplayoffgame):
+  isplayoffgsql = "1";
+ if(not isplayoffgame):
+  isplayoffsql = "0";
+ if(isplayoffgame is None):
+  isplayoffsql = "2";
+ periodssplit = periodsscore.split(",");
+ periodcounting = 0;
+ numberofperiods=int(len(periodssplit));
+ homescore = 0;
+ awayscore = 0;
+ homeperiodscore = "";
+ awayperiodscore = "";
+ while(periodcounting<numberofperiods):
+  periodscoresplit = periodssplit[periodcounting].split(":");
+  homeperiodscore = homeperiodscore+" "+str(periodscoresplit[0]);
+  awayperiodscore = awayperiodscore+" "+str(periodscoresplit[1]);
+  if(periodcounting <= 3):
+   homescore = homescore + int(periodscoresplit[0]);
+   awayscore = awayscore + int(periodscoresplit[1]);
+  if(isplayoffgame and periodcounting > 3):
+   homescore = homescore + int(periodscoresplit[0]);
+   awayscore = awayscore + int(periodscoresplit[1]);
+  if(not isplayoffgame and periodcounting > 3):
+   if(periodscoresplit[0] > periodscoresplit[1]):
+    homescore = homescore + 1;
+   if(periodscoresplit[0] < periodscoresplit[1]):
+    awayscore = awayscore + 1;
+  periodcounting = periodcounting + 1;
+ totalscore = str(homescore)+":"+str(awayscore);
+ teamscores=totalscore.split(":");
+ shotsongoalsplit = shotsongoal.split(",");
+ periodssplits = periodsscore.split(",");
+ ppgoalssplits = ppgoals.split(",");
+ shgoalssplits = shgoals.split(",");
+ periodpimssplits = periodpims.split(",");
+ periodpenssplits = periodpens.split(",");
+ periodhitssplits = periodhits.split(",");
+ takeawayssplits = takeaways.split(",");
+ faceoffwinssplits = faceoffwins.split(",");
+ numberofsogperiods=int(len(shotsongoalsplit));
+ periodsogcounting = 0;
+ homesog = 0;
+ awaysog = 0;
+ hometsb = 0;
+ awaytsb = 0;
+ homeppg = 0;
+ awayppg = 0;
+ homeshg = 0;
+ awayshg = 0;
+ homepims = 0;
+ awaypims = 0;
+ homepens = 0;
+ awaypens = 0;
+ homehits = 0;
+ awayhits = 0;
+ hometaws = 0;
+ awaytaws = 0;
+ homefows = 0;
+ awayfows = 0;
+ sbstr = "";
+ homeperiodsog = "";
+ awayperiodsog = "";
+ gaws_str = "";
+ while(periodsogcounting<numberofsogperiods):
+  periodsogsplit = shotsongoalsplit[periodsogcounting].split(":");
+  periodscoresplit = periodssplits[periodsogcounting].split(":");
+  periodppgsplit = ppgoalssplits[periodsogcounting].split(":");
+  periodshgsplit = shgoalssplits[periodsogcounting].split(":");
+  periodpimsplit = periodpimssplits[periodsogcounting].split(":");
+  periodpensplit = periodpenssplits[periodsogcounting].split(":");
+  periodhitsplit = periodhitssplits[periodsogcounting].split(":");
+  periodtawsplit = takeawayssplits[periodsogcounting].split(":");
+  periodfowsplit = faceoffwinssplits[periodsogcounting].split(":");
+  homesog = homesog + int(periodsogsplit[0]);
+  homesb = int(periodsogsplit[0]) - int(periodscoresplit[0]);
+  hometsb = homesb + hometsb;
+  homeppg = homeppg + int(periodppgsplit[0]);
+  homeshg = homeshg + int(periodshgsplit[0]);
+  homepims = homepims + int(periodpimsplit[0]);
+  homepens = homepens + int(periodpensplit[0]);
+  homehits = homehits + int(periodhitsplit[0]);
+  hometaws = hometaws + int(periodtawsplit[0]);
+  homefows = homefows + int(periodfowsplit[0]);
+  awaysog = awaysog + int(periodsogsplit[1]);
+  awaysb = int(periodsogsplit[1]) - int(periodscoresplit[1]);
+  awaytsb = awaysb + awaytsb;
+  awayppg = awayppg + int(periodppgsplit[1]);
+  awayshg = awayshg + int(periodshgsplit[1]);
+  awaypims = awaypims + int(periodpimsplit[1]);
+  awaypens = awaypens + int(periodpensplit[1]);
+  awayhits = awayhits + int(periodhitsplit[1]);
+  awaytaws = awaytaws + int(periodtawsplit[1]);
+  awayfows = awayfows + int(periodfowsplit[1]);
+  sbstr = sbstr+str(homesb)+":"+str(awaysb)+" ";
+  gaws_str = gaws_str+str(periodtawsplit[1])+":"+str(periodtawsplit[0])+" ";
+  periodsogcounting = periodsogcounting + 1;
+ sbstr = sbstr.rstrip();
+ sbstr = sbstr.replace(" ", ",");
+ gaws_str = gaws_str.rstrip();
+ gaws_str = gaws_str.replace(" ", ",");
+ tsbstr = str(hometsb)+":"+str(awaytsb);
+ totalsog = str(homesog)+":"+str(awaysog);
+ totalppg = str(homeppg)+":"+str(awayppg);
+ totalshg = str(homeshg)+":"+str(awayshg);
+ totalpims = str(homepims)+":"+str(awaypims);
+ totalpens = str(homepens)+":"+str(awaypens);
+ totalhits = str(homehits)+":"+str(awayhits);
+ totaltaws = str(hometaws)+":"+str(awaytaws);
+ totalgaws = str(awaytaws)+":"+str(hometaws);
+ totalfows = str(homefows)+":"+str(awayfows);
+ teamssog=totalsog.split(":");
+ hometeamname = hometeam;
+ hometeam = GetTeam2Num(sqldatacon, leaguename, hometeam);
+ awayteamname = awayteam;
+ awayteam = GetTeam2Num(sqldatacon, leaguename, awayteam);
+ if(atarena.isdigit()):
+  atarena = int(atarena);
+ if(atarena==0):
+  atarena = hometeam;
+  atarenaname = GetTeamData(sqldatacon, leaguename, hometeam, "FullArenaName", "str");
+ if(atarena==-1):
+  atarena = awayteam;
+  atarenaname = GetTeamData(sqldatacon, leaguename, awayteam, "FullArenaName", "str");
+ if(isinstance(atarena, baseint) and atarena>0):
+  atarenaname = GetNum2Arena(sqldatacon, leaguename, atarena, "FullArenaName");
+ if(isinstance(atarena, basestring)):
+  atarenaname = atarena;
+  atarena = GetArena2Num(sqldatacon, leaguename, atarenaname);
+ if(teamscores[0] > teamscores[1]):
+  losingteam = awayteam;
+  winningteam = hometeam;
+  winningteamname = hometeamname;
+  losingteamname = awayteamname;
+ if(teamscores[0] < teamscores[1]):
+  losingteam = hometeam;
+  winningteam = awayteam;
+  winningteamname = awayteamname;
+  losingteamname = hometeamname;
+ tiegame = 0;
+ if(teamscores[0] == teamscores[1]):
+  losingteam = 0;
+  winningteam = 0;
+  tiegame = 1;
+  winningteamname = "";
+  losingteamname = "";
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Games (Date, Time, DateTime, HomeTeam, AwayTeam, AtArena, TeamScorePeriods, TeamFullScore, ShotsOnGoal, FullShotsOnGoal, ShotsBlocked, FullShotsBlocked, PowerPlays, FullPowerPlays, ShortHanded, FullShortHanded, Penalties, FullPenalties, PenaltyMinutes, FullPenaltyMinutes, HitsPerPeriod, FullHitsPerPeriod, TakeAways, FullTakeAways, GiveAways, FullGiveAways, FaceoffWins, FullFaceoffWins, NumberPeriods, TeamWin, TeamLost, TieGame, IsPlayOffGame) VALUES \n" + \
+ "("+str(date)+", "+str(time)+", "+str(str(date)+str(time))+", \""+str(hometeamname)+"\", \""+str(awayteamname)+"\", \""+str(atarenaname)+"\", \""+str(periodsscore)+"\", \""+str(totalscore)+"\", \""+str(shotsongoal)+"\", \""+str(totalsog)+"\", \""+str(sbstr)+"\", \""+str(tsbstr)+"\", \""+str(ppgoals)+"\", \""+str(totalppg)+"\", \""+str(shgoals)+"\", \""+str(totalshg)+"\", \""+str(periodpens)+"\", \""+str(totalpens)+"\", \""+str(periodpims)+"\", \""+str(totalpims)+"\", \""+str(periodhits)+"\", \""+str(totalhits)+"\", \""+str(takeaways)+"\", \""+str(totaltaws)+"\", \""+str(gaws_str)+"\", \""+str(totalgaws)+"\", \""+str(faceoffwins)+"\", \""+str(totalfows)+"\", "+str(numberofperiods)+", \""+str(winningteamname)+"\", \""+str(losingteamname)+"\", \""+str(tiegame)+"\", "+str(isplayoffgsql)+")");
+ try:
+  GameID = int(sqldatacon[0].lastrowid);
+ except AttributeError:
+  GameID = int(sqldatacon[1].last_insert_rowid());
+ UpdateArenaData(sqldatacon, leaguename, atarena, "GamesPlayed", 1, "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "Date", int(date), "=");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "GamesPlayed", 1, "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "GamesPlayedHome", 1, "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "GoalsFor", int(teamscores[0]), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "GoalsAgainst", int(teamscores[1]), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "GoalsDifference", int(int(teamscores[0]) - int(teamscores[1])), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "SOGFor", int(teamssog[0]), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "SOGAgainst", int(teamssog[1]), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "SOGDifference", int(int(teamssog[0]) - int(teamssog[1])), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "ShotsBlockedFor", int(hometsb), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "ShotsBlockedAgainst", int(awaytsb), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "ShotsBlockedDifference", int(int(hometsb) - int(awaytsb)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PPGFor", int(homeppg), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PPGAgainst", int(awayppg), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PPGDifference", int(int(homeppg) - int(awayppg)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "SHGFor", int(homeshg), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "SHGAgainst", int(awayshg), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "SHGDifference", int(int(homeshg) - int(awayshg)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PenaltiesFor", int(awaypens), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PenaltiesAgainst", int(homepens), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PenaltiesDifference", int(int(awaypens) - int(homepens)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PIMFor", int(homepims), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PIMAgainst", int(awaypims), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PIMDifference", int(int(homepims) - int(awaypims)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "HITSFor", int(homehits), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "HITSAgainst", int(awayhits), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "HITSDifference", int(int(homehits) - int(awayhits)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "TakeAways", int(hometaws), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "GiveAways", int(awaytaws), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "TAGADifference", int(int(hometaws) - int(awaytaws)), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "FaceoffWins", int(homefows), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "FaceoffLosses", int(awayfows), "+");
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "FaceoffDifference", int(int(homefows) - int(awayfows)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "Date", int(date), "=");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "GamesPlayed", 1, "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "GamesPlayedAway", 1, "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "GoalsFor", int(teamscores[1]), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "GoalsAgainst", int(teamscores[0]), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "GoalsDifference", int(int(teamscores[1]) - int(teamscores[0])), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "SOGFor", int(teamssog[1]), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "SOGAgainst", int(teamssog[0]), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "SOGDifference", int(int(teamssog[1]) - int(teamssog[0])), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "ShotsBlockedFor", int(awaytsb), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "ShotsBlockedAgainst", int(hometsb), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "ShotsBlockedDifference", int(int(awaytsb) - int(hometsb)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PPGFor", int(awayppg), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PPGAgainst", int(homeppg), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PPGDifference", int(int(awayppg) - int(homeppg)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "SHGFor", int(awayshg), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "SHGAgainst", int(homeshg), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "SHGDifference", int(int(awayshg) - int(homeshg)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PenaltiesFor", int(homepens), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PenaltiesAgainst", int(awaypens), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PenaltiesDifference", int(int(homepens) - int(awaypens)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PIMFor", int(awaypims), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PIMAgainst", int(homepims), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PIMDifference", int(int(awaypims) - int(homepims)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "HITSFor", int(awayhits), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "HITSAgainst", int(homehits), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "HITSDifference", int(int(awayhits) - int(homehits)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "TakeAways", int(awaytaws), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "GiveAways", int(hometaws), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "TAGADifference", int(int(awaytaws) - int(hometaws)), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "FaceoffWins", int(awayfows), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "FaceoffLosses", int(homefows), "+");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "FaceoffDifference", int(int(awayfows) - int(homefows)), "+");
+ if(tiegame==1):
+  UpdateTeamData(sqldatacon, leaguename, hometeam, "Ties", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, awayteam, "Ties", 1, "+");
+ if(winningteam==hometeam and int(teamscores[1])==0):
+  UpdateTeamData(sqldatacon, leaguename, hometeam, "ShutoutWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, awayteam, "ShutoutLosses", 1, "+");
+ if(winningteam==awayteam and int(teamscores[0])==0):
+  UpdateTeamData(sqldatacon, leaguename, awayteam, "ShutoutWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, hometeam, "ShutoutLosses", 1, "+");
+ UpdateTeamDataString(sqldatacon, leaguename, hometeam, "LastTen", GetLastGamesWithShootout(sqldatacon, leaguename, winningteamname));
+ UpdateTeamDataString(sqldatacon, leaguename, awayteam, "LastTen", GetLastGamesWithShootout(sqldatacon, leaguename, losingteamname));
+ if(tiegame==0):
+  GetWinningStreak = GetTeamData(sqldatacon, leaguename, winningteam, "Streak", "str");
+  GetWinningStreakNext = "Won 1";
+  if(GetWinningStreak!="None"):
+   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   if(GetWinningStreakSplit[0][0]=="Won"):
+    GetWinningStreakNext = "Won "+str(int(GetWinningStreakSplit[0][1]) + 1);
+   if(GetWinningStreakSplit[0][0]=="Lost"):
+    GetWinningStreakNext = "Won 1";
+   if(GetWinningStreakSplit[0][0]=="OT"):
+    GetWinningStreakNext = "Won 1";
+   if(GetWinningStreakSplit[0][0]=="Tie"):
+    GetWinningStreakNext = "Won 1";
+  UpdateTeamDataString(sqldatacon, leaguename, winningteam, "Streak", GetWinningStreakNext);
+  GetLosingStreak = GetTeamData(sqldatacon, leaguename, losingteam, "Streak", "str");
+  if(numberofperiods==3):
+   GetLosingStreakNext = "Lost 1";
+  if(numberofperiods>3):
+   GetLosingStreakNext = "OT 1";
+  if(GetLosingStreak!="None"):
+   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   if(GetLosingStreakSplit[0][0]=="Won"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost 1";
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT 1";
+   if(GetLosingStreakSplit[0][0]=="Lost"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost "+str(int(GetLosingStreakSplit[0][1]) + 1);
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT 1";
+   if(GetLosingStreakSplit[0][0]=="OS"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost 1";
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT "+str(int(GetLosingStreakSplit[0][1]) + 1);
+   if(GetLosingStreakSplit[0][0]=="Tie"):
+    if(numberofperiods==3):
+     GetLosingStreakNext = "Lost 1";
+    if(numberofperiods>3):
+     GetLosingStreakNext = "OT 1";
+  UpdateTeamDataString(sqldatacon, leaguename, losingteam, "Streak", GetLosingStreakNext);
+ if(tiegame==1):
+  GetWinningStreak = GetTeamData(sqldatacon, leaguename, hometeam, "Streak", "str");
+  GetWinningStreakNext = "Tie 1";
+  if(GetWinningStreak!="None"):
+   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   if(GetWinningStreakSplit[0][0]=="Won"):
+    GetWinningStreakNext = "Tie 1";
+   if(GetWinningStreakSplit[0][0]=="Lost"):
+    GetWinningStreakNext = "Tie 1";
+   if(GetWinningStreakSplit[0][0]=="OT"):
+    GetWinningStreakNext = "Tie 1";
+   if(GetWinningStreakSplit[0][0]=="Tie"):
+    GetWinningStreakNext = "Tie "+str(int(GetWinningStreakSplit[0][1]) + 1);
+  UpdateTeamDataString(sqldatacon, leaguename, hometeam, "Streak", GetWinningStreakNext);
+  GetLosingStreak = GetTeamData(sqldatacon, leaguename, awayteam, "Streak", "str");
+  GetLosingStreakNext = "Tie 1";
+  if(GetLosingStreak!="None"):
+   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   if(GetLosingStreakSplit[0][0]=="Won"):
+    GetLosingStreakNext = "Tie 1";
+   if(GetLosingStreakSplit[0][0]=="Lost"):
+    GetLosingStreakNext = "Tie 1";
+   if(GetLosingStreakSplit[0][0]=="OS"):
+    GetLosingStreakNext = "Tie 1";
+   if(GetLosingStreakSplit[0][0]=="Tie"):
+    GetLosingStreakNext = "Tie "+str(int(GetLosingStreakSplit[0][1]) + 1);
+  UpdateTeamDataString(sqldatacon, leaguename, awayteam, "Streak", GetLosingStreakNext);
+ if((not isplayoffgame and numberofperiods<5 and tiegame==0) or (isplayoffgame and tiegame==0)):
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "ROW", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "ROT", 1, "+");
+ if(numberofperiods==3 and tiegame==0):
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "Wins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "TWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "Points", 2, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "Losses", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "TLosses", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "Points", 0, "+");
+  if(winningteam==hometeam):
+   HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
+   HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+   NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+   UpdateTeamDataString(sqldatacon, leaguename, winningteam, "HomeRecord", NewHTR);
+   AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "AwayRecord", "str");
+   ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+   NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1] + 1)+":"+str(ATRSpit[2])+":"+str(ATRSpit[3]);
+   UpdateTeamDataString(sqldatacon, leaguename, losingteam, "AwayRecord", NewATR);
+  if(losingteam==hometeam):
+   HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "AwayRecord", "str");
+   HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+   NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+   UpdateTeamDataString(sqldatacon, leaguename, winningteam, "AwayRecord", NewHTR);
+   AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "HomeRecord", "str");
+   ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+   NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1] + 1)+":"+str(ATRSpit[2])+":"+str(ATRSpit[3]);
+   UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
+ if(numberofperiods>3 and tiegame==0):
+  if((numberofperiods==4 and not isplayoffgame) or (numberofperiods>4 and isplayoffgame)):
+   UpdateTeamData(sqldatacon, leaguename, winningteam, "OTWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "OTSOWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "TWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "Points", 2, "+");
+  if((numberofperiods==4 and not isplayoffgame) or (numberofperiods>4 and isplayoffgame)):
+   UpdateTeamData(sqldatacon, leaguename, losingteam, "OTLosses", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "OTSOLosses", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "TLosses", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "Points", 1, "+");
+  if(isplayoffgame):
+   if(winningteam==hometeam):
+    HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
+    HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+    NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, winningteam, "HomeRecord", NewHTR);
+    AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "AwayRecord", "str");
+    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "AwayRecord", NewATR);
+   if(losingteam==hometeam):
+    HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "AwayRecord", "str");
+    HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+    NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, winningteam, "AwayRecord", NewHTR);
+    AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "HomeRecord", "str");
+    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
+  if(not isplayoffgame and numberofperiods==4):
+   if(winningteam==hometeam):
+    HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
+    HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+    NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, winningteam, "HomeRecord", NewHTR);
+    AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "AwayRecord", "str");
+    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "AwayRecord", NewATR);
+   if(losingteam==hometeam):
+    HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "AwayRecord", "str");
+    HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+    NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, winningteam, "AwayRecord", NewHTR);
+    AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "HomeRecord", "str");
+    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2] + 1)+":"+str(ATRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
+  if(not isplayoffgame and numberofperiods>4):
+   if(winningteam==hometeam):
+    HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "HomeRecord", "str");
+    HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+    NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, winningteam, "HomeRecord", NewHTR);
+    AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "AwayRecord", "str");
+    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2])+":"+str(ATRSpit[3] + 1);
+    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "AwayRecord", NewATR);
+   if(losingteam==hometeam):
+    HomeTeamRecord = GetTeamData(sqldatacon, leaguename, winningteam, "AwayRecord", "str");
+    HTRSpit = [int(n) for n in HomeTeamRecord.split(":")];
+    NewHTR = str(HTRSpit[0] + 1)+":"+str(HTRSpit[1])+":"+str(HTRSpit[2])+":"+str(HTRSpit[3]);
+    UpdateTeamDataString(sqldatacon, leaguename, winningteam, "AwayRecord", NewHTR);
+    AwayTeamRecord = GetTeamData(sqldatacon, leaguename, losingteam, "HomeRecord", "str");
+    ATRSpit = [int(n) for n in AwayTeamRecord.split(":")];
+    NewATR = str(ATRSpit[0])+":"+str(ATRSpit[1])+":"+str(ATRSpit[2])+":"+str(ATRSpit[3] + 1);
+    UpdateTeamDataString(sqldatacon, leaguename, losingteam, "HomeRecord", NewATR);
+ if(not isplayoffgame and numberofperiods>4 and tiegame==0):
+  UpdateTeamData(sqldatacon, leaguename, winningteam, "SOWins", 1, "+");
+  UpdateTeamData(sqldatacon, leaguename, losingteam, "SOLosses", 1, "+");
+  WinningTeamShootouts = GetTeamData(sqldatacon, leaguename, winningteam, "Shootouts", "str");
+  WTSoSplit = [int(n) for n in WinningTeamShootouts.split(":")];
+  NewWTSo = str(WTSoSplit[0] + 1)+":"+str(WTSoSplit[1]);
+  UpdateTeamDataString(sqldatacon, leaguename, winningteam, "Shootouts", NewWTSo);
+  LosingTeamShootouts = GetTeamData(sqldatacon, leaguename, losingteam, "Shootouts", "str");
+  LTSoSplit = [int(n) for n in LosingTeamShootouts.split(":")];
+  NewLTSo = str(LTSoSplit[0])+":"+str(LTSoSplit[1] + 1);
+  UpdateTeamDataString(sqldatacon, leaguename, losingteam, "Shootouts", NewLTSo);
+ HomeOTLossesPCT = float("%.2f" % float(float(0.5) * float(GetTeamData(sqldatacon, leaguename, hometeam, "OTSOLosses", "float"))));
+ HomeWinsPCTAlt = float("%.3f" % float(float(GetTeamData(sqldatacon, leaguename, hometeam, "TWins", "float") + HomeOTLossesPCT) / float(GetTeamData(sqldatacon, leaguename, hometeam, "GamesPlayed", "float"))));
+ HomeWinsPCT = float("%.3f" % float(GetTeamData(sqldatacon, leaguename, hometeam, "Points", "float") / float(GetTeamData(sqldatacon, leaguename, hometeam, "GamesPlayed", "float") * 2)));
+ AwayOTLossesPCT = float("%.2f" % float(float(0.5) * float(GetTeamData(sqldatacon, leaguename, awayteam, "OTSOLosses", "float"))));
+ AwayWinsPCTAlt = float("%.3f" % float(float(GetTeamData(sqldatacon, leaguename, awayteam, "TWins", "float") + AwayOTLossesPCT) / float(GetTeamData(sqldatacon, leaguename, awayteam, "GamesPlayed", "float"))));
+ AwayWinsPCT = float("%.3f" % float(GetTeamData(sqldatacon, leaguename, awayteam, "Points", "float") / float(GetTeamData(sqldatacon, leaguename, awayteam, "GamesPlayed", "float") * 2)));
+ UpdateTeamData(sqldatacon, leaguename, hometeam, "PCT", HomeWinsPCT, "=");
+ UpdateTeamData(sqldatacon, leaguename, awayteam, "PCT", AwayWinsPCT, "=");
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"GameStats (GameID, Date, Time, DateTime, TeamID, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, Affiliates, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference) VALUES \n" + \
+ "("+str(GameID)+", "+str(date)+", "+str(time)+", "+str(str(date)+str(time))+", "+str(hometeam)+", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "FullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "CityName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "TeamPrefix")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "TeamSuffix")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "AreaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "CountryName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "FullCountryName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "FullCityName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "FullAreaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "FullCityNameAlt")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "TeamName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "Conference")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "ConferenceFullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "Division")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "DivisionFullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "LeagueName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "LeagueFullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "ArenaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "FullArenaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(hometeam), "Affiliates")+"\", "+str(teamscores[0])+", "+str(teamscores[1])+", "+str(int(teamscores[0]) - int(teamscores[1]))+", "+str(teamssog[0])+", "+str(teamssog[1])+", "+str(int(teamssog[0]) - int(teamssog[1]))+", "+str(hometsb)+", "+str(awaytsb)+", "+str(int(hometsb) - int(awaytsb))+", "+str(homeppg)+", "+str(awayppg)+", "+str(int(homeppg) - int(awayppg))+", "+str(homeshg)+", "+str(awayshg)+", "+str(int(homeshg) - int(awayshg))+", "+str(homepens)+", "+str(awaypens)+", "+str(int(homepens) - int(awaypens))+", "+str(homepims)+", "+str(awaypims)+", "+str(int(homepims) - int(awaypims))+", "+str(homehits)+", "+str(awayhits)+", "+str(int(homehits) - int(awayhits))+", "+str(hometaws)+", "+str(awaytaws)+", "+str(int(hometaws) - int(awaytaws))+", "+str(homefows)+", "+str(awayfows)+", "+str(int(homefows) - int(awayfows))+")");
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"GameStats (GameID, Date, Time, DateTime, TeamID, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, Affiliates, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference) VALUES \n" + \
+ "("+str(GameID)+", "+str(date)+", "+str(time)+", "+str(str(date)+str(time))+", "+str(awayteam)+", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "FullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "CityName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "TeamPrefix")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "TeamSuffix")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "AreaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "CountryName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "FullCountryName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "FullCityName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "FullAreaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "FullCityNameAlt")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "TeamName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "Conference")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "ConferenceFullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "Division")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "DivisionFullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "LeagueName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "LeagueFullName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "ArenaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "FullArenaName")+"\", \""+GetNum2Team(sqldatacon, leaguename, int(awayteam), "Affiliates")+"\", "+str(teamscores[1])+", "+str(teamscores[0])+", "+str(int(teamscores[1]) - int(teamscores[0]))+", "+str(teamssog[1])+", "+str(teamssog[0])+", "+str(int(teamssog[1]) - int(teamssog[0]))+", "+str(awaytsb)+", "+str(hometsb)+", "+str(int(awaytsb) - int(hometsb))+", "+str(awayppg)+", "+str(homeppg)+", "+str(int(awayppg) - int(homeppg))+", "+str(awayshg)+", "+str(homeshg)+", "+str(int(awayshg) - int(homeshg))+", "+str(awaypens)+", "+str(homepens)+", "+str(int(awaypens) - int(homepens))+", "+str(awaypims)+", "+str(homepims)+", "+str(int(awaypims) - int(homepims))+", "+str(awayhits)+", "+str(homehits)+", "+str(int(awayhits) - int(homehits))+", "+str(awaytaws)+", "+str(hometaws)+", "+str(int(awaytaws) - int(hometaws))+", "+str(awayfows)+", "+str(homefows)+", "+str(int(awayfows) - int(homefows))+")");
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Stats (TeamID, Date, Time, DateTime, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, Affiliates, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak)\n" + \
+ "SELECT id, Date, Time, DateTime, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, GamesPlayed, Affiliates, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak FROM "+leaguename+"Teams WHERE FullName=\""+str(hometeamname)+"\";");
+ sqldatacon[0].execute("INSERT INTO "+leaguename+"Stats (TeamID, Date, Time, DateTime, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, Affiliates, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak)\n" + \
+ "SELECT id, Date, Time, DateTime, FullName, CityName, TeamPrefix, TeamSuffix, AreaName, CountryName, FullCountryName, FullCityName, FullAreaName, FullCityNameAlt, TeamName, Conference, ConferenceFullName, Division, DivisionFullName, LeagueName, LeagueFullName, ArenaName, FullArenaName, Affiliates, GamesPlayed, GamesPlayedHome, GamesPlayedAway, Ties, Wins, OTWins, SOWins, OTSOWins, TWins, Losses, OTLosses, SOLosses, OTSOLosses, TLosses, ROW, ROT, ShutoutWins, ShutoutLosses, HomeRecord, AwayRecord, Shootouts, GoalsFor, GoalsAgainst, GoalsDifference, SOGFor, SOGAgainst, SOGDifference, ShotsBlockedFor, ShotsBlockedAgainst, ShotsBlockedDifference, PPGFor, PPGAgainst, PPGDifference, SHGFor, SHGAgainst, SHGDifference, PenaltiesFor, PenaltiesAgainst, PenaltiesDifference, PIMFor, PIMAgainst, PIMDifference, HITSFor, HITSAgainst, HITSDifference, TakeAways, GiveAways, TAGADifference, FaceoffWins, FaceoffLosses, FaceoffDifference, Points, PCT, LastTen, Streak FROM "+leaguename+"Teams WHERE FullName=\""+str(awayteamname)+"\";");
+ return True;
+
 def CloseHockeyDatabase(sqldatacon):
  if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
   return False;
