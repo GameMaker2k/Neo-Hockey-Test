@@ -76,7 +76,7 @@ if(os.path.isdir(rootdir)):
     else:
      sys.exit(1);
     if(sqlitedatatype):
-     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyData(funcarray);
+     hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteData(funcarray);
     else:
      hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(funcarray);
     if(libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
