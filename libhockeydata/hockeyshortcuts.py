@@ -775,18 +775,32 @@ def MakeHockeySQLiteArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverb
 def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
  informat = informat.lower();
  if(informat=="xml"):
+  if("infile" in funcargs and "inxmlfile" not in funcargs):
+   funcargs['inxmlfile'] = funcargs['infile'];
   return MakeHockeyArrayFromHockeyXML(**funcargs);
  elif(informat=="json"):
+  if("infile" in funcargs and "injsonfile" not in funcargs):
+   funcargs['injsonfile'] = funcargs['infile'];
   return MakeHockeyArrayFromHockeyJSON(**funcargs);
  elif(informat=="pickle"):
+  if("infile" in funcargs and "inpicklefile" not in funcargs):
+   funcargs['inpicklefile'] = funcargs['infile'];
   return MakeHockeyArrayFromHockeyPickle(**funcargs);
  elif(informat=="marshal"):
+  if("infile" in funcargs and "inmarshalfile" not in funcargs):
+   funcargs['inmarshalfile'] = funcargs['infile'];
   return MakeHockeyArrayFromHockeyPickle(**funcargs);
  elif(informat=="database"):
+  if("infile" in funcargs and "insdbfile" not in funcargs):
+   funcargs['insdbfile'] = funcargs['infile'];
   return MakeHockeyArrayFromHockeyDatabase(**funcargs);
  elif(informat=="olddatabase"):
+  if("infile" in funcargs and "insdbfile" not in funcargs):
+   funcargs['insdbfile'] = funcargs['infile'];
   return MakeHockeyArrayFromOldHockeyDatabase(**funcargs);
  elif(informat=="sql"):
+  if("infile" in funcargs and "insqlfile" not in funcargs):
+   funcargs['insqlfile'] = funcargs['infile'];
   return MakeHockeyArrayFromHockeySQL(**funcargs);
  elif(informat=="array"):
   return MakeHockeyArrayFromHockeySQLiteArray(**funcargs);
@@ -958,8 +972,12 @@ def MakeHockeyDataFileFromHockeyArray(funcargs):
 def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
  informat = informat.lower();
  if(informat=="xml"):
+  if("infile" in funcargs and "inxmlfile" not in funcargs):
+   funcargs['inxmlfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLiteXML(**funcargs);
  elif(informat=="json"):
+  if("infile" in funcargs and "injsonfile" not in funcargs):
+   funcargs['injsonfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLiteJSON(**funcargs);
  elif(informat=="pickle"):
   return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs);
