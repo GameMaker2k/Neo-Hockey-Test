@@ -980,14 +980,24 @@ def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
    funcargs['injsonfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLiteJSON(**funcargs);
  elif(informat=="pickle"):
+  if("infile" in funcargs and "inpicklefile" not in funcargs):
+   funcargs['inpicklefile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs);
  elif(informat=="marshal"):
+  if("infile" in funcargs and "inmarshalfile" not in funcargs):
+   funcargs['inmarshalfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs);
  elif(informat=="database"):
+  if("infile" in funcargs and "insdbfile" not in funcargs):
+   funcargs['insdbfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeyDatabase(**funcargs);
  elif(informat=="olddatabase"):
+  if("infile" in funcargs and "insdbfile" not in funcargs):
+   funcargs['insdbfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromOldHockeyDatabase(**funcargs);
  elif(informat=="sql"):
+  if("infile" in funcargs and "insqlfile" not in funcargs):
+   funcargs['insqlfile'] = funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQL(**funcargs);
  elif(informat=="array"):
   return MakeHockeySQLiteArrayFromHockeyArray(**funcargs);
