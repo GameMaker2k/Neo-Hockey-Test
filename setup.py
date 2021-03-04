@@ -15,13 +15,60 @@
     $FileInfo: setup.py - Last Update: 1/15/2021 Ver. 0.5.0 RC 1 - Author: cooldude2k $
 '''
 
-import re, os, sys, time, datetime, platform, pkg_resources;
+import re, os, sys, time, shutil, datetime, platform, pkg_resources;
 from setuptools import setup, find_packages;
 
 install_requires = [];
 extras_requires = [];
 extras_requires_dict = {};
 pygenbuildinfo = True;
+pyprever = platform.python_version_tuple();
+pyver = str(pyprever[0]);
+if(os.path.exists("."+os.sep+"scripts") and os.path.isdir("."+os.sep+"scripts")):
+ shutil.rmtree("."+os.sep+"scripts");
+ print("removed directory '."+os.sep+"scripts'");
+if(os.path.exists("."+os.sep+"scripts") and os.path.isfile("."+os.sep+"scripts")):
+ os.unlink("."+os.sep+"scripts");
+ print("removed '."+os.sep+"scripts'");
+os.mkdir("."+os.sep+"scripts");
+print("created directory '."+os.sep+"scripts'");
+shutil.copy2("."+os.sep+"mkhockeytool.py", "."+os.sep+"scripts"+os.sep+"mkhockeytool"+pyver+".py");
+shutil.copy2("."+os.sep+"mkhockeydata.py", "."+os.sep+"scripts"+os.sep+"mkhockeydata"+pyver+".py");
+os.chdir("."+os.sep+"scripts");
+try:
+ os.symlink("."+os.sep+"mkhockeytool"+pyver+".py", "."+os.sep+"mkhockeytool.py");
+ print("'."+os.sep+"mkhockeytool"+pyver+".py' -> '."+os.sep+"mkhockeytool.py'");
+except OSError:
+ shutil.copy2("."+os.sep+"mkhockeytool"+pyver+".py", "."+os.sep+"mkhockeytool.py");
+ print("'."+os.sep+"mkhockeytool"+pyver+".py' -> '."+os.sep+"mkhockeytool.py'");
+try:
+ os.symlink("."+os.sep+"mkhockeydata"+pyver+".py", "."+os.sep+"mkhockeydata.py");
+ print("'."+os.sep+"mkhockeydata"+pyver+".py' -> '."+os.sep+"mkhockeydata.py'");
+except OSError:
+ shutil.copy2("."+os.sep+"mkhockeydata"+pyver+".py", "."+os.sep+"mkhockeydata.py");
+ print("'."+os.sep+"mkhockeydata"+pyver+".py' -> '."+os.sep+"mkhockeydata.py'");
+getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean", "mkhockeyxmlfile"+pyver, "mkhockeyxmlfromolddatabase"+pyver, "mkhockeyxmlfromsql"+pyver, "mkhockeydatabase"+pyver, "mkhockeydatabasefromsql"+pyver, "mkhockeypyfromdatabase"+pyver, "mkhockeypyfromxmlfile"+pyver, "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver];
+for cursymact in getsymlist:
+ curscrpath = os.path.dirname(sys.argv[0]);
+ infilename = "."+os.sep+"mkhockeydata"+pyver+".py";
+ infilenameinfo = os.path.splitext(sys.argv[0]);
+ if(curscrpath==""):
+  curscrpath = ".";
+ if(os.sep=="\\"):
+  curscrpath = curscrpath.replace(os.sep, "/");
+  infilename = infilename.replace(os.sep, "/");
+ curscrpath = curscrpath+"/";
+ outfilename = curscrpath+cursymact;
+ outfileext = str(infilenameinfo[1]).rstrip(".");
+ outfilefull = outfilename+outfileext;
+ try:
+  os.symlink(infilename, outfilefull);
+  print("'"+outfilefull+"' -> '"+infilename+"'");
+ except OSError:
+  shutil.copy2(infilename, outfilefull);
+  print("'"+outfilefull+"' -> '"+infilename+"'");
+os.chdir("."+os.sep+"..");
+
 verinfofilename = os.path.realpath("."+os.path.sep+"libhockeydata"+os.path.sep+"versioninfo.py");
 verinfofile = open(verinfofilename, "r");
 verinfodata = verinfofile.read();
@@ -60,7 +107,7 @@ pymodule['datafiles'] = None;
 pymodule['includepackagedata'] = True;
 pymodule['installrequires'] = install_requires;
 pymodule['extrasrequires'] = extras_requires_dict;
-pymodule['scripts'] = ['mkhockeytool.py', 'mkhockeydata.py', 'mkhockeydatabase.py', 'mkhockeydatabasefromsql.py', 'mkhockeypyfromdatabase.py', 'mkhockeypyfromxmlfile.py', 'mkhockeysqlfromdatabase.py', 'mkhockeysqlfromxmlfile.py', 'mkhockeyxmlfile.py', 'mkhockeyxmlfileclean.py', 'mkhockeyxmlfromolddatabase.py', 'mkhockeyxmlfromsql.py'];
+pymodule['scripts'] = ['scripts'+os.sep+'mkhockeytool.py', 'scripts'+os.sep+'mkhockeydata.py', 'scripts'+os.sep+'mkhockeydatabase.py', 'scripts'+os.sep+'mkhockeydatabasefromsql.py', 'scripts'+os.sep+'mkhockeypyfromdatabase.py', 'scripts'+os.sep+'mkhockeypyfromxmlfile.py', 'scripts'+os.sep+'mkhockeysqlfromdatabase.py', 'scripts'+os.sep+'mkhockeysqlfromxmlfile.py', 'scripts'+os.sep+'mkhockeyxmlfile.py', 'scripts'+os.sep+'mkhockeyxmlfileclean.py', 'scripts'+os.sep+'mkhockeyxmlfromolddatabase.py', 'scripts'+os.sep+'mkhockeyxmlfromsql.py', 'scripts'+os.sep+'mkhockeytool'+pyver+'.py', 'scripts'+os.sep+'mkhockeydata'+pyver+'.py', 'scripts'+os.sep+'mkhockeydatabase'+pyver+'.py', 'scripts'+os.sep+'mkhockeydatabasefromsql'+pyver+'.py', 'scripts'+os.sep+'mkhockeypyfromdatabase'+pyver+'.py', 'scripts'+os.sep+'mkhockeypyfromxmlfile'+pyver+'.py', 'scripts'+os.sep+'mkhockeysqlfromdatabase'+pyver+'.py', 'scripts'+os.sep+'mkhockeysqlfromxmlfile'+pyver+'.py', 'scripts'+os.sep+'mkhockeyxmlfile'+pyver+'.py', 'scripts'+os.sep+'mkhockeyxmlfileclean'+pyver+'.py', 'scripts'+os.sep+'mkhockeyxmlfromolddatabase'+pyver+'.py', 'scripts'+os.sep+'mkhockeyxmlfromsql'+pyver+'.py'];
 pymodule['classifiers'] = [
  'Development Status :: 5 - Production/Stable',
  'Intended Audience :: Developers',
