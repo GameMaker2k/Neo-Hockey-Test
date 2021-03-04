@@ -911,24 +911,44 @@ def MakeHockeyDataFromHockeyArray(funcargs):
 def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
  outformat = outformat.lower();
  if(outformat=="xml"):
+  if("outfile" in funcargs and "outxmlfile" not in funcargs):
+   funcargs['outxmlfile'] = funcargs['outfile'];
   return MakeHockeyXMLFileFromHockeyArray(**funcargs);
  elif(outformat=="xmlalt"):
+  if("outfile" in funcargs and "outxmlfile" not in funcargs):
+   funcargs['outxmlfile'] = funcargs['outfile'];
   return MakeHockeyXMLAltFileFromHockeyArray(**funcargs);
  elif(outformat=="json"):
+  if("outfile" in funcargs and "outjsonfile" not in funcargs):
+   funcargs['outjsonfile'] = funcargs['outfile'];
   return MakeHockeyJSONFileFromHockeyArray(**funcargs);
  elif(outformat=="pickle"):
+  if("outfile" in funcargs and "outpicklefile" not in funcargs):
+   funcargs['outpicklefile'] = funcargs['outfile'];
   return MakeHockeyPickleFileFromHockeyArray(**funcargs);
  elif(outformat=="marshal"):
+  if("outfile" in funcargs and "outmarshalfile" not in funcargs):
+   funcargs['outmarshalfile'] = funcargs['outfile'];
   return MakeHockeyMarshalFileFromHockeyArray(**funcargs);
  elif(outformat=="py"):
+  if("outfile" in funcargs and "outpyfile" not in funcargs):
+   funcargs['outpyfile'] = funcargs['outfile'];
   return MakeHockeyPythonFileFromHockeyArray(**funcargs);
  elif(outformat=="pyalt"):
+  if("outfile" in funcargs and "outpyfile" not in funcargs):
+   funcargs['outpyfile'] = funcargs['outfile'];
   return MakeHockeyPythonAltFileFromHockeyArray(**funcargs);
  elif(outformat=="pyoop"):
+  if("outfile" in funcargs and "outpyfile" not in funcargs):
+   funcargs['outpyfile'] = funcargs['outfile'];
   return MakeHockeyPythonOOPFileFromHockeyArray(**funcargs);
  elif(outformat=="pyoopalt"):
+  if("outfile" in funcargs and "outpyfile" not in funcargs):
+   funcargs['outpyfile'] = funcargs['outfile'];
   return MakeHockeyPythonOOPAltFileFromHockeyArray(**funcargs);
  elif(outformat=="sql"):
+  if("outfile" in funcargs and "outsqlfile" not in funcargs):
+   funcargs['outsqlfile'] = funcargs['outfile'];
   return MakeHockeySQLFileFromHockeyArray(**funcargs);
  else:
   return False;
