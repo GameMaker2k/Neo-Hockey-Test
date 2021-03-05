@@ -777,30 +777,37 @@ def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
  if(informat=="xml"):
   if("infile" in funcargs and "inxmlfile" not in funcargs):
    funcargs['inxmlfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromHockeyXML(**funcargs);
  elif(informat=="json"):
   if("infile" in funcargs and "injsonfile" not in funcargs):
    funcargs['injsonfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromHockeyJSON(**funcargs);
  elif(informat=="pickle"):
   if("infile" in funcargs and "inpicklefile" not in funcargs):
    funcargs['inpicklefile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromHockeyPickle(**funcargs);
  elif(informat=="marshal"):
   if("infile" in funcargs and "inmarshalfile" not in funcargs):
    funcargs['inmarshalfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromHockeyPickle(**funcargs);
  elif(informat=="database"):
   if("infile" in funcargs and "insdbfile" not in funcargs):
    funcargs['insdbfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromHockeyDatabase(**funcargs);
  elif(informat=="olddatabase"):
   if("infile" in funcargs and "insdbfile" not in funcargs):
    funcargs['insdbfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromOldHockeyDatabase(**funcargs);
  elif(informat=="sql"):
   if("infile" in funcargs and "insqlfile" not in funcargs):
    funcargs['insqlfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeyArrayFromHockeySQL(**funcargs);
  elif(informat=="array"):
   return MakeHockeyArrayFromHockeySQLiteArray(**funcargs);
@@ -913,42 +920,52 @@ def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
  if(outformat=="xml"):
   if("outfile" in funcargs and "outxmlfile" not in funcargs):
    funcargs['outxmlfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyXMLFileFromHockeyArray(**funcargs);
  elif(outformat=="xmlalt"):
   if("outfile" in funcargs and "outxmlfile" not in funcargs):
    funcargs['outxmlfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyXMLAltFileFromHockeyArray(**funcargs);
  elif(outformat=="json"):
   if("outfile" in funcargs and "outjsonfile" not in funcargs):
    funcargs['outjsonfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyJSONFileFromHockeyArray(**funcargs);
  elif(outformat=="pickle"):
   if("outfile" in funcargs and "outpicklefile" not in funcargs):
    funcargs['outpicklefile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyPickleFileFromHockeyArray(**funcargs);
  elif(outformat=="marshal"):
   if("outfile" in funcargs and "outmarshalfile" not in funcargs):
    funcargs['outmarshalfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyMarshalFileFromHockeyArray(**funcargs);
  elif(outformat=="py"):
   if("outfile" in funcargs and "outpyfile" not in funcargs):
    funcargs['outpyfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyPythonFileFromHockeyArray(**funcargs);
  elif(outformat=="pyalt"):
   if("outfile" in funcargs and "outpyfile" not in funcargs):
    funcargs['outpyfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyPythonAltFileFromHockeyArray(**funcargs);
  elif(outformat=="pyoop"):
   if("outfile" in funcargs and "outpyfile" not in funcargs):
    funcargs['outpyfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyPythonOOPFileFromHockeyArray(**funcargs);
  elif(outformat=="pyoopalt"):
   if("outfile" in funcargs and "outpyfile" not in funcargs):
    funcargs['outpyfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeyPythonOOPAltFileFromHockeyArray(**funcargs);
  elif(outformat=="sql"):
   if("outfile" in funcargs and "outsqlfile" not in funcargs):
    funcargs['outsqlfile'] = funcargs['outfile'];
+   del funcargs['outfile'];
   return MakeHockeySQLFileFromHockeyArray(**funcargs);
  else:
   return False;
@@ -994,30 +1011,37 @@ def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
  if(informat=="xml"):
   if("infile" in funcargs and "inxmlfile" not in funcargs):
    funcargs['inxmlfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLiteXML(**funcargs);
  elif(informat=="json"):
   if("infile" in funcargs and "injsonfile" not in funcargs):
    funcargs['injsonfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLiteJSON(**funcargs);
  elif(informat=="pickle"):
   if("infile" in funcargs and "inpicklefile" not in funcargs):
    funcargs['inpicklefile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs);
  elif(informat=="marshal"):
   if("infile" in funcargs and "inmarshalfile" not in funcargs):
    funcargs['inmarshalfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs);
  elif(informat=="database"):
   if("infile" in funcargs and "insdbfile" not in funcargs):
    funcargs['insdbfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeyDatabase(**funcargs);
  elif(informat=="olddatabase"):
   if("infile" in funcargs and "insdbfile" not in funcargs):
    funcargs['insdbfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromOldHockeyDatabase(**funcargs);
  elif(informat=="sql"):
   if("infile" in funcargs and "insqlfile" not in funcargs):
    funcargs['insqlfile'] = funcargs['infile'];
+   del funcargs['infile'];
   return MakeHockeySQLiteArrayFromHockeySQL(**funcargs);
  elif(informat=="array"):
   return MakeHockeySQLiteArrayFromHockeyArray(**funcargs);
