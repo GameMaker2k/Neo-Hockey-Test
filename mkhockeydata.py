@@ -93,6 +93,9 @@ if((curaction==getactlist[19] or curaction==getactlist[20])):
   except OSError:
    shutil.copy2(infilename, outfilefull);
    print("'"+outfilefull+"' -> '"+infilename+"'");
+  except AttributeError:
+   shutil.copy2(infilename, outfilefull);
+   print("'"+outfilefull+"' -> '"+infilename+"'");
 
 if(curaction==getactlist[0]):
  argparser = argparse.ArgumentParser(description=getactdesc[0], conflict_handler="resolve", add_help=True);
