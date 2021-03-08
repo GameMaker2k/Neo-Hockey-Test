@@ -41,10 +41,16 @@ try:
 except OSError:
  shutil.copy2("."+os.sep+"mkhockeytool"+pyver+".py", "."+os.sep+"mkhockeytool.py");
  print("'."+os.sep+"mkhockeytool"+pyver+".py' -> '."+os.sep+"mkhockeytool.py'");
+except AttributeError:
+ shutil.copy2("."+os.sep+"mkhockeytool"+pyver+".py", "."+os.sep+"mkhockeytool.py");
+ print("'."+os.sep+"mkhockeytool"+pyver+".py' -> '."+os.sep+"mkhockeytool.py'");
 try:
  os.symlink("."+os.sep+"mkhockeydata"+pyver+".py", "."+os.sep+"mkhockeydata.py");
  print("'."+os.sep+"mkhockeydata"+pyver+".py' -> '."+os.sep+"mkhockeydata.py'");
 except OSError:
+ shutil.copy2("."+os.sep+"mkhockeydata"+pyver+".py", "."+os.sep+"mkhockeydata.py");
+ print("'."+os.sep+"mkhockeydata"+pyver+".py' -> '."+os.sep+"mkhockeydata.py'");
+except AttributeError:
  shutil.copy2("."+os.sep+"mkhockeydata"+pyver+".py", "."+os.sep+"mkhockeydata.py");
  print("'."+os.sep+"mkhockeydata"+pyver+".py' -> '."+os.sep+"mkhockeydata.py'");
 getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean", "mkhockeyxmlfile"+pyver, "mkhockeyxmlfromolddatabase"+pyver, "mkhockeyxmlfromsql"+pyver, "mkhockeydatabase"+pyver, "mkhockeydatabasefromsql"+pyver, "mkhockeypyfromdatabase"+pyver, "mkhockeypyfromxmlfile"+pyver, "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver];
@@ -65,6 +71,9 @@ for cursymact in getsymlist:
   os.symlink(infilename, outfilefull);
   print("'"+outfilefull+"' -> '"+infilename+"'");
  except OSError:
+  shutil.copy2(infilename, outfilefull);
+  print("'"+outfilefull+"' -> '"+infilename+"'");
+ except AttributeError:
   shutil.copy2(infilename, outfilefull);
   print("'"+outfilefull+"' -> '"+infilename+"'");
 os.chdir("."+os.sep+"..");
