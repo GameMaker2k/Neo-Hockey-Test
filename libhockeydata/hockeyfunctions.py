@@ -522,7 +522,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
       for hockeygames in hockeyconference:
        if(hockeygames.tag=="game"):
         if(not CheckKeyInArray(["date", "time", "hometeam", "awayteam", "goals", "sogs", "ppgs", "shgs", "penalties", "pims", "hits", "takeaways", "faceoffwins", "atarena", "isplayoffgame"], dict(hockeygames.attrib))):
-         print(dict(hockeygames.attrib)); return False;
+         return False;
        else:
         return False;
      else:
