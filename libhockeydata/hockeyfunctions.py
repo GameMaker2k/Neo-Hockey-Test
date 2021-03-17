@@ -366,7 +366,7 @@ def CompressOpenFile(outfile):
    import zstandard;
   except ImportError:
    return False;
-  outfp = zstandard.open(outfile, "w+b", zstandard.ZstdCompressor(level=10));
+  outfp = zstandard.open(outfile, "wb", zstandard.ZstdCompressor(level=10));
  elif(fextname==".xz"):
   try:
    import lzma;
