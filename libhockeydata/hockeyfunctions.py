@@ -169,7 +169,7 @@ def UncompressFileAlt(fp):
   outfp.write(bz2.decompress(fp.read()));
  if(compresscheck=="zstd"):
   try:
-   import bz2;
+   import zstandard;
   except ImportError:
    return False;
   outfp = BytesIO();
