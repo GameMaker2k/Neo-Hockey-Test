@@ -13,7 +13,7 @@
     Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeyfunctions.py - Last Update: 1/15/2021 Ver. 0.5.0 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeyfunctions.py - Last Update: 3/17/2021 Ver. 0.6.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -291,7 +291,6 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
  return inufile;
 
 def CompressFile(fp, compression="auto"):
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
  if(not hasattr(fp, "read")):
   return False;
  fp.seek(0, 0);
@@ -342,9 +341,6 @@ def CompressFile(fp, compression="auto"):
 def CompressOpenFile(outfile):
  if(outfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outfile)[0];
  fextname = os.path.splitext(outfile)[1];
  if(fextname not in outextlistwd):
@@ -394,13 +390,10 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
  else:
   return False;
  stringstring = stringfile.read().decode("UTF-8");
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outstringfile)[0];
  fextname = os.path.splitext(outstringfile)[1];
  stringfp = CompressOpenFile(outstringfile);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   stringstring = stringstring.encode();
  stringfp.write(stringstring);
  stringfp.close();
@@ -465,14 +458,11 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
 def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True, returnxml=False):
  if(outxmlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, newl, encoding, beautify);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -777,14 +767,11 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, verbose=True, jso
 def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
  if(outjsonfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outjsonfile)[0];
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
  jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   jsonstring = jsonstring.encode();
  jsonfp.write(jsonstring);
  jsonfp.close();
@@ -834,14 +821,11 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
 def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True, jsonverbose=True):
  if(outpicklefile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpicklefile)[0];
  fextname = os.path.splitext(outpicklefile)[1];
  picklefp = CompressOpenFile(outpicklefile);
  picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   picklestring = picklestring.encode();
  picklefp.write(picklestring);
  picklefp.close();
@@ -888,14 +872,11 @@ def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tr
 def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True, jsonverbose=True):
  if(outmarshalfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outmarshalfile)[0];
  fextname = os.path.splitext(outmarshalfile)[1];
  marshalfp = CompressOpenFile(outmarshalfile);
  marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   marshalstring = marshalstring.encode();
  marshalfp.write(marshalstring);
  marshalfp.close();
@@ -986,14 +967,11 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jso
 def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -1059,14 +1037,11 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, 
 def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -1281,14 +1256,11 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
 def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
  if(outpyfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1358,14 +1330,11 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
 def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(outpyfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1430,14 +1399,11 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
 def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
  if(outpyfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1507,14 +1473,11 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
 def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
  if(outpyfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1810,14 +1773,11 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Tr
 def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
  if(outsqlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
@@ -1902,14 +1862,11 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
  if(outsqlfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outsqlfile = file_wo_extension+".sql";
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
@@ -2180,14 +2137,11 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
 def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose, jsonverbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -2252,14 +2206,11 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
 def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(outxmlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -2477,14 +2428,11 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
 def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
  if(outsqlfile is None):
   return False;
- compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
+ if(fextname in outextlistwd):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();

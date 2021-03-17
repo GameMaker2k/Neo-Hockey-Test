@@ -13,7 +13,7 @@
     Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: versioninfo.py - Last Update: 3/10/2021 Ver. 0.6.0 RC 1 - Author: cooldude2k $
+    $FileInfo: versioninfo.py - Last Update: 3/17/2021 Ver. 0.6.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -113,7 +113,7 @@ def version_info():
   return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": __version_info__[3]};
  if(__version_info__[3] is None):
   return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None};
-__version_date_info__ = (2021, 3, 11, "RC 1", 1);
+__version_date_info__ = (2021, 3, 17, "RC 1", 1);
 def version_date():
  if(__version_date_info__[3] is not None):
   return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": __version_date_info__[3]};

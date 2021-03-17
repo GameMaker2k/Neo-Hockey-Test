@@ -13,7 +13,7 @@
     Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeydatabase.py - Last Update: 1/15/2021 Ver. 0.5.0 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeydatabase.py - Last Update: 3/17/2021 Ver. 0.6.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -33,6 +33,11 @@ defaultpyfile = "./data/hockeydata.py";
 defaultpythonfile = defaultpyfile;
 defaultsqlfile = "./data/hockeydata.sql";
 defaultjsonfile = "./data/hockeydata.json";
+compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
+extensions = ['xml', 'json', 'sql', 'db3'];
+extensionswd = ['.xml', '.json', '.sql', '.db3'];
 
 # From: https://stackoverflow.com/a/28568003
 # By Phaxmohdem

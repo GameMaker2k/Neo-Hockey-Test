@@ -13,7 +13,7 @@
     Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: mkhockeytool.py - Last Update: 1/15/2021 Ver. 0.5.0 RC 1 - Author: cooldude2k $
+    $FileInfo: mkhockeytool.py - Last Update: 3/17/2021 Ver. 0.6.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
