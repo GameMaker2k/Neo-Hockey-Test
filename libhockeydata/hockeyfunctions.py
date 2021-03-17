@@ -784,7 +784,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
  jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   jsonstring = jsonstring.encode();
  jsonfp.write(jsonstring);
  jsonfp.close();
@@ -841,7 +841,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
  fextname = os.path.splitext(outpicklefile)[1];
  picklefp = CompressOpenFile(outpicklefile);
  picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   picklestring = picklestring.encode();
  picklefp.write(picklestring);
  picklefp.close();
@@ -895,7 +895,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
  fextname = os.path.splitext(outmarshalfile)[1];
  marshalfp = CompressOpenFile(outmarshalfile);
  marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   marshalstring = marshalstring.encode();
  marshalfp.write(marshalstring);
  marshalfp.close();
@@ -993,7 +993,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -1066,7 +1066,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -1288,7 +1288,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1365,7 +1365,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1437,7 +1437,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1514,7 +1514,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
@@ -1817,7 +1817,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
@@ -1909,7 +1909,7 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
@@ -2187,7 +2187,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose, jsonverbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -2259,7 +2259,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
@@ -2484,7 +2484,7 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, retur
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
- if(fextname==".gz" or fextname==".bz2" or fextname==".xz" or fextname==".lzma"):
+ if(fextname==".gz" or fextname==".bz2" or fextname==".zst" or fextname==".xz" or fextname==".lzma"):
   sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
