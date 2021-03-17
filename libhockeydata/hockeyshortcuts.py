@@ -81,9 +81,9 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
  if(outxmlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outxmlfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
@@ -105,9 +105,9 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
   file_wo_extension, file_extension = os.path.splitext(injsonfile);
   outxmlfile = file_wo_extension+".xml";
  hockeyarray = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, False);
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
@@ -133,9 +133,9 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
  if(outjsonfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outjsonfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outjsonfile)[0];
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
@@ -208,9 +208,9 @@ def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
  if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -238,9 +238,9 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
  if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -268,9 +268,9 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
  if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -298,9 +298,9 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
  if(outpyfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -328,9 +328,9 @@ def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False
  if(xmlfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   xmlfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(xmlfile)[0];
  fextname = os.path.splitext(xmlfile)[1];
  xmlfp = CompressOpenFile(xmlfile);
@@ -356,9 +356,9 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, insdbfile=None, outxmlfile=None, s
  if(outxmlfile is None and sqlisfile):
   file_wo_extension, file_extension = os.path.splitext(insqlfile);
   outxmlfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
@@ -384,9 +384,9 @@ def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -414,9 +414,9 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, retu
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -444,9 +444,9 @@ def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=F
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -474,9 +474,9 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -507,9 +507,9 @@ def MakeHockeySQLFileFromHockeyXML(inxmlfile, outsqlfile=None, xmlisfile=True, r
  if(outsqlfile is None and xmlisfile):
   file_wo_extension, file_extension = os.path.splitext(inxmlfile);
   outsqlfile = file_wo_extension+".sql";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
@@ -535,9 +535,9 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(insdbfile, outxmlfile=None, returnxml
  if(outxmlfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   otxmlfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
@@ -563,9 +563,9 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -593,9 +593,9 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, r
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -623,9 +623,9 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnp
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -653,9 +653,9 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
  if(outpyfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outpyfile = file_wo_extension+".xml";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
@@ -683,9 +683,9 @@ def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql
  if(outsqlfile is None):
   file_wo_extension, file_extension = os.path.splitext(insdbfile);
   outsqlfile = file_wo_extension+".sql";
- compressionlist = ['auto', 'gzip', 'bzip2', 'lzma', 'xz'];
- outextlist = ['gz', 'bz2', 'lzma', 'xz'];
- outextlistwd = ['.gz', '.bz2', '.lzma', '.xz'];
+ compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
+ outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
+ outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
