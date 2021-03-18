@@ -811,6 +811,16 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
+ if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
+  return False;
+ picklestring = pickle.dumps(inhockeyarray, protocol=protocol, fix_imports=True);
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ return picklestring;
+
 def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
  if(outpicklefile is None):
   return False;
