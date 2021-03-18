@@ -754,26 +754,26 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   return False;
  return False;
 
-def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
  if(beautify):
-  jsonstring = json.dumps(inhockeyarray, sort_keys=True, indent=jsonindent);
+  jsonstring = json.dumps(inhockeyarray, sort_keys=sortkeys, indent=jsonindent);
  else:
-  jsonstring = json.dumps(inhockeyarray, sort_keys=True, separators=(', ', ': '));
+  jsonstring = json.dumps(inhockeyarray, sort_keys=sortkeys, separators=(', ', ': '));
  if(verbose and jsonverbose):
   VerbosePrintOut(jsonstring);
  elif(verbose and not jsonverbose):
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return jsonstring;
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
  if(outjsonfile is None):
   return False;
  fbasename = os.path.splitext(outjsonfile)[0];
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
- jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, verbose);
+ jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, sortkeys, verbose);
  if(fextname in outextlistwd):
   jsonstring = jsonstring.encode();
  jsonfp.write(jsonstring);
