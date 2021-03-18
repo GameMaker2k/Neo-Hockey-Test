@@ -811,23 +811,23 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- picklestring = pickle.dumps(inhockeyarray);
+ picklestring = pickle.dumps(inhockeyarray, protocol=protocol, fix_imports=True);
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return picklestring;
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, verbose=True, jsonverbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
  if(outpicklefile is None):
   return False;
  fbasename = os.path.splitext(outpicklefile)[0];
  fextname = os.path.splitext(outpicklefile)[1];
  picklefp = CompressOpenFile(outpicklefile);
- picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, verbose);
+ picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol, verbose);
  if(fextname in outextlistwd):
   picklestring = picklestring.encode();
  picklefp.write(picklestring);
@@ -845,12 +845,12 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
    hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, geturls_headers)));
   else:
    picklefp = UncompressFile(inpicklefile);
-   hockeyarray = pickle.load(picklefp);
+   hockeyarray = pickle.load(picklefp, fix_imports=True);
    picklefp.close();
  elif(not pickleisfile):
   picklefp = BytesIO(inpicklefile.encode());
   picklefp = UncompressFileAlt(picklefp);
-  hockeyarray = json.load(picklefp);
+  hockeyarray = json.load(picklefp, fix_imports=True);
   picklefp.close();
  else:
   return False;
@@ -862,23 +862,23 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- marshalstring = marshal.dumps(inhockeyarray);
+ marshalstring = marshal.dumps(inhockeyarray, version=version);
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return marshalstring;
 
-def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, verbose=True, jsonverbose=True):
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, verbose=True, jsonverbose=True):
  if(outmarshalfile is None):
   return False;
  fbasename = os.path.splitext(outmarshalfile)[0];
  fextname = os.path.splitext(outmarshalfile)[1];
  marshalfp = CompressOpenFile(outmarshalfile);
- marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, verbose);
+ marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, version, verbose);
  if(fextname in outextlistwd):
   marshalstring = marshalstring.encode();
  marshalfp.write(marshalstring);
