@@ -811,16 +811,6 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
- if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
-  return False;
- picklestring = pickle.dumps(inhockeyarray, protocol=protocol, fix_imports=True);
- if(verbose and jsonverbose):
-  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
- elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
- return picklestring;
-
 def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
  if(outpicklefile is None):
   return False;
@@ -842,7 +832,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
  if(pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https|ftp|ftps|sftp)\:\/\/", inpicklefile))):
   if(re.findall("^(http|https|ftp|ftps|sftp)\:\/\/", inpicklefile)):
    inpicklefile = UncompressFileURL(inpicklefile, geturls_headers, geturls_cj);
-   hockeyarray = pickle.load(urllib2.urlopen(urllib2.Request(inpicklefile, None, geturls_headers)));
+   hockeyarray = pickle.load(inpicklefile);
   else:
    picklefp = UncompressFile(inpicklefile);
    hockeyarray = pickle.load(picklefp, fix_imports=True);
@@ -893,7 +883,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
  if(marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https|ftp|ftps|sftp)\:\/\/", inmarshalfile))):
   if(re.findall("^(http|https|ftp|ftps|sftp)\:\/\/", inmarshalfile)):
    inmarshalfile = UncompressFileURL(inmarshalfile, geturls_headers, geturls_cj);
-   hockeyarray = marshal.load(urllib2.urlopen(urllib2.Request(inmarshalfile, None, geturls_headers)));
+   hockeyarray = marshal.load(inmarshalfile);
   else:
    marshalfp = UncompressFile(inmarshalfile);
    hockeyarray = marshal.load(marshalfp);
