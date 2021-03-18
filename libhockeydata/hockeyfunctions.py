@@ -2293,7 +2293,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
@@ -2360,7 +2360,7 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
-  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True));
  return leaguearrayout;
 
 def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=True, jsonverbose=True):
