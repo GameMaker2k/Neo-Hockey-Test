@@ -51,6 +51,12 @@ try:
 except ImportError:
  from urllib.parse import urlparse, urlunparse;
 
+pickledp = None;
+try:
+ pickledp = pickle.DEFAULT_PROTOCOL
+except AttributeError:
+ pickledp = None;
+
 from .hockeydatabase import *;
 from .hockeydwnload import *;
 from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info;
@@ -811,10 +817,13 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
-def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- picklestring = pickle.dumps(inhockeyarray, protocol=protocol, fix_imports=True);
+ if(protocol is None):
+  picklestring = pickle.dumps(inhockeyarray, fix_imports=True);
+ else:
+  picklestring = pickle.dumps(inhockeyarray, protocol=protocol, fix_imports=True);
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
