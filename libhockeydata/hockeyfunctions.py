@@ -830,7 +830,7 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=Tr
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return picklestring;
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, verbose=True, jsonverbose=True):
  if(outpicklefile is None):
   return False;
  fbasename = os.path.splitext(outpicklefile)[0];
