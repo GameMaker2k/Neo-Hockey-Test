@@ -54,7 +54,7 @@ if(sys.version[0]>="3"):
  import http.cookiejar as cookielib;
 from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info;
 
-tmpfileprefix = "py"+str(sys.version_info[0])+"wwwget"+str(__version_info__[0])+"-";
+tmpfileprefix = "py"+str(sys.version_info[0])+"hockeystats"+str(__version_info__[0])+"-";
 tmpfilesuffix = "-";
 pytempdir = tempfile.gettempdir();
 
