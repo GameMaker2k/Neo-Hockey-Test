@@ -1,2 +1,42 @@
 *.py ident
 * text=auto eol=lf
+
+# Basic .gitattributes for a python repo.
+
+# Source files
+# ============
+*.pxd    text diff=python eol=lf
+*.py     text diff=python eol=lf
+*.py3    text diff=python eol=lf
+*.pyw    text diff=python eol=lf
+*.pyx    text diff=python eol=lf
+*.pyz    text diff=python eol=lf
+*.pyi    text diff=python eol=lf
+
+##### Language
+# PHP
+*.php text eol=lf
+*.phpt text eol=lf
+*.phtml text eol=lf
+*.twig text eol=lf
+.htaccess text eol=lf
+.ht text eol=lf
+*.phar binary eol=lf
+
+# Binary files
+# ============
+*.db     binary
+*.p      binary
+*.pkl    binary
+*.pickle binary
+*.pyc    binary
+*.pyd    binary
+*.pyo    binary
+
+# Jupyter notebook
+*.ipynb  text eol=lf
+
+# Note: .db, .p, and .pkl files are associated
+# with the python modules ``pickle``, ``dbm.*``,
+# ``shelve``, ``marshal``, ``anydbm``, & ``bsddb``
+# (among others).
