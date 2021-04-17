@@ -15,13 +15,16 @@
 
 ##### Language
 # PHP
-*.php text eol=lf
-*.phpt text eol=lf
-*.phtml text eol=lf
-*.twig text eol=lf
+*.php     text diff=php eol=lf
+*.phpt    text diff=php eol=lf
+*.phtml   text diff=php eol=lf
+*.htm     text diff=html eol=lf
+*.html    text diff=html eol=lf
+*.xml     text diff=xml eol=lf
+*.twig    text eol=lf
 .htaccess text eol=lf
-.ht text eol=lf
-*.phar binary eol=lf
+.ht       text eol=lf
+*.phar    binary
 
 # Binary files
 # ============
