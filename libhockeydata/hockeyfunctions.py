@@ -2315,6 +2315,11 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
   leaguearray = {};
   arenalist = [];
   gamelist = [];
+  conarrayname = leagueinfo['LeagueName']+"Conferences";
+  divarrayname = leagueinfo['LeagueName']+"Divisions";
+  teamarrayname = leagueinfo['LeagueName']+"Teams";
+  araarrayname = leagueinfo['LeagueName']+"Arenas";
+  gamearrayname = leagueinfo['LeagueName']+"Games";
   HockeyLeagueHasConferences = True;
   HockeyLeagueHasConferenceStr = "yes";
   if(int(leagueinfo['NumberOfConferences'])<=0):
@@ -2329,19 +2334,16 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
   leaguearray.update( { str(leagueinfo['LeagueName']): tempdict } );
   leaguelist.append(str(leagueinfo['LeagueName']));
   conferencelist = [];
-  conarrayname = leagueinfo['LeagueName']+"Conferences";
   for conferenceinfo in inchockeyarray[conarrayname]['values']:
    leaguearray[str(leagueinfo['LeagueName'])].update( { str(conferenceinfo['Conference']): { 'conferenceinfo': { 'name': str(conferenceinfo['Conference']), 'prefix': str(conferenceinfo['ConferencePrefix']), 'suffix': str(conferenceinfo['ConferenceSuffix']), 'fullname': str(conferenceinfo['FullName']), 'league': str(leagueinfo['LeagueName']) } } } );
    leaguearray[str(leagueinfo['LeagueName'])]['quickinfo']['conferenceinfo'].update( { str(conferenceinfo['Conference']): { 'name': str(conferenceinfo['Conference']), 'fullname': str(conferenceinfo['FullName']), 'league': str(leagueinfo['LeagueName']) } } );
    conferencelist.append(str(conferenceinfo['Conference']));
    divisionlist = [];
-   divarrayname = leagueinfo['LeagueName']+"Divisions";
    for divisioninfo in inchockeyarray[divarrayname]['values']:
     leaguearray[str(leagueinfo['LeagueName'])][str(conferenceinfo['Conference'])].update( { str(divisioninfo['Division']): { 'divisioninfo': { 'name': str(divisioninfo['Division']), 'prefix': str(divisioninfo['DivisionPrefix']), 'suffix': str(divisioninfo['DivisionSuffix']), 'fullname': str(divisioninfo['FullName']), 'league': str(leagueinfo['LeagueName']), 'conference': str(conferenceinfo['Conference']) } } } );
     leaguearray[str(leagueinfo['LeagueName'])]['quickinfo']['divisioninfo'].update( { str(divisioninfo['Division']): { 'name': str(divisioninfo['Division']), 'fullname': str(divisioninfo['FullName']), 'league': str(leagueinfo['LeagueName']), 'conference': str(conferenceinfo['Conference']) } } );
     divisionlist.append(str(divisioninfo['Division']));
     teamlist = [];
-    teamarrayname = leagueinfo['LeagueName']+"Teams";
     for teaminfo in inchockeyarray[teamarrayname]['values']:
      fullteamname = GetFullTeamName(str(teaminfo['TeamName']), str(teaminfo['TeamPrefix']), str(teaminfo['TeamSuffix']));
      leaguearray[str(leagueinfo['LeagueName'])][str(conferenceinfo['Conference'])][str(divisioninfo['Division'])].update( { str(teaminfo['TeamName']): { 'teaminfo': { 'city': str(teaminfo['CityName']), 'area': str(teaminfo['AreaName']), 'fullarea': str(teaminfo['FullAreaName']), 'country': str(teaminfo['CountryName']), 'fullcountry': str(teaminfo['FullCountryName']), 'name': str(teaminfo['TeamName']), 'fullname': fullteamname, 'arena': str(teaminfo['ArenaName']), 'prefix': str(teaminfo['TeamPrefix']), 'suffix': str(teaminfo['TeamSuffix']), 'league': str(leagueinfo['LeagueName']), 'conference': str(conferenceinfo['Conference']), 'division': str(divisioninfo['Division']), 'affiliates': str(teaminfo['Affiliates']) } } } );
@@ -2350,13 +2352,11 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
     leaguearray[str(leagueinfo['LeagueName'])][str(conferenceinfo['Conference'])][str(divisioninfo['Division'])].update( { 'teamlist': teamlist } );
    leaguearray[str(leagueinfo['LeagueName'])][str(conferenceinfo['Conference'])].update( { 'divisionlist': divisionlist } );
   leaguearray[str(leagueinfo['LeagueName'])].update( { 'conferencelist': conferencelist } );
-  araarrayname = leagueinfo['LeagueName']+"Arenas";
   getteam_num = len(inchockeyarray[teamarrayname]['values']);
   if(getteam_num>0):
    for arenainfo in inchockeyarray[teamarrayname]['values']:
     arenalist.append( { 'city': str(arenainfo['CityName']), 'area': str(arenainfo['AreaName']), 'fullarea': str(arenainfo['FullAreaName']), 'country': str(arenainfo['CountryName']), 'fullcountry': str(arenainfo['FullCountryName']), 'name': str(arenainfo['ArenaName']) } );
   leaguearray[str(leagueinfo['LeagueName'])].update( { "arenas": arenalist } );
-  gamearrayname = leagueinfo['LeagueName']+"Games";
   getgame_num = len(inchockeyarray[gamearrayname]['values']);
   if(getgame_num>0):
    for gameinfo in inchockeyarray[gamearrayname]['values']:
