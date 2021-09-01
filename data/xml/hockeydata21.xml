@@ -68,7 +68,6 @@
     <team city="Utica" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Comets" arena="Adirondack Bank Center" prefix="Utica" suffix="" affiliates="" />
    </division>
   </conference>
-    <team city="Binghamton" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Devils" arena="Veterans Memorial Arena" prefix="Binghamton" suffix="" affiliates="" />
   <conference name="Western" prefix="" suffix="Conference">
    <division name="Central" prefix="" suffix="Division">
     <team city="Rosemont" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Wolves" arena="Allstate Arena" prefix="Chicago" suffix="" affiliates="" />
