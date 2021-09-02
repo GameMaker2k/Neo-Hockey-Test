@@ -53,9 +53,9 @@ except ImportError:
 
 pickledp = None;
 try:
- pickledp = pickle.DEFAULT_PROTOCOL
+ pickledp = pickle.DEFAULT_PROTOCOL;
 except AttributeError:
- pickledp = None;
+ pickledp = 2;
 
 from .hockeydatabase import *;
 from .hockeydwnload import *;
