@@ -34,11 +34,12 @@ except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
 
+pickledef = None;
 try:
  pickledef = pickle.DEFAULT_PROTOCOL;
 except AttributeError:
  pickledef = 2;
-    
+
 def MakeHockeySQLiteJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
  jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose);
  return jsonstring;
