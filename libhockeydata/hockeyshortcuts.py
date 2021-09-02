@@ -34,6 +34,11 @@ except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
 
+try:
+ pickledef = pickle.DEFAULT_PROTOCOL;
+except AttributeError:
+ pickledef = 2;
+    
 def MakeHockeySQLiteJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
  jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose);
  return jsonstring;
@@ -46,11 +51,11 @@ def MakeHockeySQLiteArrayFromHockeySQLiteJSON(injsonfile, jsonisfile=True, verbo
  jsonstring = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, verbose, jsonverbose);
  return jsonstring;
 
-def MakeHockeySQLitePickleFromHockeySQLiteArray(inhockeyarray, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
+def MakeHockeySQLitePickleFromHockeySQLiteArray(inhockeyarray, protocol=pickledef, verbose=True, jsonverbose=True):
  picklestringp = MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol, verbose, jsonverbose);
  return picklestring;
 
-def MakeHockeySQLitePickleFileFromHockeySQLiteArray(inhockeyarray, outpicklefile=None, returnjson=False, protocol=pickle.DEFAULT_PROTOCOL, verbose=True, jsonverbose=True):
+def MakeHockeySQLitePickleFileFromHockeySQLiteArray(inhockeyarray, outpicklefile=None, returnjson=False, protocol=pickledef, verbose=True, jsonverbose=True):
  picklestring = MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile, returnjson, protocol, verbose, jsonverbose);
  return picklestring;
 
