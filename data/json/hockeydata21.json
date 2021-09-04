@@ -1,5 +1,5 @@
 {
- "database": "./php/data/hockey20-21.db3",
+ "database": "./php/data/hockey21-22.db3",
  "NHL": {
   "leagueinfo": {
    "name": "NHL",
@@ -1782,7 +1782,7 @@
       "league": "AHL",
       "conference": "Western",
       "division": "Pacific",
-      "affiliates": "NHL:Colorado Avalanche"
+      "affiliates": ""
      }
     },
     "Silver Knights": {
@@ -1800,7 +1800,7 @@
       "league": "AHL",
       "conference": "Western",
       "division": "Pacific",
-      "affiliates": "NHL:Vegas Golden Knights"
+      "affiliates": ""
      }
     },
     "Reign": {

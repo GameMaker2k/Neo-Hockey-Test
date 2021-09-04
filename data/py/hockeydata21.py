@@ -4,7 +4,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata;
 
-sqldatacon = libhockeydata.MakeHockeyDatabase("./php/data/hockey20-21.db3");
+sqldatacon = libhockeydata.MakeHockeyDatabase("./php/data/hockey21-22.db3");
 libhockeydata.MakeHockeyLeagueTable(sqldatacon);
 libhockeydata.MakeHockeyTeamTable(sqldatacon, "NHL");
 libhockeydata.MakeHockeyConferenceTable(sqldatacon, "NHL");
@@ -84,8 +84,8 @@ libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Cedar Park", "TX", 
 libhockeydata.MakeHockeyDivision(sqldatacon, "AHL", "Pacific", "Western", "", "Division", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Abbotsford", "BC", "CAN", "Canada", "British Columbia", "Canucks", "Western", "Pacific", "Abbotsford Centre", "Abbotsford", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Bakersfield", "CA", "USA", "United States", "California", "Condors", "Western", "Pacific", "Mechanics Bank Arena", "Bakersfield", "", "", True, True);
-libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Loveland", "CO", "USA", "United States", "Colorado", "Eagles", "Western", "Pacific", "Budweiser Events Center", "Colorado", "", "NHL:Colorado Avalanche", True, True);
-libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Paradise", "NV", "USA", "United States", "Nevada", "Silver Knights", "Western", "Pacific", "Orleans Arena", "Henderson", "", "NHL:Vegas Golden Knights", True, True);
+libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Loveland", "CO", "USA", "United States", "Colorado", "Eagles", "Western", "Pacific", "Budweiser Events Center", "Colorado", "", "", True, True);
+libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Paradise", "NV", "USA", "United States", "Nevada", "Silver Knights", "Western", "Pacific", "Orleans Arena", "Henderson", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "Ontario", "CA", "USA", "United States", "California", "Reign", "Western", "Pacific", "Toyota Arena", "Ontario", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "San Antonio", "TX", "USA", "United States", "Texas", "Rampage", "Western", "Pacific", "AT&T Center", "San Antonio", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "AHL", "20211015", "San Diego", "CA", "USA", "United States", "California", "Gulls", "Western", "Pacific", "Pechanga Arena", "San Diego", "", "", True, True);

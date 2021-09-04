@@ -9208,7 +9208,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Budweiser Events Center"/>
     <rowdata name="FullArenaName" value="Budweiser Events Center, Loveland"/>
-    <rowdata name="Affiliates" value="NHL:Colorado Avalanche"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -9289,7 +9289,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Orleans Arena"/>
     <rowdata name="FullArenaName" value="Orleans Arena, Paradise"/>
-    <rowdata name="Affiliates" value="NHL:Vegas Golden Knights"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -11992,7 +11992,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Budweiser Events Center"/>
     <rowdata name="FullArenaName" value="Budweiser Events Center, Loveland"/>
-    <rowdata name="Affiliates" value="NHL:Colorado Avalanche"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -12074,7 +12074,7 @@
     <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="ArenaName" value="Orleans Arena"/>
     <rowdata name="FullArenaName" value="Orleans Arena, Paradise"/>
-    <rowdata name="Affiliates" value="NHL:Vegas Golden Knights"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>

@@ -4,7 +4,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata;
 
-hockeyarray = libhockeydata.CreateHockeyArray("./php/data/hockey20-21.db3");
+hockeyarray = libhockeydata.CreateHockeyArray("./php/data/hockey21-22.db3");
 hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "NHL", "National Hockey League", "USA", "United States", "20211012", "Division=3,Conference=2", "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
 hockeyarray = libhockeydata.AddHockeyConferenceToArray(hockeyarray, "NHL", "Eastern");
 hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "NHL", "Atlantic", "Eastern", "", "Division");
@@ -75,8 +75,8 @@ hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Cedar Park
 hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, "AHL", "Pacific", "Western", "", "Division");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Abbotsford", "BC", "CAN", "Canada", "British Columbia", "Canucks", "Western", "Pacific", "Abbotsford Centre", "Abbotsford", "", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Bakersfield", "CA", "USA", "United States", "California", "Condors", "Western", "Pacific", "Mechanics Bank Arena", "Bakersfield", "", "");
-hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Loveland", "CO", "USA", "United States", "Colorado", "Eagles", "Western", "Pacific", "Budweiser Events Center", "Colorado", "", "NHL:Colorado Avalanche");
-hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Paradise", "NV", "USA", "United States", "Nevada", "Silver Knights", "Western", "Pacific", "Orleans Arena", "Henderson", "", "NHL:Vegas Golden Knights");
+hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Loveland", "CO", "USA", "United States", "Colorado", "Eagles", "Western", "Pacific", "Budweiser Events Center", "Colorado", "", "");
+hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Paradise", "NV", "USA", "United States", "Nevada", "Silver Knights", "Western", "Pacific", "Orleans Arena", "Henderson", "", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "Ontario", "CA", "USA", "United States", "California", "Reign", "Western", "Pacific", "Toyota Arena", "Ontario", "", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "San Antonio", "TX", "USA", "United States", "Texas", "Rampage", "Western", "Pacific", "AT&T Center", "San Antonio", "", "");
 hockeyarray = libhockeydata.AddHockeyTeamToArray(hockeyarray, "AHL", "San Diego", "CA", "USA", "United States", "California", "Gulls", "Western", "Pacific", "Pechanga Arena", "San Diego", "", "");
