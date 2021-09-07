@@ -297,6 +297,26 @@ def ConvertXMLValuesForPython(invalue):
   outvalue = outvalue;
  return outvalue;
 
+def CheckHockeySQLiteDatabaseConnection(sqldatacon):
+ if(not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+  return False;
+ if(not hasattr(sqldatacon[0], "execute")):
+  return False;
+ if(not hasattr(sqldatacon[1], "execute")):
+  return False;
+ return True;
+
+def CheckHockeySQLiteDatabaseFile(sdbfile):
+ if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
+  if(not CheckSQLiteDatabase(sdbfile)):
+   return False;
+ else:
+  if(sdbfile is not None and isinstance(sdbfile, (tuple, list))):
+   return True;
+  else:
+   return False;
+ return True;
+
 def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
  if(os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
   if(not CheckSQLiteDatabase(sdbfile)):
