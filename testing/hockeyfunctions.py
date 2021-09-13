@@ -471,6 +471,17 @@ def CompressOpenFile(outfile):
   outfp = lzma.open(outfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
  return outfp;
 
+def CompressOpenFileURL(outfile):
+ if(re.findall("^(http|https)\:\/\/", outfile)):
+  return False;
+ elif(re.findall("^(ftp|ftps)\:\/\/", outfile)):
+  outfp = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
+ elif(re.findall("^(sftp)\:\/\/", outfile) and testparamiko):
+  outfp = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
+ else:
+  outfp = CompressOpenFile(outfile);
+ return outfp;
+
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
  if(stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall("^(http|https|ftp|ftps|sftp)\:\/\/", instringfile))):
   if(re.findall("^(http|https|ftp|ftps|sftp)\:\/\/", instringfile)):
@@ -486,16 +497,7 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
  stringstring = stringfile.read().decode("UTF-8");
  fbasename = os.path.splitext(outstringfile)[0];
  fextname = os.path.splitext(outstringfile)[1];
- if(re.findall("^(http|https)\:\/\/", outstringfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outstringfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  stringfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outstringfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  stringfp = CompressOpenFile(outtmpfile);
- else:
-  stringfp = CompressOpenFile(outstringfile);
+ stringfp = CompressOpenFileURL(outstringfile);
  if(fextname in outextlistwd):
   stringstring = stringstring.encode();
  stringfp.write(stringstring);
@@ -571,16 +573,7 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", ne
   return False;
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outxmlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outxmlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outxmlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- else:
-  xmlfp = CompressOpenFile(outxmlfile);
+ xmlfp = CompressOpenFileURL(outxmlfile);
  xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, newl, encoding, beautify);
  if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
@@ -900,16 +893,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
   return False;
  fbasename = os.path.splitext(outjsonfile)[0];
  fextname = os.path.splitext(outjsonfile)[1];
- if(re.findall("^(http|https)\:\/\/", outjsonfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outjsonfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  jsonfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outjsonfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  jsonfp = CompressOpenFile(outtmpfile);
- else:
-  jsonfp = CompressOpenFile(outjsonfile);
+ jsonfp = CompressOpenFileURL(outjsonfile);
  jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, sortkeys, verbose);
  if(fextname in outextlistwd):
   jsonstring = jsonstring.encode();
@@ -974,16 +958,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
   return False;
  fbasename = os.path.splitext(outpicklefile)[0];
  fextname = os.path.splitext(outpicklefile)[1];
- if(re.findall("^(http|https)\:\/\/", outpicklefile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outpicklefile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  picklefp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outpicklefile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  picklefp = CompressOpenFile(outtmpfile);
- else:
-  picklefp = CompressOpenFile(outpicklefile);
+ picklefp = CompressOpenFileURL(outpicklefile);
  picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol, verbose);
  if(fextname in outextlistwd):
   picklestring = picklestring.encode();
@@ -1042,16 +1017,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
   return False;
  fbasename = os.path.splitext(outmarshalfile)[0];
  fextname = os.path.splitext(outmarshalfile)[1];
- if(re.findall("^(http|https)\:\/\/", outmarshalfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outmarshalfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  marshalfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outmarshalfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  marshalfp = CompressOpenFile(outtmpfile);
- else:
-  marshalfp = CompressOpenFile(outmarshalfile);
+ marshalfp = CompressOpenFileURL(outmarshalfile);
  marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, version, verbose);
  if(fextname in outextlistwd):
   marshalstring = marshalstring.encode();
@@ -1154,16 +1120,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
   return False;
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outxmlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outxmlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outxmlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- else:
-  xmlfp = CompressOpenFile(outxmlfile);
+ xmlfp = CompressOpenFileURL(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, verbose);
  if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
@@ -1241,16 +1198,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
   return False;
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outxmlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outxmlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outxmlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- else:
-  xmlfp = CompressOpenFile(outxmlfile);
+ xmlfp = CompressOpenFileURL(outxmlfile);
  xmlstring = MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify, verbose);
  if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
@@ -1473,16 +1421,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
   return False;
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
- if(re.findall("^(http|https)\:\/\/", outpyfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outpyfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outpyfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- else:
-  pyfp = CompressOpenFile(outpyfile);
+ pyfp = CompressOpenFileURL(outpyfile);
  pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
  if(fextname in outextlistwd):
   pystring = pystring.encode();
@@ -1564,16 +1503,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
   return False;
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
- if(re.findall("^(http|https)\:\/\/", outpyfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outpyfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outpyfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- else:
-  pyfp = CompressOpenFile(outpyfile);
+ pyfp = CompressOpenFileURL(outpyfile);
  pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
  if(fextname in outextlistwd):
   pystring = pystring.encode();
@@ -1650,16 +1580,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
   return False;
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
- if(re.findall("^(http|https)\:\/\/", outpyfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outpyfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outpyfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- else:
-  pyfp = CompressOpenFile(outpyfile);
+ pyfp = CompressOpenFileURL(outpyfile);
  pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose);
  if(fextname in outextlistwd):
   pystring = pystring.encode();
@@ -1741,16 +1662,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
   return False;
  fbasename = os.path.splitext(outpyfile)[0];
  fextname = os.path.splitext(outpyfile)[1];
- if(re.findall("^(http|https)\:\/\/", outpyfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outpyfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outpyfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  pyfp = CompressOpenFile(outtmpfile);
- else:
-  pyfp = CompressOpenFile(outpyfile);
+ pyfp = CompressOpenFileURL(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
  if(fextname in outextlistwd):
   pystring = pystring.encode();
@@ -2046,16 +1958,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
   return False;
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outsqlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outsqlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  sqlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outsqlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  sqlfp = CompressOpenFile(outtmpfile);
- else:
-  sqlfp = CompressOpenFile(outsqlfile);
+ sqlfp = CompressOpenFileURL(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
  if(fextname in outextlistwd):
   sqlstring = sqlstring.encode();
@@ -2152,16 +2055,7 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
   outsqlfile = file_wo_extension+".sql";
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outsqlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outsqlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  sqlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outsqlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  sqlfp = CompressOpenFile(outtmpfile);
- else:
-  sqlfp = CompressOpenFile(outsqlfile);
+ sqlfp = CompressOpenFileURL(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyDatabase(insdbfile, verbose, jsonverbose);
  if(fextname in outextlistwd):
   sqlstring = sqlstring.encode();
@@ -2436,16 +2330,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
   return False;
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outxmlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outxmlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outxmlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- else:
-  xmlfp = CompressOpenFile(outxmlfile);
+ xmlfp = CompressOpenFileURL(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose, jsonverbose);
  if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
@@ -2522,16 +2407,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
   return False;
  fbasename = os.path.splitext(outxmlfile)[0];
  fextname = os.path.splitext(outxmlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outxmlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outxmlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outxmlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  xmlfp = CompressOpenFile(outtmpfile);
- else:
-  xmlfp = CompressOpenFile(outxmlfile);
+ xmlfp = CompressOpenFileURL(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
  if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
@@ -2761,16 +2637,7 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, retur
   return False;
  fbasename = os.path.splitext(outsqlfile)[0];
  fextname = os.path.splitext(outsqlfile)[1];
- if(re.findall("^(http|https)\:\/\/", outsqlfile)):
-  return False;
- elif(re.findall("^(ftp|ftps)\:\/\/", outsqlfile)):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  sqlfp = CompressOpenFile(outtmpfile);
- elif(re.findall("^(sftp)\:\/\/", outsqlfile) and testparamiko):
-  outtmpfile = tempfile.NamedTemporaryFile('wb+', prefix=tmpfileprefix, suffix=tmpfileprefix, delete=False)
-  sqlfp = CompressOpenFile(outtmpfile);
- else:
-  sqlfp = CompressOpenFile(outsqlfile);
+ sqlfp = CompressOpenFileURL(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
  if(fextname in outextlistwd):
   sqlstring = sqlstring.encode();
