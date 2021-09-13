@@ -351,7 +351,7 @@ else:
 if(testparamiko):
  def upload_file_to_sftp_string(sftpstring, url):
   sftpfileo = BytesIO(sftpstring);
-  sftpfile = upload_file_to_sftp_filesftpfileo, url);
+  sftpfile = upload_file_to_sftp_files(ftpfileo, url);
   sftpfileo.close();
   return sftpfile;
 else:
