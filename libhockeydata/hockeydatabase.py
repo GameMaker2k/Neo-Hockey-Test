@@ -48,7 +48,7 @@ def versiontuple(v):
  return tuple(filled);
 
 def version_check(myvercheck, newvercheck):
- overcheck = 0;
+ vercheck = 0;
  try:
   from packaging import version;
   vercheck = 1;
