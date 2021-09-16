@@ -254,7 +254,7 @@ def upload_file_to_ftp_file(ftpfile, url):
  ftp.login(urlparts.username, urlparts.password);
  if(urlparts.scheme=="ftps"):
   ftp.prot_p();
- ftp.storbinary("STOR "+urlparts.path, ftpfile.write);
+ ftp.storbinary("STOR "+urlparts.path, ftpfile);
  ftp.close();
  ftpfile.seek(0, 0);
  return ftpfile;
