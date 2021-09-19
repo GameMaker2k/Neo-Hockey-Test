@@ -23,7 +23,11 @@ linuxdist = None;
 try:
  linuxdist = platform.linux_distribution();
 except AttributeError:
- linuxdist = None;
+ try:
+  import distro;
+  linuxdist = distro.linux_distribution();
+ except ImportError:
+  linuxdist = None;
 
 python_info = {'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(), 'uname': platform.uname(), 'architecture': platform.architecture(), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()};
 def get_python_info(infotype=None):
