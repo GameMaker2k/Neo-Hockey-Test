@@ -1,0 +1,7 @@
+artifacts:
+  - path: dist\*.whl
+    name: MyApp
+
+  - path: logs
+    name: test logs
+    type: zip
