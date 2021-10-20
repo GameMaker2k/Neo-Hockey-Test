@@ -5,3 +5,4 @@ artifacts:
   - path: logs
     name: test logs
     type: zip
+build: off
