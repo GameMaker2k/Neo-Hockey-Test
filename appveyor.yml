@@ -1,7 +1,6 @@
 artifacts:
   - path: dist\*.whl
     name: PyHockeyStats
-
   - path: logs
     name: test logs
     type: zip
