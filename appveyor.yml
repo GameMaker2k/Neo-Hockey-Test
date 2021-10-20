@@ -5,6 +5,6 @@ artifacts:
     name: test logs
     type: zip
 build_script:
-- sh: >-
-    pip install wheel
-    python setup.py bdist_wheel
+  - sh: >-
+        pip install wheel
+        python setup.py bdist_wheel
