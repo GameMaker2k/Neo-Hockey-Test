@@ -1,6 +1,6 @@
 artifacts:
   - path: dist\*.whl
-    name: MyApp
+    name: PyHockeyStats
 
   - path: logs
     name: test logs
