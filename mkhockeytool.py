@@ -415,7 +415,7 @@ while(keep_loop):
         if(HockeyDivisionDN not in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
          HockeyDivisionDPFN = get_user_input("Enter Hockey Division prefix: ");
          HockeyDivisionDSFN = get_user_input("Enter Hockey Division suffix: ");
-        libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN);
+        hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN);
        if(submenuact.upper()=="2"):
         divisionc = 0;
         print("E: Back to Hockey Division Tool");
@@ -471,7 +471,7 @@ while(keep_loop):
           if(HockeyDivisionDN not in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
            HockeyDivisionDPFN = get_user_input("Enter Hockey Division prefix: ");
            HockeyDivisionDSFN = get_user_input("Enter Hockey Division suffix: ");
-          libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN);
+          hockeyarray = libhockeydata.AddHockeyDivisionToArray(hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN);
          if(submenuact.upper()=="2"):
           divisionc = 0;
           print("E: Back to Hockey Division Tool");
