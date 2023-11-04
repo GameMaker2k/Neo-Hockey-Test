@@ -19,6 +19,13 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata, os, sys, argparse, logging;
 
+havereadline = False;
+try:
+ import readline;
+ havereadline = True;
+except ImportError:
+ havereadline = False;
+
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
 __project_url__ = libhockeydata.__project_url__;
