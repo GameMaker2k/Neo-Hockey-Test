@@ -83,7 +83,7 @@ hockeyarray = hockeyarray.AddHockeyTeam("AHL", "Ontario", "CA", "USA", "United S
 hockeyarray = hockeyarray.AddHockeyTeam("AHL", "San Diego", "CA", "USA", "United States", "California", "Gulls", "Western", "Pacific", "Pechanga Arena", "San Diego", "", "");
 hockeyarray = hockeyarray.AddHockeyTeam("AHL", "San Jose", "CA", "USA", "United States", "California", "Barracuda", "Western", "Pacific", "SAP Center", "San Jose", "", "");
 hockeyarray = hockeyarray.AddHockeyTeam("AHL", "Tucson", "AZ", "USA", "United States", "Arizona", "Roadrunners", "Western", "Pacific", "Tucson Convention Center", "Tucson", "", "");
-hockeyarray = hockeyarray.AddHockeyLeague("ECHL", "ECHL", "USA", "United States", "20211021", "Division=4", "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
+hockeyarray = hockeyarray.AddHockeyLeague("ECHL", "ECHL", "USA", "United States", "20231019", "Division=4", "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
 hockeyarray = hockeyarray.AddHockeyConference("ECHL", "Eastern", "", "Conference");
 hockeyarray = hockeyarray.AddHockeyDivision("ECHL", "North", "Eastern", "", "Division");
 hockeyarray = hockeyarray.AddHockeyTeam("ECHL", "Glens Falls", "NY", "USA", "United States", "New York", "Thunder", "Eastern", "North", "Cool Insuring Arena", "Adirondack", "", "");
