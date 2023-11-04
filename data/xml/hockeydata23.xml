@@ -92,7 +92,7 @@
    </division>
   </conference>
  </league>
- <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States" date="20211021" playofffmt="Division=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
+ <league name="ECHL" fullname="ECHL" country="USA" fullcountry="United States" date="20231019" playofffmt="Division=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="North" prefix="" suffix="Division">
     <team city="Glens Falls" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Thunder" arena="Cool Insuring Arena" prefix="Adirondack" suffix="" affiliates="" />
