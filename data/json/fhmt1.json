@@ -1,167 +1,50 @@
 {
- "database": "./php/data/fhmt1y17-18.db3",
  "HOL": {
-  "leagueinfo": {
-   "name": "HOL",
-   "fullname": "Hockey League",
-   "country": "USA",
-   "fullcountry": "United States",
-   "date": "20171001",
-   "playofffmt": "Division=1,Conference=1",
-   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
-   "conferences": "yes",
-   "divisions": "yes"
-  },
-  "quickinfo": {
-   "conferenceinfo": {
-    "Conference 1": {
-     "name": "Conference 1",
-     "fullname": "Conference 1",
-     "league": "HOL"
-    },
-    "Conference 2": {
-     "name": "Conference 2",
-     "fullname": "Conference 2",
-     "league": "HOL"
-    }
-   },
-   "divisioninfo": {
-    "Division 1": {
-     "name": "Division 1",
-     "fullname": "Division 1",
-     "league": "HOL",
-     "conference": "Conference 1"
-    },
-    "Division 2": {
-     "name": "Division 2",
-     "fullname": "Division 2",
-     "league": "HOL",
-     "conference": "Conference 1"
-    },
-    "Division 3": {
-     "name": "Division 3",
-     "fullname": "Division 3",
-     "league": "HOL",
-     "conference": "Conference 2"
-    },
-    "Division 4": {
-     "name": "Division 4",
-     "fullname": "Division 4",
-     "league": "HOL",
-     "conference": "Conference 2"
-    }
-   },
-   "teaminfo": {
+  "Conference 1": {
+   "Division 1": {
     "Flies": {
-     "name": "Flies",
-     "fullname": "Kansas City Flies",
-     "league": "HOL",
-     "conference": "Conference 1",
-     "division": "Division 1"
+     "teaminfo": {
+      "affiliates": "MIL:Milan Dazzle",
+      "area": "MO",
+      "arena": "KAN Arena",
+      "city": "Kansas City",
+      "conference": "Conference 1",
+      "country": "USA",
+      "division": "Division 1",
+      "fullarea": "Missouri",
+      "fullcountry": "United States",
+      "fullname": "Kansas City Flies",
+      "league": "HOL",
+      "name": "Flies",
+      "prefix": "Kansas City",
+      "suffix": ""
+     }
     },
     "Lampreys": {
-     "name": "Lampreys",
-     "fullname": "Chicago Lampreys",
-     "league": "HOL",
-     "conference": "Conference 1",
-     "division": "Division 1"
+     "teaminfo": {
+      "affiliates": "MIL:Moline Expositions",
+      "area": "IL",
+      "arena": "CHI Arena",
+      "city": "Chicago",
+      "conference": "Conference 1",
+      "country": "USA",
+      "division": "Division 1",
+      "fullarea": "Illionis",
+      "fullcountry": "United States",
+      "fullname": "Chicago Lampreys",
+      "league": "HOL",
+      "name": "Lampreys",
+      "prefix": "Chicago",
+      "suffix": ""
+     }
     },
-    "Whitecaps": {
-     "name": "Whitecaps",
-     "fullname": "Ft. Wayne Whitecaps",
-     "league": "HOL",
-     "conference": "Conference 1",
-     "division": "Division 2"
-    },
-    "Frogs": {
-     "name": "Frogs",
-     "fullname": "Minneapolis Frogs",
-     "league": "HOL",
-     "conference": "Conference 1",
-     "division": "Division 2"
-    },
-    "Passion": {
-     "name": "Passion",
-     "fullname": "Columbus Passion",
-     "league": "HOL",
-     "conference": "Conference 2",
-     "division": "Division 3"
-    },
-    "Cattlemen": {
-     "name": "Cattlemen",
-     "fullname": "Akron Cattlemen",
-     "league": "HOL",
-     "conference": "Conference 2",
-     "division": "Division 3"
-    },
-    "Gears": {
-     "name": "Gears",
-     "fullname": "Indianapolis Gears",
-     "league": "HOL",
-     "conference": "Conference 2",
-     "division": "Division 4"
-    },
-    "Rail Hawks": {
-     "name": "Rail Hawks",
-     "fullname": "Wichita Rail Hawks",
-     "league": "HOL",
-     "conference": "Conference 2",
-     "division": "Division 4"
-    }
-   }
-  },
-  "Conference 1": {
-   "conferenceinfo": {
-    "name": "Conference 1",
-    "prefix": "",
-    "suffix": "",
-    "fullname": "Conference 1",
-    "league": "HOL"
-   },
-   "Division 1": {
     "divisioninfo": {
+     "conference": "Conference 1",
+     "fullname": "Division 1",
+     "league": "HOL",
      "name": "Division 1",
      "prefix": "",
-     "suffix": "",
-     "fullname": "Division 1",
-     "league": "HOL",
-     "conference": "Conference 1"
-    },
-    "Flies": {
-     "teaminfo": {
-      "city": "Kansas City",
-      "area": "MO",
-      "fullarea": "Missouri",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Flies",
-      "fullname": "Kansas City Flies",
-      "arena": "KAN Arena",
-      "prefix": "Kansas City",
-      "suffix": "",
-      "league": "HOL",
-      "conference": "Conference 1",
-      "division": "Division 1",
-      "affiliates": "MIL:Milan Dazzle"
-     }
-    },
-    "Lampreys": {
-     "teaminfo": {
-      "city": "Chicago",
-      "area": "IL",
-      "fullarea": "Illionis",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Lampreys",
-      "fullname": "Chicago Lampreys",
-      "arena": "CHI Arena",
-      "prefix": "Chicago",
-      "suffix": "",
-      "league": "HOL",
-      "conference": "Conference 1",
-      "division": "Division 1",
-      "affiliates": "MIL:Moline Expositions"
-     }
+     "suffix": ""
     },
     "teamlist": [
      "Flies",
@@ -169,114 +52,112 @@
     ]
    },
    "Division 2": {
-    "divisioninfo": {
-     "name": "Division 2",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 2",
-     "league": "HOL",
-     "conference": "Conference 1"
+    "Frogs": {
+     "teaminfo": {
+      "affiliates": "MIL:Becker Winged Wheelers",
+      "area": "MN",
+      "arena": "MIN Arena",
+      "city": "Minneapolis",
+      "conference": "Conference 1",
+      "country": "USA",
+      "division": "Division 2",
+      "fullarea": "Minnesota",
+      "fullcountry": "United States",
+      "fullname": "Minneapolis Frogs",
+      "league": "HOL",
+      "name": "Frogs",
+      "prefix": "Minneapolis",
+      "suffix": ""
+     }
     },
     "Whitecaps": {
      "teaminfo": {
-      "city": "Ft. Wayne",
+      "affiliates": "MIL:Kokomo Loggerheads",
       "area": "IN",
-      "fullarea": "Indiana",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Whitecaps",
-      "fullname": "Ft. Wayne Whitecaps",
       "arena": "WHI Arena",
-      "prefix": "Ft. Wayne",
-      "suffix": "",
-      "league": "HOL",
+      "city": "Ft. Wayne",
       "conference": "Conference 1",
+      "country": "USA",
       "division": "Division 2",
-      "affiliates": "MIL:Kokomo Loggerheads"
+      "fullarea": "Indiana",
+      "fullcountry": "United States",
+      "fullname": "Ft. Wayne Whitecaps",
+      "league": "HOL",
+      "name": "Whitecaps",
+      "prefix": "Ft. Wayne",
+      "suffix": ""
      }
     },
-    "Frogs": {
-     "teaminfo": {
-      "city": "Minneapolis",
-      "area": "MN",
-      "fullarea": "Minnesota",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Frogs",
-      "fullname": "Minneapolis Frogs",
-      "arena": "MIN Arena",
-      "prefix": "Minneapolis",
-      "suffix": "",
-      "league": "HOL",
-      "conference": "Conference 1",
-      "division": "Division 2",
-      "affiliates": "MIL:Becker Winged Wheelers"
-     }
+    "divisioninfo": {
+     "conference": "Conference 1",
+     "fullname": "Division 2",
+     "league": "HOL",
+     "name": "Division 2",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Whitecaps",
      "Frogs"
     ]
    },
+   "conferenceinfo": {
+    "fullname": "Conference 1",
+    "league": "HOL",
+    "name": "Conference 1",
+    "prefix": "",
+    "suffix": ""
+   },
    "divisionlist": [
     "Division 1",
     "Division 2"
    ]
   },
-  "arenas": [],
-  "games": [],
   "Conference 2": {
-   "conferenceinfo": {
-    "name": "Conference 2",
-    "prefix": "",
-    "suffix": "",
-    "fullname": "Conference 2",
-    "league": "HOL"
-   },
    "Division 3": {
-    "divisioninfo": {
-     "name": "Division 3",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 3",
-     "league": "HOL",
-     "conference": "Conference 2"
+    "Cattlemen": {
+     "teaminfo": {
+      "affiliates": "MIL:Mason Caravans",
+      "area": "OH",
+      "arena": "AKR Arena",
+      "city": "Akron",
+      "conference": "Conference 2",
+      "country": "USA",
+      "division": "Division 3",
+      "fullarea": "Ohio",
+      "fullcountry": "United States",
+      "fullname": "Akron Cattlemen",
+      "league": "HOL",
+      "name": "Cattlemen",
+      "prefix": "Akron",
+      "suffix": ""
+     }
     },
     "Passion": {
      "teaminfo": {
-      "city": "Columbus",
+      "affiliates": "MIL:Toledo Pugs",
       "area": "OH",
-      "fullarea": "Ohio",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Passion",
-      "fullname": "Columbus Passion",
       "arena": "COL Arena",
-      "prefix": "Columbus",
-      "suffix": "",
-      "league": "HOL",
+      "city": "Columbus",
       "conference": "Conference 2",
+      "country": "USA",
       "division": "Division 3",
-      "affiliates": "MIL:Toledo Pugs"
+      "fullarea": "Ohio",
+      "fullcountry": "United States",
+      "fullname": "Columbus Passion",
+      "league": "HOL",
+      "name": "Passion",
+      "prefix": "Columbus",
+      "suffix": ""
      }
     },
-    "Cattlemen": {
-     "teaminfo": {
-      "city": "Akron",
-      "area": "OH",
-      "fullarea": "Ohio",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Cattlemen",
-      "fullname": "Akron Cattlemen",
-      "arena": "AKR Arena",
-      "prefix": "Akron",
-      "suffix": "",
-      "league": "HOL",
-      "conference": "Conference 2",
-      "division": "Division 3",
-      "affiliates": "MIL:Mason Caravans"
-     }
+    "divisioninfo": {
+     "conference": "Conference 2",
+     "fullname": "Division 3",
+     "league": "HOL",
+     "name": "Division 3",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Passion",
@@ -284,227 +165,229 @@
     ]
    },
    "Division 4": {
-    "divisioninfo": {
-     "name": "Division 4",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 4",
-     "league": "HOL",
-     "conference": "Conference 2"
-    },
     "Gears": {
      "teaminfo": {
-      "city": "Indianapolis",
+      "affiliates": "MIL:Lawrence Walkers",
       "area": "IN",
-      "fullarea": "Indiana",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Gears",
-      "fullname": "Indianapolis Gears",
       "arena": "IND Arena",
-      "prefix": "Indianapolis",
-      "suffix": "",
-      "league": "HOL",
+      "city": "Indianapolis",
       "conference": "Conference 2",
+      "country": "USA",
       "division": "Division 4",
-      "affiliates": "MIL:Lawrence Walkers"
+      "fullarea": "Indiana",
+      "fullcountry": "United States",
+      "fullname": "Indianapolis Gears",
+      "league": "HOL",
+      "name": "Gears",
+      "prefix": "Indianapolis",
+      "suffix": ""
      }
     },
     "Rail Hawks": {
      "teaminfo": {
-      "city": "Wichita",
+      "affiliates": "MIL:Garden City Jammers",
       "area": "KS",
-      "fullarea": "Kansas",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Rail Hawks",
-      "fullname": "Wichita Rail Hawks",
       "arena": "WIC Arena",
-      "prefix": "Wichita",
-      "suffix": "",
-      "league": "HOL",
+      "city": "Wichita",
       "conference": "Conference 2",
+      "country": "USA",
       "division": "Division 4",
-      "affiliates": "MIL:Garden City Jammers"
+      "fullarea": "Kansas",
+      "fullcountry": "United States",
+      "fullname": "Wichita Rail Hawks",
+      "league": "HOL",
+      "name": "Rail Hawks",
+      "prefix": "Wichita",
+      "suffix": ""
      }
+    },
+    "divisioninfo": {
+     "conference": "Conference 2",
+     "fullname": "Division 4",
+     "league": "HOL",
+     "name": "Division 4",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Gears",
      "Rail Hawks"
     ]
    },
+   "conferenceinfo": {
+    "fullname": "Conference 2",
+    "league": "HOL",
+    "name": "Conference 2",
+    "prefix": "",
+    "suffix": ""
+   },
    "divisionlist": [
     "Division 3",
     "Division 4"
    ]
   },
+  "arenas": [],
   "conferencelist": [
    "Conference 1",
    "Conference 2"
-  ]
- },
- "MIL": {
+  ],
+  "games": [],
   "leagueinfo": {
-   "name": "MIL",
-   "fullname": "Minor League",
-   "country": "USA",
-   "fullcountry": "United States",
-   "date": "20171001",
-   "playofffmt": "Division=1,Conference=1",
-   "ordertype": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
    "conferences": "yes",
-   "divisions": "yes"
+   "country": "USA",
+   "date": "20171001",
+   "divisions": "yes",
+   "fullcountry": "United States",
+   "fullname": "Hockey League",
+   "name": "HOL",
+   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "playofffmt": "Division=1,Conference=1"
   },
   "quickinfo": {
    "conferenceinfo": {
     "Conference 1": {
-     "name": "Conference 1",
      "fullname": "Conference 1",
-     "league": "MIL"
+     "league": "HOL",
+     "name": "Conference 1"
     },
     "Conference 2": {
-     "name": "Conference 2",
      "fullname": "Conference 2",
-     "league": "MIL"
+     "league": "HOL",
+     "name": "Conference 2"
     }
    },
    "divisioninfo": {
     "Division 1": {
-     "name": "Division 1",
+     "conference": "Conference 1",
      "fullname": "Division 1",
-     "league": "MIL",
-     "conference": "Conference 1"
+     "league": "HOL",
+     "name": "Division 1"
     },
     "Division 2": {
-     "name": "Division 2",
+     "conference": "Conference 1",
      "fullname": "Division 2",
-     "league": "MIL",
-     "conference": "Conference 1"
+     "league": "HOL",
+     "name": "Division 2"
     },
     "Division 3": {
-     "name": "Division 3",
+     "conference": "Conference 2",
      "fullname": "Division 3",
-     "league": "MIL",
-     "conference": "Conference 2"
+     "league": "HOL",
+     "name": "Division 3"
     },
     "Division 4": {
-     "name": "Division 4",
+     "conference": "Conference 2",
      "fullname": "Division 4",
-     "league": "MIL",
-     "conference": "Conference 2"
+     "league": "HOL",
+     "name": "Division 4"
     }
    },
    "teaminfo": {
-    "Dazzle": {
-     "name": "Dazzle",
-     "fullname": "Milan Dazzle",
-     "league": "MIL",
-     "conference": "Conference 1",
-     "division": "Division 1"
-    },
-    "Expositions": {
-     "name": "Expositions",
-     "fullname": "Moline Expositions",
-     "league": "MIL",
-     "conference": "Conference 1",
-     "division": "Division 1"
-    },
-    "Loggerheads": {
-     "name": "Loggerheads",
-     "fullname": "Kokomo Loggerheads",
-     "league": "MIL",
-     "conference": "Conference 1",
-     "division": "Division 2"
-    },
-    "Winged Wheelers": {
-     "name": "Winged Wheelers",
-     "fullname": "Becker Winged Wheelers",
-     "league": "MIL",
-     "conference": "Conference 1",
-     "division": "Division 2"
-    },
-    "Pugs": {
-     "name": "Pugs",
-     "fullname": "Toledo Pugs",
-     "league": "MIL",
+    "Cattlemen": {
      "conference": "Conference 2",
-     "division": "Division 3"
+     "division": "Division 3",
+     "fullname": "Akron Cattlemen",
+     "league": "HOL",
+     "name": "Cattlemen"
     },
-    "Caravans": {
-     "name": "Caravans",
-     "fullname": "Mason Caravans",
-     "league": "MIL",
-     "conference": "Conference 2",
-     "division": "Division 3"
+    "Flies": {
+     "conference": "Conference 1",
+     "division": "Division 1",
+     "fullname": "Kansas City Flies",
+     "league": "HOL",
+     "name": "Flies"
     },
-    "Walkers": {
-     "name": "Walkers",
-     "fullname": "Lawrence Walkers",
-     "league": "MIL",
-     "conference": "Conference 2",
-     "division": "Division 4"
+    "Frogs": {
+     "conference": "Conference 1",
+     "division": "Division 2",
+     "fullname": "Minneapolis Frogs",
+     "league": "HOL",
+     "name": "Frogs"
     },
-    "Jammers": {
-     "name": "Jammers",
-     "fullname": "Garden City Jammers",
-     "league": "MIL",
+    "Gears": {
      "conference": "Conference 2",
-     "division": "Division 4"
+     "division": "Division 4",
+     "fullname": "Indianapolis Gears",
+     "league": "HOL",
+     "name": "Gears"
+    },
+    "Lampreys": {
+     "conference": "Conference 1",
+     "division": "Division 1",
+     "fullname": "Chicago Lampreys",
+     "league": "HOL",
+     "name": "Lampreys"
+    },
+    "Passion": {
+     "conference": "Conference 2",
+     "division": "Division 3",
+     "fullname": "Columbus Passion",
+     "league": "HOL",
+     "name": "Passion"
+    },
+    "Rail Hawks": {
+     "conference": "Conference 2",
+     "division": "Division 4",
+     "fullname": "Wichita Rail Hawks",
+     "league": "HOL",
+     "name": "Rail Hawks"
+    },
+    "Whitecaps": {
+     "conference": "Conference 1",
+     "division": "Division 2",
+     "fullname": "Ft. Wayne Whitecaps",
+     "league": "HOL",
+     "name": "Whitecaps"
     }
    }
-  },
+  }
+ },
+ "MIL": {
   "Conference 1": {
-   "conferenceinfo": {
-    "name": "Conference 1",
-    "prefix": "",
-    "suffix": "",
-    "fullname": "Conference 1",
-    "league": "MIL"
-   },
    "Division 1": {
-    "divisioninfo": {
-     "name": "Division 1",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 1",
-     "league": "MIL",
-     "conference": "Conference 1"
-    },
     "Dazzle": {
      "teaminfo": {
-      "city": "Milan",
+      "affiliates": "HOL:Kansas City Flies",
       "area": "MO",
-      "fullarea": "Missouri",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Dazzle",
-      "fullname": "Milan Dazzle",
       "arena": "MIL Arena",
-      "prefix": "Milan",
-      "suffix": "",
-      "league": "MIL",
+      "city": "Milan",
       "conference": "Conference 1",
+      "country": "USA",
       "division": "Division 1",
-      "affiliates": "HOL:Kansas City Flies"
+      "fullarea": "Missouri",
+      "fullcountry": "United States",
+      "fullname": "Milan Dazzle",
+      "league": "MIL",
+      "name": "Dazzle",
+      "prefix": "Milan",
+      "suffix": ""
      }
     },
     "Expositions": {
      "teaminfo": {
-      "city": "Moline",
+      "affiliates": "HOL:Chicago Lampreys",
       "area": "IL",
-      "fullarea": "Illionis",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Expositions",
-      "fullname": "Moline Expositions",
       "arena": "MOL Arena",
-      "prefix": "Moline",
-      "suffix": "",
-      "league": "MIL",
+      "city": "Moline",
       "conference": "Conference 1",
+      "country": "USA",
       "division": "Division 1",
-      "affiliates": "HOL:Chicago Lampreys"
+      "fullarea": "Illionis",
+      "fullcountry": "United States",
+      "fullname": "Moline Expositions",
+      "league": "MIL",
+      "name": "Expositions",
+      "prefix": "Moline",
+      "suffix": ""
      }
+    },
+    "divisioninfo": {
+     "conference": "Conference 1",
+     "fullname": "Division 1",
+     "league": "MIL",
+     "name": "Division 1",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Dazzle",
@@ -512,114 +395,112 @@
     ]
    },
    "Division 2": {
-    "divisioninfo": {
-     "name": "Division 2",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 2",
-     "league": "MIL",
-     "conference": "Conference 1"
-    },
     "Loggerheads": {
      "teaminfo": {
-      "city": "Kokomo",
+      "affiliates": "HOL:Ft. Wayne Whitecaps",
       "area": "IN",
-      "fullarea": "Indiana",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Loggerheads",
-      "fullname": "Kokomo Loggerheads",
       "arena": "KOK Arena",
-      "prefix": "Kokomo",
-      "suffix": "",
-      "league": "MIL",
+      "city": "Kokomo",
       "conference": "Conference 1",
+      "country": "USA",
       "division": "Division 2",
-      "affiliates": "HOL:Ft. Wayne Whitecaps"
+      "fullarea": "Indiana",
+      "fullcountry": "United States",
+      "fullname": "Kokomo Loggerheads",
+      "league": "MIL",
+      "name": "Loggerheads",
+      "prefix": "Kokomo",
+      "suffix": ""
      }
     },
     "Winged Wheelers": {
      "teaminfo": {
-      "city": "Becker",
+      "affiliates": "HOL:Minneapolis Frogs",
       "area": "MN",
-      "fullarea": "Minnesota",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Winged Wheelers",
-      "fullname": "Becker Winged Wheelers",
       "arena": "BEC Arena",
-      "prefix": "Becker",
-      "suffix": "",
-      "league": "MIL",
+      "city": "Becker",
       "conference": "Conference 1",
+      "country": "USA",
       "division": "Division 2",
-      "affiliates": "HOL:Minneapolis Frogs"
+      "fullarea": "Minnesota",
+      "fullcountry": "United States",
+      "fullname": "Becker Winged Wheelers",
+      "league": "MIL",
+      "name": "Winged Wheelers",
+      "prefix": "Becker",
+      "suffix": ""
      }
+    },
+    "divisioninfo": {
+     "conference": "Conference 1",
+     "fullname": "Division 2",
+     "league": "MIL",
+     "name": "Division 2",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Loggerheads",
      "Winged Wheelers"
     ]
    },
+   "conferenceinfo": {
+    "fullname": "Conference 1",
+    "league": "MIL",
+    "name": "Conference 1",
+    "prefix": "",
+    "suffix": ""
+   },
    "divisionlist": [
     "Division 1",
     "Division 2"
    ]
   },
-  "arenas": [],
-  "games": [],
   "Conference 2": {
-   "conferenceinfo": {
-    "name": "Conference 2",
-    "prefix": "",
-    "suffix": "",
-    "fullname": "Conference 2",
-    "league": "MIL"
-   },
    "Division 3": {
-    "divisioninfo": {
-     "name": "Division 3",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 3",
-     "league": "MIL",
-     "conference": "Conference 2"
+    "Caravans": {
+     "teaminfo": {
+      "affiliates": "HOL:Akron Cattlemen",
+      "area": "OH",
+      "arena": "MAS Arena",
+      "city": "Mason",
+      "conference": "Conference 2",
+      "country": "USA",
+      "division": "Division 3",
+      "fullarea": "Ohio",
+      "fullcountry": "United States",
+      "fullname": "Mason Caravans",
+      "league": "MIL",
+      "name": "Caravans",
+      "prefix": "Mason",
+      "suffix": ""
+     }
     },
     "Pugs": {
      "teaminfo": {
-      "city": "Toledo",
+      "affiliates": "HOL:Columbus Passion",
       "area": "OH",
-      "fullarea": "Ohio",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Pugs",
-      "fullname": "Toledo Pugs",
       "arena": "TOL Arena",
-      "prefix": "Toledo",
-      "suffix": "",
-      "league": "MIL",
+      "city": "Toledo",
       "conference": "Conference 2",
+      "country": "USA",
       "division": "Division 3",
-      "affiliates": "HOL:Columbus Passion"
+      "fullarea": "Ohio",
+      "fullcountry": "United States",
+      "fullname": "Toledo Pugs",
+      "league": "MIL",
+      "name": "Pugs",
+      "prefix": "Toledo",
+      "suffix": ""
      }
     },
-    "Caravans": {
-     "teaminfo": {
-      "city": "Mason",
-      "area": "OH",
-      "fullarea": "Ohio",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Caravans",
-      "fullname": "Mason Caravans",
-      "arena": "MAS Arena",
-      "prefix": "Mason",
-      "suffix": "",
-      "league": "MIL",
-      "conference": "Conference 2",
-      "division": "Division 3",
-      "affiliates": "HOL:Akron Cattlemen"
-     }
+    "divisioninfo": {
+     "conference": "Conference 2",
+     "fullname": "Division 3",
+     "league": "MIL",
+     "name": "Division 3",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Pugs",
@@ -627,65 +508,184 @@
     ]
    },
    "Division 4": {
-    "divisioninfo": {
-     "name": "Division 4",
-     "prefix": "",
-     "suffix": "",
-     "fullname": "Division 4",
-     "league": "MIL",
-     "conference": "Conference 2"
+    "Jammers": {
+     "teaminfo": {
+      "affiliates": "HOL:Wichita Rail Hawks",
+      "area": "KS",
+      "arena": "GAR Arena",
+      "city": "Garden City",
+      "conference": "Conference 2",
+      "country": "USA",
+      "division": "Division 4",
+      "fullarea": "Kansas",
+      "fullcountry": "United States",
+      "fullname": "Garden City Jammers",
+      "league": "MIL",
+      "name": "Jammers",
+      "prefix": "Garden City",
+      "suffix": ""
+     }
     },
     "Walkers": {
      "teaminfo": {
-      "city": "Lawrence",
+      "affiliates": "HOL:Indianapolis Gears",
       "area": "IN",
-      "fullarea": "Indiana",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Walkers",
-      "fullname": "Lawrence Walkers",
       "arena": "LAW Arena",
-      "prefix": "Lawrence",
-      "suffix": "",
-      "league": "MIL",
+      "city": "Lawrence",
       "conference": "Conference 2",
+      "country": "USA",
       "division": "Division 4",
-      "affiliates": "HOL:Indianapolis Gears"
+      "fullarea": "Indiana",
+      "fullcountry": "United States",
+      "fullname": "Lawrence Walkers",
+      "league": "MIL",
+      "name": "Walkers",
+      "prefix": "Lawrence",
+      "suffix": ""
      }
     },
-    "Jammers": {
-     "teaminfo": {
-      "city": "Garden City",
-      "area": "KS",
-      "fullarea": "Kansas",
-      "country": "USA",
-      "fullcountry": "United States",
-      "name": "Jammers",
-      "fullname": "Garden City Jammers",
-      "arena": "GAR Arena",
-      "prefix": "Garden City",
-      "suffix": "",
-      "league": "MIL",
-      "conference": "Conference 2",
-      "division": "Division 4",
-      "affiliates": "HOL:Wichita Rail Hawks"
-     }
+    "divisioninfo": {
+     "conference": "Conference 2",
+     "fullname": "Division 4",
+     "league": "MIL",
+     "name": "Division 4",
+     "prefix": "",
+     "suffix": ""
     },
     "teamlist": [
      "Walkers",
      "Jammers"
     ]
    },
+   "conferenceinfo": {
+    "fullname": "Conference 2",
+    "league": "MIL",
+    "name": "Conference 2",
+    "prefix": "",
+    "suffix": ""
+   },
    "divisionlist": [
     "Division 3",
     "Division 4"
    ]
   },
+  "arenas": [],
   "conferencelist": [
    "Conference 1",
    "Conference 2"
-  ]
+  ],
+  "games": [],
+  "leagueinfo": {
+   "conferences": "yes",
+   "country": "USA",
+   "date": "20171001",
+   "divisions": "yes",
+   "fullcountry": "United States",
+   "fullname": "Minor League",
+   "name": "MIL",
+   "ordertype": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "playofffmt": "Division=1,Conference=1"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "Conference 1": {
+     "fullname": "Conference 1",
+     "league": "MIL",
+     "name": "Conference 1"
+    },
+    "Conference 2": {
+     "fullname": "Conference 2",
+     "league": "MIL",
+     "name": "Conference 2"
+    }
+   },
+   "divisioninfo": {
+    "Division 1": {
+     "conference": "Conference 1",
+     "fullname": "Division 1",
+     "league": "MIL",
+     "name": "Division 1"
+    },
+    "Division 2": {
+     "conference": "Conference 1",
+     "fullname": "Division 2",
+     "league": "MIL",
+     "name": "Division 2"
+    },
+    "Division 3": {
+     "conference": "Conference 2",
+     "fullname": "Division 3",
+     "league": "MIL",
+     "name": "Division 3"
+    },
+    "Division 4": {
+     "conference": "Conference 2",
+     "fullname": "Division 4",
+     "league": "MIL",
+     "name": "Division 4"
+    }
+   },
+   "teaminfo": {
+    "Caravans": {
+     "conference": "Conference 2",
+     "division": "Division 3",
+     "fullname": "Mason Caravans",
+     "league": "MIL",
+     "name": "Caravans"
+    },
+    "Dazzle": {
+     "conference": "Conference 1",
+     "division": "Division 1",
+     "fullname": "Milan Dazzle",
+     "league": "MIL",
+     "name": "Dazzle"
+    },
+    "Expositions": {
+     "conference": "Conference 1",
+     "division": "Division 1",
+     "fullname": "Moline Expositions",
+     "league": "MIL",
+     "name": "Expositions"
+    },
+    "Jammers": {
+     "conference": "Conference 2",
+     "division": "Division 4",
+     "fullname": "Garden City Jammers",
+     "league": "MIL",
+     "name": "Jammers"
+    },
+    "Loggerheads": {
+     "conference": "Conference 1",
+     "division": "Division 2",
+     "fullname": "Kokomo Loggerheads",
+     "league": "MIL",
+     "name": "Loggerheads"
+    },
+    "Pugs": {
+     "conference": "Conference 2",
+     "division": "Division 3",
+     "fullname": "Toledo Pugs",
+     "league": "MIL",
+     "name": "Pugs"
+    },
+    "Walkers": {
+     "conference": "Conference 2",
+     "division": "Division 4",
+     "fullname": "Lawrence Walkers",
+     "league": "MIL",
+     "name": "Walkers"
+    },
+    "Winged Wheelers": {
+     "conference": "Conference 1",
+     "division": "Division 2",
+     "fullname": "Becker Winged Wheelers",
+     "league": "MIL",
+     "name": "Winged Wheelers"
+    }
+   }
+  }
  },
+ "database": "./php/data/fhmt1y17-18.db3",
  "leaguelist": [
   "HOL",
   "MIL"
