@@ -110,7 +110,7 @@
     <team city="Jacksonville" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Icemen" arena="VyStar Veterans Memorial Arena" prefix="Jacksonville" suffix="" affiliates="" />
     <team city="Orlando" area="FL" fullarea="Florida" country="USA" fullcountry="United States" name="Solar Bears" arena="Amway Center" prefix="Orlando" suffix="" affiliates="" />
     <team city="Savannah" area="GA" fullarea="Georgia" country="USA" fullcountry="United States" name="Ghost Pirates" arena="Enmarket Arena" prefix="Savannah" suffix="" affiliates="" />
-	<team city="North Charleston" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Stingrays" arena="North Charleston Coliseum" prefix="South Carolina" suffix="" affiliates="" />
+    <team city="North Charleston" area="SC" fullarea="South Carolina" country="USA" fullcountry="United States" name="Stingrays" arena="North Charleston Coliseum" prefix="South Carolina" suffix="" affiliates="" />
    </division>
   </conference>
   <conference name="Western" prefix="" suffix="Conference">
