@@ -118,10 +118,18 @@ def CheckCompressionType(infile, closefp=True):
  if(prefp==binascii.unhexlify("28b52ffd")):
   filetype = "zstd";
  filefp.seek(0, 0);
+ prefp = filefp.read(4);
+ if(prefp==binascii.unhexlify("04224d18")):
+  filetype = "lz4";
+ filefp.seek(0, 0);
  prefp = filefp.read(7);
  if(prefp==binascii.unhexlify("fd377a585a0000")):
   filetype = "lzma";
  filefp.seek(0, 0);
+ prefp = catfp.read(9);
+ if(prefp==binascii.unhexlify("894c5a4f000d0a1a0a")):
+  filetype = "lzo";
+ catfp.seek(0, 0);
  if(closefp):
   filefp.close();
  return filetype;
@@ -145,7 +153,19 @@ def UncompressFile(infile, mode="rb"):
    import zstandard;
   except ImportError:
    return False;
-  filefp = zstandard.open(infile, mode);    
+  filefp = zstandard.open(infile, mode);
+ if(compresscheck=="lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  filefp = lz4.frame.open(infile, mode);
+ if(compresscheck=="lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  filefp = lzo.open(infile, mode);
  if(compresscheck=="lzma"):
   try:
    import lzma;
@@ -180,6 +200,20 @@ def UncompressFileAlt(fp):
    return False;
   outfp = BytesIO();
   outfp.write(zstandard.decompress(fp.read()));
+ if(compresscheck=="lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  outfp = BytesIO();
+  outfp.write(lz4.frame.decompress(fp.read()));
+ if(compresscheck=="lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  outfp = BytesIO();
+  outfp.write(lzo.decompress(fp.read()));
  if(compresscheck=="lzma"):
   try:
    import lzma;
@@ -434,19 +468,19 @@ def CompressOpenFile(outfile):
  fbasename = os.path.splitext(outfile)[0];
  fextname = os.path.splitext(outfile)[1];
  if(fextname not in outextlistwd):
-  outfp = open(outfile, "w+");
+  outfp = open(outfile, "w");
  elif(fextname==".gz"):
   try:
    import gzip;
   except ImportError:
    return False;
-  outfp = gzip.open(outfile, "w+b", 9);
+  outfp = gzip.open(outfile, "wb", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  outfp = bz2.open(outfile, "w+b", 9);
+  outfp = bz2.open(outfile, "wb", 9);
  elif(fextname==".zst"):
   try:
    import zstandard;
@@ -458,13 +492,13 @@ def CompressOpenFile(outfile):
    import lzma;
   except ImportError:
    return False;
-  outfp = lzma.open(outfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  outfp = lzma.open(outfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
+  outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
  return outfp;
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):

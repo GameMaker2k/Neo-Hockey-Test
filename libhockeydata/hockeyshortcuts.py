@@ -101,6 +101,31 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
   return True;
  return True;
 
+def MakeHockeySQLiteXMLFromHockeySQLiteXML(inxmlfile, xmlisfile=True, beautify=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile, False);
+ hockeyxmlout = MakeHockeySQLiteXMLFromHockeySQLiteArray(hockeyarray, beautify, verbose, jsonverbose);
+ return hockeyxmlout;
+
+def MakeHockeySQLiteXMLFileFromHockeySQLiteXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+ if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+  return False;
+ if(outxmlfile is None and xmlisfile):
+  file_wo_extension, file_extension = os.path.splitext(inxmlfile);
+  outxmlfile = file_wo_extension+".xml";
+ fbasename = os.path.splitext(outxmlfile)[0];
+ fextname = os.path.splitext(outxmlfile)[1];
+ xmlfp = CompressOpenFile(outxmlfile);
+ xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteXML(inxmlfile, xmlisfile, beautify, verbose, jsonverbose);
+ if(fextname in outextlistwd):
+  xmlstring = xmlstring.encode();
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
+
 def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
  if(jsonisfile and (not os.path.exists(injsonfile) or not os.path.isfile(injsonfile))):
   return False;
@@ -317,6 +342,31 @@ def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False
  fextname = os.path.splitext(xmlfile)[1];
  xmlfp = CompressOpenFile(xmlfile);
  xmlstring = MakeHockeyXMLFromHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
+ if(fextname in outextlistwd):
+  xmlstring = xmlstring.encode();
+ xmlfp.write(xmlstring);
+ xmlfp.close();
+ if(returnxml):
+  return xmlstring;
+ if(not returnxml):
+  return True;
+ return True;
+
+def MakeHockeySQLiteXMLFromHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+ hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, False);
+ hockeyxmlout = MakeHockeySQLiteXMLFromHockeySQLiteArray(hockeyarray, beautify, verbose, jsonverbose);
+ return hockeyxmlout;
+
+def MakeHockeySQLiteXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+ if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+  return False;
+ if(xmlfile is None):
+  file_wo_extension, file_extension = os.path.splitext(insdbfile);
+  xmlfile = file_wo_extension+".xml";
+ fbasename = os.path.splitext(xmlfile)[0];
+ fextname = os.path.splitext(xmlfile)[1];
+ xmlfp = CompressOpenFile(xmlfile);
+ xmlstring = MakeHockeySQLiteXMLFromHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
  if(fextname in outextlistwd):
   xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
