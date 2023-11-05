@@ -792,9 +792,9 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
   insqldatacon = tuple(insdbfile);
  if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
   return False;
- with open(outsqlfile, 'w+') as f:
+ with CompressOpenFile(outsqlfile) as f:
   for line in insqldatacon[1].iterdump():
-   f.write('%s\n' % line);
+   f.write(('%s\n' % line).encode());
  if(returninsdbfile):
   return [insqldatacon];
  elif(not returninsdbfile):
@@ -832,8 +832,8 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
   insqldatacon = tuple(outsdbfile);
  if(not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
   return False;
- with open(insqlfile, 'r') as f:
-  sqlinput = f.read();
+ with UncompressFile(insqlfile) as f:
+  sqlinput = f.read().decode("utf-8");
  insqldatacon[1].executescript(sqlinput);
  if(returnoutsdbfile):
   return [insqldatacon];
