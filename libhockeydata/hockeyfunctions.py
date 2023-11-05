@@ -443,6 +443,20 @@ def CompressFile(fp, compression="auto"):
    return False;
   infp = BytesIO();
   infp.write(zstandard.compress(fp.read(), level=10));
+ if(compression=="lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  infp = BytesIO();
+  infp.write(lz4.frame.compress(fp.read(), level=10));
+ if(compression=="lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  infp = BytesIO();
+  infp.write(lzo.compress(fp.read(), level=10));
  if(compression=="lzma"):
   try:
    import lzma;
@@ -493,6 +507,18 @@ def CompressOpenFile(outfile):
   except ImportError:
    return False;
   outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  outfp = lz4.frame.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  outfp = lzo.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
