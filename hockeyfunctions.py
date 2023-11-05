@@ -434,19 +434,19 @@ def CompressOpenFile(outfile):
  fbasename = os.path.splitext(outfile)[0];
  fextname = os.path.splitext(outfile)[1];
  if(fextname not in outextlistwd):
-  outfp = open(outfile, "w+");
+  outfp = open(outfile, "w");
  elif(fextname==".gz"):
   try:
    import gzip;
   except ImportError:
    return False;
-  outfp = gzip.open(outfile, "w+b", 9);
+  outfp = gzip.open(outfile, "wb", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  outfp = bz2.open(outfile, "w+b", 9);
+  outfp = bz2.open(outfile, "wb", 9);
  elif(fextname==".zst"):
   try:
    import zstandard;
@@ -458,13 +458,13 @@ def CompressOpenFile(outfile):
    import lzma;
   except ImportError:
    return False;
-  outfp = lzma.open(outfile, "w+b", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  outfp = lzma.open(outfile, "w+b", format=lzma.FORMAT_ALONE, preset=9);
+  outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
  return outfp;
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
