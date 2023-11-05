@@ -126,10 +126,10 @@ def CheckCompressionType(infile, closefp=True):
  if(prefp==binascii.unhexlify("fd377a585a0000")):
   filetype = "lzma";
  filefp.seek(0, 0);
- prefp = catfp.read(9);
+ prefp = filefp.read(9);
  if(prefp==binascii.unhexlify("894c5a4f000d0a1a0a")):
   filetype = "lzo";
- catfp.seek(0, 0);
+ filefp.seek(0, 0);
  if(closefp):
   filefp.close();
  return filetype;
