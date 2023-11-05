@@ -103,8 +103,8 @@ def version_check(myvercheck, newvercheck):
 
 def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
  prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj);
- newvercheck = re.findall(proname+" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
- myvercheck = re.findall("([0-9\.]+)", myversion)[0];
+ newvercheck = re.findall(proname+r" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0];
+ myvercheck = re.findall(r"([0-9\.]+)", myversion)[0];
  return version_check(myvercheck, newvercheck);
 
 teststringio = 0;
@@ -1893,7 +1893,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
    GetWinningStreak = awayteaminfo[51];
   GetWinningStreakNext = "Won 1";
   if(GetWinningStreak!="None"):
-   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   GetWinningStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
    if(GetWinningStreakSplit[0][0]=="Won"):
     GetWinningStreakNext = "Won "+str(int(GetWinningStreakSplit[0][1]) + 1);
    if(GetWinningStreakSplit[0][0]=="Lost"):
@@ -1915,7 +1915,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
   if(numberofperiods>3):
    GetLosingStreakNext = "OT 1";
   if(GetLosingStreak!="None"):
-   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   GetLosingStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
    if(GetLosingStreakSplit[0][0]=="Won"):
     if(numberofperiods==3):
      GetLosingStreakNext = "Lost 1";
@@ -1944,7 +1944,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
   GetWinningStreak = hometeaminfo[51];
   GetWinningStreakNext = "Tie 1";
   if(GetWinningStreak!="None"):
-   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   GetWinningStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
    if(GetWinningStreakSplit[0][0]=="Won"):
     GetWinningStreakNext = "Tie 1";
    if(GetWinningStreakSplit[0][0]=="Lost"):
@@ -1957,7 +1957,7 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
   GetLosingStreak = awayteaminfo[51];
   GetLosingStreakNext = "Tie 1";
   if(GetLosingStreak!="None"):
-   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   GetLosingStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
    if(GetLosingStreakSplit[0][0]=="Won"):
     GetLosingStreakNext = "Tie 1";
    if(GetLosingStreakSplit[0][0]=="Lost"):
@@ -2420,7 +2420,7 @@ def MakeHockeyGameOld(sqldatacon, leaguename, date, time, hometeam, awayteam, pe
   GetWinningStreak = GetTeamData(sqldatacon, leaguename, winningteam, "Streak", "str");
   GetWinningStreakNext = "Won 1";
   if(GetWinningStreak!="None"):
-   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   GetWinningStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
    if(GetWinningStreakSplit[0][0]=="Won"):
     GetWinningStreakNext = "Won "+str(int(GetWinningStreakSplit[0][1]) + 1);
    if(GetWinningStreakSplit[0][0]=="Lost"):
@@ -2436,7 +2436,7 @@ def MakeHockeyGameOld(sqldatacon, leaguename, date, time, hometeam, awayteam, pe
   if(numberofperiods>3):
    GetLosingStreakNext = "OT 1";
   if(GetLosingStreak!="None"):
-   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   GetLosingStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
    if(GetLosingStreakSplit[0][0]=="Won"):
     if(numberofperiods==3):
      GetLosingStreakNext = "Lost 1";
@@ -2462,7 +2462,7 @@ def MakeHockeyGameOld(sqldatacon, leaguename, date, time, hometeam, awayteam, pe
   GetWinningStreak = GetTeamData(sqldatacon, leaguename, hometeam, "Streak", "str");
   GetWinningStreakNext = "Tie 1";
   if(GetWinningStreak!="None"):
-   GetWinningStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
+   GetWinningStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetWinningStreak);
    if(GetWinningStreakSplit[0][0]=="Won"):
     GetWinningStreakNext = "Tie 1";
    if(GetWinningStreakSplit[0][0]=="Lost"):
@@ -2475,7 +2475,7 @@ def MakeHockeyGameOld(sqldatacon, leaguename, date, time, hometeam, awayteam, pe
   GetLosingStreak = GetTeamData(sqldatacon, leaguename, awayteam, "Streak", "str");
   GetLosingStreakNext = "Tie 1";
   if(GetLosingStreak!="None"):
-   GetLosingStreakSplit = re.findall("([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
+   GetLosingStreakSplit = re.findall(r"([a-zA-Z]+) ([0-9]+)", GetLosingStreak);
    if(GetLosingStreakSplit[0][0]=="Won"):
     GetLosingStreakNext = "Tie 1";
    if(GetLosingStreakSplit[0][0]=="Lost"):
