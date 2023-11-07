@@ -348,7 +348,7 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
   return [True];
  return [True];
 
-def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_size=67110000, mmap_size=268435456, temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
@@ -371,9 +371,14 @@ def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="DELETE", temp_
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
+ sqlcur.execute("PRAGMA locking_mode = EXCLUSIVE;");
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
- if(not enable_oldsqlite):
+ sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";");
+ sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";");
+ if(not enable_oldsqlite and sdbfile!=":memory:"):
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
+ if(sdbfile==":memory:"):
+  sqlcur.execute("PRAGMA journal_mode = MEMORY;");
  sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  return sqldatacon;
 
@@ -381,7 +386,7 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
  hockeyarray = { 'database': databasename, 'leaguelist': [] };
  return hockeyarray;
 
-def CreateHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+def CreateHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_size=67110000, mmap_size=268435456, temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
@@ -403,11 +408,20 @@ def CreateHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, ena
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
+ sqlcur.execute("PRAGMA locking_mode = EXCLUSIVE;");
+ sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
+ sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";");
+ sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";");
+ if(not enable_oldsqlite and sdbfile!=":memory:"):
+  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
+ if(sdbfile==":memory:"):
+  sqlcur.execute("PRAGMA journal_mode = MEMORY;");
+ sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  sqlcur.close();
  sqlcon.close();
  return True;
 
-def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+def OpenHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_size=67110000, mmap_size=268435456, temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
@@ -430,6 +444,15 @@ def OpenHockeyDatabase(sdbfile, enable_oldsqlite=False, enable_apsw=False, enabl
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
+ sqlcur.execute("PRAGMA locking_mode = EXCLUSIVE;");
+ sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
+ sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";");
+ sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";");
+ if(not enable_oldsqlite and sdbfile!=":memory:"):
+  sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
+ if(sdbfile==":memory:"):
+  sqlcur.execute("PRAGMA journal_mode = MEMORY;");
+ sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  return sqldatacon;
 
 def GetLastGames(sqldatacon, leaguename, teamname, gamelimit=10):
