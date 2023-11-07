@@ -18,6 +18,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
+import multiprocessing, threading;
 from copy import copy, deepcopy;
 from .hockeydwnload import *;
 from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
@@ -375,6 +376,7 @@ def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
  sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";");
  sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";");
+ sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";");
  if(not enable_oldsqlite and sdbfile!=":memory:"):
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  if(sdbfile==":memory:"):
@@ -412,6 +414,7 @@ def CreateHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journa
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
  sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";");
  sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";");
+ sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";");
  if(not enable_oldsqlite and sdbfile!=":memory:"):
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  if(sdbfile==":memory:"):
@@ -448,6 +451,7 @@ def OpenHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_
  sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";");
  sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";");
  sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";");
+ sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";");
  if(not enable_oldsqlite and sdbfile!=":memory:"):
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  if(sdbfile==":memory:"):
