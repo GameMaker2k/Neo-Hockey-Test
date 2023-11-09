@@ -184,8 +184,10 @@ try:
 except ImportError:
  try:
   from cgi import escape as html_escape;
+  from htmlentitydefs import entitydefs;
  except ImportError:
   from html import escape as html_escape;
+  from html.entities import entitydefs;
 
 def check_if_string(strtext):
  if(sys.version[0]=="2"):
