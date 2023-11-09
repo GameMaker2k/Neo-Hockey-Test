@@ -181,6 +181,10 @@ else:
 
 try:
  from xml.sax.saxutils import xml_escape;
+ try:
+  from htmlentitydefs import entitydefs;
+ except ImportError:
+  from html.entities import entitydefs;
 except ImportError:
  try:
   from cgi import escape as html_escape;
@@ -205,7 +209,7 @@ def EscapeXMLString(inxml, quote=True):
   xml_escape_dict = {};
  outxml = False;
  try:
-  outxml = xml_escape(inxml, xml_escape_dict);
+  outxml = xml_escape(inxml, xml_escape_dict.update(entitydefs));
  except NameError:
   outxml = html_escape(inxml, quote);
  return outxml;
