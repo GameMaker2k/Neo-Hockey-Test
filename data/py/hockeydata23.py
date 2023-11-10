@@ -104,7 +104,7 @@ libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Portland", "ME", "
 libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "St. John's", "NL", "CAN", "Canada", "Newfoundland and Labrador", "Growlers", "Eastern", "North", "Mary Brown's Centre", "Newfoundland", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Norfolk", "VA", "USA", "United States", "Virginia", "Admirals", "Eastern", "North", "Norfolk Scope", "Norfolk", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Reading", "PA", "USA", "United States", "Pennsylvania", "Royals", "Eastern", "North", "Santander Arena", "Reading", "", "", True, True);
-libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Trois-Rivières", "QC", "CAN", "Canada", "Quebec", "Lions", "Eastern", "North", "LColisée Vidéotron", "Trois-Rivières", "", "", True, True);
+libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Trois-RiviÃ¨res", "QC", "CAN", "Canada", "Quebec", "Lions", "Eastern", "North", "ColisÃ©e VidÃ©otron", "Trois-RiviÃ¨res", "", "", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Worcester", "MA", "USA", "United States", "Massachusetts", "Railers", "Eastern", "North", "DCU Center", "Worcester", "", "", True, True);
 libhockeydata.MakeHockeyDivision(sqldatacon, "ECHL", "South", "Eastern", "", "Division", True, True);
 libhockeydata.MakeHockeyTeam(sqldatacon, "ECHL", "20231019", "Duluth", "GA", "USA", "United States", "Georgia", "Gladiators", "Eastern", "South", "Gas South Arena", "Atlanta", "", "", True, True);

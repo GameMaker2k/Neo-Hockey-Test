@@ -1009,17 +1009,17 @@
      "teaminfo": {
       "affiliates": "",
       "area": "QC",
-      "arena": "LColis\u00e9e Vid\u00e9otron",
-      "city": "Trois-Rivi\u00e8res",
+      "arena": "Colis\u00c3\u00a9e Vid\u00c3\u00a9otron",
+      "city": "Trois-Rivi\u00c3\u00a8res",
       "conference": "Eastern",
       "country": "CAN",
       "division": "North",
       "fullarea": "Quebec",
       "fullcountry": "Canada",
-      "fullname": "Trois-Rivi\u00e8res Lions",
+      "fullname": "Trois-Rivi\u00c3\u00a8res Lions",
       "league": "ECHL",
       "name": "Lions",
-      "prefix": "Trois-Rivi\u00e8res",
+      "prefix": "Trois-Rivi\u00c3\u00a8res",
       "suffix": ""
      }
     },
@@ -1717,7 +1717,7 @@
     "Lions": {
      "conference": "Eastern",
      "division": "North",
-     "fullname": "Trois-Rivi\u00e8res Lions",
+     "fullname": "Trois-Rivi\u00c3\u00a8res Lions",
      "league": "ECHL",
      "name": "Lions"
     },
