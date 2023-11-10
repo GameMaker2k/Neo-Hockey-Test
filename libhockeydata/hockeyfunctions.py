@@ -365,7 +365,7 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
   if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", instringfile)):
    stringfile = UncompressFileURL(instringfile, geturls_headers, geturls_cj);
   else:
-   instringsfile = open(instringfile, "rb");
+   instringsfile = CompressOpenFile(instringfile);
    stringfile = UncompressFileAlt(instringsfile);
  elif(not stringisfile):
   instringsfile = BytesIO(instringfile.encode());
