@@ -2053,7 +2053,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
  inchockeyarray = deepcopy(inhockeyarray);
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if "database" in inchockeyarray.keys():
-  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inchockeyarray['database'], quote=True), quote=True)+"\">\n";
+  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inchockeyarray['database'], quote=True))+"\">\n";
  if "database" not in inchockeyarray.keys():
   xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(defaultsdbfile), quote=True)+"\">\n";
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
