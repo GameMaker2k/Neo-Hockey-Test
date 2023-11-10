@@ -134,7 +134,7 @@ def CheckCompressionType(infile, closefp=True):
   filefp.close();
  return filetype;
 
-def UncompressFile(infile, mode="rb"):
+def UncompressFile(infile, mode="r"):
  compresscheck = CheckCompressionType(infile, False);
  if(compresscheck=="gzip"):
   try:
@@ -185,7 +185,7 @@ def UncompressFileAlt(fp):
    import gzip;
   except ImportError:
    return False;
-  outfp = gzip.GzipFile(fileobj=fp, mode="rb");
+  outfp = gzip.GzipFile(fileobj=fp, mode="r");
  if(compresscheck=="bzip2"):
   try:
    import bz2;
@@ -321,43 +321,43 @@ def CompressOpenFile(outfile):
    import gzip;
   except ImportError:
    return False;
-  outfp = gzip.open(outfile, "wb", 9);
+  outfp = gzip.open(outfile, "w", 9);
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  outfp = bz2.open(outfile, "wb", 9);
+  outfp = bz2.open(outfile, "w", 9);
  elif(fextname==".zst"):
   try:
    import zstandard;
   except ImportError:
    return False;
-  outfp = zstandard.open(outfile, "wb", zstandard.ZstdCompressor(level=10));
+  outfp = zstandard.open(outfile, "w", zstandard.ZstdCompressor(level=10));
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lzma.open(outfile, "w", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lz4"):
   try:
    import lz4.frame;
   except ImportError:
    return False;
-  outfp = lz4.frame.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lz4.frame.open(outfile, "w", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzo"):
   try:
    import lzo;
   except ImportError:
    return False;
-  outfp = lzo.open(outfile, "wb", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lzo.open(outfile, "w", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  outfp = lzma.open(outfile, "wb", format=lzma.FORMAT_ALONE, preset=9);
+  outfp = lzma.open(outfile, "w", format=lzma.FORMAT_ALONE, preset=9);
  return outfp;
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
@@ -2053,9 +2053,9 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
  inchockeyarray = deepcopy(inhockeyarray);
  xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
  if "database" in inchockeyarray.keys():
-  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inchockeyarray['database']), quote=True)+"\">\n";
+  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(inchockeyarray['database'], quote=True), quote=True)+"\">\n";
  if "database" not in inchockeyarray.keys():
-  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(defaultsdbfile))+"\">\n";
+  xmlstring = xmlstring+"<hockeydb database=\""+EscapeXMLString(str(defaultsdbfile), quote=True)+"\">\n";
  #all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
  all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"];
  table_list = ['HockeyLeagues'];
@@ -2063,22 +2063,22 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
   for cur_tab in all_table_list:
    table_list.append(leagueinfo_tmp['LeagueName']+cur_tab);
  for get_cur_tab in table_list:
-  xmlstring = xmlstring+" <table name=\""+EscapeXMLString(str(get_cur_tab))+"\">\n";
+  xmlstring = xmlstring+" <table name=\""+EscapeXMLString(str(get_cur_tab), quote=True)+"\">\n";
   rowlen = len(inchockeyarray[get_cur_tab]['rows']);
   rowi = 0;
   sqlrowlist = [];
   xmlstring = xmlstring+"  <column>\n";
   for rowinfo in inchockeyarray[get_cur_tab]['rows']:
-   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['id']))+"\" name=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['Name']))+"\" type=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['Type']))+"\" notnull=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['NotNull']))+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inchockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue'])))+"\" primarykey=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']))+"\" autoincrement=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']))+"\" hidden=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['Hidden']))+"\" />\n";
+   xmlstring = xmlstring+"   <rowinfo id=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['id']), quote=True)+"\" name=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['Name']), quote=True)+"\" type=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['Type']), quote=True)+"\" notnull=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['NotNull']), quote=True)+"\" defaultvalue=\""+EscapeXMLString(ConvertPythonValuesForXML(str(inchockeyarray[get_cur_tab][rowinfo]['info']['DefualtValue']), quote=True))+"\" primarykey=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['PrimaryKey']), quote=True)+"\" autoincrement=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['AutoIncrement']), quote=True)+"\" hidden=\""+EscapeXMLString(str(inchockeyarray[get_cur_tab][rowinfo]['info']['Hidden']), quote=True)+"\" />\n";
   xmlstring = xmlstring+"  </column>\n";
   if(len(inchockeyarray[get_cur_tab]['values'])>0):
    xmlstring = xmlstring+"  <data>\n";
   rowid = 0;
   for rowvalues in inchockeyarray[get_cur_tab]['values']:
-   xmlstring = xmlstring+"   <row id=\""+EscapeXMLString(str(rowid))+"\">\n"; 
+   xmlstring = xmlstring+"   <row id=\""+EscapeXMLString(str(rowid), quote=True)+"\">\n"; 
    rowid = rowid + 1;
    for rkey, rvalue in rowvalues.items():
-    xmlstring = xmlstring+"    <rowdata name=\""+EscapeXMLString(str(rkey))+"\" value=\""+EscapeXMLString(str(rvalue))+"\" />\n";
+    xmlstring = xmlstring+"    <rowdata name=\""+EscapeXMLString(str(rkey), quote=True)+"\" value=\""+EscapeXMLString(str(rvalue), quote=True)+"\" />\n";
    xmlstring = xmlstring+"   </row>\n"; 
   if(len(inchockeyarray[get_cur_tab]['values'])>0):
    xmlstring = xmlstring+"  </data>\n";
@@ -2086,7 +2086,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
    xmlstring = xmlstring+"  <data />\n";
   xmlstring = xmlstring+"  <rows>\n";
   for rowinfo in inchockeyarray[get_cur_tab]['rows']:
-   xmlstring = xmlstring+"   <rowlist name=\""+EscapeXMLString(str(rowinfo))+"\" />\n";   
+   xmlstring = xmlstring+"   <rowlist name=\""+EscapeXMLString(str(rowinfo), quote=True)+"\" />\n";   
   xmlstring = xmlstring+"  </rows>\n";
   xmlstring = xmlstring+" </table>\n";
  xmlstring = xmlstring+"</hockeydb>\n";
