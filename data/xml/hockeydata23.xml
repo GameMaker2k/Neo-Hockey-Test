@@ -100,7 +100,7 @@
     <team city="St. John's" area="NL" fullarea="Newfoundland and Labrador" country="CAN" fullcountry="Canada" name="Growlers" arena="Mary Brown's Centre" prefix="Newfoundland" suffix="" affiliates="" />
     <team city="Norfolk" area="VA" fullarea="Virginia" country="USA" fullcountry="United States" name="Admirals" arena="Norfolk Scope" prefix="Norfolk" suffix="" affiliates="" />
     <team city="Reading" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Royals" arena="Santander Arena" prefix="Reading" suffix="" affiliates="" />
-    <team city="Trois-Rivi&#232;res" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Lions" arena="LColis&#233;e Vid&#233;otron" prefix="Trois-Rivi&#232;res" suffix="" affiliates="" />
+    <team city="Trois-Rivières" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Lions" arena="Colisée Vidéotron" prefix="Trois-Rivières" suffix="" affiliates="" />
     <team city="Worcester" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Railers" arena="DCU Center" prefix="Worcester" suffix="" affiliates="" />
    </division>
    <division name="South" prefix="" suffix="Division">

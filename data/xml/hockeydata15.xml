@@ -54,7 +54,7 @@
     <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Bears" arena="Giant Center" prefix="Hershey" suffix="" affiliates="ECHL:South Carolina Stingrays,NHL:Washington Capitals" />
     <team city="Allentown" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Phantoms" arena="PPL Center" prefix="Lehigh Valley" suffix="" affiliates="ECHL:Reading Royals,NHL:Philadelphia Flyers" />
     <team city="Portland" area="ME" fullarea="Maine" country="USA" fullcountry="United States" name="Pirates" arena="Cross Insurance Arena" prefix="Portland" suffix="" affiliates="ECHL:None,NHL:Florida Panthers" />
-    <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Bruins" arena="Dunkin&#x27; Donuts Center" prefix="Providence" suffix="" affiliates="ECHL:Atlanta Gladiators,NHL:Boston Bruins" />
+    <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Bruins" arena="Dunkin' Donuts Center" prefix="Providence" suffix="" affiliates="ECHL:Atlanta Gladiators,NHL:Boston Bruins" />
     <team city="Springfield" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Falcons" arena="MassMutual Center" prefix="Springfield" suffix="" affiliates="ECHL:Rapid City Rush,NHL:Arizona Coyotes" />
     <team city="Wilkes-Barre" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Penguins" arena="Mohegan Sun Arena" prefix="Wilkes-Barre/Scranton" suffix="" affiliates="ECHL:Wheeling Nailers,NHL:Pittsburgh Penguins" />
    </division>
@@ -62,7 +62,7 @@
     <team city="Albany" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Devils" arena="Times Union Center" prefix="Albany" suffix="" affiliates="ECHL:None,NHL:New Jersey Devils" />
     <team city="Binghamton" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Senators" arena="Floyd L. Maines Veterans Memorial Arena" prefix="Binghamton" suffix="" affiliates="ECHL:Evansville IceMen,NHL:Ottawa Senators" />
     <team city="Rochester" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Americans" arena="Blue Cross Arena" prefix="Rochester" suffix="" affiliates="ECHL:Elmira Jackals,NHL:Buffalo Sabres" />
-    <team city="St. John&#x27;s" area="NL" fullarea="Newfoundland and Labrador" country="CAN" fullcountry="Canada" name="IceCaps" arena="Mile One Centre" prefix="St. John&#x27;s" suffix="" affiliates="ECHL:Brampton Beast,NHL:Montreal Canadiens" />
+    <team city="St. John's" area="NL" fullarea="Newfoundland and Labrador" country="CAN" fullcountry="Canada" name="IceCaps" arena="Mile One Centre" prefix="St. John's" suffix="" affiliates="ECHL:Brampton Beast,NHL:Montreal Canadiens" />
     <team city="Syracuse" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Crunch" arena="Oncenter War Memorial Arena" prefix="Syracuse" suffix="" affiliates="ECHL:None,NHL:Tampa Bay Lightning" />
     <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Marlies" arena="Ricoh Coliseum" prefix="Toronto" suffix="" affiliates="ECHL:Orlando Solar Bears,NHL:Toronto Maple Leafs" />
     <team city="Utica" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Comets" arena="Utica Memorial Auditorium" prefix="Utica" suffix="" affiliates="ECHL:None,NHL:Vancouver Canucks" />
