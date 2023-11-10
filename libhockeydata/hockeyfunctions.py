@@ -750,6 +750,10 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, so
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  return jsonstring;
 
+def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+ jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose);
+ return jsonstring;
+
 def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
  if(outjsonfile is None):
   return False;
@@ -766,6 +770,10 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
  if(not returnjson):
   return True;
  return True;
+
+def MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+ jsonstring = MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, jsonverbose);
+ return jsonstring;
 
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
  if(jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", injsonfile))):
