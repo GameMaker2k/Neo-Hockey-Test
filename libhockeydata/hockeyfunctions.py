@@ -772,7 +772,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
  return True;
 
 def MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
- jsonstring = MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, jsonverbose);
+ jsonstring = MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, jsonverbose);
  return jsonstring;
 
 def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
