@@ -209,7 +209,7 @@ def EscapeXMLString(inxml, quote=True):
   xml_escape_dict = {};
  outxml = False;
  try:
-  outxml = xml_escape(inxml, xml_escape_dict.update(entitydefs));
+  outxml = xml_escape(inxml, xml_escape_dict);
  except NameError:
   outxml = html_escape(inxml, quote);
  return outxml;
