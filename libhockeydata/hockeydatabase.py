@@ -2141,38 +2141,12 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
    LTSoSplit = [int(n) for n in LosingTeamShootouts.split(":")];
    NewLTSo = str(LTSoSplit[0])+":"+str(LTSoSplit[1] + 1);
    awayteamupdatedict.update( { 'Shootouts': NewLTSo } );
- hlist = [];
- for hkey, hvalue in hometeamupdatedict.items():
-  if(isinstance(hvalue, basestring)):
-   hlist.append(hkey+"=\""+str(hvalue)+"\"");
-  elif(isinstance(hvalue, baseint)):
-   hlist.append(hkey+"="+str(hvalue));
-  elif(isinstance(hvalue, float)):
-   hlist.append(hkey+"="+str(hvalue));
-  else:
-   hlist.append(hkey+"=\""+str(hvalue)+"\"");
- alist = [];
- for akey, avalue in awayteamupdatedict.items():
-  if(isinstance(avalue, basestring)):
-   alist.append(akey+"=\""+str(avalue)+"\"");
-  elif(isinstance(avalue, baseint)):
-   alist.append(akey+"="+str(avalue));
-  elif(isinstance(avalue, float)):
-   alist.append(akey+"="+str(avalue));
-  else:
-   alist.append(akey+"=\""+str(hvalue)+"\"");
- sqldatacon[0].execute("UPDATE "+leaguename+"Teams SET "+str(",".join(hlist))+" WHERE id="+str(hometeam));
- sqldatacon[0].execute("UPDATE "+leaguename+"Teams SET "+str(",".join(alist))+" WHERE id="+str(awayteam));
- hometeaminfon = sqldatacon[0].execute("SELECT OTSOLosses, TWins, GamesPlayed, Points FROM "+leaguename+"Teams WHERE id="+str(hometeam)).fetchone();
- awayteaminfon = sqldatacon[0].execute("SELECT OTSOLosses, TWins, GamesPlayed, Points FROM "+leaguename+"Teams WHERE id="+str(awayteam)).fetchone();
- HomeOTLossesPCT = float("%.2f" % float(float(0.5) * float(hometeaminfon[0])));
- HomeWinsPCTAlt = float("%.3f" % float(float(hometeaminfon[1] + HomeOTLossesPCT) / float(hometeaminfon[2])));
- HomeWinsPCT = float("%.3f" % float(hometeaminfon[3] / float(hometeaminfon[2] * 2)));
- AwayOTLossesPCT = float("%.2f" % float(float(0.5) * float(awayteaminfon[0])));
- AwayWinsPCTAlt = float("%.3f" % float(float(awayteaminfon[1] + AwayOTLossesPCT) / float(awayteaminfon[2])));
- AwayWinsPCT = float("%.3f" % float(awayteaminfon[3] / float(awayteaminfon[2] * 2)));
- hometeamupdatedict = {};
- awayteamupdatedict = {};
+ HomeOTLossesPCT = float("%.2f" % float(float(0.5) * float(hometeamupdatedict['OTSOLosses'])));
+ HomeWinsPCTAlt = float("%.3f" % float(float(hometeamupdatedict['TWins'] + HomeOTLossesPCT) / float(hometeamupdatedict['GamesPlayed'])));
+ HomeWinsPCT = float("%.3f" % float(hometeamupdatedict['Points'] / float(hometeamupdatedict['GamesPlayed'] * 2)));
+ AwayOTLossesPCT = float("%.2f" % float(float(0.5) * float(awayteamupdatedict['OTSOLosses'])));
+ AwayWinsPCTAlt = float("%.3f" % float(float(awayteamupdatedict['TWins'] + AwayOTLossesPCT) / float(awayteamupdatedict['GamesPlayed'])));
+ AwayWinsPCT = float("%.3f" % float(awayteamupdatedict['Points'] / float(awayteamupdatedict['GamesPlayed'] * 2)));
  hometeamupdatedict.update( { 'PCT': HomeWinsPCT } );
  awayteamupdatedict.update( { 'PCT': AwayWinsPCT } );
  hlist = [];
