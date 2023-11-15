@@ -23,7 +23,10 @@ try:
 except NameError:
  from importlib import reload;
  reload(sys);
-sys.setdefaultencoding('utf8');
+try:
+ sys.setdefaultencoding('utf8');
+except AttributeError:
+ pass;
 
 __project__ = libhockeydata.__project__;
 __program_name__ = libhockeydata.__program_name__;
