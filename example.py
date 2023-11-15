@@ -25,7 +25,7 @@ except NameError:
 try:
  sys.setdefaultencoding('utf8');
 except AttributeError:
- pass
+ pass;
 
 defroot = [];
 if(os.path.exists("./data/xml") and os.path.isdir("./data/xml")):
