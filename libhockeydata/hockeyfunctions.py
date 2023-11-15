@@ -18,6 +18,8 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re, time, pickle, marshal, platform, binascii, xml.dom.minidom;
+reload(sys);
+sys.setdefaultencoding('utf8');
 from ftplib import FTP, FTP_TLS;
 from base64 import b64encode;
 from copy import copy, deepcopy;
