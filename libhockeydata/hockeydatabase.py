@@ -18,8 +18,15 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
-reload(sys);
-sys.setdefaultencoding('utf8');
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
+try:
+ sys.setdefaultencoding('utf8');
+except AttributeError:
+ pass;
 import multiprocessing, threading;
 from copy import copy, deepcopy;
 from .hockeydwnload import *;

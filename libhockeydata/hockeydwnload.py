@@ -18,8 +18,15 @@
 
 from __future__ import division, absolute_import, print_function;
 import re, os, sys, hashlib, shutil, platform, tempfile, urllib, zlib, bz2, time, argparse, subprocess, socket, email.utils, datetime, time;
-reload(sys);
-sys.setdefaultencoding('utf8');
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
+try:
+ sys.setdefaultencoding('utf8');
+except AttributeError:
+ pass;
 import logging as log;
 from ftplib import FTP, FTP_TLS;
 from base64 import b64encode;

@@ -18,8 +18,15 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re, time, pickle, marshal, platform, binascii, xml.dom.minidom;
-reload(sys);
-sys.setdefaultencoding('utf8');
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
+try:
+ sys.setdefaultencoding('utf8');
+except AttributeError:
+ pass;
 from ftplib import FTP, FTP_TLS;
 from base64 import b64encode;
 from copy import copy, deepcopy;
