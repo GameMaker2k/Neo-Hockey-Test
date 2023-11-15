@@ -18,7 +18,11 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, libhockeydata, argparse, logging, shutil;
-reload(sys);
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
 sys.setdefaultencoding('utf8');
 
 __project__ = libhockeydata.__project__;
