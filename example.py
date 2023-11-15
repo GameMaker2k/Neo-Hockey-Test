@@ -17,6 +17,15 @@
 '''
 
 import libhockeydata, os, sys, random;
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
+try:
+ sys.setdefaultencoding('utf8');
+except AttributeError:
+ pass
 
 defroot = [];
 if(os.path.exists("./data/xml") and os.path.isdir("./data/xml")):
