@@ -26,7 +26,7 @@ except NameError:
 try:
  sys.setdefaultencoding('utf8');
 except AttributeError:
- pass
+ pass;
 
 havereadline = False;
 try:
