@@ -396,6 +396,8 @@ def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  if(sdbfile==":memory:"):
   sqlcur.execute("PRAGMA journal_mode = MEMORY;");
+ sqlcur.execute("PRAGMA fullfsync = ON;");
+ sqlcur.execute("PRAGMA synchronous = FULL;");
  sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  return sqldatacon;
 
@@ -434,6 +436,8 @@ def CreateHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journa
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  if(sdbfile==":memory:"):
   sqlcur.execute("PRAGMA journal_mode = MEMORY;");
+ sqlcur.execute("PRAGMA fullfsync = ON;");
+ sqlcur.execute("PRAGMA synchronous = FULL;");
  sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  sqlcur.close();
  sqlcon.close();
@@ -471,6 +475,8 @@ def OpenHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_
   sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";");
  if(sdbfile==":memory:"):
   sqlcur.execute("PRAGMA journal_mode = MEMORY;");
+ sqlcur.execute("PRAGMA fullfsync = ON;");
+ sqlcur.execute("PRAGMA synchronous = FULL;");
  sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";");
  return sqldatacon;
 
