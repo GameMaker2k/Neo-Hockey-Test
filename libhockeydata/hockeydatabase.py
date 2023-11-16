@@ -1936,16 +1936,12 @@ def MakeHockeyGame(sqldatacon, leaguename, date, time, hometeam, awayteam, perio
   hometeamupdatedict.update( { 'Ties': int(hometeaminfo[33]) } );
   awayteamupdatedict.update( { 'Ties': int(awayteaminfo[33]) } );
   hometeamupdatedict.update( { 'ShutoutWins': int(hometeaminfo[33]) + 1 } );
-  awayteamupdatedict.update( { 'ShutoutWins': int(awayteaminfo[33]) } );
   awayteamupdatedict.update( { 'ShutoutLosses': int(awayteaminfo[33]) + 1 } );
-  hometeamupdatedict.update( { 'ShutoutLosses': int(hometeaminfo[33]) } );
  if(winningteam==awayteam and int(teamscores[0])==0):
   hometeamupdatedict.update( { 'Ties': int(hometeaminfo[33]) } );
   awayteamupdatedict.update( { 'Ties': int(awayteaminfo[33]) } );
   hometeamupdatedict.update( { 'ShutoutLosses': int(hometeaminfo[33]) + 1 } );
-  awayteamupdatedict.update( { 'ShutoutLosses': int(awayteaminfo[33]) } );
   awayteamupdatedict.update( { 'ShutoutWins': int(awayteaminfo[33]) + 1 } );
-  hometeamupdatedict.update( { 'ShutoutWins': int(hometeaminfo[33]) } );
  hometeamupdatedict.update( { 'LastTen': GetLastGamesWithShootout(sqldatacon, leaguename, winningteamname) } );
  awayteamupdatedict.update( { 'LastTen': GetLastGamesWithShootout(sqldatacon, leaguename, losingteamname) } );
  if(tiegame==0):
