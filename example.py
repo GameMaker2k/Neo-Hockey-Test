@@ -23,7 +23,7 @@ except NameError:
  from importlib import reload;
  reload(sys);
 try:
- sys.setdefaultencoding('utf8');
+ sys.setdefaultencoding('utf-8');
 except AttributeError:
  pass;
 
