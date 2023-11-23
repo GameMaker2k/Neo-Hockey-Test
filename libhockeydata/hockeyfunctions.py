@@ -144,7 +144,7 @@ def CheckCompressionType(infile, closefp=True):
  return filetype;
 
 def CheckCompressionTypeFromString(instring, closefp=True):
- instringsfile = BytesIO(instringfile);
+ instringsfile = BytesIO(instring);
  return CheckCompressionType(instringsfile, closefp);
 
 def UncompressFile(infile, mode="r"):
