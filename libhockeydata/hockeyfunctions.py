@@ -143,6 +143,10 @@ def CheckCompressionType(infile, closefp=True):
   filefp.close();
  return filetype;
 
+def CheckCompressionTypeFromString(instring, closefp=True):
+ instringsfile = BytesIO(instringfile);
+ return CheckCompressionType(instringsfile, closefp);
+
 def UncompressFile(infile, mode="r"):
  compresscheck = CheckCompressionType(infile, False);
  if(compresscheck=="gzip"):
