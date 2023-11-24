@@ -296,14 +296,18 @@ def NormalizeRelativePath(inpath):
    outpath = "./" + inpath;
  return outpath;
 
-def CheckSQLiteDatabase(infile):
- sqlfp = open(infile, "rb");
- sqlfp.seek(0, 0);
- prefp = sqlfp.read(16);
+def CheckSQLiteDatabase(infile, enable_sqlcipher=enable_sqlcipher):
  validsqlite = False;
- if(prefp==binascii.unhexlify("53514c69746520666f726d6174203300")):
+ if(enable_sqlcipher):
   validsqlite = True;
- sqlfp.close();
+ else:
+  sqlfp = open(infile, "rb");
+  sqlfp.seek(0, 0);
+  prefp = sqlfp.read(16);
+  validsqlite = False;
+  if(prefp==binascii.unhexlify("53514c69746520666f726d6174203300")):
+   validsqlite = True;
+  sqlfp.close();
  return validsqlite;
 
 def ConvertPythonValuesForXML(invalue):
