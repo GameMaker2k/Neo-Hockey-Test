@@ -24,7 +24,7 @@ except NameError:
  from importlib import reload;
  reload(sys);
 try:
- sys.setdefaultencoding('utf-8');
+ sys.setdefaultencoding('UTF-8');
 except AttributeError:
  pass;
 import multiprocessing, threading;

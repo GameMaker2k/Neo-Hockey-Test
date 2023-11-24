@@ -24,7 +24,7 @@ except NameError:
  from importlib import reload;
  reload(sys);
 try:
- sys.setdefaultencoding('utf-8');
+ sys.setdefaultencoding('UTF-8');
 except AttributeError:
  pass;
 import logging as log;
@@ -415,7 +415,7 @@ def get_readable_size_from_string(instring, precision=1, unit="IEC", usehashes=F
    if(sys.version[0]=="2"):
     filehash.update(instring);
    if(sys.version[0]>="3"):
-    filehash.update(instring.encode('utf-8'));
+    filehash.update(instring.encode('UTF-8'));
    filegethash = filehash.hexdigest();
    return_val.update({hashtypelistup: filegethash});
    listnumcount += 1;
@@ -1607,9 +1607,9 @@ def download_from_url_file(httpurl, httpheaders=geturls_headers, httpuseragent=N
   myhash.update(str(buffersize));
   myhash.update(str(exec_time_start));
  if(sys.version[0]>="3"):
-  myhash.update(httpurl.encode('utf-8'));
-  myhash.update(str(buffersize).encode('utf-8'));
-  myhash.update(str(exec_time_start).encode('utf-8'));
+  myhash.update(httpurl.encode('UTF-8'));
+  myhash.update(str(buffersize).encode('UTF-8'));
+  myhash.update(str(exec_time_start).encode('UTF-8'));
  newtmpfilesuffix = tmpfilesuffix + str(myhash.hexdigest());
  if(sleep<0):
   sleep = geturls_download_sleep;

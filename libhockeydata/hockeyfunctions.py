@@ -24,7 +24,19 @@ except NameError:
  from importlib import reload;
  reload(sys);
 try:
- sys.setdefaultencoding('utf-8');
+ sys.setdefaultencoding('def CheckSQLiteDatabase(infile, enable_sqlcipher=enable_sqlcipher):
+ validsqlite = False;
+ if(enable_sqlcipher):
+  validsqlite = True;
+ else:
+  sqlfp = open(infile, "rb");
+  sqlfp.seek(0, 0);
+  prefp = sqlfp.read(16);
+  validsqlite = False;
+  if(prefp==binascii.unhexlify("53514c69746520666f726d6174203300")):
+   validsqlite = True;
+  sqlfp.close();
+ return validsqlite;');
 except AttributeError:
  pass;
 from ftplib import FTP, FTP_TLS;
