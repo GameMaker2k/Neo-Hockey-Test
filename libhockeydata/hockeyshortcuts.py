@@ -100,8 +100,6 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -125,8 +123,6 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteXML(inxmlfile, outxmlfile=None, xmlis
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteXML(inxmlfile, xmlisfile, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -146,8 +142,6 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeyArray(hockeyarray, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -171,8 +165,6 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
  jsonstring = MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile, jsonindent, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  jsonstring = jsonstring.encode();
  jsonfp.write(jsonstring);
  jsonfp.close();
  if(returnjson):
@@ -196,8 +188,6 @@ def MakeHockeyJSONFileFromHockeySQLiteXML(inxmlfile, outjsonfile=None, xmlisfile
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
  jsonstring = MakeHockeyJSONFromHockeySQLiteXML(inxmlfile, xmlisfile, jsonindent, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  jsonstring = jsonstring.encode();
  jsonfp.write(jsonstring);
  jsonfp.close();
  if(returnjson):
@@ -268,8 +258,6 @@ def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPFromHockeyXML(inxmlfile, xmlisfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -295,8 +283,6 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromHockeyXML(inxmlfile, xmlisfile, verbose, jsonverbose, verbosepy);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -322,8 +308,6 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -349,8 +333,6 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile, verbose, jsonverbose, verbosepy);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -376,8 +358,6 @@ def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False
  fextname = os.path.splitext(xmlfile)[1];
  xmlfp = CompressOpenFile(xmlfile);
  xmlstring = MakeHockeyXMLFromHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -401,8 +381,6 @@ def MakeHockeySQLiteXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml
  fextname = os.path.splitext(xmlfile)[1];
  xmlfp = CompressOpenFile(xmlfile);
  xmlstring = MakeHockeySQLiteXMLFromHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -426,8 +404,6 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, insdbfile=None, outxmlfile=None, s
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeySQL(insqlfile, insdbfile, sqlisfile, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -451,8 +427,6 @@ def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPFromHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -478,8 +452,6 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, retu
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -505,8 +477,6 @@ def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=F
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonFromHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -532,8 +502,6 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -562,8 +530,6 @@ def MakeHockeySQLFileFromHockeyXML(inxmlfile, outsqlfile=None, xmlisfile=True, r
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyXML(inxmlfile, xmlisfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql):
@@ -587,8 +553,6 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(insdbfile, outxmlfile=None, returnxml
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  xmlstring = xmlstring.encode();
  xmlfp.write(xmlstring);
  xmlfp.close();
  if(returnxml):
@@ -612,8 +576,6 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -639,8 +601,6 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, r
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -666,8 +626,6 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnp
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -693,8 +651,6 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, verbose, jsonverbose, verbosepy);
- if(fextname in outextlistwd):
-  pystring = pystring.encode();
  pyfp.write(pystring);
  pyfp.close();
  if(fextname not in outextlistwd):
@@ -720,8 +676,6 @@ def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromOldHockeyDatabase(insdbfile, verbose, jsonverbose);
- if(fextname in outextlistwd):
-  sqlstring = sqlstring.encode();
  sqlfp.write(sqlstring);
  sqlfp.close();
  if(returnsql):
