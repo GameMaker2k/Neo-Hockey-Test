@@ -721,7 +721,7 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
   return False;
  with CompressOpenFile(outsqlfile) as f:
   for line in insqldatacon[1].iterdump():
-   f.write(('%s\n' % line);
+   f.write('%s\n' % line);
  if(returninsdbfile):
   return [insqldatacon];
  elif(not returninsdbfile):
