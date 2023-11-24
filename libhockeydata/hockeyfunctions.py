@@ -386,8 +386,12 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
    instringsfile = CompressOpenFile(instringfile);
    stringfile = UncompressFileAlt(instringsfile);
  elif(not stringisfile):
-  instringsfile = BytesIO(instringfile.encode());
-  stringfile = UncompressFileAlt(instringsfile);
+  chckcompression = CheckCompressionTypeFromString(instringfile);
+  if(not chckcompression):
+   stringfile = StringIO(instringfile);
+  else:
+   instringsfile = BytesIO(instringfile.encode());
+   stringfile = UncompressFileAlt(instringsfile);
  else:
   return False;
  stringstring = stringfile.read().decode("UTF-8");
