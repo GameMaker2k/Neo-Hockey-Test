@@ -35,6 +35,13 @@ from .versioninfo import __program_name__, __program_alt_name__, __project__, __
 enable_oldsqlite = False;
 enable_apsw = False;
 enable_supersqlite = False;
+enable_sqlcipher = False;
+sqlcipher_password = "YourPassword";
+sqlite_synchronous = "FULL";
+sqlite_journal_mode = "WAL";
+sqlite_journal_size = 67110000;
+sqlite_mmap_size = 268435456;
+sqlite_temp_store = "DEFAULT";
 enable_old_makegame = False;
 defaultxmlfile = "./data/hockeydata.xml";
 defaultsdbfile = "./data/hockeydata.db3";
@@ -149,6 +156,7 @@ except NameError:
  baseint.append(int);
 baseint = tuple(baseint);
 
+supersqlitesupport = False;
 if(enable_supersqlite):
  supersqlitesupport = True;
  try:
@@ -160,6 +168,7 @@ else:
  import sqlite3;
  supersqlitesupport = False;
 
+apswsupport = False;
 if(enable_apsw):
  if(supersqlitesupport):
   apswsupport = True;
@@ -179,6 +188,16 @@ else:
 if(supersqlitesupport and enable_supersqlite):
  import supersqlite;
 
+sqlciphersupport = False;
+if(enable_sqlcipher):
+ sqlciphersupport = True;
+ try:
+  from pysqlcipher3 import dbapi2 as sqlite;
+ except ImportError:
+  import sqlite3;
+  sqlciphersupport = False;
+
+oldsqlitesupport = False;
 if(enable_oldsqlite):
  oldsqlitesupport = True;
  try:
@@ -364,7 +383,8 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
   return [True];
  return [True];
 
-def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_size=67110000, mmap_size=268435456, temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_oldsqlite=enable_oldsqlite, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+ usecipher = False;
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
@@ -380,10 +400,15 @@ def MakeHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_
    sqlcon = apsw.Connection(sdbfile);
   elif(enable_apsw and enable_supersqlite):
    sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+  elif(enable_sqlcipher):
+   sqlcon = sqlite.connect(sdbfile, isolation_level=None);
+   usecipher = True;
   else:
    sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
+ if(enable_sqlcipher and usecipher):
+  sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";");
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
@@ -405,7 +430,8 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
  hockeyarray = { 'database': databasename, 'leaguelist': [] };
  return hockeyarray;
 
-def CreateHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_size=67110000, mmap_size=268435456, temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_oldsqlite=enable_oldsqlite, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+ usecipher = False;
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
@@ -421,9 +447,14 @@ def CreateHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journa
    sqlcon = apsw.Connection(sdbfile);
   elif(enable_apsw and enable_supersqlite):
    sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+  elif(enable_sqlcipher and usecipher):
+   sqlcon = sqlite.connect(sdbfile, isolation_level=None);
+   usecipher = True;
   else:
    sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
+ if(enable_sqlcipher):
+  sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";");
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
@@ -443,7 +474,8 @@ def CreateHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journa
  sqlcon.close();
  return True;
 
-def OpenHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_size=67110000, mmap_size=268435456, temp_store="DEFAULT", enable_oldsqlite=False, enable_apsw=False, enable_supersqlite=False):
+def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_oldsqlite=enable_oldsqlite, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+ usecipher = False;
  if(not oldsqlitesupport and enable_oldsqlite):
   enable_oldsqlite = False;
  if(not apswsupport and enable_apsw):
@@ -459,10 +491,15 @@ def OpenHockeyDatabase(sdbfile, synchronous="FULL", journal_mode="WAL", journal_
    sqlcon = apsw.Connection(sdbfile);
   elif(enable_apsw and enable_supersqlite):
    sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
+  elif(enable_sqlcipher and usecipher):
+   sqlcon = sqlite.connect(sdbfile, isolation_level=None);
+   usecipher = True;
   else:
    sqlcon = sqlite3.connect(sdbfile, isolation_level=None);
  sqlcur = sqlcon.cursor();
  sqldatacon = (sqlcur, sqlcon);
+ if(enable_sqlcipher):
+  sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";");
  sqlcur.execute("PRAGMA encoding = \"UTF-8\";");
  sqlcur.execute("PRAGMA auto_vacuum = 1;");
  sqlcur.execute("PRAGMA foreign_keys = 0;");
