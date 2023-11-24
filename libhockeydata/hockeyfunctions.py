@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, pickle, marshal, platform, binascii, xml.dom.minidom;
+import sqlite3, sys, os, re, time, marshal, platform, binascii, xml.dom.minidom;
 try:
  reload(sys);
 except NameError:
@@ -59,6 +59,11 @@ try:
  from urlparse import urlparse, urlunparse;
 except ImportError:
  from urllib.parse import urlparse, urlunparse;
+
+try:
+ import cPickle as pickle;
+except ImportError:
+ import pickle;
 
 pickledp = None;
 try:
