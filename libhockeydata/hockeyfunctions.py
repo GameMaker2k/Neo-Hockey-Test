@@ -149,7 +149,10 @@ def CheckCompressionType(infile, closefp=True):
  return filetype;
 
 def CheckCompressionTypeFromString(instring, closefp=True):
- instringsfile = BytesIO(instring);
+ try:
+  instringsfile = BytesIO(instring);
+ except TypeError:
+  instringsfile = BytesIO(instring.encode());
  return CheckCompressionType(instringsfile, closefp);
 
 def UncompressFile(infile, mode="r"):
@@ -512,8 +515,14 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
-  inxmlsfile = BytesIO(inxmlfile.encode());
-  inxmlfile = UncompressFileAlt(inxmlsfile);
+  chckcompression = CheckCompressionTypeFromString(inxmlfile);
+  if(not chckcompression):
+   xmlfile = StringIO(inxmlfile);
+  else:
+   try:
+    inxmlsfile = BytesIO(inxmlfile);
+   except TypeError:
+    inxmlsfile = BytesIO(inxmlfile.encode());
   try:
    hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
   except cElementTree.ParseError: 
@@ -582,8 +591,14 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
   except cElementTree.ParseError: 
    return False;
  elif(not xmlisfile):
-  inxmlsfile = BytesIO(inxmlfile.encode());
-  inxmlfile = UncompressFileAlt(inxmlsfile);
+  chckcompression = CheckCompressionTypeFromString(inxmlfile);
+  if(not chckcompression):
+   xmlfile = StringIO(inxmlfile);
+  else:
+   try:
+    inxmlsfile = BytesIO(inxmlfile);
+   except TypeError:
+    inxmlsfile = BytesIO(inxmlfile.encode());
   try:
    hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
   except cElementTree.ParseError: 
