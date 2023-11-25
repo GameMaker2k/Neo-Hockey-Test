@@ -239,7 +239,6 @@ def EscapeXMLString(inxml, quote=True):
  except NameError:
   return html_escape(inxml, quote=quote);
 
-
 def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  if(not dbgenable):
   return True;
@@ -279,17 +278,6 @@ def NormalizeRelativePath(inpath):
   outpath = inpath;
  else:
   outpath = "./"+inpath;
- return outpath;
-
-def NormalizeRelativePath(inpath):
- inpath = RemoveWindowsPath(inpath);
- if(os.path.isabs(inpath)):
-  outpath = inpath;
- else:
-  if(inpath.startswith("./") or inpath.startswith("../")):
-   outpath = inpath;
-  else:
-   outpath = "./" + inpath;
  return outpath;
 
 def CheckSQLiteDatabase(infile, enable_sqlcipher=enable_sqlcipher):
