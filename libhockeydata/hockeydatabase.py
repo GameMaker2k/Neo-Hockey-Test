@@ -209,17 +209,19 @@ else:
 
 try:
  from xml.sax.saxutils import xml_escape;
- try:
-  from htmlentitydefs import entitydefs;
- except ImportError:
-  from html.entities import entitydefs;
 except ImportError:
  try:
-  from cgi import escape as html_escape;
-  from htmlentitydefs import entitydefs;
+  from xml.sax.saxutils import escape as xml_escape;
  except ImportError:
-  from html import escape as html_escape;
-  from html.entities import entitydefs;
+  try:
+   from cgi import escape as html_escape;
+  except ImportError:
+   from html import escape as html_escape;
+
+try:
+ from htmlentitydefs import entitydefs;
+except ImportError:
+ from html.entities import entitydefs;
 
 def check_if_string(strtext):
  if(sys.version[0]=="2"):
@@ -231,46 +233,30 @@ def check_if_string(strtext):
  return False;
 
 def EscapeXMLString(inxml, quote=True):
- if(quote):
-  xml_escape_dict = { "\"": "&quot;", "'": "&apos;" };
- else:
-  xml_escape_dict = {};
- outxml = False;
+ xml_escape_dict = {"\"": "&quot;", "'": "&apos;"} if quote else {}
  try:
-  outxml = xml_escape(inxml, xml_escape_dict);
+  return xml_escape(inxml, xml_escape_dict);
  except NameError:
-  outxml = html_escape(inxml, quote);
- return outxml;
+  return html_escape(inxml, quote=quote);
+
 
 def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
- if(outtype=="print" and dbgenable):
-  print(dbgtxt);
+ if(not dbgenable):
   return True;
- elif(outtype=="log" and dbgenable):
-  logging.info(dbgtxt);
+ log_functions = {
+  "print": print,
+  "log": logging.info,
+  "warning": logging.warning,
+  "error": logging.error,
+  "critical": logging.critical,
+  "exception": logging.exception,
+  "logalt": lambda x: logging.log(dgblevel, x),
+  "debug": logging.debug
+ };
+ log_function = log_functions.get(outtype);
+ if(log_function):
+  log_function(dbgtxt);
   return True;
- elif(outtype=="warning" and dbgenable):
-  logging.warning(dbgtxt);
-  return True;
- elif(outtype=="error" and dbgenable):
-  logging.error(dbgtxt);
-  return True;
- elif(outtype=="critical" and dbgenable):
-  logging.critical(dbgtxt);
-  return True;
- elif(outtype=="exception" and dbgenable):
-  logging.exception(dbgtxt);
-  return True;
- elif(outtype=="logalt" and dbgenable):
-  logging.log(dgblevel, dbgtxt);
-  return True;
- elif(outtype=="debug" and dbgenable):
-  logging.debug(dbgtxt);
-  return True;
- elif(not dbgenable):
-  return True;
- else:
-  return False;
  return False;
 
 def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
@@ -278,12 +264,22 @@ def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  return dbgtxt;
 
 def RemoveWindowsPath(dpath):
- if(os.sep!="/"):
+ if(os.sep != "/"):
   dpath = dpath.replace(os.path.sep, "/");
  dpath = dpath.rstrip("/");
- if(dpath=="." or dpath==".."):
-  dpath = dpath + "/";
+ if(dpath in [".", ".."]):
+  dpath += "/";
  return dpath;
+
+def NormalizeRelativePath(inpath):
+ inpath = RemoveWindowsPath(inpath);
+ if(os.path.isabs(inpath)):
+  outpath = inpath;
+ elif(inpath.startswith(("./", "../"))):
+  outpath = inpath;
+ else:
+  outpath = "./"+inpath;
+ return outpath;
 
 def NormalizeRelativePath(inpath):
  inpath = RemoveWindowsPath(inpath);
@@ -778,20 +774,16 @@ def GetTeam2Num(sqldatacon, leaguename, TeamName):
  if(not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
   return False;
  return int(sqldatacon[0].execute("SELECT id FROM "+leaguename+"Teams WHERE FullName=\""+str(TeamName)+"\"").fetchone()[0]);
-
+ 
 def GetFullTeamName(teamname, teamnameprefix="", teamnamesuffix=""):
- if(teamnameprefix.strip()=="" and teamnamesuffix.strip()==""):
-  fullteamname = str(teamname);
-  teamnameprefix = teamnameprefix.strip();
-  teamnamesuffix = teamnamesuffix.strip();
- if(teamnameprefix.strip()!="" and teamnamesuffix.strip()==""):
-  fullteamname = str(teamnameprefix+" "+teamname);
-  teamnamesuffix = teamnamesuffix.strip();
- if(teamnameprefix.strip()=="" and teamnamesuffix.strip()!=""):
-  fullteamname = str(teamname+" "+teamnamesuffix);
-  teamnameprefix = teamnameprefix.strip();
- if(teamnameprefix.strip()!="" and teamnamesuffix.strip()!=""):
-  fullteamname = str(teamnameprefix+" "+teamname+" "+teamnamesuffix);
+ teamnameprefix = str(teamnameprefix.strip());
+ teamnamesuffix = str(teamnamesuffix.strip());
+ teamname = str(teamname);
+ fullteamname = teamname;
+ if(teamnameprefix):
+  fullteamname = teamnameprefix+" "+fullteamname;
+ if(teamnamesuffix):
+  fullteamname = fullteamname+" "+teamnamesuffix;
  return fullteamname;
 
 def GetNum2Arena(sqldatacon, leaguename, ArenaNum, ReturnVar):
