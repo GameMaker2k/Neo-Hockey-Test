@@ -206,41 +206,42 @@ def UncompressFileAlt(fp):
    import gzip;
   except ImportError:
    return False;
-  outfp = gzip.GzipFile(fileobj=fp, mode="r");
+  outfp = StringIO();
+  outfp.write(gzip.decompress(fp.read()));
  if(compresscheck=="bzip2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  outfp = BytesIO();
+  outfp = StringIO();
   outfp.write(bz2.decompress(fp.read()));
  if(compresscheck=="zstd"):
   try:
    import zstandard;
   except ImportError:
    return False;
-  outfp = BytesIO();
+  outfp = StringIO();
   outfp.write(zstandard.decompress(fp.read()));
  if(compresscheck=="lz4"):
   try:
    import lz4.frame;
   except ImportError:
    return False;
-  outfp = BytesIO();
+  outfp = StringIO();
   outfp.write(lz4.frame.decompress(fp.read()));
  if(compresscheck=="lzo"):
   try:
    import lzo;
   except ImportError:
    return False;
-  outfp = BytesIO();
+  outfp = StringIO();
   outfp.write(lzo.decompress(fp.read()));
  if(compresscheck=="lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  outfp = BytesIO();
+  outfp = StringIO();
   outfp.write(lzma.decompress(fp.read()));
  if(not compresscheck):
   outfp = fp;
