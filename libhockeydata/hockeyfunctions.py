@@ -471,7 +471,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
   outxmlcode = xmldom.toprettyxml(indent, newl, encoding);
  else:
   outxmlcode = xmldom.toxml(encoding);
- if(hasattr(outxmlcode, 'property')):
+ if(hasattr(outxmlcode, 'decode')):
   outxmlcode = outxmlcode.decode("UTF-8");
  xmldom.unlink();
  return outxmlcode;
