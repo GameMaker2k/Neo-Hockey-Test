@@ -219,68 +219,6 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
   return False;
  return inufile;
 
-def CompressFile(fp, compression="auto"):
- if(not hasattr(fp, "read")):
-  return False;
- fp.seek(0, 0);
- if(not compression or compression):
-  compression = None;
- if(compression not in compressionlist and compression is None):
-  compression = "auto";
- if(compression=="gzip"):
-  try:
-   import gzip;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(GZipCompress(fp.read(), compresslevel=9));
- if(compression=="bzip2"):
-  try:
-   import bz2;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(bz2.compress(fp.read(), compresslevel=9));
- if(compression=="zstd"):
-  try:
-   import zstandard;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(zstandard.compress(fp.read(), level=10));
- if(compression=="lz4"):
-  try:
-   import lz4.frame;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(lz4.frame.compress(fp.read(), level=10));
- if(compression=="lzo"):
-  try:
-   import lzo;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(lzo.compress(fp.read(), level=10));
- if(compression=="lzma"):
-  try:
-   import lzma;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(lzma.compress(fp.read(), format=lzma.FORMAT_ALONE, preset=9));
- if(compression=="xz"):
-  try:
-   import lzma;
-  except ImportError:
-   return False;
-  infp = BytesIO();
-  infp.write(lzma.compress(fp.read(), format=lzma.FORMAT_XZ, preset=9));
- if(compression=="auto" or compression is None):
-  infp = fp;
- infp.seek(0, 0);
- return infp;
-
 def CompressOpenFile(outfile):
  if(outfile is None):
   return False;
