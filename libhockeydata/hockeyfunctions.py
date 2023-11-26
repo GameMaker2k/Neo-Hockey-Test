@@ -197,56 +197,6 @@ def UncompressFile(infile, mode="r"):
   filefp = open(infile, mode);
  return filefp;
 
-def UncompressFileAlt(fp):
- if(not hasattr(fp, "read")):
-  return False;
- compresscheck = CheckCompressionType(fp, False);
- if(compresscheck=="gzip"):
-  try:
-   import gzip;
-  except ImportError:
-   return False;
-  outfp = StringIO();
-  outfp.write(gzip.decompress(fp.read()));
- if(compresscheck=="bzip2"):
-  try:
-   import bz2;
-  except ImportError:
-   return False;
-  outfp = StringIO();
-  outfp.write(bz2.decompress(fp.read()));
- if(compresscheck=="zstd"):
-  try:
-   import zstandard;
-  except ImportError:
-   return False;
-  outfp = StringIO();
-  outfp.write(zstandard.decompress(fp.read()));
- if(compresscheck=="lz4"):
-  try:
-   import lz4.frame;
-  except ImportError:
-   return False;
-  outfp = StringIO();
-  outfp.write(lz4.frame.decompress(fp.read()));
- if(compresscheck=="lzo"):
-  try:
-   import lzo;
-  except ImportError:
-   return False;
-  outfp = StringIO();
-  outfp.write(lzo.decompress(fp.read()));
- if(compresscheck=="lzma"):
-  try:
-   import lzma;
-  except ImportError:
-   return False;
-  outfp = StringIO();
-  outfp.write(lzma.decompress(fp.read()));
- if(not compresscheck):
-  outfp = fp;
- return outfp;
-
 def UncompressFileURL(inurl, inheaders, incookiejar):
  inheadersc = deepcopy(inheaders);
  if(re.findall(r"^(http|https)\:\/\/", inurl)):
@@ -258,13 +208,13 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
    inurlfix[1] = inurlcheck.hostname;
    inurl = urlunparse(inurlfix);
   inbfile = BytesIO(download_from_url(inurl, inheadersc, incookiejar)['Content']);
-  inufile = UncompressFileAlt(inbfile);
+  inufile = UncompressFile(inbfile);
  elif(re.findall(r"^(ftp|ftps)\:\/\/", inurl)):
   inbfile = BytesIO(download_file_from_ftp_string(inurl));
-  inufile = UncompressFileAlt(inbfile);
+  inufile = UncompressFile(inbfile);
  elif(re.findall(r"^(sftp)\:\/\/", inurl) and testparamiko):
   inbfile = BytesIO(download_file_from_sftp_string(inurl));
-  inufile = UncompressFileAlt(inbfile);
+  inufile = UncompressFile(inbfile);
  else:
   return False;
  return inufile;
@@ -387,8 +337,7 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
   if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", instringfile)):
    stringfile = UncompressFileURL(instringfile, geturls_headers, geturls_cj);
   else:
-   instringsfile = CompressOpenFile(instringfile);
-   stringfile = UncompressFileAlt(instringsfile);
+   stringfile = UncompressFile(instringsfile);
  elif(not stringisfile):
   chckcompression = CheckCompressionTypeFromString(instringfile);
   if(not chckcompression):
@@ -398,7 +347,7 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
     instringsfile = BytesIO(instringfile);
    except TypeError:
     instringsfile = BytesIO(instringfile.encode());
-   stringfile = UncompressFileAlt(instringsfile);
+   stringfile = UncompressFile(instringsfile);
  else:
   return False;
  stringstring = stringfile.read();
@@ -420,7 +369,7 @@ def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, re
 
 def CheckXMLFile(infile):
  xmlfp = open(infile, "rb");
- xmlfp = UncompressFileAlt(xmlfp);
+ xmlfp = UncompressFile(xmlfp);
  xmlfp.seek(0, 0);
  prefp = xmlfp.read(6);
  validxmlfile = False;
@@ -452,13 +401,13 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
  elif(not xmlisfile):
   chckcompression = CheckCompressionTypeFromString(inxmlfile);
   if(not chckcompression):
-   xmlfile = StringIO(inxmlfile);
+   inxmlfile = StringIO(inxmlfile);
   else:
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
     inxmlsfile = BytesIO(inxmlfile.encode());
-   xmlfile = UncompressFileAlt(inxmlsfile);
+   inxmlfile = UncompressFile(inxmlsfile);
   try:
    xmldom = xml.dom.minidom.parse(file=inxmlfile);
   except: 
@@ -518,14 +467,15 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
  elif(not xmlisfile):
   chckcompression = CheckCompressionTypeFromString(inxmlfile);
   if(not chckcompression):
-   xmlfile = StringIO(inxmlfile);
+   inxmlfile = StringIO(inxmlfile);
   else:
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
     inxmlsfile = BytesIO(inxmlfile.encode());
+   inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
+   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
   except cElementTree.ParseError: 
    return False;
  else:
@@ -594,14 +544,15 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
  elif(not xmlisfile):
   chckcompression = CheckCompressionTypeFromString(inxmlfile);
   if(not chckcompression):
-   xmlfile = StringIO(inxmlfile);
+   inxmlfile = StringIO(inxmlfile);
   else:
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
     inxmlsfile = BytesIO(inxmlfile.encode());
+   inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
+   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
   except cElementTree.ParseError: 
    return False;
  else:
@@ -840,15 +791,15 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
  elif(not jsonisfile):
   chckcompression = CheckCompressionTypeFromString(injsonfile);
   if(not chckcompression):
-   jsonfile = StringIO(injsonfile);
+   jsonfp = StringIO(injsonfile);
   else:
    try:
     injsonsfile = BytesIO(injsonfile);
    except TypeError:
     injsonsfile = BytesIO(injsonfile.encode());
-   jsonfile = UncompressFileAlt(injsonsfile);
-   hockeyarray = json.load(jsonfp);
-   jsonfp.close();
+   jsonfp = UncompressFile(injsonsfile);
+  hockeyarray = json.load(jsonfp);
+  jsonfp.close();
  else:
   return False;
  if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
@@ -898,7 +849,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
    picklefp.close();
  elif(not pickleisfile):
   picklefp = BytesIO(inpicklefile.encode());
-  picklefp = UncompressFileAlt(picklefp);
+  picklefp = UncompressFile(picklefp);
   hockeyarray = json.load(picklefp, fix_imports=True);
   picklefp.close();
  else:
@@ -947,7 +898,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
    marshalfp.close();
  elif(not marshalisfile):
   marshalfp = BytesIO(inmarshalfile.encode());
-  marshalfp = UncompressFileAlt(marshalfp);
+  marshalfp = UncompressFile(marshalfp);
   hockeyarray = json.load(marshalfp);
   marshalfp.close();
  else:
@@ -1119,15 +1070,15 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
  elif(not xmlisfile):
   chckcompression = CheckCompressionTypeFromString(inxmlfile);
   if(not chckcompression):
-   xmlfile = StringIO(inxmlfile);
+   inxmlfile = StringIO(inxmlfile);
   else:
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
     inxmlsfile = BytesIO(inxmlfile.encode());
-   xmlfile = UncompressFileAlt(inxmlsfile);
+   inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
+   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
   except cElementTree.ParseError: 
    return False;
  else:
@@ -1638,7 +1589,7 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, verb
   sqlfp.close();
  elif(not sqlisfile):
   sqlfp = BytesIO(insqlfile);
-  sqlfp = UncompressFileAlt(sqlfp);
+  sqlfp = UncompressFile(sqlfp);
   sqlstring = sqlfp.read();
   sqlfp.close();
  else:
@@ -2255,15 +2206,15 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
  elif(not xmlisfile):
   chckcompression = CheckCompressionTypeFromString(inxmlfile);
   if(not chckcompression):
-   xmlfile = StringIO(inxmlfile);
+   inxmlfile = StringIO(inxmlfile);
   else:
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
     inxmlsfile = BytesIO(inxmlfile.encode());
-   xmlfile = UncompressFileAlt(inxmlsfile);
+   inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlsfile);
+   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
   except cElementTree.ParseError: 
    return False;
  else:
