@@ -243,7 +243,7 @@ def UncompressString(infile):
 
 def UncompressStringAlt(infile):
  filefp = StringIO();
- outstring = def UncompressString(infile);
+ outstring = UncompressString(infile);
  filefp.write(outstring);
  filefp.seek(0);
  return filefp;
