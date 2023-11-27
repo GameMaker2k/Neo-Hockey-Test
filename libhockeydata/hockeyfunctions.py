@@ -197,6 +197,50 @@ def UncompressFile(infile, mode="r"):
   filefp = open(infile, mode);
  return filefp;
 
+def UncompressString(infile):
+ compresscheck = CheckCompressionTypeFromString(infile, False);
+ if(compresscheck=="gzip"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  filefp = gzip.decompress(infile);
+ if(compresscheck=="bzip2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  filefp = bz2.decompress(infile);
+ if(compresscheck=="zstd"):
+  try:
+   import zstandard;
+  except ImportError:
+   return False;
+  filefp = zstandard.decompress(infile);
+ if(compresscheck=="lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  filefp = lz4.frame.decompress(infile);
+ if(compresscheck=="lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  filefp = lzo.decompress(infile);
+ if(compresscheck=="lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  filefp = lzma.decompress(infile);
+ if(not compresscheck):
+  filefp = infile;
+ if(hasattr(filefp, 'decode')):
+  filefp = filefp.decode("UTF-8");
+ return filefp;
+
 def UncompressFileURL(inurl, inheaders, incookiejar):
  inheadersc = deepcopy(inheaders);
  if(re.findall(r"^(http|https)\:\/\/", inurl)):
