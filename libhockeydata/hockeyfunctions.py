@@ -241,6 +241,13 @@ def UncompressString(infile):
   filefp = filefp.decode("UTF-8");
  return filefp;
 
+def UncompressStringAlt(infile):
+ filefp = StringIO();
+ outstring = def UncompressString(infile);
+ filefp.write(outstring);
+ filefp.seek(0);
+ return filefp;
+
 def UncompressFileURL(inurl, inheaders, incookiejar):
  inheadersc = deepcopy(inheaders);
  if(re.findall(r"^(http|https)\:\/\/", inurl)):
