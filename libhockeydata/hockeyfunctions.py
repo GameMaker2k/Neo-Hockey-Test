@@ -155,7 +155,7 @@ def CheckCompressionTypeFromString(instring, closefp=True):
   instringsfile = BytesIO(instring.encode("UTF-8"));
  return CheckCompressionType(instringsfile, closefp);
 
-def UncompressFile(infile, mode="rt"):
+def UncompressFile(infile, mode="r"):
  compression_modules = {
   "gzip": "gzip",
   "bzip2": "bz2",
@@ -166,6 +166,10 @@ def UncompressFile(infile, mode="rt"):
  };
  compresscheck = CheckCompressionType(infile, False);
  if(not compresscheck):
+  if(mode=="r" or mode=="rb"):
+   mode=="rt";
+  if(mode=="w" or mode=="wb"):
+   mode=="wt";
   return open(infile, mode);
  compression_module_name = compression_modules.get(compresscheck);
  if(not compression_module_name):
@@ -174,6 +178,10 @@ def UncompressFile(infile, mode="rt"):
   compression_module = importlib.import_module(compression_module_name);
  except ImportError:
   return False;
+ if(mode=="r" or mode=="rt"):
+  mode=="rb";
+ if(mode=="w" or mode=="wt"):
+  mode=="wb";
  return compression_module.open(infile, mode);
 
 def UncompressString(infile):
