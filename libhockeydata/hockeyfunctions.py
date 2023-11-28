@@ -152,7 +152,7 @@ def CheckCompressionTypeFromString(instring, closefp=True):
  try:
   instringsfile = BytesIO(instring);
  except TypeError:
-  instringsfile = BytesIO(instring.encode());
+  instringsfile = BytesIO(instring.encode("UTF-8"));
  return CheckCompressionType(instringsfile, closefp);
 
 def UncompressFile(infile, mode="r"):
@@ -244,7 +244,10 @@ def UncompressString(infile):
 def UncompressStringAlt(infile):
  filefp = StringIO();
  outstring = UncompressString(infile);
- filefp.write(outstring);
+ try:
+  filefp.write(outstring);
+ except TypeError:
+  filefp.write(outstring.encode("UTF-8"));
  filefp.seek(0);
  return filefp;
 
@@ -253,7 +256,7 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
  if(re.findall(r"^(http|https)\:\/\/", inurl)):
   inurlcheck = urlparse.urlparse(inurl);
   if(inurlcheck.username is not None or inurlcheck.password is not None):
-   inurlencode = b64encode(str(inurlcheck.username+":"+inurlcheck.password).encode()).decode("UTF-8");
+   inurlencode = b64encode(str(inurlcheck.username+":"+inurlcheck.password).encode("UTF-8")).decode("UTF-8");
    inheadersc.update( { 'Authorization': "Basic "+inurlencode } );
    inurlfix = list(urlparse.urlparse(inurl));
    inurlfix[1] = inurlcheck.hostname;
@@ -335,7 +338,7 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
    try:
     instringsfile = BytesIO(instringfile);
    except TypeError:
-    instringsfile = BytesIO(instringfile.encode());
+    instringsfile = BytesIO(instringfile.encode("UTF-8"));
    stringfile = UncompressFile(instringsfile);
  else:
   return False;
@@ -345,7 +348,10 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
  fbasename = os.path.splitext(outstringfile)[0];
  fextname = os.path.splitext(outstringfile)[1];
  stringfp = CompressOpenFile(outstringfile);
- stringfp.write(stringstring);
+ try:
+  filefp.write(stringstring);
+ except TypeError:
+  filefp.write(stringstring.encode("UTF-8"));
  stringfp.close();
  if(returnstring):
   return stringstring;
@@ -395,7 +401,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
-    inxmlsfile = BytesIO(inxmlfile.encode());
+    inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
    xmldom = xml.dom.minidom.parse(file=inxmlfile);
@@ -423,7 +429,10 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", ne
  xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, newl, encoding, beautify);
  if(fextname in outextlistwd):
   xmlstring = xmlstring;
- xmlfp.write(xmlstring);
+ try:
+  xmlfp.write(xmlstring);
+ except TypeError:
+  xmlfp.write(xmlstring.encode("UTF-8"));
  xmlfp.close();
  if(returnxml):
   return xmlstring;
@@ -461,7 +470,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
-    inxmlsfile = BytesIO(inxmlfile.encode());
+    inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
@@ -538,7 +547,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
-    inxmlsfile = BytesIO(inxmlfile.encode());
+    inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
@@ -677,7 +686,10 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
   return False;
  with CompressOpenFile(outsqlfile) as f:
   for line in insqldatacon[1].iterdump():
-   f.write('%s\n' % line);
+   try:
+    f.write('%s\n' % line);
+   except TypeError:
+    f.write('%s\n' % line.encode("UTF-8"));
  if(returninsdbfile):
   return [insqldatacon];
  elif(not returninsdbfile):
@@ -753,7 +765,10 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
  fextname = os.path.splitext(outjsonfile)[1];
  jsonfp = CompressOpenFile(outjsonfile);
  jsonstring = MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent, beautify, sortkeys, verbose);
- jsonfp.write(jsonstring);
+ try:
+  jsonfp.write(jsonstring);
+ except TypeError:
+  jsonfp.write(jsonstring.encode("UTF-8"));
  jsonfp.close();
  if(returnjson):
   return jsonstring;
@@ -785,7 +800,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
    try:
     injsonsfile = BytesIO(injsonfile);
    except TypeError:
-    injsonsfile = BytesIO(injsonfile.encode());
+    injsonsfile = BytesIO(injsonfile.encode("UTF-8"));
    jsonfp = UncompressFile(injsonsfile);
   hockeyarray = json.load(jsonfp);
   jsonfp.close();
@@ -819,7 +834,10 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
  fextname = os.path.splitext(outpicklefile)[1];
  picklefp = CompressOpenFile(outpicklefile);
  picklestring = MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol, verbose);
- picklefp.write(picklestring);
+ try:
+  picklefp.write(picklestring);
+ except TypeError:
+  picklefp.write(picklestring.encode("UTF-8"));
  picklefp.close();
  if(returnpickle):
   return picklestring;
@@ -837,7 +855,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
    hockeyarray = pickle.load(picklefp, fix_imports=True);
    picklefp.close();
  elif(not pickleisfile):
-  picklefp = BytesIO(inpicklefile.encode());
+  picklefp = BytesIO(inpicklefile.encode("UTF-8"));
   picklefp = UncompressFile(picklefp);
   hockeyarray = json.load(picklefp, fix_imports=True);
   picklefp.close();
@@ -868,7 +886,10 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
  fextname = os.path.splitext(outmarshalfile)[1];
  marshalfp = CompressOpenFile(outmarshalfile);
  marshalstring = MakeHockeyMarshalFromHockeyArray(inhockeyarray, version, verbose);
- marshalfp.write(marshalstring);
+ try:
+  marshalfp.write(marshalstring);
+ except TypeError:
+  marshalfp.write(marshalstring.encode("UTF-8"));
  marshalfp.close();
  if(returnmarshal):
   return marshalstring;
@@ -886,7 +907,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
    hockeyarray = marshal.load(marshalfp);
    marshalfp.close();
  elif(not marshalisfile):
-  marshalfp = BytesIO(inmarshalfile.encode());
+  marshalfp = BytesIO(inmarshalfile.encode("UTF-8"));
   marshalfp = UncompressFile(marshalfp);
   hockeyarray = json.load(marshalfp);
   marshalfp.close();
@@ -961,7 +982,10 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, verbose);
- xmlfp.write(xmlstring);
+ try:
+  xmlfp.write(xmlstring);
+ except TypeError:
+  xmlfp.write(xmlstring.encode("UTF-8"));
  xmlfp.close();
  if(returnxml):
   return xmlstring;
@@ -1033,7 +1057,10 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify, verbose);
- xmlfp.write(xmlstring);
+ try:
+  xmlfp.write(xmlstring);
+ except TypeError:
+  xmlfp.write(xmlstring.encode("UTF-8"));
  xmlfp.close();
  if(returnxml):
   return xmlstring;
@@ -1064,7 +1091,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
-    inxmlsfile = BytesIO(inxmlfile.encode());
+    inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
@@ -1253,7 +1280,10 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose);
- pyfp.write(pystring);
+ try:
+  pyfp.write(pystring);
+ except TypeError:
+  pyfp.write(pystring.encode("UTF-8"));
  pyfp.close();
  if(fextname not in outextlistwd):
   os.chmod(outpyfile, 0o755);
@@ -1325,7 +1355,10 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
- pyfp.write(pystring);
+ try:
+  pyfp.write(pystring);
+ except TypeError:
+  pyfp.write(pystring.encode("UTF-8"));
  pyfp.close();
  if(fextname not in outextlistwd):
   os.chmod(outpyfile, 0o755);
@@ -1392,7 +1425,10 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose);();
- pyfp.write(pystring);
+ try:
+  pyfp.write(pystring);
+ except TypeError:
+  pyfp.write(pystring.encode("UTF-8"));
  pyfp.close();
  if(fextname not in outextlistwd):
   os.chmod(outpyfile, 0o755);
@@ -1464,7 +1500,10 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
  fextname = os.path.splitext(outpyfile)[1];
  pyfp = CompressOpenFile(outpyfile);
  pystring = MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose, verbosepy);
- pyfp.write(pystring);
+ try:
+  pyfp.write(pystring);
+ except TypeError:
+  pyfp.write(pystring.encode("UTF-8"));
  pyfp.close();
  if(fextname not in outextlistwd):
   os.chmod(outpyfile, 0o755);
@@ -1750,7 +1789,10 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
- sqlfp.write(sqlstring);
+ try:
+  sqlfp.write(sqlstring);
+ except TypeError:
+  sqlfp.write(sqlstring.encode("UTF-8"));
  sqlfp.close();
  if(returnsql):
   return sqlstring;
@@ -1837,7 +1879,10 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeyDatabase(insdbfile, verbose, jsonverbose);
- sqlfp.write(sqlstring);
+ try:
+  sqlfp.write(sqlstring);
+ except TypeError:
+  sqlfp.write(sqlstring.encode("UTF-8"));
  sqlfp.close();
  if(returnsql):
   return sqlstring;
@@ -2102,7 +2147,10 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify, verbose, jsonverbose);
- xmlfp.write(xmlstring);
+ try:
+  xmlfp.write(xmlstring);
+ except TypeError:
+  xmlfp.write(xmlstring.encode("UTF-8"));
  xmlfp.close();
  if(returnxml):
   return xmlstring;
@@ -2173,7 +2221,10 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
  fextname = os.path.splitext(outxmlfile)[1];
  xmlfp = CompressOpenFile(outxmlfile);
  xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify, verbose);
- xmlfp.write(xmlstring);
+ try:
+  xmlfp.write(xmlstring);
+ except TypeError:
+  xmlfp.write(xmlstring.encode("UTF-8"));
  xmlfp.close();
  if(returnxml):
   return xmlstring;
@@ -2200,7 +2251,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
    try:
     inxmlsfile = BytesIO(inxmlfile);
    except TypeError:
-    inxmlsfile = BytesIO(inxmlfile.encode());
+    inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
    hockeyfile = cElementTree.ElementTree(file=inxmlfile);
@@ -2400,7 +2451,10 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, retur
  fextname = os.path.splitext(outsqlfile)[1];
  sqlfp = CompressOpenFile(outsqlfile);
  sqlstring = MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose);
- sqlfp.write(sqlstring);
+ try:
+  sqlfp.write(sqlstring);
+ except TypeError:
+  sqlfp.write(sqlstring.encode("UTF-8"));
  sqlfp.close();
  if(returnsql):
   return sqlstring;
