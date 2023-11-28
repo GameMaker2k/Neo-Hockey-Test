@@ -229,15 +229,15 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
   return False;
  return inufile;
 
-def CompressOpenFile(outfile):
+def CompressOpenFile(outfile, mode="wt"):
  compression_modules = {
-  ".gz": (gzip.open, {"mode": "wt", "compresslevel": 9}),
-  ".bz2": (bz2.open, {"mode": "wt", "compresslevel": 9}),
-  ".zst": (zstandard.open, {"mode": "wt", "compressor": zstandard.ZstdCompressor(level=10)}),
-  ".xz": (lzma.open, {"mode": "wt", "format": lzma.FORMAT_XZ, "preset": 9}),
-  ".lz4": (lz4.frame.open, {"mode": "wt", "compression_level": 9}),
-  ".lzo": (lzo.open, {"mode": "wt", "format": lzma.FORMAT_XZ, "preset": 9}),
-  ".lzma": (lzma.open, {"mode": "wt", "format": lzma.FORMAT_ALONE, "preset": 9}),
+  ".gz": (gzip.open, {"mode": mode, "compresslevel": 9}),
+  ".bz2": (bz2.open, {"mode": mode, "compresslevel": 9}),
+  ".zst": (zstandard.open, {"mode": mode, "compressor": zstandard.ZstdCompressor(level=10)}),
+  ".xz": (lzma.open, {"mode": mode, "format": lzma.FORMAT_XZ, "preset": 9}),
+  ".lz4": (lz4.frame.open, {"mode": mode, "compression_level": 9}),
+  ".lzo": (lzo.open, {"mode": mode, "format": lzma.FORMAT_XZ, "preset": 9}),
+  ".lzma": (lzma.open, {"mode": mode, "format": lzma.FORMAT_ALONE, "preset": 9}),
  };
  if outfile is None:
   return False;
