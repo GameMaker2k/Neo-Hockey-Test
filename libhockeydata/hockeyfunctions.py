@@ -155,7 +155,7 @@ def CheckCompressionTypeFromString(instring, closefp=True):
   instringsfile = BytesIO(instring.encode("UTF-8"));
  return CheckCompressionType(instringsfile, closefp);
 
-def UncompressFile(infile, mode="r"):
+def UncompressFile(infile, mode="rt"):
  compression_modules = {
   "gzip": "gzip",
   "bzip2": "bz2",

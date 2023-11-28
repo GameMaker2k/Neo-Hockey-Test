@@ -233,7 +233,7 @@ def MakeHockeyDatabaseFromHockeyXML(inxmlfile, outsdbfile=None, xmlisfile=True, 
 
 def MakeHockeyDatabaseFromHockeySQL(insqlfile, outsdbfile=None, sqlisfile=True, returndb=False, verbose=True, jsonverbose=True):
  if(sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
-  sqlfp = open(insqlfile, "r");
+  sqlfp = open(insqlfile, "rt");
   sqlstring = sqlfp.read();
   sqlfp.close();
  elif(not sqlisfile):
