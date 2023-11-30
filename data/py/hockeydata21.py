@@ -3,6 +3,15 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata;
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
+try:
+ sys.setdefaultencoding('UTF-8');
+except AttributeError:
+ pass;
 
 sqldatacon = libhockeydata.MakeHockeyDatabase("./php/data/hockey21-22.db3");
 libhockeydata.MakeHockeyLeagueTable(sqldatacon);

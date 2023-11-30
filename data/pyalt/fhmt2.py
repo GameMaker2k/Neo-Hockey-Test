@@ -3,6 +3,15 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import libhockeydata;
+try:
+ reload(sys);
+except NameError:
+ from importlib import reload;
+ reload(sys);
+try:
+ sys.setdefaultencoding('UTF-8');
+except AttributeError:
+ pass;
 
 hockeyarray = libhockeydata.CreateHockeyArray("./php/data/fhmt2y17-18.db3");
 hockeyarray = libhockeydata.AddHockeyLeagueToArray(hockeyarray, "HOL", "Hockey League", "USA", "United States", "20171001", "Division=1,Conference=1", "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC", True, True);
