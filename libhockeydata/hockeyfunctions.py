@@ -953,6 +953,55 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
   VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
  return hockeyarray;
 
+def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=True, jsonverbose=True):
+ if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
+  return False;
+ outshelvefile = BytesIO();
+ with shelve.open(outshelvefile, protocol=version) as shelf_file:
+  for key, value in inhockeyarray.items():
+   shelf_file[key] = value;
+ outshelvefile.seek(0);
+ shelvestring = outshelvefile.read();
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
+ return shelvestring;
+
+def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, returnshelve=False, version=pickledp, verbose=True, jsonverbose=True):
+ if(outshelvefile is None):
+  return False;
+ fbasename = os.path.splitext(outshelvefile)[0];
+ fextname = os.path.splitext(outshelvefile)[1];
+ with shelve.open(outshelvefile, protocol=version) as shelf_file:
+  for key, value in inhockeyarray.items():
+   shelf_file[key] = value;
+ if(returnshelve):
+  shelvestring = MakeHockeyShelveFromHockeyArray(inhockeyarray, version, False, False);
+  return shelvestring;
+ if(not returnshelve):
+  return True;
+ return True;
+
+def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, verbose=True, jsonverbose=True):
+ if(shelveisfile):
+  with shelve.open(inshelvefile, protocol=version) as shelf_file:
+   hockeyarray = dict(shelf_file);
+ else:
+  try:
+   inshelvefile = BytesIO(inshelvefile);
+  except TypeError:
+   inshelvefile = BytesIO(inshelvefile.encode("UTF-8"));
+  with shelve.open(inshelvefile, protocol=version) as shelf_file:
+   hockeyarray = dict(shelf_file);
+ if(not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
+  return False;
+ if(verbose and jsonverbose):
+  VerbosePrintOut(MakeHockeyJSONFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
+ elif(verbose and not jsonverbose):
+  VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False, jsonverbose=True));
+ return hockeyarray;
+
 def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray)):
   return False;
