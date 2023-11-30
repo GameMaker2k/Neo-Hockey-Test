@@ -17,7 +17,7 @@
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
-import sqlite3, sys, os, re, time, marshal, platform, binascii, xml.dom.minidom, importlib;
+import sqlite3, sys, os, re, time, marshal, platform, binascii, xml.dom.minidom;
 try:
  reload(sys);
 except NameError:
@@ -156,64 +156,97 @@ def CheckCompressionTypeFromString(instring, closefp=True):
  return CheckCompressionType(instringsfile, closefp);
 
 def UncompressFile(infile, mode="r"):
- compression_modules = {
-  "gzip": "gzip",
-  "bzip2": "bz2",
-  "zstd": "zstandard",
-  "lz4": "lz4.frame",
-  "lzo": "lzo",
-  "lzma": "lzma"
- };
  compresscheck = CheckCompressionType(infile, False);
+ if(compresscheck=="gzip"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  filefp = gzip.open(infile, mode);
+ if(compresscheck=="bzip2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  filefp = bz2.open(infile, mode);
+ if(compresscheck=="zstd"):
+  try:
+   import zstandard;
+  except ImportError:
+   return False;
+  filefp = zstandard.open(infile, mode);
+ if(compresscheck=="lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  filefp = lz4.frame.open(infile, mode);
+ if(compresscheck=="lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  filefp = lzo.open(infile, mode);
+ if(compresscheck=="lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  filefp = lzma.open(infile, mode);
  if(not compresscheck):
-  if(mode=="r" or mode=="rb"):
-   mode=="rt";
-  if(mode=="w" or mode=="wb"):
-   mode=="wt";
-  return open(infile, mode);
- compression_module_name = compression_modules.get(compresscheck);
- if(not compression_module_name):
-  return False;
- try:
-  compression_module = importlib.import_module(compression_module_name);
- except ImportError:
-  return False;
- if(mode=="r" or mode=="rt"):
-  mode=="rb";
- if(mode=="w" or mode=="wt"):
-  mode=="wb";
- return compression_module.open(infile, mode);
+  filefp = open(infile, mode);
+ return filefp;
 
 def UncompressString(infile):
  compresscheck = CheckCompressionTypeFromString(infile, False);
- if compresscheck is None:
-  return infile;
- compression_module_names = {
-  "gzip": "gzip",
-  "bzip2": "bz2",
-  "zstd": "zstandard",
-  "lz4": "lz4.frame",
-  "lzo": "lzo",
-  "lzma": "lzma"
- };
- compression_module_name = compression_module_names.get(compresscheck);
- if compression_module_name is None:
-  return False;
- try:
-  compression_module = importlib.import_module(compression_module_name);
-  decompressed_data = compression_module.decompress(infile);
-  return decompressed_data.decode("UTF-8") if hasattr(decompressed_data, 'decode') else decompressed_data;
- except (ImportError, AttributeError):
-  return False;
+ if(compresscheck=="gzip"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  fileuz = gzip.decompress(infile);
+ if(compresscheck=="bzip2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  fileuz = bz2.decompress(infile);
+ if(compresscheck=="zstd"):
+  try:
+   import zstandard;
+  except ImportError:
+   return False;
+  fileuz = zstandard.decompress(infile);
+ if(compresscheck=="lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  fileuz = lz4.frame.decompress(infile);
+ if(compresscheck=="lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  fileuz = lzo.decompress(infile);
+ if(compresscheck=="lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  fileuz = lzma.decompress(infile);
+ if(not compresscheck):
+  fileuz = infile;
+ if(hasattr(fileuz, 'decode')):
+  fileuz = fileuz.decode("UTF-8");
+ return fileuz;
 
 def UncompressStringAlt(infile):
- decompressed_data = UncompressString(infile);
- if decompressed_data:
-  filefp = StringIO() if isinstance(decompressed_data, str) else BytesIO();
-  filefp.write(decompressed_data);
-  filefp.seek(0);
-  return filefp;
- return False;
+ filefp = StringIO();
+ outstring = UncompressString(infile);
+ filefp.write(outstring);
+ filefp.seek(0);
+ return filefp;
 
 def UncompressFileURL(inurl, inheaders, incookiejar):
  inheadersc = deepcopy(inheaders);
@@ -237,27 +270,56 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
   return False;
  return inufile;
 
-def CompressOpenFile(outfile, mode="wt"):
- compression_modules = {
-  ".gz": (gzip.open, {"mode": mode, "compresslevel": 9}),
-  ".bz2": (bz2.open, {"mode": mode, "compresslevel": 9}),
-  ".zst": (zstandard.open, {"mode": mode, "compressor": zstandard.ZstdCompressor(level=10)}),
-  ".xz": (lzma.open, {"mode": mode, "format": lzma.FORMAT_XZ, "preset": 9}),
-  ".lz4": (lz4.frame.open, {"mode": mode, "compression_level": 9}),
-  ".lzo": (lzo.open, {"mode": mode, "format": lzma.FORMAT_XZ, "preset": 9}),
-  ".lzma": (lzma.open, {"mode": mode, "format": lzma.FORMAT_ALONE, "preset": 9}),
- };
- if outfile is None:
+def CompressOpenFile(outfile):
+ if(outfile is None):
   return False;
- _, fextname = os.path.splitext(outfile);
- compression_module_name = compression_modules.get(fextname);
- if not compression_module_name:
-  return open(outfile, mode);
- try:
-  compression_module = importlib.import_module(compression_module_name[0].__module__);
- except ImportError:
-  return False;
- return compression_module.open(outfile, mode, **compression_module_name[1]);
+ fbasename = os.path.splitext(outfile)[0];
+ fextname = os.path.splitext(outfile)[1];
+ if(fextname not in outextlistwd):
+  outfp = open(outfile, "w");
+ elif(fextname==".gz"):
+  try:
+   import gzip;
+  except ImportError:
+   return False;
+  outfp = gzip.open(outfile, "w", 9);
+ elif(fextname==".bz2"):
+  try:
+   import bz2;
+  except ImportError:
+   return False;
+  outfp = bz2.open(outfile, "w", 9);
+ elif(fextname==".zst"):
+  try:
+   import zstandard;
+  except ImportError:
+   return False;
+  outfp = zstandard.open(outfile, "w", zstandard.ZstdCompressor(level=10));
+ elif(fextname==".xz"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  outfp = lzma.open(outfile, "w", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lz4"):
+  try:
+   import lz4.frame;
+  except ImportError:
+   return False;
+  outfp = lz4.frame.open(outfile, "w", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lzo"):
+  try:
+   import lzo;
+  except ImportError:
+   return False;
+  outfp = lzo.open(outfile, "w", format=lzma.FORMAT_XZ, preset=9);
+ elif(fextname==".lzma"):
+  try:
+   import lzma;
+  except ImportError:
+   return False;
+  outfp = lzma.open(outfile, "w", format=lzma.FORMAT_ALONE, preset=9);
+ return outfp;
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
  if(stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", instringfile))):
