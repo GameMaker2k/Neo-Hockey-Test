@@ -1277,7 +1277,7 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
- pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\ntry:\n reload(sys);\nexcept NameError:\n from importlib import reload;\n reload(sys);\ntry:\n sys.setdefaultencoding('UTF-8');\nexcept AttributeError:\n pass;\n\n";
  pystring = pystring+"sqldatacon = "+pyfilename+".MakeHockeyDatabase(\""+inchockeyarray['database']+"\");\n";
  pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n";
  for hlkey in inchockeyarray['leaguelist']:
@@ -1347,7 +1347,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
- pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\ntry:\n reload(sys);\nexcept NameError:\n from importlib import reload;\n reload(sys);\ntry:\n sys.setdefaultencoding('UTF-8');\nexcept AttributeError:\n pass;\n\n";
  pystring = pystring+"hockeyarray = "+pyfilename+".CreateHockeyArray(\""+inchockeyarray['database']+"\");\n";
  for hlkey in inchockeyarray['leaguelist']:
   HockeyLeagueHasConferences = True;
@@ -1422,7 +1422,7 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
- pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\ntry:\n reload(sys);\nexcept NameError:\n from importlib import reload;\n reload(sys);\ntry:\n sys.setdefaultencoding('UTF-8');\nexcept AttributeError:\n pass;\n\n";
  pystring = pystring+"sqldatacon = "+pyfilename+".MakeHockeyClass(\""+inchockeyarray['database']+"\");\n";
  pystring = pystring+"sqldatacon.MakeHockeyLeagueTable(sqldatacon);\n";
  for hlkey in inchockeyarray['leaguelist']:
@@ -1492,7 +1492,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
  pyfilename = __package__;
  if(pyfilename=="__main__"):
   pyfilename = os.path.splitext(os.path.basename(__file__))[0];
- pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\n\n";
+ pystring = "#!/usr/bin/env python\n# -*- coding: utf-8 -*-\n\nfrom __future__ import absolute_import, division, print_function, unicode_literals;\nimport "+pyfilename+";\ntry:\n reload(sys);\nexcept NameError:\n from importlib import reload;\n reload(sys);\ntry:\n sys.setdefaultencoding('UTF-8');\nexcept AttributeError:\n pass;\n\n";
  pystring = pystring+"hockeyarray = "+pyfilename+".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n";
  for hlkey in inchockeyarray['leaguelist']:
   HockeyLeagueHasConferences = True;
