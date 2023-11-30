@@ -435,7 +435,7 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
    sqlcon = apsw.Connection(sdbfile);
   elif(enable_apsw and enable_supersqlite):
    sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
-  elif(enable_sqlcipher and usecipher):
+  elif(enable_sqlcipher):
    sqlcon = sqlite.connect(sdbfile, isolation_level=None);
    usecipher = True;
   else:
@@ -479,7 +479,7 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
    sqlcon = apsw.Connection(sdbfile);
   elif(enable_apsw and enable_supersqlite):
    sqlcon = supersqlite.SuperSQLiteConnection(sdbfile);
-  elif(enable_sqlcipher and usecipher):
+  elif(enable_sqlcipher):
    sqlcon = sqlite.connect(sdbfile, isolation_level=None);
    usecipher = True;
   else:
