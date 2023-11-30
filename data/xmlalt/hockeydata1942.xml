@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hockeydb database="./php/data/fhmt2y17-18.db3">
+<hockeydb database="./php/data/hockey1942-43.db3">
  <table name="HockeyLeagues">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
@@ -17,29 +17,29 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="Date" value="20171001"/>
-    <rowdata name="PlayOffFMT" value="Division=1,Conference=1"/>
+    <rowdata name="Date" value="19421031"/>
+    <rowdata name="PlayOffFMT" value="League=4"/>
     <rowdata name="OrderType" value="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"/>
-    <rowdata name="NumberOfTeams" value="8"/>
-    <rowdata name="NumberOfConferences" value="2"/>
-    <rowdata name="NumberOfDivisions" value="4"/>
+    <rowdata name="NumberOfTeams" value="6"/>
+    <rowdata name="NumberOfConferences" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
    </row>
    <row id="1">
     <rowdata name="id" value="2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="Date" value="20171001"/>
-    <rowdata name="PlayOffFMT" value="Division=1,Conference=1"/>
+    <rowdata name="Date" value="19421031"/>
+    <rowdata name="PlayOffFMT" value="League=4"/>
     <rowdata name="OrderType" value="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"/>
-    <rowdata name="NumberOfTeams" value="8"/>
-    <rowdata name="NumberOfConferences" value="2"/>
-    <rowdata name="NumberOfDivisions" value="4"/>
+    <rowdata name="NumberOfTeams" value="9"/>
+    <rowdata name="NumberOfConferences" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
    </row>
   </data>
   <rows>
@@ -56,7 +56,7 @@
    <rowlist name="NumberOfDivisions"/>
   </rows>
  </table>
- <table name="HOLConferences">
+ <table name="NHLConferences">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -71,25 +71,14 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="Conference" value="Conference 1"/>
+    <rowdata name="Conference" value=""/>
     <rowdata name="ConferencePrefix" value=""/>
-    <rowdata name="ConferenceSuffix" value=""/>
-    <rowdata name="FullName" value="Conference 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="NumberOfTeams" value="4"/>
-    <rowdata name="NumberOfDivisions" value="2"/>
-   </row>
-   <row id="1">
-    <rowdata name="id" value="2"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferencePrefix" value=""/>
-    <rowdata name="ConferenceSuffix" value=""/>
-    <rowdata name="FullName" value="Conference 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="NumberOfTeams" value="4"/>
-    <rowdata name="NumberOfDivisions" value="2"/>
+    <rowdata name="ConferenceSuffix" value="Conference"/>
+    <rowdata name="FullName" value=" Conference"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
    </row>
   </data>
   <rows>
@@ -104,7 +93,7 @@
    <rowlist name="NumberOfDivisions"/>
   </rows>
  </table>
- <table name="HOLDivisions">
+ <table name="NHLDivisions">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Division" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -120,51 +109,15 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="Division" value="Division 1"/>
+    <rowdata name="Division" value=""/>
     <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 1"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
-   </row>
-   <row id="1">
-    <rowdata name="id" value="2"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 2"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
-   </row>
-   <row id="2">
-    <rowdata name="id" value="3"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 3"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
-   </row>
-   <row id="3">
-    <rowdata name="id" value="4"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 4"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
+    <rowdata name="DivisionSuffix" value="Division"/>
+    <rowdata name="FullName" value=" Division"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="NumberOfTeams" value="0"/>
    </row>
   </data>
   <rows>
@@ -180,7 +133,7 @@
    <rowlist name="NumberOfTeams"/>
   </rows>
  </table>
- <table name="HOLArenas">
+ <table name="NHLArenas">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -201,8 +154,40 @@
    <row id="0">
     <rowdata name="id" value="1"/>
     <rowdata name="TeamID" value="1"/>
-    <rowdata name="TeamName" value="Blasters"/>
-    <rowdata name="TeamFullName" value="Detroit Blasters"/>
+    <rowdata name="TeamName" value="Bruins"/>
+    <rowdata name="TeamFullName" value="Boston Bruins"/>
+    <rowdata name="CityName" value="Boston"/>
+    <rowdata name="AreaName" value="MA"/>
+    <rowdata name="CountryName" value="USA"/>
+    <rowdata name="FullCountryName" value="United States"/>
+    <rowdata name="FullCityName" value="Boston, MA"/>
+    <rowdata name="FullAreaName" value="Massachusetts"/>
+    <rowdata name="FullCityNameAlt" value="Boston, Massachusetts"/>
+    <rowdata name="ArenaName" value="Boston Garden"/>
+    <rowdata name="FullArenaName" value="Boston Garden, Boston"/>
+    <rowdata name="GamesPlayed" value="0"/>
+   </row>
+   <row id="1">
+    <rowdata name="id" value="2"/>
+    <rowdata name="TeamID" value="2"/>
+    <rowdata name="TeamName" value="Blackhawks"/>
+    <rowdata name="TeamFullName" value="Chicago Blackhawks"/>
+    <rowdata name="CityName" value="Chicago"/>
+    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="CountryName" value="USA"/>
+    <rowdata name="FullCountryName" value="United States"/>
+    <rowdata name="FullCityName" value="Chicago, IL"/>
+    <rowdata name="FullAreaName" value="Illinois"/>
+    <rowdata name="FullCityNameAlt" value="Chicago, Illinois"/>
+    <rowdata name="ArenaName" value="Chicago Stadium"/>
+    <rowdata name="FullArenaName" value="Chicago Stadium, Chicago"/>
+    <rowdata name="GamesPlayed" value="0"/>
+   </row>
+   <row id="2">
+    <rowdata name="id" value="3"/>
+    <rowdata name="TeamID" value="3"/>
+    <rowdata name="TeamName" value="Red Wings"/>
+    <rowdata name="TeamFullName" value="Detroit Red Wings"/>
     <rowdata name="CityName" value="Detroit"/>
     <rowdata name="AreaName" value="MI"/>
     <rowdata name="CountryName" value="USA"/>
@@ -210,120 +195,56 @@
     <rowdata name="FullCityName" value="Detroit, MI"/>
     <rowdata name="FullAreaName" value="Michigan"/>
     <rowdata name="FullCityNameAlt" value="Detroit, Michigan"/>
-    <rowdata name="ArenaName" value="DET Arena"/>
-    <rowdata name="FullArenaName" value="DET Arena, Detroit"/>
-    <rowdata name="GamesPlayed" value="0"/>
-   </row>
-   <row id="1">
-    <rowdata name="id" value="2"/>
-    <rowdata name="TeamID" value="2"/>
-    <rowdata name="TeamName" value="Sabres"/>
-    <rowdata name="TeamFullName" value="Indianapolis Sabres"/>
-    <rowdata name="CityName" value="Indianapolis"/>
-    <rowdata name="AreaName" value="IN"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Indianapolis, IN"/>
-    <rowdata name="FullAreaName" value="Indiana"/>
-    <rowdata name="FullCityNameAlt" value="Indianapolis, Indiana"/>
-    <rowdata name="ArenaName" value="IND Arena"/>
-    <rowdata name="FullArenaName" value="IND Arena, Indianapolis"/>
-    <rowdata name="GamesPlayed" value="0"/>
-   </row>
-   <row id="2">
-    <rowdata name="id" value="3"/>
-    <rowdata name="TeamID" value="3"/>
-    <rowdata name="TeamName" value="River Bandits"/>
-    <rowdata name="TeamFullName" value="Chicago River Bandits"/>
-    <rowdata name="CityName" value="Chicago"/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Chicago, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Chicago, Illionis"/>
-    <rowdata name="ArenaName" value="CHI Arena"/>
-    <rowdata name="FullArenaName" value="CHI Arena, Chicago"/>
+    <rowdata name="ArenaName" value="Detroit Olympia"/>
+    <rowdata name="FullArenaName" value="Detroit Olympia, Detroit"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="3">
     <rowdata name="id" value="4"/>
     <rowdata name="TeamID" value="4"/>
-    <rowdata name="TeamName" value="Chariots"/>
-    <rowdata name="TeamFullName" value="Kansas City Chariots"/>
-    <rowdata name="CityName" value="Kansas City"/>
-    <rowdata name="AreaName" value="MO"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Kansas City, MO"/>
-    <rowdata name="FullAreaName" value="Missouri"/>
-    <rowdata name="FullCityNameAlt" value="Kansas City, Missouri"/>
-    <rowdata name="ArenaName" value="KAN Arena"/>
-    <rowdata name="FullArenaName" value="KAN Arena, Kansas City"/>
+    <rowdata name="TeamName" value="Canadiens"/>
+    <rowdata name="TeamFullName" value="Montreal Canadiens"/>
+    <rowdata name="CityName" value="Montreal"/>
+    <rowdata name="AreaName" value="QC"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Montreal, QC"/>
+    <rowdata name="FullAreaName" value="Quebec"/>
+    <rowdata name="FullCityNameAlt" value="Montreal, Quebec"/>
+    <rowdata name="ArenaName" value="Montreal Forum"/>
+    <rowdata name="FullArenaName" value="Montreal Forum, Montreal"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="4">
     <rowdata name="id" value="5"/>
     <rowdata name="TeamID" value="5"/>
-    <rowdata name="TeamName" value="Smoking Guns"/>
-    <rowdata name="TeamFullName" value="St. Paul Smoking Guns"/>
-    <rowdata name="CityName" value="St. Paul"/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="TeamName" value="Rangers"/>
+    <rowdata name="TeamFullName" value="New York Rangers"/>
+    <rowdata name="CityName" value="New York City"/>
+    <rowdata name="AreaName" value="NY"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="St. Paul, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="St. Paul, Minnesota"/>
-    <rowdata name="ArenaName" value="SMO Arena"/>
-    <rowdata name="FullArenaName" value="SMO Arena, St. Paul"/>
+    <rowdata name="FullCityName" value="New York City, NY"/>
+    <rowdata name="FullAreaName" value="New York"/>
+    <rowdata name="FullCityNameAlt" value="New York City, New York"/>
+    <rowdata name="ArenaName" value="Madison Square Garden"/>
+    <rowdata name="FullArenaName" value="Madison Square Garden, New York City"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="5">
     <rowdata name="id" value="6"/>
     <rowdata name="TeamID" value="6"/>
-    <rowdata name="TeamName" value="Armada"/>
-    <rowdata name="TeamFullName" value="Minneapolis Armada"/>
-    <rowdata name="CityName" value="Minneapolis"/>
-    <rowdata name="AreaName" value="MN"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Minneapolis, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="Minneapolis, Minnesota"/>
-    <rowdata name="ArenaName" value="MIN Arena"/>
-    <rowdata name="FullArenaName" value="MIN Arena, Minneapolis"/>
-    <rowdata name="GamesPlayed" value="0"/>
-   </row>
-   <row id="6">
-    <rowdata name="id" value="7"/>
-    <rowdata name="TeamID" value="7"/>
-    <rowdata name="TeamName" value="Jammers"/>
-    <rowdata name="TeamFullName" value="Peoria Jammers"/>
-    <rowdata name="CityName" value="Peoria"/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Peoria, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Peoria, Illionis"/>
-    <rowdata name="ArenaName" value="PEO Arena"/>
-    <rowdata name="FullArenaName" value="PEO Arena, Peoria"/>
-    <rowdata name="GamesPlayed" value="0"/>
-   </row>
-   <row id="7">
-    <rowdata name="id" value="8"/>
-    <rowdata name="TeamID" value="8"/>
-    <rowdata name="TeamName" value="Gears"/>
-    <rowdata name="TeamFullName" value="Chicago Gears"/>
-    <rowdata name="CityName" value="Joliet"/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Joliet, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Joliet, Illionis"/>
-    <rowdata name="ArenaName" value="JOL Arena"/>
-    <rowdata name="FullArenaName" value="JOL Arena, Joliet"/>
+    <rowdata name="TeamName" value="Maple Leafs"/>
+    <rowdata name="TeamFullName" value="Toronto Maple Leafs"/>
+    <rowdata name="CityName" value="Toronto"/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Toronto, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Toronto, Ontario"/>
+    <rowdata name="ArenaName" value="Maple Leaf Gardens"/>
+    <rowdata name="FullArenaName" value="Maple Leaf Gardens, Toronto"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
   </data>
@@ -344,7 +265,7 @@
    <rowlist name="GamesPlayed"/>
   </rows>
  </table>
- <table name="HOLTeams">
+ <table name="NHLTeams">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -429,29 +350,29 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Detroit Blasters"/>
-    <rowdata name="CityName" value="Detroit"/>
-    <rowdata name="TeamPrefix" value="Detroit"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Boston Bruins"/>
+    <rowdata name="CityName" value="Boston"/>
+    <rowdata name="TeamPrefix" value="Boston"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MI"/>
+    <rowdata name="AreaName" value="MA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Detroit, MI"/>
-    <rowdata name="FullAreaName" value="Michigan"/>
-    <rowdata name="FullCityNameAlt" value="Detroit, Michigan"/>
-    <rowdata name="TeamName" value="Blasters"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="DET Arena"/>
-    <rowdata name="FullArenaName" value="DET Arena, Detroit"/>
-    <rowdata name="Affiliates" value="MIL:Northview Loggerheads"/>
+    <rowdata name="FullCityName" value="Boston, MA"/>
+    <rowdata name="FullAreaName" value="Massachusetts"/>
+    <rowdata name="FullCityNameAlt" value="Boston, Massachusetts"/>
+    <rowdata name="TeamName" value="Bruins"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Boston Garden"/>
+    <rowdata name="FullArenaName" value="Boston Garden, Boston"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -510,29 +431,29 @@
    </row>
    <row id="1">
     <rowdata name="id" value="2"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Indianapolis Sabres"/>
-    <rowdata name="CityName" value="Indianapolis"/>
-    <rowdata name="TeamPrefix" value="Indianapolis"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Chicago Blackhawks"/>
+    <rowdata name="CityName" value="Chicago"/>
+    <rowdata name="TeamPrefix" value="Chicago"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IN"/>
+    <rowdata name="AreaName" value="IL"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Indianapolis, IN"/>
-    <rowdata name="FullAreaName" value="Indiana"/>
-    <rowdata name="FullCityNameAlt" value="Indianapolis, Indiana"/>
-    <rowdata name="TeamName" value="Sabres"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="IND Arena"/>
-    <rowdata name="FullArenaName" value="IND Arena, Indianapolis"/>
-    <rowdata name="Affiliates" value="MIL:Gulivoire Park Caravans"/>
+    <rowdata name="FullCityName" value="Chicago, IL"/>
+    <rowdata name="FullAreaName" value="Illinois"/>
+    <rowdata name="FullCityNameAlt" value="Chicago, Illinois"/>
+    <rowdata name="TeamName" value="Blackhawks"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Chicago Stadium"/>
+    <rowdata name="FullArenaName" value="Chicago Stadium, Chicago"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -591,29 +512,29 @@
    </row>
    <row id="2">
     <rowdata name="id" value="3"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Chicago River Bandits"/>
-    <rowdata name="CityName" value="Chicago"/>
-    <rowdata name="TeamPrefix" value="Chicago"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Detroit Red Wings"/>
+    <rowdata name="CityName" value="Detroit"/>
+    <rowdata name="TeamPrefix" value="Detroit"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="MI"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Chicago, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Chicago, Illionis"/>
-    <rowdata name="TeamName" value="River Bandits"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="CHI Arena"/>
-    <rowdata name="FullArenaName" value="CHI Arena, Chicago"/>
-    <rowdata name="Affiliates" value="MIL:Wheeling Ramblers"/>
+    <rowdata name="FullCityName" value="Detroit, MI"/>
+    <rowdata name="FullAreaName" value="Michigan"/>
+    <rowdata name="FullCityNameAlt" value="Detroit, Michigan"/>
+    <rowdata name="TeamName" value="Red Wings"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Detroit Olympia"/>
+    <rowdata name="FullArenaName" value="Detroit Olympia, Detroit"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -672,29 +593,29 @@
    </row>
    <row id="3">
     <rowdata name="id" value="4"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Kansas City Chariots"/>
-    <rowdata name="CityName" value="Kansas City"/>
-    <rowdata name="TeamPrefix" value="Kansas City"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Montreal Canadiens"/>
+    <rowdata name="CityName" value="Montreal"/>
+    <rowdata name="TeamPrefix" value="Montreal"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MO"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Kansas City, MO"/>
-    <rowdata name="FullAreaName" value="Missouri"/>
-    <rowdata name="FullCityNameAlt" value="Kansas City, Missouri"/>
-    <rowdata name="TeamName" value="Chariots"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="KAN Arena"/>
-    <rowdata name="FullArenaName" value="KAN Arena, Kansas City"/>
-    <rowdata name="Affiliates" value="MIL:Columbia Skychiefs"/>
+    <rowdata name="AreaName" value="QC"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Montreal, QC"/>
+    <rowdata name="FullAreaName" value="Quebec"/>
+    <rowdata name="FullCityNameAlt" value="Montreal, Quebec"/>
+    <rowdata name="TeamName" value="Canadiens"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Montreal Forum"/>
+    <rowdata name="FullArenaName" value="Montreal Forum, Montreal"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -753,29 +674,29 @@
    </row>
    <row id="4">
     <rowdata name="id" value="5"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="St. Paul Smoking Guns"/>
-    <rowdata name="CityName" value="St. Paul"/>
-    <rowdata name="TeamPrefix" value="St. Paul"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="New York Rangers"/>
+    <rowdata name="CityName" value="New York City"/>
+    <rowdata name="TeamPrefix" value="New York"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="AreaName" value="NY"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="St. Paul, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="St. Paul, Minnesota"/>
-    <rowdata name="TeamName" value="Smoking Guns"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="SMO Arena"/>
-    <rowdata name="FullArenaName" value="SMO Arena, St. Paul"/>
-    <rowdata name="Affiliates" value="MIL:Winona Vipers"/>
+    <rowdata name="FullCityName" value="New York City, NY"/>
+    <rowdata name="FullAreaName" value="New York"/>
+    <rowdata name="FullCityNameAlt" value="New York City, New York"/>
+    <rowdata name="TeamName" value="Rangers"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Madison Square Garden"/>
+    <rowdata name="FullArenaName" value="Madison Square Garden, New York City"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -834,191 +755,29 @@
    </row>
    <row id="5">
     <rowdata name="id" value="6"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Minneapolis Armada"/>
-    <rowdata name="CityName" value="Minneapolis"/>
-    <rowdata name="TeamPrefix" value="Minneapolis"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Toronto Maple Leafs"/>
+    <rowdata name="CityName" value="Toronto"/>
+    <rowdata name="TeamPrefix" value="Toronto"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Minneapolis, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="Minneapolis, Minnesota"/>
-    <rowdata name="TeamName" value="Armada"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="MIN Arena"/>
-    <rowdata name="FullArenaName" value="MIN Arena, Minneapolis"/>
-    <rowdata name="Affiliates" value="MIL:New Hope Chaos"/>
-    <rowdata name="GamesPlayed" value="0"/>
-    <rowdata name="GamesPlayedHome" value="0"/>
-    <rowdata name="GamesPlayedAway" value="0"/>
-    <rowdata name="Ties" value="0"/>
-    <rowdata name="Wins" value="0"/>
-    <rowdata name="OTWins" value="0"/>
-    <rowdata name="SOWins" value="0"/>
-    <rowdata name="OTSOWins" value="0"/>
-    <rowdata name="TWins" value="0"/>
-    <rowdata name="Losses" value="0"/>
-    <rowdata name="OTLosses" value="0"/>
-    <rowdata name="SOLosses" value="0"/>
-    <rowdata name="OTSOLosses" value="0"/>
-    <rowdata name="TLosses" value="0"/>
-    <rowdata name="ROW" value="0"/>
-    <rowdata name="ROT" value="0"/>
-    <rowdata name="ShutoutWins" value="0"/>
-    <rowdata name="ShutoutLosses" value="0"/>
-    <rowdata name="HomeRecord" value="0:0:0:0"/>
-    <rowdata name="AwayRecord" value="0:0:0:0"/>
-    <rowdata name="Shootouts" value="0:0"/>
-    <rowdata name="GoalsFor" value="0"/>
-    <rowdata name="GoalsAgainst" value="0"/>
-    <rowdata name="GoalsDifference" value="0"/>
-    <rowdata name="SOGFor" value="0"/>
-    <rowdata name="SOGAgainst" value="0"/>
-    <rowdata name="SOGDifference" value="0"/>
-    <rowdata name="ShotsBlockedFor" value="0"/>
-    <rowdata name="ShotsBlockedAgainst" value="0"/>
-    <rowdata name="ShotsBlockedDifference" value="0"/>
-    <rowdata name="PPGFor" value="0"/>
-    <rowdata name="PPGAgainst" value="0"/>
-    <rowdata name="PPGDifference" value="0"/>
-    <rowdata name="SHGFor" value="0"/>
-    <rowdata name="SHGAgainst" value="0"/>
-    <rowdata name="SHGDifference" value="0"/>
-    <rowdata name="PenaltiesFor" value="0"/>
-    <rowdata name="PenaltiesAgainst" value="0"/>
-    <rowdata name="PenaltiesDifference" value="0"/>
-    <rowdata name="PIMFor" value="0"/>
-    <rowdata name="PIMAgainst" value="0"/>
-    <rowdata name="PIMDifference" value="0"/>
-    <rowdata name="HITSFor" value="0"/>
-    <rowdata name="HITSAgainst" value="0"/>
-    <rowdata name="HITSDifference" value="0"/>
-    <rowdata name="TakeAways" value="0"/>
-    <rowdata name="GiveAways" value="0"/>
-    <rowdata name="TAGADifference" value="0"/>
-    <rowdata name="FaceoffWins" value="0"/>
-    <rowdata name="FaceoffLosses" value="0"/>
-    <rowdata name="FaceoffDifference" value="0"/>
-    <rowdata name="Points" value="0"/>
-    <rowdata name="PCT" value="0.0"/>
-    <rowdata name="LastTen" value="0:0:0:0"/>
-    <rowdata name="Streak" value="None"/>
-   </row>
-   <row id="6">
-    <rowdata name="id" value="7"/>
-    <rowdata name="Date" value="20171000"/>
-    <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Peoria Jammers"/>
-    <rowdata name="CityName" value="Peoria"/>
-    <rowdata name="TeamPrefix" value="Peoria"/>
-    <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Peoria, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Peoria, Illionis"/>
-    <rowdata name="TeamName" value="Jammers"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="PEO Arena"/>
-    <rowdata name="FullArenaName" value="PEO Arena, Peoria"/>
-    <rowdata name="Affiliates" value="MIL:Tinley Park Gappers"/>
-    <rowdata name="GamesPlayed" value="0"/>
-    <rowdata name="GamesPlayedHome" value="0"/>
-    <rowdata name="GamesPlayedAway" value="0"/>
-    <rowdata name="Ties" value="0"/>
-    <rowdata name="Wins" value="0"/>
-    <rowdata name="OTWins" value="0"/>
-    <rowdata name="SOWins" value="0"/>
-    <rowdata name="OTSOWins" value="0"/>
-    <rowdata name="TWins" value="0"/>
-    <rowdata name="Losses" value="0"/>
-    <rowdata name="OTLosses" value="0"/>
-    <rowdata name="SOLosses" value="0"/>
-    <rowdata name="OTSOLosses" value="0"/>
-    <rowdata name="TLosses" value="0"/>
-    <rowdata name="ROW" value="0"/>
-    <rowdata name="ROT" value="0"/>
-    <rowdata name="ShutoutWins" value="0"/>
-    <rowdata name="ShutoutLosses" value="0"/>
-    <rowdata name="HomeRecord" value="0:0:0:0"/>
-    <rowdata name="AwayRecord" value="0:0:0:0"/>
-    <rowdata name="Shootouts" value="0:0"/>
-    <rowdata name="GoalsFor" value="0"/>
-    <rowdata name="GoalsAgainst" value="0"/>
-    <rowdata name="GoalsDifference" value="0"/>
-    <rowdata name="SOGFor" value="0"/>
-    <rowdata name="SOGAgainst" value="0"/>
-    <rowdata name="SOGDifference" value="0"/>
-    <rowdata name="ShotsBlockedFor" value="0"/>
-    <rowdata name="ShotsBlockedAgainst" value="0"/>
-    <rowdata name="ShotsBlockedDifference" value="0"/>
-    <rowdata name="PPGFor" value="0"/>
-    <rowdata name="PPGAgainst" value="0"/>
-    <rowdata name="PPGDifference" value="0"/>
-    <rowdata name="SHGFor" value="0"/>
-    <rowdata name="SHGAgainst" value="0"/>
-    <rowdata name="SHGDifference" value="0"/>
-    <rowdata name="PenaltiesFor" value="0"/>
-    <rowdata name="PenaltiesAgainst" value="0"/>
-    <rowdata name="PenaltiesDifference" value="0"/>
-    <rowdata name="PIMFor" value="0"/>
-    <rowdata name="PIMAgainst" value="0"/>
-    <rowdata name="PIMDifference" value="0"/>
-    <rowdata name="HITSFor" value="0"/>
-    <rowdata name="HITSAgainst" value="0"/>
-    <rowdata name="HITSDifference" value="0"/>
-    <rowdata name="TakeAways" value="0"/>
-    <rowdata name="GiveAways" value="0"/>
-    <rowdata name="TAGADifference" value="0"/>
-    <rowdata name="FaceoffWins" value="0"/>
-    <rowdata name="FaceoffLosses" value="0"/>
-    <rowdata name="FaceoffDifference" value="0"/>
-    <rowdata name="Points" value="0"/>
-    <rowdata name="PCT" value="0.0"/>
-    <rowdata name="LastTen" value="0:0:0:0"/>
-    <rowdata name="Streak" value="None"/>
-   </row>
-   <row id="7">
-    <rowdata name="id" value="8"/>
-    <rowdata name="Date" value="20171000"/>
-    <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Chicago Gears"/>
-    <rowdata name="CityName" value="Joliet"/>
-    <rowdata name="TeamPrefix" value="Chicago"/>
-    <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Joliet, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Joliet, Illionis"/>
-    <rowdata name="TeamName" value="Gears"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="JOL Arena"/>
-    <rowdata name="FullArenaName" value="JOL Arena, Joliet"/>
-    <rowdata name="Affiliates" value="MIL:Franklin Park Spirits"/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Toronto, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Toronto, Ontario"/>
+    <rowdata name="TeamName" value="Maple Leafs"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Maple Leaf Gardens"/>
+    <rowdata name="FullArenaName" value="Maple Leaf Gardens, Toronto"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1158,7 +917,7 @@
    <rowlist name="Streak"/>
   </rows>
  </table>
- <table name="HOLStats">
+ <table name="NHLStats">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -1245,29 +1004,29 @@
    <row id="0">
     <rowdata name="id" value="1"/>
     <rowdata name="TeamID" value="1"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Detroit Blasters"/>
-    <rowdata name="CityName" value="Detroit"/>
-    <rowdata name="TeamPrefix" value="Detroit"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Boston Bruins"/>
+    <rowdata name="CityName" value="Boston"/>
+    <rowdata name="TeamPrefix" value="Boston"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MI"/>
+    <rowdata name="AreaName" value="MA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Detroit, MI"/>
-    <rowdata name="FullAreaName" value="Michigan"/>
-    <rowdata name="FullCityNameAlt" value="Detroit, Michigan"/>
-    <rowdata name="TeamName" value="Blasters"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="DET Arena"/>
-    <rowdata name="FullArenaName" value="DET Arena, Detroit"/>
-    <rowdata name="Affiliates" value="MIL:Northview Loggerheads"/>
+    <rowdata name="FullCityName" value="Boston, MA"/>
+    <rowdata name="FullAreaName" value="Massachusetts"/>
+    <rowdata name="FullCityNameAlt" value="Boston, Massachusetts"/>
+    <rowdata name="TeamName" value="Bruins"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Boston Garden"/>
+    <rowdata name="FullArenaName" value="Boston Garden, Boston"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1327,29 +1086,29 @@
    <row id="1">
     <rowdata name="id" value="2"/>
     <rowdata name="TeamID" value="2"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Indianapolis Sabres"/>
-    <rowdata name="CityName" value="Indianapolis"/>
-    <rowdata name="TeamPrefix" value="Indianapolis"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Chicago Blackhawks"/>
+    <rowdata name="CityName" value="Chicago"/>
+    <rowdata name="TeamPrefix" value="Chicago"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IN"/>
+    <rowdata name="AreaName" value="IL"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Indianapolis, IN"/>
-    <rowdata name="FullAreaName" value="Indiana"/>
-    <rowdata name="FullCityNameAlt" value="Indianapolis, Indiana"/>
-    <rowdata name="TeamName" value="Sabres"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="IND Arena"/>
-    <rowdata name="FullArenaName" value="IND Arena, Indianapolis"/>
-    <rowdata name="Affiliates" value="MIL:Gulivoire Park Caravans"/>
+    <rowdata name="FullCityName" value="Chicago, IL"/>
+    <rowdata name="FullAreaName" value="Illinois"/>
+    <rowdata name="FullCityNameAlt" value="Chicago, Illinois"/>
+    <rowdata name="TeamName" value="Blackhawks"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Chicago Stadium"/>
+    <rowdata name="FullArenaName" value="Chicago Stadium, Chicago"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1409,29 +1168,29 @@
    <row id="2">
     <rowdata name="id" value="3"/>
     <rowdata name="TeamID" value="3"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Chicago River Bandits"/>
-    <rowdata name="CityName" value="Chicago"/>
-    <rowdata name="TeamPrefix" value="Chicago"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Detroit Red Wings"/>
+    <rowdata name="CityName" value="Detroit"/>
+    <rowdata name="TeamPrefix" value="Detroit"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="MI"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Chicago, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Chicago, Illionis"/>
-    <rowdata name="TeamName" value="River Bandits"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="CHI Arena"/>
-    <rowdata name="FullArenaName" value="CHI Arena, Chicago"/>
-    <rowdata name="Affiliates" value="MIL:Wheeling Ramblers"/>
+    <rowdata name="FullCityName" value="Detroit, MI"/>
+    <rowdata name="FullAreaName" value="Michigan"/>
+    <rowdata name="FullCityNameAlt" value="Detroit, Michigan"/>
+    <rowdata name="TeamName" value="Red Wings"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Detroit Olympia"/>
+    <rowdata name="FullArenaName" value="Detroit Olympia, Detroit"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1491,29 +1250,29 @@
    <row id="3">
     <rowdata name="id" value="4"/>
     <rowdata name="TeamID" value="4"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Kansas City Chariots"/>
-    <rowdata name="CityName" value="Kansas City"/>
-    <rowdata name="TeamPrefix" value="Kansas City"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Montreal Canadiens"/>
+    <rowdata name="CityName" value="Montreal"/>
+    <rowdata name="TeamPrefix" value="Montreal"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MO"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Kansas City, MO"/>
-    <rowdata name="FullAreaName" value="Missouri"/>
-    <rowdata name="FullCityNameAlt" value="Kansas City, Missouri"/>
-    <rowdata name="TeamName" value="Chariots"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="KAN Arena"/>
-    <rowdata name="FullArenaName" value="KAN Arena, Kansas City"/>
-    <rowdata name="Affiliates" value="MIL:Columbia Skychiefs"/>
+    <rowdata name="AreaName" value="QC"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Montreal, QC"/>
+    <rowdata name="FullAreaName" value="Quebec"/>
+    <rowdata name="FullCityNameAlt" value="Montreal, Quebec"/>
+    <rowdata name="TeamName" value="Canadiens"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Montreal Forum"/>
+    <rowdata name="FullArenaName" value="Montreal Forum, Montreal"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1573,29 +1332,29 @@
    <row id="4">
     <rowdata name="id" value="5"/>
     <rowdata name="TeamID" value="5"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="St. Paul Smoking Guns"/>
-    <rowdata name="CityName" value="St. Paul"/>
-    <rowdata name="TeamPrefix" value="St. Paul"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="New York Rangers"/>
+    <rowdata name="CityName" value="New York City"/>
+    <rowdata name="TeamPrefix" value="New York"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="AreaName" value="NY"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="St. Paul, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="St. Paul, Minnesota"/>
-    <rowdata name="TeamName" value="Smoking Guns"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="SMO Arena"/>
-    <rowdata name="FullArenaName" value="SMO Arena, St. Paul"/>
-    <rowdata name="Affiliates" value="MIL:Winona Vipers"/>
+    <rowdata name="FullCityName" value="New York City, NY"/>
+    <rowdata name="FullAreaName" value="New York"/>
+    <rowdata name="FullCityNameAlt" value="New York City, New York"/>
+    <rowdata name="TeamName" value="Rangers"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Madison Square Garden"/>
+    <rowdata name="FullArenaName" value="Madison Square Garden, New York City"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1655,193 +1414,29 @@
    <row id="5">
     <rowdata name="id" value="6"/>
     <rowdata name="TeamID" value="6"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Minneapolis Armada"/>
-    <rowdata name="CityName" value="Minneapolis"/>
-    <rowdata name="TeamPrefix" value="Minneapolis"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Toronto Maple Leafs"/>
+    <rowdata name="CityName" value="Toronto"/>
+    <rowdata name="TeamPrefix" value="Toronto"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Minneapolis, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="Minneapolis, Minnesota"/>
-    <rowdata name="TeamName" value="Armada"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="MIN Arena"/>
-    <rowdata name="FullArenaName" value="MIN Arena, Minneapolis"/>
-    <rowdata name="Affiliates" value="MIL:New Hope Chaos"/>
-    <rowdata name="GamesPlayed" value="0"/>
-    <rowdata name="GamesPlayedHome" value="0"/>
-    <rowdata name="GamesPlayedAway" value="0"/>
-    <rowdata name="Ties" value="0"/>
-    <rowdata name="Wins" value="0"/>
-    <rowdata name="OTWins" value="0"/>
-    <rowdata name="SOWins" value="0"/>
-    <rowdata name="OTSOWins" value="0"/>
-    <rowdata name="TWins" value="0"/>
-    <rowdata name="Losses" value="0"/>
-    <rowdata name="OTLosses" value="0"/>
-    <rowdata name="SOLosses" value="0"/>
-    <rowdata name="OTSOLosses" value="0"/>
-    <rowdata name="TLosses" value="0"/>
-    <rowdata name="ROW" value="0"/>
-    <rowdata name="ROT" value="0"/>
-    <rowdata name="ShutoutWins" value="0"/>
-    <rowdata name="ShutoutLosses" value="0"/>
-    <rowdata name="HomeRecord" value="0:0:0:0"/>
-    <rowdata name="AwayRecord" value="0:0:0:0"/>
-    <rowdata name="Shootouts" value="0:0"/>
-    <rowdata name="GoalsFor" value="0"/>
-    <rowdata name="GoalsAgainst" value="0"/>
-    <rowdata name="GoalsDifference" value="0"/>
-    <rowdata name="SOGFor" value="0"/>
-    <rowdata name="SOGAgainst" value="0"/>
-    <rowdata name="SOGDifference" value="0"/>
-    <rowdata name="ShotsBlockedFor" value="0"/>
-    <rowdata name="ShotsBlockedAgainst" value="0"/>
-    <rowdata name="ShotsBlockedDifference" value="0"/>
-    <rowdata name="PPGFor" value="0"/>
-    <rowdata name="PPGAgainst" value="0"/>
-    <rowdata name="PPGDifference" value="0"/>
-    <rowdata name="SHGFor" value="0"/>
-    <rowdata name="SHGAgainst" value="0"/>
-    <rowdata name="SHGDifference" value="0"/>
-    <rowdata name="PenaltiesFor" value="0"/>
-    <rowdata name="PenaltiesAgainst" value="0"/>
-    <rowdata name="PenaltiesDifference" value="0"/>
-    <rowdata name="PIMFor" value="0"/>
-    <rowdata name="PIMAgainst" value="0"/>
-    <rowdata name="PIMDifference" value="0"/>
-    <rowdata name="HITSFor" value="0"/>
-    <rowdata name="HITSAgainst" value="0"/>
-    <rowdata name="HITSDifference" value="0"/>
-    <rowdata name="TakeAways" value="0"/>
-    <rowdata name="GiveAways" value="0"/>
-    <rowdata name="TAGADifference" value="0"/>
-    <rowdata name="FaceoffWins" value="0"/>
-    <rowdata name="FaceoffLosses" value="0"/>
-    <rowdata name="FaceoffDifference" value="0"/>
-    <rowdata name="Points" value="0"/>
-    <rowdata name="PCT" value="0.0"/>
-    <rowdata name="LastTen" value="0:0:0:0"/>
-    <rowdata name="Streak" value="None"/>
-   </row>
-   <row id="6">
-    <rowdata name="id" value="7"/>
-    <rowdata name="TeamID" value="7"/>
-    <rowdata name="Date" value="20171000"/>
-    <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Peoria Jammers"/>
-    <rowdata name="CityName" value="Peoria"/>
-    <rowdata name="TeamPrefix" value="Peoria"/>
-    <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Peoria, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Peoria, Illionis"/>
-    <rowdata name="TeamName" value="Jammers"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="PEO Arena"/>
-    <rowdata name="FullArenaName" value="PEO Arena, Peoria"/>
-    <rowdata name="Affiliates" value="MIL:Tinley Park Gappers"/>
-    <rowdata name="GamesPlayed" value="0"/>
-    <rowdata name="GamesPlayedHome" value="0"/>
-    <rowdata name="GamesPlayedAway" value="0"/>
-    <rowdata name="Ties" value="0"/>
-    <rowdata name="Wins" value="0"/>
-    <rowdata name="OTWins" value="0"/>
-    <rowdata name="SOWins" value="0"/>
-    <rowdata name="OTSOWins" value="0"/>
-    <rowdata name="TWins" value="0"/>
-    <rowdata name="Losses" value="0"/>
-    <rowdata name="OTLosses" value="0"/>
-    <rowdata name="SOLosses" value="0"/>
-    <rowdata name="OTSOLosses" value="0"/>
-    <rowdata name="TLosses" value="0"/>
-    <rowdata name="ROW" value="0"/>
-    <rowdata name="ROT" value="0"/>
-    <rowdata name="ShutoutWins" value="0"/>
-    <rowdata name="ShutoutLosses" value="0"/>
-    <rowdata name="HomeRecord" value="0:0:0:0"/>
-    <rowdata name="AwayRecord" value="0:0:0:0"/>
-    <rowdata name="Shootouts" value="0:0"/>
-    <rowdata name="GoalsFor" value="0"/>
-    <rowdata name="GoalsAgainst" value="0"/>
-    <rowdata name="GoalsDifference" value="0"/>
-    <rowdata name="SOGFor" value="0"/>
-    <rowdata name="SOGAgainst" value="0"/>
-    <rowdata name="SOGDifference" value="0"/>
-    <rowdata name="ShotsBlockedFor" value="0"/>
-    <rowdata name="ShotsBlockedAgainst" value="0"/>
-    <rowdata name="ShotsBlockedDifference" value="0"/>
-    <rowdata name="PPGFor" value="0"/>
-    <rowdata name="PPGAgainst" value="0"/>
-    <rowdata name="PPGDifference" value="0"/>
-    <rowdata name="SHGFor" value="0"/>
-    <rowdata name="SHGAgainst" value="0"/>
-    <rowdata name="SHGDifference" value="0"/>
-    <rowdata name="PenaltiesFor" value="0"/>
-    <rowdata name="PenaltiesAgainst" value="0"/>
-    <rowdata name="PenaltiesDifference" value="0"/>
-    <rowdata name="PIMFor" value="0"/>
-    <rowdata name="PIMAgainst" value="0"/>
-    <rowdata name="PIMDifference" value="0"/>
-    <rowdata name="HITSFor" value="0"/>
-    <rowdata name="HITSAgainst" value="0"/>
-    <rowdata name="HITSDifference" value="0"/>
-    <rowdata name="TakeAways" value="0"/>
-    <rowdata name="GiveAways" value="0"/>
-    <rowdata name="TAGADifference" value="0"/>
-    <rowdata name="FaceoffWins" value="0"/>
-    <rowdata name="FaceoffLosses" value="0"/>
-    <rowdata name="FaceoffDifference" value="0"/>
-    <rowdata name="Points" value="0"/>
-    <rowdata name="PCT" value="0.0"/>
-    <rowdata name="LastTen" value="0:0:0:0"/>
-    <rowdata name="Streak" value="None"/>
-   </row>
-   <row id="7">
-    <rowdata name="id" value="8"/>
-    <rowdata name="TeamID" value="8"/>
-    <rowdata name="Date" value="20171000"/>
-    <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Chicago Gears"/>
-    <rowdata name="CityName" value="Joliet"/>
-    <rowdata name="TeamPrefix" value="Chicago"/>
-    <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
-    <rowdata name="CountryName" value="USA"/>
-    <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Joliet, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Joliet, Illionis"/>
-    <rowdata name="TeamName" value="Gears"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="HOL"/>
-    <rowdata name="LeagueFullName" value="Hockey League"/>
-    <rowdata name="ArenaName" value="JOL Arena"/>
-    <rowdata name="FullArenaName" value="JOL Arena, Joliet"/>
-    <rowdata name="Affiliates" value="MIL:Franklin Park Spirits"/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Toronto, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Toronto, Ontario"/>
+    <rowdata name="TeamName" value="Maple Leafs"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Maple Leaf Gardens"/>
+    <rowdata name="FullArenaName" value="Maple Leaf Gardens, Toronto"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -1982,7 +1577,7 @@
    <rowlist name="Streak"/>
   </rows>
  </table>
- <table name="HOLGameStats">
+ <table name="NHLGameStats">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="GameID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -2101,7 +1696,7 @@
    <rowlist name="FaceoffDifference"/>
   </rows>
  </table>
- <table name="HOLGames">
+ <table name="NHLGames">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -2176,7 +1771,7 @@
    <rowlist name="IsPlayOffGame"/>
   </rows>
  </table>
- <table name="MILConferences">
+ <table name="AHLConferences">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -2191,25 +1786,14 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="Conference" value="Conference 1"/>
+    <rowdata name="Conference" value=""/>
     <rowdata name="ConferencePrefix" value=""/>
-    <rowdata name="ConferenceSuffix" value=""/>
-    <rowdata name="FullName" value="Conference 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="NumberOfTeams" value="4"/>
-    <rowdata name="NumberOfDivisions" value="2"/>
-   </row>
-   <row id="1">
-    <rowdata name="id" value="2"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferencePrefix" value=""/>
-    <rowdata name="ConferenceSuffix" value=""/>
-    <rowdata name="FullName" value="Conference 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="NumberOfTeams" value="4"/>
-    <rowdata name="NumberOfDivisions" value="2"/>
+    <rowdata name="ConferenceSuffix" value="Conference"/>
+    <rowdata name="FullName" value=" Conference"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
    </row>
   </data>
   <rows>
@@ -2224,7 +1808,7 @@
    <rowlist name="NumberOfDivisions"/>
   </rows>
  </table>
- <table name="MILDivisions">
+ <table name="AHLDivisions">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Division" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -2240,51 +1824,15 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="Division" value="Division 1"/>
+    <rowdata name="Division" value=""/>
     <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 1"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
-   </row>
-   <row id="1">
-    <rowdata name="id" value="2"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 2"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
-   </row>
-   <row id="2">
-    <rowdata name="id" value="3"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 3"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
-   </row>
-   <row id="3">
-    <rowdata name="id" value="4"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionPrefix" value=""/>
-    <rowdata name="DivisionSuffix" value=""/>
-    <rowdata name="FullName" value="Division 4"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="NumberOfTeams" value="2"/>
+    <rowdata name="DivisionSuffix" value="Division"/>
+    <rowdata name="FullName" value=" Division"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="NumberOfTeams" value="0"/>
    </row>
   </data>
   <rows>
@@ -2300,7 +1848,7 @@
    <rowlist name="NumberOfTeams"/>
   </rows>
  </table>
- <table name="MILArenas">
+ <table name="AHLArenas">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -2321,129 +1869,145 @@
    <row id="0">
     <rowdata name="id" value="1"/>
     <rowdata name="TeamID" value="1"/>
-    <rowdata name="TeamName" value="Loggerheads"/>
-    <rowdata name="TeamFullName" value="Northview Loggerheads"/>
-    <rowdata name="CityName" value="Northview"/>
-    <rowdata name="AreaName" value="MI"/>
+    <rowdata name="TeamName" value="Bisons"/>
+    <rowdata name="TeamFullName" value="Buffalo Bisons"/>
+    <rowdata name="CityName" value="Buffalo"/>
+    <rowdata name="AreaName" value="NY"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Northview, MI"/>
-    <rowdata name="FullAreaName" value="Michigan"/>
-    <rowdata name="FullCityNameAlt" value="Northview, Michigan"/>
-    <rowdata name="ArenaName" value="NOR Arena"/>
-    <rowdata name="FullArenaName" value="NOR Arena, Northview"/>
+    <rowdata name="FullCityName" value="Buffalo, NY"/>
+    <rowdata name="FullAreaName" value="New York"/>
+    <rowdata name="FullCityNameAlt" value="Buffalo, New York"/>
+    <rowdata name="ArenaName" value="Buffalo Memorial Auditorium"/>
+    <rowdata name="FullArenaName" value="Buffalo Memorial Auditorium, Buffalo"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="1">
     <rowdata name="id" value="2"/>
     <rowdata name="TeamID" value="2"/>
-    <rowdata name="TeamName" value="Caravans"/>
-    <rowdata name="TeamFullName" value="Gulivoire Park Caravans"/>
-    <rowdata name="CityName" value="Gulivoire Park"/>
-    <rowdata name="AreaName" value="IN"/>
+    <rowdata name="TeamName" value="Barons"/>
+    <rowdata name="TeamFullName" value="Cleveland Barons"/>
+    <rowdata name="CityName" value="Cleveland"/>
+    <rowdata name="AreaName" value="OH"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Gulivoire Park, IN"/>
-    <rowdata name="FullAreaName" value="Indiana"/>
-    <rowdata name="FullCityNameAlt" value="Gulivoire Park, Indiana"/>
-    <rowdata name="ArenaName" value="GUL Arena"/>
-    <rowdata name="FullArenaName" value="GUL Arena, Gulivoire Park"/>
+    <rowdata name="FullCityName" value="Cleveland, OH"/>
+    <rowdata name="FullAreaName" value="Ohio"/>
+    <rowdata name="FullCityNameAlt" value="Cleveland, Ohio"/>
+    <rowdata name="ArenaName" value="Cleveland Arena"/>
+    <rowdata name="FullArenaName" value="Cleveland Arena, Cleveland"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="2">
     <rowdata name="id" value="3"/>
     <rowdata name="TeamID" value="3"/>
-    <rowdata name="TeamName" value="Ramblers"/>
-    <rowdata name="TeamFullName" value="Wheeling Ramblers"/>
-    <rowdata name="CityName" value="Wheeling"/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="TeamName" value="Red Wings"/>
+    <rowdata name="TeamFullName" value="Hershey Red Wings"/>
+    <rowdata name="CityName" value="Hershey"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Wheeling, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Wheeling, Illionis"/>
-    <rowdata name="ArenaName" value="WHE Arena"/>
-    <rowdata name="FullArenaName" value="WHE Arena, Wheeling"/>
+    <rowdata name="FullCityName" value="Hershey, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Hershey, Pennsylvania"/>
+    <rowdata name="ArenaName" value="Hersheypark Arena"/>
+    <rowdata name="FullArenaName" value="Hersheypark Arena, Hershey"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="3">
     <rowdata name="id" value="4"/>
     <rowdata name="TeamID" value="4"/>
-    <rowdata name="TeamName" value="Skychiefs"/>
-    <rowdata name="TeamFullName" value="Columbia Skychiefs"/>
-    <rowdata name="CityName" value="Columbia"/>
-    <rowdata name="AreaName" value="MO"/>
+    <rowdata name="TeamName" value="Capitals"/>
+    <rowdata name="TeamFullName" value="Indianapolis Capitals"/>
+    <rowdata name="CityName" value="Indianapolis"/>
+    <rowdata name="AreaName" value="IN"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Columbia, MO"/>
-    <rowdata name="FullAreaName" value="Missouri"/>
-    <rowdata name="FullCityNameAlt" value="Columbia, Missouri"/>
-    <rowdata name="ArenaName" value="COL Arena"/>
-    <rowdata name="FullArenaName" value="COL Arena, Columbia"/>
+    <rowdata name="FullCityName" value="Indianapolis, IN"/>
+    <rowdata name="FullAreaName" value="Indiana"/>
+    <rowdata name="FullCityNameAlt" value="Indianapolis, Indiana"/>
+    <rowdata name="ArenaName" value="Indiana State Fairgrounds Coliseum"/>
+    <rowdata name="FullArenaName" value="Indiana State Fairgrounds Coliseum, Indianapolis"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="4">
     <rowdata name="id" value="5"/>
     <rowdata name="TeamID" value="5"/>
-    <rowdata name="TeamName" value="Vipers"/>
-    <rowdata name="TeamFullName" value="Winona Vipers"/>
-    <rowdata name="CityName" value="Winona"/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="TeamName" value="Rockets"/>
+    <rowdata name="TeamFullName" value="Philadelphia Rockets"/>
+    <rowdata name="CityName" value="Philadelphia"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Winona, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="Winona, Minnesota"/>
-    <rowdata name="ArenaName" value="WIN Arena"/>
-    <rowdata name="FullArenaName" value="WIN Arena, Winona"/>
+    <rowdata name="FullCityName" value="Philadelphia, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Philadelphia, Pennsylvania"/>
+    <rowdata name="ArenaName" value="Philadelphia Arena"/>
+    <rowdata name="FullArenaName" value="Philadelphia Arena, Philadelphia"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="5">
     <rowdata name="id" value="6"/>
     <rowdata name="TeamID" value="6"/>
-    <rowdata name="TeamName" value="Chaos"/>
-    <rowdata name="TeamFullName" value="New Hope Chaos"/>
-    <rowdata name="CityName" value="New Hope"/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="TeamName" value="Hornets"/>
+    <rowdata name="TeamFullName" value="Pittsburgh Hornets"/>
+    <rowdata name="CityName" value="Pittsburgh"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="New Hope, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="New Hope, Minnesota"/>
-    <rowdata name="ArenaName" value="NEW Arena"/>
-    <rowdata name="FullArenaName" value="NEW Arena, New Hope"/>
+    <rowdata name="FullCityName" value="Pittsburgh, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Pittsburgh, Pennsylvania"/>
+    <rowdata name="ArenaName" value="Duquesne Gardens"/>
+    <rowdata name="FullArenaName" value="Duquesne Gardens, Pittsburgh"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="6">
     <rowdata name="id" value="7"/>
     <rowdata name="TeamID" value="7"/>
-    <rowdata name="TeamName" value="Gappers"/>
-    <rowdata name="TeamFullName" value="Tinley Park Gappers"/>
-    <rowdata name="CityName" value="Tinley Park"/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="TeamName" value="Reds"/>
+    <rowdata name="TeamFullName" value="Providence Reds"/>
+    <rowdata name="CityName" value="Providence"/>
+    <rowdata name="AreaName" value="RI"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Tinley Park, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Tinley Park, Illionis"/>
-    <rowdata name="ArenaName" value="TIN Arena"/>
-    <rowdata name="FullArenaName" value="TIN Arena, Tinley Park"/>
+    <rowdata name="FullCityName" value="Providence, RI"/>
+    <rowdata name="FullAreaName" value="Rhode Island"/>
+    <rowdata name="FullCityNameAlt" value="Providence, Rhode Island"/>
+    <rowdata name="ArenaName" value="Rhode Island Auditorium"/>
+    <rowdata name="FullArenaName" value="Rhode Island Auditorium, Providence"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
    <row id="7">
     <rowdata name="id" value="8"/>
     <rowdata name="TeamID" value="8"/>
-    <rowdata name="TeamName" value="Spirits"/>
-    <rowdata name="TeamFullName" value="Franklin Park Spirits"/>
-    <rowdata name="CityName" value="Franklin Park"/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="TeamName" value="Indians"/>
+    <rowdata name="TeamFullName" value="Springfield Indians"/>
+    <rowdata name="CityName" value="West Springfield"/>
+    <rowdata name="AreaName" value="MA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Franklin Park, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Franklin Park, Illionis"/>
-    <rowdata name="ArenaName" value="FRA Arena"/>
-    <rowdata name="FullArenaName" value="FRA Arena, Franklin Park"/>
+    <rowdata name="FullCityName" value="West Springfield, MA"/>
+    <rowdata name="FullAreaName" value="Massachusetts"/>
+    <rowdata name="FullCityNameAlt" value="West Springfield, Massachusetts"/>
+    <rowdata name="ArenaName" value="Eastern States Coliseum"/>
+    <rowdata name="FullArenaName" value="Eastern States Coliseum, West Springfield"/>
+    <rowdata name="GamesPlayed" value="0"/>
+   </row>
+   <row id="8">
+    <rowdata name="id" value="9"/>
+    <rowdata name="TeamID" value="9"/>
+    <rowdata name="TeamName" value="Lions"/>
+    <rowdata name="TeamFullName" value="Washington Lions"/>
+    <rowdata name="CityName" value="Washington"/>
+    <rowdata name="AreaName" value="DC"/>
+    <rowdata name="CountryName" value="USA"/>
+    <rowdata name="FullCountryName" value="United States"/>
+    <rowdata name="FullCityName" value="Washington, DC"/>
+    <rowdata name="FullAreaName" value="District of Columbia"/>
+    <rowdata name="FullCityNameAlt" value="Washington, District of Columbia"/>
+    <rowdata name="ArenaName" value="Washington Coliseum"/>
+    <rowdata name="FullArenaName" value="Washington Coliseum, Washington"/>
     <rowdata name="GamesPlayed" value="0"/>
    </row>
   </data>
@@ -2464,7 +2028,7 @@
    <rowlist name="GamesPlayed"/>
   </rows>
  </table>
- <table name="MILTeams">
+ <table name="AHLTeams">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -2549,29 +2113,29 @@
   <data>
    <row id="0">
     <rowdata name="id" value="1"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Northview Loggerheads"/>
-    <rowdata name="CityName" value="Northview"/>
-    <rowdata name="TeamPrefix" value="Northview"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Buffalo Bisons"/>
+    <rowdata name="CityName" value="Buffalo"/>
+    <rowdata name="TeamPrefix" value="Buffalo"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MI"/>
+    <rowdata name="AreaName" value="NY"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Northview, MI"/>
-    <rowdata name="FullAreaName" value="Michigan"/>
-    <rowdata name="FullCityNameAlt" value="Northview, Michigan"/>
-    <rowdata name="TeamName" value="Loggerheads"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="NOR Arena"/>
-    <rowdata name="FullArenaName" value="NOR Arena, Northview"/>
-    <rowdata name="Affiliates" value="HOL:Detroit Blasters"/>
+    <rowdata name="FullCityName" value="Buffalo, NY"/>
+    <rowdata name="FullAreaName" value="New York"/>
+    <rowdata name="FullCityNameAlt" value="Buffalo, New York"/>
+    <rowdata name="TeamName" value="Bisons"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Buffalo Memorial Auditorium"/>
+    <rowdata name="FullArenaName" value="Buffalo Memorial Auditorium, Buffalo"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -2630,29 +2194,29 @@
    </row>
    <row id="1">
     <rowdata name="id" value="2"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Gulivoire Park Caravans"/>
-    <rowdata name="CityName" value="Gulivoire Park"/>
-    <rowdata name="TeamPrefix" value="Gulivoire Park"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Cleveland Barons"/>
+    <rowdata name="CityName" value="Cleveland"/>
+    <rowdata name="TeamPrefix" value="Cleveland"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IN"/>
+    <rowdata name="AreaName" value="OH"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Gulivoire Park, IN"/>
-    <rowdata name="FullAreaName" value="Indiana"/>
-    <rowdata name="FullCityNameAlt" value="Gulivoire Park, Indiana"/>
-    <rowdata name="TeamName" value="Caravans"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="GUL Arena"/>
-    <rowdata name="FullArenaName" value="GUL Arena, Gulivoire Park"/>
-    <rowdata name="Affiliates" value="HOL:Indianapolis Sabres"/>
+    <rowdata name="FullCityName" value="Cleveland, OH"/>
+    <rowdata name="FullAreaName" value="Ohio"/>
+    <rowdata name="FullCityNameAlt" value="Cleveland, Ohio"/>
+    <rowdata name="TeamName" value="Barons"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Cleveland Arena"/>
+    <rowdata name="FullArenaName" value="Cleveland Arena, Cleveland"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -2711,29 +2275,29 @@
    </row>
    <row id="2">
     <rowdata name="id" value="3"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Wheeling Ramblers"/>
-    <rowdata name="CityName" value="Wheeling"/>
-    <rowdata name="TeamPrefix" value="Wheeling"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Hershey Red Wings"/>
+    <rowdata name="CityName" value="Hershey"/>
+    <rowdata name="TeamPrefix" value="Hershey"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Wheeling, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Wheeling, Illionis"/>
-    <rowdata name="TeamName" value="Ramblers"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="WHE Arena"/>
-    <rowdata name="FullArenaName" value="WHE Arena, Wheeling"/>
-    <rowdata name="Affiliates" value="HOL:Chicago River Bandits"/>
+    <rowdata name="FullCityName" value="Hershey, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Hershey, Pennsylvania"/>
+    <rowdata name="TeamName" value="Red Wings"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Hersheypark Arena"/>
+    <rowdata name="FullArenaName" value="Hersheypark Arena, Hershey"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -2792,29 +2356,29 @@
    </row>
    <row id="3">
     <rowdata name="id" value="4"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Columbia Skychiefs"/>
-    <rowdata name="CityName" value="Columbia"/>
-    <rowdata name="TeamPrefix" value="Columbia"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Indianapolis Capitals"/>
+    <rowdata name="CityName" value="Indianapolis"/>
+    <rowdata name="TeamPrefix" value="Indianapolis"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MO"/>
+    <rowdata name="AreaName" value="IN"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Columbia, MO"/>
-    <rowdata name="FullAreaName" value="Missouri"/>
-    <rowdata name="FullCityNameAlt" value="Columbia, Missouri"/>
-    <rowdata name="TeamName" value="Skychiefs"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="COL Arena"/>
-    <rowdata name="FullArenaName" value="COL Arena, Columbia"/>
-    <rowdata name="Affiliates" value="HOL:Kansas City Chariots"/>
+    <rowdata name="FullCityName" value="Indianapolis, IN"/>
+    <rowdata name="FullAreaName" value="Indiana"/>
+    <rowdata name="FullCityNameAlt" value="Indianapolis, Indiana"/>
+    <rowdata name="TeamName" value="Capitals"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Indiana State Fairgrounds Coliseum"/>
+    <rowdata name="FullArenaName" value="Indiana State Fairgrounds Coliseum, Indianapolis"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -2873,29 +2437,29 @@
    </row>
    <row id="4">
     <rowdata name="id" value="5"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Winona Vipers"/>
-    <rowdata name="CityName" value="Winona"/>
-    <rowdata name="TeamPrefix" value="Winona"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Philadelphia Rockets"/>
+    <rowdata name="CityName" value="Philadelphia"/>
+    <rowdata name="TeamPrefix" value="Philadelphia"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Winona, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="Winona, Minnesota"/>
-    <rowdata name="TeamName" value="Vipers"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="WIN Arena"/>
-    <rowdata name="FullArenaName" value="WIN Arena, Winona"/>
-    <rowdata name="Affiliates" value="HOL:St. Paul Smoking Guns"/>
+    <rowdata name="FullCityName" value="Philadelphia, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Philadelphia, Pennsylvania"/>
+    <rowdata name="TeamName" value="Rockets"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Philadelphia Arena"/>
+    <rowdata name="FullArenaName" value="Philadelphia Arena, Philadelphia"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -2954,29 +2518,29 @@
    </row>
    <row id="5">
     <rowdata name="id" value="6"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="New Hope Chaos"/>
-    <rowdata name="CityName" value="New Hope"/>
-    <rowdata name="TeamPrefix" value="New Hope"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Pittsburgh Hornets"/>
+    <rowdata name="CityName" value="Pittsburgh"/>
+    <rowdata name="TeamPrefix" value="Pittsburgh"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="New Hope, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="New Hope, Minnesota"/>
-    <rowdata name="TeamName" value="Chaos"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="NEW Arena"/>
-    <rowdata name="FullArenaName" value="NEW Arena, New Hope"/>
-    <rowdata name="Affiliates" value="HOL:Minneapolis Armada"/>
+    <rowdata name="FullCityName" value="Pittsburgh, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Pittsburgh, Pennsylvania"/>
+    <rowdata name="TeamName" value="Hornets"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Duquesne Gardens"/>
+    <rowdata name="FullArenaName" value="Duquesne Gardens, Pittsburgh"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3035,29 +2599,29 @@
    </row>
    <row id="6">
     <rowdata name="id" value="7"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Tinley Park Gappers"/>
-    <rowdata name="CityName" value="Tinley Park"/>
-    <rowdata name="TeamPrefix" value="Tinley Park"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Providence Reds"/>
+    <rowdata name="CityName" value="Providence"/>
+    <rowdata name="TeamPrefix" value="Providence"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="RI"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Tinley Park, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Tinley Park, Illionis"/>
-    <rowdata name="TeamName" value="Gappers"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="TIN Arena"/>
-    <rowdata name="FullArenaName" value="TIN Arena, Tinley Park"/>
-    <rowdata name="Affiliates" value="HOL:Peoria Jammers"/>
+    <rowdata name="FullCityName" value="Providence, RI"/>
+    <rowdata name="FullAreaName" value="Rhode Island"/>
+    <rowdata name="FullCityNameAlt" value="Providence, Rhode Island"/>
+    <rowdata name="TeamName" value="Reds"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Rhode Island Auditorium"/>
+    <rowdata name="FullArenaName" value="Rhode Island Auditorium, Providence"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3116,29 +2680,110 @@
    </row>
    <row id="7">
     <rowdata name="id" value="8"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Franklin Park Spirits"/>
-    <rowdata name="CityName" value="Franklin Park"/>
-    <rowdata name="TeamPrefix" value="Franklin Park"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Springfield Indians"/>
+    <rowdata name="CityName" value="West Springfield"/>
+    <rowdata name="TeamPrefix" value="Springfield"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="MA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Franklin Park, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Franklin Park, Illionis"/>
-    <rowdata name="TeamName" value="Spirits"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="FRA Arena"/>
-    <rowdata name="FullArenaName" value="FRA Arena, Franklin Park"/>
-    <rowdata name="Affiliates" value="HOL:Chicago Gears"/>
+    <rowdata name="FullCityName" value="West Springfield, MA"/>
+    <rowdata name="FullAreaName" value="Massachusetts"/>
+    <rowdata name="FullCityNameAlt" value="West Springfield, Massachusetts"/>
+    <rowdata name="TeamName" value="Indians"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Eastern States Coliseum"/>
+    <rowdata name="FullArenaName" value="Eastern States Coliseum, West Springfield"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+   <row id="8">
+    <rowdata name="id" value="9"/>
+    <rowdata name="Date" value="19421000"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Washington Lions"/>
+    <rowdata name="CityName" value="Washington"/>
+    <rowdata name="TeamPrefix" value="Washington"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="DC"/>
+    <rowdata name="CountryName" value="USA"/>
+    <rowdata name="FullCountryName" value="United States"/>
+    <rowdata name="FullCityName" value="Washington, DC"/>
+    <rowdata name="FullAreaName" value="District of Columbia"/>
+    <rowdata name="FullCityNameAlt" value="Washington, District of Columbia"/>
+    <rowdata name="TeamName" value="Lions"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Washington Coliseum"/>
+    <rowdata name="FullArenaName" value="Washington Coliseum, Washington"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3278,7 +2923,7 @@
    <rowlist name="Streak"/>
   </rows>
  </table>
- <table name="MILStats">
+ <table name="AHLStats">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -3365,29 +3010,29 @@
    <row id="0">
     <rowdata name="id" value="1"/>
     <rowdata name="TeamID" value="1"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Northview Loggerheads"/>
-    <rowdata name="CityName" value="Northview"/>
-    <rowdata name="TeamPrefix" value="Northview"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Buffalo Bisons"/>
+    <rowdata name="CityName" value="Buffalo"/>
+    <rowdata name="TeamPrefix" value="Buffalo"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MI"/>
+    <rowdata name="AreaName" value="NY"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Northview, MI"/>
-    <rowdata name="FullAreaName" value="Michigan"/>
-    <rowdata name="FullCityNameAlt" value="Northview, Michigan"/>
-    <rowdata name="TeamName" value="Loggerheads"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="NOR Arena"/>
-    <rowdata name="FullArenaName" value="NOR Arena, Northview"/>
-    <rowdata name="Affiliates" value="HOL:Detroit Blasters"/>
+    <rowdata name="FullCityName" value="Buffalo, NY"/>
+    <rowdata name="FullAreaName" value="New York"/>
+    <rowdata name="FullCityNameAlt" value="Buffalo, New York"/>
+    <rowdata name="TeamName" value="Bisons"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Buffalo Memorial Auditorium"/>
+    <rowdata name="FullArenaName" value="Buffalo Memorial Auditorium, Buffalo"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3447,29 +3092,29 @@
    <row id="1">
     <rowdata name="id" value="2"/>
     <rowdata name="TeamID" value="2"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Gulivoire Park Caravans"/>
-    <rowdata name="CityName" value="Gulivoire Park"/>
-    <rowdata name="TeamPrefix" value="Gulivoire Park"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Cleveland Barons"/>
+    <rowdata name="CityName" value="Cleveland"/>
+    <rowdata name="TeamPrefix" value="Cleveland"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IN"/>
+    <rowdata name="AreaName" value="OH"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Gulivoire Park, IN"/>
-    <rowdata name="FullAreaName" value="Indiana"/>
-    <rowdata name="FullCityNameAlt" value="Gulivoire Park, Indiana"/>
-    <rowdata name="TeamName" value="Caravans"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 1"/>
-    <rowdata name="DivisionFullName" value="Division 1"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="GUL Arena"/>
-    <rowdata name="FullArenaName" value="GUL Arena, Gulivoire Park"/>
-    <rowdata name="Affiliates" value="HOL:Indianapolis Sabres"/>
+    <rowdata name="FullCityName" value="Cleveland, OH"/>
+    <rowdata name="FullAreaName" value="Ohio"/>
+    <rowdata name="FullCityNameAlt" value="Cleveland, Ohio"/>
+    <rowdata name="TeamName" value="Barons"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Cleveland Arena"/>
+    <rowdata name="FullArenaName" value="Cleveland Arena, Cleveland"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3529,29 +3174,29 @@
    <row id="2">
     <rowdata name="id" value="3"/>
     <rowdata name="TeamID" value="3"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Wheeling Ramblers"/>
-    <rowdata name="CityName" value="Wheeling"/>
-    <rowdata name="TeamPrefix" value="Wheeling"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Hershey Red Wings"/>
+    <rowdata name="CityName" value="Hershey"/>
+    <rowdata name="TeamPrefix" value="Hershey"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Wheeling, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Wheeling, Illionis"/>
-    <rowdata name="TeamName" value="Ramblers"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="WHE Arena"/>
-    <rowdata name="FullArenaName" value="WHE Arena, Wheeling"/>
-    <rowdata name="Affiliates" value="HOL:Chicago River Bandits"/>
+    <rowdata name="FullCityName" value="Hershey, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Hershey, Pennsylvania"/>
+    <rowdata name="TeamName" value="Red Wings"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Hersheypark Arena"/>
+    <rowdata name="FullArenaName" value="Hersheypark Arena, Hershey"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3611,29 +3256,29 @@
    <row id="3">
     <rowdata name="id" value="4"/>
     <rowdata name="TeamID" value="4"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Columbia Skychiefs"/>
-    <rowdata name="CityName" value="Columbia"/>
-    <rowdata name="TeamPrefix" value="Columbia"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Indianapolis Capitals"/>
+    <rowdata name="CityName" value="Indianapolis"/>
+    <rowdata name="TeamPrefix" value="Indianapolis"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MO"/>
+    <rowdata name="AreaName" value="IN"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Columbia, MO"/>
-    <rowdata name="FullAreaName" value="Missouri"/>
-    <rowdata name="FullCityNameAlt" value="Columbia, Missouri"/>
-    <rowdata name="TeamName" value="Skychiefs"/>
-    <rowdata name="Conference" value="Conference 1"/>
-    <rowdata name="ConferenceFullName" value="Conference 1"/>
-    <rowdata name="Division" value="Division 2"/>
-    <rowdata name="DivisionFullName" value="Division 2"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="COL Arena"/>
-    <rowdata name="FullArenaName" value="COL Arena, Columbia"/>
-    <rowdata name="Affiliates" value="HOL:Kansas City Chariots"/>
+    <rowdata name="FullCityName" value="Indianapolis, IN"/>
+    <rowdata name="FullAreaName" value="Indiana"/>
+    <rowdata name="FullCityNameAlt" value="Indianapolis, Indiana"/>
+    <rowdata name="TeamName" value="Capitals"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Indiana State Fairgrounds Coliseum"/>
+    <rowdata name="FullArenaName" value="Indiana State Fairgrounds Coliseum, Indianapolis"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3693,29 +3338,29 @@
    <row id="4">
     <rowdata name="id" value="5"/>
     <rowdata name="TeamID" value="5"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Winona Vipers"/>
-    <rowdata name="CityName" value="Winona"/>
-    <rowdata name="TeamPrefix" value="Winona"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Philadelphia Rockets"/>
+    <rowdata name="CityName" value="Philadelphia"/>
+    <rowdata name="TeamPrefix" value="Philadelphia"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Winona, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="Winona, Minnesota"/>
-    <rowdata name="TeamName" value="Vipers"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="WIN Arena"/>
-    <rowdata name="FullArenaName" value="WIN Arena, Winona"/>
-    <rowdata name="Affiliates" value="HOL:St. Paul Smoking Guns"/>
+    <rowdata name="FullCityName" value="Philadelphia, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Philadelphia, Pennsylvania"/>
+    <rowdata name="TeamName" value="Rockets"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Philadelphia Arena"/>
+    <rowdata name="FullArenaName" value="Philadelphia Arena, Philadelphia"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3775,29 +3420,29 @@
    <row id="5">
     <rowdata name="id" value="6"/>
     <rowdata name="TeamID" value="6"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="New Hope Chaos"/>
-    <rowdata name="CityName" value="New Hope"/>
-    <rowdata name="TeamPrefix" value="New Hope"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Pittsburgh Hornets"/>
+    <rowdata name="CityName" value="Pittsburgh"/>
+    <rowdata name="TeamPrefix" value="Pittsburgh"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="MN"/>
+    <rowdata name="AreaName" value="PA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="New Hope, MN"/>
-    <rowdata name="FullAreaName" value="Minnesota"/>
-    <rowdata name="FullCityNameAlt" value="New Hope, Minnesota"/>
-    <rowdata name="TeamName" value="Chaos"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 3"/>
-    <rowdata name="DivisionFullName" value="Division 3"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="NEW Arena"/>
-    <rowdata name="FullArenaName" value="NEW Arena, New Hope"/>
-    <rowdata name="Affiliates" value="HOL:Minneapolis Armada"/>
+    <rowdata name="FullCityName" value="Pittsburgh, PA"/>
+    <rowdata name="FullAreaName" value="Pennsylvania"/>
+    <rowdata name="FullCityNameAlt" value="Pittsburgh, Pennsylvania"/>
+    <rowdata name="TeamName" value="Hornets"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Duquesne Gardens"/>
+    <rowdata name="FullArenaName" value="Duquesne Gardens, Pittsburgh"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3857,29 +3502,29 @@
    <row id="6">
     <rowdata name="id" value="7"/>
     <rowdata name="TeamID" value="7"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Tinley Park Gappers"/>
-    <rowdata name="CityName" value="Tinley Park"/>
-    <rowdata name="TeamPrefix" value="Tinley Park"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Providence Reds"/>
+    <rowdata name="CityName" value="Providence"/>
+    <rowdata name="TeamPrefix" value="Providence"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="RI"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Tinley Park, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Tinley Park, Illionis"/>
-    <rowdata name="TeamName" value="Gappers"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="TIN Arena"/>
-    <rowdata name="FullArenaName" value="TIN Arena, Tinley Park"/>
-    <rowdata name="Affiliates" value="HOL:Peoria Jammers"/>
+    <rowdata name="FullCityName" value="Providence, RI"/>
+    <rowdata name="FullAreaName" value="Rhode Island"/>
+    <rowdata name="FullCityNameAlt" value="Providence, Rhode Island"/>
+    <rowdata name="TeamName" value="Reds"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Rhode Island Auditorium"/>
+    <rowdata name="FullArenaName" value="Rhode Island Auditorium, Providence"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -3939,29 +3584,111 @@
    <row id="7">
     <rowdata name="id" value="8"/>
     <rowdata name="TeamID" value="8"/>
-    <rowdata name="Date" value="20171000"/>
+    <rowdata name="Date" value="19421000"/>
     <rowdata name="Time" value="0"/>
-    <rowdata name="DateTime" value="201710000000"/>
-    <rowdata name="FullName" value="Franklin Park Spirits"/>
-    <rowdata name="CityName" value="Franklin Park"/>
-    <rowdata name="TeamPrefix" value="Franklin Park"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Springfield Indians"/>
+    <rowdata name="CityName" value="West Springfield"/>
+    <rowdata name="TeamPrefix" value="Springfield"/>
     <rowdata name="TeamSuffix" value=""/>
-    <rowdata name="AreaName" value="IL"/>
+    <rowdata name="AreaName" value="MA"/>
     <rowdata name="CountryName" value="USA"/>
     <rowdata name="FullCountryName" value="United States"/>
-    <rowdata name="FullCityName" value="Franklin Park, IL"/>
-    <rowdata name="FullAreaName" value="Illionis"/>
-    <rowdata name="FullCityNameAlt" value="Franklin Park, Illionis"/>
-    <rowdata name="TeamName" value="Spirits"/>
-    <rowdata name="Conference" value="Conference 2"/>
-    <rowdata name="ConferenceFullName" value="Conference 2"/>
-    <rowdata name="Division" value="Division 4"/>
-    <rowdata name="DivisionFullName" value="Division 4"/>
-    <rowdata name="LeagueName" value="MIL"/>
-    <rowdata name="LeagueFullName" value="Minor League"/>
-    <rowdata name="ArenaName" value="FRA Arena"/>
-    <rowdata name="FullArenaName" value="FRA Arena, Franklin Park"/>
-    <rowdata name="Affiliates" value="HOL:Chicago Gears"/>
+    <rowdata name="FullCityName" value="West Springfield, MA"/>
+    <rowdata name="FullAreaName" value="Massachusetts"/>
+    <rowdata name="FullCityNameAlt" value="West Springfield, Massachusetts"/>
+    <rowdata name="TeamName" value="Indians"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Eastern States Coliseum"/>
+    <rowdata name="FullArenaName" value="Eastern States Coliseum, West Springfield"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+   <row id="8">
+    <rowdata name="id" value="9"/>
+    <rowdata name="TeamID" value="9"/>
+    <rowdata name="Date" value="19421000"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="194210000000"/>
+    <rowdata name="FullName" value="Washington Lions"/>
+    <rowdata name="CityName" value="Washington"/>
+    <rowdata name="TeamPrefix" value="Washington"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="DC"/>
+    <rowdata name="CountryName" value="USA"/>
+    <rowdata name="FullCountryName" value="United States"/>
+    <rowdata name="FullCityName" value="Washington, DC"/>
+    <rowdata name="FullAreaName" value="District of Columbia"/>
+    <rowdata name="FullCityNameAlt" value="Washington, District of Columbia"/>
+    <rowdata name="TeamName" value="Lions"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="AHL"/>
+    <rowdata name="LeagueFullName" value="American Hockey League"/>
+    <rowdata name="ArenaName" value="Washington Coliseum"/>
+    <rowdata name="FullArenaName" value="Washington Coliseum, Washington"/>
+    <rowdata name="Affiliates" value=""/>
     <rowdata name="GamesPlayed" value="0"/>
     <rowdata name="GamesPlayedHome" value="0"/>
     <rowdata name="GamesPlayedAway" value="0"/>
@@ -4102,7 +3829,7 @@
    <rowlist name="Streak"/>
   </rows>
  </table>
- <table name="MILGameStats">
+ <table name="AHLGameStats">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="GameID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -4221,7 +3948,7 @@
    <rowlist name="FaceoffDifference"/>
   </rows>
  </table>
- <table name="MILGames">
+ <table name="AHLGames">
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>

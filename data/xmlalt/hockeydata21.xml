@@ -6295,10 +6295,10 @@
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="GameID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="2" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="3" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="4" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="5" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="6" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="7" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="8" name="TeamPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -6354,10 +6354,10 @@
   <rows>
    <rowlist name="id"/>
    <rowlist name="GameID"/>
+   <rowlist name="TeamID"/>
    <rowlist name="Date"/>
    <rowlist name="Time"/>
    <rowlist name="DateTime"/>
-   <rowlist name="TeamID"/>
    <rowlist name="FullName"/>
    <rowlist name="CityName"/>
    <rowlist name="TeamPrefix"/>
@@ -12711,10 +12711,10 @@
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="GameID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="2" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="3" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="4" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="5" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="6" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="7" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="8" name="TeamPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -12770,10 +12770,10 @@
   <rows>
    <rowlist name="id"/>
    <rowlist name="GameID"/>
+   <rowlist name="TeamID"/>
    <rowlist name="Date"/>
    <rowlist name="Time"/>
    <rowlist name="DateTime"/>
-   <rowlist name="TeamID"/>
    <rowlist name="FullName"/>
    <rowlist name="CityName"/>
    <rowlist name="TeamPrefix"/>
@@ -18232,10 +18232,10 @@
   <column>
    <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
    <rowinfo id="1" name="GameID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="2" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="3" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="4" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
-   <rowinfo id="5" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="6" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="7" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
    <rowinfo id="8" name="TeamPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
@@ -18291,10 +18291,10 @@
   <rows>
    <rowlist name="id"/>
    <rowlist name="GameID"/>
+   <rowlist name="TeamID"/>
    <rowlist name="Date"/>
    <rowlist name="Time"/>
    <rowlist name="DateTime"/>
-   <rowlist name="TeamID"/>
    <rowlist name="FullName"/>
    <rowlist name="CityName"/>
    <rowlist name="TeamPrefix"/>
