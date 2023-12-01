@@ -476,7 +476,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
    if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     try:
-     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+     hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
      hockeyroot = hockeyfile.getroot();
     except cElementTree.ParseError:
      try:
@@ -485,7 +485,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
      except cElementTree.ParseError:
       return False;
    else:
-    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
+    hockeyfile = cElementTree.parse(UncompressFile(inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"));
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -503,7 +503,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
     inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+   hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
    hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -566,7 +566,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
    if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     try:
-     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+     hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
      hockeyroot = hockeyfile.getroot();
     except cElementTree.ParseError:
      try:
@@ -575,7 +575,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
      except cElementTree.ParseError:
       return False;
    else:
-    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
+    hockeyfile = cElementTree.parse(UncompressFile(inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"));
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -593,7 +593,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
     inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+   hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
    hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -1172,7 +1172,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
    if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     try:
-     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+     hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
      hockeyroot = hockeyfile.getroot();
     except cElementTree.ParseError:
      try:
@@ -1181,7 +1181,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
      except cElementTree.ParseError:
       return False;
    else:
-    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
+    hockeyfile = cElementTree.parse(UncompressFile(inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"));
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -1199,7 +1199,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
     inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+   hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
    hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -2349,7 +2349,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
    if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
     inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj);
     try:
-     hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+     hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
      hockeyroot = hockeyfile.getroot();
     except cElementTree.ParseError:
      try:
@@ -2358,7 +2358,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
      except cElementTree.ParseError:
       return False;
    else:
-    hockeyfile = cElementTree.ElementTree(file=UncompressFile(inxmlfile));
+    hockeyfile = cElementTree.parse(UncompressFile(inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"));
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
@@ -2376,7 +2376,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
     inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"));
    inxmlfile = UncompressFile(inxmlsfile);
   try:
-   hockeyfile = cElementTree.ElementTree(file=inxmlfile);
+   hockeyfile = cElementTree.parse(inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"));
    hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
