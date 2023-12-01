@@ -471,6 +471,7 @@ def CheckKeyInArray(validkeys, checkdict):
  return True;
 
 def CheckHockeyXML(inxmlfile, xmlisfile=True):
+ print(inxmlfile, xmlisfile);
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
   try:
    if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
@@ -489,7 +490,6 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
-    inxmlfile.seek(0);
     hockeyroot = cElementTree.fromstring(UncompressFile(inxmlfile).read());
    except cElementTree.ParseError:
     return False;
@@ -580,7 +580,6 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
-    inxmlfile.seek(0);
     hockeyroot = cElementTree.fromstring(UncompressFile(inxmlfile).read());
    except cElementTree.ParseError:
     return False;
@@ -605,7 +604,6 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
     return False;
  else:
   return False;
- hockeyroot = hockeyfile.getroot();
  leaguelist = [];
  tablelist = [];
  if(hockeyroot.tag=="hockeydb"):
@@ -1188,7 +1186,6 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
-    inxmlfile.seek(0);
     hockeyroot = cElementTree.fromstring(UncompressFile(inxmlfile).read());
    except cElementTree.ParseError:
     return False;
@@ -1213,7 +1210,6 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
     return False;
  else:
   return False;
- hockeyroot = hockeyfile.getroot();
  leaguearrayout = { 'database': str(hockeyroot.attrib['database']) };
  leaguelist = [];
  for getleague in hockeyroot:
@@ -2367,7 +2363,6 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
     hockeyroot = hockeyfile.getroot();
   except cElementTree.ParseError: 
    try:
-    inxmlfile.seek(0);
     hockeyroot = cElementTree.fromstring(UncompressFile(inxmlfile).read());
    except cElementTree.ParseError:
     return False;
@@ -2392,7 +2387,6 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
     return False;
  else:
   return False;
- hockeyroot = hockeyfile.getroot();
  leaguearrayout = { 'database': str(hockeyroot.attrib['database']) };
  for gettable in hockeyroot:
   leaguearrayout.update( { gettable.attrib['name']: { 'rows': [], 'values': [] } } );
