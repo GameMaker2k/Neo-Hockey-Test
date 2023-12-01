@@ -1,0 +1,519 @@
+{
+ "AHL": {
+  "": {
+   "": {
+    "Barons": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "OH",
+      "arena": "Cleveland Arena",
+      "city": "Cleveland",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Ohio",
+      "fullcountry": "United States",
+      "fullname": "Cleveland Barons",
+      "league": "AHL",
+      "name": "Barons",
+      "prefix": "Cleveland",
+      "suffix": ""
+     }
+    },
+    "Bisons": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "NY",
+      "arena": "Buffalo Memorial Auditorium",
+      "city": "Buffalo",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "New York",
+      "fullcountry": "United States",
+      "fullname": "Buffalo Bisons",
+      "league": "AHL",
+      "name": "Bisons",
+      "prefix": "Buffalo",
+      "suffix": ""
+     }
+    },
+    "Capitals": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "IN",
+      "arena": "Indiana State Fairgrounds Coliseum",
+      "city": "Indianapolis",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Indiana",
+      "fullcountry": "United States",
+      "fullname": "Indianapolis Capitals",
+      "league": "AHL",
+      "name": "Capitals",
+      "prefix": "Indianapolis",
+      "suffix": ""
+     }
+    },
+    "Hornets": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "PA",
+      "arena": "Duquesne Gardens",
+      "city": "Pittsburgh",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Pennsylvania",
+      "fullcountry": "United States",
+      "fullname": "Pittsburgh Hornets",
+      "league": "AHL",
+      "name": "Hornets",
+      "prefix": "Pittsburgh",
+      "suffix": ""
+     }
+    },
+    "Indians": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "MA",
+      "arena": "Eastern States Coliseum",
+      "city": "West Springfield",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Massachusetts",
+      "fullcountry": "United States",
+      "fullname": "Springfield Indians",
+      "league": "AHL",
+      "name": "Indians",
+      "prefix": "Springfield",
+      "suffix": ""
+     }
+    },
+    "Lions": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "DC",
+      "arena": "Washington Coliseum",
+      "city": "Washington",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "District of Columbia",
+      "fullcountry": "United States",
+      "fullname": "Washington Lions",
+      "league": "AHL",
+      "name": "Lions",
+      "prefix": "Washington",
+      "suffix": ""
+     }
+    },
+    "Red Wings": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "PA",
+      "arena": "Hersheypark Arena",
+      "city": "Hershey",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Pennsylvania",
+      "fullcountry": "United States",
+      "fullname": "Hershey Red Wings",
+      "league": "AHL",
+      "name": "Red Wings",
+      "prefix": "Hershey",
+      "suffix": ""
+     }
+    },
+    "Reds": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "RI",
+      "arena": "Rhode Island Auditorium",
+      "city": "Providence",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Rhode Island",
+      "fullcountry": "United States",
+      "fullname": "Providence Reds",
+      "league": "AHL",
+      "name": "Reds",
+      "prefix": "Providence",
+      "suffix": ""
+     }
+    },
+    "Rockets": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "PA",
+      "arena": "Philadelphia Arena",
+      "city": "Philadelphia",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Pennsylvania",
+      "fullcountry": "United States",
+      "fullname": "Philadelphia Rockets",
+      "league": "AHL",
+      "name": "Rockets",
+      "prefix": "Philadelphia",
+      "suffix": ""
+     }
+    },
+    "divisioninfo": {
+     "conference": "",
+     "fullname": " Division",
+     "league": "AHL",
+     "name": "",
+     "prefix": "",
+     "suffix": "Division"
+    },
+    "teamlist": [
+     "Bisons",
+     "Barons",
+     "Red Wings",
+     "Capitals",
+     "Rockets",
+     "Hornets",
+     "Reds",
+     "Indians",
+     "Lions"
+    ]
+   },
+   "conferenceinfo": {
+    "fullname": " Conference",
+    "league": "AHL",
+    "name": "",
+    "prefix": "",
+    "suffix": "Conference"
+   },
+   "divisionlist": [
+    ""
+   ]
+  },
+  "arenas": [],
+  "conferencelist": [
+   ""
+  ],
+  "games": [],
+  "leagueinfo": {
+   "conferences": "no",
+   "country": "USA",
+   "date": "19421031",
+   "divisions": "no",
+   "fullcountry": "United States",
+   "fullname": "American Hockey League",
+   "name": "AHL",
+   "ordertype": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "playofffmt": "League=4"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "": {
+     "fullname": " Conference",
+     "league": "AHL",
+     "name": ""
+    }
+   },
+   "divisioninfo": {
+    "": {
+     "conference": "",
+     "fullname": " Division",
+     "league": "AHL",
+     "name": ""
+    }
+   },
+   "teaminfo": {
+    "Barons": {
+     "conference": "",
+     "division": "",
+     "fullname": "Cleveland Barons",
+     "league": "AHL",
+     "name": "Barons"
+    },
+    "Bisons": {
+     "conference": "",
+     "division": "",
+     "fullname": "Buffalo Bisons",
+     "league": "AHL",
+     "name": "Bisons"
+    },
+    "Capitals": {
+     "conference": "",
+     "division": "",
+     "fullname": "Indianapolis Capitals",
+     "league": "AHL",
+     "name": "Capitals"
+    },
+    "Hornets": {
+     "conference": "",
+     "division": "",
+     "fullname": "Pittsburgh Hornets",
+     "league": "AHL",
+     "name": "Hornets"
+    },
+    "Indians": {
+     "conference": "",
+     "division": "",
+     "fullname": "Springfield Indians",
+     "league": "AHL",
+     "name": "Indians"
+    },
+    "Lions": {
+     "conference": "",
+     "division": "",
+     "fullname": "Washington Lions",
+     "league": "AHL",
+     "name": "Lions"
+    },
+    "Red Wings": {
+     "conference": "",
+     "division": "",
+     "fullname": "Hershey Red Wings",
+     "league": "AHL",
+     "name": "Red Wings"
+    },
+    "Reds": {
+     "conference": "",
+     "division": "",
+     "fullname": "Providence Reds",
+     "league": "AHL",
+     "name": "Reds"
+    },
+    "Rockets": {
+     "conference": "",
+     "division": "",
+     "fullname": "Philadelphia Rockets",
+     "league": "AHL",
+     "name": "Rockets"
+    }
+   }
+  }
+ },
+ "NHL": {
+  "": {
+   "": {
+    "Blackhawks": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "IL",
+      "arena": "Chicago Stadium",
+      "city": "Chicago",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Illinois",
+      "fullcountry": "United States",
+      "fullname": "Chicago Blackhawks",
+      "league": "NHL",
+      "name": "Blackhawks",
+      "prefix": "Chicago",
+      "suffix": ""
+     }
+    },
+    "Bruins": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "MA",
+      "arena": "Boston Garden",
+      "city": "Boston",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Massachusetts",
+      "fullcountry": "United States",
+      "fullname": "Boston Bruins",
+      "league": "NHL",
+      "name": "Bruins",
+      "prefix": "Boston",
+      "suffix": ""
+     }
+    },
+    "Canadiens": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "QC",
+      "arena": "Montreal Forum",
+      "city": "Montreal",
+      "conference": "",
+      "country": "CAN",
+      "division": "",
+      "fullarea": "Quebec",
+      "fullcountry": "Canada",
+      "fullname": "Montreal Canadiens",
+      "league": "NHL",
+      "name": "Canadiens",
+      "prefix": "Montreal",
+      "suffix": ""
+     }
+    },
+    "Maple Leafs": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "ON",
+      "arena": "Maple Leaf Gardens",
+      "city": "Toronto",
+      "conference": "",
+      "country": "CAN",
+      "division": "",
+      "fullarea": "Ontario",
+      "fullcountry": "Canada",
+      "fullname": "Toronto Maple Leafs",
+      "league": "NHL",
+      "name": "Maple Leafs",
+      "prefix": "Toronto",
+      "suffix": ""
+     }
+    },
+    "Rangers": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "NY",
+      "arena": "Madison Square Garden",
+      "city": "New York City",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "New York",
+      "fullcountry": "United States",
+      "fullname": "New York Rangers",
+      "league": "NHL",
+      "name": "Rangers",
+      "prefix": "New York",
+      "suffix": ""
+     }
+    },
+    "Red Wings": {
+     "teaminfo": {
+      "affiliates": "",
+      "area": "MI",
+      "arena": "Detroit Olympia",
+      "city": "Detroit",
+      "conference": "",
+      "country": "USA",
+      "division": "",
+      "fullarea": "Michigan",
+      "fullcountry": "United States",
+      "fullname": "Detroit Red Wings",
+      "league": "NHL",
+      "name": "Red Wings",
+      "prefix": "Detroit",
+      "suffix": ""
+     }
+    },
+    "divisioninfo": {
+     "conference": "",
+     "fullname": " Division",
+     "league": "NHL",
+     "name": "",
+     "prefix": "",
+     "suffix": "Division"
+    },
+    "teamlist": [
+     "Bruins",
+     "Blackhawks",
+     "Red Wings",
+     "Canadiens",
+     "Rangers",
+     "Maple Leafs"
+    ]
+   },
+   "conferenceinfo": {
+    "fullname": " Conference",
+    "league": "NHL",
+    "name": "",
+    "prefix": "",
+    "suffix": "Conference"
+   },
+   "divisionlist": [
+    ""
+   ]
+  },
+  "arenas": [],
+  "conferencelist": [
+   ""
+  ],
+  "games": [],
+  "leagueinfo": {
+   "conferences": "no",
+   "country": "USA",
+   "date": "19421031",
+   "divisions": "no",
+   "fullcountry": "United States",
+   "fullname": "National Hockey League",
+   "name": "NHL",
+   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "playofffmt": "League=4"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "": {
+     "fullname": " Conference",
+     "league": "NHL",
+     "name": ""
+    }
+   },
+   "divisioninfo": {
+    "": {
+     "conference": "",
+     "fullname": " Division",
+     "league": "NHL",
+     "name": ""
+    }
+   },
+   "teaminfo": {
+    "Blackhawks": {
+     "conference": "",
+     "division": "",
+     "fullname": "Chicago Blackhawks",
+     "league": "NHL",
+     "name": "Blackhawks"
+    },
+    "Bruins": {
+     "conference": "",
+     "division": "",
+     "fullname": "Boston Bruins",
+     "league": "NHL",
+     "name": "Bruins"
+    },
+    "Canadiens": {
+     "conference": "",
+     "division": "",
+     "fullname": "Montreal Canadiens",
+     "league": "NHL",
+     "name": "Canadiens"
+    },
+    "Maple Leafs": {
+     "conference": "",
+     "division": "",
+     "fullname": "Toronto Maple Leafs",
+     "league": "NHL",
+     "name": "Maple Leafs"
+    },
+    "Rangers": {
+     "conference": "",
+     "division": "",
+     "fullname": "New York Rangers",
+     "league": "NHL",
+     "name": "Rangers"
+    },
+    "Red Wings": {
+     "conference": "",
+     "division": "",
+     "fullname": "Detroit Red Wings",
+     "league": "NHL",
+     "name": "Red Wings"
+    }
+   }
+  }
+ },
+ "database": "./php/data/hockey1942-43.db3",
+ "leaguelist": [
+  "NHL",
+  "AHL"
+ ]
+}
