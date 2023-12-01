@@ -302,7 +302,7 @@ def CompressOpenFile(outfile):
   return False;
  fbasename = os.path.splitext(outfile)[0];
  fextname = os.path.splitext(outfile)[1];
- if(sys.version_info[0]==2 and compresscheck):
+ if(sys.version_info[0]==2):
   mode = "w";
  else:
   mode = "wt";
