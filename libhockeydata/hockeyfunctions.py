@@ -18,6 +18,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sqlite3, sys, os, re, time, marshal, platform, binascii, xml.dom.minidom;
+from io import open;
 try:
  reload(sys);
 except NameError:
@@ -162,37 +163,55 @@ def UncompressFile(infile, mode="rt"):
    import gzip;
   except ImportError:
    return False;
-  filefp = gzip.open(infile, mode, encoding="UTF-8");
+  try:
+   filefp = gzip.open(infile, mode, encoding="UTF-8");
+  except ValueError:
+   filefp = gzip.open(infile, mode);
  if(compresscheck=="bzip2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  filefp = bz2.open(infile, mode, encoding="UTF-8");
+  try:
+   filefp = bz2.open(infile, mode, encoding="UTF-8");
+  except ValueError:
+   filefp = bz2.open(infile, mode);
  if(compresscheck=="zstd"):
   try:
    import zstandard;
   except ImportError:
    return False;
-  filefp = zstandard.open(infile, mode, encoding="UTF-8");
+  try:
+   filefp = zstandard.open(infile, mode, encoding="UTF-8");
+  except ValueError:
+   filefp = zstandard.open(infile, mode);
  if(compresscheck=="lz4"):
   try:
    import lz4.frame;
   except ImportError:
    return False;
-  filefp = lz4.frame.open(infile, mode, encoding="UTF-8");
+  try:
+   filefp = lz4.frame.open(infile, mode, encoding="UTF-8");
+  except ValueError:
+   filefp = lz4.frame.open(infile, mode);
  if(compresscheck=="lzo"):
   try:
    import lzo;
   except ImportError:
    return False;
-  filefp = lzo.open(infile, mode, encoding="UTF-8");
+  try:
+   filefp = lzo.open(infile, mode, encoding="UTF-8");
+  except ValueError:
+   filefp = lzo.open(infile, mode);
  if(compresscheck=="lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  filefp = lzma.open(infile, mode, encoding="UTF-8");
+  try:
+   filefp = lzma.open(infile, mode, encoding="UTF-8");
+  except ValueError:
+   filefp = lzma.open(infile, mode);
  if(not compresscheck):
   try:
    filefp = open(infile, mode, encoding="UTF-8");
@@ -366,8 +385,7 @@ def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, re
  return MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring);
 
 def CheckXMLFile(infile):
- xmlfp = open(infile, "rb");
- xmlfp = UncompressFile(xmlfp);
+ xmlfp = UncompressFile(infile, "rb");
  xmlfp.seek(0, 0);
  prefp = xmlfp.read(6);
  validxmlfile = False;

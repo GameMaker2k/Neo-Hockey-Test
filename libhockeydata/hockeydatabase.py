@@ -18,6 +18,7 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
+from io import open;
 try:
  reload(sys);
 except NameError:
