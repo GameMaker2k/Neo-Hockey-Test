@@ -414,6 +414,15 @@ def RemoveBlanks(node):
    RemoveBlanks(x);
  return True;
 
+def get_from_json(data, path, default=None):
+ element = data;
+ try:
+  for key in path:
+   element = element[key];
+  return element;
+ except (KeyError, TypeError, IndexError):
+  return default;
+
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
   try:
