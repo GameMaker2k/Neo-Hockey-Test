@@ -414,7 +414,7 @@ def RemoveBlanks(node):
    RemoveBlanks(x);
  return True;
 
-def get_from_json(data, path, default=None):
+def GetDataFromArray(data, path, default=None):
  element = data;
  try:
   for key in path:
