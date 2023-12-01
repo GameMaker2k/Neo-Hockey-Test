@@ -334,7 +334,7 @@ def CompressOpenFile(outfile):
   except ImportError:
    return False;
   try:
- : outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
+   outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
   except TypeError:
    outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9);
  elif(fextname==".lz4"):
