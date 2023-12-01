@@ -13,7 +13,7 @@
     Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: hockeyfunctions.py - Last Update: 11/30/2023 Ver. 0.8.0 RC 1 - Author: cooldude2k $
+    $FileInfo: hockeyfunctions.py - Last Update: 11/30/2023 Ver. 0.8.4 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
@@ -74,6 +74,7 @@ except AttributeError:
 
 from .hockeydatabase import *;
 from .hockeydwnload import *;
+from .xmldtd import *;
 from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info;
 
 ''' // User-Agent string for http/https requests '''
