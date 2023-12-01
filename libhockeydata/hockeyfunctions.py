@@ -471,7 +471,6 @@ def CheckKeyInArray(validkeys, checkdict):
  return True;
 
 def CheckHockeyXML(inxmlfile, xmlisfile=True):
- print(inxmlfile, xmlisfile);
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
   try:
    if(re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
