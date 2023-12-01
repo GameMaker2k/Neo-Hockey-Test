@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hockeydb database="./php/data/hockey1918-19.db3">
+ <table name="HockeyLeagues">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="LeagueName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="LeagueFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="CountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="FullCountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="PlayOffFMT" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="OrderType" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="NumberOfTeams" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="NumberOfConferences" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="10" name="NumberOfDivisions" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data>
+   <row id="0">
+    <rowdata name="id" value="1"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="Date" value="19181221"/>
+    <rowdata name="PlayOffFMT" value="League=2"/>
+    <rowdata name="OrderType" value="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC"/>
+    <rowdata name="NumberOfTeams" value="3"/>
+    <rowdata name="NumberOfConferences" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
+   </row>
+  </data>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="LeagueName"/>
+   <rowlist name="LeagueFullName"/>
+   <rowlist name="CountryName"/>
+   <rowlist name="FullCountryName"/>
+   <rowlist name="Date"/>
+   <rowlist name="PlayOffFMT"/>
+   <rowlist name="OrderType"/>
+   <rowlist name="NumberOfTeams"/>
+   <rowlist name="NumberOfConferences"/>
+   <rowlist name="NumberOfDivisions"/>
+  </rows>
+ </table>
+ <table name="NHLConferences">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="ConferencePrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="ConferenceSuffix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="LeagueName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="LeagueFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="NumberOfTeams" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="NumberOfDivisions" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data>
+   <row id="0">
+    <rowdata name="id" value="1"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferencePrefix" value=""/>
+    <rowdata name="ConferenceSuffix" value="Conference"/>
+    <rowdata name="FullName" value=" Conference"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="NumberOfTeams" value="0"/>
+    <rowdata name="NumberOfDivisions" value="0"/>
+   </row>
+  </data>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="Conference"/>
+   <rowlist name="ConferencePrefix"/>
+   <rowlist name="ConferenceSuffix"/>
+   <rowlist name="FullName"/>
+   <rowlist name="LeagueName"/>
+   <rowlist name="LeagueFullName"/>
+   <rowlist name="NumberOfTeams"/>
+   <rowlist name="NumberOfDivisions"/>
+  </rows>
+ </table>
+ <table name="NHLDivisions">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="Division" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="DivisionPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="DivisionSuffix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="ConferenceFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="LeagueName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="LeagueFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="NumberOfTeams" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data>
+   <row id="0">
+    <rowdata name="id" value="1"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionPrefix" value=""/>
+    <rowdata name="DivisionSuffix" value="Division"/>
+    <rowdata name="FullName" value=" Division"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="NumberOfTeams" value="0"/>
+   </row>
+  </data>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="Division"/>
+   <rowlist name="DivisionPrefix"/>
+   <rowlist name="DivisionSuffix"/>
+   <rowlist name="FullName"/>
+   <rowlist name="Conference"/>
+   <rowlist name="ConferenceFullName"/>
+   <rowlist name="LeagueName"/>
+   <rowlist name="LeagueFullName"/>
+   <rowlist name="NumberOfTeams"/>
+  </rows>
+ </table>
+ <table name="NHLArenas">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="TeamName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="TeamFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="AreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="CountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="FullCountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="FullCityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="FullAreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="10" name="FullCityNameAlt" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="11" name="ArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="12" name="FullArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="13" name="GamesPlayed" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data>
+   <row id="0">
+    <rowdata name="id" value="1"/>
+    <rowdata name="TeamID" value="1"/>
+    <rowdata name="TeamName" value="Senators"/>
+    <rowdata name="TeamFullName" value="Ottawa Senators"/>
+    <rowdata name="CityName" value="Ottawa"/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Ottawa, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Ottawa, Ontario"/>
+    <rowdata name="ArenaName" value="The Arena"/>
+    <rowdata name="FullArenaName" value="The Arena, Ottawa"/>
+    <rowdata name="GamesPlayed" value="0"/>
+   </row>
+   <row id="1">
+    <rowdata name="id" value="2"/>
+    <rowdata name="TeamID" value="2"/>
+    <rowdata name="TeamName" value="Canadiens"/>
+    <rowdata name="TeamFullName" value="Montreal Canadiens"/>
+    <rowdata name="CityName" value="Montreal"/>
+    <rowdata name="AreaName" value="QC"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Montreal, QC"/>
+    <rowdata name="FullAreaName" value="Quebec"/>
+    <rowdata name="FullCityNameAlt" value="Montreal, Quebec"/>
+    <rowdata name="ArenaName" value="Jubilee Rink"/>
+    <rowdata name="FullArenaName" value="Jubilee Rink, Montreal"/>
+    <rowdata name="GamesPlayed" value="0"/>
+   </row>
+   <row id="2">
+    <rowdata name="id" value="3"/>
+    <rowdata name="TeamID" value="3"/>
+    <rowdata name="TeamName" value="Arenas"/>
+    <rowdata name="TeamFullName" value="Toronto Arenas"/>
+    <rowdata name="CityName" value="Toronto"/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Toronto, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Toronto, Ontario"/>
+    <rowdata name="ArenaName" value="Arena Gardens"/>
+    <rowdata name="FullArenaName" value="Arena Gardens, Toronto"/>
+    <rowdata name="GamesPlayed" value="0"/>
+   </row>
+  </data>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="TeamID"/>
+   <rowlist name="TeamName"/>
+   <rowlist name="TeamFullName"/>
+   <rowlist name="CityName"/>
+   <rowlist name="AreaName"/>
+   <rowlist name="CountryName"/>
+   <rowlist name="FullCountryName"/>
+   <rowlist name="FullCityName"/>
+   <rowlist name="FullAreaName"/>
+   <rowlist name="FullCityNameAlt"/>
+   <rowlist name="ArenaName"/>
+   <rowlist name="FullArenaName"/>
+   <rowlist name="GamesPlayed"/>
+  </rows>
+ </table>
+ <table name="NHLTeams">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="TeamPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="TeamSuffix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="AreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="CountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="10" name="FullCountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="11" name="FullCityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="12" name="FullAreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="13" name="FullCityNameAlt" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="14" name="TeamName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="15" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="16" name="ConferenceFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="17" name="Division" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="18" name="DivisionFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="19" name="LeagueName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="20" name="LeagueFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="21" name="ArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="22" name="FullArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="23" name="Affiliates" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="24" name="GamesPlayed" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="25" name="GamesPlayedHome" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="26" name="GamesPlayedAway" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="27" name="Ties" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="28" name="Wins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="29" name="OTWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="30" name="SOWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="31" name="OTSOWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="32" name="TWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="33" name="Losses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="34" name="OTLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="35" name="SOLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="36" name="OTSOLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="37" name="TLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="38" name="ROW" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="39" name="ROT" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="40" name="ShutoutWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="41" name="ShutoutLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="42" name="HomeRecord" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="43" name="AwayRecord" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="44" name="Shootouts" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="45" name="GoalsFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="46" name="GoalsAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="47" name="GoalsDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="48" name="SOGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="49" name="SOGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="50" name="SOGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="51" name="ShotsBlockedFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="52" name="ShotsBlockedAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="53" name="ShotsBlockedDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="54" name="PPGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="55" name="PPGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="56" name="PPGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="57" name="SHGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="58" name="SHGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="59" name="SHGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="60" name="PenaltiesFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="61" name="PenaltiesAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="62" name="PenaltiesDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="63" name="PIMFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="64" name="PIMAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="65" name="PIMDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="66" name="HITSFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="67" name="HITSAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="68" name="HITSDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="69" name="TakeAways" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="70" name="GiveAways" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="71" name="TAGADifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="72" name="FaceoffWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="73" name="FaceoffLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="74" name="FaceoffDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="75" name="Points" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="76" name="PCT" type="REAL" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="77" name="LastTen" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="78" name="Streak" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data>
+   <row id="0">
+    <rowdata name="id" value="1"/>
+    <rowdata name="Date" value="19181200"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="191812000000"/>
+    <rowdata name="FullName" value="Ottawa Senators"/>
+    <rowdata name="CityName" value="Ottawa"/>
+    <rowdata name="TeamPrefix" value="Ottawa"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Ottawa, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Ottawa, Ontario"/>
+    <rowdata name="TeamName" value="Senators"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="The Arena"/>
+    <rowdata name="FullArenaName" value="The Arena, Ottawa"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+   <row id="1">
+    <rowdata name="id" value="2"/>
+    <rowdata name="Date" value="19181200"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="191812000000"/>
+    <rowdata name="FullName" value="Montreal Canadiens"/>
+    <rowdata name="CityName" value="Montreal"/>
+    <rowdata name="TeamPrefix" value="Montreal"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="QC"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Montreal, QC"/>
+    <rowdata name="FullAreaName" value="Quebec"/>
+    <rowdata name="FullCityNameAlt" value="Montreal, Quebec"/>
+    <rowdata name="TeamName" value="Canadiens"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Jubilee Rink"/>
+    <rowdata name="FullArenaName" value="Jubilee Rink, Montreal"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+   <row id="2">
+    <rowdata name="id" value="3"/>
+    <rowdata name="Date" value="19181200"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="191812000000"/>
+    <rowdata name="FullName" value="Toronto Arenas"/>
+    <rowdata name="CityName" value="Toronto"/>
+    <rowdata name="TeamPrefix" value="Toronto"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Toronto, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Toronto, Ontario"/>
+    <rowdata name="TeamName" value="Arenas"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Arena Gardens"/>
+    <rowdata name="FullArenaName" value="Arena Gardens, Toronto"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+  </data>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="Date"/>
+   <rowlist name="Time"/>
+   <rowlist name="DateTime"/>
+   <rowlist name="FullName"/>
+   <rowlist name="CityName"/>
+   <rowlist name="TeamPrefix"/>
+   <rowlist name="TeamSuffix"/>
+   <rowlist name="AreaName"/>
+   <rowlist name="CountryName"/>
+   <rowlist name="FullCountryName"/>
+   <rowlist name="FullCityName"/>
+   <rowlist name="FullAreaName"/>
+   <rowlist name="FullCityNameAlt"/>
+   <rowlist name="TeamName"/>
+   <rowlist name="Conference"/>
+   <rowlist name="ConferenceFullName"/>
+   <rowlist name="Division"/>
+   <rowlist name="DivisionFullName"/>
+   <rowlist name="LeagueName"/>
+   <rowlist name="LeagueFullName"/>
+   <rowlist name="ArenaName"/>
+   <rowlist name="FullArenaName"/>
+   <rowlist name="Affiliates"/>
+   <rowlist name="GamesPlayed"/>
+   <rowlist name="GamesPlayedHome"/>
+   <rowlist name="GamesPlayedAway"/>
+   <rowlist name="Ties"/>
+   <rowlist name="Wins"/>
+   <rowlist name="OTWins"/>
+   <rowlist name="SOWins"/>
+   <rowlist name="OTSOWins"/>
+   <rowlist name="TWins"/>
+   <rowlist name="Losses"/>
+   <rowlist name="OTLosses"/>
+   <rowlist name="SOLosses"/>
+   <rowlist name="OTSOLosses"/>
+   <rowlist name="TLosses"/>
+   <rowlist name="ROW"/>
+   <rowlist name="ROT"/>
+   <rowlist name="ShutoutWins"/>
+   <rowlist name="ShutoutLosses"/>
+   <rowlist name="HomeRecord"/>
+   <rowlist name="AwayRecord"/>
+   <rowlist name="Shootouts"/>
+   <rowlist name="GoalsFor"/>
+   <rowlist name="GoalsAgainst"/>
+   <rowlist name="GoalsDifference"/>
+   <rowlist name="SOGFor"/>
+   <rowlist name="SOGAgainst"/>
+   <rowlist name="SOGDifference"/>
+   <rowlist name="ShotsBlockedFor"/>
+   <rowlist name="ShotsBlockedAgainst"/>
+   <rowlist name="ShotsBlockedDifference"/>
+   <rowlist name="PPGFor"/>
+   <rowlist name="PPGAgainst"/>
+   <rowlist name="PPGDifference"/>
+   <rowlist name="SHGFor"/>
+   <rowlist name="SHGAgainst"/>
+   <rowlist name="SHGDifference"/>
+   <rowlist name="PenaltiesFor"/>
+   <rowlist name="PenaltiesAgainst"/>
+   <rowlist name="PenaltiesDifference"/>
+   <rowlist name="PIMFor"/>
+   <rowlist name="PIMAgainst"/>
+   <rowlist name="PIMDifference"/>
+   <rowlist name="HITSFor"/>
+   <rowlist name="HITSAgainst"/>
+   <rowlist name="HITSDifference"/>
+   <rowlist name="TakeAways"/>
+   <rowlist name="GiveAways"/>
+   <rowlist name="TAGADifference"/>
+   <rowlist name="FaceoffWins"/>
+   <rowlist name="FaceoffLosses"/>
+   <rowlist name="FaceoffDifference"/>
+   <rowlist name="Points"/>
+   <rowlist name="PCT"/>
+   <rowlist name="LastTen"/>
+   <rowlist name="Streak"/>
+  </rows>
+ </table>
+ <table name="NHLStats">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="TeamPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="TeamSuffix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="AreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="10" name="CountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="11" name="FullCountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="12" name="FullCityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="13" name="FullAreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="14" name="FullCityNameAlt" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="15" name="TeamName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="16" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="17" name="ConferenceFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="18" name="Division" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="19" name="DivisionFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="20" name="LeagueName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="21" name="LeagueFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="22" name="ArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="23" name="FullArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="24" name="Affiliates" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="25" name="GamesPlayed" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="26" name="GamesPlayedHome" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="27" name="GamesPlayedAway" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="28" name="Ties" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="29" name="Wins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="30" name="OTWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="31" name="SOWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="32" name="OTSOWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="33" name="TWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="34" name="Losses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="35" name="OTLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="36" name="SOLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="37" name="OTSOLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="38" name="TLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="39" name="ROW" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="40" name="ROT" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="41" name="ShutoutWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="42" name="ShutoutLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="43" name="HomeRecord" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="44" name="AwayRecord" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="45" name="Shootouts" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="46" name="GoalsFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="47" name="GoalsAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="48" name="GoalsDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="49" name="SOGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="50" name="SOGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="51" name="SOGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="52" name="ShotsBlockedFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="53" name="ShotsBlockedAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="54" name="ShotsBlockedDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="55" name="PPGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="56" name="PPGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="57" name="PPGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="58" name="SHGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="59" name="SHGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="60" name="SHGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="61" name="PenaltiesFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="62" name="PenaltiesAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="63" name="PenaltiesDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="64" name="PIMFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="65" name="PIMAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="66" name="PIMDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="67" name="HITSFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="68" name="HITSAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="69" name="HITSDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="70" name="TakeAways" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="71" name="GiveAways" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="72" name="TAGADifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="73" name="FaceoffWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="74" name="FaceoffLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="75" name="FaceoffDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="76" name="Points" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="77" name="PCT" type="REAL" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="78" name="LastTen" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="79" name="Streak" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data>
+   <row id="0">
+    <rowdata name="id" value="1"/>
+    <rowdata name="TeamID" value="1"/>
+    <rowdata name="Date" value="19181200"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="191812000000"/>
+    <rowdata name="FullName" value="Ottawa Senators"/>
+    <rowdata name="CityName" value="Ottawa"/>
+    <rowdata name="TeamPrefix" value="Ottawa"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Ottawa, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Ottawa, Ontario"/>
+    <rowdata name="TeamName" value="Senators"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="The Arena"/>
+    <rowdata name="FullArenaName" value="The Arena, Ottawa"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+   <row id="1">
+    <rowdata name="id" value="2"/>
+    <rowdata name="TeamID" value="2"/>
+    <rowdata name="Date" value="19181200"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="191812000000"/>
+    <rowdata name="FullName" value="Montreal Canadiens"/>
+    <rowdata name="CityName" value="Montreal"/>
+    <rowdata name="TeamPrefix" value="Montreal"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="QC"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Montreal, QC"/>
+    <rowdata name="FullAreaName" value="Quebec"/>
+    <rowdata name="FullCityNameAlt" value="Montreal, Quebec"/>
+    <rowdata name="TeamName" value="Canadiens"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Jubilee Rink"/>
+    <rowdata name="FullArenaName" value="Jubilee Rink, Montreal"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+   <row id="2">
+    <rowdata name="id" value="3"/>
+    <rowdata name="TeamID" value="3"/>
+    <rowdata name="Date" value="19181200"/>
+    <rowdata name="Time" value="0"/>
+    <rowdata name="DateTime" value="191812000000"/>
+    <rowdata name="FullName" value="Toronto Arenas"/>
+    <rowdata name="CityName" value="Toronto"/>
+    <rowdata name="TeamPrefix" value="Toronto"/>
+    <rowdata name="TeamSuffix" value=""/>
+    <rowdata name="AreaName" value="ON"/>
+    <rowdata name="CountryName" value="CAN"/>
+    <rowdata name="FullCountryName" value="Canada"/>
+    <rowdata name="FullCityName" value="Toronto, ON"/>
+    <rowdata name="FullAreaName" value="Ontario"/>
+    <rowdata name="FullCityNameAlt" value="Toronto, Ontario"/>
+    <rowdata name="TeamName" value="Arenas"/>
+    <rowdata name="Conference" value=""/>
+    <rowdata name="ConferenceFullName" value=" Conference"/>
+    <rowdata name="Division" value=""/>
+    <rowdata name="DivisionFullName" value=" Division"/>
+    <rowdata name="LeagueName" value="NHL"/>
+    <rowdata name="LeagueFullName" value="National Hockey League"/>
+    <rowdata name="ArenaName" value="Arena Gardens"/>
+    <rowdata name="FullArenaName" value="Arena Gardens, Toronto"/>
+    <rowdata name="Affiliates" value=""/>
+    <rowdata name="GamesPlayed" value="0"/>
+    <rowdata name="GamesPlayedHome" value="0"/>
+    <rowdata name="GamesPlayedAway" value="0"/>
+    <rowdata name="Ties" value="0"/>
+    <rowdata name="Wins" value="0"/>
+    <rowdata name="OTWins" value="0"/>
+    <rowdata name="SOWins" value="0"/>
+    <rowdata name="OTSOWins" value="0"/>
+    <rowdata name="TWins" value="0"/>
+    <rowdata name="Losses" value="0"/>
+    <rowdata name="OTLosses" value="0"/>
+    <rowdata name="SOLosses" value="0"/>
+    <rowdata name="OTSOLosses" value="0"/>
+    <rowdata name="TLosses" value="0"/>
+    <rowdata name="ROW" value="0"/>
+    <rowdata name="ROT" value="0"/>
+    <rowdata name="ShutoutWins" value="0"/>
+    <rowdata name="ShutoutLosses" value="0"/>
+    <rowdata name="HomeRecord" value="0:0:0:0"/>
+    <rowdata name="AwayRecord" value="0:0:0:0"/>
+    <rowdata name="Shootouts" value="0:0"/>
+    <rowdata name="GoalsFor" value="0"/>
+    <rowdata name="GoalsAgainst" value="0"/>
+    <rowdata name="GoalsDifference" value="0"/>
+    <rowdata name="SOGFor" value="0"/>
+    <rowdata name="SOGAgainst" value="0"/>
+    <rowdata name="SOGDifference" value="0"/>
+    <rowdata name="ShotsBlockedFor" value="0"/>
+    <rowdata name="ShotsBlockedAgainst" value="0"/>
+    <rowdata name="ShotsBlockedDifference" value="0"/>
+    <rowdata name="PPGFor" value="0"/>
+    <rowdata name="PPGAgainst" value="0"/>
+    <rowdata name="PPGDifference" value="0"/>
+    <rowdata name="SHGFor" value="0"/>
+    <rowdata name="SHGAgainst" value="0"/>
+    <rowdata name="SHGDifference" value="0"/>
+    <rowdata name="PenaltiesFor" value="0"/>
+    <rowdata name="PenaltiesAgainst" value="0"/>
+    <rowdata name="PenaltiesDifference" value="0"/>
+    <rowdata name="PIMFor" value="0"/>
+    <rowdata name="PIMAgainst" value="0"/>
+    <rowdata name="PIMDifference" value="0"/>
+    <rowdata name="HITSFor" value="0"/>
+    <rowdata name="HITSAgainst" value="0"/>
+    <rowdata name="HITSDifference" value="0"/>
+    <rowdata name="TakeAways" value="0"/>
+    <rowdata name="GiveAways" value="0"/>
+    <rowdata name="TAGADifference" value="0"/>
+    <rowdata name="FaceoffWins" value="0"/>
+    <rowdata name="FaceoffLosses" value="0"/>
+    <rowdata name="FaceoffDifference" value="0"/>
+    <rowdata name="Points" value="0"/>
+    <rowdata name="PCT" value="0.0"/>
+    <rowdata name="LastTen" value="0:0:0:0"/>
+    <rowdata name="Streak" value="None"/>
+   </row>
+  </data>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="TeamID"/>
+   <rowlist name="Date"/>
+   <rowlist name="Time"/>
+   <rowlist name="DateTime"/>
+   <rowlist name="FullName"/>
+   <rowlist name="CityName"/>
+   <rowlist name="TeamPrefix"/>
+   <rowlist name="TeamSuffix"/>
+   <rowlist name="AreaName"/>
+   <rowlist name="CountryName"/>
+   <rowlist name="FullCountryName"/>
+   <rowlist name="FullCityName"/>
+   <rowlist name="FullAreaName"/>
+   <rowlist name="FullCityNameAlt"/>
+   <rowlist name="TeamName"/>
+   <rowlist name="Conference"/>
+   <rowlist name="ConferenceFullName"/>
+   <rowlist name="Division"/>
+   <rowlist name="DivisionFullName"/>
+   <rowlist name="LeagueName"/>
+   <rowlist name="LeagueFullName"/>
+   <rowlist name="ArenaName"/>
+   <rowlist name="FullArenaName"/>
+   <rowlist name="Affiliates"/>
+   <rowlist name="GamesPlayed"/>
+   <rowlist name="GamesPlayedHome"/>
+   <rowlist name="GamesPlayedAway"/>
+   <rowlist name="Ties"/>
+   <rowlist name="Wins"/>
+   <rowlist name="OTWins"/>
+   <rowlist name="SOWins"/>
+   <rowlist name="OTSOWins"/>
+   <rowlist name="TWins"/>
+   <rowlist name="Losses"/>
+   <rowlist name="OTLosses"/>
+   <rowlist name="SOLosses"/>
+   <rowlist name="OTSOLosses"/>
+   <rowlist name="TLosses"/>
+   <rowlist name="ROW"/>
+   <rowlist name="ROT"/>
+   <rowlist name="ShutoutWins"/>
+   <rowlist name="ShutoutLosses"/>
+   <rowlist name="HomeRecord"/>
+   <rowlist name="AwayRecord"/>
+   <rowlist name="Shootouts"/>
+   <rowlist name="GoalsFor"/>
+   <rowlist name="GoalsAgainst"/>
+   <rowlist name="GoalsDifference"/>
+   <rowlist name="SOGFor"/>
+   <rowlist name="SOGAgainst"/>
+   <rowlist name="SOGDifference"/>
+   <rowlist name="ShotsBlockedFor"/>
+   <rowlist name="ShotsBlockedAgainst"/>
+   <rowlist name="ShotsBlockedDifference"/>
+   <rowlist name="PPGFor"/>
+   <rowlist name="PPGAgainst"/>
+   <rowlist name="PPGDifference"/>
+   <rowlist name="SHGFor"/>
+   <rowlist name="SHGAgainst"/>
+   <rowlist name="SHGDifference"/>
+   <rowlist name="PenaltiesFor"/>
+   <rowlist name="PenaltiesAgainst"/>
+   <rowlist name="PenaltiesDifference"/>
+   <rowlist name="PIMFor"/>
+   <rowlist name="PIMAgainst"/>
+   <rowlist name="PIMDifference"/>
+   <rowlist name="HITSFor"/>
+   <rowlist name="HITSAgainst"/>
+   <rowlist name="HITSDifference"/>
+   <rowlist name="TakeAways"/>
+   <rowlist name="GiveAways"/>
+   <rowlist name="TAGADifference"/>
+   <rowlist name="FaceoffWins"/>
+   <rowlist name="FaceoffLosses"/>
+   <rowlist name="FaceoffDifference"/>
+   <rowlist name="Points"/>
+   <rowlist name="PCT"/>
+   <rowlist name="LastTen"/>
+   <rowlist name="Streak"/>
+  </rows>
+ </table>
+ <table name="NHLGameStats">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="GameID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="TeamID" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="FullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="CityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="TeamPrefix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="TeamSuffix" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="10" name="AreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="11" name="CountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="12" name="FullCountryName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="13" name="FullCityName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="14" name="FullAreaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="15" name="FullCityNameAlt" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="16" name="TeamName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="17" name="Conference" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="18" name="ConferenceFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="19" name="Division" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="20" name="DivisionFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="21" name="LeagueName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="22" name="LeagueFullName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="23" name="ArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="24" name="FullArenaName" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="25" name="Affiliates" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="26" name="GoalsFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="27" name="GoalsAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="28" name="GoalsDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="29" name="SOGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="30" name="SOGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="31" name="SOGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="32" name="ShotsBlockedFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="33" name="ShotsBlockedAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="34" name="ShotsBlockedDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="35" name="PPGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="36" name="PPGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="37" name="PPGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="38" name="SHGFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="39" name="SHGAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="40" name="SHGDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="41" name="PenaltiesFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="42" name="PenaltiesAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="43" name="PenaltiesDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="44" name="PIMFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="45" name="PIMAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="46" name="PIMDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="47" name="HITSFor" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="48" name="HITSAgainst" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="49" name="HITSDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="50" name="TakeAways" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="51" name="GiveAways" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="52" name="TAGADifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="53" name="FaceoffWins" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="54" name="FaceoffLosses" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="55" name="FaceoffDifference" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data/>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="GameID"/>
+   <rowlist name="TeamID"/>
+   <rowlist name="Date"/>
+   <rowlist name="Time"/>
+   <rowlist name="DateTime"/>
+   <rowlist name="FullName"/>
+   <rowlist name="CityName"/>
+   <rowlist name="TeamPrefix"/>
+   <rowlist name="TeamSuffix"/>
+   <rowlist name="AreaName"/>
+   <rowlist name="CountryName"/>
+   <rowlist name="FullCountryName"/>
+   <rowlist name="FullCityName"/>
+   <rowlist name="FullAreaName"/>
+   <rowlist name="FullCityNameAlt"/>
+   <rowlist name="TeamName"/>
+   <rowlist name="Conference"/>
+   <rowlist name="ConferenceFullName"/>
+   <rowlist name="Division"/>
+   <rowlist name="DivisionFullName"/>
+   <rowlist name="LeagueName"/>
+   <rowlist name="LeagueFullName"/>
+   <rowlist name="ArenaName"/>
+   <rowlist name="FullArenaName"/>
+   <rowlist name="Affiliates"/>
+   <rowlist name="GoalsFor"/>
+   <rowlist name="GoalsAgainst"/>
+   <rowlist name="GoalsDifference"/>
+   <rowlist name="SOGFor"/>
+   <rowlist name="SOGAgainst"/>
+   <rowlist name="SOGDifference"/>
+   <rowlist name="ShotsBlockedFor"/>
+   <rowlist name="ShotsBlockedAgainst"/>
+   <rowlist name="ShotsBlockedDifference"/>
+   <rowlist name="PPGFor"/>
+   <rowlist name="PPGAgainst"/>
+   <rowlist name="PPGDifference"/>
+   <rowlist name="SHGFor"/>
+   <rowlist name="SHGAgainst"/>
+   <rowlist name="SHGDifference"/>
+   <rowlist name="PenaltiesFor"/>
+   <rowlist name="PenaltiesAgainst"/>
+   <rowlist name="PenaltiesDifference"/>
+   <rowlist name="PIMFor"/>
+   <rowlist name="PIMAgainst"/>
+   <rowlist name="PIMDifference"/>
+   <rowlist name="HITSFor"/>
+   <rowlist name="HITSAgainst"/>
+   <rowlist name="HITSDifference"/>
+   <rowlist name="TakeAways"/>
+   <rowlist name="GiveAways"/>
+   <rowlist name="TAGADifference"/>
+   <rowlist name="FaceoffWins"/>
+   <rowlist name="FaceoffLosses"/>
+   <rowlist name="FaceoffDifference"/>
+  </rows>
+ </table>
+ <table name="NHLGames">
+  <column>
+   <rowinfo id="0" name="id" type="INTEGER" notnull="0" defaultvalue="true" primarykey="1" autoincrement="1" hidden="0"/>
+   <rowinfo id="1" name="Date" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="2" name="Time" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="3" name="DateTime" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="4" name="HomeTeam" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="5" name="AwayTeam" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="6" name="AtArena" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="7" name="TeamScorePeriods" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="8" name="TeamFullScore" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="9" name="ShotsOnGoal" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="10" name="FullShotsOnGoal" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="11" name="ShotsBlocked" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="12" name="FullShotsBlocked" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="13" name="PowerPlays" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="14" name="FullPowerPlays" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="15" name="ShortHanded" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="16" name="FullShortHanded" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="17" name="Penalties" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="18" name="FullPenalties" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="19" name="PenaltyMinutes" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="20" name="FullPenaltyMinutes" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="21" name="HitsPerPeriod" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="22" name="FullHitsPerPeriod" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="23" name="TakeAways" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="24" name="FullTakeAways" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="25" name="GiveAways" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="26" name="FullGiveAways" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="27" name="FaceoffWins" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="28" name="FullFaceoffWins" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="29" name="NumberPeriods" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="30" name="TeamWin" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="31" name="TeamLost" type="TEXT" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="32" name="TieGame" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+   <rowinfo id="33" name="IsPlayOffGame" type="INTEGER" notnull="1" defaultvalue="true" primarykey="0" autoincrement="0" hidden="0"/>
+  </column>
+  <data/>
+  <rows>
+   <rowlist name="id"/>
+   <rowlist name="Date"/>
+   <rowlist name="Time"/>
+   <rowlist name="DateTime"/>
+   <rowlist name="HomeTeam"/>
+   <rowlist name="AwayTeam"/>
+   <rowlist name="AtArena"/>
+   <rowlist name="TeamScorePeriods"/>
+   <rowlist name="TeamFullScore"/>
+   <rowlist name="ShotsOnGoal"/>
+   <rowlist name="FullShotsOnGoal"/>
+   <rowlist name="ShotsBlocked"/>
+   <rowlist name="FullShotsBlocked"/>
+   <rowlist name="PowerPlays"/>
+   <rowlist name="FullPowerPlays"/>
+   <rowlist name="ShortHanded"/>
+   <rowlist name="FullShortHanded"/>
+   <rowlist name="Penalties"/>
+   <rowlist name="FullPenalties"/>
+   <rowlist name="PenaltyMinutes"/>
+   <rowlist name="FullPenaltyMinutes"/>
+   <rowlist name="HitsPerPeriod"/>
+   <rowlist name="FullHitsPerPeriod"/>
+   <rowlist name="TakeAways"/>
+   <rowlist name="FullTakeAways"/>
+   <rowlist name="GiveAways"/>
+   <rowlist name="FullGiveAways"/>
+   <rowlist name="FaceoffWins"/>
+   <rowlist name="FullFaceoffWins"/>
+   <rowlist name="NumberPeriods"/>
+   <rowlist name="TeamWin"/>
+   <rowlist name="TeamLost"/>
+   <rowlist name="TieGame"/>
+   <rowlist name="IsPlayOffGame"/>
+  </rows>
+ </table>
+</hockeydb>
