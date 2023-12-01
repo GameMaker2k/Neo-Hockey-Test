@@ -11,7 +11,7 @@
     Copyright 2015-2020 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2020 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: index.php - Last Update: 11/30/2023 Ver. 0.8.4 RC 1 - Author: cooldude2k $
+    $FileInfo: index.php - Last Update: 12/01/2023 Ver. 0.8.4 RC 1 - Author: cooldude2k $
 */
 header('Location: ../index.php');
 ?>
