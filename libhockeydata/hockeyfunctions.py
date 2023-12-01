@@ -162,55 +162,37 @@ def UncompressFile(infile, mode="rt"):
    import gzip;
   except ImportError:
    return False;
-  try:
-   filefp = gzip.open(infile, mode, encoding="UTF-8");
-  except TypeError:
-   filefp = gzip.open(infile, mode);
+  filefp = gzip.open(infile, mode, encoding="UTF-8");
  if(compresscheck=="bzip2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  try:
-   filefp = bz2.open(infile, mode, encoding="UTF-8");
-  except TypeError:
-   filefp = bz2.open(infile, mode);
+  filefp = bz2.open(infile, mode, encoding="UTF-8");
  if(compresscheck=="zstd"):
   try:
    import zstandard;
   except ImportError:
    return False;
-  try:
-   filefp = zstandard.open(infile, mode, encoding="UTF-8");
-  except TypeError:
-   filefp = zstandard.open(infile, mode);
+  filefp = zstandard.open(infile, mode, encoding="UTF-8");
  if(compresscheck=="lz4"):
   try:
    import lz4.frame;
   except ImportError:
    return False;
-  try:
-   filefp = lz4.frame.open(infile, mode, encoding="UTF-8");
-  except TypeError:
-   filefp = lz4.frame.open(infile, mode);
+  filefp = lz4.frame.open(infile, mode, encoding="UTF-8");
  if(compresscheck=="lzo"):
   try:
    import lzo;
   except ImportError:
    return False;
-  try:
-   filefp = lzo.open(infile, mode, encoding="UTF-8");
-  except TypeError:
-   filefp = lzo.open(infile, mode);
+  filefp = lzo.open(infile, mode, encoding="UTF-8");
  if(compresscheck=="lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  try:
-   filefp = lzma.open(infile, mode, encoding="UTF-8");
-  except TypeError:
-   filefp = lzma.open(infile, mode);
+  filefp = lzma.open(infile, mode, encoding="UTF-8");
  if(not compresscheck):
   try:
    filefp = open(infile, mode, encoding="UTF-8");
@@ -306,64 +288,43 @@ def CompressOpenFile(outfile):
    import gzip;
   except ImportError:
    return False;
-  try:
-   outfp = gzip.open(outfile, "wt", 9, encoding="UTF-8");
-  except TypeError:
-   outfp = gzip.open(outfile, "wt", 9);
+  outfp = gzip.open(outfile, "wt", 9, encoding="UTF-8");
  elif(fextname==".bz2"):
   try:
    import bz2;
   except ImportError:
    return False;
-  try:
-   outfp = bz2.open(outfile, "wt", 9, encoding="UTF-8");
-  except TypeError:
-   outfp = bz2.open(outfile, "wt", 9);
+  outfp = bz2.open(outfile, "wt", 9, encoding="UTF-8");
  elif(fextname==".zst"):
   try:
    import zstandard;
   except ImportError:
    return False;
-  try:
-   outfp = zstandard.open(outfile, "wt", zstandard.ZstdCompressor(level=10), encoding="UTF-8");
-  except TypeError:
-   outfp = zstandard.open(outfile, "wt", zstandard.ZstdCompressor(level=10));
+  outfp = zstandard.open(outfile, "wt", zstandard.ZstdCompressor(level=10), encoding="UTF-8");
  elif(fextname==".xz"):
   try:
    import lzma;
   except ImportError:
    return False;
-  try:
-   outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
-  except TypeError:
-   outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
  elif(fextname==".lz4"):
   try:
    import lz4.frame;
   except ImportError:
    return False;
-  try:
-   outfp = lz4.frame.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
-  except TypeError:
-   outfp = lz4.frame.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lz4.frame.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
  elif(fextname==".lzo"):
   try:
    import lzo;
   except ImportError:
    return False;
-  try:
-   outfp = lzo.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
-  except TypeError:
-   outfp = lzo.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9);
+  outfp = lzo.open(outfile, "wt", format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8");
  elif(fextname==".lzma"):
   try:
    import lzma;
   except ImportError:
    return False;
-  try:
-   outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_ALONE, preset=9, encoding="UTF-8");
-  except TypeError:
-   outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_ALONE, preset=9);
+  outfp = lzma.open(outfile, "wt", format=lzma.FORMAT_ALONE, preset=9, encoding="UTF-8");
  return outfp;
 
 def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
