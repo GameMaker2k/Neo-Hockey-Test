@@ -19,13 +19,31 @@
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import os;
 
+implib = False
+pkgres = False;
 try:
- import pkg_resources;
- pkgres = True;
+ import importlib.resources;
+ implib = True;
 except ImportError:
- pkgres = False;
+ implib = False
+ try:
+  import pkg_resources;
+  pkgres = True;
+ except ImportError:
+  pkgres = False;
 
-if(pkgres):
+if(implib)
+ hockeydtd = os.path.join(importlib.resources.files(__name__), "hockeydata.dtd");
+ hockeyxsl = os.path.join(importlib.resources.files(__name__), "hockeydata.xsl");
+ hockeyxsd = os.path.join(importlib.resources.files(__name__), "hockeydata.xsd");
+ hockeyrng = os.path.join(importlib.resources.files(__name__), "hockeydata.rng");
+ hockeyrnc = os.path.join(importlib.resources.files(__name__), "hockeydata.rnc");
+ hockeyaltdtd = os.path.join(importlib.resources.files(__name__), "hockeydatabase.dtd");
+ hockeyaltxsl = os.path.join(importlib.resources.files(__name__), "hockeydatabase.xsl");
+ hockeyaltxsd = os.path.join(importlib.resources.files(__name__), "hockeydatabase.xsd");
+ hockeyaltrng = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rng");
+ hockeyaltrnc = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rnc");
+elif(pkgres):
  hockeydtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd");
  hockeyxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl");
  hockeyxsd = pkg_resources.resource_filename(__name__, "hockeydata.xsd");
@@ -37,8 +55,19 @@ if(pkgres):
  hockeyaltrng = pkg_resources.resource_filename(__name__, "hockeydatabase.rng");
  hockeyaltrnc = pkg_resources.resource_filename(__name__, "hockeydatabase.rnc");
  hockeyxmlpath = os.path.dirname(hockeydtd);
-
-if(not pkgres):
+elif(not pkgres):
+ hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd";
+ hockeyxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl";
+ hockeyxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd";
+ hockeyrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng";
+ hockeyrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc";
+ hockeyaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd";
+ hockeyaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl";
+ hockeyaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd";
+ hockeyaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng";
+ hockeyaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc";
+ hockeyxmlpath = os.path.dirname(hockeydtd);
+else:
  hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd";
  hockeyxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl";
  hockeyxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd";
