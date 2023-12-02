@@ -201,9 +201,11 @@ if(enable_supersqlite):
  except ImportError:
   import sqlite3;
   supersqlitesupport = False;
+  enable_supersqlite = False;
 else:
  import sqlite3;
  supersqlitesupport = False;
+ enable_supersqlite = False;
 
 apswsupport = False;
 if(enable_apsw):
@@ -213,14 +215,18 @@ if(enable_apsw):
    import apsw;
   except ImportError:
    apswsupport = False;
+   enable_apsw = False;
  else:
   apswsupport = True;
   try:
    from supersqlite import apsw;
   except ImportError:
    apswsupport = False;
+   enable_apsw = False;
+   enable_supersqlite = False;
 else:
  apswsupport = False;
+ enable_apsw = False;
 
 if(supersqlitesupport and enable_supersqlite):
  import supersqlite;
@@ -233,6 +239,10 @@ if(enable_sqlcipher):
  except ImportError:
   import sqlite3;
   sqlciphersupport = False;
+  enable_sqlcipher = False;
+else:
+ sqlciphersupport = False;
+ enable_sqlcipher = False;
 
 oldsqlitesupport = False;
 if(enable_oldsqlite):
@@ -240,9 +250,12 @@ if(enable_oldsqlite):
  try:
   import sqlite;
  except ImportError:
+  import sqlite3;
   oldsqlitesupport = False;
+  enable_oldsqlite = False;
 else:
  oldsqlitesupport = False;
+ enable_oldsqlite = False;
 
 try:
  from xml.sax.saxutils import xml_escape;
