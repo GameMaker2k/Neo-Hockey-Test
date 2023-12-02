@@ -87,9 +87,9 @@ defaultpyfile = "./data/hockeydata.py";
 defaultpythonfile = defaultpyfile;
 defaultsqlfile = "./data/hockeydata.sql";
 defaultjsonfile = "./data/hockeydata.json";
-compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'lzma', 'xz'];
-outextlist = ['gz', 'bz2', 'zst', 'lzma', 'xz'];
-outextlistwd = ['.gz', '.bz2', '.zst', '.lzma', '.xz'];
+compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'xz', 'lz4', 'lzo', 'lzma'];
+outextlist = ['gz', 'bz2', 'zst', 'xz', 'lz4', 'lzo', 'lzma'];
+outextlistwd = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzma'];
 extensions = ['xml', 'json', 'sql', 'db3'];
 extensionswd = ['.xml', '.json', '.sql', '.db3'];
 
