@@ -33,10 +33,46 @@ from copy import copy, deepcopy;
 from .hockeydwnload import *;
 from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__;
 
+use_sqlite_lib = "sqlite3";
 enable_oldsqlite = False;
 enable_apsw = False;
 enable_supersqlite = False;
 enable_sqlcipher = False;
+if(use_sqlite_lib=="sqlite3"):
+ enable_oldsqlite = False;
+ enable_apsw = False;
+ enable_supersqlite = False;
+ enable_sqlcipher = False;
+if(use_sqlite_lib=="supersqlite"):
+ enable_supersqlite = True;
+ enable_oldsqlite = False;
+ enable_apsw = False;
+ enable_sqlcipher = False;
+elif(use_sqlite_lib=="apsw"):
+ enable_apsw = True;
+ enable_oldsqlite = False;
+ enable_supersqlite = False;
+ enable_sqlcipher = False;
+elif(use_sqlite_lib=="superapsw"):
+ enable_apsw = True;
+ enable_supersqlite = True;
+ enable_oldsqlite = False;
+ enable_sqlcipher = False;
+elif(use_sqlite_lib=="sqlcipher"):
+ enable_sqlcipher = True;
+ enable_oldsqlite = False;
+ enable_apsw = False;
+ enable_supersqlite = False;
+elif(use_sqlite_lib=="oldsqlite"):
+ enable_oldsqlite = True;
+ enable_apsw = False;
+ enable_supersqlite = False;
+ enable_sqlcipher = False;
+else:
+ enable_oldsqlite = False;
+ enable_apsw = False;
+ enable_supersqlite = False;
+ enable_sqlcipher = False;
 sqlcipher_password = "YourPassword";
 sqlite_synchronous = "FULL";
 sqlite_journal_mode = "WAL";
@@ -171,7 +207,7 @@ else:
 
 apswsupport = False;
 if(enable_apsw):
- if(supersqlitesupport):
+ if(not supersqlitesupport):
   apswsupport = True;
   try:
    import apsw;
