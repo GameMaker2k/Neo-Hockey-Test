@@ -32,7 +32,7 @@ except ImportError:
  except ImportError:
   pkgres = False;
 
-if(implib)
+if(implib):
  hockeydtd = os.path.join(importlib.resources.files(__name__), "hockeydata.dtd");
  hockeyxsl = os.path.join(importlib.resources.files(__name__), "hockeydata.xsl");
  hockeyxsd = os.path.join(importlib.resources.files(__name__), "hockeydata.xsd");
