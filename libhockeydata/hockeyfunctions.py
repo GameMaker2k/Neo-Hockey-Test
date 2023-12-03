@@ -423,6 +423,17 @@ def GetDataFromArray(data, path, default=None):
  except (KeyError, TypeError, IndexError):
   return default;
 
+def GetDataFromArrayAlt(structure, path, default=None):
+ element = structure;
+ for key in path:
+  if isinstance(element, dict) and key in element:
+   element = element[key];
+  elif isinstance(element, list) and isinstance(key, int) and -len(element) <= key < len(element):
+   element = element[key];
+  else:
+   return default;
+ return element;
+
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
  if(xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
   try:
