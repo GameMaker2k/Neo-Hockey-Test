@@ -33,16 +33,28 @@ except ImportError:
   pkgres = False;
 
 if(implib):
- hockeydtd = os.path.join(importlib.resources.files(__name__), "hockeydata.dtd");
- hockeyxsl = os.path.join(importlib.resources.files(__name__), "hockeydata.xsl");
- hockeyxsd = os.path.join(importlib.resources.files(__name__), "hockeydata.xsd");
- hockeyrng = os.path.join(importlib.resources.files(__name__), "hockeydata.rng");
- hockeyrnc = os.path.join(importlib.resources.files(__name__), "hockeydata.rnc");
- hockeyaltdtd = os.path.join(importlib.resources.files(__name__), "hockeydatabase.dtd");
- hockeyaltxsl = os.path.join(importlib.resources.files(__name__), "hockeydatabase.xsl");
- hockeyaltxsd = os.path.join(importlib.resources.files(__name__), "hockeydatabase.xsd");
- hockeyaltrng = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rng");
- hockeyaltrnc = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rnc");
+ try:
+  hockeydtd = os.path.join(importlib.resources.files(__name__), "hockeydata.dtd");
+  hockeyxsl = os.path.join(importlib.resources.files(__name__), "hockeydata.xsl");
+  hockeyxsd = os.path.join(importlib.resources.files(__name__), "hockeydata.xsd");
+  hockeyrng = os.path.join(importlib.resources.files(__name__), "hockeydata.rng");
+  hockeyrnc = os.path.join(importlib.resources.files(__name__), "hockeydata.rnc");
+  hockeyaltdtd = os.path.join(importlib.resources.files(__name__), "hockeydatabase.dtd");
+  hockeyaltxsl = os.path.join(importlib.resources.files(__name__), "hockeydatabase.xsl");
+  hockeyaltxsd = os.path.join(importlib.resources.files(__name__), "hockeydatabase.xsd");
+  hockeyaltrng = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rng");
+  hockeyaltrnc = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rnc");
+ except AttributeError:
+  hockeydtd = importlib.resources.path(__name__, "hockeydata.dtd");
+  hockeyxsl = importlib.resources.path(__name__, "hockeydata.xsl");
+  hockeyxsd = importlib.resources.path(__name__, "hockeydata.xsd");
+  hockeyrng = importlib.resources.path(__name__, "hockeydata.rng");
+  hockeyrnc = importlib.resources.path(__name__, "hockeydata.rnc");
+  hockeyaltdtd = importlib.resources.path(__name__, "hockeydatabase.dtd");
+  hockeyaltxsl = importlib.resources.path(__name__, "hockeydatabase.xsl");
+  hockeyaltxsd = importlib.resources.path(__name__, "hockeydatabase.xsd");
+  hockeyaltrng = importlib.resources.path(__name__, "hockeydatabase.rng");
+  hockeyaltrnc = importlib.resources.path(__name__, "hockeydatabase.rnc");
 elif(pkgres):
  hockeydtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd");
  hockeyxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl");
