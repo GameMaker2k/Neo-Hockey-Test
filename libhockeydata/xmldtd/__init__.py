@@ -45,16 +45,26 @@ if(implib):
   hockeyaltrng = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rng");
   hockeyaltrnc = os.path.join(importlib.resources.files(__name__), "hockeydatabase.rnc");
  except AttributeError:
-  hockeydtd = importlib.resources.path(__name__, "hockeydata.dtd");
-  hockeyxsl = importlib.resources.path(__name__, "hockeydata.xsl");
-  hockeyxsd = importlib.resources.path(__name__, "hockeydata.xsd");
-  hockeyrng = importlib.resources.path(__name__, "hockeydata.rng");
-  hockeyrnc = importlib.resources.path(__name__, "hockeydata.rnc");
-  hockeyaltdtd = importlib.resources.path(__name__, "hockeydatabase.dtd");
-  hockeyaltxsl = importlib.resources.path(__name__, "hockeydatabase.xsl");
-  hockeyaltxsd = importlib.resources.path(__name__, "hockeydatabase.xsd");
-  hockeyaltrng = importlib.resources.path(__name__, "hockeydatabase.rng");
-  hockeyaltrnc = importlib.resources.path(__name__, "hockeydatabase.rnc");
+  with importlib.resources.path(hockeydata.dtd, "") as pkgfile:
+   hockeydtd = pkgfile;
+  with importlib.resources.path(hockeydata.xsl, "") as pkgfile:
+   hockeyxsl = pkgfile;
+  with importlib.resources.path(hockeydata.xsd, "") as pkgfile:
+   hockeyxsd = pkgfile;
+  with importlib.resources.path(hockeydata.rng, "") as pkgfile:
+   hockeyrng = pkgfile;
+  with importlib.resources.path(hockeydata.rnc, "") as pkgfile:
+   hockeyrnc = pkgfile;
+  with importlib.resources.path(hockeydatabase.dtd, "") as pkgfile:
+   hockeyaltdtd = pkgfile;
+  with importlib.resources.path(hockeydatabase.xsl, "") as pkgfile:
+   hockeyaltxsl = pkgfile;
+  with importlib.resources.path(hockeydatabase.xsd, "") as pkgfile:
+   hockeyaltxsd = pkgfile;
+  with importlib.resources.path(hockeydatabase.rng, "") as pkgfile:
+   hockeyaltrng = pkgfile;
+  with importlib.resources.path(hockeydatabase.rnc, "") as pkgfile:
+   hockeyaltrnc = pkgfile;
 elif(pkgres):
  hockeydtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd");
  hockeyxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl");
