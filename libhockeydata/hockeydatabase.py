@@ -18,16 +18,15 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
-from io import open;
-try:
- reload(sys);
-except NameError:
- from importlib import reload;
- reload(sys);
-try:
+if(hasattr(sys, "setdefaultencoding")):
  sys.setdefaultencoding('UTF-8');
-except AttributeError:
- pass;
+if(hasattr(sys.stdout, "detach")):
+ import io;
+ sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'UTF-8');
+if(hasattr(sys.stderr, "detach")):
+ import io;
+ sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'UTF-8');
+from io import open as open;
 import multiprocessing, threading;
 from copy import copy, deepcopy;
 from .hockeydwnload import *;
