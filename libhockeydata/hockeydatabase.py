@@ -18,6 +18,19 @@
 
 from __future__ import absolute_import, division, print_function, unicode_literals;
 import sys, os, re, logging, binascii;
+
+try:
+ reload(sys);
+ try:
+  sys.setdefaultencoding('UTF-8');
+ except NameError:
+  pass;
+ except AttributeError:
+  pass;
+except NameError:
+ pass;
+except AttributeError:
+ pass;
 if(hasattr(sys, "setdefaultencoding")):
  sys.setdefaultencoding('UTF-8');
 if(hasattr(sys.stdout, "detach")):
