@@ -325,21 +325,24 @@ def VerbosePrintOutReturn(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
  return dbgtxt;
 
 def RemoveWindowsPath(dpath):
- if(os.sep != "/"):
+ if(dpath is None):
+  dpath = "";
+ if(os.sep!="/"):
   dpath = dpath.replace(os.path.sep, "/");
  dpath = dpath.rstrip("/");
- if(dpath in [".", ".."]):
-  dpath += "/";
+ if(dpath=="." or dpath==".."):
+  dpath = dpath + "/";
  return dpath;
 
 def NormalizeRelativePath(inpath):
  inpath = RemoveWindowsPath(inpath);
  if(os.path.isabs(inpath)):
   outpath = inpath;
- elif(inpath.startswith(("./", "../"))):
-  outpath = inpath;
  else:
-  outpath = "./"+inpath;
+  if(inpath.startswith("./") or inpath.startswith("../")):
+   outpath = inpath;
+  else:
+   outpath = "./" + inpath;
  return outpath;
 
 def CheckSQLiteDatabase(infile, enable_sqlcipher=enable_sqlcipher):
