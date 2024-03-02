@@ -949,7 +949,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
 def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, verbose=True, jsonverbose=True):
  if(not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
   return False;
- marshalstring = marshal.dumps(inhockeyarray, version=version);
+ marshalstring = marshal.dumps(inhockeyarray, version);
  if(verbose and jsonverbose):
   VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True));
  elif(verbose and not jsonverbose):
