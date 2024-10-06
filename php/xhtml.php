@@ -13,7 +13,9 @@
 
     $FileInfo: xhtml.php - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
 */
-if(!ob_start("ob_gzhandler")) { ob_start(); }
+if (!ob_start("ob_gzhandler")) {
+    ob_start();
+}
 date_default_timezone_set("UTC");
 header("Content-Language: en");
 header("Vary: Accept-Encoding,Cookie");
@@ -25,19 +27,30 @@ header("Date: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Last-Modified: ".gmdate("D, d M Y H:i:s")." GMT");
 header("Expires: ".gmdate("D, d M Y H:i:s")." GMT");
 $fullurl = "http://localhost/hockey/";
-if(isset($_SERVER['HTTPS'])) {
- $fullurl = "https://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/"); } 
-if(!isset($_SERVER['HTTPS'])) {
- $fullurl = "http://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/"); }
-if(isset($_GET['output'])) { unset($_GET['output']); }
-if(isset($_GET['xml'])) { unset($_GET['xml']); }
-if(isset($_GET['html'])) { unset($_GET['html']); }
-if(isset($_GET['xhtml'])) { unset($_GET['xhtml']); }
+if (isset($_SERVER['HTTPS'])) {
+    $fullurl = "https://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/");
+}
+if (!isset($_SERVER['HTTPS'])) {
+    $fullurl = "http://".$_SERVER["SERVER_NAME"].str_replace("//", "/", dirname($_SERVER["SCRIPT_NAME"])."/");
+}
+if (isset($_GET['output'])) {
+    unset($_GET['output']);
+}
+if (isset($_GET['xml'])) {
+    unset($_GET['xml']);
+}
+if (isset($_GET['html'])) {
+    unset($_GET['html']);
+}
+if (isset($_GET['xhtml'])) {
+    unset($_GET['xhtml']);
+}
 $qstring = http_build_query($_GET);
-if(strlen($qstring)==0) {
- header("Location: ".$fullurl."index.php?xhtml", true, 303); }
-if(strlen($qstring)>0) {
- $qstring = str_replace("=&", "&", $qstring);
- $qstring = preg_replace("/".preg_quote("=", '/')."$/", "", $qstring);
- header("Location: ".$fullurl."index.php?xhtml&".$qstring, true, 303); }
-?>
+if (strlen($qstring) == 0) {
+    header("Location: ".$fullurl."index.php?xhtml", true, 303);
+}
+if (strlen($qstring) > 0) {
+    $qstring = str_replace("=&", "&", $qstring);
+    $qstring = preg_replace("/".preg_quote("=", '/')."$/", "", $qstring);
+    header("Location: ".$fullurl."index.php?xhtml&".$qstring, true, 303);
+}
