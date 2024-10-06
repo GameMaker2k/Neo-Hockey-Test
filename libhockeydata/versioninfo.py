@@ -16,37 +16,42 @@
     $FileInfo: versioninfo.py - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals;
-import datetime, platform;
+from __future__ import absolute_import, division, print_function, unicode_literals
+import datetime
+import platform
 
-linuxdist = None;
+linuxdist = None
 try:
- linuxdist = platform.linux_distribution();
+    linuxdist = platform.linux_distribution()
 except AttributeError:
- try:
-  import distro;
-  linuxdist = distro.linux_distribution();
- except ImportError:
-  linuxdist = None;
+    try:
+        import distro
+        linuxdist = distro.linux_distribution()
+    except ImportError:
+        linuxdist = None
 
-python_info = {'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(), 'uname': platform.uname(), 'architecture': platform.architecture(), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()};
+python_info = {'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(
+), 'uname': platform.uname(), 'architecture': platform.architecture(), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()}
+
+
 def get_python_info(infotype=None):
- global python_info;
- python_info = python_info;
- if(infotype is None):
-  return python_info;
- if(infotype is not None):
-  return python_info.get(infotype, python_info);
+    global python_info
+    python_info = python_info
+    if(infotype is None):
+        return python_info
+    if(infotype is not None):
+        return python_info.get(infotype, python_info)
 
-getcuryear = datetime.date.today().year;
+
+getcuryear = datetime.date.today().year
 if(getcuryear <= 2015):
- getcuryear = 2016;
-getcuryear = str(getcuryear);
-__author__ = "Kazuki Przyborowski";
-__copyright__ = "(C) Game Maker 2k @ 2015-"+getcuryear;
-__credits__ = ["Kazuki Przyborowski", "Game Maker 2k"];
-__copyright_year__ = "2015-"+getcuryear;
-__license__ = "Revised BSD License";
+    getcuryear = 2016
+getcuryear = str(getcuryear)
+__author__ = "Kazuki Przyborowski"
+__copyright__ = "(C) Game Maker 2k @ 2015-"+getcuryear
+__credits__ = ["Kazuki Przyborowski", "Game Maker 2k"]
+__copyright_year__ = "2015-"+getcuryear
+__license__ = "Revised BSD License"
 __license_string__ = """-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
             Revised BSD License
 
@@ -82,54 +87,75 @@ THE POSSIBILITY OF SUCH DAMAGE.
 The views and conclusions contained in the software and documentation are those of the
 authors and should not be interpreted as representing official policies, either expressed
 or implied, of Game Maker 2k.
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-""";
-__maintainer__ = "Kazuki Przyborowski";
-__email__ = "kazuki.przyborowski@gmail.com";
-__status__ = "Production";
-__program_name__ = "PyHockeyStats";
-__program_alt_name__ = "PyHockeyData";
-__project__ = __program_name__;
-__project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test";
-__project_release_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test/releases/latest";
-__version_info__ = (0, 8, 8, "RC 1", 1);
-__build_time__ = {"timestamp": None, "year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None};
-__build_time_utc__ = {"timestamp": None, "year": None, "month": None, "day": None, "hour": None, "minute": None, "second": None};
-__build_python_info__ = {"python_branch": None, "python_build": None, "python_compiler": None, "python_implementation": None, "python_revision": None, "python_version": None, "python_version_tuple": None, "release": None, "system": None, "uname": None, "machine": None, "node": None, "platform": None, "processor": None, "version": None, "java_ver": None, "win32_ver": None, "mac_ver": None, "linux_distribution": None, "libc_ver": None};
-__build_python_is_set__ = False;
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"""
+__maintainer__ = "Kazuki Przyborowski"
+__email__ = "kazuki.przyborowski@gmail.com"
+__status__ = "Production"
+__program_name__ = "PyHockeyStats"
+__program_alt_name__ = "PyHockeyData"
+__project__ = __program_name__
+__project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test"
+__project_release_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test/releases/latest"
+__version_info__ = (0, 8, 8, "RC 1", 1)
+__build_time__ = {"timestamp": None, "year": None, "month": None,
+                  "day": None, "hour": None, "minute": None, "second": None}
+__build_time_utc__ = {"timestamp": None, "year": None, "month": None,
+                      "day": None, "hour": None, "minute": None, "second": None}
+__build_python_info__ = {"python_branch": None, "python_build": None, "python_compiler": None, "python_implementation": None, "python_revision": None, "python_version": None, "python_version_tuple": None, "release": None,
+                         "system": None, "uname": None, "machine": None, "node": None, "platform": None, "processor": None, "version": None, "java_ver": None, "win32_ver": None, "mac_ver": None, "linux_distribution": None, "libc_ver": None}
+__build_python_is_set__ = False
 if(not __build_python_is_set__):
- __build_python_info__ = python_info;
+    __build_python_info__ = python_info
+
+
 def get_build_python_info(infotype=None):
- global __build_python_info__;
- python_info = __build_python_info__;
- if(infotype is None):
-  return python_info;
- if(infotype is not None):
-  return python_info.get(infotype, python_info);
-__revision__ = __version_info__[3];
-__revision_id__ = "$Id$";
+    global __build_python_info__
+    python_info = __build_python_info__
+    if(infotype is None):
+        return python_info
+    if(infotype is not None):
+        return python_info.get(infotype, python_info)
+
+
+__revision__ = __version_info__[3]
+__revision_id__ = "$Id$"
 if(__version_info__[3] is not None):
- __version__ = "{major}.{minor}.{build} {release}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2], release=__version_info__[3]);
+    __version__ = "{major}.{minor}.{build} {release}".format(major=__version_info__[
+                                                             0], minor=__version_info__[1], build=__version_info__[2], release=__version_info__[3])
 if(__version_info__[3] is None):
- __version__ = "{major}.{minor}.{build}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2]);
-__version_alt__ = "{major}.{minor}.{build}".format(major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2]);
+    __version__ = "{major}.{minor}.{build}".format(
+        major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2])
+__version_alt__ = "{major}.{minor}.{build}".format(
+    major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2])
+
+
 def version_info():
- if(__version_info__[3] is not None):
-  return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": __version_info__[3]};
- if(__version_info__[3] is None):
-  return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None};
-__version_date_info__ = (2023, 12, 3, "RC 1", 1);
+    if(__version_info__[3] is not None):
+        return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": __version_info__[3]}
+    if(__version_info__[3] is None):
+        return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None}
+
+
+__version_date_info__ = (2023, 12, 3, "RC 1", 1)
+
+
 def version_date():
- if(__version_date_info__[3] is not None):
-  return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": __version_date_info__[3]};
- if(__version_date_info__[3] is None):
-  return {"year":__version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": None};
-__version_date__ = "{year}.{month}.{day}".format(year=__version_date_info__[0], month=__version_date_info__[1], day=__version_date_info__[2]);
-__version_date_alt__ = "{year}.{month}.{day} {release}".format(year=__version_date_info__[0], month=__version_date_info__[1], day=__version_date_info__[2], release=__version_date_info__[2]);
+    if(__version_date_info__[3] is not None):
+        return {"year": __version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": __version_date_info__[3]}
+    if(__version_date_info__[3] is None):
+        return {"year": __version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": None}
+
+
+__version_date__ = "{year}.{month}.{day}".format(year=__version_date_info__[
+                                                 0], month=__version_date_info__[1], day=__version_date_info__[2])
+__version_date_alt__ = "{year}.{month}.{day} {release}".format(year=__version_date_info__[
+                                                               0], month=__version_date_info__[1], day=__version_date_info__[2], release=__version_date_info__[2])
 if(__version_date_info__[4] is not None):
- __version_date_plusrc__ = __version_date__+"-"+str(__version_date_info__[4]);
+    __version_date_plusrc__ = __version_date__ + \
+        "-"+str(__version_date_info__[4])
 if(__version_date_info__[4] is None):
- __version_date_plusrc__ = __version_date__;
+    __version_date_plusrc__ = __version_date__
 if(__version_info__[4] is not None):
- __version_plusrc__ = __version__+"-"+str(__version_info__[4]);
+    __version_plusrc__ = __version__+"-"+str(__version_info__[4])
 if(__version_info__[4] is None):
- __version_plusrc__ = __version__;
+    __version_plusrc__ = __version__
