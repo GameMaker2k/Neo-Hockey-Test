@@ -126,6 +126,452 @@ except ImportError:
         except ImportError:
             teststringio = 0
 
+class ZlibFile:
+    def __init__(self, file_path=None, fileobj=None, mode='rb', level=9, wbits=15, encoding=None, errors=None, newline=None):
+        if file_path is None and fileobj is None:
+            raise ValueError("Either file_path or fileobj must be provided")
+        if file_path is not None and fileobj is not None:
+            raise ValueError(
+                "Only one of file_path or fileobj should be provided")
+
+        self.file_path = file_path
+        self.fileobj = fileobj
+        self.mode = mode
+        self.level = level
+        self.wbits = wbits
+        self.encoding = encoding
+        self.errors = errors
+        self.newline = newline
+        self._compressed_data = b''
+        self._decompressed_data = b''
+        self._position = 0
+        self._text_mode = 't' in mode
+
+        # Force binary mode for internal handling
+        internal_mode = mode.replace('t', 'b')
+
+        if 'w' in mode or 'a' in mode or 'x' in mode:
+            self.file = open(
+                file_path, internal_mode) if file_path else fileobj
+            self._compressor = zlib.compressobj(level, zlib.DEFLATED, wbits)
+        elif 'r' in mode:
+            if file_path:
+                if os.path.exists(file_path):
+                    self.file = open(file_path, internal_mode)
+                    self._load_file()
+                else:
+                    raise FileNotFoundError(
+                        "No such file: '{}'".format(file_path))
+            elif fileobj:
+                self.file = fileobj
+                self._load_file()
+        else:
+            raise ValueError("Mode should be 'rb' or 'wb'")
+
+    def _load_file(self):
+        self.file.seek(0)
+        self._compressed_data = self.file.read()
+        if not self._compressed_data.startswith((b'\x78\x01', b'\x78\x5E', b'\x78\x9C', b'\x78\xDA')):
+            raise ValueError("Invalid zlib file header")
+        self._decompressed_data = zlib.decompress(
+            self._compressed_data, self.wbits)
+        if self._text_mode:
+            self._decompressed_data = self._decompressed_data.decode(
+                self.encoding or 'utf-8', self.errors or 'strict')
+
+    def write(self, data):
+        if self._text_mode:
+            data = data.encode(self.encoding or 'utf-8',
+                               self.errors or 'strict')
+        compressed_data = self._compressor.compress(
+            data) + self._compressor.flush(zlib.Z_SYNC_FLUSH)
+        self.file.write(compressed_data)
+
+    def read(self, size=-1):
+        if size == -1:
+            size = len(self._decompressed_data) - self._position
+        data = self._decompressed_data[self._position:self._position + size]
+        self._position += size
+        return data
+
+    def seek(self, offset, whence=0):
+        if whence == 0:  # absolute file positioning
+            self._position = offset
+        elif whence == 1:  # seek relative to the current position
+            self._position += offset
+        elif whence == 2:  # seek relative to the file's end
+            self._position = len(self._decompressed_data) + offset
+        else:
+            raise ValueError("Invalid value for whence")
+
+        # Ensure the position is within bounds
+        self._position = max(
+            0, min(self._position, len(self._decompressed_data)))
+
+    def tell(self):
+        return self._position
+
+    def flush(self):
+        self.file.flush()
+
+    def fileno(self):
+        if hasattr(self.file, 'fileno'):
+            return self.file.fileno()
+        raise OSError("The underlying file object does not support fileno()")
+
+    def isatty(self):
+        if hasattr(self.file, 'isatty'):
+            return self.file.isatty()
+        return False
+
+    def truncate(self, size=None):
+        if hasattr(self.file, 'truncate'):
+            return self.file.truncate(size)
+        raise OSError("The underlying file object does not support truncate()")
+
+    def close(self):
+        if 'w' in self.mode or 'a' in self.mode or 'x' in self.mode:
+            self.file.write(self._compressor.flush(zlib.Z_FINISH))
+        if self.file_path:
+            self.file.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+
+class GzipFile:
+    def __init__(self, file_path=None, fileobj=None, mode='rb', compresslevel=9, encoding=None, errors=None, newline=None):
+        if file_path is None and fileobj is None:
+            raise ValueError("Either file_path or fileobj must be provided")
+        if file_path is not None and fileobj is not None:
+            raise ValueError(
+                "Only one of file_path or fileobj should be provided")
+
+        self.file_path = file_path
+        self.fileobj = fileobj
+        self.mode = mode
+        self.compresslevel = compresslevel
+        self.encoding = encoding
+        self.errors = errors
+        self.newline = newline
+        self._compressed_data = b''
+        self._decompressed_data = b''
+        self._position = 0
+        self._text_mode = 't' in mode
+
+        # Force binary mode for internal handling
+        internal_mode = mode.replace('t', 'b')
+
+        if 'w' in mode or 'a' in mode or 'x' in mode:
+            self.file = gzip.open(file_path, internal_mode, compresslevel=compresslevel) if file_path else gzip.GzipFile(
+                fileobj=fileobj, mode=internal_mode, compresslevel=compresslevel)
+            self._compressor = gzip.GzipFile(
+                fileobj=self.file, mode=internal_mode, compresslevel=compresslevel)
+        elif 'r' in mode:
+            if file_path:
+                if os.path.exists(file_path):
+                    self.file = gzip.open(file_path, internal_mode)
+                    self._load_file()
+                else:
+                    raise FileNotFoundError(
+                        "No such file: '{}'".format(file_path))
+            elif fileobj:
+                self.file = gzip.GzipFile(fileobj=fileobj, mode=internal_mode)
+                self._load_file()
+        else:
+            raise ValueError("Mode should be 'rb' or 'wb'")
+
+    def _load_file(self):
+        self.file.seek(0)
+        self._compressed_data = self.file.read()
+        if not self._compressed_data.startswith(b'\x1f\x8b'):
+            raise ValueError("Invalid gzip file header")
+        self._decompressed_data = gzip.decompress(self._compressed_data)
+        if self._text_mode:
+            self._decompressed_data = self._decompressed_data.decode(
+                self.encoding or 'utf-8', self.errors or 'strict')
+
+    def write(self, data):
+        if self._text_mode:
+            data = data.encode(self.encoding or 'utf-8',
+                               self.errors or 'strict')
+        compressed_data = self._compressor.compress(data)
+        self.file.write(compressed_data)
+        self.file.flush()
+
+    def read(self, size=-1):
+        if size == -1:
+            size = len(self._decompressed_data) - self._position
+        data = self._decompressed_data[self._position:self._position + size]
+        self._position += size
+        return data
+
+    def seek(self, offset, whence=0):
+        if whence == 0:  # absolute file positioning
+            self._position = offset
+        elif whence == 1:  # seek relative to the current position
+            self._position += offset
+        elif whence == 2:  # seek relative to the file's end
+            self._position = len(self._decompressed_data) + offset
+        else:
+            raise ValueError("Invalid value for whence")
+
+        # Ensure the position is within bounds
+        self._position = max(
+            0, min(self._position, len(self._decompressed_data)))
+
+    def tell(self):
+        return self._position
+
+    def flush(self):
+        self.file.flush()
+
+    def fileno(self):
+        if hasattr(self.file, 'fileno'):
+            return self.file.fileno()
+        raise OSError("The underlying file object does not support fileno()")
+
+    def isatty(self):
+        if hasattr(self.file, 'isatty'):
+            return self.file.isatty()
+        return False
+
+    def truncate(self, size=None):
+        if hasattr(self.file, 'truncate'):
+            return self.file.truncate(size)
+        raise OSError("The underlying file object does not support truncate()")
+
+    def close(self):
+        if 'w' in self.mode or 'a' in self.mode or 'x' in self.mode:
+            self.file.write(self._compressor.flush())
+        if self.file_path:
+            self.file.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
+
+'''
+class BloscFile:
+ def __init__(self, file_path=None, fileobj=None, mode='rb', level=9, encoding=None, errors=None, newline=None):
+  if file_path is None and fileobj is None:
+   raise ValueError("Either file_path or fileobj must be provided");
+  if file_path is not None and fileobj is not None:
+   raise ValueError("Only one of file_path or fileobj should be provided");
+
+  self.file_path = file_path;
+  self.fileobj = fileobj;
+  self.mode = mode;
+  self.level = level;
+  self.encoding = encoding;
+  self.errors = errors;
+  self.newline = newline;
+  self._compressed_data = b'';
+  self._decompressed_data = b'';
+  self._position = 0;
+  self._text_mode = 't' in mode;
+
+  # Force binary mode for internal handling
+  internal_mode = mode.replace('t', 'b');
+
+  if 'w' in mode or 'a' in mode or 'x' in mode:
+   self.file = open(file_path, internal_mode) if file_path else fileobj;
+   self._compressor = blosc.Blosc(level);
+  elif 'r' in mode:
+   if file_path:
+    if os.path.exists(file_path):
+     self.file = open(file_path, internal_mode);
+     self._load_file();
+    else:
+     raise FileNotFoundError("No such file: '{}'".format(file_path));
+   elif fileobj:
+    self.file = fileobj;
+    self._load_file();
+  else:
+   raise ValueError("Mode should be 'rb' or 'wb'");
+
+ def _load_file(self):
+  self.file.seek(0);
+  self._compressed_data = self.file.read();
+  if not self._compressed_data:
+   raise ValueError("Invalid blosc file header");
+  self._decompressed_data = blosc.decompress(self._compressed_data);
+  if self._text_mode:
+   self._decompressed_data = self._decompressed_data.decode(self.encoding or 'utf-8', self.errors or 'strict');
+
+ def write(self, data):
+  if self._text_mode:
+   data = data.encode(self.encoding or 'utf-8', self.errors or 'strict');
+  compressed_data = blosc.compress(data, cname='blosclz', clevel=self.level);
+  self.file.write(compressed_data);
+  self.file.flush();
+
+ def read(self, size=-1):
+  if size == -1:
+   size = len(self._decompressed_data) - self._position;
+  data = self._decompressed_data[self._position:self._position + size];
+  self._position += size;
+  return data;
+
+ def seek(self, offset, whence=0):
+  if whence == 0:  # absolute file positioning
+   self._position = offset;
+  elif whence == 1:  # seek relative to the current position
+   self._position += offset;
+  elif whence == 2:  # seek relative to the file's end
+   self._position = len(self._decompressed_data) + offset;
+  else:
+   raise ValueError("Invalid value for whence");
+
+  # Ensure the position is within bounds
+  self._position = max(0, min(self._position, len(self._decompressed_data)));
+
+ def tell(self):
+  return self._position;
+
+ def flush(self):
+  self.file.flush();
+
+ def fileno(self):
+  if hasattr(self.file, 'fileno'):
+   return self.file.fileno();
+  raise OSError("The underlying file object does not support fileno()");
+
+ def isatty(self):
+  if hasattr(self.file, 'isatty'):
+   return self.file.isatty();
+  return False;
+
+ def truncate(self, size=None):
+  if hasattr(self.file, 'truncate'):
+   return self.file.truncate(size);
+  raise OSError("The underlying file object does not support truncate()");
+
+ def close(self):
+  if 'w' in self.mode or 'a' in self.mode or 'x' in self.mode:
+   self.file.write(blosc.compress(self._compressor.flush(), cname='blosclz', clevel=self.level));
+  if self.file_path:
+   self.file.close();
+
+ def __enter__(self):
+  return self;
+
+ def __exit__(self, exc_type, exc_value, traceback):
+  self.close();
+
+class BrotliFile:
+ def __init__(self, file_path=None, fileobj=None, mode='rb', level=11, encoding=None, errors=None, newline=None):
+  if file_path is None and fileobj is None:
+   raise ValueError("Either file_path or fileobj must be provided");
+  if file_path is not None and fileobj is not None:
+   raise ValueError("Only one of file_path or fileobj should be provided");
+
+  self.file_path = file_path;
+  self.fileobj = fileobj;
+  self.mode = mode;
+  self.level = level;
+  self.encoding = encoding;
+  self.errors = errors;
+  self.newline = newline;
+  self._compressed_data = b'';
+  self._decompressed_data = b'';
+  self._position = 0;
+  self._text_mode = 't' in mode;
+
+  # Force binary mode for internal handling
+  internal_mode = mode.replace('t', 'b');
+
+  if 'w' in mode or 'a' in mode or 'x' in mode:
+   self.file = open(file_path, internal_mode) if file_path else fileobj;
+   self._compressor = brotli.Compressor(quality=self.level);
+  elif 'r' in mode:
+   if file_path:
+    if os.path.exists(file_path):
+     self.file = open(file_path, internal_mode);
+     self._load_file();
+    else:
+     raise FileNotFoundError("No such file: '{}'".format(file_path));
+   elif fileobj:
+    self.file = fileobj;
+    self._load_file();
+  else:
+   raise ValueError("Mode should be 'rb' or 'wb'");
+
+ def _load_file(self):
+  self.file.seek(0);
+  self._compressed_data = self.file.read();
+  if not self._compressed_data:
+   raise ValueError("Invalid brotli file header");
+  self._decompressed_data = brotli.decompress(self._compressed_data);
+  if self._text_mode:
+   self._decompressed_data = self._decompressed_data.decode(self.encoding or 'utf-8', self.errors or 'strict');
+
+ def write(self, data):
+  if self._text_mode:
+   data = data.encode(self.encoding or 'utf-8', self.errors or 'strict');
+  compressed_data = self._compressor.process(data);
+  self.file.write(compressed_data);
+  self.file.flush();
+
+ def read(self, size=-1):
+  if size == -1:
+   size = len(self._decompressed_data) - self._position;
+  data = self._decompressed_data[self._position:self._position + size];
+  self._position += size;
+  return data;
+
+ def seek(self, offset, whence=0):
+  if whence == 0:  # absolute file positioning
+   self._position = offset;
+  elif whence == 1:  # seek relative to the current position
+   self._position += offset;
+  elif whence == 2:  # seek relative to the file's end
+   self._position = len(self._decompressed_data) + offset;
+  else:
+   raise ValueError("Invalid value for whence");
+
+  # Ensure the position is within bounds
+  self._position = max(0, min(self._position, len(self._decompressed_data)));
+
+ def tell(self):
+  return self._position;
+
+ def flush(self):
+  self.file.flush();
+
+ def fileno(self):
+  if hasattr(self.file, 'fileno'):
+   return self.file.fileno();
+  raise OSError("The underlying file object does not support fileno()");
+
+ def isatty(self):
+  if hasattr(self.file, 'isatty'):
+   return self.file.isatty();
+  return False;
+
+ def truncate(self, size=None):
+  if hasattr(self.file, 'truncate'):
+   return self.file.truncate(size);
+  raise OSError("The underlying file object does not support truncate()");
+
+ def close(self):
+  if 'w' in self.mode or 'a' in self.mode or 'x' in self.mode:
+   self.file.write(self._compressor.finish());
+  if self.file_path:
+   self.file.close();
+
+ def __enter__(self):
+  return self;
+
+ def __exit__(self, exc_type, exc_value, traceback):
+  self.close();
+'''
 
 def CheckCompressionType(infile, closefp=True):
     if(not hasattr(infile, "read")):
@@ -137,10 +583,20 @@ def CheckCompressionType(infile, closefp=True):
     filetype = False
     if(prefp == binascii.unhexlify("1f8b")):
         filetype = "gzip"
+    if(prefp == binascii.unhexlify("7801")):
+        filetype = "zlib"
+    if(prefp == binascii.unhexlify("785e")):
+        filetype = "zlib"
+    if(prefp == binascii.unhexlify("789c")):
+        filetype = "zlib"
+    if(prefp == binascii.unhexlify("78da")):
+        filetype = "zlib"
     filefp.seek(0, 0)
     prefp = filefp.read(3)
     if(prefp == binascii.unhexlify("425a68")):
         filetype = "bzip2"
+    if(prefp == binascii.unhexlify("5d0000")):
+        filetype = "lzma"     
     filefp.seek(0, 0)
     prefp = filefp.read(4)
     if(prefp == binascii.unhexlify("28b52ffd")):
@@ -149,6 +605,10 @@ def CheckCompressionType(infile, closefp=True):
     prefp = filefp.read(4)
     if(prefp == binascii.unhexlify("04224d18")):
         filetype = "lz4"
+    filefp.seek(0, 0)
+    prefp = filefp.read(6)
+    if(prefp == binascii.unhexlify("fd377a585a00")):
+        filetype = "lzma"
     filefp.seek(0, 0)
     prefp = filefp.read(7)
     if(prefp == binascii.unhexlify("fd377a585a0000")):
@@ -214,7 +674,7 @@ def UncompressFile(infile, mode="rt"):
             filefp = lz4.frame.open(infile, mode, encoding="UTF-8")
         except (ValueError, TypeError) as e:
             filefp = lz4.frame.open(infile, mode)
-    if(compresscheck == "lzo"):
+    if(compresscheck == "lzo" or compresscheck == "lzop"):
         try:
             import lzo
         except ImportError:
@@ -232,11 +692,16 @@ def UncompressFile(infile, mode="rt"):
             filefp = lzma.open(infile, mode, encoding="UTF-8")
         except (ValueError, TypeError) as e:
             filefp = lzma.open(infile, mode)
+    if(compresscheck == "zlib"):
+        try:
+            filefp = lzma.open(infile, mode, encoding="UTF-8")
+        except (ValueError, TypeError) as e:
+            filefp = lzma.open(infile, mode)
     if(not compresscheck):
         try:
-            filefp = open(infile, mode, encoding="UTF-8")
+            filefp = ZlibFile(infile, mode=mode, encoding="UTF-8")
         except (ValueError, TypeError) as e:
-            filefp = open(infile, mode)
+            filefp = ZlibFile(infile, mode=mode)
     return filefp
 
 
@@ -365,7 +830,7 @@ def CompressOpenFile(outfile):
             return False
         outfp = lz4.frame.open(
             outfile, mode, format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8")
-    elif(fextname == ".lzo"):
+    elif(fextname == ".lzo" or fextname == ".lzop"):
         try:
             import lzo
         except ImportError:
@@ -379,6 +844,12 @@ def CompressOpenFile(outfile):
             return False
         outfp = lzma.open(outfile, mode, format=lzma.FORMAT_ALONE,
                           preset=9, encoding="UTF-8")
+    elif(fextname == ".zz" or fextname == ".zl" or fextname == ".zlib"):
+        try:
+            import lzma
+        except ImportError:
+            return False
+        outfp = ZlibFile(outfile, mode=mode, level=9)
     return outfp
 
 
