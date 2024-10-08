@@ -54,73 +54,139 @@ except AttributeError:
     pickledef = 2
 
 
-def MakeHockeySQLiteJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteJSONFromHockeySQLiteArray(
+        inhockeyarray,
+        jsonindent=1,
+        beautify=True,
+        sortkeys=False,
+        verbose=True,
+        jsonverbose=True):
     jsonstring = MakeHockeyJSONFromHockeyArray(
         inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose)
     return jsonstring
 
 
-def MakeHockeySQLiteJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteJSONFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outjsonfile=None,
+        returnjson=False,
+        jsonindent=1,
+        beautify=True,
+        sortkeys=False,
+        verbose=True,
+        jsonverbose=True):
     jsonstring = MakeHockeyJSONFileFromHockeyArray(
-        inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, jsonverbose)
+        inhockeyarray,
+        outjsonfile,
+        returnjson,
+        jsonindent,
+        beautify,
+        sortkeys,
+        verbose,
+        jsonverbose)
     return jsonstring
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLiteJSON(
+        injsonfile,
+        jsonisfile=True,
+        verbose=True,
+        jsonverbose=True):
     jsonstring = MakeHockeyArrayFromHockeyJSON(
         injsonfile, jsonisfile, verbose, jsonverbose)
     return jsonstring
 
 
-def MakeHockeySQLitePickleFromHockeySQLiteArray(inhockeyarray, protocol=pickledef, verbose=True, jsonverbose=True):
+def MakeHockeySQLitePickleFromHockeySQLiteArray(
+        inhockeyarray,
+        protocol=pickledef,
+        verbose=True,
+        jsonverbose=True):
     picklestringp = MakeHockeyPickleFromHockeyArray(
         inhockeyarray, protocol, verbose, jsonverbose)
     return picklestring
 
 
-def MakeHockeySQLitePickleFileFromHockeySQLiteArray(inhockeyarray, outpicklefile=None, returnjson=False, protocol=pickledef, verbose=True, jsonverbose=True):
+def MakeHockeySQLitePickleFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outpicklefile=None,
+        returnjson=False,
+        protocol=pickledef,
+        verbose=True,
+        jsonverbose=True):
     picklestring = MakeHockeyPickleFileFromHockeyArray(
         inhockeyarray, outpicklefile, returnjson, protocol, verbose, jsonverbose)
     return picklestring
 
 
-def MakeHockeySQLiteArrayFromHockeySQLitePickle(inpicklefile, pickleisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLitePickle(
+        inpicklefile,
+        pickleisfile=True,
+        verbose=True,
+        jsonverbose=True):
     picklestring = MakeHockeyArrayFromHockeyPickle(
         injsonfile, pickleisfile, verbose, jsonverbose)
     return picklestring
 
 
-def MakeHockeySQLiteMarshalFromHockeySQLiteArray(inhockeyarray, version=marshal.version, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteMarshalFromHockeySQLiteArray(
+        inhockeyarray,
+        version=marshal.version,
+        verbose=True,
+        jsonverbose=True):
     marshalstring = MakeHockeyMarshalFromHockeyArray(
         inhockeyarray, version, verbose, jsonverbose)
     return marshalstring
 
 
-def MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(inhockeyarray, outmarshalfile=None, returnjson=False, version=marshal.version, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outmarshalfile=None,
+        returnjson=False,
+        version=marshal.version,
+        verbose=True,
+        jsonverbose=True):
     marshalstring = MakeHockeyMarshalFileFromHockeyArray(
         inhockeyarray, outmarshalfile, returnjson, version, verbose, jsonverbose)
     return marshalstring
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteMarshal(inmarshalfile, pickleisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLiteMarshal(
+        inmarshalfile,
+        pickleisfile=True,
+        verbose=True,
+        jsonverbose=True):
     marshalstring = MakeHockeyArrayFromHockeyMarshal(
         injsonfile, pickleisfile, verbose, jsonverbose)
     return marshalstring
 
 
-def MakeHockeyXMLFromHockeyXML(inxmlfile, xmlisfile=True, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     hockeyxmlout = MakeHockeyXMLFromHockeyArray(
         hockeyarray, beautify, verbose, jsonverbose)
     return hockeyxmlout
 
 
-def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyXMLFileFromHockeyXML(
+        inxmlfile,
+        outxmlfile=None,
+        xmlisfile=True,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outxmlfile is None and xmlisfile):
+    if (outxmlfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outxmlfile = file_wo_extension+".xml"
+        outxmlfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
@@ -140,14 +206,19 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeySQLiteXMLFromHockeySQLiteXML(inxmlfile, xmlisfile=True, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeySQLiteXML(
+        inxmlfile,
+        xmlisfile=True,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteXML(
         inxmlfile, xmlisfile, False)
     hockeyxmlout = MakeHockeySQLiteXMLFromHockeySQLiteArray(
@@ -155,12 +226,20 @@ def MakeHockeySQLiteXMLFromHockeySQLiteXML(inxmlfile, xmlisfile=True, beautify=T
     return hockeyxmlout
 
 
-def MakeHockeySQLiteXMLFileFromHockeySQLiteXML(inxmlfile, outxmlfile=None, xmlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteXML(
+        inxmlfile,
+        outxmlfile=None,
+        xmlisfile=True,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outxmlfile is None and xmlisfile):
+    if (outxmlfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outxmlfile = file_wo_extension+".xml"
+        outxmlfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
@@ -180,19 +259,27 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteXML(inxmlfile, outxmlfile=None, xmlis
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(jsonisfile and (not os.path.exists(injsonfile) or not os.path.isfile(injsonfile))):
+def MakeHockeyXMLFileFromHockeyJSON(
+        injsonfile,
+        outxmlfile=None,
+        jsonisfile=True,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (jsonisfile and (not os.path.exists(injsonfile)
+                        or not os.path.isfile(injsonfile))):
         return False
-    if(outxmlfile is None and jsonisfile):
+    if (outxmlfile is None and jsonisfile):
         file_wo_extension, file_extension = os.path.splitext(injsonfile)
-        outxmlfile = file_wo_extension+".xml"
+        outxmlfile = file_wo_extension + ".xml"
     hockeyarray = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, False)
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
@@ -213,26 +300,39 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeyJSONFromHockeyXML(inxmlfile, xmlisfile=True, jsonindent=1, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     jsonstring = MakeHockeyJSONFromHockeyArray(
         hockeyarray, jsonindent, verbose, jsonverbose)
     return jsonstring
 
 
-def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyJSONFileFromHockeyXML(
+        inxmlfile,
+        outjsonfile=None,
+        xmlisfile=True,
+        returnjson=False,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outjsonfile is None and xmlisfile):
+    if (outjsonfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outjsonfile = file_wo_extension+".xml"
+        outjsonfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outjsonfile)[0]
     fextname = os.path.splitext(outjsonfile)[1]
     jsonfp = CompressOpenFile(outjsonfile)
@@ -252,14 +352,19 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
     except OSError as e:
         pass
     jsonfp.close()
-    if(returnjson):
+    if (returnjson):
         return jsonstring
-    if(not returnjson):
+    if (not returnjson):
         return True
     return True
 
 
-def MakeHockeyJSONFromHockeySQLiteXML(inxmlfile, xmlisfile=True, jsonindent=1, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeySQLiteXML(
+        inxmlfile,
+        xmlisfile=True,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteXML(
         inxmlfile, xmlisfile, False)
     jsonstring = MakeHockeyJSONFromHockeySQLiteArray(
@@ -267,12 +372,20 @@ def MakeHockeyJSONFromHockeySQLiteXML(inxmlfile, xmlisfile=True, jsonindent=1, v
     return jsonstring
 
 
-def MakeHockeyJSONFileFromHockeySQLiteXML(inxmlfile, outjsonfile=None, xmlisfile=True, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyJSONFileFromHockeySQLiteXML(
+        inxmlfile,
+        outjsonfile=None,
+        xmlisfile=True,
+        returnjson=False,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outjsonfile is None and xmlisfile):
+    if (outjsonfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outjsonfile = file_wo_extension+".xml"
+        outjsonfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outjsonfile)[0]
     fextname = os.path.splitext(outjsonfile)[1]
     jsonfp = CompressOpenFile(outjsonfile)
@@ -292,21 +405,33 @@ def MakeHockeyJSONFileFromHockeySQLiteXML(inxmlfile, outjsonfile=None, xmlisfile
     except OSError as e:
         pass
     jsonfp.close()
-    if(returnjson):
+    if (returnjson):
         return jsonstring
-    if(not returnjson):
+    if (not returnjson):
         return True
     return True
 
 
-def MakeHockeyJSONFromHockeyDatabase(insdbfile, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeyDatabase(
+        insdbfile,
+        returnjson=False,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     jsonstring = MakeHockeyJSONFromHockeyArray(
         hockeyarray, returnjson, jsonindent, verbose, jsonverbose)
     return jsonstring
 
 
-def MakeHockeyJSONFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeySQL(
+        insqlfile,
+        insdbfile=None,
+        sqlisfile=True,
+        returnjson=False,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeySQL(
         insqlfile, insdbfile, sqlisfile, False)
     jsonstring = MakeHockeyJSONFromHockeyArray(
@@ -314,61 +439,91 @@ def MakeHockeyJSONFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, retur
     return jsonstring
 
 
-def MakeHockeyJSONFromOldHockeyDatabase(insdbfile, returnjson=False, jsonindent=1, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromOldHockeyDatabase(
+        insdbfile,
+        returnjson=False,
+        jsonindent=1,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     jsonstring = MakeHockeyJSONFromHockeyArray(
         hockeyarray, returnjson, jsonindent, verbose, jsonverbose)
     return jsonstring
 
 
-def MakeHockeyDatabaseFromHockeyXML(inxmlfile, outsdbfile=None, xmlisfile=True, returndb=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeyXML(
+        inxmlfile,
+        outsdbfile=None,
+        xmlisfile=True,
+        returndb=False,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     hockeydbout = MakeHockeyDatabaseFromHockeyArray(
         hockeyarray, outsdbfile, returndb, verbose, jsonverbose)
     return hockeydbout
 
 
-def MakeHockeyDatabaseFromHockeySQL(insqlfile, outsdbfile=None, sqlisfile=True, returndb=False, verbose=True, jsonverbose=True):
-    if(sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
+def MakeHockeyDatabaseFromHockeySQL(
+        insqlfile,
+        outsdbfile=None,
+        sqlisfile=True,
+        returndb=False,
+        verbose=True,
+        jsonverbose=True):
+    if (sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
         sqlfp = UncompressFile(insqlfile)
         sqlstring = sqlfp.read()
         sqlfp.close()
-    elif(not sqlisfile):
+    elif (not sqlisfile):
         sqlstring = insqlfile
     else:
         return False
-    if(outsdbfile is None and len(re.findall(r"Database\:([\w\W]+)", insqlfile)) >= 1):
+    if (outsdbfile is None and len(re.findall(
+            r"Database\:([\w\W]+)", insqlfile)) >= 1):
         outsdbfile = re.findall(r"Database\:([\w\W]+)", insqlfile)[0].strip()
-    if(outsdbfile is None and len(re.findall(r"Database\:([\w\W]+)", insqlfile)) < 1):
+    if (outsdbfile is None and len(re.findall(
+            r"Database\:([\w\W]+)", insqlfile)) < 1):
         file_wo_extension, file_extension = os.path.splitext(insqlfile)
-        outsdbfile = file_wo_extension+".db3"
-    if(outsdbfile is not None and isinstance(outsdbfile, basestring)):
+        outsdbfile = file_wo_extension + ".db3"
+    if (outsdbfile is not None and isinstance(outsdbfile, basestring)):
         sqldatacon = MakeHockeyDatabase(outsdbfile)
-    if(outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
+    if (outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
         sqldatacon = tuple(outsdbfile)
     sqldatacon[0].executescript(sqlstring)
-    if(not returndb):
+    if (not returndb):
         CloseHockeyDatabase(sqldatacon)
-    if(returndb):
+    if (returndb):
         return sqldatacon
-    if(not returndb):
+    if (not returndb):
         return True
     return True
 
 
-def MakeHockeyPythonOOPFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     hockeypyout = MakeHockeyPythonOOPFromHockeyArray(
         hockeyarray, verbose, jsonverbose)
     return hockeypyout
 
 
-def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, jsonverbose=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyPythonOOPFileFromHockeyXML(
+        inxmlfile,
+        outpyfile=None,
+        xmlisfile=True,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outpyfile is None and xmlisfile):
+    if (outpyfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -388,28 +543,41 @@ def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonOOPAltFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     hockeypyout = MakeHockeyPythonOOPAltFromHockeyArray(
         hockeyarray, verbose, jsonverbose, verbosepy)
     return hockeypyout
 
 
-def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyPythonOOPAltFileFromHockeyXML(
+        inxmlfile,
+        outpyfile=None,
+        xmlisfile=True,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outpyfile is None and xmlisfile):
+    if (outpyfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -429,28 +597,39 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     hockeypyout = MakeHockeyPythonFromHockeyArray(
         hockeyarray, verbose, jsonverbose)
     return hockeypyout
 
 
-def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, jsonverbose=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyPythonFileFromHockeyXML(
+        inxmlfile,
+        outpyfile=None,
+        xmlisfile=True,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outpyfile is None and xmlisfile):
+    if (outpyfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -470,28 +649,41 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonAltFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     hockeypyout = MakeHockeyPythonAltFromHockeyArray(
         hockeyarray, verbose, jsonverbose, verbosepy)
     return hockeypyout
 
 
-def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
-    if(xmlisfile and (not os.path.exists(inxmlfile) or not os.path.isfile(inxmlfile))):
+def MakeHockeyPythonAltFileFromHockeyXML(
+        inxmlfile,
+        outpyfile=None,
+        xmlisfile=True,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
+    if (xmlisfile and (not os.path.exists(inxmlfile)
+                       or not os.path.isfile(inxmlfile))):
         return False
-    if(outpyfile is None and xmlisfile):
+    if (outpyfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -511,28 +703,38 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyXMLFromHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     hockeyxmlout = MakeHockeyXMLFromHockeyArray(
         hockeyarray, beautify, verbose, jsonverbose)
     return hockeyxmlout
 
 
-def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyXMLFileFromHockeyDatabase(
+        insdbfile,
+        xmlfile=None,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(xmlfile is None):
+    if (xmlfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        xmlfile = file_wo_extension+".xml"
+        xmlfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(xmlfile)[0]
     fextname = os.path.splitext(xmlfile)[1]
     xmlfp = CompressOpenFile(xmlfile)
@@ -552,26 +754,36 @@ def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeySQLiteXMLFromHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, False)
     hockeyxmlout = MakeHockeySQLiteXMLFromHockeySQLiteArray(
         hockeyarray, beautify, verbose, jsonverbose)
     return hockeyxmlout
 
 
-def MakeHockeySQLiteXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeySQLiteXMLFileFromHockeyDatabase(
+        insdbfile,
+        xmlfile=None,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(xmlfile is None):
+    if (xmlfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        xmlfile = file_wo_extension+".xml"
+        xmlfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(xmlfile)[0]
     fextname = os.path.splitext(xmlfile)[1]
     xmlfp = CompressOpenFile(xmlfile)
@@ -591,14 +803,20 @@ def MakeHockeySQLiteXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeyXMLFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromHockeySQL(
+        insqlfile,
+        insdbfile=None,
+        sqlisfile=True,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeySQL(
         insqlfile, insdbfile, sqlisfile, False)
     hockeyxmlout = MakeHockeyXMLFromHockeyArray(
@@ -606,12 +824,21 @@ def MakeHockeyXMLFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, beauti
     return hockeyxmlout
 
 
-def MakeHockeyXMLFileFromHockeySQL(insqlfile, insdbfile=None, outxmlfile=None, sqlisfile=True, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(sqlisfile and (not os.path.exists(insqlfile) or not os.path.isfile(insqlfile))):
+def MakeHockeyXMLFileFromHockeySQL(
+        insqlfile,
+        insdbfile=None,
+        outxmlfile=None,
+        sqlisfile=True,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (sqlisfile and (not os.path.exists(insqlfile)
+                       or not os.path.isfile(insqlfile))):
         return False
-    if(outxmlfile is None and sqlisfile):
+    if (outxmlfile is None and sqlisfile):
         file_wo_extension, file_extension = os.path.splitext(insqlfile)
-        outxmlfile = file_wo_extension+".xml"
+        outxmlfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
@@ -631,26 +858,32 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, insdbfile=None, outxmlfile=None, s
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeyPythonOOPFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFromHockeyDatabase(
+        insdbfile, verbose=True, jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     hockeypyout = MakeHockeyPythonOOPFromHockeyArray(
         hockeyarray, verbose, jsonverbose)
     return hockeypyout
 
 
-def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonOOPFileFromHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -670,28 +903,38 @@ def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonOOPAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFromHockeyDatabase(
+        insdbfile,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     hockeypyout = MakeHockeyPythonOOPAltFromHockeyArray(
         hockeyarray, verbose, jsonverbose, verbosepy)
     return hockeypyout
 
 
-def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonOOPAltFileFromHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -711,28 +954,34 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, retu
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFromHockeyDatabase(
+        insdbfile, verbose=True, jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     hockeypyout = MakeHockeyPythonFromHockeyArray(
         hockeyarray, verbose, jsonverbose)
     return hockeypyout
 
 
-def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonFileFromHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -752,28 +1001,38 @@ def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=F
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonAltFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFromHockeyDatabase(
+        insdbfile,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeyDatabase(insdbfile, False)
     hockeypyout = MakeHockeyPythonAltFromHockeyArray(
         hockeyarray, verbose, jsonverbose, verbosepy)
     return hockeypyout
 
 
-def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonAltFileFromHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -793,31 +1052,42 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeySQLFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLFromHockeyXML(
+        inxmlfile,
+        xmlisfile=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, False)
     sdbfilename = ":memory:"
-    if(xmlisfile):
-        sdbfilename = os.path.splitext(inxmlfile)[0]+".db3"
+    if (xmlisfile):
+        sdbfilename = os.path.splitext(inxmlfile)[0] + ".db3"
     hockeysqlout = MakeHockeySQLFromHockeyArray(
         hockeyarray, sdbfilename, verbose, jsonverbose)
     return hockeysqlout
 
 
-def MakeHockeySQLFileFromHockeyXML(inxmlfile, outsqlfile=None, xmlisfile=True, returnsql=False, verbose=True, jsonverbose=True):
-    if(not xmlisfile and (not os.path.exists(inxmlfile) and not os.path.isfile(inxmlfile))):
+def MakeHockeySQLFileFromHockeyXML(
+        inxmlfile,
+        outsqlfile=None,
+        xmlisfile=True,
+        returnsql=False,
+        verbose=True,
+        jsonverbose=True):
+    if (not xmlisfile and (not os.path.exists(
+            inxmlfile) and not os.path.isfile(inxmlfile))):
         return False
-    if(outsqlfile is None and xmlisfile):
+    if (outsqlfile is None and xmlisfile):
         file_wo_extension, file_extension = os.path.splitext(inxmlfile)
-        outsqlfile = file_wo_extension+".sql"
+        outsqlfile = file_wo_extension + ".sql"
     fbasename = os.path.splitext(outsqlfile)[0]
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
@@ -837,26 +1107,36 @@ def MakeHockeySQLFileFromHockeyXML(inxmlfile, outsqlfile=None, xmlisfile=True, r
     except OSError as e:
         pass
     sqlfp.close()
-    if(returnsql):
+    if (returnsql):
         return sqlstring
-    if(not returnsql):
+    if (not returnsql):
         return True
     return True
 
 
-def MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromOldHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(insdbfile, False)
     hockeyxmlout = MakeHockeyXMLFromHockeyArray(
         hockeyarray, beautify, verbose, jsonverbose)
     return hockeyxmlout
 
 
-def MakeHockeyXMLFileFromOldHockeyDatabase(insdbfile, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyXMLFileFromOldHockeyDatabase(
+        insdbfile,
+        outxmlfile=None,
+        returnxml=False,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outxmlfile is None):
+    if (outxmlfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        otxmlfile = file_wo_extension+".xml"
+        otxmlfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
@@ -876,26 +1156,35 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(insdbfile, outxmlfile=None, returnxml
     except OSError as e:
         pass
     xmlfp.close()
-    if(returnxml):
+    if (returnxml):
         return xmlstring
-    if(not returnxml):
+    if (not returnxml):
         return True
     return True
 
 
-def MakeHockeyPythonOOPFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFromOldHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False)
     pystring = MakeHockeyPythonOOPFromHockeyXML(
         xmlstring, False, verbose, jsonverbose)
     return pystring
 
 
-def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonOOPFileFromOldHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -915,28 +1204,39 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonOOPAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFromOldHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False)
     pystring = MakeHockeyPythonOOPAltFromHockeyXML(
         xmlstring, False, verbose, jsonverbose, verbosepy)
     return pystring
 
 
-def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -956,28 +1256,37 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, r
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFromOldHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True):
     xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False)
     pystring = MakeHockeyPythonFromHockeyXML(
         xmlstring, False, verbose, jsonverbose)
     return pystring
 
 
-def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonFileFromOldHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -997,28 +1306,39 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnp
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeyPythonAltFromOldHockeyDatabase(insdbfile, beautify=True, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFromOldHockeyDatabase(
+        insdbfile,
+        beautify=True,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, beautify, False)
     pystring = MakeHockeyPythonAltFromHockeyXML(
         xmlstring, False, verbose, jsonverbose, verbosepy)
     return pystring
 
 
-def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeyPythonAltFileFromOldHockeyDatabase(
+        insdbfile,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outpyfile is None):
+    if (outpyfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outpyfile = file_wo_extension+".xml"
+        outpyfile = file_wo_extension + ".xml"
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
@@ -1038,28 +1358,34 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
     except OSError as e:
         pass
     pyfp.close()
-    if(fextname not in outextlistwd):
+    if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
-    if(returnpy):
+    if (returnpy):
         return pystring
-    if(not returnpy):
+    if (not returnpy):
         return True
     return True
 
 
-def MakeHockeySQLFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeySQLFromOldHockeyDatabase(
+        insdbfile, verbose=True, jsonverbose=True):
     xmlstring = MakeHockeyXMLFromOldHockeyDatabase(insdbfile, True, False)
     sqldump = MakeHockeySQLFromHockeyXML(
         xmlstring, False, True, verbose, jsonverbose)
     return sqldump
 
 
-def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
-    if(not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
+def MakeHockeySQLFileFromOldHockeyDatabase(
+        insdbfile,
+        outsqlfile=None,
+        returnsql=False,
+        verbose=True,
+        jsonverbose=True):
+    if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
-    if(outsqlfile is None):
+    if (outsqlfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
-        outsqlfile = file_wo_extension+".sql"
+        outsqlfile = file_wo_extension + ".sql"
     fbasename = os.path.splitext(outsqlfile)[0]
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
@@ -1079,32 +1405,38 @@ def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql
     except OSError as e:
         pass
     sqlfp.close()
-    if(returnsql):
+    if (returnsql):
         return sqlstring
-    if(not returnsql):
+    if (not returnsql):
         return True
     return True
 
 
-def MakeHockeySQLiteArrayFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
-    if(not CheckHockeyArray(inhockeyarray)):
+def MakeHockeySQLiteArrayFromHockeyArray(
+        inhockeyarray, verbose=True, jsonverbose=True):
+    if (not CheckHockeyArray(inhockeyarray)):
         return False
     hockeydbin = MakeHockeyDatabaseFromHockeyArray(
         inhockeyarray, ":memory:", True, False, False)
     hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin, True)
-    if(not CheckHockeySQLiteArray(hockeyarray)):
+    if (not CheckHockeySQLiteArray(hockeyarray)):
         return False
     return hockeyarray
 
 
-def MakeHockeySQLiteArrayFromHockeySQL(insqlfile, sqlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQL(
+        insqlfile,
+        sqlisfile=True,
+        verbose=True,
+        jsonverbose=True):
     hockeydbin = MakeHockeyDatabaseFromHockeySQL(
         insqlfile, ":memory:", sqlisfile, True, False, False)
     hockeyarray = MakeHockeySQLiteArrayFromHockeyDatabase(hockeydbin, True)
     return hockeyarray
 
 
-def MakeHockeyPythonFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFromHockeySQLiteArray(
+        inhockeyarray, verbose=True, jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonFromHockeyArray(
@@ -1112,7 +1444,12 @@ def MakeHockeyPythonFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbo
     return pystring
 
 
-def MakeHockeyPythonFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonFileFromHockeyArray(
@@ -1120,7 +1457,11 @@ def MakeHockeyPythonFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, ret
     return pystring
 
 
-def MakeHockeyPythonAltFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFromHockeySQLiteArray(
+        inhockeyarray,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonAltFromHockeyArray(
@@ -1128,7 +1469,13 @@ def MakeHockeyPythonAltFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonve
     return pystring
 
 
-def MakeHockeyPythonAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonAltFileFromHockeyArray(
@@ -1136,7 +1483,8 @@ def MakeHockeyPythonAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, 
     return pystring
 
 
-def MakeHockeyPythonOOPFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFromHockeySQLiteArray(
+        inhockeyarray, verbose=True, jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonOOPFromHockeyArray(
@@ -1144,7 +1492,12 @@ def MakeHockeyPythonOOPFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonve
     return pystring
 
 
-def MakeHockeyPythonOOPFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonOOPFileFromHockeyArray(
@@ -1152,7 +1505,11 @@ def MakeHockeyPythonOOPFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, 
     return pystring
 
 
-def MakeHockeyPythonOOPAltFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFromHockeySQLiteArray(
+        inhockeyarray,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonOOPAltFromHockeyArray(
@@ -1160,7 +1517,13 @@ def MakeHockeyPythonOOPAltFromHockeySQLiteArray(inhockeyarray, verbose=True, jso
     return pystring
 
 
-def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(
+        inhockeyarray,
+        outpyfile=None,
+        returnpy=False,
+        verbose=True,
+        jsonverbose=True,
+        verbosepy=True):
     hockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, verbose=True, jsonverbose=True)
     pystring = MakeHockeyPythonOOPAltFileFromHockeyArray(
@@ -1168,25 +1531,31 @@ def MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(inhockeyarray, outpyfile=Non
     return pystring
 
 
-def MakeHockeyDatabaseFromHockeySQLiteArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeySQLiteArray(
+        inhockeyarray,
+        outsdbfile=None,
+        returndb=False,
+        verbose=True,
+        jsonverbose=True):
     sqlstring = MakeHockeySQLFromHockeySQLiteArray(
         inhockeyarray, outsdbfile, False, False)
     outhockeydb = MakeHockeyDatabaseFromHockeySQL(
         sqlstring, outsdbfile, False, False, returndb, False, False)
-    if(verbose and jsonverbose):
+    if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False, jsonverbose=True))
-    elif(verbose and not jsonverbose):
+    elif (verbose and not jsonverbose):
         VerbosePrintOut(MakeHockeySQLiteXMLFromHockeySQLiteArray(
             inhockeyarray, beautify, verbose=False, jsonverbose=True))
-    if(returndb):
+    if (returndb):
         return outhockeydb
-    if(not returndb):
+    if (not returndb):
         return True
     return True
 
 
-def MakeHockeySQLiteArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromOldHockeyDatabase(
+        insdbfile, verbose=True, jsonverbose=True):
     inhockeyarray = MakeHockeyArrayFromOldHockeyDatabase(
         insdbfile, False, False)
     hockeyarray = MakeHockeySQLiteArrayFromHockeyArray(
@@ -1196,42 +1565,42 @@ def MakeHockeySQLiteArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverb
 
 def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
     informat = informat.lower()
-    if(informat == "xml"):
-        if("infile" in funcargs and "inxmlfile" not in funcargs):
+    if (informat == "xml"):
+        if ("infile" in funcargs and "inxmlfile" not in funcargs):
             funcargs['inxmlfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeyXML(**funcargs)
-    elif(informat == "json"):
-        if("infile" in funcargs and "injsonfile" not in funcargs):
+    elif (informat == "json"):
+        if ("infile" in funcargs and "injsonfile" not in funcargs):
             funcargs['injsonfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeyJSON(**funcargs)
-    elif(informat == "pickle"):
-        if("infile" in funcargs and "inpicklefile" not in funcargs):
+    elif (informat == "pickle"):
+        if ("infile" in funcargs and "inpicklefile" not in funcargs):
             funcargs['inpicklefile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeyPickle(**funcargs)
-    elif(informat == "marshal"):
-        if("infile" in funcargs and "inmarshalfile" not in funcargs):
+    elif (informat == "marshal"):
+        if ("infile" in funcargs and "inmarshalfile" not in funcargs):
             funcargs['inmarshalfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeyPickle(**funcargs)
-    elif(informat == "database"):
-        if("infile" in funcargs and "insdbfile" not in funcargs):
+    elif (informat == "database"):
+        if ("infile" in funcargs and "insdbfile" not in funcargs):
             funcargs['insdbfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeyDatabase(**funcargs)
-    elif(informat == "olddatabase"):
-        if("infile" in funcargs and "insdbfile" not in funcargs):
+    elif (informat == "olddatabase"):
+        if ("infile" in funcargs and "insdbfile" not in funcargs):
             funcargs['insdbfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromOldHockeyDatabase(**funcargs)
-    elif(informat == "sql"):
-        if("infile" in funcargs and "insqlfile" not in funcargs):
+    elif (informat == "sql"):
+        if ("infile" in funcargs and "insqlfile" not in funcargs):
             funcargs['insqlfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeySQL(**funcargs)
-    elif(informat == "array"):
+    elif (informat == "array"):
         return MakeHockeyArrayFromHockeySQLiteArray(**funcargs)
     else:
         return False
@@ -1240,21 +1609,21 @@ def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
 
 def MakeHockeyArrayFromHockeyDataByList(informat="xml", *funcargs):
     informat = informat.lower()
-    if(informat == "xml"):
+    if (informat == "xml"):
         return MakeHockeyArrayFromHockeyXML(*funcargs)
-    elif(informat == "json"):
+    elif (informat == "json"):
         return MakeHockeyArrayFromHockeyJSON(*funcargs)
-    elif(informat == "pickle"):
+    elif (informat == "pickle"):
         return MakeHockeyArrayFromHockeyPickle(*funcargs)
-    elif(informat == "marshal"):
+    elif (informat == "marshal"):
         return MakeHockeyArrayFromHockeyPickle(*funcargs)
-    elif(informat == "database"):
+    elif (informat == "database"):
         return MakeHockeyArrayFromHockeyDatabase(*funcargs)
-    elif(informat == "olddatabase"):
+    elif (informat == "olddatabase"):
         return MakeHockeyArrayFromOldHockeyDatabase(*funcargs)
-    elif(informat == "sql"):
+    elif (informat == "sql"):
         return MakeHockeyArrayFromHockeySQL(*funcargs)
-    elif(informat == "array"):
+    elif (informat == "array"):
         return MakeHockeyArrayFromHockeySQLiteArray(*funcargs)
     else:
         return False
@@ -1262,9 +1631,9 @@ def MakeHockeyArrayFromHockeyDataByList(informat="xml", *funcargs):
 
 
 def MakeHockeyArrayFromHockeyData(funcargs):
-    if(funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
         return MakeHockeyArrayFromHockeyDataByList(*funcargs)
-    elif(funcargs is not None and isinstance(funcargs, (dict))):
+    elif (funcargs is not None and isinstance(funcargs, (dict))):
         return MakeHockeyArrayFromHockeyDataByDict(**funcargs)
     else:
         return False
@@ -1273,29 +1642,29 @@ def MakeHockeyArrayFromHockeyData(funcargs):
 
 def MakeHockeyDataFromHockeyArrayByDict(outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeyXMLFromHockeyArray(**funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeyXMLAltFromHockeyArray(**funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeyJSONFromHockeyArray(**funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeyPickleFromHockeyArray(**funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeyMarshalFromHockeyArray(**funcargs)
-    elif(outformat == "database"):
+    elif (outformat == "database"):
         return MakeHockeyDatabaseFromHockeyArray(**funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFromHockeyArray(**funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFromHockeyArray(**funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFromHockeyArray(**funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFromHockeyArray(**funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFromHockeyArray(**funcargs)
-    elif(outformat == "array"):
+    elif (outformat == "array"):
         return MakeHockeySQLiteArrayFromHockeyArray(**funcargs)
     else:
         return False
@@ -1304,29 +1673,29 @@ def MakeHockeyDataFromHockeyArrayByDict(outformat="xml", **funcargs):
 
 def MakeHockeyDataFromHockeyArrayByList(outformat="xml", *funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeyXMLFromHockeyArray(*funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeyXMLAltFromHockeyArray(*funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeyJSONFromHockeyArray(*funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeyPickleFromHockeyArray(*funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeyMarshalFromHockeyArray(*funcargs)
-    elif(outformat == "database"):
+    elif (outformat == "database"):
         return MakeHockeyDatabaseFromHockeyArray(*funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFromHockeyArray(*funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFromHockeyArray(*funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFromHockeyArray(*funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFromHockeyArray(*funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFromHockeyArray(*funcargs)
-    elif(outformat == "array"):
+    elif (outformat == "array"):
         return MakeHockeySQLiteArrayFromHockeyArray(*funcargs)
     else:
         return False
@@ -1334,9 +1703,9 @@ def MakeHockeyDataFromHockeyArrayByList(outformat="xml", *funcargs):
 
 
 def MakeHockeyDataFromHockeyArray(funcargs):
-    if(funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
         return MakeHockeyDataFromHockeyArrayByList(*funcargs)
-    elif(funcargs is not None and isinstance(funcargs, (dict))):
+    elif (funcargs is not None and isinstance(funcargs, (dict))):
         return MakeHockeyDataFromHockeyArrayByDict(**funcargs)
     else:
         return False
@@ -1345,53 +1714,53 @@ def MakeHockeyDataFromHockeyArray(funcargs):
 
 def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
-        if("outfile" in funcargs and "outxmlfile" not in funcargs):
+    if (outformat == "xml"):
+        if ("outfile" in funcargs and "outxmlfile" not in funcargs):
             funcargs['outxmlfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyXMLFileFromHockeyArray(**funcargs)
-    elif(outformat == "xmlalt"):
-        if("outfile" in funcargs and "outxmlfile" not in funcargs):
+    elif (outformat == "xmlalt"):
+        if ("outfile" in funcargs and "outxmlfile" not in funcargs):
             funcargs['outxmlfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyXMLAltFileFromHockeyArray(**funcargs)
-    elif(outformat == "json"):
-        if("outfile" in funcargs and "outjsonfile" not in funcargs):
+    elif (outformat == "json"):
+        if ("outfile" in funcargs and "outjsonfile" not in funcargs):
             funcargs['outjsonfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyJSONFileFromHockeyArray(**funcargs)
-    elif(outformat == "pickle"):
-        if("outfile" in funcargs and "outpicklefile" not in funcargs):
+    elif (outformat == "pickle"):
+        if ("outfile" in funcargs and "outpicklefile" not in funcargs):
             funcargs['outpicklefile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyPickleFileFromHockeyArray(**funcargs)
-    elif(outformat == "marshal"):
-        if("outfile" in funcargs and "outmarshalfile" not in funcargs):
+    elif (outformat == "marshal"):
+        if ("outfile" in funcargs and "outmarshalfile" not in funcargs):
             funcargs['outmarshalfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyMarshalFileFromHockeyArray(**funcargs)
-    elif(outformat == "py"):
-        if("outfile" in funcargs and "outpyfile" not in funcargs):
+    elif (outformat == "py"):
+        if ("outfile" in funcargs and "outpyfile" not in funcargs):
             funcargs['outpyfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyPythonFileFromHockeyArray(**funcargs)
-    elif(outformat == "pyalt"):
-        if("outfile" in funcargs and "outpyfile" not in funcargs):
+    elif (outformat == "pyalt"):
+        if ("outfile" in funcargs and "outpyfile" not in funcargs):
             funcargs['outpyfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyPythonAltFileFromHockeyArray(**funcargs)
-    elif(outformat == "pyoop"):
-        if("outfile" in funcargs and "outpyfile" not in funcargs):
+    elif (outformat == "pyoop"):
+        if ("outfile" in funcargs and "outpyfile" not in funcargs):
             funcargs['outpyfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyPythonOOPFileFromHockeyArray(**funcargs)
-    elif(outformat == "pyoopalt"):
-        if("outfile" in funcargs and "outpyfile" not in funcargs):
+    elif (outformat == "pyoopalt"):
+        if ("outfile" in funcargs and "outpyfile" not in funcargs):
             funcargs['outpyfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyPythonOOPAltFileFromHockeyArray(**funcargs)
-    elif(outformat == "sql"):
-        if("outfile" in funcargs and "outsqlfile" not in funcargs):
+    elif (outformat == "sql"):
+        if ("outfile" in funcargs and "outsqlfile" not in funcargs):
             funcargs['outsqlfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeySQLFileFromHockeyArray(**funcargs)
@@ -1402,25 +1771,25 @@ def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
 
 def MakeHockeyDataFileFromHockeyArrayByList(outformat="xml", *funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeyXMLFileFromHockeyArray(*funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeyXMLAltFileFromHockeyArray(*funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeyJSONFileFromHockeyArray(*funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeyPickleFileFromHockeyArray(*funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeyMarshalFileFromHockeyArray(*funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFileFromHockeyArray(*funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFileFromHockeyArray(*funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFileFromHockeyArray(*funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFileFromHockeyArray(*funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFileFromHockeyArray(*funcargs)
     else:
         return False
@@ -1428,53 +1797,54 @@ def MakeHockeyDataFileFromHockeyArrayByList(outformat="xml", *funcargs):
 
 
 def MakeHockeyDataFileFromHockeyArray(funcargs):
-    if(funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
         return MakeHockeyDataFileFromHockeyArrayByList(*funcargs)
-    elif(funcargs is not None and isinstance(funcargs, (dict))):
+    elif (funcargs is not None and isinstance(funcargs, (dict))):
         return MakeHockeyDataFileFromHockeyArrayByDict(**funcargs)
     else:
         return False
     return False
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
+def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
+        informat="xml", **funcargs):
     informat = informat.lower()
-    if(informat == "xml"):
-        if("infile" in funcargs and "inxmlfile" not in funcargs):
+    if (informat == "xml"):
+        if ("infile" in funcargs and "inxmlfile" not in funcargs):
             funcargs['inxmlfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeySQLiteXML(**funcargs)
-    elif(informat == "json"):
-        if("infile" in funcargs and "injsonfile" not in funcargs):
+    elif (informat == "json"):
+        if ("infile" in funcargs and "injsonfile" not in funcargs):
             funcargs['injsonfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeySQLiteJSON(**funcargs)
-    elif(informat == "pickle"):
-        if("infile" in funcargs and "inpicklefile" not in funcargs):
+    elif (informat == "pickle"):
+        if ("infile" in funcargs and "inpicklefile" not in funcargs):
             funcargs['inpicklefile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs)
-    elif(informat == "marshal"):
-        if("infile" in funcargs and "inmarshalfile" not in funcargs):
+    elif (informat == "marshal"):
+        if ("infile" in funcargs and "inmarshalfile" not in funcargs):
             funcargs['inmarshalfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs)
-    elif(informat == "database"):
-        if("infile" in funcargs and "insdbfile" not in funcargs):
+    elif (informat == "database"):
+        if ("infile" in funcargs and "insdbfile" not in funcargs):
             funcargs['insdbfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeyDatabase(**funcargs)
-    elif(informat == "olddatabase"):
-        if("infile" in funcargs and "insdbfile" not in funcargs):
+    elif (informat == "olddatabase"):
+        if ("infile" in funcargs and "insdbfile" not in funcargs):
             funcargs['insdbfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromOldHockeyDatabase(**funcargs)
-    elif(informat == "sql"):
-        if("infile" in funcargs and "insqlfile" not in funcargs):
+    elif (informat == "sql"):
+        if ("infile" in funcargs and "insqlfile" not in funcargs):
             funcargs['insqlfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeySQL(**funcargs)
-    elif(informat == "array"):
+    elif (informat == "array"):
         return MakeHockeySQLiteArrayFromHockeyArray(**funcargs)
     else:
         return False
@@ -1483,21 +1853,21 @@ def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
 
 def MakeHockeySQLiteArrayFromHockeySQLiteDataByList(informat="xml", *funcargs):
     informat = informat.lower()
-    if(informat == "xml"):
+    if (informat == "xml"):
         return MakeHockeySQLiteArrayFromHockeySQLiteXML(*funcargs)
-    elif(informat == "json"):
+    elif (informat == "json"):
         return MakeHockeySQLiteArrayFromHockeySQLiteJSON(*funcargs)
-    elif(informat == "pickle"):
+    elif (informat == "pickle"):
         return MakeHockeySQLiteArrayFromHockeySQLitePickle(*funcargs)
-    elif(informat == "marshal"):
+    elif (informat == "marshal"):
         return MakeHockeySQLiteArrayFromHockeySQLitePickle(*funcargs)
-    elif(informat == "database"):
+    elif (informat == "database"):
         return MakeHockeySQLiteArrayFromHockeyDatabase(*funcargs)
-    elif(informat == "olddatabase"):
+    elif (informat == "olddatabase"):
         return MakeHockeySQLiteArrayFromOldHockeyDatabase(*funcargs)
-    elif(informat == "sql"):
+    elif (informat == "sql"):
         return MakeHockeySQLiteArrayFromHockeySQL(*funcargs)
-    elif(informat == "array"):
+    elif (informat == "array"):
         return MakeHockeySQLiteArrayFromHockeyArray(*funcargs)
     else:
         return False
@@ -1505,71 +1875,73 @@ def MakeHockeySQLiteArrayFromHockeySQLiteDataByList(informat="xml", *funcargs):
 
 
 def MakeHockeySQLiteArrayFromHockeySQLiteData(funcargs):
-    if(funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
         return MakeHockeySQLiteArrayFromHockeySQLiteDataByList(*funcargs)
-    elif(funcargs is not None and isinstance(funcargs, (dict))):
+    elif (funcargs is not None and isinstance(funcargs, (dict))):
         return MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**funcargs)
     else:
         return False
     return False
 
 
-def MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
+def MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(
+        outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeySQLiteXMLFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeySQLiteJSONFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeySQLitePickleFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeySQLiteMarshalFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "database"):
+    elif (outformat == "database"):
         return MakeHockeyDatabaseFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "array"):
+    elif (outformat == "array"):
         return MakeHockeyArrayFromHockeySQLiteArray(**funcargs)
     else:
         return False
     return False
 
 
-def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
+def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(
+        outformat="xml", *funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeySQLiteXMLFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeySQLiteJSONFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeySQLitePickleFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeySQLiteMarshalFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "database"):
+    elif (outformat == "database"):
         return MakeHockeyDatabaseFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "array"):
+    elif (outformat == "array"):
         return MakeHockeyArrayFromHockeySQLiteArray(*funcargs)
     else:
         return False
@@ -1577,63 +1949,65 @@ def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
 
 
 def MakeHockeySQLiteDataFromHockeySQLiteArray(funcargs):
-    if(funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
         return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*funcargs)
-    elif(funcargs is not None and isinstance(funcargs, (dict))):
+    elif (funcargs is not None and isinstance(funcargs, (dict))):
         return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**funcargs)
     else:
         return False
     return False
 
 
-def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
+def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(
+        outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeySQLiteJSONFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeySQLitePickleFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(**funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFileFromHockeySQLiteArray(**funcargs)
     else:
         return False
     return False
 
 
-def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
+def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(
+        outformat="xml", *funcargs):
     outformat = outformat.lower()
-    if(outformat == "xml"):
+    if (outformat == "xml"):
         return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "xmlalt"):
+    elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "json"):
+    elif (outformat == "json"):
         return MakeHockeySQLiteJSONFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pickle"):
+    elif (outformat == "pickle"):
         return MakeHockeySQLitePickleFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "marshal"):
+    elif (outformat == "marshal"):
         return MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "py"):
+    elif (outformat == "py"):
         return MakeHockeyPythonFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pyalt"):
+    elif (outformat == "pyalt"):
         return MakeHockeyPythonAltFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pyoop"):
+    elif (outformat == "pyoop"):
         return MakeHockeyPythonOOPFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "pyoopalt"):
+    elif (outformat == "pyoopalt"):
         return MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(*funcargs)
-    elif(outformat == "sql"):
+    elif (outformat == "sql"):
         return MakeHockeySQLFileFromHockeySQLiteArray(*funcargs)
     else:
         return False
@@ -1641,9 +2015,9 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcar
 
 
 def MakeHockeySQLiteDataFileFromHockeySQLiteArray(funcargs):
-    if(funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
         return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*funcargs)
-    elif(funcargs is not None and isinstance(funcargs, (dict))):
+    elif (funcargs is not None and isinstance(funcargs, (dict))):
         return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**funcargs)
     else:
         return False
@@ -1651,19 +2025,19 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArray(funcargs):
 
 
 def MakeHockeyDataFromHockeyData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
     else:
         return False
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
         return MakeHockeyDataFromHockeyArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
         return MakeHockeyDataFromHockeyArrayByDict(**outfuncargs)
     else:
@@ -1672,19 +2046,19 @@ def MakeHockeyDataFromHockeyData(infuncargs, outfuncargs):
 
 
 def MakeHockeyDataFileFromHockeyData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
     else:
         return False
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
         return MakeHockeyDataFileFromHockeyArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
         return MakeHockeyDataFileFromHockeyArrayByDict(**outfuncargs)
     else:
@@ -1693,23 +2067,23 @@ def MakeHockeyDataFileFromHockeyData(infuncargs, outfuncargs):
 
 
 def MakeHockeyDataFromHockeySQLiteData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
             *infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
             **infuncargs)
     else:
         return False
     inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, False, False)
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
         return MakeHockeyDataFromHockeyArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
         return MakeHockeyDataFromHockeyArrayByDict(**outfuncargs)
     else:
@@ -1718,23 +2092,23 @@ def MakeHockeyDataFromHockeySQLiteData(infuncargs, outfuncargs):
 
 
 def MakeHockeyDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
             *infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
             **infuncargs)
     else:
         return False
     inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
         inhockeyarray, False, False)
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
         return MakeHockeyDataFileFromHockeyArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
         return MakeHockeyDataFileFromHockeyArrayByDict(**outfuncargs)
     else:
@@ -1743,21 +2117,21 @@ def MakeHockeyDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
 
 
 def MakeHockeySQLiteDataFromHockeySQLiteData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
             *infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
             **infuncargs)
     else:
         return False
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
         return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
         return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**outfuncargs)
     else:
@@ -1766,44 +2140,46 @@ def MakeHockeySQLiteDataFromHockeySQLiteData(infuncargs, outfuncargs):
 
 
 def MakeHockeySQLiteDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
             *infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
             **infuncargs)
     else:
         return False
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(
+            *outfuncargs)
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**outfuncargs)
+        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(
+            **outfuncargs)
     else:
         return False
     return False
 
 
 def MakeHockeySQLiteDataFromHockeyData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
     else:
         return False
     inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(
         inhockeyarray, False, False)
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
         return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
         return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**outfuncargs)
     else:
@@ -1812,23 +2188,25 @@ def MakeHockeySQLiteDataFromHockeyData(infuncargs, outfuncargs):
 
 
 def MakeHockeySQLiteDataFileFromHockeyData(infuncargs, outfuncargs):
-    if(infuncargs is not None and isinstance(infuncargs, (tuple, list))):
+    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif(infuncargs is not None and isinstance(infuncargs, (dict))):
+    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
         inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
     else:
         return False
     inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(
         inhockeyarray, False, False)
-    if(outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if(len(outfuncargs) > 1):
+    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
+        if (len(outfuncargs) > 1):
             outfuncargs[1] = inhockeyarray
         else:
             outfuncargs.append(inhockeyarray)
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*outfuncargs)
-    elif(outfuncargs is not None and isinstance(outfuncargs, (dict))):
+        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(
+            *outfuncargs)
+    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
         outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**outfuncargs)
+        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(
+            **outfuncargs)
     else:
         return False
     return False

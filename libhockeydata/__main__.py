@@ -35,8 +35,12 @@ sys.path.append(hockeytestdir)
 verinfotext = "{projectname} {projectver} {copyrightstr}; #Release {projectver} {projectdate}".format(
     projectname=__project__, projectver=__version__, copyrightstr=__copyright__, projectdate=__version_date__)
 
-parser = argparse.ArgumentParser(description=verinfotext+"\nPyHockeyStats is just a test script dealing with hockey games and stats.",
-                                 conflict_handler="resolve", add_help=True, formatter_class=argparse.RawTextHelpFormatter)
+parser = argparse.ArgumentParser(
+    description=verinfotext +
+    "\nPyHockeyStats is just a test script dealing with hockey games and stats.",
+    conflict_handler="resolve",
+    add_help=True,
+    formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("-v", "--version", action="version", version=verinfotext)
 parser.add_argument("-l", "--license", action="store_true",
                     help="print license file")
@@ -44,15 +48,35 @@ parser.add_argument("-g", "--getinfo", default=None,
                     help="print info about PyHockeyStats")
 getargs = parser.parse_args()
 
-getinfolist = {'getmd': hockeytestdir, 'getmdir': hockeytestdir, 'moduledir': hockeytestdir, 'hockeytestdir': hockeytestdir, 'author': __author__, 'copyright': __copyright__, 'credits': __credits__, 'email': __email__, 'license': __license__, 'license_string': __license_string__, 'maintainer': __maintainer__,
-               'project': __project__, 'project_url': __project_url__, 'revision': __revision__, 'status': __status__, 'version': __version__, 'version_alt': __version_alt__, 'version_date': __version_date__, 'version_date_alt': __version_date_alt__, 'version_date_info': __version_date_info__, 'version_info': __version_info__}
+getinfolist = {
+    'getmd': hockeytestdir,
+    'getmdir': hockeytestdir,
+    'moduledir': hockeytestdir,
+    'hockeytestdir': hockeytestdir,
+    'author': __author__,
+    'copyright': __copyright__,
+    'credits': __credits__,
+    'email': __email__,
+    'license': __license__,
+    'license_string': __license_string__,
+    'maintainer': __maintainer__,
+    'project': __project__,
+    'project_url': __project_url__,
+    'revision': __revision__,
+    'status': __status__,
+    'version': __version__,
+    'version_alt': __version_alt__,
+    'version_date': __version_date__,
+    'version_date_alt': __version_date_alt__,
+    'version_date_info': __version_date_info__,
+    'version_info': __version_info__}
 
-if(getargs.license is True and getargs.getinfo is not None):
+if (getargs.license is True and getargs.getinfo is not None):
     getargs.getinfo = None
-if(getargs.license is False and getargs.getinfo is None):
+if (getargs.license is False and getargs.getinfo is None):
     getargs.license = True
-if(getargs.license is True):
+if (getargs.license is True):
     print("{licensestr}".format(licensestr=__license_string__))
-if(getargs.getinfo is not None):
+if (getargs.getinfo is not None):
     print("{getmyinfo}".format(getmyinfo=getinfolist.get(
         getargs.getinfo, getinfolist['hockeytestdir'])))
