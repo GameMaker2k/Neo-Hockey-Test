@@ -16,13 +16,15 @@
     $FileInfo: hockeydatabase.py - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-from xml.sax.saxutils import XMLGenerator
-import sys
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import binascii
+import logging
 import os
 import re
-import logging
-import binascii
+import sys
+from xml.sax.saxutils import XMLGenerator
 
 try:
     reload(sys)
@@ -44,12 +46,17 @@ if (hasattr(sys.stdout, "detach")):
 if (hasattr(sys.stderr, "detach")):
     import io
     sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='UTF-8')
-from io import open as open
 import multiprocessing
 import threading
 from copy import copy, deepcopy
+from io import open as open
+
 from .hockeydwnload import *
-from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__
+from .versioninfo import (__program_alt_name__, __program_name__, __project__,
+                          __project_release_url__, __project_url__,
+                          __revision__, __revision_id__, __version__,
+                          __version_date__, __version_date_info__,
+                          __version_date_plusrc__, __version_info__)
 
 use_sqlite_lib = "sqlite3"
 enable_oldsqlite = False
@@ -191,18 +198,17 @@ def check_version_number(
 
 teststringio = 0
 try:
-    from io import BytesIO
-    from io import StringIO
+    from io import BytesIO, StringIO
     teststringio = 3
 except ImportError:
     try:
-        from cStringIO import StringIO as BytesIO
         from cStringIO import StringIO
+        from cStringIO import StringIO as BytesIO
         teststringio = 1
     except ImportError:
         try:
-            from StringIO import StringIO as BytesIO
             from StringIO import StringIO
+            from StringIO import StringIO as BytesIO
             teststringio = 2
         except ImportError:
             teststringio = 0

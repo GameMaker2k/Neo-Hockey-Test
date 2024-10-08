@@ -16,13 +16,15 @@
 '''
 
 from __future__ import print_function
-import sys
-import traceback
+
 import code
 import re
 import readline
-import libhockeydata
+import sys
+import traceback
 from sys import argv
+
+import libhockeydata
 from libhockeydata import *
 
 taskfound = False

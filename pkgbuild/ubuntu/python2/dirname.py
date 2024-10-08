@@ -15,10 +15,12 @@
     $FileInfo: dirname.py - Last Update: 4/23/2016 Ver. 0.0.5 RC 3 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import argparse
 import os
 import sys
-import argparse
 
 __version_info__ = (0, 0, 5, "rc3")
 if (__version_info__[3] is not None):

@@ -16,21 +16,33 @@
     $FileInfo: hockeyfunctions.py - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info
-from .xmldtd import *
-from .hockeydwnload import *
-from .hockeydatabase import *
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import binascii
+import marshal
+import os
+import platform
+import re
 import sqlite3
 import sys
-import os
-import re
 import time
-import marshal
-import platform
-import binascii
 import xml.dom.minidom
 from io import open
+
+from .hockeydatabase import *
+from .hockeydwnload import *
+from .versioninfo import (__author__, __copyright__, __credits__, __email__,
+                          __license__, __license_string__, __maintainer__,
+                          __program_alt_name__, __program_name__, __project__,
+                          __project_release_url__, __project_url__,
+                          __revision__, __revision_id__, __status__,
+                          __version__, __version_alt__, __version_date__,
+                          __version_date_alt__, __version_date_info__,
+                          __version_date_plusrc__, __version_info__,
+                          version_date, version_info)
+from .xmldtd import *
+
 try:
     reload(sys)
 except NameError:
@@ -40,9 +52,9 @@ try:
     sys.setdefaultencoding('UTF-8')
 except AttributeError:
     pass
-from ftplib import FTP, FTP_TLS
 from base64 import b64encode
 from copy import copy, deepcopy
+from ftplib import FTP, FTP_TLS
 
 try:
     import simplejson as json
@@ -126,18 +138,17 @@ baseint = tuple(baseint)
 
 teststringio = 0
 try:
-    from io import BytesIO
-    from io import StringIO
+    from io import BytesIO, StringIO
     teststringio = 3
 except ImportError:
     try:
-        from cStringIO import StringIO as BytesIO
         from cStringIO import StringIO
+        from cStringIO import StringIO as BytesIO
         teststringio = 1
     except ImportError:
         try:
-            from StringIO import StringIO as BytesIO
             from StringIO import StringIO
+            from StringIO import StringIO as BytesIO
             teststringio = 2
         except ImportError:
             teststringio = 0
