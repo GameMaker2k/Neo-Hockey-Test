@@ -130,6 +130,15 @@ def MakeHockeyXMLFileFromHockeyXML(inxmlfile, outxmlfile=None, xmlisfile=True, r
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -161,6 +170,15 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteXML(inxmlfile, outxmlfile=None, xmlis
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -185,6 +203,15 @@ def MakeHockeyXMLFileFromHockeyJSON(injsonfile, outxmlfile=None, jsonisfile=True
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -215,6 +242,15 @@ def MakeHockeyJSONFileFromHockeyXML(inxmlfile, outjsonfile=None, xmlisfile=True,
         jsonfp.write(jsonstring)
     except TypeError:
         jsonfp.write(jsonstring.encode("UTF-8"))
+    try:
+        jsonfp.flush()
+        os.fsync(jsonfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     jsonfp.close()
     if(returnjson):
         return jsonstring
@@ -246,6 +282,15 @@ def MakeHockeyJSONFileFromHockeySQLiteXML(inxmlfile, outjsonfile=None, xmlisfile
         jsonfp.write(jsonstring)
     except TypeError:
         jsonfp.write(jsonstring.encode("UTF-8"))
+    try:
+        jsonfp.flush()
+        os.fsync(jsonfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     jsonfp.close()
     if(returnjson):
         return jsonstring
@@ -333,6 +378,15 @@ def MakeHockeyPythonOOPFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -365,6 +419,15 @@ def MakeHockeyPythonOOPAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -397,6 +460,15 @@ def MakeHockeyPythonFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=True,
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -429,6 +501,15 @@ def MakeHockeyPythonAltFileFromHockeyXML(inxmlfile, outpyfile=None, xmlisfile=Tr
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -461,6 +542,15 @@ def MakeHockeyXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml=False
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -491,6 +581,15 @@ def MakeHockeySQLiteXMLFileFromHockeyDatabase(insdbfile, xmlfile=None, returnxml
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -522,6 +621,15 @@ def MakeHockeyXMLFileFromHockeySQL(insqlfile, insdbfile=None, outxmlfile=None, s
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -552,6 +660,15 @@ def MakeHockeyPythonOOPFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -584,6 +701,15 @@ def MakeHockeyPythonOOPAltFileFromHockeyDatabase(insdbfile, outpyfile=None, retu
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -616,6 +742,15 @@ def MakeHockeyPythonFileFromHockeyDatabase(insdbfile, outpyfile=None, returnpy=F
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -648,6 +783,15 @@ def MakeHockeyPythonAltFileFromHockeyDatabase(insdbfile, outpyfile=None, returnp
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -683,6 +827,15 @@ def MakeHockeySQLFileFromHockeyXML(inxmlfile, outsqlfile=None, xmlisfile=True, r
         sqlfp.write(sqlstring)
     except TypeError:
         sqlfp.write(sqlstring.encode("UTF-8"))
+    try:
+        sqlfp.flush()
+        os.fsync(sqlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     sqlfp.close()
     if(returnsql):
         return sqlstring
@@ -713,6 +866,15 @@ def MakeHockeyXMLFileFromOldHockeyDatabase(insdbfile, outxmlfile=None, returnxml
         xmlfp.write(xmlstring)
     except TypeError:
         xmlfp.write(xmlstring.encode("UTF-8"))
+    try:
+        xmlfp.flush()
+        os.fsync(xmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
     if(returnxml):
         return xmlstring
@@ -743,6 +905,15 @@ def MakeHockeyPythonOOPFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -775,6 +946,15 @@ def MakeHockeyPythonOOPAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, r
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -807,6 +987,15 @@ def MakeHockeyPythonFileFromOldHockeyDatabase(insdbfile, outpyfile=None, returnp
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -839,6 +1028,15 @@ def MakeHockeyPythonAltFileFromOldHockeyDatabase(insdbfile, outpyfile=None, retu
         pyfp.write(pystring)
     except TypeError:
         pyfp.write(pystring.encode("UTF-8"))
+    try:
+        pyfp.flush()
+        os.fsync(pyfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     pyfp.close()
     if(fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -871,6 +1069,15 @@ def MakeHockeySQLFileFromOldHockeyDatabase(insdbfile, outsqlfile=None, returnsql
         sqlfp.write(sqlstring)
     except TypeError:
         sqlfp.write(sqlstring.encode("UTF-8"))
+    try:
+        sqlfp.flush()
+        os.fsync(sqlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     sqlfp.close()
     if(returnsql):
         return sqlstring
