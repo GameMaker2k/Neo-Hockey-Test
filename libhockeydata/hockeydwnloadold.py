@@ -3333,11 +3333,13 @@ if (havehttplib2):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -3486,11 +3488,13 @@ if (havehttplib2):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -4027,11 +4031,13 @@ if (haverequests):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -4180,11 +4186,13 @@ if (haverequests):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -4628,11 +4636,13 @@ if (haveaiohttp):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -4781,11 +4791,13 @@ if (haveaiohttp):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -5240,11 +5252,13 @@ if (havehttpx):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -5393,11 +5407,13 @@ if (havehttpx):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -5852,11 +5868,13 @@ if (havehttpx):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -6005,11 +6023,13 @@ if (havehttpx):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -6454,11 +6474,13 @@ if (havehttpcore):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -6607,11 +6629,13 @@ if (havehttpcore):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -7056,11 +7080,13 @@ if (havehttpcore):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -7209,11 +7235,13 @@ if (havehttpcore):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -7840,11 +7868,13 @@ if (haveurllib3):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -7993,11 +8023,13 @@ if (haveurllib3):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -8441,11 +8473,13 @@ if (havemechanize):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -8594,11 +8628,13 @@ if (havemechanize):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -9082,11 +9118,13 @@ if (havepycurl):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -9235,11 +9273,13 @@ if (havepycurl):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -9754,11 +9794,13 @@ if (havepycurl and hasattr(pycurl, "CURL_HTTP_VERSION_2_0")):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -9936,11 +9978,13 @@ if (havepycurl and hasattr(pycurl, "CURL_HTTP_VERSION_2_0")):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -10516,11 +10560,13 @@ if (havepycurl and hasattr(pycurl, "CURL_HTTP_VERSION_3_0")):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -10729,11 +10775,13 @@ if (havepycurl and hasattr(pycurl, "CURL_HTTP_VERSION_3_0")):
                         filepath,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -11702,11 +11750,13 @@ if (haveparamiko):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass
@@ -12253,11 +12303,13 @@ if (havepysftp):
                         tmpfilename,
                         (time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple()),
                             time.mktime(
                             datetime.datetime.strptime(
-                                pretmpfilename.get('Headers').get('Last-Modified'),
+                                pretmpfilename.get('Headers').get(
+                                    'Last-Modified'),
                                 "%a, %d %b %Y %H:%M:%S %Z").timetuple())))
                 except ValueError:
                     pass

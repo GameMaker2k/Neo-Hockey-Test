@@ -791,10 +791,10 @@ def UpdateHockeyData(
     if (addtype == "="):
         TMPData = addtodata
     if (addtype == "+" and wheretype == "int"):
-        TMPData = int(sqldatacon[0].execute("SELECT " + dataname + " FROM " + leaguename + \
+        TMPData = int(sqldatacon[0].execute("SELECT " + dataname + " FROM " + leaguename +
                       tablename + " WHERE " + wherename + "=" + str(wheredata)).fetchone()[0]) + addtodata
     if (addtype == "-" and wheretype == "int"):
-        TMPData = int(sqldatacon[0].execute("SELECT " + dataname + " FROM " + leaguename + \
+        TMPData = int(sqldatacon[0].execute("SELECT " + dataname + " FROM " + leaguename +
                       tablename + " WHERE " + wherename + "=" + str(wheredata)).fetchone()[0]) - addtodata
     if (addtype == "+" and wheretype == "str"):
         TMPData = int(sqldatacon[0].execute("SELECT " + dataname + " FROM " + leaguename + tablename +

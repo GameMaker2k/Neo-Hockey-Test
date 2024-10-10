@@ -748,14 +748,14 @@ def UncompressFile(infile, mode="rt"):
             filefp = lzma.open(infile, mode)
     if (compresscheck == "zlib"):
         try:
-            filefp = lzma.open(infile, mode, encoding="UTF-8")
-        except (ValueError, TypeError) as e:
-            filefp = lzma.open(infile, mode)
-    if (not compresscheck):
-        try:
             filefp = ZlibFile(infile, mode=mode, encoding="UTF-8")
         except (ValueError, TypeError) as e:
             filefp = ZlibFile(infile, mode=mode)
+    if (not compresscheck):
+        try:
+            filefp = open(infile, mode, encoding="UTF-8")
+        except (ValueError, TypeError) as e:
+            filefp = open(infile, mode)
     return filefp
 
 
@@ -2596,7 +2596,8 @@ def MakeHockeyPythonFromHockeyArray(
         pystring = pystring + pyfilename + ".MakeHockeyTeamTable(sqldatacon, \"" + hlkey + "\");\n" + pyfilename + ".MakeHockeyConferenceTable(sqldatacon, \"" + hlkey + "\");\n" + pyfilename + ".MakeHockeyGameTable(sqldatacon, \"" + hlkey + "\");\n" + pyfilename + ".MakeHockeyDivisionTable(sqldatacon, \"" + hlkey + "\");\n" + pyfilename + ".MakeHockeyLeague(sqldatacon, \"" + hlkey + "\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['fullname'] + "\", \"" + inchockeyarray[hlkey]['leagueinfo']['country'] + "\", \"" + inchockeyarray[hlkey]['leagueinfo']['fullcountry'] + "\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['date'] + "\", \"" + inchockeyarray[hlkey]['leagueinfo']['playofffmt'] + \
-            "\", \"" + inchockeyarray[hlkey]['leagueinfo']['ordertype'] + "\");\n"
+            "\", \"" + \
+            inchockeyarray[hlkey]['leagueinfo']['ordertype'] + "\");\n"
         conferencecount = 0
         conferenceend = len(inchockeyarray[hlkey]['conferencelist'])
         for hckey in inchockeyarray[hlkey]['conferencelist']:
@@ -2812,7 +2813,8 @@ def MakeHockeyPythonOOPFromHockeyArray(
         pystring = pystring + "sqldatacon.MakeHockeyTeamTable(sqldatacon, \"" + hlkey + "\");\n" + "sqldatacon.MakeHockeyConferenceTable(sqldatacon, \"" + hlkey + "\");\n" + "sqldatacon.MakeHockeyGameTable(sqldatacon, \"" + hlkey + "\");\n" + "sqldatacon.MakeHockeyDivisionTable(sqldatacon, \"" + hlkey + "\");\n" + "sqldatacon.AddHockeyLeague(sqldatacon, \"" + hlkey + "\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['fullname'] + "\", \"" + inchockeyarray[hlkey]['leagueinfo']['country'] + "\", \"" + inchockeyarray[hlkey]['leagueinfo']['fullcountry'] + "\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['date'] + "\", \"" + inchockeyarray[hlkey]['leagueinfo']['playofffmt'] + \
-            "\", \"" + inchockeyarray[hlkey]['leagueinfo']['ordertype'] + "\");\n"
+            "\", \"" + \
+            inchockeyarray[hlkey]['leagueinfo']['ordertype'] + "\");\n"
         conferencecount = 0
         conferenceend = len(inchockeyarray[hlkey]['conferencelist'])
         for hckey in inchockeyarray[hlkey]['conferencelist']:
