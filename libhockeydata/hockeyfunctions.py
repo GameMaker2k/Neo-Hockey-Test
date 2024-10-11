@@ -723,14 +723,14 @@ def UncompressFile(infile, mode="rt"):
             filefp = lzma.open(infile, mode)
     if(compresscheck == "zlib"):
         try:
-            filefp = lzma.open(infile, mode, encoding="UTF-8")
+            filefp = ZlibFile(infile, mode, encoding="UTF-8")
         except (ValueError, TypeError) as e:
-            filefp = lzma.open(infile, mode)
+            filefp = ZlibFile(infile, mode)
     if(not compresscheck):
         try:
-            filefp = ZlibFile(infile, mode=mode, encoding="UTF-8")
+            filefp = open(infile, mode=mode, encoding="UTF-8")
         except (ValueError, TypeError) as e:
-            filefp = ZlibFile(infile, mode=mode)
+            filefp = open(infile, mode=mode)
     return filefp
 
 
