@@ -201,11 +201,17 @@ class MakeHockeyData:
         MakeHockeyArena(self.hockeycon, leaguename, cityname, areaname,
                         countryname, fullcountryname, fullareaname, arenaname)
 
-    def Close(self):
-        return CloseHockeyDatabase(self.hockeycon)
+    def OptimizeHockey(self, optimize=True):
+        return OptimizeHockeyDatabase(self.hockeycon)
 
-    def CloseHockey(self):
-        return CloseHockeyDatabase(self.hockeycon)
+    def OptimizeHockeyDatabase(self, optimize=True):
+        return OptimizeHockeyDatabase(self.hockeycon)
 
-    def CloseHockeyDatabase(self):
-        return CloseHockeyDatabase(self.hockeycon)
+    def Close(self, optimize=True):
+        return CloseHockeyDatabase(self.hockeycon, optimize)
+
+    def CloseHockey(self, optimize=True):
+        return CloseHockeyDatabase(self.hockeycon, optimize)
+
+    def CloseHockeyDatabase(self, optimize=True):
+        return CloseHockeyDatabase(self.hockeycon, optimize)
