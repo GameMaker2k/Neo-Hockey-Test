@@ -468,9 +468,7 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA optimize;")
-    sqlcur.execute("PRAGMA analyze;")
-    sqlcur.execute("PRAGMA shrink_memory;")
+    sqlcur.execute("PRAGMA user_version = 88;")
     return sqldatacon
 
 
@@ -520,9 +518,7 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA optimize;")
-    sqlcur.execute("PRAGMA analyze;")
-    sqlcur.execute("PRAGMA shrink_memory;")
+    sqlcur.execute("PRAGMA user_version = 88;")
     sqlcur.close()
     sqlcon.close()
     return True
@@ -570,9 +566,7 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA optimize;")
-    sqlcur.execute("PRAGMA analyze;")
-    sqlcur.execute("PRAGMA shrink_memory;")
+    sqlcur.execute("PRAGMA user_version = 88;")
     return sqldatacon
 
 
@@ -3175,16 +3169,30 @@ def MakeHockeyGameOld(sqldatacon, leaguename, date, time, hometeam, awayteam, pe
 if(enable_old_makegame):
     MakeHockeyGame = MakeHockeyGameOld
 
-
-def CloseHockeyDatabase(sqldatacon):
-    if(not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
+def OptimizeHockeyDatabase(sqldatacon):
+    if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
         return False
-    db_integrity_check = sqldatacon[0].execute(
-        "PRAGMA integrity_check(100);").fetchone()[0]
+    # Check database integrity
+    db_integrity_check = sqldatacon[0].execute("PRAGMA integrity_check(100);").fetchone()[0]
+    # If integrity check fails, return False
+    if db_integrity_check != "ok":
+        return False
+    # Optimize the database
+    sqldatacon[0].execute("PRAGMA analyze;")
     sqldatacon[0].execute("PRAGMA optimize;")
+    sqldatacon[0].execute("PRAGMA shrink_memory;")
+    return True
+
+def CloseHockeyDatabase(sqldatacon, optimize=True):
+    if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
+        return False
+    # If optimize flag is set, attempt optimization
+    if optimize:
+        db_check = OptimizeHockeyDatabase(sqldatacon)
+        # If integrity check or optimization fails, return False
+        if not db_check:
+            return False
+    # Close the database connections
     sqldatacon[0].close()
     sqldatacon[1].close()
-    if(db_integrity_check == "ok"):
-        return True
-    else:
-        return False
+    return True
