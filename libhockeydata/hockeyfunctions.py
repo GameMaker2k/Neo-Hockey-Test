@@ -31,24 +31,34 @@ import platform
 import binascii
 import xml.dom.minidom
 from io import open
+# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
 try:
-    reload(sys)
-except NameError:
-    from importlib import reload
-    reload(sys)
-try:
-    sys.setdefaultencoding('UTF-8')
-except AttributeError:
+    reload(sys)  # Only relevant for Python 2
+    if hasattr(sys, "setdefaultencoding"):
+        sys.setdefaultencoding('UTF-8')
+except (NameError, AttributeError):
     pass
+
+# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
+if hasattr(sys.stdout, "detach"):
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='UTF-8', errors='replace')
+if hasattr(sys.stderr, "detach"):
+    import io
+    sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='UTF-8', errors='replace')
+
+# Import core modules
 from ftplib import FTP, FTP_TLS
 from base64 import b64encode
 from copy import copy, deepcopy
 
+# JSON handling: prefer simplejson if available, fallback to json
 try:
     import simplejson as json
 except ImportError:
     import json
 
+# Paramiko (SSH module) handling
 testparamiko = False
 try:
     import paramiko
@@ -56,75 +66,94 @@ try:
 except ImportError:
     testparamiko = False
 
+# lxml and ElementTree XML parsing fallback handling
 testlxml = False
 try:
-    from lxml import etree as cElementTree
+    from lxml import etree as cElementTree  # Try lxml first
     testlxml = True
 except ImportError:
     try:
-        import xml.etree.cElementTree as cElementTree
+        import xml.etree.cElementTree as cElementTree  # Fallback to cElementTree
         testlxml = False
     except ImportError:
-        import xml.etree.ElementTree as cElementTree
+        import xml.etree.ElementTree as cElementTree  # Final fallback to ElementTree
         testlxml = False
 
+# urlparse and urllib fallback handling (Python 2/3 differences)
 try:
     from urlparse import urlparse, urlunparse
 except ImportError:
     from urllib.parse import urlparse, urlunparse
 
+# pickle handling: Python 2/3 differences
 try:
-    import cPickle as pickle
+    import cPickle as pickle  # Use faster cPickle in Python 2
 except ImportError:
-    import pickle
+    import pickle  # Fallback to pickle in Python 3
 
-pickledp = None
-try:
-    pickledp = pickle.DEFAULT_PROTOCOL
-except AttributeError:
-    pickledp = 2
+# Pickle default protocol handling
+pickledp = getattr(pickle, 'DEFAULT_PROTOCOL', 2)  # Use DEFAULT_PROTOCOL or fallback to 2
 
-
-''' // User-Agent string for http/https requests '''
+# User-Agent string for HTTP/HTTPS requests
 useragent_string = "Mozilla/5.0 (compatible; {proname}/{prover}; +{prourl})".format(
     proname=__project__, prover=__version_alt__, prourl=__project_url__)
-if(platform.python_implementation() != ""):
-    useragent_string_alt = "Mozilla/5.0 ({osver}; {archtype}; +{prourl}) {pyimp}/{pyver} (KHTML, like Gecko) {proname}/{prover}".format(osver=platform.system()+" "+platform.release(
-    ), archtype=platform.machine(), prourl=__project_url__, pyimp=platform.python_implementation(), pyver=platform.python_version(), proname=__project__, prover=__version_alt__)
-if(platform.python_implementation() == ""):
-    useragent_string_alt = "Mozilla/5.0 ({osver}; {archtype}; +{prourl}) {pyimp}/{pyver} (KHTML, like Gecko) {proname}/{prover}".format(osver=platform.system(
-    )+" "+platform.release(), archtype=platform.machine(), prourl=__project_url__, pyimp="Python", pyver=platform.python_version(), proname=__project__, prover=__version_alt__)
 
+# Conditional platform information for user-agent string
+if platform.python_implementation():
+    useragent_string_alt = "Mozilla/5.0 ({osver}; {archtype}; +{prourl}) {pyimp}/{pyver} (KHTML, like Gecko) {proname}/{prover}".format(
+        osver=platform.system() + " " + platform.release(),
+        archtype=platform.machine(),
+        prourl=__project_url__,
+        pyimp=platform.python_implementation(),
+        pyver=platform.python_version(),
+        proname=__project__,
+        prover=__version_alt__
+    )
+else:
+    useragent_string_alt = "Mozilla/5.0 ({osver}; {archtype}; +{prourl}) Python/{pyver} (KHTML, like Gecko) {proname}/{prover}".format(
+        osver=platform.system() + " " + platform.release(),
+        archtype=platform.machine(),
+        prourl=__project_url__,
+        pyver=platform.python_version(),
+        proname=__project__,
+        prover=__version_alt__
+    )
+
+# Compatibility for basestring (Python 2) and str (Python 3)
 try:
     basestring
 except NameError:
-    basestring = str
+    basestring = str  # In Python 3, there's no 'basestring', only 'str'
 
+# Compatibility for long type (Python 2) and int type (Python 3)
 baseint = []
 try:
-    baseint.append(long)
+    baseint.append(long)  # Python 2
     baseint.insert(0, int)
 except NameError:
-    baseint.append(int)
-baseint = tuple(baseint)
+    baseint.append(int)  # Python 3 (only 'int')
+baseint = tuple(baseint)  # Combine as tuple for later use
 
-teststringio = 0
+teststringio = 0  # Default to no import success
 try:
-    from io import BytesIO
-    from io import StringIO
+    # Python 3's io module for StringIO and BytesIO
+    from io import BytesIO, StringIO
     teststringio = 3
 except ImportError:
-    try:
-        from cStringIO import StringIO as BytesIO
-        from cStringIO import StringIO
-        teststringio = 1
-    except ImportError:
+    if sys.version_info[0] < 3:
         try:
-            from StringIO import StringIO as BytesIO
-            from StringIO import StringIO
-            teststringio = 2
+            # Python 2: Try importing from cStringIO first (faster)
+            from cStringIO import StringIO as BytesIO, StringIO
+            teststringio = 1
         except ImportError:
-            teststringio = 0
+            try:
+                # Fallback to Python 2's StringIO module
+                from StringIO import StringIO as BytesIO, StringIO
+                teststringio = 2
+            except ImportError:
+                teststringio = 0
+    else:
+        teststringio = 0  # Fallback if nothing works
 
 class ZlibFile:
     def __init__(self, file_path=None, fileobj=None, mode='rb', level=9, wbits=15, encoding=None, errors=None, newline=None):

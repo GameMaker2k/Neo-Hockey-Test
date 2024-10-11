@@ -24,26 +24,21 @@ import re
 import logging
 import binascii
 
+# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
 try:
-    reload(sys)
-    try:
+    reload(sys)  # Only relevant for Python 2
+    if hasattr(sys, "setdefaultencoding"):
         sys.setdefaultencoding('UTF-8')
-    except NameError:
-        pass
-    except AttributeError:
-        pass
-except NameError:
+except (NameError, AttributeError):
     pass
-except AttributeError:
-    pass
-if(hasattr(sys, "setdefaultencoding")):
-    sys.setdefaultencoding('UTF-8')
-if(hasattr(sys.stdout, "detach")):
+
+# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
+if hasattr(sys.stdout, "detach"):
     import io
-    sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='UTF-8')
-if(hasattr(sys.stderr, "detach")):
+    sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='UTF-8', errors='replace')
+if hasattr(sys.stderr, "detach"):
     import io
-    sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='UTF-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='UTF-8', errors='replace')
 from io import open as open
 import multiprocessing
 import threading
@@ -173,23 +168,26 @@ def check_version_number(myversion=__version__, proname=__program_alt_name__, ne
     return version_check(myvercheck, newvercheck)
 
 
-teststringio = 0
+teststringio = 0  # Default to no import success
 try:
-    from io import BytesIO
-    from io import StringIO
+    # Python 3's io module for StringIO and BytesIO
+    from io import BytesIO, StringIO
     teststringio = 3
 except ImportError:
-    try:
-        from cStringIO import StringIO as BytesIO
-        from cStringIO import StringIO
-        teststringio = 1
-    except ImportError:
+    if sys.version_info[0] < 3:
         try:
-            from StringIO import StringIO as BytesIO
-            from StringIO import StringIO
-            teststringio = 2
+            # Python 2: Try importing from cStringIO first (faster)
+            from cStringIO import StringIO as BytesIO, StringIO
+            teststringio = 1
         except ImportError:
-            teststringio = 0
+            try:
+                # Fallback to Python 2's StringIO module
+                from StringIO import StringIO as BytesIO, StringIO
+                teststringio = 2
+            except ImportError:
+                teststringio = 0
+    else:
+        teststringio = 0  # Fallback if nothing works
 
 try:
     basestring
@@ -204,56 +202,47 @@ except NameError:
     baseint.append(int)
 baseint = tuple(baseint)
 
+# Initialize all support flags
 supersqlitesupport = False
-if(enable_supersqlite):
-    supersqlitesupport = True
+apswsupport = False
+sqlciphersupport = False
+
+# SuperSQLite Support
+if enable_supersqlite:
     try:
-        from supersqlite import sqlite3
+        from supersqlite import sqlite3  # Try importing supersqlite
+        supersqlitesupport = True
     except ImportError:
-        import sqlite3
         supersqlitesupport = False
         enable_supersqlite = False
+        import sqlite3  # Fallback to default sqlite3 if supersqlite is unavailable
 else:
-    import sqlite3
-    supersqlitesupport = False
-    enable_supersqlite = False
+    import sqlite3  # Default import if supersqlite isn't enabled
 
-apswsupport = False
-if(enable_apsw):
-    if(not supersqlitesupport):
-        apswsupport = True
-        try:
-            import apsw
-        except ImportError:
-            apswsupport = False
-            enable_apsw = False
-    else:
-        apswsupport = True
-        try:
-            from supersqlite import apsw
-        except ImportError:
-            apswsupport = False
-            enable_apsw = False
-            enable_supersqlite = False
-else:
-    apswsupport = False
-    enable_apsw = False
-
-if(supersqlitesupport and enable_supersqlite):
-    import supersqlite
-
-sqlciphersupport = False
-if(enable_sqlcipher):
-    sqlciphersupport = True
+# APSW Support
+if enable_apsw and not supersqlitesupport:  # Only attempt APSW if supersqlite isn't used
     try:
-        from pysqlcipher3 import dbapi2 as sqlite
+        import apsw  # Try importing APSW directly
+        apswsupport = True
     except ImportError:
-        import sqlite3
+        apswsupport = False
+        enable_apsw = False
+
+# SQLCipher Support
+if enable_sqlcipher:
+    try:
+        from pysqlcipher3 import dbapi2 as sqlite  # Try importing SQLCipher
+        sqlciphersupport = True
+    except ImportError:
         sqlciphersupport = False
         enable_sqlcipher = False
 else:
     sqlciphersupport = False
     enable_sqlcipher = False
+
+# If SuperSQLite is supported, import it at the end (optional, depending on usage)
+if supersqlitesupport:
+    import supersqlite
 
 try:
     from xml.sax.saxutils import xml_escape

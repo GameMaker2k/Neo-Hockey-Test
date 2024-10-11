@@ -22,15 +22,21 @@ import sys
 import os
 import re
 import time
+# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
 try:
-    reload(sys)
-except NameError:
-    from importlib import reload
-    reload(sys)
-try:
-    sys.setdefaultencoding('UTF-8')
-except AttributeError:
+    reload(sys)  # Only relevant for Python 2
+    if hasattr(sys, "setdefaultencoding"):
+        sys.setdefaultencoding('UTF-8')
+except (NameError, AttributeError):
     pass
+
+# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
+if hasattr(sys.stdout, "detach"):
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='UTF-8', errors='replace')
+if hasattr(sys.stderr, "detach"):
+    import io
+    sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='UTF-8', errors='replace')
 from .hockeyoopfuncs import *
 from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info
 
