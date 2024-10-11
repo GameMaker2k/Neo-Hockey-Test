@@ -26,7 +26,7 @@ from sys import argv
 from libhockeydata import *
 
 taskfound = False
-if(len(sys.argv) < 2):
+if (len(sys.argv) < 2):
     taskfound = True
     ps1 = "PyShell " + \
         str(sys.version_info[0])+"."+str(sys.version_info[1]
@@ -34,7 +34,7 @@ if(len(sys.argv) < 2):
     cmdinput = None
     print("PyShell "+sys.version+" on "+sys.platform +
           "\nLoaded Python module libhockeydata "+libhockeydata.__version__+"\n")
-    while(True):
+    while (True):
         try:
             cmdinput = code.InteractiveConsole().raw_input(ps1)
         except KeyboardInterrupt:
@@ -51,7 +51,7 @@ if(len(sys.argv) < 2):
             traceback.print_exc()
     sys.exit(0)
 
-if(sys.argv[1] == "sh" or sys.argv[1] == "shell" or sys.argv[1] == "pysh" or sys.argv[1] == "pyshell" or sys.argv[1] == "python"):
+if (sys.argv[1] == "sh" or sys.argv[1] == "shell" or sys.argv[1] == "pysh" or sys.argv[1] == "pyshell" or sys.argv[1] == "python"):
     taskfound = True
     ps1 = "PyShell " + \
         str(sys.version_info[0])+"."+str(sys.version_info[1]
@@ -59,7 +59,7 @@ if(sys.argv[1] == "sh" or sys.argv[1] == "shell" or sys.argv[1] == "pysh" or sys
     cmdinput = None
     print("PyShell "+sys.version+" on "+sys.platform +
           "\nLoaded Python module libhockeydata "+libhockeydata.__version__+"\n")
-    while(True):
+    while (True):
         try:
             cmdinput = code.InteractiveConsole().raw_input(ps1)
         except KeyboardInterrupt:
@@ -76,9 +76,9 @@ if(sys.argv[1] == "sh" or sys.argv[1] == "shell" or sys.argv[1] == "pysh" or sys
             traceback.print_exc()
     sys.exit(0)
 
-if(sys.argv[1] == "shebang" or sys.argv[1] == "shabang" or sys.argv[1] == "hashbang" or sys.argv[1] == "poundbang" or sys.argv[1] == "hashexclam" or sys.argv[1] == "hashpling"):
+if (sys.argv[1] == "shebang" or sys.argv[1] == "shabang" or sys.argv[1] == "hashbang" or sys.argv[1] == "poundbang" or sys.argv[1] == "hashexclam" or sys.argv[1] == "hashpling"):
     taskfound = True
-    if(len(sys.argv) < 3):
+    if (len(sys.argv) < 3):
         print(str("command: "+sys.argv[0]+"\narguments: " +
               sys.argv[1]+"\nerror: syntax error missing arguments"))
         sys.exit(0)
@@ -86,7 +86,7 @@ if(sys.argv[1] == "shebang" or sys.argv[1] == "shabang" or sys.argv[1] == "hashb
     exec(compile(str(shebang), "", "exec"))
     sys.exit(0)
 
-if(sys.argv[1] == "exec" or sys.argv[1] == "run" or sys.argv[1] == "execute"):
+if (sys.argv[1] == "exec" or sys.argv[1] == "run" or sys.argv[1] == "execute"):
     taskfound = True
     argcmd = list(sys.argv)
     argcmd[0:1] = []
@@ -96,7 +96,7 @@ if(sys.argv[1] == "exec" or sys.argv[1] == "run" or sys.argv[1] == "execute"):
     argcmd = " ".join(argcmd)
     exec(argcmd)
 
-if(not taskfound):
+if (not taskfound):
     print(str("command: "+sys.argv[0]+"\narguments: " +
           sys.argv[1]+"\nerror: syntax error missing arguments"))
     sys.exit(0)

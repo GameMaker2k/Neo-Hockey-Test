@@ -32,7 +32,7 @@ except ImportError:
     except ImportError:
         implib = False
 
-if(implib):
+if (implib):
     try:
         hockeydtd = os.path.join(
             importlib.resources.files(__name__), "hockeydata.dtd")
@@ -75,7 +75,7 @@ if(implib):
             hockeyaltrng = pkgfile
         with importlib.resources.path(hockeydatabase.rnc, "") as pkgfile:
             hockeyaltrnc = pkgfile
-elif(pkgres):
+elif (pkgres):
     hockeydtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
     hockeyxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl")
     hockeyxsd = pkg_resources.resource_filename(__name__, "hockeydata.xsd")
@@ -92,7 +92,7 @@ elif(pkgres):
     hockeyaltrnc = pkg_resources.resource_filename(
         __name__, "hockeydatabase.rnc")
     hockeyxmlpath = os.path.dirname(hockeydtd)
-elif(not pkgres):
+elif (not pkgres):
     hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
     hockeyxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
     hockeyxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"

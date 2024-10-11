@@ -47,12 +47,12 @@ getargs = parser.parse_args()
 getinfolist = {'getmd': hockeytestdir, 'getmdir': hockeytestdir, 'moduledir': hockeytestdir, 'hockeytestdir': hockeytestdir, 'author': __author__, 'copyright': __copyright__, 'credits': __credits__, 'email': __email__, 'license': __license__, 'license_string': __license_string__, 'maintainer': __maintainer__,
                'project': __project__, 'project_url': __project_url__, 'revision': __revision__, 'status': __status__, 'version': __version__, 'version_alt': __version_alt__, 'version_date': __version_date__, 'version_date_alt': __version_date_alt__, 'version_date_info': __version_date_info__, 'version_info': __version_info__}
 
-if(getargs.license is True and getargs.getinfo is not None):
+if (getargs.license is True and getargs.getinfo is not None):
     getargs.getinfo = None
-if(getargs.license is False and getargs.getinfo is None):
+if (getargs.license is False and getargs.getinfo is None):
     getargs.license = True
-if(getargs.license is True):
+if (getargs.license is True):
     print("{licensestr}".format(licensestr=__license_string__))
-if(getargs.getinfo is not None):
+if (getargs.getinfo is not None):
     print("{getmyinfo}".format(getmyinfo=getinfolist.get(
         getargs.getinfo, getinfolist['hockeytestdir'])))

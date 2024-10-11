@@ -21,10 +21,10 @@ import sys
 import argparse
 
 __version_info__ = (0, 0, 5, "rc3")
-if(__version_info__[3] != None):
+if (__version_info__[3] != None):
     __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(
         __version_info__[2])+"+"+str(__version_info__[3])
-if(__version_info__[3] == None):
+if (__version_info__[3] == None):
     __version__ = str(
         __version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2])
 

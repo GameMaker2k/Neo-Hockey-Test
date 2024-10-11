@@ -65,40 +65,40 @@ getactstr = getactstr.strip()
 curaction = defaction
 cursaction = os.path.splitext(os.path.basename(sys.argv[0]))[0]
 cursactionspt = list(cursaction.split("-"))
-if(len(cursactionspt) <= 1):
+if (len(cursactionspt) <= 1):
     cursaction = cursactionspt[0]
-if(len(cursactionspt) > 1):
+if (len(cursactionspt) > 1):
     for cursactionact in cursactionspt:
-        if(cursactionact in getactlist):
+        if (cursactionact in getactlist):
             cursaction = cursactionact
             break
-if(cursaction in getactlist):
+if (cursaction in getactlist):
     curaction = cursaction
-if(len(sys.argv) >= 2):
-    if(sys.argv[1] not in getactlist):
+if (len(sys.argv) >= 2):
+    if (sys.argv[1] not in getactlist):
         curaction = defaction
-    if(cursaction in getactlist):
+    if (cursaction in getactlist):
         curaction = cursaction
-    if(len(sys.argv) > 1):
+    if (len(sys.argv) > 1):
         for curargact in sys.argv:
-            if(curargact in getactlist):
+            if (curargact in getactlist):
                 curaction = curargact
                 break
 
-if(curaction == getactlist[14] or curaction == getactlist[15]):
+if (curaction == getactlist[14] or curaction == getactlist[15]):
     print(getactstr)
 
-if(curaction == getactlist[16] or curaction == getactlist[17] or curaction == getactlist[18]):
+if (curaction == getactlist[16] or curaction == getactlist[17] or curaction == getactlist[18]):
     print(getverstr)
 
-if((curaction == getactlist[19] or curaction == getactlist[20])):
+if ((curaction == getactlist[19] or curaction == getactlist[20])):
     for cursymact in getsymlist:
         curscrpath = os.path.dirname(sys.argv[0])
         infilename = sys.argv[0]
         infilenameinfo = os.path.splitext(sys.argv[0])
-        if(curscrpath == ""):
+        if (curscrpath == ""):
             curscrpath = "."
-        if(os.sep == "\\"):
+        if (os.sep == "\\"):
             curscrpath = curscrpath.replace(os.sep, "/")
             infilename = infilename.replace(os.sep, "/")
         curscrpath = curscrpath+"/"
@@ -115,7 +115,7 @@ if((curaction == getactlist[19] or curaction == getactlist[20])):
             shutil.copy2(infilename, outfilefull)
             print("'"+outfilefull+"' -> '"+infilename+"'")
 
-if(curaction == getactlist[0]):
+if (curaction == getactlist[0]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[0], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -131,15 +131,15 @@ if(curaction == getactlist[0]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyXMLFileFromHockeyDatabase(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[1]):
+if (curaction == getactlist[1]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[1], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -155,15 +155,15 @@ if(curaction == getactlist[1]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyXMLFileFromOldHockeyDatabase(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[2]):
+if (curaction == getactlist[2]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[2], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -179,15 +179,15 @@ if(curaction == getactlist[2]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyXMLFileFromHockeySQL(
         getargs.infile, None, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[3]):
+if (curaction == getactlist[3]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[3], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -203,15 +203,15 @@ if(curaction == getactlist[3]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyDatabaseFromHockeyXML(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[4]):
+if (curaction == getactlist[4]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[4], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -227,15 +227,15 @@ if(curaction == getactlist[4]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyDatabaseFromHockeySQL(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[5]):
+if (curaction == getactlist[5]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[5], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -251,15 +251,15 @@ if(curaction == getactlist[5]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyPythonFileFromHockeyDatabase(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[6]):
+if (curaction == getactlist[6]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[6], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -275,15 +275,15 @@ if(curaction == getactlist[6]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyPythonFileFromHockeyXML(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[7]):
+if (curaction == getactlist[7]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[5], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -299,15 +299,15 @@ if(curaction == getactlist[7]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyPythonAltFileFromHockeyDatabase(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[8]):
+if (curaction == getactlist[8]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[6], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -323,15 +323,15 @@ if(curaction == getactlist[8]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyPythonAltFileFromHockeyXML(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[9]):
+if (curaction == getactlist[9]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[7], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -347,15 +347,15 @@ if(curaction == getactlist[9]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeySQLFileFromHockeyDatabase(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[10]):
+if (curaction == getactlist[10]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[8], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -371,15 +371,15 @@ if(curaction == getactlist[10]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeySQLFileFromHockeyXML(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[11]):
+if (curaction == getactlist[11]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[6], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -395,19 +395,19 @@ if(curaction == getactlist[11]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
-    if(getargs.outfile is None):
+    if (getargs.outfile is None):
         libhockeydata.MakeHockeyJSONFromHockeyXML(
             getargs.infile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     else:
         libhockeydata.MakeHockeyJSONFileFromHockeyXML(
             getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[12]):
+if (curaction == getactlist[12]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[0], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -423,15 +423,15 @@ if(curaction == getactlist[12]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
     libhockeydata.MakeHockeyXMLFileFromHockeyJSON(
         getargs.infile, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
 
-if(curaction == getactlist[13]):
+if (curaction == getactlist[13]):
     argparser = argparse.ArgumentParser(
         description=getactdesc[9], conflict_handler="resolve", add_help=True)
     argparser.add_argument("-v", "--ver", "--version",
@@ -447,12 +447,12 @@ if(curaction == getactlist[13]):
                            help="print various debugging information in json")
     getargs = argparser.parse_args()
     verboseon = getargs.verbose
-    if('VERBOSE' in os.environ or 'DEBUG' in os.environ):
+    if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
         verboseon = True
-    if(verboseon):
+    if (verboseon):
         logging.basicConfig(format="%(message)s",
                             stream=sys.stdout, level=logging.DEBUG)
-    if(getargs.outfile is None):
+    if (getargs.outfile is None):
         libhockeydata.MakeHockeyXMLFromHockeyXML(
             getargs.infile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     else:

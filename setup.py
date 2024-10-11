@@ -32,10 +32,10 @@ pygenbuildinfo = True
 symlinkenable = False
 pyprever = platform.python_version_tuple()
 pyver = str(pyprever[0])
-if(os.path.exists("."+os.sep+"scripts"+pyver) and os.path.isdir("."+os.sep+"scripts"+pyver)):
+if (os.path.exists("."+os.sep+"scripts"+pyver) and os.path.isdir("."+os.sep+"scripts"+pyver)):
     shutil.rmtree("."+os.sep+"scripts"+pyver)
     print("removed directory '."+os.sep+"scripts"+pyver+"'")
-if(os.path.exists("."+os.sep+"scripts"+pyver) and os.path.isfile("."+os.sep+"scripts"+pyver)):
+if (os.path.exists("."+os.sep+"scripts"+pyver) and os.path.isfile("."+os.sep+"scripts"+pyver)):
     os.unlink("."+os.sep+"scripts"+pyver)
     print("removed '."+os.sep+"scripts"+pyver+"'")
 os.mkdir("."+os.sep+"scripts"+pyver)
@@ -79,7 +79,7 @@ getsymlist = ["mkhockeyxmlfile"+pyver, "mkhockeyxmlfromolddatabase"+pyver, "mkho
               "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver]
 getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydata'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabasefromsql'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromxmlfile'+pyver+'.py',
               'scripts'+pyver+os.sep+'mkhockeysqlfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfileclean'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromolddatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromsql'+pyver+'.py']
-if(symlinkenable):
+if (symlinkenable):
     getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean", "mkhockeyxmlfile"+pyver,
                   "mkhockeyxmlfromolddatabase"+pyver, "mkhockeyxmlfromsql"+pyver, "mkhockeydatabase"+pyver, "mkhockeydatabasefromsql"+pyver, "mkhockeypyfromdatabase"+pyver, "mkhockeypyfromxmlfile"+pyver, "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver]
     getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool.py', 'scripts'+pyver+os.sep+'mkhockeydata.py', 'scripts'+pyver+os.sep+'mkhockeydatabase.py', 'scripts'+pyver+os.sep+'mkhockeydatabasefromsql.py', 'scripts'+pyver+os.sep+'mkhockeypyfromdatabase.py', 'scripts'+pyver+os.sep+'mkhockeypyfromxmlfile.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromdatabase.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromxmlfile.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfile.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfileclean.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromolddatabase.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromsql.py', 'scripts'+pyver+os.sep+'mkhockeytool'+pyver +
@@ -93,9 +93,9 @@ for cursymact in getsymlist:
     curscrpath = os.path.dirname(sys.argv[0])
     infilename = "."+os.sep+"mkhockeydata"+pyver+".py"
     infilenameinfo = os.path.splitext(sys.argv[0])
-    if(curscrpath == ""):
+    if (curscrpath == ""):
         curscrpath = "."
-    if(os.sep == "\\"):
+    if (os.sep == "\\"):
         curscrpath = curscrpath.replace(os.sep, "/")
         infilename = infilename.replace(os.sep, "/")
     curscrpath = curscrpath+"/"
@@ -182,12 +182,12 @@ pymodule['classifiers'] = [
     'Topic :: Software Development :: Libraries',
     'Topic :: Software Development :: Libraries :: Python Modules'
 ]
-if(len(sys.argv) > 1 and (sys.argv[1] == "versioninfo" or sys.argv[1] == "getversioninfo")):
+if (len(sys.argv) > 1 and (sys.argv[1] == "versioninfo" or sys.argv[1] == "getversioninfo")):
     import json
     pymodule_data = json.dumps(pymodule)
     print(pymodule_data)
     sys.exit()
-if(len(sys.argv) > 1 and (sys.argv[1] == "sourceinfo" or sys.argv[1] == "getsourceinfo")):
+if (len(sys.argv) > 1 and (sys.argv[1] == "sourceinfo" or sys.argv[1] == "getsourceinfo")):
     srcinfofilename = os.path.realpath("."+os.path.sep+pkg_resources.to_filename(
         pymodule['name'])+".egg-info"+os.path.sep+"SOURCES.txt")
     srcinfofile = open(srcinfofilename, "r")
@@ -200,13 +200,13 @@ if(len(sys.argv) > 1 and (sys.argv[1] == "sourceinfo" or sys.argv[1] == "getsour
         srcfilelist = "."+os.path.sep+srcpdir+os.path.sep+ifile+" "+srcfilelist
     print(srcfilelist)
     sys.exit()
-if(len(sys.argv) > 1 and sys.argv[1] == "cleansourceinfo"):
+if (len(sys.argv) > 1 and sys.argv[1] == "cleansourceinfo"):
     os.system("rm -rfv \""+os.path.realpath("."+os.path.sep+"dist\""))
     os.system("rm -rfv \""+os.path.realpath("."+os.path.sep +
               pkg_resources.to_filename(pymodule['name'])+".egg-info\""))
     sys.exit()
 
-if(pygenbuildinfo):
+if (pygenbuildinfo):
     mycurtime = datetime.datetime.now()
     mycurtimetuple = mycurtime.timetuple()
     mycurtimestamp = int(time.mktime(mycurtimetuple))
@@ -228,11 +228,11 @@ if(pygenbuildinfo):
             linuxdist = distro.linux_distribution()
         except ImportError:
             linuxdist = None
-    if(sys.version[0] == "2"):
+    if (sys.version[0] == "2"):
         '''verinfodata = verinfodata.replace('__build_python_info__ = {"python_branch": None, "python_build": None, "python_compiler": None, "python_implementation": None, "python_revision": None, "python_version": None, "python_version_tuple": None, "release": None, "system": None, "uname": None, "machine": None, "node": None, "platform": None, "processor": None, "version": None, "java_ver": None, "win32_ver": None, "mac_ver": None, "linux_distribution": None, "libc_ver": None};', '__build_python_info__ = '+str({'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(), 'uname': platform.uname(), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'architecture': platform.architecture(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()})+';');'''
         verinfodata = re.sub("__build_python_info__ \= \{.*\}\;", '__build_python_info__ = '+str({'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(
         ), 'system': platform.system(), 'uname': platform.uname(), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'architecture': platform.architecture(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()})+';', verinfodata)
-    if(sys.version[0] == "3"):
+    if (sys.version[0] == "3"):
         '''verinfodata = verinfodata.replace('__build_python_info__ = {"python_branch": None, "python_build": None, "python_compiler": None, "python_implementation": None, "python_revision": None, "python_version": None, "python_version_tuple": None, "release": None, "system": None, "uname": None, "machine": None, "node": None, "platform": None, "processor": None, "version": None, "java_ver": None, "win32_ver": None, "mac_ver": None, "linux_distribution": None, "libc_ver": None};', '__build_python_info__ = '+str({'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(), 'uname': (platform.uname()[0], platform.uname()[1], platform.uname()[2], platform.uname()[3], platform.uname()[4], platform.uname()[5]), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'architecture': platform.architecture(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()})+';');'''
         verinfodata = re.sub("__build_python_info__ \= \{.*\}\;", '__build_python_info__ = '+str({'python_branch': platform.python_branch(), 'python_build': platform.python_build(), 'python_compiler': platform.python_compiler(), 'python_implementation': platform.python_implementation(), 'python_revision': platform.python_revision(), 'python_version': platform.python_version(), 'python_version_tuple': platform.python_version_tuple(), 'release': platform.release(), 'system': platform.system(), 'uname': (
             platform.uname()[0], platform.uname()[1], platform.uname()[2], platform.uname()[3], platform.uname()[4], platform.uname()[5]), 'machine': platform.machine(), 'node': platform.node(), 'platform': platform.platform(), 'processor': platform.processor(), 'architecture': platform.architecture(), 'version': platform.version(), 'java_ver': platform.java_ver(), 'win32_ver': platform.win32_ver(), 'mac_ver': platform.mac_ver(), 'linux_distribution': linuxdist, 'libc_ver': platform.libc_ver()})+';', verinfodata)

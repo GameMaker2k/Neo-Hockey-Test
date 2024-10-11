@@ -37,14 +37,14 @@ python_info = {'python_branch': platform.python_branch(), 'python_build': platfo
 def get_python_info(infotype=None):
     global python_info
     python_info = python_info
-    if(infotype is None):
+    if (infotype is None):
         return python_info
-    if(infotype is not None):
+    if (infotype is not None):
         return python_info.get(infotype, python_info)
 
 
 getcuryear = datetime.date.today().year
-if(getcuryear <= 2015):
+if (getcuryear <= 2015):
     getcuryear = 2016
 getcuryear = str(getcuryear)
 __author__ = "Kazuki Przyborowski"
@@ -104,25 +104,25 @@ __build_time_utc__ = {"timestamp": None, "year": None, "month": None,
 __build_python_info__ = {"python_branch": None, "python_build": None, "python_compiler": None, "python_implementation": None, "python_revision": None, "python_version": None, "python_version_tuple": None, "release": None,
                          "system": None, "uname": None, "machine": None, "node": None, "platform": None, "processor": None, "version": None, "java_ver": None, "win32_ver": None, "mac_ver": None, "linux_distribution": None, "libc_ver": None}
 __build_python_is_set__ = False
-if(not __build_python_is_set__):
+if (not __build_python_is_set__):
     __build_python_info__ = python_info
 
 
 def get_build_python_info(infotype=None):
     global __build_python_info__
     python_info = __build_python_info__
-    if(infotype is None):
+    if (infotype is None):
         return python_info
-    if(infotype is not None):
+    if (infotype is not None):
         return python_info.get(infotype, python_info)
 
 
 __revision__ = __version_info__[3]
 __revision_id__ = "$Id$"
-if(__version_info__[3] is not None):
+if (__version_info__[3] is not None):
     __version__ = "{major}.{minor}.{build} {release}".format(major=__version_info__[
                                                              0], minor=__version_info__[1], build=__version_info__[2], release=__version_info__[3])
-if(__version_info__[3] is None):
+if (__version_info__[3] is None):
     __version__ = "{major}.{minor}.{build}".format(
         major=__version_info__[0], minor=__version_info__[1], build=__version_info__[2])
 __version_alt__ = "{major}.{minor}.{build}".format(
@@ -130,9 +130,9 @@ __version_alt__ = "{major}.{minor}.{build}".format(
 
 
 def version_info():
-    if(__version_info__[3] is not None):
+    if (__version_info__[3] is not None):
         return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": __version_info__[3]}
-    if(__version_info__[3] is None):
+    if (__version_info__[3] is None):
         return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None}
 
 
@@ -140,9 +140,9 @@ __version_date_info__ = (2023, 12, 3, "RC 1", 1)
 
 
 def version_date():
-    if(__version_date_info__[3] is not None):
+    if (__version_date_info__[3] is not None):
         return {"year": __version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": __version_date_info__[3]}
-    if(__version_date_info__[3] is None):
+    if (__version_date_info__[3] is None):
         return {"year": __version_date_info__[0], "month": __version_date_info__[1], "day": __version_date_info__[2], "release": None}
 
 
@@ -150,12 +150,12 @@ __version_date__ = "{year}.{month}.{day}".format(year=__version_date_info__[
                                                  0], month=__version_date_info__[1], day=__version_date_info__[2])
 __version_date_alt__ = "{year}.{month}.{day} {release}".format(year=__version_date_info__[
                                                                0], month=__version_date_info__[1], day=__version_date_info__[2], release=__version_date_info__[2])
-if(__version_date_info__[4] is not None):
+if (__version_date_info__[4] is not None):
     __version_date_plusrc__ = __version_date__ + \
         "-"+str(__version_date_info__[4])
-if(__version_date_info__[4] is None):
+if (__version_date_info__[4] is None):
     __version_date_plusrc__ = __version_date__
-if(__version_info__[4] is not None):
+if (__version_info__[4] is not None):
     __version_plusrc__ = __version__+"-"+str(__version_info__[4])
-if(__version_info__[4] is None):
+if (__version_info__[4] is None):
     __version_plusrc__ = __version__

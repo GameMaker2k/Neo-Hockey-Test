@@ -26,10 +26,10 @@ import argparse
 import subprocess
 
 __version_info__ = (0, 2, 0, "rc1")
-if(__version_info__[3] != None):
+if (__version_info__[3] != None):
     __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(
         __version_info__[2])+"+"+str(__version_info__[3])
-if(__version_info__[3] == None):
+if (__version_info__[3] == None):
     __version__ = str(
         __version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2])
 
@@ -52,20 +52,20 @@ except AttributeError:
 getlinuxdist = linuxdist
 setdistroname = "debian"
 setdistrocname = "jessie"
-if(getlinuxdist[0] is not None and (getlinuxdist[0].lower() == "debian" or getlinuxdist[0].lower() == "ubuntu" or getlinuxdist[0].lower() == "linuxmint")):
+if (getlinuxdist[0] is not None and (getlinuxdist[0].lower() == "debian" or getlinuxdist[0].lower() == "ubuntu" or getlinuxdist[0].lower() == "linuxmint")):
     setdistroname = getlinuxdist[0].lower()
     setdistrocname = getlinuxdist[2].lower()
-    if(setdistrocname == ""):
+    if (setdistrocname == ""):
         lsblocatout = which_exec("lsb_release")
         pylsblistp = subprocess.Popen(
             [lsblocatout, "-c"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         pylsbout, pylsberr = pylsblistp.communicate()
-        if(sys.version[0] == "3"):
+        if (sys.version[0] == "3"):
             pylsbout = pylsbout.decode("utf-8")
         pylsb_esc = re.escape("Codename:")+'([a-zA-Z\t+\s+]+)'
         pylsbname = re.findall(pylsb_esc, pylsbout)[0].lower()
         setdistrocname = pylsbname.strip()
-if(getlinuxdist[0] is not None and getlinuxdist[0].lower() == "archlinux"):
+if (getlinuxdist[0] is not None and getlinuxdist[0].lower() == "archlinux"):
     setdistroname = getlinuxdist[0].lower()
     setdistrocname = None
 parser = argparse.ArgumentParser(conflict_handler="resolve", add_help=True)
@@ -86,14 +86,14 @@ getargs.source = os.path.realpath(getargs.source)
 getargs.codename = getargs.codename.lower()
 getargs.distro = getargs.distro.lower()
 
-if(getargs.pyver == "2"):
+if (getargs.pyver == "2"):
     getpyver = "python2"
-if(getargs.pyver == "3"):
+if (getargs.pyver == "3"):
     getpyver = "python3"
-if(getargs.pyver != "2" and getargs.pyver != "3"):
-    if(sys.version[0] == "2"):
+if (getargs.pyver != "2" and getargs.pyver != "3"):
+    if (sys.version[0] == "2"):
         getpyver = "python2"
-    if(sys.version[0] == "3"):
+    if (sys.version[0] == "3"):
         getpyver = "python3"
 
 get_pkgbuild_dir = os.path.realpath(getargs.source+os.path.sep+"pkgbuild")
@@ -103,30 +103,30 @@ get_pkgbuild_dist_list = []
 for dists in get_pkgbuild_dist_pre_list:
     tmp_pkgbuild_python = os.path.realpath(
         get_pkgbuild_dir+os.path.sep+dists+os.path.sep+getpyver)
-    if(os.path.exists(tmp_pkgbuild_python) and os.path.isdir(tmp_pkgbuild_python)):
+    if (os.path.exists(tmp_pkgbuild_python) and os.path.isdir(tmp_pkgbuild_python)):
         get_pkgbuild_dist_list.append(dists)
-if(not getargs.distro in get_pkgbuild_dist_list):
+if (not getargs.distro in get_pkgbuild_dist_list):
     print("Could not build for "+getargs.distro+" distro.")
     sys.exit()
 
-if(getargs.distro == "debian" or getargs.distro == "ubuntu" or getargs.distro == "linuxmint"):
+if (getargs.distro == "debian" or getargs.distro == "ubuntu" or getargs.distro == "linuxmint"):
     pypkgpath = os.path.realpath(getargs.source+os.path.sep+"pkgbuild" +
                                  os.path.sep+getargs.distro+os.path.sep+getpyver+os.path.sep+"pydeb-gen.sh")
     pypkgenlistp = subprocess.Popen([bashlocatout, pypkgpath, getargs.source,
                                     getargs.codename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     pypkgenout, pypkgenerr = pypkgenlistp.communicate()
-    if(sys.version[0] == "3"):
+    if (sys.version[0] == "3"):
         pypkgenout = pypkgenout.decode("utf-8")
     print(pypkgenout)
     pypkgenlistp.wait()
 
-if(getargs.distro == "archlinux"):
+if (getargs.distro == "archlinux"):
     pypkgpath = os.path.realpath(getargs.source+os.path.sep+"pkgbuild" +
                                  os.path.sep+getargs.distro+os.path.sep+getpyver+os.path.sep+"pypac-gen.sh")
     pypkgenlistp = subprocess.Popen([bashlocatout, pypkgpath, getargs.source,
                                     getargs.codename], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     pypkgenout, pypkgenerr = pypkgenlistp.communicate()
-    if(sys.version[0] == "3"):
+    if (sys.version[0] == "3"):
         pypkgenout = pypkgenout.decode("utf-8")
     print(pypkgenout)
     pypkgenlistp.wait()

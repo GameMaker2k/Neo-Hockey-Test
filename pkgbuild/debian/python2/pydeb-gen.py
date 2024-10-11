@@ -26,10 +26,10 @@ import subprocess
 import json
 
 __version_info__ = (0, 2, 0, "rc1")
-if(__version_info__[3] != None):
+if (__version_info__[3] != None):
     __version__ = str(__version_info__[0])+"."+str(__version_info__[1])+"."+str(
         __version_info__[2])+"+"+str(__version_info__[3])
-if(__version_info__[3] == None):
+if (__version_info__[3] == None):
     __version__ = str(
         __version_info__[0])+"."+str(__version_info__[1])+"."+str(__version_info__[2])
 
@@ -82,20 +82,20 @@ getargs = parser.parse_args()
 getargs.source = os.path.realpath(getargs.source)
 pkgsetuppy = os.path.realpath(getargs.source+os.path.sep+"setup.py")
 pyexecpath = os.path.realpath(sys.executable)
-if(not os.path.exists(getargs.source) or not os.path.isdir(getargs.source)):
+if (not os.path.exists(getargs.source) or not os.path.isdir(getargs.source)):
     raise Exception("Could not find directory.")
-if(not os.path.exists(pkgsetuppy) or not os.path.isfile(pkgsetuppy)):
+if (not os.path.exists(pkgsetuppy) or not os.path.isfile(pkgsetuppy)):
     raise Exception("Could not find setup.py in directory.")
 
 getargs.codename = getargs.codename.lower()
-if(not getargs.codename in distnamelist):
+if (not getargs.codename in distnamelist):
     print("Could not build for debian "+getargs.codename+" codename.")
     sys.exit()
 
 pypkgenlistp = subprocess.Popen(
     [pyexecpath, pkgsetuppy, "getversioninfo"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 pypkgenout, pypkgenerr = pypkgenlistp.communicate()
-if(sys.version[0] == "3"):
+if (sys.version[0] == "3"):
     pypkgenout = pypkgenout.decode('utf-8')
 pymodule = json.loads(pypkgenout)
 setuppy_verinfo = pymodule['versionlist']
@@ -112,7 +112,7 @@ setuppy_longdescription = pymodule['longdescription']
 setuppy_platforms = pymodule['platforms']
 standverfilename = os.path.realpath(os.path.sep+"usr"+os.path.sep+"share"+os.path.sep +
                                     "lintian"+os.path.sep+"data"+os.path.sep+"standards-version"+os.path.sep+"release-dates")
-if(not os.path.exists(standverfilename) or not os.path.isfile(standverfilename)):
+if (not os.path.exists(standverfilename) or not os.path.isfile(standverfilename)):
     sys.exit("You need to install lintian package for this to work")
 standverfile = open(standverfilename, "r")
 standverdata = standverfile.read()
@@ -123,14 +123,14 @@ dpkglocatout = which_exec("dpkg")
 pydpkglistp = subprocess.Popen(
     [dpkglocatout, "-s", "debhelper"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 pydpkgout, pydpkgerr = pydpkglistp.communicate()
-if(sys.version[0] == "3"):
+if (sys.version[0] == "3"):
     pydpkgout = pydpkgout.decode("utf-8")
 pydpkg_esc = re.escape("Version:")+'\s+([0-9]+)'+re.escape(".")
 pydpkg_val = re.findall(pydpkg_esc, pydpkgout)[0]
 
-if(sys.version[0] == "2"):
+if (sys.version[0] == "2"):
     pkgsource = "py2hockeystats"
-if(sys.version[0] == "3"):
+if (sys.version[0] == "3"):
     pkgsource = "py3hockeystats"
 pkgupstreamname = "PyHockeyStats"
 pkgveralt = str(setuppy_verinfo[0])+"." + \
@@ -149,38 +149,38 @@ pkggiturl = "https://github.com/GameMaker2k/Neo-Hockey-Test.git"
 pkghomepage = setuppy_url
 pkgsection = "python"
 pkgpriority = "optional"
-if(sys.version[0] == "2"):
+if (sys.version[0] == "2"):
     pkgbuilddepends = "python-setuptools, python-all, python-apsw, debhelper, dh-python, devscripts"
-if(sys.version[0] == "3"):
+if (sys.version[0] == "3"):
     pkgbuilddepends = "python3-setuptools, python3-all, python3-apsw, debhelper, dh-python, devscripts"
 pkgstandardsversion = getcurstandver
-if(sys.version[0] == "2"):
+if (sys.version[0] == "2"):
     pkgpackage = "python-pyhockeystats"
     pkgoldname = "python-hockeystats"
-if(sys.version[0] == "3"):
+if (sys.version[0] == "3"):
     pkgpackage = "python3-pyhockeystats"
     pkgoldname = "python3-hockeystats"
 pkgarchitecture = "all"
-if(sys.version[0] == "2"):
+if (sys.version[0] == "2"):
     pkgdepends = "${misc:Depends}, ${python:Depends}"
-if(sys.version[0] == "3"):
+if (sys.version[0] == "3"):
     pkgdepends = "${misc:Depends}, ${python3:Depends}"
 pkgdescription = setuppy_description+"\n "+setuppy_longdescription
 pkgtzstr = time.strftime("%a, %d %b %Y %H:%M:%S %z")
 
-if(getargs.getsource == True):
+if (getargs.getsource == True):
     print(getargs.source)
     sys.exit()
-if(getargs.getparent == True):
+if (getargs.getparent == True):
     print(os.path.realpath(os.path.dirname(getargs.source)))
     sys.exit()
-if(getargs.getdirname == True):
+if (getargs.getdirname == True):
     print(pkgsource+"_"+pkgveralt+".orig")
     sys.exit()
-if(getargs.gettarname == True):
+if (getargs.gettarname == True):
     print(pkgsource+"_"+pkgveralt+".orig.tar.gz")
     sys.exit()
-if(getargs.getpkgsource == True):
+if (getargs.getpkgsource == True):
     print(pkgsource)
     sys.exit()
 
@@ -188,7 +188,7 @@ print("generating debian package build directory")
 
 debpkg_debian_dir = os.path.realpath(getargs.source+os.path.sep+"debian")
 print("creating directory "+debpkg_debian_dir)
-if(not os.path.exists(debpkg_debian_dir)):
+if (not os.path.exists(debpkg_debian_dir)):
     os.makedirs(debpkg_debian_dir)
 os.chmod(debpkg_debian_dir, int("0755", 8))
 
@@ -277,14 +277,14 @@ os.chmod(debpkg_copyright_file, int("0644", 8))
 
 debpkg_rules_file = os.path.realpath(debpkg_debian_dir+os.path.sep+"rules")
 print("generating file "+debpkg_rules_file)
-if(sys.version[0] == "2" and (buildsystem == "python" or buildsystem == "python_distutils")):
+if (sys.version[0] == "2" and (buildsystem == "python" or buildsystem == "python_distutils")):
     debpkg_string_temp = "#!/usr/bin/make -f\n\n"
     debpkg_string_temp += "# This file was automatically generated by "+profullname+" at\n"
     debpkg_string_temp += "# "+pkgtzstr+"\n\n"
     debpkg_string_temp += "export DH_VERBOSE=1\n\n"
     debpkg_string_temp += "%:\n"
     debpkg_string_temp += "	dh $@ --with python2 --buildsystem=python_distutils\n"
-if(sys.version[0] == "3" and (buildsystem == "python" or buildsystem == "python_distutils")):
+if (sys.version[0] == "3" and (buildsystem == "python" or buildsystem == "python_distutils")):
     debpkg_string_temp = "#!/usr/bin/make -f\n\n"
     debpkg_string_temp += "# This file was automatically generated by "+profullname+" at\n"
     debpkg_string_temp += "# "+pkgtzstr+"\n\n"
@@ -302,7 +302,7 @@ if(sys.version[0] == "3" and (buildsystem == "python" or buildsystem == "python_
     debpkg_string_temp += "        --no-compile -O0 --install-layout=deb\n\n"
     debpkg_string_temp += "override_dh_auto_clean:\n"
     debpkg_string_temp += "	python3 setup.py clean\n"
-if(sys.version[0] == "2" and (buildsystem == "pybuild" or buildsystem == "python_build")):
+if (sys.version[0] == "2" and (buildsystem == "pybuild" or buildsystem == "python_build")):
     debpkg_string_temp = "#!/usr/bin/make -f\n\n"
     debpkg_string_temp += "# This file was automatically generated by "+profullname+" at\n"
     debpkg_string_temp += "# "+pkgtzstr+"\n\n"
@@ -310,7 +310,7 @@ if(sys.version[0] == "2" and (buildsystem == "pybuild" or buildsystem == "python
     debpkg_string_temp += "export PYBUILD_NAME=pyupcean\n\n"
     debpkg_string_temp += "%:\n"
     debpkg_string_temp += "	dh $@ --with python2 --buildsystem=pybuild\n"
-if(sys.version[0] == "3" and (buildsystem == "pybuild" or buildsystem == "python_build")):
+if (sys.version[0] == "3" and (buildsystem == "pybuild" or buildsystem == "python_build")):
     debpkg_string_temp = "#!/usr/bin/make -f\n\n"
     debpkg_string_temp += "# This file was automatically generated by "+profullname+" at\n"
     debpkg_string_temp += "# "+pkgtzstr+"\n\n"
@@ -318,7 +318,7 @@ if(sys.version[0] == "3" and (buildsystem == "pybuild" or buildsystem == "python
     debpkg_string_temp += "export PYBUILD_NAME=pyupcean\n\n"
     debpkg_string_temp += "%:\n"
     debpkg_string_temp += "	dh $@ --with python3 --buildsystem=pybuild\n"
-if((sys.version[0] == "2" or sys.version[0] == "3") and buildsystem == "cmake"):
+if ((sys.version[0] == "2" or sys.version[0] == "3") and buildsystem == "cmake"):
     debpkg_string_temp = "#!/usr/bin/make -f\n\n"
     debpkg_string_temp += "# This file was automatically generated by "+profullname+" at\n"
     debpkg_string_temp += "# "+pkgtzstr+"\n\n"
@@ -332,7 +332,7 @@ os.chmod(debpkg_rules_file, int("0755", 8))
 
 debpkg_source_dir = os.path.realpath(debpkg_debian_dir+os.path.sep+"source")
 print("creating directory "+debpkg_source_dir)
-if(not os.path.exists(debpkg_source_dir)):
+if (not os.path.exists(debpkg_source_dir)):
     os.makedirs(debpkg_source_dir)
 os.chmod(debpkg_source_dir, int("0755", 8))
 
