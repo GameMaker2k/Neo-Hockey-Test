@@ -94,9 +94,9 @@ else:
 sqlcipher_password = "YourPassword"
 sqlite_synchronous = "FULL"
 sqlite_journal_mode = "WAL"
-sqlite_journal_size = 67110000
-sqlite_mmap_size = 268435456
-sqlite_temp_store = "DEFAULT"
+sqlite_journal_size = -1
+sqlite_mmap_size = 536870912
+sqlite_temp_store = "MEMORY"
 enable_old_makegame = False
 defaultxmlfile = "./data/hockeydata.xml"
 defaultsdbfile = "./data/hockeydata.db3"
@@ -491,7 +491,10 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA encoding = \"UTF-8\";")
     sqlcur.execute("PRAGMA auto_vacuum = 1;")
     sqlcur.execute("PRAGMA foreign_keys = 0;")
-    sqlcur.execute("PRAGMA locking_mode = EXCLUSIVE;")
+    sqlcur.execute("PRAGMA locking_mode = NORMAL;")
+    sqlcur.execute("PRAGMA max_page_count = 2147483647;")
+    sqlcur.execute("PRAGMA cache_size = -524288;")
+    sqlcur.execute("PRAGMA case_sensitive_like = ON;")
     sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";")
     sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
     sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
@@ -501,8 +504,14 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     if(sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
     sqlcur.execute("PRAGMA fullfsync = ON;")
-    sqlcur.execute("PRAGMA synchronous = FULL;")
+    sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
+    sqlcur.execute("PRAGMA synchronous = NORMAL;")
+    sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
+    sqlcur.execute("PRAGMA busy_timeout = 5000;")
+    sqlcur.execute("PRAGMA optimize;")
+    sqlcur.execute("PRAGMA analyze;")
+    sqlcur.execute("PRAGMA shrink_memory;")
     return sqldatacon
 
 
@@ -539,7 +548,10 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA encoding = \"UTF-8\";")
     sqlcur.execute("PRAGMA auto_vacuum = 1;")
     sqlcur.execute("PRAGMA foreign_keys = 0;")
-    sqlcur.execute("PRAGMA locking_mode = EXCLUSIVE;")
+    sqlcur.execute("PRAGMA locking_mode = NORMAL;")
+    sqlcur.execute("PRAGMA max_page_count = 2147483647;")
+    sqlcur.execute("PRAGMA cache_size = -524288;")
+    sqlcur.execute("PRAGMA case_sensitive_like = ON;")
     sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";")
     sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
     sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
@@ -549,8 +561,14 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     if(sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
     sqlcur.execute("PRAGMA fullfsync = ON;")
-    sqlcur.execute("PRAGMA synchronous = FULL;")
+    sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
+    sqlcur.execute("PRAGMA synchronous = NORMAL;")
+    sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
+    sqlcur.execute("PRAGMA busy_timeout = 5000;")
+    sqlcur.execute("PRAGMA optimize;")
+    sqlcur.execute("PRAGMA analyze;")
+    sqlcur.execute("PRAGMA shrink_memory;")
     sqlcur.close()
     sqlcon.close()
     return True
@@ -585,7 +603,10 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA encoding = \"UTF-8\";")
     sqlcur.execute("PRAGMA auto_vacuum = 1;")
     sqlcur.execute("PRAGMA foreign_keys = 0;")
-    sqlcur.execute("PRAGMA locking_mode = EXCLUSIVE;")
+    sqlcur.execute("PRAGMA locking_mode = NORMAL;")
+    sqlcur.execute("PRAGMA max_page_count = 2147483647;")
+    sqlcur.execute("PRAGMA cache_size = -524288;")
+    sqlcur.execute("PRAGMA case_sensitive_like = ON;")
     sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";")
     sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
     sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
@@ -595,8 +616,14 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     if(sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
     sqlcur.execute("PRAGMA fullfsync = ON;")
-    sqlcur.execute("PRAGMA synchronous = FULL;")
+    sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
+    sqlcur.execute("PRAGMA synchronous = NORMAL;")
+    sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
+    sqlcur.execute("PRAGMA busy_timeout = 5000;")
+    sqlcur.execute("PRAGMA optimize;")
+    sqlcur.execute("PRAGMA analyze;")
+    sqlcur.execute("PRAGMA shrink_memory;")
     return sqldatacon
 
 
