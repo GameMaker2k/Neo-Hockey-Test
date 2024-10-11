@@ -16,9 +16,7 @@
     $FileInfo: __init__.py - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
-
+from __future__ import absolute_import, division, print_function, unicode_literals
 import os
 
 implib = False
@@ -34,7 +32,7 @@ except ImportError:
     except ImportError:
         implib = False
 
-if (implib):
+if(implib):
     try:
         hockeydtd = os.path.join(
             importlib.resources.files(__name__), "hockeydata.dtd")
@@ -77,7 +75,7 @@ if (implib):
             hockeyaltrng = pkgfile
         with importlib.resources.path(hockeydatabase.rnc, "") as pkgfile:
             hockeyaltrnc = pkgfile
-elif (pkgres):
+elif(pkgres):
     hockeydtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
     hockeyxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl")
     hockeyxsd = pkg_resources.resource_filename(__name__, "hockeydata.xsd")
@@ -94,27 +92,27 @@ elif (pkgres):
     hockeyaltrnc = pkg_resources.resource_filename(
         __name__, "hockeydatabase.rnc")
     hockeyxmlpath = os.path.dirname(hockeydtd)
-elif (not pkgres):
-    hockeydtd = os.path.dirname(__file__) + os.sep + "hockeydata.dtd"
-    hockeyxsl = os.path.dirname(__file__) + os.sep + "hockeydata.xsl"
-    hockeyxsd = os.path.dirname(__file__) + os.sep + "hockeydata.xsd"
-    hockeyrng = os.path.dirname(__file__) + os.sep + "hockeydata.rng"
-    hockeyrnc = os.path.dirname(__file__) + os.sep + "hockeydata.rnc"
-    hockeyaltdtd = os.path.dirname(__file__) + os.sep + "hockeydatabase.dtd"
-    hockeyaltxsl = os.path.dirname(__file__) + os.sep + "hockeydatabase.xsl"
-    hockeyaltxsd = os.path.dirname(__file__) + os.sep + "hockeydatabase.xsd"
-    hockeyaltrng = os.path.dirname(__file__) + os.sep + "hockeydatabase.rng"
-    hockeyaltrnc = os.path.dirname(__file__) + os.sep + "hockeydatabase.rnc"
+elif(not pkgres):
+    hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
+    hockeyxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
+    hockeyxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"
+    hockeyrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng"
+    hockeyrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc"
+    hockeyaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
+    hockeyaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl"
+    hockeyaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd"
+    hockeyaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
+    hockeyaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc"
     hockeyxmlpath = os.path.dirname(hockeydtd)
 else:
-    hockeydtd = os.path.dirname(__file__) + os.sep + "hockeydata.dtd"
-    hockeyxsl = os.path.dirname(__file__) + os.sep + "hockeydata.xsl"
-    hockeyxsd = os.path.dirname(__file__) + os.sep + "hockeydata.xsd"
-    hockeyrng = os.path.dirname(__file__) + os.sep + "hockeydata.rng"
-    hockeyrnc = os.path.dirname(__file__) + os.sep + "hockeydata.rnc"
-    hockeyaltdtd = os.path.dirname(__file__) + os.sep + "hockeydatabase.dtd"
-    hockeyaltxsl = os.path.dirname(__file__) + os.sep + "hockeydatabase.xsl"
-    hockeyaltxsd = os.path.dirname(__file__) + os.sep + "hockeydatabase.xsd"
-    hockeyaltrng = os.path.dirname(__file__) + os.sep + "hockeydatabase.rng"
-    hockeyaltrnc = os.path.dirname(__file__) + os.sep + "hockeydatabase.rnc"
+    hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
+    hockeyxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
+    hockeyxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"
+    hockeyrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng"
+    hockeyrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc"
+    hockeyaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
+    hockeyaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl"
+    hockeyaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd"
+    hockeyaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
+    hockeyaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc"
     hockeyxmlpath = os.path.dirname(hockeydtd)
