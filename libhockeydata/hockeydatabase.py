@@ -52,42 +52,30 @@ from .hockeydwnload import *
 from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__
 
 use_sqlite_lib = "sqlite3"
-enable_oldsqlite = False
 enable_apsw = False
 enable_supersqlite = False
 enable_sqlcipher = False
 if(use_sqlite_lib == "sqlite3"):
-    enable_oldsqlite = False
     enable_apsw = False
     enable_supersqlite = False
     enable_sqlcipher = False
 if(use_sqlite_lib == "supersqlite"):
     enable_supersqlite = True
-    enable_oldsqlite = False
     enable_apsw = False
     enable_sqlcipher = False
 elif(use_sqlite_lib == "apsw"):
     enable_apsw = True
-    enable_oldsqlite = False
     enable_supersqlite = False
     enable_sqlcipher = False
 elif(use_sqlite_lib == "superapsw"):
     enable_apsw = True
     enable_supersqlite = True
-    enable_oldsqlite = False
     enable_sqlcipher = False
 elif(use_sqlite_lib == "sqlcipher"):
     enable_sqlcipher = True
-    enable_oldsqlite = False
     enable_apsw = False
     enable_supersqlite = False
-elif(use_sqlite_lib == "oldsqlite"):
-    enable_oldsqlite = True
-    enable_apsw = False
-    enable_supersqlite = False
-    enable_sqlcipher = False
 else:
-    enable_oldsqlite = False
     enable_apsw = False
     enable_supersqlite = False
     enable_sqlcipher = False
@@ -266,19 +254,6 @@ if(enable_sqlcipher):
 else:
     sqlciphersupport = False
     enable_sqlcipher = False
-
-oldsqlitesupport = False
-if(enable_oldsqlite):
-    oldsqlitesupport = True
-    try:
-        import sqlite
-    except ImportError:
-        import sqlite3
-        oldsqlitesupport = False
-        enable_oldsqlite = False
-else:
-    oldsqlitesupport = False
-    enable_oldsqlite = False
 
 try:
     from xml.sax.saxutils import xml_escape
@@ -462,28 +437,23 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
     return [True]
 
 
-def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_oldsqlite=enable_oldsqlite, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
     usecipher = False
-    if(not oldsqlitesupport and enable_oldsqlite):
-        enable_oldsqlite = False
     if(not apswsupport and enable_apsw):
         enable_apsw = False
     if(not supersqlitesupport and enable_supersqlite):
         enable_apsw = False
     if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
         return False
-    if(enable_oldsqlite):
+    if(enable_apsw and not enable_supersqlite):
+        sqlcon = apsw.Connection(sdbfile)
+    elif(enable_apsw and enable_supersqlite):
+        sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
+    elif(enable_sqlcipher):
         sqlcon = sqlite.connect(sdbfile, isolation_level=None)
+        usecipher = True
     else:
-        if(enable_apsw and not enable_supersqlite):
-            sqlcon = apsw.Connection(sdbfile)
-        elif(enable_apsw and enable_supersqlite):
-            sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
-        elif(enable_sqlcipher):
-            sqlcon = sqlite.connect(sdbfile, isolation_level=None)
-            usecipher = True
-        else:
-            sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
+        sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
     sqlcur = sqlcon.cursor()
     sqldatacon = (sqlcur, sqlcon)
     if(enable_sqlcipher and usecipher):
@@ -499,7 +469,7 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
     sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
     sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
-    if(not enable_oldsqlite and sdbfile != ":memory:"):
+    if(sdbfile != ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
     if(sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
@@ -520,28 +490,23 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
     return hockeyarray
 
 
-def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_oldsqlite=enable_oldsqlite, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
     usecipher = False
-    if(not oldsqlitesupport and enable_oldsqlite):
-        enable_oldsqlite = False
     if(not apswsupport and enable_apsw):
         enable_apsw = False
     if(not supersqlitesupport and enable_supersqlite):
         enable_apsw = False
     if(os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
         return False
-    if(enable_oldsqlite):
+    if(enable_apsw and not enable_supersqlite):
+        sqlcon = apsw.Connection(sdbfile)
+    elif(enable_apsw and enable_supersqlite):
+        sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
+    elif(enable_sqlcipher):
         sqlcon = sqlite.connect(sdbfile, isolation_level=None)
+        usecipher = True
     else:
-        if(enable_apsw and not enable_supersqlite):
-            sqlcon = apsw.Connection(sdbfile)
-        elif(enable_apsw and enable_supersqlite):
-            sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
-        elif(enable_sqlcipher):
-            sqlcon = sqlite.connect(sdbfile, isolation_level=None)
-            usecipher = True
-        else:
-            sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
+        sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
     sqlcur = sqlcon.cursor()
     if(enable_sqlcipher):
         sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";")
@@ -556,7 +521,7 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
     sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
     sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
-    if(not enable_oldsqlite and sdbfile != ":memory:"):
+    if(sdbfile != ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
     if(sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
@@ -574,28 +539,23 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     return True
 
 
-def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_oldsqlite=enable_oldsqlite, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
     usecipher = False
-    if(not oldsqlitesupport and enable_oldsqlite):
-        enable_oldsqlite = False
     if(not apswsupport and enable_apsw):
         enable_apsw = False
     if(not supersqlitesupport and enable_supersqlite):
         enable_apsw = False
     if(not os.path.exists(sdbfile) or not os.path.isfile(sdbfile)):
         return False
-    if(enable_oldsqlite):
+    if(enable_apsw and not enable_supersqlite):
+        sqlcon = apsw.Connection(sdbfile)
+    elif(enable_apsw and enable_supersqlite):
+        sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
+    elif(enable_sqlcipher):
         sqlcon = sqlite.connect(sdbfile, isolation_level=None)
+        usecipher = True
     else:
-        if(enable_apsw and not enable_supersqlite):
-            sqlcon = apsw.Connection(sdbfile)
-        elif(enable_apsw and enable_supersqlite):
-            sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
-        elif(enable_sqlcipher):
-            sqlcon = sqlite.connect(sdbfile, isolation_level=None)
-            usecipher = True
-        else:
-            sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
+        sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
     sqlcur = sqlcon.cursor()
     sqldatacon = (sqlcur, sqlcon)
     if(enable_sqlcipher):
@@ -611,7 +571,7 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
     sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
     sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
-    if(not enable_oldsqlite and sdbfile != ":memory:"):
+    if(sdbfile != ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
     if(sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
