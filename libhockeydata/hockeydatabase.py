@@ -405,6 +405,12 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
         else:
             return [False]
     sqldatacur = sqldatacon[1].cursor()
+    # Check database integrity
+    db_integrity_check = sqldatacur.execute(
+        "PRAGMA integrity_check(100);").fetchone()[0]
+    # If integrity check fails, return False
+    if db_integrity_check != "ok":
+        return [False]
     if (sqldatacur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='HockeyLeagues';").fetchone() is None):
         return [False]
     # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
