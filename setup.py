@@ -9,10 +9,10 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     Revised BSD License for more details.
 
-    Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
-    Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
+    Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
+    Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: setup.py - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
+    $FileInfo: setup.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
 import re

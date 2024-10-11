@@ -10,10 +10,10 @@
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     Revised BSD License for more details.
 
-    Copyright 2015-2021 Game Maker 2k - https://github.com/GameMaker2k
-    Copyright 2015-2021 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
+    Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
+    Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: versioninfo.py - Last Update: 12/03/2023 Ver. 0.8.8 RC 1 - Author: cooldude2k $
+    $FileInfo: versioninfo.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import absolute_import, division, print_function, unicode_literals
@@ -55,7 +55,7 @@ __license__ = "Revised BSD License"
 __license_string__ = """-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
             Revised BSD License
 
-Copyright (C) 2011-2020 Game Maker 2k. 
+Copyright (C) 2015-2024 Game Maker 2k. 
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -96,7 +96,7 @@ __program_alt_name__ = "PyHockeyData"
 __project__ = __program_name__
 __project_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test"
 __project_release_url__ = "https://github.com/GameMaker2k/Neo-Hockey-Test/releases/latest"
-__version_info__ = (0, 8, 8, "RC 1", 1)
+__version_info__ = (0, 9, 0, "RC 1", 1)
 __build_time__ = {"timestamp": None, "year": None, "month": None,
                   "day": None, "hour": None, "minute": None, "second": None}
 __build_time_utc__ = {"timestamp": None, "year": None, "month": None,
@@ -136,7 +136,7 @@ def version_info():
         return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None}
 
 
-__version_date_info__ = (2023, 12, 3, "RC 1", 1)
+__version_date_info__ = (2024, 10, 11, "RC 1", 1)
 
 
 def version_date():
