@@ -537,7 +537,6 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
     sqlcur.execute("PRAGMA read_uncommitted = ON;")
-    PRAGMA read_uncommitted = ON
     sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
     sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
     sqlcur.close()
