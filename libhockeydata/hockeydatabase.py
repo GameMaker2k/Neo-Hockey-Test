@@ -375,12 +375,25 @@ def ConvertXMLValuesForPython(invalue):
 
 
 def CheckHockeySQLiteDatabaseConnection(sqldatacon):
-    if (not isinstance(sqldatacon, (tuple, list)) and not sqldatacon):
+    # Ensure sqldatacon is a tuple or list and contains exactly two elements
+    if not isinstance(sqldatacon, (tuple, list)) or len(sqldatacon) != 2:
         return False
-    if (not hasattr(sqldatacon[0], "execute")):
+
+    cursor, connection = sqldatacon
+
+    # Check that the first element is a valid cursor (has the 'execute' method)
+    if not hasattr(cursor, "execute"):
         return False
-    if (not hasattr(sqldatacon[1], "execute")):
+
+    # Check that the second element is a valid connection (has the 'commit' method)
+    if not hasattr(connection, "commit"):
         return False
+
+    # Optionally, check if the connection is still open (using 'isolation_level' as an indicator)
+    if connection is None or connection.isolation_level is None:
+        return False
+
+    # If all checks pass, return True
     return True
 
 
