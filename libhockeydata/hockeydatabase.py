@@ -1013,6 +1013,16 @@ def GetHockeyLeaguesInfo(leaguename):
     return leagueinfo.get(leaguename, {leaguename: {'LeagueName': leaguename, 'FullLeagueName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown", 'StartDate': 0, 'PlayOffFMT': "Unknown", 'OrderType': "Unknown"}})
 
 
+def CheckKeyInArray(validkeys, checkdict):
+    ivalidkeys = 0
+    ilvalidkeys = len(validkeys)
+    while (ivalidkeys < ilvalidkeys):
+        if (validkeys[ivalidkeys] not in checkdict):
+            return False
+        ivalidkeys = ivalidkeys + 1
+    return True
+
+
 def CheckHockeyArray(inhockeyarray):
     if (isinstance(inhockeyarray, type(None)) or isinstance(inhockeyarray, type(True)) or isinstance(inhockeyarray, type(False)) or not isinstance(inhockeyarray, type({}))):
         return False
@@ -1022,18 +1032,26 @@ def CheckHockeyArray(inhockeyarray):
         return False
     leaguelist = []
     for hlkey in inhockeyarray['leaguelist']:
+        if (not CheckKeyInArray(["name", "fullname", "country", "fullcountry", "date", "playofffmt", "ordertype", "conferences", "divisions"], inhockeyarray[hlkey]['leagueinfo'])):
+            return False
         if hlkey not in inhockeyarray.keys():
             return False
         if (hlkey in leaguelist):
             return False
         leaguelist.append(hlkey)
         for hckey in inhockeyarray[hlkey]['conferencelist']:
+            if (not CheckKeyInArray(["name", "prefix", "suffix"], inhockeyarray[hlkey][hckey]['conferenceinfo'])):
+                return False
             if hckey not in inhockeyarray[hlkey].keys() or hckey not in inhockeyarray[hlkey]['quickinfo']['conferenceinfo'].keys():
                 return False
             for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
+                if (not CheckKeyInArray(["name", "prefix", "suffix"], inhockeyarray[hlkey][hckey][hdkey]['divisioninfo'])):
+                    return False
                 if hdkey not in inhockeyarray[hlkey][hckey].keys() or hdkey not in inhockeyarray[hlkey]['quickinfo']['divisioninfo'].keys():
                     return False
                 for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
+                    if (not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "arena", "affiliates", "prefix", "suffix"], inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo'])):
+                        return False
                     if htkey not in inhockeyarray[hlkey][hckey][hdkey].keys() or htkey not in inhockeyarray[hlkey]['quickinfo']['teaminfo'].keys():
                         return False
     return True
