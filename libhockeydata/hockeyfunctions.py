@@ -2133,8 +2133,8 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "sqldatacon = " + pyfilename + \
-           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
+           + "sqldatacon = " + pyfilename \
+           + ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
     pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
@@ -2244,8 +2244,8 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "sqldatacon = " + pyfilename + \
-           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
+           + "hockeyarray = " + pyfilename \
+           + ".CreateHockeyArray(\""+inchockeyarray['database']+"\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2365,8 +2365,8 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "sqldatacon = " + pyfilename + \
-           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
+           + "sqldatacon = " + pyfilename \
+           + ".MakeHockeyClass(\""+inchockeyarray['database']+"\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2481,8 +2481,8 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "sqldatacon = " + pyfilename + \
-           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
+           + "hockeyarray = " + pyfilename \
+           + ".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
