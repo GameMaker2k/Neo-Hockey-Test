@@ -481,6 +481,7 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
+    sqlcur.execute("PRAGMA read_uncommitted = ON;")
     sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
     sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
     return sqldatacon
@@ -535,6 +536,8 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
+    sqlcur.execute("PRAGMA read_uncommitted = ON;")
+    PRAGMA read_uncommitted = ON
     sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
     sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
     sqlcur.close()
@@ -585,6 +588,7 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
     sqlcur.execute("PRAGMA synchronous = NORMAL;")
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
+    sqlcur.execute("PRAGMA read_uncommitted = ON;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
     sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
@@ -3227,6 +3231,40 @@ def CheckDatabaseIntegrity(sqldatacon):
     if db_integrity_check[0][0] != "ok":
         for error in db_integrity_check:
             VerbosePrintOut("Integrity check error: {}".format(error[0]), "error")
+        return False
+    
+    # If everything is ok, return True
+    return True
+
+
+def DatabaseStats(sqldatacon):
+    try:
+        # Run PRAGMA stats to get database statistics
+        db_stats = sqldatacon[0].execute("PRAGMA stats;").fetchall()
+        
+        # Log each stat entry for tables and indexes
+        if db_stats:
+            VerbosePrintOut("Database Stats:", "log")
+            for stat in db_stats:
+                # Assuming the PRAGMA stats output returns columns similar to ('name', 'entries', 'leaf_pages', 'depth', 'entries_per_page')
+                table_or_index = stat[0]  # Name of the table or index
+                entries = stat[1]  # Number of entries
+                leaf_pages = stat[2]  # Number of leaf pages
+                depth = stat[3]  # B-tree depth
+                entries_per_page = stat[4]  # Average entries per page
+
+                # Log the stats
+                VerbosePrintOut(
+                    "Name: {}, Entries: {}, Leaf Pages: {}, Depth: {}, Entries per Page: {}".format(
+                        table_or_index, entries, leaf_pages, depth, entries_per_page), "log")
+        else:
+            # Log an error if no stats are found
+            VerbosePrintOut("No database stats found or database is empty.", "error")
+            return False
+
+    except Exception as e:
+        # Log any errors encountered during stats retrieval
+        VerbosePrintOut("Error retrieving database stats: {}".format(e), "error")
         return False
     
     # If everything is ok, return True
