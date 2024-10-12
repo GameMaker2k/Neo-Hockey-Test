@@ -468,6 +468,9 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
     if (sdbfile != ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
+        journal_mode_test = sqlcur.fetchone()[0]
+        if journal_mode_test.lower() != "wal":
+            sqlcur.execute("PRAGMA journal_mode = DELETE;")
     if (sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
     sqlcur.execute("PRAGMA fullfsync = ON;")
@@ -518,6 +521,9 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
     if (sdbfile != ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
+        journal_mode_test = sqlcur.fetchone()[0]
+        if journal_mode_test.lower() != "wal":
+            sqlcur.execute("PRAGMA journal_mode = DELETE;")
     if (sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
     sqlcur.execute("PRAGMA fullfsync = ON;")
@@ -566,6 +572,9 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
     if (sdbfile != ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
+        journal_mode_test = sqlcur.fetchone()[0]
+        if journal_mode_test.lower() != "wal":
+            sqlcur.execute("PRAGMA journal_mode = DELETE;")
     if (sdbfile == ":memory:"):
         sqlcur.execute("PRAGMA journal_mode = MEMORY;")
     sqlcur.execute("PRAGMA fullfsync = ON;")
