@@ -16,10 +16,12 @@
     $FileInfo: example.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-import libhockeydata
 import os
-import sys
 import random
+import sys
+
+import libhockeydata
+
 try:
     reload(sys)
 except NameError:

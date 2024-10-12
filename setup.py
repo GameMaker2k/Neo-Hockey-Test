@@ -15,15 +15,16 @@
     $FileInfo: setup.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-import re
+import datetime
 import os
+import platform
+import re
+import shutil
 import sys
 import time
-import shutil
-import datetime
-import platform
+
 import pkg_resources
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 install_requires = []
 extras_requires = []

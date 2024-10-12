@@ -15,11 +15,11 @@
     $FileInfo: pyverinfo.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-import re
-import os
-import sys
 import json
+import os
+import re
 import subprocess
+import sys
 
 pyexecpath = os.path.realpath(sys.executable)
 pkgsetuppy = os.path.realpath("."+os.path.sep+"setup.py")

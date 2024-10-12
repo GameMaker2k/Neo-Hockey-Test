@@ -16,12 +16,16 @@
     $FileInfo: mkhockeytool.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-import libhockeydata
-import os
-import sys
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
 import argparse
 import logging
+import os
+import sys
+
+import libhockeydata
+
 try:
     reload(sys)
 except NameError:

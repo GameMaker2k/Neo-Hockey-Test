@@ -15,15 +15,17 @@
     $FileInfo: pyshell.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import division, absolute_import, print_function
-import sys
-import os
-import traceback
+from __future__ import absolute_import, division, print_function
+
 import code
+import os
 import re
 import readline
-import libhockeydata
+import sys
+import traceback
 from sys import argv
+
+import libhockeydata
 from libhockeydata import *
 
 taskfound = False

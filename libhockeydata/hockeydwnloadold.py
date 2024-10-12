@@ -16,25 +16,35 @@
     $FileInfo: downloader.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import division, absolute_import, print_function
-from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info
-import re
-import os
-import sys
+from __future__ import absolute_import, division, print_function
+
+import argparse
+import bz2
+import datetime
+import email.utils
 import hashlib
-import shutil
+import os
 import platform
+import re
+import shutil
+import socket
+import subprocess
+import sys
 import tempfile
+import time
 import urllib
 import zlib
-import bz2
-import time
-import argparse
-import subprocess
-import socket
-import email.utils
-import datetime
-import time
+
+from .versioninfo import (__author__, __copyright__, __credits__, __email__,
+                          __license__, __license_string__, __maintainer__,
+                          __program_alt_name__, __program_name__, __project__,
+                          __project_release_url__, __project_url__,
+                          __revision__, __revision_id__, __status__,
+                          __version__, __version_alt__, __version_date__,
+                          __version_date_alt__, __version_date_info__,
+                          __version_date_plusrc__, __version_info__,
+                          version_date, version_info)
+
 try:
     reload(sys)
 except NameError:
@@ -45,8 +55,9 @@ try:
 except AttributeError:
     pass
 import logging as log
-from ftplib import FTP, FTP_TLS
 from base64 import b64encode
+from ftplib import FTP, FTP_TLS
+
 try:
     from cgi import parse_qsl
 except ImportError:
@@ -139,7 +150,7 @@ except ImportError:
     havelzma = False
 if (sys.version[0] == "2"):
     try:
-        from io import StringIO, BytesIO
+        from io import BytesIO, StringIO
     except ImportError:
         try:
             from cStringIO import StringIO
@@ -148,22 +159,26 @@ if (sys.version[0] == "2"):
             from StringIO import StringIO
             from StringIO import StringIO as BytesIO
     # From http://python-future.org/compatible_idioms.html
-    from urlparse import urlparse, urlunparse, urlsplit, urlunsplit, urljoin
     from urllib import urlencode
     from urllib import urlopen as urlopenalt
-    from urllib2 import urlopen, Request, install_opener, HTTPError, URLError, build_opener, HTTPCookieProcessor
-    import urlparse
+
     import cookielib
+    import urlparse
     from httplib import HTTPConnection, HTTPSConnection
+    from urllib2 import (HTTPCookieProcessor, HTTPError, Request, URLError,
+                         build_opener, install_opener, urlopen)
+    from urlparse import urljoin, urlparse, urlsplit, urlunparse, urlunsplit
 if (sys.version[0] >= "3"):
-    from io import StringIO, BytesIO
-    # From http://python-future.org/compatible_idioms.html
-    from urllib.parse import urlparse, urlunparse, urlsplit, urlunsplit, urljoin, urlencode
-    from urllib.request import urlopen, Request, install_opener, build_opener, HTTPCookieProcessor
-    from urllib.error import HTTPError, URLError
-    import urllib.parse as urlparse
     import http.cookiejar as cookielib
+    import urllib.parse as urlparse
     from http.client import HTTPConnection, HTTPSConnection
+    from io import BytesIO, StringIO
+    from urllib.error import HTTPError, URLError
+    # From http://python-future.org/compatible_idioms.html
+    from urllib.parse import (urlencode, urljoin, urlparse, urlsplit,
+                              urlunparse, urlunsplit)
+    from urllib.request import (HTTPCookieProcessor, Request, build_opener,
+                                install_opener, urlopen)
 
 tmpfileprefix = "py" + \
     str(sys.version_info[0])+"hockeystats"+str(__version_info__[0])+"-"

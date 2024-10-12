@@ -17,12 +17,11 @@
 '''
 
 import os
-import sys
+import platform
 import shutil
 import subprocess
+import sys
 import tempfile
-import subprocess
-import platform
 
 tempdir = tempfile.gettempdir()
 if (os.sep == "\\"):

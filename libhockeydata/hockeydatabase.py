@@ -16,13 +16,15 @@
     $FileInfo: hockeydatabase.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-from xml.sax.saxutils import XMLGenerator
-import sys
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import binascii
+import logging
 import os
 import re
-import logging
-import binascii
+import sys
+from xml.sax.saxutils import XMLGenerator
 
 # Python 2 handling: Reload sys and set UTF-8 encoding if applicable
 try:
@@ -41,12 +43,17 @@ if hasattr(sys.stderr, "detach"):
     import io
     sys.stderr = io.TextIOWrapper(
         sys.stderr.detach(), encoding='UTF-8', errors='replace')
-from io import open as open
 import multiprocessing
 import threading
 from copy import copy, deepcopy
+from io import open as open
+
 from .hockeydwnload import *
-from .versioninfo import __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_date__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__
+from .versioninfo import (__program_alt_name__, __program_name__, __project__,
+                          __project_release_url__, __project_url__,
+                          __revision__, __revision_id__, __version__,
+                          __version_date__, __version_date_info__,
+                          __version_date_plusrc__, __version_info__)
 
 use_sqlite_lib = "sqlite3"
 enable_apsw = False
@@ -181,12 +188,14 @@ except ImportError:
     if sys.version_info[0] < 3:
         try:
             # Python 2: Try importing from cStringIO first (faster)
-            from cStringIO import StringIO as BytesIO, StringIO
+            from cStringIO import StringIO
+            from cStringIO import StringIO as BytesIO
             teststringio = 1
         except ImportError:
             try:
                 # Fallback to Python 2's StringIO module
-                from StringIO import StringIO as BytesIO, StringIO
+                from StringIO import StringIO
+                from StringIO import StringIO as BytesIO
                 teststringio = 2
             except ImportError:
                 teststringio = 0
@@ -413,7 +422,8 @@ def SetHockeyDatabasePragma(sqldatacon, dbpragma={}):
             VerbosePrintOut("Executed: {}".format(pragma_statement), "log")
         except Exception as e:
             # Log an error if something goes wrong
-            VerbosePrintOut("Error executing PRAGMA '{}': {}".format(key, e), "error")
+            VerbosePrintOut(
+                "Error executing PRAGMA '{}': {}".format(key, e), "error")
             return False
 
     # If everything is successful, return True
@@ -1103,7 +1113,8 @@ def CheckHockeyArray(inhockeyarray):
 
         # Process conferences
         for hckey in inhockeyarray[hlkey].get('conferencelist', []):
-            conferenceinfo = inhockeyarray[hlkey].get(hckey, {}).get('conferenceinfo', {})
+            conferenceinfo = inhockeyarray[hlkey].get(
+                hckey, {}).get('conferenceinfo', {})
 
             # Validate conferenceinfo keys
             if not CheckKeyInArray(["name", "prefix", "suffix"], conferenceinfo):
@@ -1115,7 +1126,8 @@ def CheckHockeyArray(inhockeyarray):
 
             # Process divisions
             for hdkey in inhockeyarray[hlkey][hckey].get('divisionlist', []):
-                divisioninfo = inhockeyarray[hlkey][hckey].get(hdkey, {}).get('divisioninfo', {})
+                divisioninfo = inhockeyarray[hlkey][hckey].get(
+                    hdkey, {}).get('divisioninfo', {})
 
                 # Validate divisioninfo keys
                 if not CheckKeyInArray(["name", "prefix", "suffix"], divisioninfo):
@@ -1127,7 +1139,8 @@ def CheckHockeyArray(inhockeyarray):
 
                 # Process teams
                 for htkey in inhockeyarray[hlkey][hckey][hdkey].get('teamlist', []):
-                    teaminfo = inhockeyarray[hlkey][hckey][hdkey].get(htkey, {}).get('teaminfo', {})
+                    teaminfo = inhockeyarray[hlkey][hckey][hdkey].get(
+                        htkey, {}).get('teaminfo', {})
 
                     # Validate teaminfo keys
                     if not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "arena", "affiliates", "prefix", "suffix"], teaminfo):
@@ -1150,7 +1163,8 @@ def CheckHockeySQLiteArray(inhockeyarray):
         return False
 
     # Tables to check in each league
-    all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"]
+    all_table_list = ["Conferences", "Divisions",
+                      "Arenas", "Teams", "Stats", "GameStats", "Games"]
 
     # Initialize table list with 'HockeyLeagues'
     table_list = {'HockeyLeagues'}  # Use a set for fast lookups
@@ -1275,11 +1289,14 @@ def ReplaceHockeyLeagueFromArray(inhockeyarray, oldleaguename, newleaguename, le
         # Update all conference and division references
         for hlkey in inchockeyarray['leaguelist']:
             for hckey in inchockeyarray[hlkey].get('conferencelist', []):
-                inchockeyarray[newleaguename][hckey]['conferenceinfo']['league'] = str(newleaguename)
+                inchockeyarray[newleaguename][hckey]['conferenceinfo']['league'] = str(
+                    newleaguename)
                 for hdkey in inchockeyarray[hlkey][hckey].get('divisionlist', []):
-                    inchockeyarray[newleaguename][hckey][hdkey]['divisioninfo']['league'] = str(newleaguename)
+                    inchockeyarray[newleaguename][hckey][hdkey]['divisioninfo']['league'] = str(
+                        newleaguename)
                     for htkey in inchockeyarray[hlkey][hckey][hdkey].get('teamlist', []):
-                        inchockeyarray[newleaguename][hckey][hdkey][htkey]['teaminfo']['league'] = str(newleaguename)
+                        inchockeyarray[newleaguename][hckey][hdkey][htkey]['teaminfo']['league'] = str(
+                            newleaguename)
 
     return inchockeyarray
 
@@ -1353,7 +1370,8 @@ def RemoveHockeyConferenceFromArray(inhockeyarray, leaguename, conference):
     # Remove conference and associated info if it exists
     if conference in inchockeyarray[leaguename]:
         for hdkey in inchockeyarray[leaguename][conference].get('divisionlist', []):
-            inchockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(hdkey, None)
+            inchockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(
+                hdkey, None)
 
             for htkey in inchockeyarray[leaguename][conference][hdkey].get('teamlist', []):
                 fullteamname = GetFullTeamName(
@@ -1368,10 +1386,12 @@ def RemoveHockeyConferenceFromArray(inhockeyarray, leaguename, conference):
                     if game['hometeam'] != fullteamname and game['awayteam'] != fullteamname
                 ]
 
-                inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(htkey, None)
+                inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(
+                    htkey, None)
 
         inchockeyarray[leaguename].pop(conference, None)
-        inchockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(conference, None)
+        inchockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(
+            conference, None)
         inchockeyarray[leaguename]['conferencelist'].remove(conference)
 
     return inchockeyarray
@@ -1389,8 +1409,10 @@ def ReplaceHockeyConferenceFromArray(inhockeyarray, leaguename, oldconference, n
         ConferenceFullName = GetFullTeamName(newconference, prefix, suffix)
 
         # Replace the old conference with the new one
-        inchockeyarray[leaguename][newconference] = inchockeyarray[leaguename].pop(oldconference)
-        inchockeyarray[leaguename]['quickinfo']['conferenceinfo'][newconference] = inchockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(oldconference)
+        inchockeyarray[leaguename][newconference] = inchockeyarray[leaguename].pop(
+            oldconference)
+        inchockeyarray[leaguename]['quickinfo']['conferenceinfo'][newconference] = inchockeyarray[leaguename]['quickinfo']['conferenceinfo'].pop(
+            oldconference)
 
         # Update conference details
         conferenceinfo = inchockeyarray[leaguename][newconference]['conferenceinfo']
@@ -1398,21 +1420,25 @@ def ReplaceHockeyConferenceFromArray(inhockeyarray, leaguename, oldconference, n
         conferenceinfo['prefix'] = str(prefix)
         conferenceinfo['suffix'] = str(suffix)
         conferenceinfo['fullname'] = str(ConferenceFullName)
-        
+
         # Ensure divisionlist exists
-        inchockeyarray[leaguename][newconference].setdefault('divisionlist', [])
+        inchockeyarray[leaguename][newconference].setdefault(
+            'divisionlist', [])
 
         # Update references in the conferencelist
-        hcin = inchockeyarray[leaguename]['conferencelist'].index(oldconference)
+        hcin = inchockeyarray[leaguename]['conferencelist'].index(
+            oldconference)
         inchockeyarray[leaguename]['conferencelist'][hcin] = newconference
 
         # Update all division and team references
         for hlkey in inchockeyarray['leaguelist']:
             for hckey in inchockeyarray[hlkey]['conferencelist']:
                 for hdkey in inchockeyarray[hlkey][hckey].get('divisionlist', []):
-                    inchockeyarray[leaguename][newconference][hdkey]['divisioninfo']['conference'] = str(newconference)
+                    inchockeyarray[leaguename][newconference][hdkey]['divisioninfo']['conference'] = str(
+                        newconference)
                     for htkey in inchockeyarray[hlkey][hckey][hdkey].get('teamlist', []):
-                        inchockeyarray[leaguename][newconference][hdkey][htkey]['teaminfo']['conference'] = str(newconference)
+                        inchockeyarray[leaguename][newconference][hdkey][htkey]['teaminfo']['conference'] = str(
+                            newconference)
 
     return inchockeyarray
 
@@ -1452,7 +1478,8 @@ def AddHockeyDivisionToArray(inhockeyarray, leaguename, division, conference, pr
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure divisionlist and database keys exist
-    inchockeyarray.setdefault(leaguename, {}).setdefault(conference, {}).setdefault('divisionlist', [])
+    inchockeyarray.setdefault(leaguename, {}).setdefault(
+        conference, {}).setdefault('divisionlist', [])
     inchockeyarray.setdefault('database', './hockeydatabase.db3')
 
     # Add new division if it doesn't already exist
@@ -1475,7 +1502,8 @@ def AddHockeyDivisionToArray(inhockeyarray, leaguename, division, conference, pr
             'league': str(leaguename),
             'conference': str(conference)
         }
-        inchockeyarray[leaguename][conference]['divisionlist'].append(str(division))
+        inchockeyarray[leaguename][conference]['divisionlist'].append(
+            str(division))
 
     return inchockeyarray
 
@@ -1484,7 +1512,8 @@ def RemoveHockeyDivisionFromArray(inhockeyarray, leaguename, division, conferenc
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure divisionlist and database keys exist
-    inchockeyarray.setdefault(leaguename, {}).setdefault(conference, {}).setdefault('divisionlist', [])
+    inchockeyarray.setdefault(leaguename, {}).setdefault(
+        conference, {}).setdefault('divisionlist', [])
     inchockeyarray.setdefault('database', './hockeydatabase.db3')
 
     # Remove division and its info if it exists
@@ -1502,11 +1531,13 @@ def RemoveHockeyDivisionFromArray(inhockeyarray, leaguename, division, conferenc
                 if game['hometeam'] != fullteamname and game['awayteam'] != fullteamname
             ]
 
-            inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(htkey, None)
+            inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(
+                htkey, None)
 
         # Remove division and quickinfo
         inchockeyarray[leaguename][conference].pop(division, None)
-        inchockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(division, None)
+        inchockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(
+            division, None)
         inchockeyarray[leaguename][conference]['divisionlist'].remove(division)
 
     return inchockeyarray
@@ -1516,7 +1547,8 @@ def ReplaceHockeyDivisionFromArray(inhockeyarray, leaguename, olddivision, newdi
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure divisionlist and database keys exist
-    inchockeyarray.setdefault(leaguename, {}).setdefault(conference, {}).setdefault('divisionlist', [])
+    inchockeyarray.setdefault(leaguename, {}).setdefault(
+        conference, {}).setdefault('divisionlist', [])
     inchockeyarray.setdefault('database', './hockeydatabase.db3')
 
     # Replace division if old one exists and new one doesn't
@@ -1524,8 +1556,10 @@ def ReplaceHockeyDivisionFromArray(inhockeyarray, leaguename, olddivision, newdi
         DivisionFullName = GetFullTeamName(newdivision, prefix, suffix)
 
         # Replace the old division with the new one
-        inchockeyarray[leaguename][conference][newdivision] = inchockeyarray[leaguename][conference].pop(olddivision)
-        inchockeyarray[leaguename]['quickinfo']['divisioninfo'][newdivision] = inchockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(olddivision)
+        inchockeyarray[leaguename][conference][newdivision] = inchockeyarray[leaguename][conference].pop(
+            olddivision)
+        inchockeyarray[leaguename]['quickinfo']['divisioninfo'][newdivision] = inchockeyarray[leaguename]['quickinfo']['divisioninfo'].pop(
+            olddivision)
 
         # Update division details
         divisioninfo = inchockeyarray[leaguename][conference][newdivision]['divisioninfo']
@@ -1535,19 +1569,23 @@ def ReplaceHockeyDivisionFromArray(inhockeyarray, leaguename, olddivision, newdi
         divisioninfo['fullname'] = str(DivisionFullName)
 
         # Update quickinfo
-        inchockeyarray[leaguename]['quickinfo']['divisioninfo'][newdivision]['fullname'] = str(DivisionFullName)
+        inchockeyarray[leaguename]['quickinfo']['divisioninfo'][newdivision]['fullname'] = str(
+            DivisionFullName)
 
         # Ensure teamlist exists
-        inchockeyarray[leaguename][conference][newdivision].setdefault('teamlist', [])
+        inchockeyarray[leaguename][conference][newdivision].setdefault(
+            'teamlist', [])
 
         # Update references in the divisionlist
-        hdin = inchockeyarray[leaguename][conference]['divisionlist'].index(olddivision)
+        hdin = inchockeyarray[leaguename][conference]['divisionlist'].index(
+            olddivision)
         inchockeyarray[leaguename][conference]['divisionlist'][hdin] = newdivision
 
         # Update team references
         for hdkey in inchockeyarray[leaguename][conference][newdivision].keys():
             if hdkey != "divisioninfo":
-                inchockeyarray[leaguename][conference][newdivision][hdkey]['teaminfo']['division'] = str(newdivision)
+                inchockeyarray[leaguename][conference][newdivision][hdkey]['teaminfo']['division'] = str(
+                    newdivision)
 
     return inchockeyarray
 
@@ -1556,18 +1594,21 @@ def MoveHockeyDivisionToConferenceFromArray(inhockeyarray, leaguename, division,
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure keys exist and division doesn't already exist in the new conference
-    if (leaguename in inchockeyarray and 
-        newconference in inchockeyarray[leaguename] and 
-        oldconference in inchockeyarray[leaguename] and 
-        division in inchockeyarray[leaguename][oldconference] and 
-        division not in inchockeyarray[leaguename][newconference]):
+    if (leaguename in inchockeyarray and
+        newconference in inchockeyarray[leaguename] and
+        oldconference in inchockeyarray[leaguename] and
+        division in inchockeyarray[leaguename][oldconference] and
+            division not in inchockeyarray[leaguename][newconference]):
 
         # Move division to the new conference
-        inchockeyarray[leaguename][newconference][division] = inchockeyarray[leaguename][oldconference].pop(division)
-        
+        inchockeyarray[leaguename][newconference][division] = inchockeyarray[leaguename][oldconference].pop(
+            division)
+
         # Update conference info for the division
-        inchockeyarray[leaguename][newconference][division]['divisioninfo']['conference'] = str(newconference)
-        inchockeyarray[leaguename]['quickinfo']['divisioninfo'][division]['conference'] = str(newconference)
+        inchockeyarray[leaguename][newconference][division]['divisioninfo']['conference'] = str(
+            newconference)
+        inchockeyarray[leaguename]['quickinfo']['divisioninfo'][division]['conference'] = str(
+            newconference)
 
     return inchockeyarray
 
@@ -1612,12 +1653,14 @@ def AddHockeyTeamToArray(inhockeyarray, leaguename, cityname, areaname, countryn
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure teamlist and database keys exist
-    inchockeyarray.setdefault(leaguename, {}).setdefault(conference, {}).setdefault(division, {}).setdefault('teamlist', [])
+    inchockeyarray.setdefault(leaguename, {}).setdefault(
+        conference, {}).setdefault(division, {}).setdefault('teamlist', [])
     inchockeyarray.setdefault('database', './hockeydatabase.db3')
 
     # Add new team if it doesn't already exist
     if teamname not in inchockeyarray[leaguename][conference][division]:
-        fullteamname = GetFullTeamName(str(teamname), str(teamnameprefix), str(teamnamesuffix))
+        fullteamname = GetFullTeamName(
+            str(teamname), str(teamnameprefix), str(teamnamesuffix))
         inchockeyarray[leaguename][conference][division][teamname] = {
             'teaminfo': {
                 'city': str(cityname),
@@ -1643,7 +1686,8 @@ def AddHockeyTeamToArray(inhockeyarray, leaguename, cityname, areaname, countryn
             'division': str(division),
             'affiliates': str(teamaffiliates)
         }
-        inchockeyarray[leaguename][conference][division]['teamlist'].append(str(teamname))
+        inchockeyarray[leaguename][conference][division]['teamlist'].append(
+            str(teamname))
 
     return inchockeyarray
 
@@ -1652,7 +1696,8 @@ def RemoveHockeyTeamFromArray(inhockeyarray, leaguename, teamname, conference, d
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure teamlist and database keys exist
-    inchockeyarray.setdefault(leaguename, {}).setdefault(conference, {}).setdefault(division, {}).setdefault('teamlist', [])
+    inchockeyarray.setdefault(leaguename, {}).setdefault(
+        conference, {}).setdefault(division, {}).setdefault('teamlist', [])
     inchockeyarray.setdefault('database', './hockeydatabase.db3')
 
     # Remove team if it exists
@@ -1670,7 +1715,8 @@ def RemoveHockeyTeamFromArray(inhockeyarray, leaguename, teamname, conference, d
         # Remove team from quickinfo and division
         inchockeyarray[leaguename][conference][division].pop(teamname, None)
         inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(teamname, None)
-        inchockeyarray[leaguename][conference][division]['teamlist'].remove(teamname)
+        inchockeyarray[leaguename][conference][division]['teamlist'].remove(
+            teamname)
 
     return inchockeyarray
 
@@ -1679,7 +1725,8 @@ def ReplaceHockeyTeamFromArray(inhockeyarray, leaguename, oldteamname, newteamna
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure teamlist and database keys exist
-    inchockeyarray.setdefault(leaguename, {}).setdefault(conference, {}).setdefault(division, {}).setdefault('teamlist', [])
+    inchockeyarray.setdefault(leaguename, {}).setdefault(
+        conference, {}).setdefault(division, {}).setdefault('teamlist', [])
     inchockeyarray.setdefault('database', './hockeydatabase.db3')
 
     # Replace team if the old one exists and the new one doesn't
@@ -1689,34 +1736,48 @@ def ReplaceHockeyTeamFromArray(inhockeyarray, leaguename, oldteamname, newteamna
                                           inchockeyarray[leaguename][conference][division][oldteamname]['teaminfo']['suffix'])
 
         # Replace the old team with the new one
-        inchockeyarray[leaguename][conference][division][newteamname] = inchockeyarray[leaguename][conference][division].pop(oldteamname)
-        inchockeyarray[leaguename]['quickinfo']['teaminfo'][newteamname] = inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(oldteamname)
+        inchockeyarray[leaguename][conference][division][newteamname] = inchockeyarray[leaguename][conference][division].pop(
+            oldteamname)
+        inchockeyarray[leaguename]['quickinfo']['teaminfo'][newteamname] = inchockeyarray[leaguename]['quickinfo']['teaminfo'].pop(
+            oldteamname)
 
         # Update team information
-        inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['name'] = str(newteamname)
+        inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['name'] = str(
+            newteamname)
 
         if cityname is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['city'] = str(cityname)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['city'] = str(
+                cityname)
         if areaname is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['area'] = str(areaname)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['area'] = str(
+                areaname)
         if countryname is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['country'] = str(countryname)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['country'] = str(
+                countryname)
         if fullcountryname is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['fullcountry'] = str(fullcountryname)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['fullcountry'] = str(
+                fullcountryname)
         if fullareaname is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['fullarea'] = str(fullareaname)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['fullarea'] = str(
+                fullareaname)
         if arenaname is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['arena'] = str(arenaname)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['arena'] = str(
+                arenaname)
         if teamnameprefix is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['prefix'] = str(teamnameprefix)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['prefix'] = str(
+                teamnameprefix)
         if teamnamesuffix is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['suffix'] = str(teamnamesuffix)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['suffix'] = str(
+                teamnamesuffix)
         if teamaffiliates is not None:
-            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['affiliates'] = str(teamaffiliates)
+            inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['affiliates'] = str(
+                teamaffiliates)
 
         # Update teamlist with the new teamname
-        htin = inchockeyarray[leaguename][conference][division]['teamlist'].index(str(oldteamname))
-        inchockeyarray[leaguename][conference][division]['teamlist'][htin] = str(newteamname)
+        htin = inchockeyarray[leaguename][conference][division]['teamlist'].index(
+            str(oldteamname))
+        inchockeyarray[leaguename][conference][division]['teamlist'][htin] = str(
+            newteamname)
 
         # Update games involving the old team to use the new team
         newfullteamname = GetFullTeamName(inchockeyarray[leaguename][conference][division][newteamname]['teaminfo']['name'],
@@ -1736,19 +1797,22 @@ def MoveHockeyTeamToConferenceFromArray(inhockeyarray, leaguename, teamname, old
     inchockeyarray = deepcopy(inhockeyarray)
 
     # Ensure keys exist and team doesn't already exist in the new conference
-    if (leaguename in inchockeyarray and 
-        newconference in inchockeyarray[leaguename] and 
-        oldconference in inchockeyarray[leaguename] and 
-        division in inchockeyarray[leaguename][oldconference] and 
-        teamname in inchockeyarray[leaguename][oldconference][division] and 
-        teamname not in inchockeyarray[leaguename][newconference][division]):
+    if (leaguename in inchockeyarray and
+        newconference in inchockeyarray[leaguename] and
+        oldconference in inchockeyarray[leaguename] and
+        division in inchockeyarray[leaguename][oldconference] and
+        teamname in inchockeyarray[leaguename][oldconference][division] and
+            teamname not in inchockeyarray[leaguename][newconference][division]):
 
         # Move team to the new conference
-        inchockeyarray[leaguename][newconference][division][teamname] = inchockeyarray[leaguename][oldconference][division].pop(teamname)
-        
+        inchockeyarray[leaguename][newconference][division][teamname] = inchockeyarray[leaguename][oldconference][division].pop(
+            teamname)
+
         # Update conference info for the team
-        inchockeyarray[leaguename][newconference][division][teamname]['teaminfo']['conference'] = str(newconference)
-        inchockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['conference'] = str(newconference)
+        inchockeyarray[leaguename][newconference][division][teamname]['teaminfo']['conference'] = str(
+            newconference)
+        inchockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['conference'] = str(
+            newconference)
 
     return inchockeyarray
 
@@ -1758,18 +1822,21 @@ def MoveHockeyTeamToDivisionFromArray(inhockeyarray, leaguename, teamname, confe
 
     # Ensure league, conference, old and new divisions exist
     if (
-        leaguename in inchockeyarray and
-        conference in inchockeyarray[leaguename] and
-        olddivision in inchockeyarray[leaguename][conference] and
-        newdivision in inchockeyarray[leaguename][conference] and
-        teamname in inchockeyarray[leaguename][conference][olddivision] and
-        teamname not in inchockeyarray[leaguename][conference][newdivision]):
+            leaguename in inchockeyarray and
+            conference in inchockeyarray[leaguename] and
+            olddivision in inchockeyarray[leaguename][conference] and
+            newdivision in inchockeyarray[leaguename][conference] and
+            teamname in inchockeyarray[leaguename][conference][olddivision] and
+            teamname not in inchockeyarray[leaguename][conference][newdivision]):
         # Move team to new division
-        inchockeyarray[leaguename][conference][newdivision][teamname] = inchockeyarray[leaguename][conference][olddivision].pop(teamname)
-        
+        inchockeyarray[leaguename][conference][newdivision][teamname] = inchockeyarray[leaguename][conference][olddivision].pop(
+            teamname)
+
         # Update team info
-        inchockeyarray[leaguename][conference][newdivision][teamname]['teaminfo']['division'] = str(newdivision)
-        inchockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['division'] = str(newdivision)
+        inchockeyarray[leaguename][conference][newdivision][teamname]['teaminfo']['division'] = str(
+            newdivision)
+        inchockeyarray[leaguename]['quickinfo']['teaminfo'][teamname]['division'] = str(
+            newdivision)
 
     return inchockeyarray
 
@@ -3512,21 +3579,24 @@ def CheckDatabaseIntegrity(sqldatacon):
         return False
     # Check database quick check
     db_quick_check = sqldatacon[0].execute("PRAGMA quick_check;").fetchone()[0]
-    
+
     # If quick check fails, log the error and return False
     if db_quick_check != "ok":
-        VerbosePrintOut("Quick check failed: {}".format(db_quick_check), "error")
+        VerbosePrintOut("Quick check failed: {}".format(
+            db_quick_check), "error")
         return False
 
     # Check database integrity
-    db_integrity_check = sqldatacon[0].execute("PRAGMA integrity_check;").fetchall()
-    
+    db_integrity_check = sqldatacon[0].execute(
+        "PRAGMA integrity_check;").fetchall()
+
     # If integrity check fails, log the errors and return False
     if db_integrity_check[0][0] != "ok":
         for error in db_integrity_check:
-            VerbosePrintOut("Integrity check error: {}".format(error[0]), "error")
+            VerbosePrintOut(
+                "Integrity check error: {}".format(error[0]), "error")
         return False
-    
+
     # If everything is ok, return True
     return True
 
@@ -3537,7 +3607,7 @@ def DatabaseStats(sqldatacon):
     try:
         # Run PRAGMA stats to get database statistics
         db_stats = sqldatacon[0].execute("PRAGMA stats;").fetchall()
-        
+
         # Log each stat entry for tables and indexes
         if db_stats:
             VerbosePrintOut("Database Stats:", "log")
@@ -3555,14 +3625,16 @@ def DatabaseStats(sqldatacon):
                         table_or_index, entries, leaf_pages, depth, entries_per_page), "log")
         else:
             # Log an error if no stats are found
-            VerbosePrintOut("No database stats found or database is empty.", "error")
+            VerbosePrintOut(
+                "No database stats found or database is empty.", "error")
             return False
 
     except Exception as e:
         # Log any errors encountered during stats retrieval
-        VerbosePrintOut("Error retrieving database stats: {}".format(e), "error")
+        VerbosePrintOut(
+            "Error retrieving database stats: {}".format(e), "error")
         return False
-    
+
     # If everything is ok, return True
     return True
 

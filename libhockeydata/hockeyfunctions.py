@@ -16,21 +16,33 @@
     $FileInfo: hockeyfunctions.py - Last Update: 10/11/2024 Ver. 0.9.0 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-from .versioninfo import __author__, __copyright__, __credits__, __email__, __license__, __license_string__, __maintainer__, __program_name__, __program_alt_name__, __project__, __project_url__, __project_release_url__, __version__, __version_alt__, __version_date__, __version_date_alt__, __version_info__, __version_date_info__, __version_date__, __revision__, __revision_id__, __version_date_plusrc__, __status__, version_date, version_info
-from .xmldtd import *
-from .hockeydwnload import *
-from .hockeydatabase import *
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import binascii
+import marshal
+import os
+import platform
+import re
 import sqlite3
 import sys
-import os
-import re
 import time
-import marshal
-import platform
-import binascii
 import xml.dom.minidom
 from io import open
+
+from .hockeydatabase import *
+from .hockeydwnload import *
+from .versioninfo import (__author__, __copyright__, __credits__, __email__,
+                          __license__, __license_string__, __maintainer__,
+                          __program_alt_name__, __program_name__, __project__,
+                          __project_release_url__, __project_url__,
+                          __revision__, __revision_id__, __status__,
+                          __version__, __version_alt__, __version_date__,
+                          __version_date_alt__, __version_date_info__,
+                          __version_date_plusrc__, __version_info__,
+                          version_date, version_info)
+from .xmldtd import *
+
 # Python 2 handling: Reload sys and set UTF-8 encoding if applicable
 try:
     reload(sys)  # Only relevant for Python 2
@@ -49,10 +61,10 @@ if hasattr(sys.stderr, "detach"):
     sys.stderr = io.TextIOWrapper(
         sys.stderr.detach(), encoding='UTF-8', errors='replace')
 
-# Import core modules
-from ftplib import FTP, FTP_TLS
 from base64 import b64encode
 from copy import copy, deepcopy
+# Import core modules
+from ftplib import FTP, FTP_TLS
 
 # JSON handling: prefer simplejson if available, fallback to json
 try:
@@ -146,12 +158,14 @@ except ImportError:
     if sys.version_info[0] < 3:
         try:
             # Python 2: Try importing from cStringIO first (faster)
-            from cStringIO import StringIO as BytesIO, StringIO
+            from cStringIO import StringIO
+            from cStringIO import StringIO as BytesIO
             teststringio = 1
         except ImportError:
             try:
                 # Fallback to Python 2's StringIO module
-                from StringIO import StringIO as BytesIO, StringIO
+                from StringIO import StringIO
+                from StringIO import StringIO as BytesIO
                 teststringio = 2
             except ImportError:
                 teststringio = 0

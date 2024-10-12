@@ -15,16 +15,18 @@
     $FileInfo: pypac-gen.py - Last Update: 6/1/2016 Ver. 0.2.0 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import absolute_import, division, print_function, unicode_literals
-import re
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
+
+import argparse
+import datetime
+import hashlib
+import json
 import os
+import re
+import subprocess
 import sys
 import time
-import datetime
-import argparse
-import hashlib
-import subprocess
-import json
 
 __version_info__ = (0, 2, 0, "rc1")
 if (__version_info__[3] != None):
