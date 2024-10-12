@@ -83,6 +83,8 @@ sqlite_journal_size = -1
 sqlite_mmap_size = 536870912
 sqlite_temp_store = "MEMORY"
 enable_old_makegame = False
+sqlite_app_ver = 90
+sqlite_app_id = 20151105
 defaultxmlfile = "./data/hockeydata.xml"
 defaultsdbfile = "./data/hockeydata.db3"
 defaultoldsdbfile = "./data/hockeydata.db3"
@@ -434,7 +436,7 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
     return [True]
 
 
-def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, app_ver=sqlite_app_ver, app_id=sqlite_app_id, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
     usecipher = False
     if (not apswsupport and enable_apsw):
         enable_apsw = False
@@ -479,7 +481,8 @@ def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA user_version = 88;")
+    sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
+    sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
     return sqldatacon
 
 
@@ -488,7 +491,7 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
     return hockeyarray
 
 
-def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, app_ver=sqlite_app_ver, app_id=sqlite_app_id, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
     usecipher = False
     if (not apswsupport and enable_apsw):
         enable_apsw = False
@@ -532,13 +535,14 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA user_version = 88;")
+    sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
+    sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
     sqlcur.close()
     sqlcon.close()
     return True
 
 
-def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, app_ver=sqlite_app_ver, app_id=sqlite_app_id, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
     usecipher = False
     if (not apswsupport and enable_apsw):
         enable_apsw = False
@@ -583,7 +587,8 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
     sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
     sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA user_version = 88;")
+    sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
+    sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
     return sqldatacon
 
 
@@ -3205,15 +3210,34 @@ if (enable_old_makegame):
     MakeHockeyGame = MakeHockeyGameOld
 
 
+# Function to check database integrity and log errors
+def CheckDatabaseIntegrity(sqldatacon):
+    # Check database quick check
+    db_quick_check = sqldatacon[0].execute("PRAGMA quick_check;").fetchone()[0]
+    
+    # If quick check fails, log the error and return False
+    if db_quick_check != "ok":
+        VerbosePrintOut("Quick check failed: {}".format(db_quick_check), "error")
+        return False
+
+    # Check database integrity
+    db_integrity_check = sqldatacon[0].execute("PRAGMA integrity_check;").fetchall()
+    
+    # If integrity check fails, log the errors and return False
+    if db_integrity_check[0][0] != "ok":
+        for error in db_integrity_check:
+            VerbosePrintOut("Integrity check error: {}".format(error[0]), "error")
+        return False
+    
+    # If everything is ok, return True
+    return True
+
+
 def OptimizeHockeyDatabase(sqldatacon):
     if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
         return False
-    # Check database integrity
-    db_integrity_check = sqldatacon[0].execute(
-        "PRAGMA integrity_check(100);").fetchone()[0]
-    # If integrity check fails, return False
-    if db_integrity_check != "ok":
-        return False
+    # Check database check
+    CheckDatabaseIntegrity(sqldatacon)
     # Optimize the database
     sqldatacon[0].execute("PRAGMA analyze;")
     sqldatacon[0].execute("PRAGMA optimize;")
