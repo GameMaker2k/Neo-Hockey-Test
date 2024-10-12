@@ -384,6 +384,29 @@ def CheckHockeySQLiteDatabaseConnection(sqldatacon):
     return True
 
 
+def SetHockeyDatabasePragma(sqldatacon, dbpragma={}):
+    # Check if the database connection is valid
+    if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
+        return False
+
+    sqlcur = sqldatacon[0]  # Get the cursor from the database connection
+
+    # Loop through the dbpragna dictionary
+    for key, value in dbpragma.items():
+        try:
+            # Execute the PRAGMA statement dynamically with the key and value
+            pragma_statement = 'PRAGMA "{}" = "{}";'.format(key, value)
+            sqlcur.execute(pragma_statement)
+            VerbosePrintOut("Executed: {}".format(pragma_statement), "log")
+        except Exception as e:
+            # Log an error if something goes wrong
+            VerbosePrintOut("Error executing PRAGMA '{}': {}".format(key, e), "error")
+            return False
+
+    # If everything is successful, return True
+    return True
+
+
 def CheckHockeySQLiteDatabaseFile(sdbfile):
     if (os.path.exists(sdbfile) and os.path.isfile(sdbfile) and isinstance(sdbfile, basestring)):
         if (not CheckSQLiteDatabase(sdbfile)):
@@ -3215,6 +3238,8 @@ if (enable_old_makegame):
 
 # Function to check database integrity and log errors
 def CheckDatabaseIntegrity(sqldatacon):
+    if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
+        return False
     # Check database quick check
     db_quick_check = sqldatacon[0].execute("PRAGMA quick_check;").fetchone()[0]
     
@@ -3237,6 +3262,8 @@ def CheckDatabaseIntegrity(sqldatacon):
 
 
 def DatabaseStats(sqldatacon):
+    if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
+        return False
     try:
         # Run PRAGMA stats to get database statistics
         db_stats = sqldatacon[0].execute("PRAGMA stats;").fetchall()
