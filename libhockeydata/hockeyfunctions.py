@@ -2113,31 +2113,27 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = """#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import, division, print_function, unicode_literals
-import {pyfilename}, sys
-
-# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
-try:
-    reload(sys)  # Only relevant for Python 2
-    if hasattr(sys, "setdefaultencoding"):
-        sys.setdefaultencoding('UTF-8')
-except (NameError, AttributeError):
-    pass
-
-# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
-if hasattr(sys.stdout, "detach"):
-    import io
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.detach(), encoding='UTF-8', errors='replace')
-if hasattr(sys.stderr, "detach"):
-    import io
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.detach(), encoding='UTF-8', errors='replace')
-""".format(pyfilename=pyfilename)
-    pystring = pystring+"sqldatacon = "+pyfilename + \
+    pystring = "#!/usr/bin/env python\n" \
+           "# -*- coding: utf-8 -*-\n\n" \
+           "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
+           "import {pyfilename}, sys\n\n" \
+           "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
+           "try:\n" \
+           "    reload(sys)  # Only relevant for Python 2\n" \
+           "    if hasattr(sys, 'setdefaultencoding'):\n" \
+           "        sys.setdefaultencoding('UTF-8')\n" \
+           "except (NameError, AttributeError):\n" \
+           "    pass\n\n" \
+           "# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding\n" \
+           "if hasattr(sys.stdout, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stdout = io.TextIOWrapper(\n" \
+           "        sys.stdout.detach(), encoding='UTF-8', errors='replace')\n" \
+           "if hasattr(sys.stderr, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stderr = io.TextIOWrapper(\n" \
+           "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           + "sqldatacon = "+pyfilename + \
         ".MakeHockeyDatabase(\""+inchockeyarray['database']+"\");\n"
     pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n"
     for hlkey in inchockeyarray['leaguelist']:
@@ -2228,31 +2224,27 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = """#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import, division, print_function, unicode_literals
-import {pyfilename}, sys
-
-# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
-try:
-    reload(sys)  # Only relevant for Python 2
-    if hasattr(sys, "setdefaultencoding"):
-        sys.setdefaultencoding('UTF-8')
-except (NameError, AttributeError):
-    pass
-
-# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
-if hasattr(sys.stdout, "detach"):
-    import io
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.detach(), encoding='UTF-8', errors='replace')
-if hasattr(sys.stderr, "detach"):
-    import io
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.detach(), encoding='UTF-8', errors='replace')
-""".format(pyfilename=pyfilename)
-    pystring = pystring+"hockeyarray = "+pyfilename + \
+    pystring = "#!/usr/bin/env python\n" \
+           "# -*- coding: utf-8 -*-\n\n" \
+           "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
+           "import {pyfilename}, sys\n\n" \
+           "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
+           "try:\n" \
+           "    reload(sys)  # Only relevant for Python 2\n" \
+           "    if hasattr(sys, 'setdefaultencoding'):\n" \
+           "        sys.setdefaultencoding('UTF-8')\n" \
+           "except (NameError, AttributeError):\n" \
+           "    pass\n\n" \
+           "# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding\n" \
+           "if hasattr(sys.stdout, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stdout = io.TextIOWrapper(\n" \
+           "        sys.stdout.detach(), encoding='UTF-8', errors='replace')\n" \
+           "if hasattr(sys.stderr, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stderr = io.TextIOWrapper(\n" \
+           "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           + "hockeyarray = "+pyfilename + \
         ".CreateHockeyArray(\""+inchockeyarray['database']+"\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
@@ -2353,32 +2345,27 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = """#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import, division, print_function, unicode_literals
-import {pyfilename}, sys
-
-# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
-try:
-    reload(sys)  # Only relevant for Python 2
-    if hasattr(sys, "setdefaultencoding"):
-        sys.setdefaultencoding('UTF-8')
-except (NameError, AttributeError):
-    pass
-
-# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
-if hasattr(sys.stdout, "detach"):
-    import io
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.detach(), encoding='UTF-8', errors='replace')
-if hasattr(sys.stderr, "detach"):
-    import io
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.detach(), encoding='UTF-8', errors='replace')
-
-""".format(pyfilename=pyfilename)
-    pystring = pystring+"sqldatacon = "+pyfilename + \
+    pystring = "#!/usr/bin/env python\n" \
+           "# -*- coding: utf-8 -*-\n\n" \
+           "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
+           "import {pyfilename}, sys\n\n" \
+           "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
+           "try:\n" \
+           "    reload(sys)  # Only relevant for Python 2\n" \
+           "    if hasattr(sys, 'setdefaultencoding'):\n" \
+           "        sys.setdefaultencoding('UTF-8')\n" \
+           "except (NameError, AttributeError):\n" \
+           "    pass\n\n" \
+           "# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding\n" \
+           "if hasattr(sys.stdout, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stdout = io.TextIOWrapper(\n" \
+           "        sys.stdout.detach(), encoding='UTF-8', errors='replace')\n" \
+           "if hasattr(sys.stderr, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stderr = io.TextIOWrapper(\n" \
+           "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           + "sqldatacon = "+pyfilename + \
         ".MakeHockeyClass(\""+inchockeyarray['database']+"\");\n"
     pystring = pystring+"sqldatacon.MakeHockeyLeagueTable(sqldatacon);\n"
     for hlkey in inchockeyarray['leaguelist']:
@@ -2475,32 +2462,27 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = """#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-from __future__ import absolute_import, division, print_function, unicode_literals
-import {pyfilename}, sys
-
-# Python 2 handling: Reload sys and set UTF-8 encoding if applicable
-try:
-    reload(sys)  # Only relevant for Python 2
-    if hasattr(sys, "setdefaultencoding"):
-        sys.setdefaultencoding('UTF-8')
-except (NameError, AttributeError):
-    pass
-
-# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding
-if hasattr(sys.stdout, "detach"):
-    import io
-    sys.stdout = io.TextIOWrapper(
-        sys.stdout.detach(), encoding='UTF-8', errors='replace')
-if hasattr(sys.stderr, "detach"):
-    import io
-    sys.stderr = io.TextIOWrapper(
-        sys.stderr.detach(), encoding='UTF-8', errors='replace')
-
-""".format(pyfilename=pyfilename)
-    pystring = pystring+"hockeyarray = "+pyfilename + \
+    pystring = "#!/usr/bin/env python\n" \
+           "# -*- coding: utf-8 -*-\n\n" \
+           "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
+           "import {pyfilename}, sys\n\n" \
+           "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
+           "try:\n" \
+           "    reload(sys)  # Only relevant for Python 2\n" \
+           "    if hasattr(sys, 'setdefaultencoding'):\n" \
+           "        sys.setdefaultencoding('UTF-8')\n" \
+           "except (NameError, AttributeError):\n" \
+           "    pass\n\n" \
+           "# Python 3 handling: Ensure stdout and stderr use UTF-8 encoding\n" \
+           "if hasattr(sys.stdout, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stdout = io.TextIOWrapper(\n" \
+           "        sys.stdout.detach(), encoding='UTF-8', errors='replace')\n" \
+           "if hasattr(sys.stderr, 'detach'):\n" \
+           "    import io\n" \
+           "    sys.stderr = io.TextIOWrapper(\n" \
+           "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           + "hockeyarray = "+pyfilename + \
         ".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
