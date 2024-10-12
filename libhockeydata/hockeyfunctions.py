@@ -2116,7 +2116,7 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
     pystring = "#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import {pyfilename}, sys\n\n" \
+           "import " + pyfilename + ", sys\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2133,8 +2133,8 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "sqldatacon = "+pyfilename + \
-        ".MakeHockeyDatabase(\""+inchockeyarray['database']+"\");\n"
+           + "sqldatacon = " + pyfilename + \
+           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
     pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
@@ -2227,7 +2227,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     pystring = "#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import {pyfilename}, sys\n\n" \
+           "import " + pyfilename + ", sys\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2244,8 +2244,8 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "hockeyarray = "+pyfilename + \
-        ".CreateHockeyArray(\""+inchockeyarray['database']+"\");\n"
+           + "sqldatacon = " + pyfilename + \
+           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2348,7 +2348,7 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     pystring = "#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import {pyfilename}, sys\n\n" \
+           "import " + pyfilename + ", sys\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2365,9 +2365,8 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "sqldatacon = "+pyfilename + \
-        ".MakeHockeyClass(\""+inchockeyarray['database']+"\");\n"
-    pystring = pystring+"sqldatacon.MakeHockeyLeagueTable(sqldatacon);\n"
+           + "sqldatacon = " + pyfilename + \
+           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2465,7 +2464,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
     pystring = "#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import {pyfilename}, sys\n\n" \
+           "import " + pyfilename + ", sys\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2482,8 +2481,8 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
-           + "hockeyarray = "+pyfilename + \
-        ".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n"
+           + "sqldatacon = " + pyfilename + \
+           ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
