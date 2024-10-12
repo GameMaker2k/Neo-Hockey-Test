@@ -2376,6 +2376,7 @@ if hasattr(sys.stderr, "detach"):
     import io
     sys.stderr = io.TextIOWrapper(
         sys.stderr.detach(), encoding='UTF-8', errors='replace')
+
 """.format(pyfilename=pyfilename)
     pystring = pystring+"sqldatacon = "+pyfilename + \
         ".MakeHockeyClass(\""+inchockeyarray['database']+"\");\n"
@@ -2497,6 +2498,7 @@ if hasattr(sys.stderr, "detach"):
     import io
     sys.stderr = io.TextIOWrapper(
         sys.stderr.detach(), encoding='UTF-8', errors='replace')
+
 """.format(pyfilename=pyfilename)
     pystring = pystring+"hockeyarray = "+pyfilename + \
         ".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n"
