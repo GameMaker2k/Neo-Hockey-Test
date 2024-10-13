@@ -131,7 +131,7 @@ def version_check(myvercheck, newvercheck):
                 vercheck = 3
             except ImportError:
                 return 5
-    # print(myvercheck, newvercheck);
+    # print(myvercheck, newvercheck)
     if (vercheck == 1):
         if (version.parse(myvercheck) == version.parse(newvercheck)):
             return 0
@@ -461,7 +461,7 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
         return [False]
     if (sqldatacur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='HockeyLeagues';").fetchone() is None):
         return [False]
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -1106,6 +1106,9 @@ def CheckHockeyArray(inhockeyarray):
         if not CheckKeyInArray(["name", "fullname", "country", "fullcountry", "date", "playofffmt", "ordertype", "conferences", "divisions"], leagueinfo):
             return False
 
+        if not CheckKeyInArray(["conferenceinfo", "divisioninfo", "teaminfo"], inhockeyarray[hlkey]['quickinfo']):
+            return False
+
         # Check if hlkey is already processed or doesn't exist in inhockeyarray
         if hlkey in leaguelist or hlkey not in inhockeyarray:
             return False
@@ -1113,11 +1116,12 @@ def CheckHockeyArray(inhockeyarray):
 
         # Process conferences
         for hckey in inhockeyarray[hlkey].get('conferencelist', []):
+            
             conferenceinfo = inhockeyarray[hlkey].get(
                 hckey, {}).get('conferenceinfo', {})
 
             # Validate conferenceinfo keys
-            if not CheckKeyInArray(["name", "prefix", "suffix"], conferenceinfo):
+            if not CheckKeyInArray(["name", "prefix", "suffix", "fullname", "league"], conferenceinfo):
                 return False
 
             # Check if conference keys exist in quickinfo
@@ -1130,7 +1134,7 @@ def CheckHockeyArray(inhockeyarray):
                     hdkey, {}).get('divisioninfo', {})
 
                 # Validate divisioninfo keys
-                if not CheckKeyInArray(["name", "prefix", "suffix"], divisioninfo):
+                if not CheckKeyInArray(["name", "prefix", "suffix", "fullname", "league", "conference"], divisioninfo):
                     return False
 
                 # Check if division keys exist in quickinfo
@@ -1143,7 +1147,7 @@ def CheckHockeyArray(inhockeyarray):
                         htkey, {}).get('teaminfo', {})
 
                     # Validate teaminfo keys
-                    if not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "arena", "affiliates", "prefix", "suffix"], teaminfo):
+                    if not CheckKeyInArray(["city", "area", "fullarea", "country", "fullcountry", "name", "fullname", "arena", "prefix", "suffix", "league", "conference", "division"], teaminfo):
                         return False
 
                     # Check if team keys exist in quickinfo

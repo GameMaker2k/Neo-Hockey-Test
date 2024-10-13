@@ -408,216 +408,216 @@ class GzipFile:
 class BloscFile:
  def __init__(self, file_path=None, fileobj=None, mode='rb', level=9, encoding=None, errors=None, newline=None):
   if file_path is None and fileobj is None:
-   raise ValueError("Either file_path or fileobj must be provided");
+   raise ValueError("Either file_path or fileobj must be provided")
   if file_path is not None and fileobj is not None:
-   raise ValueError("Only one of file_path or fileobj should be provided");
+   raise ValueError("Only one of file_path or fileobj should be provided")
 
-  self.file_path = file_path;
-  self.fileobj = fileobj;
-  self.mode = mode;
-  self.level = level;
-  self.encoding = encoding;
-  self.errors = errors;
-  self.newline = newline;
-  self._compressed_data = b'';
-  self._decompressed_data = b'';
-  self._position = 0;
-  self._text_mode = 't' in mode;
+  self.file_path = file_path
+  self.fileobj = fileobj
+  self.mode = mode
+  self.level = level
+  self.encoding = encoding
+  self.errors = errors
+  self.newline = newline
+  self._compressed_data = b''
+  self._decompressed_data = b''
+  self._position = 0
+  self._text_mode = 't' in mode
 
   # Force binary mode for internal handling
-  internal_mode = mode.replace('t', 'b');
+  internal_mode = mode.replace('t', 'b')
 
   if 'w' in mode or 'a' in mode or 'x' in mode:
-   self.file = open(file_path, internal_mode) if file_path else fileobj;
-   self._compressor = blosc.Blosc(level);
+   self.file = open(file_path, internal_mode) if file_path else fileobj
+   self._compressor = blosc.Blosc(level)
   elif 'r' in mode:
    if file_path:
     if os.path.exists(file_path):
-     self.file = open(file_path, internal_mode);
-     self._load_file();
+     self.file = open(file_path, internal_mode)
+     self._load_file()
     else:
-     raise FileNotFoundError("No such file: '{}'".format(file_path));
+     raise FileNotFoundError("No such file: '{}'".format(file_path))
    elif fileobj:
-    self.file = fileobj;
-    self._load_file();
+    self.file = fileobj
+    self._load_file()
   else:
-   raise ValueError("Mode should be 'rb' or 'wb'");
+   raise ValueError("Mode should be 'rb' or 'wb'")
 
  def _load_file(self):
-  self.file.seek(0);
-  self._compressed_data = self.file.read();
+  self.file.seek(0)
+  self._compressed_data = self.file.read()
   if not self._compressed_data:
-   raise ValueError("Invalid blosc file header");
-  self._decompressed_data = blosc.decompress(self._compressed_data);
+   raise ValueError("Invalid blosc file header")
+  self._decompressed_data = blosc.decompress(self._compressed_data)
   if self._text_mode:
-   self._decompressed_data = self._decompressed_data.decode(self.encoding or 'utf-8', self.errors or 'strict');
+   self._decompressed_data = self._decompressed_data.decode(self.encoding or 'utf-8', self.errors or 'strict')
 
  def write(self, data):
   if self._text_mode:
-   data = data.encode(self.encoding or 'utf-8', self.errors or 'strict');
-  compressed_data = blosc.compress(data, cname='blosclz', clevel=self.level);
-  self.file.write(compressed_data);
-  self.file.flush();
+   data = data.encode(self.encoding or 'utf-8', self.errors or 'strict')
+  compressed_data = blosc.compress(data, cname='blosclz', clevel=self.level)
+  self.file.write(compressed_data)
+  self.file.flush()
 
  def read(self, size=-1):
   if size == -1:
-   size = len(self._decompressed_data) - self._position;
-  data = self._decompressed_data[self._position:self._position + size];
-  self._position += size;
-  return data;
+   size = len(self._decompressed_data) - self._position
+  data = self._decompressed_data[self._position:self._position + size]
+  self._position += size
+  return data
 
  def seek(self, offset, whence=0):
   if whence == 0:  # absolute file positioning
-   self._position = offset;
+   self._position = offset
   elif whence == 1:  # seek relative to the current position
-   self._position += offset;
+   self._position += offset
   elif whence == 2:  # seek relative to the file's end
-   self._position = len(self._decompressed_data) + offset;
+   self._position = len(self._decompressed_data) + offset
   else:
-   raise ValueError("Invalid value for whence");
+   raise ValueError("Invalid value for whence")
 
   # Ensure the position is within bounds
-  self._position = max(0, min(self._position, len(self._decompressed_data)));
+  self._position = max(0, min(self._position, len(self._decompressed_data)))
 
  def tell(self):
-  return self._position;
+  return self._position
 
  def flush(self):
-  self.file.flush();
+  self.file.flush()
 
  def fileno(self):
   if hasattr(self.file, 'fileno'):
-   return self.file.fileno();
-  raise OSError("The underlying file object does not support fileno()");
+   return self.file.fileno()
+  raise OSError("The underlying file object does not support fileno()")
 
  def isatty(self):
   if hasattr(self.file, 'isatty'):
-   return self.file.isatty();
-  return False;
+   return self.file.isatty()
+  return False
 
  def truncate(self, size=None):
   if hasattr(self.file, 'truncate'):
-   return self.file.truncate(size);
-  raise OSError("The underlying file object does not support truncate()");
+   return self.file.truncate(size)
+  raise OSError("The underlying file object does not support truncate()")
 
  def close(self):
   if 'w' in self.mode or 'a' in self.mode or 'x' in self.mode:
-   self.file.write(blosc.compress(self._compressor.flush(), cname='blosclz', clevel=self.level));
+   self.file.write(blosc.compress(self._compressor.flush(), cname='blosclz', clevel=self.level))
   if self.file_path:
-   self.file.close();
+   self.file.close()
 
  def __enter__(self):
-  return self;
+  return self
 
  def __exit__(self, exc_type, exc_value, traceback):
-  self.close();
+  self.close()
 
 class BrotliFile:
  def __init__(self, file_path=None, fileobj=None, mode='rb', level=11, encoding=None, errors=None, newline=None):
   if file_path is None and fileobj is None:
-   raise ValueError("Either file_path or fileobj must be provided");
+   raise ValueError("Either file_path or fileobj must be provided")
   if file_path is not None and fileobj is not None:
-   raise ValueError("Only one of file_path or fileobj should be provided");
+   raise ValueError("Only one of file_path or fileobj should be provided")
 
-  self.file_path = file_path;
-  self.fileobj = fileobj;
-  self.mode = mode;
-  self.level = level;
-  self.encoding = encoding;
-  self.errors = errors;
-  self.newline = newline;
-  self._compressed_data = b'';
-  self._decompressed_data = b'';
-  self._position = 0;
-  self._text_mode = 't' in mode;
+  self.file_path = file_path
+  self.fileobj = fileobj
+  self.mode = mode
+  self.level = level
+  self.encoding = encoding
+  self.errors = errors
+  self.newline = newline
+  self._compressed_data = b''
+  self._decompressed_data = b''
+  self._position = 0
+  self._text_mode = 't' in mode
 
   # Force binary mode for internal handling
-  internal_mode = mode.replace('t', 'b');
+  internal_mode = mode.replace('t', 'b')
 
   if 'w' in mode or 'a' in mode or 'x' in mode:
-   self.file = open(file_path, internal_mode) if file_path else fileobj;
-   self._compressor = brotli.Compressor(quality=self.level);
+   self.file = open(file_path, internal_mode) if file_path else fileobj
+   self._compressor = brotli.Compressor(quality=self.level)
   elif 'r' in mode:
    if file_path:
     if os.path.exists(file_path):
-     self.file = open(file_path, internal_mode);
-     self._load_file();
+     self.file = open(file_path, internal_mode)
+     self._load_file()
     else:
-     raise FileNotFoundError("No such file: '{}'".format(file_path));
+     raise FileNotFoundError("No such file: '{}'".format(file_path))
    elif fileobj:
-    self.file = fileobj;
-    self._load_file();
+    self.file = fileobj
+    self._load_file()
   else:
-   raise ValueError("Mode should be 'rb' or 'wb'");
+   raise ValueError("Mode should be 'rb' or 'wb'")
 
  def _load_file(self):
-  self.file.seek(0);
-  self._compressed_data = self.file.read();
+  self.file.seek(0)
+  self._compressed_data = self.file.read()
   if not self._compressed_data:
-   raise ValueError("Invalid brotli file header");
-  self._decompressed_data = brotli.decompress(self._compressed_data);
+   raise ValueError("Invalid brotli file header")
+  self._decompressed_data = brotli.decompress(self._compressed_data)
   if self._text_mode:
-   self._decompressed_data = self._decompressed_data.decode(self.encoding or 'utf-8', self.errors or 'strict');
+   self._decompressed_data = self._decompressed_data.decode(self.encoding or 'utf-8', self.errors or 'strict')
 
  def write(self, data):
   if self._text_mode:
-   data = data.encode(self.encoding or 'utf-8', self.errors or 'strict');
-  compressed_data = self._compressor.process(data);
-  self.file.write(compressed_data);
-  self.file.flush();
+   data = data.encode(self.encoding or 'utf-8', self.errors or 'strict')
+  compressed_data = self._compressor.process(data)
+  self.file.write(compressed_data)
+  self.file.flush()
 
  def read(self, size=-1):
   if size == -1:
-   size = len(self._decompressed_data) - self._position;
-  data = self._decompressed_data[self._position:self._position + size];
-  self._position += size;
-  return data;
+   size = len(self._decompressed_data) - self._position
+  data = self._decompressed_data[self._position:self._position + size]
+  self._position += size
+  return data
 
  def seek(self, offset, whence=0):
   if whence == 0:  # absolute file positioning
-   self._position = offset;
+   self._position = offset
   elif whence == 1:  # seek relative to the current position
-   self._position += offset;
+   self._position += offset
   elif whence == 2:  # seek relative to the file's end
-   self._position = len(self._decompressed_data) + offset;
+   self._position = len(self._decompressed_data) + offset
   else:
-   raise ValueError("Invalid value for whence");
+   raise ValueError("Invalid value for whence")
 
   # Ensure the position is within bounds
-  self._position = max(0, min(self._position, len(self._decompressed_data)));
+  self._position = max(0, min(self._position, len(self._decompressed_data)))
 
  def tell(self):
-  return self._position;
+  return self._position
 
  def flush(self):
-  self.file.flush();
+  self.file.flush()
 
  def fileno(self):
   if hasattr(self.file, 'fileno'):
-   return self.file.fileno();
-  raise OSError("The underlying file object does not support fileno()");
+   return self.file.fileno()
+  raise OSError("The underlying file object does not support fileno()")
 
  def isatty(self):
   if hasattr(self.file, 'isatty'):
-   return self.file.isatty();
-  return False;
+   return self.file.isatty()
+  return False
 
  def truncate(self, size=None):
   if hasattr(self.file, 'truncate'):
-   return self.file.truncate(size);
-  raise OSError("The underlying file object does not support truncate()");
+   return self.file.truncate(size)
+  raise OSError("The underlying file object does not support truncate()")
 
  def close(self):
   if 'w' in self.mode or 'a' in self.mode or 'x' in self.mode:
-   self.file.write(self._compressor.finish());
+   self.file.write(self._compressor.finish())
   if self.file_path:
-   self.file.close();
+   self.file.close()
 
  def __enter__(self):
-  return self;
+  return self
 
  def __exit__(self, exc_type, exc_value, traceback):
-  self.close();
+  self.close()
 '''
 
 
@@ -1257,7 +1257,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
                         return False
     else:
         return False
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -1848,7 +1848,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, 
                     hasgames = True
                     xmlstring_game = cElementTree.SubElement(xmlstring_games, "game", {'date': str(hgkey['date']), 'time': str(hgkey['time']), 'hometeam': str(hgkey['hometeam']), 'awayteam': str(hgkey['awayteam']), 'goals': str(hgkey['goals']), 'sogs': str(hgkey['sogs']), 'ppgs': str(ppgs), 'shgs': str(
                         hgkey['shgs']), 'penalties': str(hgkey['penalties']), 'pims': str(hgkey['pims']), 'hits': str(hgkey['hits']), 'takeaways': str(hgkey['takeaways']), 'faceoffwins': str(hgkey['faceoffwins']), 'atarena': str(hgkey['atarena']), 'isplayoffgame': str(hgkey['isplayoffgame'])})
-    '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True);'''
+    '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True)'''
     if (testlxml):
         xmlstring = cElementTree.tostring(
             xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True, pretty_print=True)
@@ -2113,10 +2113,10 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = "#!/usr/bin/env python\n" \
+    pystring = ("#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import " + pyfilename + ", sys\n\n" \
+           "import " + pyfilename + ", sys, logging\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2133,9 +2133,10 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           "logging.basicConfig(format=\"%(message)s\", stream=sys.stdout, level=logging.DEBUG)\n\n" \
            + "sqldatacon = " + pyfilename \
-           + ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\");\n"
-    pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon);\n"
+           + ".MakeHockeyDatabase(\"" + inchockeyarray['database'] + "\")\n")
+    pystring = pystring+pyfilename+".MakeHockeyLeagueTable(sqldatacon)\n"
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2143,21 +2144,21 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
         HockeyLeagueHasDivisions = True
         if (inchockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
-        pystring = pystring+pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+hlkey+"\");\n"+pyfilename+".MakeHockeyLeague(sqldatacon, \""+hlkey+"\", \"" + \
+        pystring = pystring+pyfilename+".MakeHockeyTeamTable(sqldatacon, \""+hlkey+"\")\n"+pyfilename+".MakeHockeyConferenceTable(sqldatacon, \""+hlkey+"\")\n"+pyfilename+".MakeHockeyGameTable(sqldatacon, \""+hlkey+"\")\n"+pyfilename+".MakeHockeyDivisionTable(sqldatacon, \""+hlkey+"\")\n"+pyfilename+".MakeHockeyLeague(sqldatacon, \""+hlkey+"\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt'] + \
-            "\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\");\n"
+            "\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\")\n"
         conferencecount = 0
         conferenceend = len(inchockeyarray[hlkey]['conferencelist'])
         for hckey in inchockeyarray[hlkey]['conferencelist']:
             pystring = pystring+pyfilename+".MakeHockeyConference(sqldatacon, \""+hlkey+"\", \""+hckey+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo'][
-                'prefix']+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+");\n"
+                'prefix']+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+")\n"
             for hdkey in inchockeyarray[hlkey][hckey]['divisionlist']:
                 pystring = pystring+pyfilename+".MakeHockeyDivision(sqldatacon, \""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo'][
-                    'prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n"
+                    'prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+")\n"
                 for htkey in inchockeyarray[hlkey][hckey][hdkey]['teamlist']:
                     pystring = pystring+pyfilename+".MakeHockeyTeam(sqldatacon, \""+hlkey+"\", \""+str(inchockeyarray[hlkey]['leagueinfo']['date'])+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inchockeyarray[hlkey][hckey][
-                        hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n"
+                        hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+")\n"
             conferencecount = conferencecount + 1
         if (conferencecount >= conferenceend):
             hasarenas = False
@@ -2167,7 +2168,7 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
                 if (hakey):
                     hasarenas = True
                     pystring = pystring+pyfilename+".MakeHockeyArena(sqldatacon, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey[
-                        'country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\");\n"
+                        'country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\")\n"
             hasgames = False
             if (len(inchockeyarray[hlkey]['games']) > 0):
                 hasgames = True
@@ -2175,9 +2176,9 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
                 if (hgkey):
                     hasgames = True
                     pystring = pystring+pyfilename+".MakeHockeyGame(sqldatacon, \""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
-                        'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\");\n"
+                        'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
-    pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon);\n"
+    pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon)\n"
     if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False, jsonverbose=True))
@@ -2224,10 +2225,10 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = "#!/usr/bin/env python\n" \
+    pystring = ("#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import " + pyfilename + ", sys\n\n" \
+           "import " + pyfilename + ", sys, logging\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2244,8 +2245,9 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           "logging.basicConfig(format=\"%(message)s\", stream=sys.stdout, level=logging.DEBUG)\n\n" \
            + "hockeyarray = " + pyfilename \
-           + ".CreateHockeyArray(\""+inchockeyarray['database']+"\");\n"
+           + ".CreateHockeyArray(\""+inchockeyarray['database']+"\")\n")
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2254,20 +2256,20 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
         if (inchockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
         pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyLeagueToArray(hockeyarray, \""+hlkey+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo'][
-            'fullcountry']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n"
+            'fullcountry']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+")\n"
         conferencecount = 0
         conferenceend = len(inchockeyarray[hlkey]['conferencelist'])
         for hckey in inchockeyarray[hlkey]['conferencelist']:
             pystring = pystring+"hockeyarray = "+pyfilename + \
                 ".AddHockeyConferenceToArray(hockeyarray, \"" + \
-                hlkey+"\", \""+hckey+"\");\n"
+                hlkey+"\", \""+hckey+"\")\n"
             for hdkey in inchockeyarray[hlkey][hckey]['divisionlist']:
                 pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyDivisionToArray(hockeyarray, \""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \"" + \
                     inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['prefix']+"\", \"" + \
-                    inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\");\n"
+                    inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\")\n"
                 for htkey in inchockeyarray[hlkey][hckey][hdkey]['teamlist']:
                     pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyTeamToArray(hockeyarray, \""+hlkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inchockeyarray[
-                        hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\");\n"
+                        hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\")\n"
             conferencecount = conferencecount + 1
         if (conferencecount >= conferenceend):
             hasarenas = False
@@ -2279,7 +2281,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
                     pystring = pystring+"hockeyarray = "+pyfilename + \
                         ".AddHockeyArenaToArray(hockeyarray, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \"" + \
                         hakey['country']+"\", \""+hakey['fullcountry']+"\", \"" + \
-                        hakey['fullarea']+"\", \""+hakey['name']+"\");\n"
+                        hakey['fullarea']+"\", \""+hakey['name']+"\")\n"
             hasgames = False
             if (len(inchockeyarray[hlkey]['games']) > 0):
                 hasgames = True
@@ -2287,7 +2289,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
                 if (hgkey):
                     hasgames = True
                     pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyGameToArray(hockeyarray, \""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
-                        'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\");\n"
+                        'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
     if (verbosepy):
         pyverbose = "True"
@@ -2297,7 +2299,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
         pyverbose = "False"
     pystring = pystring+pyfilename + \
         ".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, "+str(
-            pyverbose)+", "+str(jsonverbose)+");\n"
+            pyverbose)+", "+str(jsonverbose)+")\n"
     if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False, jsonverbose=True))
@@ -2345,10 +2347,10 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = "#!/usr/bin/env python\n" \
+    pystring = ("#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import " + pyfilename + ", sys\n\n" \
+           "import " + pyfilename + ", sys, logging\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2365,8 +2367,9 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           "logging.basicConfig(format=\"%(message)s\", stream=sys.stdout, level=logging.DEBUG)\n\n" \
            + "sqldatacon = " + pyfilename \
-           + ".MakeHockeyData(\""+inchockeyarray['database']+"\");\n"
+           + ".MakeHockeyData(\""+inchockeyarray['database']+"\")\n")
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2374,21 +2377,21 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
         HockeyLeagueHasDivisions = True
         if (inchockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
-        pystring = pystring+"sqldatacon.MakeHockeyTeamTable(\""+hlkey+"\");\n"+"sqldatacon.MakeHockeyConferenceTable(\""+hlkey+"\");\n"+"sqldatacon.MakeHockeyGameTable(\""+hlkey+"\");\n"+"sqldatacon.MakeHockeyDivisionTable(\""+hlkey+"\");\n"+"sqldatacon.AddHockeyLeague(\""+hlkey+"\", \"" + \
+        pystring = pystring+"sqldatacon.MakeHockeyTeamTable(\""+hlkey+"\")\n"+"sqldatacon.MakeHockeyConferenceTable(\""+hlkey+"\")\n"+"sqldatacon.MakeHockeyGameTable(\""+hlkey+"\")\n"+"sqldatacon.MakeHockeyDivisionTable(\""+hlkey+"\")\n"+"sqldatacon.AddHockeyLeague(\""+hlkey+"\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['fullcountry']+"\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt'] + \
-            "\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\");\n"
+            "\", \""+inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\")\n"
         conferencecount = 0
         conferenceend = len(inchockeyarray[hlkey]['conferencelist'])
         for hckey in inchockeyarray[hlkey]['conferencelist']:
             pystring = pystring+"sqldatacon.AddHockeyConference(\""+hlkey+"\", \""+hckey+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo'][
-                'prefix']+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+");\n"
+                'prefix']+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+")\n"
             for hdkey in inchockeyarray[hlkey][hckey]['divisionlist']:
                 pystring = pystring+"sqldatacon.AddHockeyDivision(\""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo'][
-                    'prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n"
+                    'prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+")\n"
                 for htkey in inchockeyarray[hlkey][hckey][hdkey]['teamlist']:
                     pystring = pystring+"sqldatacon.AddHockeyTeam(\""+hlkey+"\", \""+str(inchockeyarray[hlkey]['leagueinfo']['date'])+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inchockeyarray[hlkey][hckey][
-                        hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+");\n"
+                        hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+")\n"
             conferencecount = conferencecount + 1
         if (conferencecount >= conferenceend):
             hasarenas = False
@@ -2400,7 +2403,7 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
                     pystring = pystring+"sqldatacon.AddHockeyArena(\""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area'] + \
                         "\", \""+hakey['country']+"\", \""+hakey['fullcountry'] + \
                         "\", \""+hakey['fullarea'] + \
-                        "\", \""+hakey['name']+"\");\n"
+                        "\", \""+hakey['name']+"\")\n"
             hasgames = False
             if (len(inchockeyarray[hlkey]['games']) > 0):
                 hasgames = True
@@ -2411,9 +2414,9 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
                         "\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \"" + \
                         hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \"" + \
                         hgkey['atarena']+"\", \"" + \
-                        hgkey['isplayoffgame']+"\");\n"
+                        hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
-    pystring = pystring+"sqldatacon.CloseHockeyDatabase(sqldatacon);\n"
+    pystring = pystring+"sqldatacon.CloseHockeyDatabase(sqldatacon)\n"
     if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False, jsonverbose=True))
@@ -2461,10 +2464,10 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
     pyfilename = __package__
     if (pyfilename == "__main__"):
         pyfilename = os.path.splitext(os.path.basename(__file__))[0]
-    pystring = "#!/usr/bin/env python\n" \
+    pystring = ("#!/usr/bin/env python\n" \
            "# -*- coding: utf-8 -*-\n\n" \
            "from __future__ import absolute_import, division, print_function, unicode_literals\n" \
-           "import " + pyfilename + ", sys\n\n" \
+           "import " + pyfilename + ", sys, logging\n\n" \
            "# Python 2 handling: Reload sys and set UTF-8 encoding if applicable\n" \
            "try:\n" \
            "    reload(sys)  # Only relevant for Python 2\n" \
@@ -2481,8 +2484,9 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
            "    import io\n" \
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
+           "logging.basicConfig(format=\"%(message)s\", stream=sys.stdout, level=logging.DEBUG)\n\n" \
            + "libhockeyarray = " + pyfilename \
-           + ".MakeHockeyArray(\""+inchockeyarray['database']+"\");\n"
+           + ".MakeHockeyArray(\""+inchockeyarray['database']+"\")\n")
     for hlkey in inchockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
         if (inchockeyarray[hlkey]['leagueinfo']['conferences'].lower() == "no"):
@@ -2494,18 +2498,18 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
             "\", \""+inchockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inchockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \"" + \
             inchockeyarray[hlkey]['leagueinfo']['ordertype']+"\", " + \
             str(HockeyLeagueHasConferences)+", " + \
-            str(HockeyLeagueHasDivisions)+");\n"
+            str(HockeyLeagueHasDivisions)+")\n"
         conferencecount = 0
         conferenceend = len(inchockeyarray[hlkey]['conferencelist'])
         for hckey in inchockeyarray[hlkey]['conferencelist']:
             pystring = pystring+"hockeyarray = libhockeyarray.AddHockeyConference(\""+hlkey+"\", \""+hckey+"\", \""+inchockeyarray[
-                hlkey][hckey]['conferenceinfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\");\n"
+                hlkey][hckey]['conferenceinfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\")\n"
             for hdkey in inchockeyarray[hlkey][hckey]['divisionlist']:
                 pystring = pystring+"hockeyarray = libhockeyarray.AddHockeyDivision(\""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \""+inchockeyarray[
-                    hlkey][hckey][hdkey]['divisioninfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\");\n"
+                    hlkey][hckey][hdkey]['divisioninfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\")\n"
                 for htkey in inchockeyarray[hlkey][hckey][hdkey]['teamlist']:
                     pystring = pystring+"hockeyarray = libhockeyarray.AddHockeyTeam(\""+hlkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inchockeyarray[hlkey][
-                        hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\");\n"
+                        hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inchockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\")\n"
             conferencecount = conferencecount + 1
         if (conferencecount >= conferenceend):
             hasarenas = False
@@ -2515,7 +2519,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
                 if (hakey):
                     hasarenas = True
                     pystring = pystring+"hockeyarray = libhockeyarray.AddHockeyArena(\""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey[
-                        'country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\");\n"
+                        'country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\")\n"
             hasgames = False
             if (len(inchockeyarray[hlkey]['games']) > 0):
                 hasgames = True
@@ -2523,7 +2527,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
                 if (hgkey):
                     hasgames = True
                     pystring = pystring+"hockeyarray = libhockeyarray.AddHockeyGame(\""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
-                        'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\");\n"
+                        'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
     if (verbosepy):
         pyverbose = "True"
@@ -2533,7 +2537,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
         pyverbose = "False"
     pystring = pystring + \
         "libhockeyarray.MakeHockeyDatabase(None, False, " + \
-        str(pyverbose)+", "+str(jsonverbose)+");\n"
+        str(pyverbose)+", "+str(jsonverbose)+")\n"
     if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False, jsonverbose=True))
@@ -2859,7 +2863,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Tr
     sqldump = sqldump+"-- Database: "+insdbfile+"\n"
     sqldump = sqldump+"--\n\n"
     sqldump = sqldump+"-- --------------------------------------------------------\n\n"
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -2967,7 +2971,7 @@ def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
     sqldump = sqldump+"-- Database: "+insdbfile+"\n"
     sqldump = sqldump+"--\n\n"
     sqldump = sqldump+"-- --------------------------------------------------------\n\n"
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -3226,7 +3230,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose
             return False
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
         return False
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -3305,7 +3309,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
     if "database" not in inchockeyarray.keys():
         xmlstring = xmlstring+"<hockeydb database=\"" + \
             EscapeXMLString(str(defaultsdbfile), quote=True)+"\">\n"
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -3397,7 +3401,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
     if "database" not in inchockeyarray.keys():
         xmlstring_hockeydb = cElementTree.Element(
             "hockeydb", {'database': str(defaultsdbfile)})
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
@@ -3430,7 +3434,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
         for rowinfo in inchockeyarray[get_cur_tab]['rows']:
             xmlstring_rowlist = cElementTree.SubElement(
                 xmlstring_rows, "rowlist", {'name': str(rowinfo)})
-    '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True);'''
+    '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True)'''
     if (testlxml):
         xmlstring = cElementTree.tostring(
             xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True, pretty_print=True)
@@ -3686,7 +3690,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
     inchockeyarray = deepcopy(inhockeyarray)
     if (insdbfile is None or insdbfile == ":memory:"):
         insdbfile = inchockeyarray['database']
-    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"];
+    # all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games", "PlayoffTeams"]
     all_table_list = ["Conferences", "Divisions",
                       "Arenas", "Teams", "Stats", "GameStats", "Games"]
     table_list = ['HockeyLeagues']
