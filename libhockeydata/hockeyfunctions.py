@@ -2044,7 +2044,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         sqldatacon = tuple(outsdbfile)
         outsdbfile = ":memory:"
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
-        print(sqldatacon);return False
+        return False
     leaguecount = 0
     for hlkey in inchockeyarray['leaguelist']:
         if (leaguecount == 0):
