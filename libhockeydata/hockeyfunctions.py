@@ -2044,7 +2044,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         sqldatacon = tuple(outsdbfile)
         outsdbfile = ":memory:"
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
-        return False
+        print(sqldatacon);return False
     leaguecount = 0
     for hlkey in inchockeyarray['leaguelist']:
         if (leaguecount == 0):
@@ -2059,6 +2059,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         HockeyLeagueHasDivisions = True
         if (inchockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
+        sqldatacon[0].execute('BEGIN TRANSACTION')
         MakeHockeyLeague(sqldatacon, hlkey, inchockeyarray[hlkey]['leagueinfo']['fullname'], inchockeyarray[hlkey]['leagueinfo']['country'], inchockeyarray[hlkey]['leagueinfo']
                          ['fullcountry'], inchockeyarray[hlkey]['leagueinfo']['date'], inchockeyarray[hlkey]['leagueinfo']['playofffmt'], inchockeyarray[hlkey]['leagueinfo']['ordertype'])
         leaguecount = leaguecount + 1
@@ -2091,6 +2092,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
                     hasgames = True
                     MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['time'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'],
                                    hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame'])
+        sqldatacon[1].commit()
     if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False, jsonverbose=True))

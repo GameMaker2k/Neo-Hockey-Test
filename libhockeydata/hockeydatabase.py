@@ -398,8 +398,14 @@ def CheckHockeySQLiteDatabaseConnection(sqldatacon):
     if not hasattr(connection, "commit"):
         return False
 
-    # Optionally, check if the connection is still open (using 'isolation_level' as an indicator)
-    if connection is None or connection.isolation_level is None:
+    # If connection is in autocommit mode (isolation_level is None), it is still valid
+    if connection.isolation_level is None:
+        return True
+
+    # Alternatively, execute a simple query to verify the connection
+    try:
+        connection.execute("SELECT 1")
+    except sqlite3.ProgrammingError:
         return False
 
     # If all checks pass, return True
