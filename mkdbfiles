@@ -1,0 +1,10 @@
+#/bin/bash
+
+for infile in ./data/xml/*.xml; do
+    python ./mkhockeydata.py mkhockeydatabase -i "$infile"
+done
+
+#for infile in ./data/json/*.json; do
+#    python ./mkhockeydata.py mkhockeydatabase -i "$infile"
+#done
+
