@@ -13,7 +13,7 @@
     Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: example.py - Last Update: 10/11/2024 Ver. 0.9.3 - Author: cooldude2k $
+    $FileInfo: example.py - Last Update: 10/11/2024 Ver. 0.9.2 RC 1 - Author: cooldude2k $
 '''
 
 from __future__ import print_function
