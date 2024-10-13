@@ -13,183 +13,124 @@
     Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: example.py - Last Update: 10/11/2024 Ver. 0.9.2 RC 1 - Author: cooldude2k $
+    $FileInfo: example.py - Last Update: 10/11/2024 Ver. 0.9.3 - Author: cooldude2k $
 '''
 
+from __future__ import print_function
 import os
 import random
 import sys
-
 import libhockeydata
 
+# Ensure compatibility with both Python 2 and 3
 try:
-    reload(sys)
-except NameError:
-    from importlib import reload
-    reload(sys)
-try:
+    reload(sys)  # Only required in Python 2
     sys.setdefaultencoding('utf-8')
-except AttributeError:
+except (NameError, AttributeError):
     pass
 
-defroot = []
-if (os.path.exists("./data/xml") and os.path.isdir("./data/xml")):
-    defroot.append("./data/xml")
-if (os.path.exists("./data/xmlalt") and os.path.isdir("./data/xmlalt")):
-    defroot.append("./data/xmlalt")
-if (os.path.exists("./data/json") and os.path.isdir("./data/json")):
-    defroot.append("./data/json")
-if (os.path.exists("./data/jsonalt") and os.path.isdir("./data/jsonalt")):
-    defroot.append("./data/jsonalt")
-if (os.path.exists("./data/sql") and os.path.isdir("./data/sql")):
-    defroot.append("./data/sql")
-if (os.path.exists("./php/data") and os.path.isdir("./php/data")):
-    defroot.append("./php/data")
-randroot = random.randint(0, len(defroot)-1)
-rootdir = defroot[randroot]
-if (len(sys.argv) < 2):
-    rootdir = defroot[randroot]
-else:
-    rootdir = sys.argv[1]
-extensions = libhockeydata.extensionswd
-extensionsc = libhockeydata.outextlistwd
+# Function to gather valid directories
+def get_data_directories():
+    potential_dirs = [
+        "./data/xml", "./data/xmlalt", 
+        "./data/json", "./data/jsonalt", 
+        "./data/sql", "./php/data"
+    ]
+    return [d for d in potential_dirs if os.path.isdir(d)]
 
-if (os.path.isdir(rootdir)):
-    for subdir, dirs, files in os.walk(rootdir):
-        print("")
-        print("--------------------------------------------------------------------------")
-        print("")
-        for file in files:
-            fileinfo = os.path.splitext(file)
-            ext = fileinfo[1].lower()
-            subfileinfo = None
-            subext = None
-            if ext in extensionsc:
-                subfileinfo = os.path.splitext(fileinfo[0])
-                subext = subfileinfo[1].lower()
-            else:
-                subfileinfo = None
-                subext = None
-            if ext in extensions or subext in extensions:
-                filepath = os.path.join(subdir, file)
-                if ((ext == ".xml" or subext == ".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
-                    sqlitedatatype = False
-                    funcarray = {'informat': "xml", 'inxmlfile': filepath}
-                elif ((ext == ".xml" or subext == ".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-                    sqlitedatatype = True
-                    funcarray = {'informat': "xml", 'inxmlfile': filepath}
-                elif (ext == ".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
-                    sqlitedatatype = False
-                    funcarray = {'informat': "database", 'insdbfile': filepath}
-                elif (ext == ".sql" or subext == ".sql"):
-                    sqlitedatatype = False
-                    funcarray = {'informat': "sql", 'insqlfile': filepath}
-                elif (ext == ".json" or subext == ".json"):
-                    sqlitedatatype = False
-                    funcarray = {'informat': "json", 'injsonfile': filepath}
-                else:
-                    sys.exit(1)
-                if (sqlitedatatype):
-                    hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteData(
-                        funcarray)
-                else:
-                    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(
-                        funcarray)
-                if (libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-                    hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(
-                        hockeyarray)
-                if (not libhockeydata.CheckHockeyArray(hockeyarray)):
-                    sys.exit(1)
-                print("File: "+filepath)
-                print("")
-                print(
-                    "--------------------------------------------------------------------------")
-                print("")
-                for hlkey in hockeyarray['leaguelist']:
-                    for hckey in hockeyarray[hlkey]['conferencelist']:
-                        for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
-                            for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-                                if (len(hckey) == 0 and len(hdkey) == 0):
-                                    print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / " +
-                                          hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                                if (len(hckey) == 0 and len(hdkey) > 0):
-                                    print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]
-                                          ['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                                if (len(hckey) > 0 and len(hdkey) == 0):
-                                    print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']
-                                          ['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                                if (len(hckey) > 0 and len(hdkey) > 0):
-                                    print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / " +
-                                          hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                print("")
-                print(
-                    "--------------------------------------------------------------------------")
-                print("")
-elif (os.path.isfile(rootdir)):
-    fileinfo = os.path.splitext(rootdir)
+# Function to process a file based on its extension and load data
+def process_file(filepath, extensions, extensionsc):
+    fileinfo = os.path.splitext(filepath)
     ext = fileinfo[1].lower()
-    subfileinfo = None
-    subext = None
-    if ext in extensionsc:
-        subfileinfo = os.path.splitext(fileinfo[0])
-        subext = subfileinfo[1].lower()
-    else:
-        subfileinfo = None
-        subext = None
+    subext = os.path.splitext(fileinfo[0])[1].lower() if ext in extensionsc else None
+
     if ext in extensions or subext in extensions:
-        filepath = rootdir
-    if ((ext == ".xml" or subext == ".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeyXML(filepath)):
+        funcarray = {}
         sqlitedatatype = False
-        funcarray = {'informat': "xml", 'inxmlfile': filepath}
-    elif ((ext == ".xml" or subext == ".xml") and libhockeydata.CheckXMLFile(filepath) and libhockeydata.CheckHockeySQLiteXML(filepath)):
-        sqlitedatatype = True
-        funcarray = {'informat': "xml", 'inxmlfile': filepath}
-    elif (ext == ".db3" and libhockeydata.CheckSQLiteDatabase(filepath)):
-        sqlitedatatype = False
-        funcarray = {'informat': "database", 'insdbfile': filepath}
-    elif (ext == ".sql" or subext == ".sql"):
-        sqlitedatatype = False
-        funcarray = {'informat': "sql", 'insqlfile': filepath}
-    elif (ext == ".json" or subext == ".json"):
-        sqlitedatatype = False
-        funcarray = {'informat': "json", 'injsonfile': filepath}
-    else:
-        sys.exit(1)
-    if (sqlitedatatype):
-        hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteData(
-            funcarray)
-    else:
-        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(funcarray)
-    if (libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(
-            hockeyarray)
-    if (not libhockeydata.CheckHockeyArray(hockeyarray)):
-        sys.exit(1)
-    print("")
-    print("--------------------------------------------------------------------------")
-    print("")
-    print("File: "+filepath)
-    print("")
-    print("--------------------------------------------------------------------------")
-    print("")
+        
+        if ext == ".xml" or subext == ".xml":
+            if libhockeydata.CheckXMLFile(filepath):
+                if libhockeydata.CheckHockeyXML(filepath):
+                    funcarray = {'informat': "xml", 'inxmlfile': filepath}
+                elif libhockeydata.CheckHockeySQLiteXML(filepath):
+                    funcarray = {'informat': "xml", 'inxmlfile': filepath}
+                    sqlitedatatype = True
+        elif ext == ".db3" and libhockeydata.CheckSQLiteDatabase(filepath):
+            funcarray = {'informat': "database", 'insdbfile': filepath}
+        elif ext == ".sql" or subext == ".sql":
+            funcarray = {'informat': "sql", 'insqlfile': filepath}
+        elif ext == ".json" or subext == ".json":
+            funcarray = {'informat': "json", 'injsonfile': filepath}
+        else:
+            return None
+        
+        if sqlitedatatype:
+            hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteData(funcarray)
+        else:
+            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(funcarray)
+
+        if libhockeydata.CheckHockeySQLiteArray(hockeyarray):
+            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray)
+        
+        return hockeyarray if libhockeydata.CheckHockeyArray(hockeyarray) else None
+    return None
+
+# Function to display hockey data
+def display_hockey_data(hockeyarray):
     for hlkey in hockeyarray['leaguelist']:
         for hckey in hockeyarray[hlkey]['conferencelist']:
             for hdkey in hockeyarray[hlkey][hckey]['divisionlist']:
                 for htkey in hockeyarray[hlkey][hckey][hdkey]['teamlist']:
-                    if (len(hckey) == 0 and len(hdkey) == 0):
-                        print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / " +
-                              hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                    if (len(hckey) == 0 and len(hdkey) > 0):
-                        print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey]
-                              ['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                    if (len(hckey) > 0 and len(hdkey) == 0):
-                        print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']
-                              ['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-                    if (len(hckey) > 0 and len(hdkey) > 0):
-                        print(hockeyarray[hlkey]['leagueinfo']['fullname']+" / "+hockeyarray[hlkey][hckey]['conferenceinfo']['fullname']+" / " +
-                              hockeyarray[hlkey][hckey][hdkey]['divisioninfo']['fullname']+" / "+hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname'])
-    print("")
-    print("--------------------------------------------------------------------------")
-    print("")
-else:
-    sys.exit(1)
+                    conference = hockeyarray[hlkey].get('conferenceinfo', {}).get('fullname', '')
+                    division = hockeyarray[hlkey][hckey].get('divisioninfo', {}).get('fullname', '')
+                    team = hockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullname']
+                    league = hockeyarray[hlkey]['leagueinfo']['fullname']
+                    
+                    if conference and division:
+                        print("{league} / {conference} / {division} / {team}".format(
+                            league=league, conference=conference, division=division, team=team))
+                    elif conference:
+                        print("{league} / {conference} / {team}".format(
+                            league=league, conference=conference, team=team))
+                    elif division:
+                        print("{league} / {division} / {team}".format(
+                            league=league, division=division, team=team))
+                    else:
+                        print("{league} / {team}".format(
+                            league=league, team=team))
+
+# Main function
+def main():
+    defroot = get_data_directories()
+    if not defroot:
+        print("No valid data directories found.")
+        sys.exit(1)
+    
+    rootdir = sys.argv[1] if len(sys.argv) > 1 else random.choice(defroot)
+    extensions = libhockeydata.extensionswd
+    extensionsc = libhockeydata.outextlistwd
+
+    if os.path.isdir(rootdir):
+        for subdir, _, files in os.walk(rootdir):
+            for file in files:
+                filepath = os.path.join(subdir, file)
+                hockeyarray = process_file(filepath, extensions, extensionsc)
+                
+                if hockeyarray:
+                    print("\n--------------------------------------------------------------------------")
+                    print("File: {}".format(filepath))
+                    display_hockey_data(hockeyarray)
+                    print("--------------------------------------------------------------------------\n")
+    elif os.path.isfile(rootdir):
+        hockeyarray = process_file(rootdir, extensions, extensionsc)
+        if hockeyarray:
+            print("\n--------------------------------------------------------------------------")
+            print("File: {}".format(rootdir))
+            display_hockey_data(hockeyarray)
+            print("--------------------------------------------------------------------------\n")
+    else:
+        print("Invalid path provided.")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
