@@ -1377,7 +1377,9 @@ def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True)
         insqldatacon = tuple(outsdbfile)
     if (not isinstance(insqldatacon, (tuple, list)) and not insqldatacon):
         return False
+    insqldatacon[0].execute('BEGIN TRANSACTION')
     insqldatacon[1].executescript(insqlstring)
+    insqldatacon[1].commit()
     if (returnoutsdbfile):
         return [insqldatacon]
     elif (not returnoutsdbfile):
@@ -2047,6 +2049,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         return False
     leaguecount = 0
     for hlkey in inchockeyarray['leaguelist']:
+        sqldatacon[0].execute('BEGIN TRANSACTION')
         if (leaguecount == 0):
             MakeHockeyLeagueTable(sqldatacon)
         MakeHockeyTeamTable(sqldatacon, hlkey)
@@ -2059,7 +2062,6 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         HockeyLeagueHasDivisions = True
         if (inchockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
-        sqldatacon[0].execute('BEGIN TRANSACTION')
         MakeHockeyLeague(sqldatacon, hlkey, inchockeyarray[hlkey]['leagueinfo']['fullname'], inchockeyarray[hlkey]['leagueinfo']['country'], inchockeyarray[hlkey]['leagueinfo']
                          ['fullcountry'], inchockeyarray[hlkey]['leagueinfo']['date'], inchockeyarray[hlkey]['leagueinfo']['playofffmt'], inchockeyarray[hlkey]['leagueinfo']['ordertype'])
         leaguecount = leaguecount + 1
