@@ -84,14 +84,31 @@ else:
     enable_supersqlite = False
     enable_sqlcipher = False
 sqlcipher_password = "YourPassword"
-sqlite_synchronous = "FULL"
-sqlite_journal_mode = "WAL"
-sqlite_journal_size = -1
-sqlite_mmap_size = 536870912
-sqlite_temp_store = "MEMORY"
 enable_old_makegame = False
-sqlite_app_ver = 90
-sqlite_app_id = 20151105
+
+dbpragma = {
+    "encoding": "UTF-8",
+    "auto_vacuum": 1,
+    "foreign_keys": 0,
+    "locking_mode": "NORMAL",
+    "max_page_count": 2147483647,
+    "cache_size": -524288,
+    "case_sensitive_like": "ON",
+    "synchronous": "NORMAL",
+    "journal_size_limit": -1,
+    "sqlite_journal_mode": "WAL",
+    "mmap_size": 536870912,
+    "threads": multiprocessing.cpu_count(),
+    "fullfsync": "ON",
+    "checkpoint_fullfsync": "ON",
+    "wal_autocheckpoint": 5000,
+    "temp_store": "MEMORY",
+    "busy_timeout": 5000,
+    "read_uncommitted": "ON",
+    "user_version": 90,
+    "application_id": 20151105
+}
+
 defaultxmlfile = "./data/hockeydata.xml"
 defaultsdbfile = "./data/hockeydata.db3"
 defaultoldsdbfile = "./data/hockeydata.db3"
@@ -514,54 +531,76 @@ def CheckHockeySQLiteDatabase(sdbfile, returndb=False):
     return [True]
 
 
-def MakeHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, app_ver=sqlite_app_ver, app_id=sqlite_app_id, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+# Helper function to retrieve SQL connection (renamed for consistency)
+def GetHockeyDatabaseConnection(sdbfile, enable_apsw, enable_supersqlite, enable_sqlcipher):
     usecipher = False
-    if (not apswsupport and enable_apsw):
-        enable_apsw = False
-    if (not supersqlitesupport and enable_supersqlite):
-        enable_apsw = False
-    if (os.path.exists(sdbfile) or os.path.isfile(sdbfile)):
-        return False
-    if (enable_apsw and not enable_supersqlite):
+    
+    if enable_apsw and not enable_supersqlite:
         sqlcon = apsw.Connection(sdbfile)
-    elif (enable_apsw and enable_supersqlite):
+    elif enable_apsw and enable_supersqlite:
         sqlcon = supersqlite.SuperSQLiteConnection(sdbfile)
-    elif (enable_sqlcipher):
+    elif enable_sqlcipher:
         sqlcon = sqlite.connect(sdbfile, isolation_level=None)
         usecipher = True
     else:
         sqlcon = sqlite3.connect(sdbfile, isolation_level=None)
+    
+    return sqlcon, usecipher
+
+
+# Optimized MakeHockeyDatabase function
+def MakeHockeyDatabase(sdbfile, pragma=dbpragma, sqlite_password=sqlcipher_password, 
+                       enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, 
+                       enable_sqlcipher=enable_sqlcipher):
+    if os.path.exists(sdbfile):  # Combined check for both file existence and isfile
+        return False
+    
+    sqlcon, usecipher = GetHockeyDatabaseConnection(sdbfile, enable_apsw, enable_supersqlite, enable_sqlcipher)
     sqlcur = sqlcon.cursor()
     sqldatacon = (sqlcur, sqlcon)
-    if (enable_sqlcipher and usecipher):
-        sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";")
-    sqlcur.execute("PRAGMA encoding = \"UTF-8\";")
-    sqlcur.execute("PRAGMA auto_vacuum = 1;")
-    sqlcur.execute("PRAGMA foreign_keys = 0;")
-    sqlcur.execute("PRAGMA locking_mode = NORMAL;")
-    sqlcur.execute("PRAGMA max_page_count = 2147483647;")
-    sqlcur.execute("PRAGMA cache_size = -524288;")
-    sqlcur.execute("PRAGMA case_sensitive_like = ON;")
-    sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";")
-    sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
-    sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
-    sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
-    if (sdbfile != ":memory:"):
-        sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
-        journal_mode_test = sqlcur.fetchone()[0]
-        if journal_mode_test.lower() != "wal":
-            sqlcur.execute("PRAGMA journal_mode = DELETE;")
-    if (sdbfile == ":memory:"):
-        sqlcur.execute("PRAGMA journal_mode = MEMORY;")
-    sqlcur.execute("PRAGMA fullfsync = ON;")
-    sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
-    sqlcur.execute("PRAGMA synchronous = NORMAL;")
-    sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
-    sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
-    sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA read_uncommitted = ON;")
-    sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
-    sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
+    
+    if usecipher:
+        sqlcur.execute("PRAGMA key = ?", (sqlite_password,))  # Use parameterized queries
+    
+    SetHockeyDatabasePragma(sqlcur, pragma)
+    return sqldatacon
+
+
+# Optimized CreateHockeyDatabase function
+def CreateHockeyDatabase(sdbfile, pragma=dbpragma, sqlite_password=sqlcipher_password, 
+                         enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, 
+                         enable_sqlcipher=enable_sqlcipher):
+    if os.path.exists(sdbfile):
+        return False
+    
+    sqlcon, usecipher = GetHockeyDatabaseConnection(sdbfile, enable_apsw, enable_supersqlite, enable_sqlcipher)
+    sqlcur = sqlcon.cursor()
+    
+    if usecipher:
+        sqlcur.execute("PRAGMA key = ?", (sqlite_password,))
+    
+    SetHockeyDatabasePragma(sqlcur, pragma)
+    
+    sqlcur.close()
+    sqlcon.close()
+    return True
+
+
+# Optimized OpenHockeyDatabase function
+def OpenHockeyDatabase(sdbfile, pragma=dbpragma, sqlite_password=sqlcipher_password, 
+                       enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, 
+                       enable_sqlcipher=enable_sqlcipher):
+    if not os.path.exists(sdbfile):
+        return False
+    
+    sqlcon, usecipher = GetHockeyDatabaseConnection(sdbfile, enable_apsw, enable_supersqlite, enable_sqlcipher)
+    sqlcur = sqlcon.cursor()
+    sqldatacon = (sqlcur, sqlcon)
+    
+    if usecipher:
+        sqlcur.execute("PRAGMA key = ?", (sqlite_password,))
+    
+    SetHockeyDatabasePragma(sqlcur, pragma)
     return sqldatacon
 
 
@@ -570,7 +609,7 @@ def CreateHockeyArray(databasename="./hockeydatabase.db3"):
     return hockeyarray
 
 
-def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, app_ver=sqlite_app_ver, app_id=sqlite_app_id, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def CreateHockeyDatabase(sdbfile, pragma=dbpragma, sqlite_password=sqlcipher_password, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher):
     usecipher = False
     if (not apswsupport and enable_apsw):
         enable_apsw = False
@@ -590,39 +629,13 @@ def CreateHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=s
     sqlcur = sqlcon.cursor()
     if (enable_sqlcipher):
         sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";")
-    sqlcur.execute("PRAGMA encoding = \"UTF-8\";")
-    sqlcur.execute("PRAGMA auto_vacuum = 1;")
-    sqlcur.execute("PRAGMA foreign_keys = 0;")
-    sqlcur.execute("PRAGMA locking_mode = NORMAL;")
-    sqlcur.execute("PRAGMA max_page_count = 2147483647;")
-    sqlcur.execute("PRAGMA cache_size = -524288;")
-    sqlcur.execute("PRAGMA case_sensitive_like = ON;")
-    sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";")
-    sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
-    sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
-    sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
-    if (sdbfile != ":memory:"):
-        sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
-        journal_mode_test = sqlcur.fetchone()[0]
-        if journal_mode_test.lower() != "wal":
-            sqlcur.execute("PRAGMA journal_mode = DELETE;")
-    if (sdbfile == ":memory:"):
-        sqlcur.execute("PRAGMA journal_mode = MEMORY;")
-    sqlcur.execute("PRAGMA fullfsync = ON;")
-    sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
-    sqlcur.execute("PRAGMA synchronous = NORMAL;")
-    sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
-    sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
-    sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA read_uncommitted = ON;")
-    sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
-    sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
+    SetHockeyDatabasePragma(pragma)
     sqlcur.close()
     sqlcon.close()
     return True
 
 
-def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sqlite_journal_mode, journal_size=sqlite_journal_size, mmap_size=sqlite_mmap_size, temp_store=sqlite_temp_store, app_ver=sqlite_app_ver, app_id=sqlite_app_id, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher, sqlite_password=sqlcipher_password):
+def OpenHockeyDatabase(sdbfile, pragma=dbpragma, sqlite_password=sqlcipher_password, enable_apsw=enable_apsw, enable_supersqlite=enable_supersqlite, enable_sqlcipher=enable_sqlcipher):
     usecipher = False
     if (not apswsupport and enable_apsw):
         enable_apsw = False
@@ -643,33 +656,7 @@ def OpenHockeyDatabase(sdbfile, synchronous=sqlite_synchronous, journal_mode=sql
     sqldatacon = (sqlcur, sqlcon)
     if (enable_sqlcipher):
         sqlcur.execute("PRAGMA key = "+str(sqlite_password)+";")
-    sqlcur.execute("PRAGMA encoding = \"UTF-8\";")
-    sqlcur.execute("PRAGMA auto_vacuum = 1;")
-    sqlcur.execute("PRAGMA foreign_keys = 0;")
-    sqlcur.execute("PRAGMA locking_mode = NORMAL;")
-    sqlcur.execute("PRAGMA max_page_count = 2147483647;")
-    sqlcur.execute("PRAGMA cache_size = -524288;")
-    sqlcur.execute("PRAGMA case_sensitive_like = ON;")
-    sqlcur.execute("PRAGMA synchronous = "+str(synchronous)+";")
-    sqlcur.execute("PRAGMA journal_size_limit = "+str(journal_size)+";")
-    sqlcur.execute("PRAGMA mmap_size = "+str(mmap_size)+";")
-    sqlcur.execute("PRAGMA threads = "+str(multiprocessing.cpu_count())+";")
-    if (sdbfile != ":memory:"):
-        sqlcur.execute("PRAGMA journal_mode = "+str(journal_mode)+";")
-        journal_mode_test = sqlcur.fetchone()[0]
-        if journal_mode_test.lower() != "wal":
-            sqlcur.execute("PRAGMA journal_mode = DELETE;")
-    if (sdbfile == ":memory:"):
-        sqlcur.execute("PRAGMA journal_mode = MEMORY;")
-    sqlcur.execute("PRAGMA fullfsync = ON;")
-    sqlcur.execute("PRAGMA checkpoint_fullfsync = ON;")
-    sqlcur.execute("PRAGMA synchronous = NORMAL;")
-    sqlcur.execute("PRAGMA wal_autocheckpoint = 5000;")
-    sqlcur.execute("PRAGMA read_uncommitted = ON;")
-    sqlcur.execute("PRAGMA temp_store = "+str(temp_store)+";")
-    sqlcur.execute("PRAGMA busy_timeout = 5000;")
-    sqlcur.execute("PRAGMA user_version = "+str(sqlite_app_ver)+";")
-    sqlcur.execute("PRAGMA application_id = "+str(sqlite_app_id)+";")
+    SetHockeyDatabasePragma(pragma)
     return sqldatacon
 
 
