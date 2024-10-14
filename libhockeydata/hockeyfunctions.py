@@ -2254,20 +2254,20 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
         HockeyLeagueHasDivisions = True
         if (inhockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
-        pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyLeagueToArray(hockeyarray, \""+hlkey+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inhockeyarray[hlkey]['leagueinfo'][
+        pystring = pystring+pyfilename+".AddHockeyLeagueToArray(hockeyarray, \""+hlkey+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inhockeyarray[hlkey]['leagueinfo'][
             'fullcountry']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['ordertype']+"\", "+str(HockeyLeagueHasConferences)+", "+str(HockeyLeagueHasDivisions)+")\n"
         conferencecount = 0
         conferenceend = len(inhockeyarray[hlkey]['conferencelist'])
         for hckey in inhockeyarray[hlkey]['conferencelist']:
-            pystring = pystring+"hockeyarray = "+pyfilename + \
+            pystring = pystring+pyfilename + \
                 ".AddHockeyConferenceToArray(hockeyarray, \"" + \
                 hlkey+"\", \""+hckey+"\")\n"
             for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
-                pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyDivisionToArray(hockeyarray, \""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \"" + \
+                pystring = pystring+pyfilename+".AddHockeyDivisionToArray(hockeyarray, \""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \"" + \
                     inhockeyarray[hlkey][hckey][hdkey]['divisioninfo']['prefix']+"\", \"" + \
                     inhockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\")\n"
                 for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
-                    pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyTeamToArray(hockeyarray, \""+hlkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inhockeyarray[
+                    pystring = pystring+pyfilename+".AddHockeyTeamToArray(hockeyarray, \""+hlkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inhockeyarray[
                         hlkey][hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\")\n"
             conferencecount = conferencecount + 1
         if (conferencecount >= conferenceend):
@@ -2277,7 +2277,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
             for hakey in inhockeyarray[hlkey]['arenas']:
                 if (hakey):
                     hasarenas = True
-                    pystring = pystring+"hockeyarray = "+pyfilename + \
+                    pystring = pystring+pyfilename + \
                         ".AddHockeyArenaToArray(hockeyarray, \""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \"" + \
                         hakey['country']+"\", \""+hakey['fullcountry']+"\", \"" + \
                         hakey['fullarea']+"\", \""+hakey['name']+"\")\n"
@@ -2287,7 +2287,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
             for hgkey in inhockeyarray[hlkey]['games']:
                 if (hgkey):
                     hasgames = True
-                    pystring = pystring+"hockeyarray = "+pyfilename+".AddHockeyGameToArray(hockeyarray, \""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
+                    pystring = pystring+pyfilename+".AddHockeyGameToArray(hockeyarray, \""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
                         'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
     if (verbosepy):
@@ -2482,7 +2482,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
            "    sys.stderr = io.TextIOWrapper(\n" \
            "        sys.stderr.detach(), encoding='UTF-8', errors='replace')\n\n" \
            "logging.basicConfig(format=\"%(message)s\", stream=sys.stdout, level=logging.INFO)\n\n" \
-           + "libhockeyarray = " + pyfilename \
+           + "hockeyarray = " + pyfilename \
            + ".MakeHockeyArray(\""+inhockeyarray['database']+"\")\n")
     for hlkey in inhockeyarray['leaguelist']:
         HockeyLeagueHasConferences = True
@@ -2491,7 +2491,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
         HockeyLeagueHasDivisions = True
         if (inhockeyarray[hlkey]['leagueinfo']['divisions'].lower() == "no"):
             HockeyLeagueHasDivisions = False
-        pystring = pystring+"libhockeyarray.AddHockeyLeague(\""+hlkey+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullcountry'] + \
+        pystring = pystring+"hockeyarray.AddHockeyLeague(\""+hlkey+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullname']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['country']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['fullcountry'] + \
             "\", \""+inhockeyarray[hlkey]['leagueinfo']['date']+"\", \""+inhockeyarray[hlkey]['leagueinfo']['playofffmt']+"\", \"" + \
             inhockeyarray[hlkey]['leagueinfo']['ordertype']+"\", " + \
             str(HockeyLeagueHasConferences)+", " + \
@@ -2499,13 +2499,13 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
         conferencecount = 0
         conferenceend = len(inhockeyarray[hlkey]['conferencelist'])
         for hckey in inhockeyarray[hlkey]['conferencelist']:
-            pystring = pystring+"libhockeyarray.AddHockeyConference(\""+hlkey+"\", \""+hckey+"\", \""+inhockeyarray[
+            pystring = pystring+"hockeyarray.AddHockeyConference(\""+hlkey+"\", \""+hckey+"\", \""+inhockeyarray[
                 hlkey][hckey]['conferenceinfo']['prefix']+"\", \""+inhockeyarray[hlkey][hckey]['conferenceinfo']['suffix']+"\")\n"
             for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
-                pystring = pystring+"libhockeyarray.AddHockeyDivision(\""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \""+inhockeyarray[
+                pystring = pystring+"hockeyarray.AddHockeyDivision(\""+hlkey+"\", \""+hdkey+"\", \""+hckey+"\", \""+inhockeyarray[
                     hlkey][hckey][hdkey]['divisioninfo']['prefix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey]['divisioninfo']['suffix']+"\")\n"
                 for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
-                    pystring = pystring+"libhockeyarray.AddHockeyTeam(\""+hlkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inhockeyarray[hlkey][
+                    pystring = pystring+"hockeyarray.AddHockeyTeam(\""+hlkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['city']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['area']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['country']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['fullcountry']+"\", \""+inhockeyarray[hlkey][
                         hckey][hdkey][htkey]['teaminfo']['fullarea']+"\", \""+htkey+"\", \""+hckey+"\", \""+hdkey+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['arena']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['prefix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['suffix']+"\", \""+inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']['affiliates']+"\")\n"
             conferencecount = conferencecount + 1
         if (conferencecount >= conferenceend):
@@ -2515,7 +2515,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
             for hakey in inhockeyarray[hlkey]['arenas']:
                 if (hakey):
                     hasarenas = True
-                    pystring = pystring+"libhockeyarray.AddHockeyArena(\""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey[
+                    pystring = pystring+"hockeyarray.AddHockeyArena(\""+hlkey+"\", \""+hakey['city']+"\", \""+hakey['area']+"\", \""+hakey[
                         'country']+"\", \""+hakey['fullcountry']+"\", \""+hakey['fullarea']+"\", \""+hakey['name']+"\")\n"
             hasgames = False
             if (len(inhockeyarray[hlkey]['games']) > 0):
@@ -2523,7 +2523,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
             for hgkey in inhockeyarray[hlkey]['games']:
                 if (hgkey):
                     hasgames = True
-                    pystring = pystring+"libhockeyarray.AddHockeyGame(\""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
+                    pystring = pystring+"hockeyarray.AddHockeyGame(\""+hlkey+"\", "+hgkey['date']+", "+hgkey['time']+", \""+hgkey['hometeam']+"\", \""+hgkey['awayteam']+"\", \""+hgkey['goals']+"\", \""+hgkey['sogs']+"\", \""+hgkey[
                         'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
     if (verbosepy):
@@ -2533,7 +2533,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
     else:
         pyverbose = "False"
     pystring = pystring + \
-        "libhockeyarray.MakeHockeyDatabase(None, False, " + \
+        "hockeyarray.MakeHockeyDatabase(None, False, " + \
         str(pyverbose)+", "+str(jsonverbose)+")\n"
     if (verbose and jsonverbose):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
