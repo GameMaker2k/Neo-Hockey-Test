@@ -383,6 +383,18 @@ def ConvertXMLValuesForPython(invalue):
     return outvalue
 
 
+def GetHockeyDatabaseFileName(sqldatacon):
+    cur, con = sqldatacon
+    # Use PRAGMA to get the database list
+    cur.execute("PRAGMA database_list")
+    for row in cur.fetchall():
+        db_file = row[2]  # Database file path (empty string for in-memory)
+        if db_file == "":
+            return ":memory:"
+        else:
+            return db_file  # Return the stored path (not full path)
+
+
 def CheckHockeySQLiteDatabaseConnection(sqldatacon):
     # Ensure sqldatacon is a tuple or list and contains exactly two elements
     if not isinstance(sqldatacon, (tuple, list)) or len(sqldatacon) != 2:

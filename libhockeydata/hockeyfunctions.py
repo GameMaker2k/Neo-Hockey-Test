@@ -1403,7 +1403,9 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
         sqlinput = f.read()
         if (hasattr(sqlinput, 'decode')):
             sqlinput = sqlinput.decode("UTF-8")
+    insqldatacon[0].execute('BEGIN TRANSACTION')
     insqldatacon[1].executescript(sqlinput)
+    insqldatacon[1].commit()
     if (returnoutsdbfile):
         return [insqldatacon]
     elif (not returnoutsdbfile):
@@ -2044,7 +2046,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         sqldatacon = MakeHockeyDatabase(outsdbfile)
     if (outsdbfile is not None and isinstance(outsdbfile, (tuple, list))):
         sqldatacon = tuple(outsdbfile)
-        outsdbfile = ":memory:"
+        outsdbfile = GetHockeyDatabaseFileName(sqldatacon)
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
         return False
     leaguecount = 0
@@ -2590,7 +2592,7 @@ def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True)
     else:
         if (insdbfile is not None and isinstance(insdbfile, (tuple, list))):
             sqldatacon = tuple(insdbfile)
-            insdbfile = ":memory:"
+            insdbfile = GetHockeyDatabaseFileName(sqldatacon)
         else:
             return False
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
@@ -2847,7 +2849,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Tr
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if (insdbfile is None):
-        insdbfile = ":memory:"
+        insdbfile = GetHockeyDatabaseFileName(sqldatacon)
     sqldatacon = MakeHockeyDatabaseFromHockeyArray(
         inhockeyarray, ":memory:", True, False, False)
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
@@ -3067,7 +3069,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=Tr
     else:
         if (insdbfile is not None and isinstance(insdbfile, (tuple, list))):
             sqldatacon = tuple(insdbfile)
-            insdbfile = ":memory:"
+            insdbfile = GetHockeyDatabaseFileName(sqldatacon)
         else:
             return False
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
@@ -3229,7 +3231,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose
     else:
         if (insdbfile is not None and isinstance(insdbfile, (tuple, list))):
             sqldatacon = tuple(insdbfile)
-            insdbfile = ":memory:"
+            insdbfile = GetHockeyDatabaseFileName(sqldatacon)
         else:
             return False
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
