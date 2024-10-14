@@ -430,21 +430,35 @@ def SetHockeyDatabasePragma(sqldatacon, dbpragma={}):
         return False
 
     sqlcur = sqldatacon[0]  # Get the cursor from the database connection
+    sdbfile = GetHockeyDatabaseFileName(sqldatacon)  # Check if it's an in-memory DB or file-based
 
-    # Loop through the dbpragna dictionary
+    # Loop through the dbpragma dictionary
     for key, value in dbpragma.items():
         try:
-            # Execute the PRAGMA statement dynamically with the key and value
-            pragma_statement = 'PRAGMA "{}" = "{}";'.format(key, value)
-            sqlcur.execute(pragma_statement)
-            VerbosePrintOut("Executed: {}".format(pragma_statement), "log")
+            # Special handling for 'journal_mode'
+            if key.lower() == "journal_mode":
+                if sdbfile != ":memory:":
+                    # Set journal_mode to the specified value
+                    sqlcur.execute("PRAGMA journal_mode = '{}';".format(value))
+                    journal_mode_test = sqlcur.fetchone()[0]
+
+                    # If journal_mode is not set to WAL, set it to DELETE
+                    if journal_mode_test.lower() != "wal":
+                        sqlcur.execute("PRAGMA journal_mode = DELETE;")
+                else:
+                    # For in-memory databases, set journal_mode to MEMORY
+                    sqlcur.execute("PRAGMA journal_mode = MEMORY;")
+                VerbosePrintOut("Executed PRAGMA journal_mode = {}".format(value), "log")
+            else:
+                # Execute the general PRAGMA statement dynamically with the key and value
+                pragma_statement = 'PRAGMA "{}" = "{}";'.format(key, value)
+                sqlcur.execute(pragma_statement)
+                VerbosePrintOut("Executed: {}".format(pragma_statement), "log")
         except Exception as e:
             # Log an error if something goes wrong
             VerbosePrintOut(
                 "Error executing PRAGMA '{}': {}".format(key, e), "error")
             return False
-
-    # If everything is successful, return True
     return True
 
 
@@ -1697,7 +1711,8 @@ def AddHockeyTeamToArray(inhockeyarray, leaguename, cityname, areaname, countryn
                 'suffix': str(teamnamesuffix),
                 'league': str(leaguename),
                 'conference': str(conference),
-                'division': str(division)
+                'division': str(division),
+                'affiliates': str(teamaffiliates)
             }
         }
         inchockeyarray[leaguename]['quickinfo']['teaminfo'][teamname] = {

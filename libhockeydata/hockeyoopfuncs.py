@@ -16,127 +16,251 @@
     $FileInfo: hockeyoopfuncs.py - Last Update: 10/11/2024 Ver. 0.9.2 RC 1 - Author: cooldude2k $
 '''
 
-from .hockeyfunctions import *
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
-''' // Object-oriented classes and functions by Kazuki Przyborowski '''
+from .hockeyfunctions import *
 
 
 class MakeHockeyArray:
     def __init__(self, databasename="./hockeydatabase.db3"):
         self.hockeyarray = CreateHockeyArray(databasename)
 
-    def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
-        self.hockeyarray = AddHockeyLeagueToArray(self.hockeyarray, leaguename, leaguefullname,
-                                                  countryname, fullcountryname, date, playofffmt, ordertype, hasconferences, hasdivisions)
+    def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname,
+                        date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
+        """
+        Add a hockey league to the array.
+        """
+        self.hockeyarray = AddHockeyLeagueToArray(
+            self.hockeyarray, leaguename, leaguefullname, countryname,
+            fullcountryname, date, playofffmt, ordertype, hasconferences, hasdivisions
+        )
 
     def RemoveHockeyLeague(self, leaguename):
-        self.hockeyarray = RemoveHockeyLeagueFromArray(
-            self.hockeyarray, leaguename)
+        """
+        Remove a hockey league from the array.
+        """
+        self.hockeyarray = RemoveHockeyLeagueFromArray(self.hockeyarray, leaguename)
 
-    def ReplaceHockeyLeague(oldleaguename, newleaguename, leaguefullname=None, countryname=None, fullcountryname=None, date=None, playofffmt=None, ordertype=None, hasconferences=None, hasdivisions=None):
-        self.hockeyarray = ReplaceHockeyLeagueFromArray(self.hockeyarray, oldleaguename, newleaguename, leaguefullname,
-                                                        countryname, fullcountryname, date, playofffmt, ordertype, hasconferences, hasdivisions)
+    def ReplaceHockeyLeague(self, oldleaguename, newleaguename, leaguefullname=None,
+                            countryname=None, fullcountryname=None, date=None,
+                            playofffmt=None, ordertype=None, hasconferences=None, hasdivisions=None):
+        """
+        Replace a hockey league in the array.
+        """
+        self.hockeyarray = ReplaceHockeyLeagueFromArray(
+            self.hockeyarray, oldleaguename, newleaguename, leaguefullname,
+            countryname, fullcountryname, date, playofffmt, ordertype,
+            hasconferences, hasdivisions
+        )
 
     def AddHockeyConference(self, leaguename, conference, prefix="", suffix="Conference"):
+        """
+        Add a hockey conference to the array.
+        """
         self.hockeyarray = AddHockeyConferenceToArray(
-            self.hockeyarray, leaguename, conference, prefix, suffix)
+            self.hockeyarray, leaguename, conference, prefix, suffix
+        )
 
     def RemoveHockeyConference(self, leaguename, conference):
+        """
+        Remove a hockey conference from the array.
+        """
         self.hockeyarray = RemoveHockeyConferenceFromArray(
-            self.hockeyarray, leaguename, conference)
+            self.hockeyarray, leaguename, conference
+        )
 
-    def ReplaceHockeyConferenc(self, leaguename, oldconference, newconference, prefix="", suffix="Conference"):
-        self.hockeyarray = ReplaceHockeyConferencFromArray(
-            self.hockeyarray, leaguename, oldconference, newconference, prefix, suffix)
+    def ReplaceHockeyConference(self, leaguename, oldconference, newconference, prefix="", suffix="Conference"):
+        """
+        Replace a hockey conference in the array.
+        """
+        self.hockeyarray = ReplaceHockeyConferenceFromArray(
+            self.hockeyarray, leaguename, oldconference, newconference, prefix, suffix
+        )
 
     def AddHockeyDivision(self, leaguename, division, conference, prefix="", suffix="Division"):
+        """
+        Add a hockey division to the array.
+        """
         self.hockeyarray = AddHockeyDivisionToArray(
-            self.hockeyarray, leaguename, division, conference, prefix, suffix)
+            self.hockeyarray, leaguename, division, conference, prefix, suffix
+        )
 
     def RemoveHockeyDivision(self, leaguename, division, conference):
+        """
+        Remove a hockey division from the array.
+        """
         self.hockeyarray = RemoveHockeyDivisionFromArray(
-            self.hockeyarray, leaguename, division, conference)
+            self.hockeyarray, leaguename, division, conference
+        )
 
     def ReplaceHockeyDivision(self, leaguename, olddivision, newdivision, conference, prefix="", suffix="Division"):
+        """
+        Replace a hockey division in the array.
+        """
         self.hockeyarray = ReplaceHockeyDivisionFromArray(
-            self.hockeyarray, leaguename, olddivision, newdivision, conference, prefix, suffix)
+            self.hockeyarray, leaguename, olddivision, newdivision, conference, prefix, suffix
+        )
 
     def MoveHockeyDivisionToConference(self, leaguename, division, oldconference, newconference):
+        """
+        Move a hockey division to a different conference in the array.
+        """
         self.hockeyarray = MoveHockeyDivisionToConferenceFromArray(
-            self.hockeyarray, leaguename, division, oldconference, newconference)
+            self.hockeyarray, leaguename, division, oldconference, newconference
+        )
 
-    def AddHockeyTeam(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", teamaffiliates=""):
-        self.hockeyarray = AddHockeyTeamToArray(self.hockeyarray, leaguename, cityname, areaname, countryname,
-                                                fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix, teamnamesuffix, teamaffiliates)
+    def AddHockeyTeam(self, leaguename, cityname, areaname, countryname, fullcountryname,
+                      fullareaname, teamname, conference, division, arenaname,
+                      teamnameprefix="", teamnamesuffix="", teamaffiliates=""):
+        """
+        Add a hockey team to the array.
+        """
+        self.hockeyarray = AddHockeyTeamToArray(
+            self.hockeyarray, leaguename, cityname, areaname, countryname,
+            fullcountryname, fullareaname, teamname, conference, division,
+            arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
+        )
 
     def RemoveHockeyTeam(self, leaguename, teamname, conference, division):
+        """
+        Remove a hockey team from the array.
+        """
         self.hockeyarray = RemoveHockeyTeamFromArray(
-            self.hockeyarray, leaguename, teamname, conference, division)
+            self.hockeyarray, leaguename, teamname, conference, division
+        )
 
-    def ReplaceHockeyTeam(self, leaguename, oldteamname, newteamname, conference, division, cityname=None, areaname=None, countryname=None, fullcountryname=None, fullareaname=None, arenaname=None, teamnameprefix=None, teamnamesuffix=None):
-        self.hockeyarray = ReplaceHockeyTeamFromArray(self.hockeyarray, leaguename, oldteamname, newteamname, conference,
-                                                      division, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname, teamnameprefix, teamnamesuffix)
+    def ReplaceHockeyTeam(self, leaguename, oldteamname, newteamname, conference, division,
+                          cityname=None, areaname=None, countryname=None, fullcountryname=None,
+                          fullareaname=None, arenaname=None, teamnameprefix=None, teamnamesuffix=None):
+        """
+        Replace a hockey team in the array.
+        """
+        self.hockeyarray = ReplaceHockeyTeamFromArray(
+            self.hockeyarray, leaguename, oldteamname, newteamname, conference,
+            division, cityname, areaname, countryname, fullcountryname,
+            fullareaname, arenaname, teamnameprefix, teamnamesuffix
+        )
 
     def MoveHockeyTeamToConference(self, leaguename, teamname, oldconference, newconference, division):
+        """
+        Move a hockey team to a different conference in the array.
+        """
         self.hockeyarray = MoveHockeyTeamToConferenceFromArray(
-            self.hockeyarray, leaguename, teamname, oldconference, newconference, division)
+            self.hockeyarray, leaguename, teamname, oldconference, newconference, division
+        )
 
     def MoveHockeyTeamToDivision(self, leaguename, teamname, conference, olddivision, newdivision):
+        """
+        Move a hockey team to a different division in the array.
+        """
         self.hockeyarray = MoveHockeyTeamToDivisionFromArray(
-            self.hockeyarray, leaguename, teamname, conference, olddivision, newdivision)
+            self.hockeyarray, leaguename, teamname, conference, olddivision, newdivision
+        )
 
-    def AddHockeyArena(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
+    def AddHockeyArena(self, leaguename, cityname, areaname, countryname,
+                       fullcountryname, fullareaname, arenaname):
+        """
+        Add a hockey arena to the array.
+        """
         self.hockeyarray = AddHockeyArenaToArray(
-            self.hockeyarray, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname)
+            self.hockeyarray, leaguename, cityname, areaname, countryname,
+            fullcountryname, fullareaname, arenaname
+        )
 
-    def AddHockeyGame(self, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
-        self.hockeyarray = AddHockeyGameToArray(self.hockeyarray, leaguename, date, time, hometeam, awayteam, periodsscore,
-                                                shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame)
+    def AddHockeyGame(self, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal,
+                      ppgoals, shgoals, periodpens, periodpims, periodhits,
+                      takeaways, faceoffwins, atarena, isplayoffgame):
+        """
+        Add a hockey game to the array.
+        """
+        self.hockeyarray = AddHockeyGameToArray(
+            self.hockeyarray, leaguename, date, time, hometeam, awayteam, periodsscore,
+            shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits,
+            takeaways, faceoffwins, atarena, isplayoffgame
+        )
 
     def LoadHockeyXML(self, inxmlfile, xmlisfile=True, verbose=True):
-        self.hockeyarray = MakeHockeyArrayFromHockeyXML(
-            inxmlfile, xmlisfile, verbose)
+        """
+        Load hockey data from an XML file into the array.
+        """
+        self.hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, verbose)
 
     def LoadHockeyDatabase(self, sdbfile, verbose=True):
+        """
+        Load hockey data from a database into the array.
+        """
         self.hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose)
 
     def LoadHockeySQL(self, sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
-        self.hockeyarray = MakeHockeyArrayFromHockeySQL(
-            sqlfile, sdbfile, sqlisfile, verbose)
+        """
+        Load hockey data from an SQL file into the array.
+        """
+        self.hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, verbose)
 
     def LoadOldHockeyDatabase(self, sdbfile, verbose=True):
-        self.hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(
-            sdbfile, verbose)
+        """
+        Load hockey data from an old database format into the array.
+        """
+        self.hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose)
 
     def MakeHockeyXML(self, verbose=True):
+        """
+        Generate an XML representation of the hockey data.
+        """
         return MakeHockeyXMLFromHockeyArray(self.hockeyarray, verbose)
 
     def MakeHockeyDatabase(self, sdbfile=None, returnxml=False, returndb=False, verbose=True):
-        return MakeHockeyDatabaseFromHockeyArray(self.hockeyarray, sdbfile, returnxml, returndb, verbose)
+        """
+        Create a hockey database from the array.
+        """
+        return MakeHockeyDatabaseFromHockeyArray(
+            self.hockeyarray, sdbfile, returnxml, returndb, verbose
+        )
 
     def MakeHockeyPython(self, verbose=True):
-        return MakeHockeyPythonFromHockeyArray(self.hockeyarray, verbose=True)
+        """
+        Generate a Python script representation of the hockey data.
+        """
+        return MakeHockeyPythonFromHockeyArray(self.hockeyarray, verbose)
 
     def MakeHockeyPythonAlt(self, verbose=True, verbosepy=True):
+        """
+        Generate an alternative Python script representation of the hockey data.
+        """
         return MakeHockeyPythonAltFromHockeyArray(self.hockeyarray, verbose, verbosepy)
 
     def MakeHockeySQL(self, verbose=True):
+        """
+        Generate an SQL script representation of the hockey data.
+        """
         return MakeHockeySQLFromHockeyArray(self.hockeyarray, verbose)
 
     def MakeHockeyXMLFile(self, outxmlfile=None, returnxml=False, verbose=True):
+        """
+        Write the hockey data to an XML file.
+        """
         return MakeHockeyXMLFileFromHockeyArray(self.hockeyarray, outxmlfile, returnxml, verbose)
 
     def MakeHockeyPythonFile(self, outpyfile=None, returnpy=False, verbose=True):
+        """
+        Write the hockey data to a Python script file.
+        """
         return MakeHockeyPythonFileFromHockeyArray(self.hockeyarray, outpyfile, returnpy, verbose)
 
-    def MakeHockeyPythonAltFileFromHockeyArray(self, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
-        return MakeHockeyPythonAltFileFromHockeyArray(self.hockeyarray, outpyfile, returnpy, verbose, verbosepy)
+    def MakeHockeyPythonAltFile(self, outpyfile=None, returnpy=False, verbose=True, verbosepy=True):
+        """
+        Write the hockey data to an alternative Python script file.
+        """
+        return MakeHockeyPythonAltFileFromHockeyArray(
+            self.hockeyarray, outpyfile, returnpy, verbose, verbosepy
+        )
 
     def MakeHockeySQLFile(self, sqlfile=None, returnsql=False, verbose=True):
+        """
+        Write the hockey data to an SQL script file.
+        """
         return MakeHockeySQLFileFromHockeyArray(self.hockeyarray, sqlfile, returnsql, verbose)
-
-
-''' // Object-oriented classes and functions by Kazuki Przyborowski '''
 
 
 class MakeHockeyData:
@@ -145,52 +269,114 @@ class MakeHockeyData:
         MakeHockeyLeagueTable(self.hockeycon)
 
     def MakeHockeyTeamTable(self, leaguename):
+        """
+        Create a hockey team table in the database.
+        """
         MakeHockeyTeamTable(self.hockeycon, leaguename)
 
     def MakeHockeyConferenceTable(self, leaguename):
+        """
+        Create a hockey conference table in the database.
+        """
         MakeHockeyConferenceTable(self.hockeycon, leaguename)
 
     def MakeHockeyGameTable(self, leaguename):
+        """
+        Create a hockey game table in the database.
+        """
         MakeHockeyGameTable(self.hockeycon, leaguename)
 
     def MakeHockeyDivisionTable(self, leaguename):
+        """
+        Create a hockey division table in the database.
+        """
         MakeHockeyDivisionTable(self.hockeycon, leaguename)
 
-    def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname, date, playofffmt, ordertype):
-        MakeHockeyLeague(self.hockeycon, leaguename, leaguefullname, countryname, fullcountryname,
-                         date, playofffmt, ordertype)
+    def AddHockeyLeague(self, leaguename, leaguefullname, countryname,
+                        fullcountryname, date, playofffmt, ordertype):
+        """
+        Add a hockey league to the database.
+        """
+        MakeHockeyLeague(
+            self.hockeycon, leaguename, leaguefullname, countryname,
+            fullcountryname, date, playofffmt, ordertype
+        )
 
-    def AddHockeyConference(self, leaguename, conference, prefix="", suffix="Conference", hasconferences=True):
-        MakeHockeyConference(self.hockeycon, leaguename, conference,
-                             prefix, suffix, hasconferences)
+    def AddHockeyConference(self, leaguename, conference, prefix="",
+                            suffix="Conference", hasconferences=True):
+        """
+        Add a hockey conference to the database.
+        """
+        MakeHockeyConference(
+            self.hockeycon, leaguename, conference, prefix, suffix, hasconferences
+        )
 
-    def AddHockeyDivision(self, leaguename, division, conference, prefix="", suffix="Division", hasconferences=True, hasdivisions=True):
-        MakeHockeyDivision(self.hockeycon, leaguename, division, conference,
-                           prefix, suffix, hasconferences, hasdivisions)
+    def AddHockeyDivision(self, leaguename, division, conference, prefix="",
+                          suffix="Division", hasconferences=True, hasdivisions=True):
+        """
+        Add a hockey division to the database.
+        """
+        MakeHockeyDivision(
+            self.hockeycon, leaguename, division, conference, prefix,
+            suffix, hasconferences, hasdivisions
+        )
 
-    def AddHockeyTeam(self, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname, conference, division, arenaname, teamnameprefix="", teamnamesuffix="", teamaffiliates="", hasconferences=True, hasdivisions=True):
-        MakeHockeyTeam(self.hockeycon, leaguename, date, cityname, areaname, countryname, fullcountryname, fullareaname, teamname,
-                       conference, division, arenaname, teamnameprefix, teamnamesuffix, teamaffiliates, hasconferences, hasdivisions)
+    def AddHockeyTeam(self, leaguename, date, cityname, areaname, countryname,
+                      fullcountryname, fullareaname, teamname, conference,
+                      division, arenaname, teamnameprefix="", teamnamesuffix="",
+                      teamaffiliates="", hasconferences=True, hasdivisions=True):
+        """
+        Add a hockey team to the database.
+        """
+        MakeHockeyTeam(
+            self.hockeycon, leaguename, date, cityname, areaname, countryname,
+            fullcountryname, fullareaname, teamname, conference, division,
+            arenaname, teamnameprefix, teamnamesuffix, teamaffiliates,
+            hasconferences, hasdivisions
+        )
 
-    def AddHockeyGame(self, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
-        MakeHockeyGame(self.hockeycon, leaguename, date, time, hometeam, awayteam, periodsscore, shotsongoal,
-                       ppgoals, shgoals, periodpens, periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame)
+    def AddHockeyGame(self, leaguename, date, time, hometeam, awayteam, periodsscore,
+                      shotsongoal, ppgoals, shgoals, periodpens, periodpims,
+                      periodhits, takeaways, faceoffwins, atarena, isplayoffgame):
+        """
+        Add a hockey game to the database.
+        """
+        MakeHockeyGame(
+            self.hockeycon, leaguename, date, time, hometeam, awayteam,
+            periodsscore, shotsongoal, ppgoals, shgoals, periodpens,
+            periodpims, periodhits, takeaways, faceoffwins, atarena, isplayoffgame
+        )
 
-    def AddHockeyArena(self, leaguename, cityname, areaname, countryname, fullcountryname, fullareaname, arenaname):
-        MakeHockeyArena(self.hockeycon, leaguename, cityname, areaname,
-                        countryname, fullcountryname, fullareaname, arenaname)
+    def AddHockeyArena(self, leaguename, cityname, areaname, countryname,
+                       fullcountryname, fullareaname, arenaname):
+        """
+        Add a hockey arena to the database.
+        """
+        MakeHockeyArena(
+            self.hockeycon, leaguename, cityname, areaname, countryname,
+            fullcountryname, fullareaname, arenaname
+        )
 
-    def OptimizeHockey(self, optimize=True):
-        return OptimizeHockeyDatabase(self.hockeycon)
-
-    def OptimizeHockeyDatabase(self, optimize=True):
-        return OptimizeHockeyDatabase(self.hockeycon)
+    def OptimizeHockey(self):
+        """
+        Optimize the hockey database.
+        """
+        OptimizeHockeyDatabase(self.hockeycon)
 
     def Close(self, optimize=True):
-        return CloseHockeyDatabase(self.hockeycon, optimize)
+        """
+        Close the hockey database connection.
+        """
+        CloseHockeyDatabase(self.hockeycon, optimize)
 
     def CloseHockey(self, optimize=True):
-        return CloseHockeyDatabase(self.hockeycon, optimize)
+        """
+        Close the hockey database connection.
+        """
+        CloseHockeyDatabase(self.hockeycon, optimize)
 
     def CloseHockeyDatabase(self, optimize=True):
-        return CloseHockeyDatabase(self.hockeycon, optimize)
+        """
+        Close the hockey database connection.
+        """
+        CloseHockeyDatabase(self.hockeycon, optimize)
