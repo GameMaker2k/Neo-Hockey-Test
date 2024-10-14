@@ -24,7 +24,7 @@ from .hockeyfunctions import *
 
 class MakeHockeyArray:
     def __init__(self, databasename="./hockeydatabase.db3"):
-        CreateHockeyArray(databasename)
+        self.hockeyarray = CreateHockeyArray(databasename)
 
     def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname,
                         date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
