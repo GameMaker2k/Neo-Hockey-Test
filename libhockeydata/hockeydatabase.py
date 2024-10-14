@@ -58,30 +58,15 @@ use_sqlite_lib = "sqlite3"
 enable_apsw = False
 enable_supersqlite = False
 enable_sqlcipher = False
-if (use_sqlite_lib == "sqlite3"):
-    enable_apsw = False
-    enable_supersqlite = False
-    enable_sqlcipher = False
-if (use_sqlite_lib == "supersqlite"):
+if use_sqlite_lib == "supersqlite":
     enable_supersqlite = True
-    enable_apsw = False
-    enable_sqlcipher = False
-elif (use_sqlite_lib == "apsw"):
+elif use_sqlite_lib == "apsw":
     enable_apsw = True
-    enable_supersqlite = False
-    enable_sqlcipher = False
-elif (use_sqlite_lib == "superapsw"):
+elif use_sqlite_lib == "superapsw":
     enable_apsw = True
     enable_supersqlite = True
-    enable_sqlcipher = False
-elif (use_sqlite_lib == "sqlcipher"):
+elif use_sqlite_lib == "sqlcipher":
     enable_sqlcipher = True
-    enable_apsw = False
-    enable_supersqlite = False
-else:
-    enable_apsw = False
-    enable_supersqlite = False
-    enable_sqlcipher = False
 sqlcipher_password = "YourPassword"
 enable_old_makegame = False
 
@@ -115,11 +100,11 @@ defaultpyfile = "./data/hockeydata.py"
 defaultpythonfile = defaultpyfile
 defaultsqlfile = "./data/hockeydata.sql"
 defaultjsonfile = "./data/hockeydata.json"
-compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'xz', 'lz4', 'lzo', 'lzma']
-outextlist = ['gz', 'bz2', 'zst', 'xz', 'lz4', 'lzo', 'lzma']
-outextlistwd = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzma']
-extensions = ['xml', 'json', 'sql', 'db3']
-extensionswd = ['.xml', '.json', '.sql', '.db3']
+compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'xz', 'lz4', 'lzo', 'lzop', 'lzma', 'zlib']
+outextlist = ['gz', 'bz2', 'zst', 'xz', 'lz4', 'lzo', 'lzop', 'lzma', 'zl', 'zz', 'zlib']
+outextlistwd = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
+extensions = ['xml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
+extensionswd = ['.xml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
 
 # From: https://stackoverflow.com/a/28568003
 # By Phaxmohdem
@@ -291,13 +276,21 @@ except ImportError:
 
 
 def check_if_string(strtext):
-    if (sys.version[0] == "2"):
-        if (isinstance(strtext, basestring)):
-            return True
-    if (sys.version[0] >= "3"):
-        if (isinstance(strtext, str)):
-            return True
-    return False
+    # Python 2 compatibility
+    if sys.version_info[0] < 3:
+        return isinstance(strtext, basestring)  # In Python 2, check against 'basestring'
+    # Python 3 compatibility
+    else:
+        return isinstance(strtext, str)  # In Python 3, check against 'str'
+
+
+def check_if_int(value):
+    # Python 2 compatibility
+    if sys.version_info[0] < 3:
+        return isinstance(value, (int, long))  # In Python 2, check against 'int' and 'long'
+    # Python 3 compatibility
+    else:
+        return isinstance(value, int)  # In Python 3, 'int' handles both small and large integers
 
 
 def EscapeXMLString(inxml, quote=True):
