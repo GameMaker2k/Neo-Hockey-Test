@@ -24,14 +24,14 @@ from .hockeyfunctions import *
 
 class MakeHockeyArray:
     def __init__(self, databasename="./hockeydatabase.db3"):
-        self.hockeyarray = CreateHockeyArray(databasename)
+        CreateHockeyArray(databasename)
 
     def AddHockeyLeague(self, leaguename, leaguefullname, countryname, fullcountryname,
                         date, playofffmt, ordertype, hasconferences="yes", hasdivisions="yes"):
         """
         Add a hockey league to the array.
         """
-        self.hockeyarray = AddHockeyLeagueToArray(
+        AddHockeyLeagueToArray(
             self.hockeyarray, leaguename, leaguefullname, countryname,
             fullcountryname, date, playofffmt, ordertype, hasconferences, hasdivisions
         )
@@ -40,7 +40,7 @@ class MakeHockeyArray:
         """
         Remove a hockey league from the array.
         """
-        self.hockeyarray = RemoveHockeyLeagueFromArray(self.hockeyarray, leaguename)
+        RemoveHockeyLeagueFromArray(self.hockeyarray, leaguename)
 
     def ReplaceHockeyLeague(self, oldleaguename, newleaguename, leaguefullname=None,
                             countryname=None, fullcountryname=None, date=None,
@@ -48,7 +48,7 @@ class MakeHockeyArray:
         """
         Replace a hockey league in the array.
         """
-        self.hockeyarray = ReplaceHockeyLeagueFromArray(
+        ReplaceHockeyLeagueFromArray(
             self.hockeyarray, oldleaguename, newleaguename, leaguefullname,
             countryname, fullcountryname, date, playofffmt, ordertype,
             hasconferences, hasdivisions
@@ -58,7 +58,7 @@ class MakeHockeyArray:
         """
         Add a hockey conference to the array.
         """
-        self.hockeyarray = AddHockeyConferenceToArray(
+        AddHockeyConferenceToArray(
             self.hockeyarray, leaguename, conference, prefix, suffix
         )
 
@@ -66,7 +66,7 @@ class MakeHockeyArray:
         """
         Remove a hockey conference from the array.
         """
-        self.hockeyarray = RemoveHockeyConferenceFromArray(
+        RemoveHockeyConferenceFromArray(
             self.hockeyarray, leaguename, conference
         )
 
@@ -74,7 +74,7 @@ class MakeHockeyArray:
         """
         Replace a hockey conference in the array.
         """
-        self.hockeyarray = ReplaceHockeyConferenceFromArray(
+        ReplaceHockeyConferenceFromArray(
             self.hockeyarray, leaguename, oldconference, newconference, prefix, suffix
         )
 
@@ -82,7 +82,7 @@ class MakeHockeyArray:
         """
         Add a hockey division to the array.
         """
-        self.hockeyarray = AddHockeyDivisionToArray(
+        AddHockeyDivisionToArray(
             self.hockeyarray, leaguename, division, conference, prefix, suffix
         )
 
@@ -90,7 +90,7 @@ class MakeHockeyArray:
         """
         Remove a hockey division from the array.
         """
-        self.hockeyarray = RemoveHockeyDivisionFromArray(
+        RemoveHockeyDivisionFromArray(
             self.hockeyarray, leaguename, division, conference
         )
 
@@ -98,7 +98,7 @@ class MakeHockeyArray:
         """
         Replace a hockey division in the array.
         """
-        self.hockeyarray = ReplaceHockeyDivisionFromArray(
+        ReplaceHockeyDivisionFromArray(
             self.hockeyarray, leaguename, olddivision, newdivision, conference, prefix, suffix
         )
 
@@ -106,7 +106,7 @@ class MakeHockeyArray:
         """
         Move a hockey division to a different conference in the array.
         """
-        self.hockeyarray = MoveHockeyDivisionToConferenceFromArray(
+        MoveHockeyDivisionToConferenceFromArray(
             self.hockeyarray, leaguename, division, oldconference, newconference
         )
 
@@ -116,7 +116,7 @@ class MakeHockeyArray:
         """
         Add a hockey team to the array.
         """
-        self.hockeyarray = AddHockeyTeamToArray(
+        AddHockeyTeamToArray(
             self.hockeyarray, leaguename, cityname, areaname, countryname,
             fullcountryname, fullareaname, teamname, conference, division,
             arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
@@ -126,7 +126,7 @@ class MakeHockeyArray:
         """
         Remove a hockey team from the array.
         """
-        self.hockeyarray = RemoveHockeyTeamFromArray(
+        RemoveHockeyTeamFromArray(
             self.hockeyarray, leaguename, teamname, conference, division
         )
 
@@ -136,7 +136,7 @@ class MakeHockeyArray:
         """
         Replace a hockey team in the array.
         """
-        self.hockeyarray = ReplaceHockeyTeamFromArray(
+        ReplaceHockeyTeamFromArray(
             self.hockeyarray, leaguename, oldteamname, newteamname, conference,
             division, cityname, areaname, countryname, fullcountryname,
             fullareaname, arenaname, teamnameprefix, teamnamesuffix
@@ -146,7 +146,7 @@ class MakeHockeyArray:
         """
         Move a hockey team to a different conference in the array.
         """
-        self.hockeyarray = MoveHockeyTeamToConferenceFromArray(
+        MoveHockeyTeamToConferenceFromArray(
             self.hockeyarray, leaguename, teamname, oldconference, newconference, division
         )
 
@@ -154,7 +154,7 @@ class MakeHockeyArray:
         """
         Move a hockey team to a different division in the array.
         """
-        self.hockeyarray = MoveHockeyTeamToDivisionFromArray(
+        MoveHockeyTeamToDivisionFromArray(
             self.hockeyarray, leaguename, teamname, conference, olddivision, newdivision
         )
 
@@ -163,7 +163,7 @@ class MakeHockeyArray:
         """
         Add a hockey arena to the array.
         """
-        self.hockeyarray = AddHockeyArenaToArray(
+        AddHockeyArenaToArray(
             self.hockeyarray, leaguename, cityname, areaname, countryname,
             fullcountryname, fullareaname, arenaname
         )
@@ -174,7 +174,7 @@ class MakeHockeyArray:
         """
         Add a hockey game to the array.
         """
-        self.hockeyarray = AddHockeyGameToArray(
+        AddHockeyGameToArray(
             self.hockeyarray, leaguename, date, time, hometeam, awayteam, periodsscore,
             shotsongoal, ppgoals, shgoals, periodpens, periodpims, periodhits,
             takeaways, faceoffwins, atarena, isplayoffgame
@@ -184,25 +184,25 @@ class MakeHockeyArray:
         """
         Load hockey data from an XML file into the array.
         """
-        self.hockeyarray = MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, verbose)
+        MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile, verbose)
 
     def LoadHockeyDatabase(self, sdbfile, verbose=True):
         """
         Load hockey data from a database into the array.
         """
-        self.hockeyarray = MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose)
+        MakeHockeyArrayFromHockeyDatabase(sdbfile, verbose)
 
     def LoadHockeySQL(self, sqlfile, sdbfile=None, sqlisfile=True, verbose=True):
         """
         Load hockey data from an SQL file into the array.
         """
-        self.hockeyarray = MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, verbose)
+        MakeHockeyArrayFromHockeySQL(sqlfile, sdbfile, sqlisfile, verbose)
 
     def LoadOldHockeyDatabase(self, sdbfile, verbose=True):
         """
         Load hockey data from an old database format into the array.
         """
-        self.hockeyarray = MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose)
+        MakeHockeyArrayFromOldHockeyDatabase(sdbfile, verbose)
 
     def MakeHockeyXML(self, verbose=True):
         """
