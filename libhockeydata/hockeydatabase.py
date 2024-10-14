@@ -384,7 +384,7 @@ def ConvertXMLValuesForPython(invalue):
     elif (invalue == "false"):
         outvalue = False
     elif (invalue == "null"):
-        outvalue = "None"
+        outvalue = None
     elif (invalue == ""):
         outvalue = "''"
     else:
