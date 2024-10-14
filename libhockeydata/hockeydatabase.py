@@ -1484,7 +1484,7 @@ def MakeHockeyConference(sqldatacon, leaguename, conference, prefix="", suffix="
     return True
 
 
-def AddHockeyDivisionToArray(inhockeyarray, leaguename, division, conference, prefix="", suffix="Division
+def AddHockeyDivisionToArray(inhockeyarray, leaguename, division, conference, prefix="", suffix="Division"):
     # Ensure divisionlist and database keys exist
     inhockeyarray.setdefault(leaguename, {}).setdefault(
         conference, {}).setdefault('divisionlist', [])
@@ -1594,7 +1594,7 @@ def ReplaceHockeyDivisionFromArray(inhockeyarray, leaguename, olddivision, newdi
     return inhockeyarray
 
 
-def MoveHockeyDivisionToConferenceFromArray(inhockeyarray, leaguename, division, oldconference, newconference
+def MoveHockeyDivisionToConferenceFromArray(inhockeyarray, leaguename, division, oldconference, newconference):
     # Ensure keys exist and division doesn't already exist in the new conference
     if (leaguename in inhockeyarray and
         newconference in inhockeyarray[leaguename] and
