@@ -79,18 +79,10 @@ try:
 except ImportError:
     testparamiko = False
 
-# lxml and ElementTree XML parsing fallback handling
-testlxml = False
 try:
-    from lxml import etree as cElementTree  # Try lxml first
-    testlxml = True
+    import xml.etree.cElementTree as cElementTree  # Fallback to cElementTree
 except ImportError:
-    try:
-        import xml.etree.cElementTree as cElementTree  # Fallback to cElementTree
-        testlxml = False
-    except ImportError:
-        import xml.etree.ElementTree as cElementTree  # Final fallback to ElementTree
-        testlxml = False
+    import xml.etree.ElementTree as cElementTree  # Final fallback to ElementTree
 
 # urlparse and urllib fallback handling (Python 2/3 differences)
 try:
@@ -1849,15 +1841,11 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
                     xmlstring_game = cElementTree.SubElement(xmlstring_games, "game", {'date': str(hgkey['date']), 'time': str(hgkey['time']), 'hometeam': str(hgkey['hometeam']), 'awayteam': str(hgkey['awayteam']), 'goals': str(hgkey['goals']), 'sogs': str(hgkey['sogs']), 'ppgs': str(ppgs), 'shgs': str(
                         hgkey['shgs']), 'penalties': str(hgkey['penalties']), 'pims': str(hgkey['pims']), 'hits': str(hgkey['hits']), 'takeaways': str(hgkey['takeaways']), 'faceoffwins': str(hgkey['faceoffwins']), 'atarena': str(hgkey['atarena']), 'isplayoffgame': str(hgkey['isplayoffgame'])})
     '''xmlstring = cElementTree.tostring(xmlstring_hockey, encoding, "xml", True, "xml", True)'''
-    if (testlxml):
+    try:
         xmlstring = cElementTree.tostring(
-            xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True, pretty_print=True)
-    else:
-        try:
-            xmlstring = cElementTree.tostring(
                 xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True)
-        except TypeError:
-            xmlstring = cElementTree.tostring(
+    except TypeError:
+        xmlstring = cElementTree.tostring(
                 xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
@@ -3430,15 +3418,11 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
             xmlstring_rowlist = cElementTree.SubElement(
                 xmlstring_rows, "rowlist", {'name': str(rowinfo)})
     '''xmlstring = cElementTree.tostring(xmlstring_hockey, encoding, "xml", True, "xml", True)'''
-    if (testlxml):
+    try:
         xmlstring = cElementTree.tostring(
-            xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True, pretty_print=True)
-    else:
-        try:
-            xmlstring = cElementTree.tostring(
                 xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True)
-        except TypeError:
-            xmlstring = cElementTree.tostring(
+    except TypeError:
+        xmlstring = cElementTree.tostring(
                 xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)

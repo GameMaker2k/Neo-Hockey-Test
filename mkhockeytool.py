@@ -146,7 +146,7 @@ if (premenuact == "2"):
         if ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeyXML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
-        if ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
+        elif ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeyXML(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
         elif (ext == ".db3" and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
