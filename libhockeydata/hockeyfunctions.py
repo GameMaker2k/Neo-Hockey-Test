@@ -1013,7 +1013,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
             try:
                 inxmlsfile = BytesIO(inxmlfile)
             except TypeError:
-                inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
+                inxmlsfile = BytesIO(inxmlfile.encode(encoding))
             inxmlfile = UncompressFile(inxmlsfile)
         try:
             xmldom = xml.dom.minidom.parse(file=inxmlfile)
@@ -1028,7 +1028,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
     else:
         outxmlcode = xmldom.toxml(encoding)
     if (hasattr(outxmlcode, 'decode')):
-        outxmlcode = outxmlcode.decode("UTF-8")
+        outxmlcode = outxmlcode.decode(encoding)
     xmldom.unlink()
     return outxmlcode
 
@@ -1046,7 +1046,7 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", ne
     try:
         xmlfp.write(xmlstring)
     except TypeError:
-        xmlfp.write(xmlstring.encode("UTF-8"))
+        xmlfp.write(xmlstring.encode(encoding))
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
@@ -1064,7 +1064,7 @@ def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", ne
     return True
 
 
-def CheckHockeyXML(inxmlfile, xmlisfile=True):
+def CheckHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
         try:
             if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
@@ -1072,7 +1072,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
                     inxmlfile, geturls_headers, geturls_cj)
                 try:
                     hockeyfile = cElementTree.parse(
-                        inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                        inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
@@ -1082,7 +1082,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
                         return False
             else:
                 hockeyfile = cElementTree.parse(UncompressFile(
-                    inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"))
+                    inxmlfile), parser=cElementTree.XMLParser(encoding=encoding))
                 hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -1098,11 +1098,11 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
             try:
                 inxmlsfile = BytesIO(inxmlfile)
             except TypeError:
-                inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
+                inxmlsfile = BytesIO(inxmlfile.encode(encoding))
             inxmlfile = UncompressFile(inxmlsfile)
         try:
             hockeyfile = cElementTree.parse(
-                inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -1160,7 +1160,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True):
     return True
 
 
-def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
+def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
         try:
             if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
@@ -1168,7 +1168,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
                     inxmlfile, geturls_headers, geturls_cj)
                 try:
                     hockeyfile = cElementTree.parse(
-                        inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                        inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
@@ -1178,7 +1178,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
                         return False
             else:
                 hockeyfile = cElementTree.parse(UncompressFile(
-                    inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"))
+                    inxmlfile), parser=cElementTree.XMLParser(encoding=encoding))
                 hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -1194,11 +1194,11 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True):
             try:
                 inxmlsfile = BytesIO(inxmlfile)
             except TypeError:
-                inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
+                inxmlsfile = BytesIO(inxmlfile.encode(encoding))
             inxmlfile = UncompressFile(inxmlsfile)
         try:
             hockeyfile = cElementTree.parse(
-                inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
