@@ -179,12 +179,10 @@ if (getargs.export):
             HockeyDatabaseFN = get_user_input(
                 "Enter Hockey Database JSON File Name to Export: ")
             getargs.outfile = HockeyDatabaseFN
-    elif (getargs.type is not None and getargs.type.lower() == "py"):
-        if (getargs.outfile is None):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database Python File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-    elif (getargs.type is not None and getargs.type.lower() == "pyalt"):
+    elif (getargs.type is not None and getargs.type.lower() == "py" or
+          getargs.type is not None and getargs.type.lower() == "pyalt" or
+          getargs.type is not None and getargs.type.lower() == "oopy" or
+          getargs.type is not None and getargs.type.lower() == "oopyalt"):
         if (getargs.outfile is None):
             HockeyDatabaseFN = get_user_input(
                 "Enter Hockey Database Python File Name to Export: ")
@@ -228,6 +226,12 @@ if (getargs.export):
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "pyalt"):
         pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
+            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+    elif (getargs.type.lower() == "oopy"):
+        pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
+            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+    elif (getargs.type.lower() == "oopyalt"):
+        pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "sql"):
         pyhockeystats.MakeHockeySQLFileFromHockeyArray(
