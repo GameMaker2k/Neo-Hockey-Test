@@ -2240,7 +2240,7 @@ def MakeHockeyPlayoffTeam(sqldatacon, leaguename, playofffmt="Division=3,Confere
     return True
 
 
-def MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable=True):
+def MakeHockeyStandingsTableOld(sqldatacon, leaguename, date, droptable=True):
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
         return False
     if (droptable):
@@ -2255,6 +2255,44 @@ def MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable=True):
         SelectWhere = "WHERE Date<="+date
     sqldatacon[0].execute("CREATE TEMP TABLE "+leaguename+"Standings AS SELECT * FROM " +
                           leaguename+"Stats "+SelectWhere+" GROUP BY TeamID ORDER BY TeamID ASC, Date DESC")
+    return True
+
+
+def MakeHockeyStandingsTable(sqldatacon, leaguename, date, droptable=True):
+    if not CheckHockeySQLiteDatabaseConnection(sqldatacon):
+        return False
+    
+    # Drop the table if the flag is set to True
+    if droptable:
+        sqldatacon[0].execute("DROP TABLE IF EXISTS {}Standings".format(leaguename))
+    
+    # Prepare the where clause based on the provided date
+    SelectWhere = ""
+    
+    # Ensure 'date' is treated correctly in both Python 2 and 3
+    try:
+        if isinstance(date, basestring) and date.isdigit() and len(date) == 8:
+            date = int(date)  # Convert date to an integer for comparison
+            SelectWhere = "WHERE Date <= {}".format(date)
+    except AttributeError:
+        SelectWhere = ""
+
+    # Query using MAX(Date) for better performance and compatibility in both Python versions
+    query = """
+    CREATE TEMP TABLE {0}Standings AS
+    SELECT t1.*
+    FROM {0}Stats t1
+    JOIN (
+        SELECT TeamID, MAX(Date) as LatestDate
+        FROM {0}Stats
+        {1}
+        GROUP BY TeamID
+    ) t2
+    ON t1.TeamID = t2.TeamID AND t1.Date = t2.LatestDate
+    """.format(leaguename, SelectWhere)
+    
+    # Execute the query
+    sqldatacon[0].execute(query)
     return True
 
 
