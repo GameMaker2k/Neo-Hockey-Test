@@ -104,11 +104,11 @@ if (os.path.exists(tempdir+"/pybundle/__main__.py") and os.path.isfile(tempdir+"
 if (os.path.exists(tempdir+"/pybundle/__main__.py") and os.path.isdir(tempdir+"/pybundle/__main__.py")):
     shutil.rmtree(tempdir+"/pybundle/__main__.py")
 shutil.copy2("./"+infile, tempdir+"/pybundle/__main__.py")
-if (os.path.exists(tempdir+"/pybundle/libhockeydata") and os.path.isfile(tempdir+"/pybundle/libhockeydata")):
-    os.unlink(tempdir+"/pybundle/libhockeydata")
-if (os.path.exists(tempdir+"/pybundle/libhockeydata") and os.path.isdir(tempdir+"/pybundle/libhockeydata")):
-    shutil.rmtree(tempdir+"/pybundle/libhockeydata")
-shutil.copytree("./libhockeydata", tempdir+"/pybundle/libhockeydata")
+if (os.path.exists(tempdir+"/pybundle/pyhockeystats") and os.path.isfile(tempdir+"/pybundle/pyhockeystats")):
+    os.unlink(tempdir+"/pybundle/pyhockeystats")
+if (os.path.exists(tempdir+"/pybundle/pyhockeystats") and os.path.isdir(tempdir+"/pybundle/pyhockeystats")):
+    shutil.rmtree(tempdir+"/pybundle/pyhockeystats")
+shutil.copytree("./pyhockeystats", tempdir+"/pybundle/pyhockeystats")
 if (os.path.exists(tempdir+"/"+outfilezip) and os.path.isfile(tempdir+"/"+outfilezip)):
     os.unlink(tempdir+"/"+outfilezip)
 if (os.path.exists(tempdir+"/"+outfilezip) and os.path.isdir(tempdir+"/"+outfilezip)):

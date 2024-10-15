@@ -24,8 +24,8 @@ import sys
 import traceback
 from sys import argv
 
-import libhockeydata
-from libhockeydata import *
+import pyhockeystats
+from pyhockeystats import *
 
 taskfound = False
 if (len(sys.argv) < 2):
@@ -35,7 +35,7 @@ if (len(sys.argv) < 2):
                                          )+"."+str(sys.version_info[2])+"> "
     cmdinput = None
     print("PyShell "+sys.version+" on "+sys.platform +
-          "\nLoaded Python module libhockeydata "+libhockeydata.__version__+"\n")
+          "\nLoaded Python module pyhockeystats "+pyhockeystats.__version__+"\n")
     while (True):
         try:
             cmdinput = code.InteractiveConsole().raw_input(ps1)
@@ -60,7 +60,7 @@ if (sys.argv[1] == "sh" or sys.argv[1] == "shell" or sys.argv[1] == "pysh" or sy
                                          )+"."+str(sys.version_info[2])+"> "
     cmdinput = None
     print("PyShell "+sys.version+" on "+sys.platform +
-          "\nLoaded Python module libhockeydata "+libhockeydata.__version__+"\n")
+          "\nLoaded Python module pyhockeystats "+pyhockeystats.__version__+"\n")
     while (True):
         try:
             cmdinput = code.InteractiveConsole().raw_input(ps1)

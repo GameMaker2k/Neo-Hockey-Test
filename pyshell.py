@@ -25,8 +25,8 @@ import sys
 import traceback
 from sys import argv
 
-import libhockeydata
-from libhockeydata import *
+import pyhockeystats
+from pyhockeystats import *
 
 taskfound = False
 if (len(sys.argv) < 2):
@@ -36,7 +36,7 @@ if (len(sys.argv) < 2):
                                          )+"."+str(sys.version_info[2])+"> "
     cmdinput = None
     print("PyShell "+sys.version+" on "+sys.platform+os.linesep+"Loaded Python module " +
-          libhockeydata.__program_name__+" "+libhockeydata.__version__+os.linesep)
+          pyhockeystats.__program_name__+" "+pyhockeystats.__version__+os.linesep)
     while (True):
         try:
             cmdinput = code.InteractiveConsole().raw_input(ps1)
@@ -61,7 +61,7 @@ if (sys.argv[1] == "sh" or sys.argv[1] == "shell" or sys.argv[1] == "pysh" or sy
                                          )+"."+str(sys.version_info[2])+"> "
     cmdinput = None
     print("PyShell "+sys.version+" on "+sys.platform+os.linesep+"Loaded Python module " +
-          libhockeydata.__program_name__+" "+libhockeydata.__version__+os.linesep)
+          pyhockeystats.__program_name__+" "+pyhockeystats.__version__+os.linesep)
     while (True):
         try:
             cmdinput = code.InteractiveConsole().raw_input(ps1)
@@ -91,7 +91,7 @@ if (sys.argv[1] == "shebang" or sys.argv[1] == "shabang" or sys.argv[1] == "hash
 
 if (sys.argv[1] == "version" or sys.argv[1] == "ver" or sys.argv[1] == "getversion" or sys.argv[1] == "getver"):
     taskfound = True
-    print(libhockeydata.__version__)
+    print(pyhockeystats.__version__)
     sys.exit(0)
 
 if (sys.argv[1] == "exec" or sys.argv[1] == "run" or sys.argv[1] == "execute"):

@@ -24,7 +24,7 @@ import logging
 import os
 import sys
 
-import libhockeydata
+import pyhockeystats
 
 try:
     reload(sys)
@@ -43,14 +43,14 @@ try:
 except ImportError:
     havereadline = False
 
-__project__ = libhockeydata.__project__
-__program_name__ = libhockeydata.__program_name__
-__project_url__ = libhockeydata.__project_url__
-__version_info__ = libhockeydata.__version_info__
-__version_date_info__ = libhockeydata.__version_date_info__
-__version_date__ = libhockeydata.__version_date__
-__version_date_plusrc__ = libhockeydata.__version_date_plusrc__
-__version__ = libhockeydata.__version__
+__project__ = pyhockeystats.__project__
+__program_name__ = pyhockeystats.__program_name__
+__project_url__ = pyhockeystats.__project_url__
+__version_info__ = pyhockeystats.__version_info__
+__version_date_info__ = pyhockeystats.__version_date_info__
+__version_date__ = pyhockeystats.__version_date__
+__version_date_plusrc__ = pyhockeystats.__version_date_plusrc__
+__version__ = pyhockeystats.__version__
 
 defxmlfile = "./data/hockeydata.xml"
 defsdbfile = "./data/hockeydata.db3"
@@ -122,7 +122,7 @@ if (premenuact == "1"):
             "Enter Hockey Database File Name For Output: ")
     if (getargs.infile is not None):
         HockeyDatabaseFN = getargs.infile
-    hockeyarray = libhockeydata.CreateHockeyArray(HockeyDatabaseFN)
+    hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
 if (premenuact == "2"):
     if (getargs.infile is None):
         HockeyDatabaseFN = get_user_input(
@@ -143,27 +143,27 @@ if (premenuact == "2"):
         verbosein = True
         if (getargs.export):
             verbosein = False
-        if ((ext == ".xml" or subext == ".xml") and libhockeydata.CheckXMLFile(HockeyDatabaseFN) and libhockeydata.CheckHockeyXML(HockeyDatabaseFN)):
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(
+        if ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeyXML(HockeyDatabaseFN)):
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
-        if ((ext == ".xml" or subext == ".xml") and libhockeydata.CheckXMLFile(HockeyDatabaseFN) and libhockeydata.CheckHockeySQLiteXML(HockeyDatabaseFN)):
-            hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeyXML(
+        if ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
+            hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeyXML(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
-        elif (ext == ".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(
+        elif (ext == ".db3" and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
         elif (ext == ".sql" or subext == ".sql"):
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQL(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
         elif (ext == ".json" or subext == ".json"):
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyJSON(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
         else:
             print("ERROR: Invalid Command")
-        if (libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(
+        if (pyhockeystats.CheckHockeySQLiteArray(hockeyarray)):
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQLiteArray(
                 hockeyarray, verbose=verbosein, jsonverbose=getargs.jsonverbose)
-        if (not libhockeydata.CheckHockeyArray(hockeyarray)):
+        if (not pyhockeystats.CheckHockeyArray(hockeyarray)):
             print("ERROR: Invalid Command")
 
 if (getargs.export):
@@ -218,22 +218,22 @@ if (getargs.export):
             else:
                 getargs.type = "db3"
     if (getargs.type.lower() == "xml"):
-        libhockeydata.MakeHockeyXMLFileFromHockeyArray(
+        pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "json"):
-        libhockeydata.MakeHockeyJSONFileFromHockeyArray(
+        pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "py"):
-        libhockeydata.MakeHockeyPythonFileFromHockeyArray(
+        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "pyalt"):
-        libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(
+        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "sql"):
-        libhockeydata.MakeHockeySQLFileFromHockeyArray(
+        pyhockeystats.MakeHockeySQLFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "db3"):
-        libhockeydata.MakeHockeyDatabaseFromHockeyArray(
+        pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     else:
         print("ERROR: Invalid Command")
@@ -286,13 +286,13 @@ while (keep_loop):
                         "Does Hockey League have conferences: ")
                     HockeyLeagueHD = get_user_input(
                         "Does Hockey League have divisions: ")
-                    hockeyarray = libhockeydata.AddHockeyLeagueToArray(
+                    hockeyarray = pyhockeystats.AddHockeyLeagueToArray(
                         hockeyarray, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD)
                     if (HockeyLeagueHC == "no"):
-                        hockeyarray = libhockeydata.AddHockeyConferenceToArray(
+                        hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
                             hockeyarray, HockeyLeagueSN, "")
                     if (HockeyLeagueHD == "no"):
-                        hockeyarray = libhockeydata.AddHockeyDivisionToArray(
+                        hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                             hockeyarray, HockeyLeagueSN, "", "")
             if (submenuact == "2" and len(hockeyarray['leaguelist']) <= 0):
                 print("ERROR: There are no Hockey Leagues to delete")
@@ -315,7 +315,7 @@ while (keep_loop):
                 if (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
                     HockeyLeagueIntSN = int(HockeyLeaguePreSN)
                     HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
-                    hockeyarray = libhockeydata.RemoveHockeyLeagueFromArray(
+                    hockeyarray = pyhockeystats.RemoveHockeyLeagueFromArray(
                         hockeyarray, HockeyLeagueSN)
             if (submenuact == "3" and len(hockeyarray['leaguelist']) <= 0):
                 print("ERROR: There are no Hockey Leagues to edit")
@@ -359,7 +359,7 @@ while (keep_loop):
                             "Does Hockey League have conferences: ")
                         HockeyLeagueHD = get_user_input(
                             "Does Hockey League have divisions: ")
-                        hockeyarray = libhockeydata.ReplaceHockeyLeagueFromArray(
+                        hockeyarray = pyhockeystats.ReplaceHockeyLeagueFromArray(
                             hockeyarray, HockeyLeagueOldSN, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD)
             if (submenuact.upper() == "E"):
                 sub_keep_loop = False
@@ -410,7 +410,7 @@ while (keep_loop):
                                     "Enter Hockey Conference prefix: ")
                                 HockeyConferenceCSFN = get_user_input(
                                     "Enter Hockey Conference suffix: ")
-                                hockeyarray = libhockeydata.AddHockeyConferenceToArray(
+                                hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
                                     hockeyarray, HockeyLeagueSN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN)
                         if (subsubmenuact == "2" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
                             print("ERROR: There are no Hockey Conferences to delete")
@@ -434,7 +434,7 @@ while (keep_loop):
                                 HockeyConferenceIntCN = int(
                                     HockeyConferencePreCN)
                                 HockeyConferenceCN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntCN]
-                                hockeyarray = libhockeydata.RemoveHockeyConferenceFromArray(
+                                hockeyarray = pyhockeystats.RemoveHockeyConferenceFromArray(
                                     hockeyarray, HockeyLeagueSN, HockeyConferenceCN)
                         if (subsubmenuact == "3" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
                             print("ERROR: There are no Hockey Conferences to edit")
@@ -469,7 +469,7 @@ while (keep_loop):
                                         "Enter Hockey Conference prefix: ")
                                     HockeyConferenceCSFN = get_user_input(
                                         "Enter Hockey Conference suffix: ")
-                                hockeyarray = libhockeydata.ReplaceHockeyConferencFromArray(
+                                hockeyarray = pyhockeystats.ReplaceHockeyConferencFromArray(
                                     hockeyarray, HockeyLeagueSN, HockeyConferenceOldCN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN)
                         if (subsubmenuact.upper() == "E"):
                             sub_sub_keep_loop = False
@@ -523,7 +523,7 @@ while (keep_loop):
                                         "Enter Hockey Division prefix: ")
                                     HockeyDivisionDSFN = get_user_input(
                                         "Enter Hockey Division suffix: ")
-                                hockeyarray = libhockeydata.AddHockeyDivisionToArray(
+                                hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                                     hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN)
                             if (submenuact.upper() == "2"):
                                 divisionc = 0
@@ -545,7 +545,7 @@ while (keep_loop):
                                     HockeyDivisionIntCN = int(
                                         HockeyDivisionPreDN)
                                     HockeyDivisionDN = hockeyarray[HockeyLeagueSN]['']['divisionlist'][HockeyDivisionIntCN]
-                                    hockeyarray = libhockeydata.RemoveHockeyDivisionFromArray(
+                                    hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
                                         hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "")
                             if (submenuact.upper() == "E"):
                                 sub_sub_keep_loop = False
@@ -592,7 +592,7 @@ while (keep_loop):
                                                 "Enter Hockey Division prefix: ")
                                             HockeyDivisionDSFN = get_user_input(
                                                 "Enter Hockey Division suffix: ")
-                                        hockeyarray = libhockeydata.AddHockeyDivisionToArray(
+                                        hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                                             hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN)
                                     if (submenuact.upper() == "2"):
                                         divisionc = 0
@@ -615,7 +615,7 @@ while (keep_loop):
                                                 HockeyDivisionPreDN)
                                             HockeyDivisionDN = hockeyarray[HockeyLeagueSN][
                                                 HockeyConferenceSN]['divisionlist'][HockeyDivisionIntCN]
-                                            hockeyarray = libhockeydata.RemoveHockeyDivisionFromArray(
+                                            hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
                                                 hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN)
                                     if (submenuact.upper() == "E"):
                                         sub_sub_sub_keep_loop = False
@@ -688,30 +688,30 @@ while (keep_loop):
             if (submenuact == "1"):
                 HockeyDatabaseFN = get_user_input(
                     "Enter Hockey Database File Name For Output: ")
-                hockeyarray = libhockeydata.CreateHockeyArray(HockeyDatabaseFN)
+                hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
             if (submenuact == "2"):
                 HockeyDatabaseFN = get_user_input(
                     "Enter Hockey Database File Name For Import: ")
                 ext = os.path.splitext(HockeyDatabaseFN)[-1].lower()
                 if (ext in extensions):
-                    if (ext == ".xml" and libhockeydata.CheckXMLFile(HockeyDatabaseFN)):
-                        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyXML(
+                    if (ext == ".xml" and pyhockeystats.CheckXMLFile(HockeyDatabaseFN)):
+                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
                             HockeyDatabaseFN)
-                    elif (ext == ".db3" and libhockeydata.CheckSQLiteDatabase(HockeyDatabaseFN)):
-                        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyDatabase(
+                    elif (ext == ".db3" and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
+                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
                             HockeyDatabaseFN)
                     elif (ext == ".sql"):
-                        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQL(
+                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQL(
                             HockeyDatabaseFN)
                     elif (ext == ".json"):
-                        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyJSON(
+                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyJSON(
                             HockeyDatabaseFN)
                     else:
                         print("ERROR: Invalid Command")
-                    if (libhockeydata.CheckHockeySQLiteArray(hockeyarray)):
-                        hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(
+                    if (pyhockeystats.CheckHockeySQLiteArray(hockeyarray)):
+                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQLiteArray(
                             hockeyarray)
-                    if (not libhockeydata.CheckHockeyArray(hockeyarray)):
+                    if (not pyhockeystats.CheckHockeyArray(hockeyarray)):
                         print("ERROR: Invalid Command")
             if (submenuact.upper() == "3"):
                 sub_sub_keep_loop = True
@@ -727,32 +727,32 @@ while (keep_loop):
                     if (subsubmenuact == "1"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database XML File Name to Export: ")
-                        libhockeydata.MakeHockeyXMLFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "2"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database JSON File Name to Export: ")
-                        libhockeydata.MakeHockeyJSONFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "3"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
-                        libhockeydata.MakeHockeyPythonFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "4"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
-                        libhockeydata.MakeHockeyPythonAltFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "5"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database SQL File Name to Export: ")
-                        libhockeydata.MakeHockeySQLFileFromHockeyArray(
+                        pyhockeystats.MakeHockeySQLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "6"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database File Name to Export: ")
-                        libhockeydata.MakeHockeyDatabaseFromHockeyArray(
+                        pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact.upper() == "E"):
                         sub_sub_keep_loop = False

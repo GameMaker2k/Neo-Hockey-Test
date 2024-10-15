@@ -115,7 +115,7 @@ for cursymact in getsymlist:
 os.chdir("."+os.sep+"..")
 
 verinfofilename = os.path.realpath(
-    "."+os.path.sep+"libhockeydata"+os.path.sep+"versioninfo.py")
+    "."+os.path.sep+"pyhockeystats"+os.path.sep+"versioninfo.py")
 verinfofile = open(verinfofilename, "r")
 verinfodata = verinfofile.read()
 verinfofile.close()
@@ -152,11 +152,11 @@ pymodule['downloadurl'] = 'https://github.com/GameMaker2k/Neo-Hockey-Test/archiv
 pymodule['longdescription'] = 'Just a test script dealing with hockey games and stats.'
 pymodule['platforms'] = 'OS Independent'
 pymodule['zipsafe'] = True
-# pymodule['pymodules'] = [y for x in os.walk("libhockeydata") for y in glob.glob(os.path.join(x[0], '*.py'))];
+# pymodule['pymodules'] = [y for x in os.walk("pyhockeystats") for y in glob.glob(os.path.join(x[0], '*.py'))];
 pymodule['pymodules'] = []
 pymodule['packages'] = find_packages()
 pymodule['packagedata'] = {
-    'libhockeydata/xml': ['*.dtd', '*.xsl', '*.xsd', '*.rng', '*.rnc']}
+    'pyhockeystats/xml': ['*.dtd', '*.xsl', '*.xsd', '*.rng', '*.rnc']}
 pymodule['datafiles'] = None
 pymodule['includepackagedata'] = True
 pymodule['installrequires'] = install_requires

@@ -20,7 +20,7 @@ from __future__ import print_function
 import os
 import random
 import sys
-import libhockeydata
+import pyhockeystats
 
 # Ensure compatibility with both Python 2 and 3
 try:
@@ -49,13 +49,13 @@ def process_file(filepath, extensions, extensionsc):
         sqlitedatatype = False
         
         if ext == ".xml" or subext == ".xml":
-            if libhockeydata.CheckXMLFile(filepath):
-                if libhockeydata.CheckHockeyXML(filepath):
+            if pyhockeystats.CheckXMLFile(filepath):
+                if pyhockeystats.CheckHockeyXML(filepath):
                     funcarray = {'informat': "xml", 'inxmlfile': filepath}
-                elif libhockeydata.CheckHockeySQLiteXML(filepath):
+                elif pyhockeystats.CheckHockeySQLiteXML(filepath):
                     funcarray = {'informat': "xml", 'inxmlfile': filepath}
                     sqlitedatatype = True
-        elif ext == ".db3" and libhockeydata.CheckSQLiteDatabase(filepath):
+        elif ext == ".db3" and pyhockeystats.CheckSQLiteDatabase(filepath):
             funcarray = {'informat': "database", 'insdbfile': filepath}
         elif ext == ".sql" or subext == ".sql":
             funcarray = {'informat': "sql", 'insqlfile': filepath}
@@ -65,14 +65,14 @@ def process_file(filepath, extensions, extensionsc):
             return None
         
         if sqlitedatatype:
-            hockeyarray = libhockeydata.MakeHockeySQLiteArrayFromHockeySQLiteData(funcarray)
+            hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeySQLiteData(funcarray)
         else:
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeyData(funcarray)
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyData(funcarray)
 
-        if libhockeydata.CheckHockeySQLiteArray(hockeyarray):
-            hockeyarray = libhockeydata.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray)
+        if pyhockeystats.CheckHockeySQLiteArray(hockeyarray):
+            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQLiteArray(hockeyarray)
         
-        return hockeyarray if libhockeydata.CheckHockeyArray(hockeyarray) else None
+        return hockeyarray if pyhockeystats.CheckHockeyArray(hockeyarray) else None
     return None
 
 # Function to display hockey data
@@ -107,8 +107,8 @@ def main():
         sys.exit(1)
     
     rootdir = sys.argv[1] if len(sys.argv) > 1 else random.choice(defroot)
-    extensions = libhockeydata.extensionswd
-    extensionsc = libhockeydata.outextlistwd
+    extensions = pyhockeystats.extensionswd
+    extensionsc = pyhockeystats.outextlistwd
 
     if os.path.isdir(rootdir):
         for subdir, _, files in os.walk(rootdir):
