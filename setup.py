@@ -43,8 +43,6 @@ os.mkdir("."+os.sep+"scripts"+pyver)
 print("created directory '."+os.sep+"scripts"+pyver+"'")
 shutil.copy2("."+os.sep+"mkhockeytool.py", "."+os.sep +
              "scripts"+pyver+os.sep+"mkhockeytool"+pyver+".py")
-shutil.copy2("."+os.sep+"mkhockeydata.py", "."+os.sep +
-             "scripts"+pyver+os.sep+"mkhockeydata"+pyver+".py")
 os.chdir("."+os.sep+"scripts"+pyver)
 try:
     os.symlink("."+os.sep+"mkhockeytool"+pyver +
@@ -61,35 +59,14 @@ except AttributeError:
                  ".py", "."+os.sep+"mkhockeytool.py")
     print("'."+os.sep+"mkhockeytool"+pyver +
           ".py' -> '."+os.sep+"mkhockeytool.py'")
-try:
-    os.symlink("."+os.sep+"mkhockeydata"+pyver +
-               ".py", "."+os.sep+"mkhockeydata.py")
-    print("'."+os.sep+"mkhockeydata"+pyver +
-          ".py' -> '."+os.sep+"mkhockeydata.py'")
-except OSError:
-    shutil.copy2("."+os.sep+"mkhockeydata"+pyver +
-                 ".py", "."+os.sep+"mkhockeydata.py")
-    print("'."+os.sep+"mkhockeydata"+pyver +
-          ".py' -> '."+os.sep+"mkhockeydata.py'")
-except AttributeError:
-    shutil.copy2("."+os.sep+"mkhockeydata"+pyver +
-                 ".py", "."+os.sep+"mkhockeydata.py")
-    print("'."+os.sep+"mkhockeydata"+pyver +
-          ".py' -> '."+os.sep+"mkhockeydata.py'")
-getsymlist = ["mkhockeyxmlfile"+pyver, "mkhockeyxmlfromolddatabase"+pyver, "mkhockeyxmlfromsql"+pyver, "mkhockeydatabase"+pyver, "mkhockeydatabasefromsql"+pyver, "mkhockeypyfromdatabase"+pyver, "mkhockeypyfromxmlfile"+pyver,
-              "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver]
-getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydata'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabasefromsql'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromxmlfile'+pyver+'.py',
-              'scripts'+pyver+os.sep+'mkhockeysqlfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfileclean'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromolddatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromsql'+pyver+'.py']
+getsymlist = []
+getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool'+pyver+'.py']
 if (symlinkenable):
-    getsymlist = ["mkhockeyxmlfile", "mkhockeyxmlfromolddatabase", "mkhockeyxmlfromsql", "mkhockeydatabase", "mkhockeydatabasefromsql", "mkhockeypyfromdatabase", "mkhockeypyfromxmlfile", "mkhockeypyaltfromdatabase", "mkhockeypyaltfromxmlfile", "mkhockeysqlfromdatabase", "mkhockeysqlfromxmlfile", "mkhockeyjsonfromxml", "mkhockeyxmlfromjson", "mkhockeyxmlfileclean", "mkhockeyxmlfile"+pyver,
-                  "mkhockeyxmlfromolddatabase"+pyver, "mkhockeyxmlfromsql"+pyver, "mkhockeydatabase"+pyver, "mkhockeydatabasefromsql"+pyver, "mkhockeypyfromdatabase"+pyver, "mkhockeypyfromxmlfile"+pyver, "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver]
-    getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool.py', 'scripts'+pyver+os.sep+'mkhockeydata.py', 'scripts'+pyver+os.sep+'mkhockeydatabase.py', 'scripts'+pyver+os.sep+'mkhockeydatabasefromsql.py', 'scripts'+pyver+os.sep+'mkhockeypyfromdatabase.py', 'scripts'+pyver+os.sep+'mkhockeypyfromxmlfile.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromdatabase.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromxmlfile.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfile.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfileclean.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromolddatabase.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromsql.py', 'scripts'+pyver+os.sep+'mkhockeytool'+pyver +
-                  '.py', 'scripts'+pyver+os.sep+'mkhockeydata'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabasefromsql'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfileclean'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromolddatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromsql'+pyver+'.py']
+    getsymlist = []
+    getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool.py']
 else:
-    getsymlist = ["mkhockeyxmlfile"+pyver, "mkhockeyxmlfromolddatabase"+pyver, "mkhockeyxmlfromsql"+pyver, "mkhockeydatabase"+pyver, "mkhockeydatabasefromsql"+pyver, "mkhockeypyfromdatabase"+pyver, "mkhockeypyfromxmlfile"+pyver,
-                  "mkhockeypyaltfromdatabase"+pyver, "mkhockeypyaltfromxmlfile"+pyver, "mkhockeysqlfromdatabase"+pyver, "mkhockeysqlfromxmlfile"+pyver, "mkhockeyjsonfromxml"+pyver, "mkhockeyxmlfromjson"+pyver, "mkhockeyxmlfileclean"+pyver]
-    getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydata'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeydatabasefromsql'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeypyfromxmlfile'+pyver+'.py',
-                  'scripts'+pyver+os.sep+'mkhockeysqlfromdatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeysqlfromxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfile'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfileclean'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromolddatabase'+pyver+'.py', 'scripts'+pyver+os.sep+'mkhockeyxmlfromsql'+pyver+'.py']
+    getsymlist = []
+    getscrlist = ['scripts'+pyver+os.sep+'mkhockeytool'+pyver+'.py']
 for cursymact in getsymlist:
     curscrpath = os.path.dirname(sys.argv[0])
     infilename = "."+os.sep+"mkhockeydata"+pyver+".py"
