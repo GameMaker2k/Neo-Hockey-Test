@@ -91,20 +91,35 @@ for cursymact in getsymlist:
         print("'"+outfilefull+"' -> '"+infilename+"'")
 os.chdir("."+os.sep+"..")
 
-verinfofilename = os.path.realpath(
-    "."+os.path.sep+"pyhockeystats"+os.path.sep+"versioninfo.py")
-verinfofile = open(verinfofilename, "r")
-verinfodata = verinfofile.read()
-verinfofile.close()
-setuppy_verinfo_esc = re.escape("__version_info__ = (")+"(.*)"+re.escape(");")
-setuppy_verinfo = re.findall(setuppy_verinfo_esc, verinfodata)[0]
-setuppy_verinfo_exp = [vergetspt.strip().replace("\"", "")
-                       for vergetspt in setuppy_verinfo.split(',')]
-setuppy_dateinfo_esc = re.escape(
-    "__version_date_info__ = (")+"(.*)"+re.escape(");")
-setuppy_dateinfo = re.findall(setuppy_dateinfo_esc, verinfodata)[0]
-setuppy_dateinfo_exp = [vergetspt.strip().replace("\"", "")
-                        for vergetspt in setuppy_dateinfo.split(',')]
+# Open and read the version info file in a Python 2/3 compatible way
+verinfofilename = os.path.realpath("." + os.path.sep + "pyhockeystats" + os.path.sep + "versioninfo.py")
+
+# Use `with` to ensure the file is properly closed after reading
+with open(verinfofilename, "r") as verinfofile:
+    verinfodata = verinfofile.read()
+
+# Define the regex pattern for extracting version info
+setuppy_verinfo_esc = re.escape("__version_info__ = (") + r"(\d+,\s*\d+,\s*\d+,\s*'?\w+\s?\d*'?,\s*\d+)" + re.escape(");")
+setuppy_verinfo = re.findall(setuppy_verinfo_esc, verinfodata)
+
+# If version info is found, process it; handle the case where no match is found
+if setuppy_verinfo:
+    setuppy_verinfo_exp = [vergetspt.strip().replace("\"", "").replace("'", "") for vergetspt in setuppy_verinfo[0].split(',')]
+else:
+    print("Version info not found.")
+    setuppy_verinfo_exp = None  # Handle missing version info gracefully
+
+# Define the regex pattern for extracting version date info
+setuppy_dateinfo_esc = re.escape("__version_date_info__ = (") + r"(\d+,\s*\d+,\s*\d+,\s*'?\w+\s?\d*'?,\s*\d+)" + re.escape(");")
+setuppy_dateinfo = re.findall(setuppy_dateinfo_esc, verinfodata)
+
+# If date info is found, process it; handle the case where no match is found
+if setuppy_dateinfo:
+    setuppy_dateinfo_exp = [vergetspt.strip().replace("\"", "").replace("'", "") for vergetspt in setuppy_dateinfo[0].split(',')]
+else:
+    print("Date info not found.")
+    setuppy_dateinfo_exp = None  # Handle missing date info gracefully
+
 pymodule = {}
 pymodule['version'] = str(setuppy_verinfo_exp[0])+"." + \
     str(setuppy_verinfo_exp[1])+"."+str(setuppy_verinfo_exp[2])
