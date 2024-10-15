@@ -81,24 +81,16 @@ except ImportError:
 
 # lxml and ElementTree XML parsing fallback handling
 testlxml = False
-parse_xml = None
-
 try:
     from lxml import etree as cElementTree  # Try lxml first
-    parse_xml = cElementTree.parse
     testlxml = True
 except ImportError:
     try:
         import xml.etree.cElementTree as cElementTree  # Fallback to cElementTree
-        parse_xml = cElementTree.parse
         testlxml = False
     except ImportError:
         import xml.etree.ElementTree as cElementTree  # Final fallback to ElementTree
-        parse_xml = cElementTree.parse
         testlxml = False
-
-if not parse_xml:
-    from xml.dom.minidom import parse as parse_xml_dom
 
 # urlparse and urllib fallback handling (Python 2/3 differences)
 try:
@@ -971,22 +963,12 @@ def CheckXMLFile(infile):
 
 
 def RemoveBlanks(node):
-    """Recursively remove blank text nodes."""
-    if testlxml:
-        # Handle lxml.etree ElementTree-style objects
-        for elem in node.iter():
-            if elem.text is not None:
-                elem.text = elem.text.strip()
-            if elem.tail is not None:
-                elem.tail = elem.tail.strip()
-    else:
-        # Handle xml.dom.minidom Document-style objects
-        for x in node.childNodes:
-            if x.nodeType == xml.dom.minidom.Node.TEXT_NODE:
-                if x.nodeValue:
-                    x.nodeValue = x.nodeValue.strip()
-            elif x.nodeType == xml.dom.minidom.Node.ELEMENT_NODE:
-                RemoveBlanks(x)
+    for x in node.childNodes:
+        if (x.nodeType == xml.dom.minidom.Node.TEXT_NODE):
+            if (x.nodeValue):
+                x.nodeValue = x.nodeValue.strip()
+        elif (x.nodeType == xml.dom.minidom.Node.ELEMENT_NODE):
+            RemoveBlanks(x)
     return True
 
 
@@ -1013,20 +995,19 @@ def GetDataFromArrayAlt(structure, path, default=None):
 
 
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
-    """Beautifies XML code, compatible with both lxml and minidom."""
-    
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
         try:
-            if re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile):
-                inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj)
-                xmldom = parse_xml(file=inxmlfile)
+            if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
+                inxmlfile = UncompressFileURL(
+                    inxmlfile, geturls_headers, geturls_cj)
+                xmldom = xml.dom.minidom.parse(file=inxmlfile)
             else:
-                xmldom = parse_xml(file=UncompressFile(inxmlfile))
+                xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlfile))
         except:
             return False
-    elif not xmlisfile:
+    elif (not xmlisfile):
         chckcompression = CheckCompressionTypeFromString(inxmlfile)
-        if not chckcompression:
+        if (not chckcompression):
             inxmlfile = StringIO(inxmlfile)
         else:
             try:
@@ -1035,38 +1016,20 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
                 inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
             inxmlfile = UncompressFile(inxmlsfile)
         try:
-            xmldom = parse_xml(file=inxmlfile)
+            xmldom = xml.dom.minidom.parse(file=inxmlfile)
         except:
             return False
     else:
         return False
-    
     RemoveBlanks(xmldom)
-
-    # Beautify and handle encoding/decoding for both lxml and minidom
-    if testlxml:
-        # Handle lxml parsing
-        xmldom = xmldom.getroot()  # lxml's root element
-        if beautify:
-            outxmlcode = cElementTree.tostring(xmldom, pretty_print=True, encoding=encoding)
-        else:
-            outxmlcode = cElementTree.tostring(xmldom, encoding=encoding)
+    xmldom.normalize()
+    if (beautify):
+        outxmlcode = xmldom.toprettyxml(indent, newl, encoding)
     else:
-        # Handle minidom parsing
-        xmldom.normalize()
-        if beautify:
-            outxmlcode = xmldom.toprettyxml(indent, newl, encoding)
-        else:
-            outxmlcode = xmldom.toxml(encoding)
-    
-    # Check for byte-encoded output and decode if necessary
-    if hasattr(outxmlcode, 'decode'):
-        outxmlcode = outxmlcode.decode(encoding)
-    
-    # Clean up the DOM object if necessary
-    if not testlxml:
-        xmldom.unlink()  # Unlink for minidom, not necessary for lxml
-    
+        outxmlcode = xmldom.toxml(encoding)
+    if (hasattr(outxmlcode, 'decode')):
+        outxmlcode = outxmlcode.decode("UTF-8")
+    xmldom.unlink()
     return outxmlcode
 
 
