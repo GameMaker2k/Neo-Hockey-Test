@@ -1,10 +1,10 @@
 #/bin/bash
 
 for infile in ./data/xml/*.xml; do
-    python ./mkhockeydata.py mkhockeydatabase -i "$infile"
+    python ./mkhockeytool.py -t db3 -i "$infile" -x -V
 done
 
-#for infile in ./data/json/*.json; do
-#    python ./mkhockeydata.py mkhockeydatabase -i "$infile"
-#done
-
+for infile in ./data/xml/*.xml; do
+    outfile="./data/json/$(basename "$infile" .xml).json"
+    python ./mkhockeytool.py -t json -i "$infile" -o "$outfile" -x -V
+done

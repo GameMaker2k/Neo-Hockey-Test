@@ -1,86 +1,259 @@
 {
+ "database": "./php/data/fantasyhockey.db3",
  "FHL": {
-  "Eastern": {
-   "Fire": {
+  "leagueinfo": {
+   "name": "FHL",
+   "fullname": "Fantasy Hockey League",
+   "country": "USA",
+   "fullcountry": "United States",
+   "date": "20241010",
+   "playofffmt": "Division=4,Conference=2",
+   "ordertype": "ORDER BY Points DESC, Goals DESC, Wins DESC",
+   "conferences": "yes",
+   "divisions": "yes"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "Eastern": {
+     "name": "Eastern",
+     "fullname": "Eastern Conference",
+     "league": "FHL"
+    },
+    "Western": {
+     "name": "Western",
+     "fullname": "Western Conference",
+     "league": "FHL"
+    }
+   },
+   "divisioninfo": {
+    "Fire": {
+     "name": "Fire",
+     "fullname": "Fire Division",
+     "league": "FHL",
+     "conference": "Eastern"
+    },
+    "Ice": {
+     "name": "Ice",
+     "fullname": "Ice Division",
+     "league": "FHL",
+     "conference": "Eastern"
+    },
+    "Mountain": {
+     "name": "Mountain",
+     "fullname": "Mountain Division",
+     "league": "FHL",
+     "conference": "Western"
+    },
+    "Pacific": {
+     "name": "Pacific",
+     "fullname": "Pacific Division",
+     "league": "FHL",
+     "conference": "Western"
+    }
+   },
+   "teaminfo": {
     "Dragons": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "Dragon Dome",
-      "city": "Dragonsville",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Fire",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "Dragonsville Dragons",
-      "league": "FHL",
-      "name": "Dragons",
-      "prefix": "Dragonsville",
-      "suffix": ""
-     }
+     "name": "Dragons",
+     "fullname": "Dragonsville Dragons",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Fire"
+    },
+    "Yetis": {
+     "name": "Yetis",
+     "fullname": "Icecliff Yetis",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Fire"
     },
     "Phoenixes": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MA",
-      "arena": "Firestone Stadium",
-      "city": "Flamehill",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Fire",
-      "fullarea": "Massachusetts",
-      "fullcountry": "United States",
-      "fullname": "Flamehill Phoenixes",
-      "league": "FHL",
-      "name": "Phoenixes",
-      "prefix": "Flamehill",
-      "suffix": ""
-     }
+     "name": "Phoenixes",
+     "fullname": "Flamehill Phoenixes",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Fire"
     },
     "Wolves": {
+     "name": "Wolves",
+     "fullname": "Frostbite Wolves",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Fire"
+    },
+    "Blizzards": {
+     "name": "Blizzards",
+     "fullname": "Blizzard Bay Blizzards",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Ice"
+    },
+    "Icemen": {
+     "name": "Icemen",
+     "fullname": "Frostlake Icemen",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Ice"
+    },
+    "Snow Leopards": {
+     "name": "Snow Leopards",
+     "fullname": "Glacierfall Snow Leopards",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Ice"
+    },
+    "Thunderbirds": {
+     "name": "Thunderbirds",
+     "fullname": "Thunderberg Thunderbirds",
+     "league": "FHL",
+     "conference": "Eastern",
+     "division": "Ice"
+    },
+    "Giants": {
+     "name": "Giants",
+     "fullname": "Frostforge Giants",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Avalanche": {
+     "name": "Avalanche",
+     "fullname": "Avalanche City Avalanche",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Crystals": {
+     "name": "Crystals",
+     "fullname": "Crystalfalls Crystals",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Mountaineers": {
+     "name": "Mountaineers",
+     "fullname": "Frostmount Mountaineers",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Sharks": {
+     "name": "Sharks",
+     "fullname": "Icelake Sharks",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Polar Bears": {
+     "name": "Polar Bears",
+     "fullname": "Glacierpoint Polar Bears",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Sabertooths": {
+     "name": "Sabertooths",
+     "fullname": "Frostbite Valley Sabertooths",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Lynxes": {
+     "name": "Lynxes",
+     "fullname": "Snowy Hills Lynxes",
+     "league": "FHL",
+     "conference": "Western",
+     "division": "Pacific"
+    }
+   }
+  },
+  "Eastern": {
+   "conferenceinfo": {
+    "name": "Eastern",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Eastern Conference",
+    "league": "FHL"
+   },
+   "Fire": {
+    "divisioninfo": {
+     "name": "Fire",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Fire Division",
+     "league": "FHL",
+     "conference": "Eastern"
+    },
+    "Dragons": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "ON",
-      "arena": "Arctic Howl Arena",
-      "city": "Frostbite",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "Fire",
-      "fullarea": "Ontario",
-      "fullcountry": "Canada",
-      "fullname": "Frostbite Wolves",
+      "city": "Dragonsville",
+      "area": "NY",
+      "fullarea": "New York",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Dragons",
+      "fullname": "Dragonsville Dragons",
+      "arena": "Dragon Dome",
+      "prefix": "Dragonsville",
+      "suffix": "",
       "league": "FHL",
-      "name": "Wolves",
-      "prefix": "Frostbite",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "Fire",
+      "affiliates": ""
      }
     },
     "Yetis": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "ME",
-      "arena": "Frozen Peak Arena",
       "city": "Icecliff",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Fire",
+      "area": "ME",
       "fullarea": "Maine",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Icecliff Yetis",
-      "league": "FHL",
       "name": "Yetis",
+      "fullname": "Icecliff Yetis",
+      "arena": "Frozen Peak Arena",
       "prefix": "Icecliff",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Fire",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "Fire Division",
-     "league": "FHL",
-     "name": "Fire",
-     "prefix": "",
-     "suffix": "Division"
+    "Phoenixes": {
+     "teaminfo": {
+      "city": "Flamehill",
+      "area": "MA",
+      "fullarea": "Massachusetts",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Phoenixes",
+      "fullname": "Flamehill Phoenixes",
+      "arena": "Firestone Stadium",
+      "prefix": "Flamehill",
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Fire",
+      "affiliates": ""
+     }
+    },
+    "Wolves": {
+     "teaminfo": {
+      "city": "Frostbite",
+      "area": "ON",
+      "fullarea": "Ontario",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Wolves",
+      "fullname": "Frostbite Wolves",
+      "arena": "Arctic Howl Arena",
+      "prefix": "Frostbite",
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Fire",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Dragons",
@@ -90,85 +263,85 @@
     ]
    },
    "Ice": {
+    "divisioninfo": {
+     "name": "Ice",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Ice Division",
+     "league": "FHL",
+     "conference": "Eastern"
+    },
     "Blizzards": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "FL",
-      "arena": "Winterstorm Stadium",
       "city": "Blizzard Bay",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Ice",
+      "area": "FL",
       "fullarea": "Florida",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Blizzard Bay Blizzards",
-      "league": "FHL",
       "name": "Blizzards",
+      "fullname": "Blizzard Bay Blizzards",
+      "arena": "Winterstorm Stadium",
       "prefix": "Blizzard Bay",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Ice",
+      "affiliates": ""
      }
     },
     "Icemen": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "QC",
-      "arena": "Glacier Arena",
       "city": "Frostlake",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "Ice",
+      "area": "QC",
       "fullarea": "Quebec",
+      "country": "CAN",
       "fullcountry": "Canada",
-      "fullname": "Frostlake Icemen",
-      "league": "FHL",
       "name": "Icemen",
+      "fullname": "Frostlake Icemen",
+      "arena": "Glacier Arena",
       "prefix": "Frostlake",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Ice",
+      "affiliates": ""
      }
     },
     "Snow Leopards": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "PA",
-      "arena": "Snowy Peak Arena",
       "city": "Glacierfall",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Ice",
+      "area": "PA",
       "fullarea": "Pennsylvania",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Glacierfall Snow Leopards",
-      "league": "FHL",
       "name": "Snow Leopards",
+      "fullname": "Glacierfall Snow Leopards",
+      "arena": "Snowy Peak Arena",
       "prefix": "Glacierfall",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Ice",
+      "affiliates": ""
      }
     },
     "Thunderbirds": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "NJ",
-      "arena": "Stormfield Stadium",
       "city": "Thunderberg",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Ice",
+      "area": "NJ",
       "fullarea": "New Jersey",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Thunderberg Thunderbirds",
-      "league": "FHL",
       "name": "Thunderbirds",
+      "fullname": "Thunderberg Thunderbirds",
+      "arena": "Stormfield Stadium",
       "prefix": "Thunderberg",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Eastern",
+      "division": "Ice",
+      "affiliates": ""
      }
-    },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "Ice Division",
-     "league": "FHL",
-     "name": "Ice",
-     "prefix": "",
-     "suffix": "Division"
     },
     "teamlist": [
      "Blizzards",
@@ -177,99 +350,212 @@
      "Thunderbirds"
     ]
    },
-   "conferenceinfo": {
-    "fullname": "Eastern Conference",
-    "league": "FHL",
-    "name": "Eastern",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     "Fire",
     "Ice"
    ]
   },
+  "arenas": [
+   {
+    "city": "Stockholm",
+    "area": "AB",
+    "fullarea": "Stockholm County",
+    "country": "SWE",
+    "fullcountry": "Sweden",
+    "name": "Ericsson Globe"
+   },
+   {
+    "city": "Helsinki",
+    "area": "Uusimaa",
+    "fullarea": "Uusimaa Region",
+    "country": "FIN",
+    "fullcountry": "Finland",
+    "name": "Helsinki Ice Hall"
+   },
+   {
+    "city": "Lake Placid",
+    "area": "NY",
+    "fullarea": "New York",
+    "country": "USA",
+    "fullcountry": "United States",
+    "name": "Olympic Center"
+   }
+  ],
+  "games": [
+   {
+    "date": "20241012",
+    "time": "1900",
+    "hometeam": "Dragonsville Dragons",
+    "awayteam": "Icecliff Yetis",
+    "goals": "2:1,1:0,0:1",
+    "sogs": "10:8,12:5,5:7",
+    "ppgs": "1:0,0:0,0:0",
+    "shgs": "0:0,0:0,0:0",
+    "penalties": "1:2,0:1,1:1",
+    "pims": "4:8,0:2,2:2",
+    "hits": "5:5,6:3,4:6",
+    "takeaways": "1:1,1:0,0:1",
+    "faceoffwins": "15:14,10:12,7:8",
+    "atarena": "0",
+    "isplayoffgame": "0"
+   },
+   {
+    "date": "20241015",
+    "time": "2000",
+    "hometeam": "Avalanche City Avalanche",
+    "awayteam": "Crystalfalls Crystals",
+    "goals": "1:1,2:0,0:1",
+    "sogs": "8:8,15:6,5:7",
+    "ppgs": "0:0,1:0,0:0",
+    "shgs": "0:0,0:0,0:0",
+    "penalties": "1:2,0:1,1:1",
+    "pims": "4:8,0:2,2:2",
+    "hits": "7:5,8:6,6:7",
+    "takeaways": "0:1,2:1,1:1",
+    "faceoffwins": "12:10,14:10,11:9",
+    "atarena": "0",
+    "isplayoffgame": "0"
+   },
+   {
+    "date": "20241020",
+    "time": "2100",
+    "hometeam": "Blizzard Bay Blizzards",
+    "awayteam": "Frostlake Icemen",
+    "goals": "1:0,2:1,1:1",
+    "sogs": "9:5,12:9,7:10",
+    "ppgs": "0:0,1:1,0:0",
+    "shgs": "0:0,0:0,0:0",
+    "penalties": "0:1,2:1,1:1",
+    "pims": "2:4,4:2,2:2",
+    "hits": "8:7,5:5,4:6",
+    "takeaways": "0:1,2:1,1:2",
+    "faceoffwins": "10:10,11:9,9:10",
+    "atarena": "0",
+    "isplayoffgame": "0"
+   },
+   {
+    "date": "20241025",
+    "time": "1930",
+    "hometeam": "Frostforge Giants",
+    "awayteam": "Frostmount Mountaineers",
+    "goals": "2:0,1:1,0:2",
+    "sogs": "15:7,10:8,6:9",
+    "ppgs": "1:0,0:0,0:1",
+    "shgs": "0:0,0:0,0:0",
+    "penalties": "1:2,0:1,1:0",
+    "pims": "2:4,0:2,2:0",
+    "hits": "5:4,6:5,7:6",
+    "takeaways": "1:0,2:1,0:1",
+    "faceoffwins": "12:10,14:10,10:11",
+    "atarena": "0",
+    "isplayoffgame": "0"
+   },
+   {
+    "date": "20241101",
+    "time": "1800",
+    "hometeam": "Thunderberg Thunderbirds",
+    "awayteam": "Frostlake Icemen",
+    "goals": "1:2,0:1,1:1",
+    "sogs": "11:14,9:10,7:7",
+    "ppgs": "0:1,0:0,0:0",
+    "shgs": "0:0,0:0,0:0",
+    "penalties": "1:2,1:1,0:2",
+    "pims": "2:4,2:2,0:4",
+    "hits": "6:5,7:6,5:7",
+    "takeaways": "2:1,0:1,1:0",
+    "faceoffwins": "12:14,10:12,8:8",
+    "atarena": "Ericsson Globe, Stockholm",
+    "isplayoffgame": "0"
+   }
+  ],
   "Western": {
+   "conferenceinfo": {
+    "name": "Western",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Western Conference",
+    "league": "FHL"
+   },
    "Mountain": {
+    "divisioninfo": {
+     "name": "Mountain",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Mountain Division",
+     "league": "FHL",
+     "conference": "Western"
+    },
+    "Giants": {
+     "teaminfo": {
+      "city": "Frostforge",
+      "area": "CO",
+      "fullarea": "Colorado",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Giants",
+      "fullname": "Frostforge Giants",
+      "arena": "Iceforge Stadium",
+      "prefix": "Frostforge",
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
+     }
+    },
     "Avalanche": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "UT",
-      "arena": "Summit Peak Arena",
       "city": "Avalanche City",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
+      "area": "UT",
       "fullarea": "Utah",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Avalanche City Avalanche",
-      "league": "FHL",
       "name": "Avalanche",
+      "fullname": "Avalanche City Avalanche",
+      "arena": "Summit Peak Arena",
       "prefix": "Avalanche City",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Crystals": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "MT",
-      "arena": "Crystal Falls Ice Center",
       "city": "Crystalfalls",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
+      "area": "MT",
       "fullarea": "Montana",
-      "fullcountry": "United States",
-      "fullname": "Crystalfalls Crystals",
-      "league": "FHL",
-      "name": "Crystals",
-      "prefix": "Crystalfalls",
-      "suffix": ""
-     }
-    },
-    "Giants": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CO",
-      "arena": "Iceforge Stadium",
-      "city": "Frostforge",
-      "conference": "Western",
       "country": "USA",
-      "division": "Mountain",
-      "fullarea": "Colorado",
       "fullcountry": "United States",
-      "fullname": "Frostforge Giants",
+      "name": "Crystals",
+      "fullname": "Crystalfalls Crystals",
+      "arena": "Crystal Falls Ice Center",
+      "prefix": "Crystalfalls",
+      "suffix": "",
       "league": "FHL",
-      "name": "Giants",
-      "prefix": "Frostforge",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Mountaineers": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "WY",
-      "arena": "Frozen Range Arena",
       "city": "Frostmount",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
+      "area": "WY",
       "fullarea": "Wyoming",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Frostmount Mountaineers",
-      "league": "FHL",
       "name": "Mountaineers",
+      "fullname": "Frostmount Mountaineers",
+      "arena": "Frozen Range Arena",
       "prefix": "Frostmount",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
      }
-    },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Mountain Division",
-     "league": "FHL",
-     "name": "Mountain",
-     "prefix": "",
-     "suffix": "Division"
     },
     "teamlist": [
      "Giants",
@@ -279,85 +565,85 @@
     ]
    },
    "Pacific": {
-    "Lynxes": {
+    "divisioninfo": {
+     "name": "Pacific",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Pacific Division",
+     "league": "FHL",
+     "conference": "Western"
+    },
+    "Sharks": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "OR",
-      "arena": "Frozen Hills Iceplex",
-      "city": "Snowy Hills",
-      "conference": "Western",
+      "city": "Icelake",
+      "area": "CA",
+      "fullarea": "California",
       "country": "USA",
-      "division": "Pacific",
-      "fullarea": "Oregon",
       "fullcountry": "United States",
-      "fullname": "Snowy Hills Lynxes",
+      "name": "Sharks",
+      "fullname": "Icelake Sharks",
+      "arena": "Deep Freeze Arena",
+      "prefix": "Icelake",
+      "suffix": "",
       "league": "FHL",
-      "name": "Lynxes",
-      "prefix": "Snowy Hills",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Polar Bears": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "WA",
-      "arena": "Icefield Arena",
       "city": "Glacierpoint",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
+      "area": "WA",
       "fullarea": "Washington",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Glacierpoint Polar Bears",
-      "league": "FHL",
       "name": "Polar Bears",
+      "fullname": "Glacierpoint Polar Bears",
+      "arena": "Icefield Arena",
       "prefix": "Glacierpoint",
-      "suffix": ""
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Sabertooths": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "NV",
-      "arena": "Sabertooth Stadium",
       "city": "Frostbite Valley",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
+      "area": "NV",
       "fullarea": "Nevada",
-      "fullcountry": "United States",
-      "fullname": "Frostbite Valley Sabertooths",
-      "league": "FHL",
-      "name": "Sabertooths",
-      "prefix": "Frostbite Valley",
-      "suffix": ""
-     }
-    },
-    "Sharks": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Deep Freeze Arena",
-      "city": "Icelake",
-      "conference": "Western",
       "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
       "fullcountry": "United States",
-      "fullname": "Icelake Sharks",
+      "name": "Sabertooths",
+      "fullname": "Frostbite Valley Sabertooths",
+      "arena": "Sabertooth Stadium",
+      "prefix": "Frostbite Valley",
+      "suffix": "",
       "league": "FHL",
-      "name": "Sharks",
-      "prefix": "Icelake",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Pacific Division",
-     "league": "FHL",
-     "name": "Pacific",
-     "prefix": "",
-     "suffix": "Division"
+    "Lynxes": {
+     "teaminfo": {
+      "city": "Snowy Hills",
+      "area": "OR",
+      "fullarea": "Oregon",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Lynxes",
+      "fullname": "Snowy Hills Lynxes",
+      "arena": "Frozen Hills Iceplex",
+      "prefix": "Snowy Hills",
+      "suffix": "",
+      "league": "FHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Sharks",
@@ -366,302 +652,16 @@
      "Lynxes"
     ]
    },
-   "conferenceinfo": {
-    "fullname": "Western Conference",
-    "league": "FHL",
-    "name": "Western",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     "Mountain",
     "Pacific"
    ]
   },
-  "arenas": [
-   {
-    "area": "AB",
-    "city": "Stockholm",
-    "country": "SWE",
-    "fullarea": "Stockholm County",
-    "fullcountry": "Sweden",
-    "name": "Ericsson Globe"
-   },
-   {
-    "area": "Uusimaa",
-    "city": "Helsinki",
-    "country": "FIN",
-    "fullarea": "Uusimaa Region",
-    "fullcountry": "Finland",
-    "name": "Helsinki Ice Hall"
-   },
-   {
-    "area": "NY",
-    "city": "Lake Placid",
-    "country": "USA",
-    "fullarea": "New York",
-    "fullcountry": "United States",
-    "name": "Olympic Center"
-   }
-  ],
   "conferencelist": [
    "Eastern",
    "Western"
-  ],
-  "games": [
-   {
-    "atarena": "0",
-    "awayteam": "Icecliff Yetis",
-    "date": "20241012",
-    "faceoffwins": "15:14,10:12,7:8",
-    "goals": "2:1,1:0,0:1",
-    "hits": "5:5,6:3,4:6",
-    "hometeam": "Dragonsville Dragons",
-    "isplayoffgame": "0",
-    "penalties": "1:2,0:1,1:1",
-    "pims": "4:8,0:2,2:2",
-    "ppgs": "1:0,0:0,0:0",
-    "shgs": "0:0,0:0,0:0",
-    "sogs": "10:8,12:5,5:7",
-    "takeaways": "1:1,1:0,0:1",
-    "time": "1900"
-   },
-   {
-    "atarena": "0",
-    "awayteam": "Crystalfalls Crystals",
-    "date": "20241015",
-    "faceoffwins": "12:10,14:10,11:9",
-    "goals": "1:1,2:0,0:1",
-    "hits": "7:5,8:6,6:7",
-    "hometeam": "Avalanche City Avalanche",
-    "isplayoffgame": "0",
-    "penalties": "1:2,0:1,1:1",
-    "pims": "4:8,0:2,2:2",
-    "ppgs": "0:0,1:0,0:0",
-    "shgs": "0:0,0:0,0:0",
-    "sogs": "8:8,15:6,5:7",
-    "takeaways": "0:1,2:1,1:1",
-    "time": "2000"
-   },
-   {
-    "atarena": "0",
-    "awayteam": "Frostlake Icemen",
-    "date": "20241020",
-    "faceoffwins": "10:10,11:9,9:10",
-    "goals": "1:0,2:1,1:1",
-    "hits": "8:7,5:5,4:6",
-    "hometeam": "Blizzard Bay Blizzards",
-    "isplayoffgame": "0",
-    "penalties": "0:1,2:1,1:1",
-    "pims": "2:4,4:2,2:2",
-    "ppgs": "0:0,1:1,0:0",
-    "shgs": "0:0,0:0,0:0",
-    "sogs": "9:5,12:9,7:10",
-    "takeaways": "0:1,2:1,1:2",
-    "time": "2100"
-   },
-   {
-    "atarena": "0",
-    "awayteam": "Frostmount Mountaineers",
-    "date": "20241025",
-    "faceoffwins": "12:10,14:10,10:11",
-    "goals": "2:0,1:1,0:2",
-    "hits": "5:4,6:5,7:6",
-    "hometeam": "Frostforge Giants",
-    "isplayoffgame": "0",
-    "penalties": "1:2,0:1,1:0",
-    "pims": "2:4,0:2,2:0",
-    "ppgs": "1:0,0:0,0:1",
-    "shgs": "0:0,0:0,0:0",
-    "sogs": "15:7,10:8,6:9",
-    "takeaways": "1:0,2:1,0:1",
-    "time": "1930"
-   },
-   {
-    "atarena": "Ericsson Globe, Stockholm",
-    "awayteam": "Frostlake Icemen",
-    "date": "20241101",
-    "faceoffwins": "12:14,10:12,8:8",
-    "goals": "1:2,0:1,1:1",
-    "hits": "6:5,7:6,5:7",
-    "hometeam": "Thunderberg Thunderbirds",
-    "isplayoffgame": "0",
-    "penalties": "1:2,1:1,0:2",
-    "pims": "2:4,2:2,0:4",
-    "ppgs": "0:1,0:0,0:0",
-    "shgs": "0:0,0:0,0:0",
-    "sogs": "11:14,9:10,7:7",
-    "takeaways": "2:1,0:1,1:0",
-    "time": "1800"
-   }
-  ],
-  "leagueinfo": {
-   "conferences": "yes",
-   "country": "USA",
-   "date": "20241010",
-   "divisions": "yes",
-   "fullcountry": "United States",
-   "fullname": "Fantasy Hockey League",
-   "name": "FHL",
-   "ordertype": "ORDER BY Points DESC, Goals DESC, Wins DESC",
-   "playofffmt": "Division=4,Conference=2"
-  },
-  "quickinfo": {
-   "conferenceinfo": {
-    "Eastern": {
-     "fullname": "Eastern Conference",
-     "league": "FHL",
-     "name": "Eastern"
-    },
-    "Western": {
-     "fullname": "Western Conference",
-     "league": "FHL",
-     "name": "Western"
-    }
-   },
-   "divisioninfo": {
-    "Fire": {
-     "conference": "Eastern",
-     "fullname": "Fire Division",
-     "league": "FHL",
-     "name": "Fire"
-    },
-    "Ice": {
-     "conference": "Eastern",
-     "fullname": "Ice Division",
-     "league": "FHL",
-     "name": "Ice"
-    },
-    "Mountain": {
-     "conference": "Western",
-     "fullname": "Mountain Division",
-     "league": "FHL",
-     "name": "Mountain"
-    },
-    "Pacific": {
-     "conference": "Western",
-     "fullname": "Pacific Division",
-     "league": "FHL",
-     "name": "Pacific"
-    }
-   },
-   "teaminfo": {
-    "Avalanche": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Avalanche City Avalanche",
-     "league": "FHL",
-     "name": "Avalanche"
-    },
-    "Blizzards": {
-     "conference": "Eastern",
-     "division": "Ice",
-     "fullname": "Blizzard Bay Blizzards",
-     "league": "FHL",
-     "name": "Blizzards"
-    },
-    "Crystals": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Crystalfalls Crystals",
-     "league": "FHL",
-     "name": "Crystals"
-    },
-    "Dragons": {
-     "conference": "Eastern",
-     "division": "Fire",
-     "fullname": "Dragonsville Dragons",
-     "league": "FHL",
-     "name": "Dragons"
-    },
-    "Giants": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Frostforge Giants",
-     "league": "FHL",
-     "name": "Giants"
-    },
-    "Icemen": {
-     "conference": "Eastern",
-     "division": "Ice",
-     "fullname": "Frostlake Icemen",
-     "league": "FHL",
-     "name": "Icemen"
-    },
-    "Lynxes": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Snowy Hills Lynxes",
-     "league": "FHL",
-     "name": "Lynxes"
-    },
-    "Mountaineers": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Frostmount Mountaineers",
-     "league": "FHL",
-     "name": "Mountaineers"
-    },
-    "Phoenixes": {
-     "conference": "Eastern",
-     "division": "Fire",
-     "fullname": "Flamehill Phoenixes",
-     "league": "FHL",
-     "name": "Phoenixes"
-    },
-    "Polar Bears": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Glacierpoint Polar Bears",
-     "league": "FHL",
-     "name": "Polar Bears"
-    },
-    "Sabertooths": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Frostbite Valley Sabertooths",
-     "league": "FHL",
-     "name": "Sabertooths"
-    },
-    "Sharks": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Icelake Sharks",
-     "league": "FHL",
-     "name": "Sharks"
-    },
-    "Snow Leopards": {
-     "conference": "Eastern",
-     "division": "Ice",
-     "fullname": "Glacierfall Snow Leopards",
-     "league": "FHL",
-     "name": "Snow Leopards"
-    },
-    "Thunderbirds": {
-     "conference": "Eastern",
-     "division": "Ice",
-     "fullname": "Thunderberg Thunderbirds",
-     "league": "FHL",
-     "name": "Thunderbirds"
-    },
-    "Wolves": {
-     "conference": "Eastern",
-     "division": "Fire",
-     "fullname": "Frostbite Wolves",
-     "league": "FHL",
-     "name": "Wolves"
-    },
-    "Yetis": {
-     "conference": "Eastern",
-     "division": "Fire",
-     "fullname": "Icecliff Yetis",
-     "league": "FHL",
-     "name": "Yetis"
-    }
-   }
-  }
+  ]
  },
- "database": "./php/data/fantasyhockey.db3",
  "leaguelist": [
   "FHL"
  ]

@@ -670,15 +670,15 @@ def CheckCompressionType(infile, closefp=True):
     return filetype
 
 
-def CheckCompressionTypeFromString(instring, closefp=True):
+def CheckCompressionTypeFromString(instring, encoding="UTF-8", closefp=True):
     try:
         instringsfile = BytesIO(instring)
     except TypeError:
-        instringsfile = BytesIO(instring.encode("UTF-8"))
+        instringsfile = BytesIO(instring.encode(encoding))
     return CheckCompressionType(instringsfile, closefp)
 
 
-def UncompressFile(infile, mode="rt"):
+def UncompressFile(infile, mode="rt", encoding="UTF-8"):
     compresscheck = CheckCompressionType(infile, False)
     if (sys.version_info[0] == 2 and compresscheck):
         if (mode == "rt"):
@@ -691,7 +691,7 @@ def UncompressFile(infile, mode="rt"):
         except ImportError:
             return False
         try:
-            filefp = gzip.open(infile, mode, encoding="UTF-8")
+            filefp = gzip.open(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = gzip.open(infile, mode)
     if (compresscheck == "bzip2"):
@@ -700,7 +700,7 @@ def UncompressFile(infile, mode="rt"):
         except ImportError:
             return False
         try:
-            filefp = bz2.open(infile, mode, encoding="UTF-8")
+            filefp = bz2.open(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = bz2.open(infile, mode)
     if (compresscheck == "zstd"):
@@ -709,7 +709,7 @@ def UncompressFile(infile, mode="rt"):
         except ImportError:
             return False
         try:
-            filefp = zstandard.open(infile, mode, encoding="UTF-8")
+            filefp = zstandard.open(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = zstandard.open(infile, mode)
     if (compresscheck == "lz4"):
@@ -718,7 +718,7 @@ def UncompressFile(infile, mode="rt"):
         except ImportError:
             return False
         try:
-            filefp = lz4.frame.open(infile, mode, encoding="UTF-8")
+            filefp = lz4.frame.open(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = lz4.frame.open(infile, mode)
     if (compresscheck == "lzo" or compresscheck == "lzop"):
@@ -727,7 +727,7 @@ def UncompressFile(infile, mode="rt"):
         except ImportError:
             return False
         try:
-            filefp = lzo.open(infile, mode, encoding="UTF-8")
+            filefp = lzo.open(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = lzo.open(infile, mode)
     if (compresscheck == "lzma"):
@@ -736,24 +736,24 @@ def UncompressFile(infile, mode="rt"):
         except ImportError:
             return False
         try:
-            filefp = lzma.open(infile, mode, encoding="UTF-8")
+            filefp = lzma.open(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = lzma.open(infile, mode)
     if (compresscheck == "zlib"):
         try:
-            filefp = ZlibFile(infile, mode, encoding="UTF-8")
+            filefp = ZlibFile(infile, mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = ZlibFile(infile, mode)
     if (not compresscheck):
         try:
-            filefp = open(infile, mode=mode, encoding="UTF-8")
+            filefp = open(infile, mode=mode, encoding=encoding)
         except (ValueError, TypeError) as e:
             filefp = open(infile, mode=mode)
     return filefp
 
 
-def UncompressString(infile):
-    compresscheck = CheckCompressionTypeFromString(infile, False)
+def UncompressString(infile, encoding="UTF-8"):
+    compresscheck = CheckCompressionTypeFromString(infile, encoding, False)
     if (compresscheck == "gzip"):
         try:
             import gzip
@@ -793,7 +793,7 @@ def UncompressString(infile):
     if (not compresscheck):
         fileuz = infile
     if (hasattr(fileuz, 'decode')):
-        fileuz = fileuz.decode("UTF-8")
+        fileuz = fileuz.decode(encoding)
     return fileuz
 
 
@@ -829,7 +829,7 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
     return inufile
 
 
-def CompressOpenFile(outfile):
+def CompressOpenFile(outfile, encoding="UTF-8"):
     if (outfile is None):
         return False
     fbasename = os.path.splitext(outfile)[0]
@@ -840,7 +840,7 @@ def CompressOpenFile(outfile):
         mode = "wt"
     if (fextname not in outextlistwd):
         try:
-            outfp = open(outfile, "wt", encoding="UTF-8")
+            outfp = open(outfile, "wt", encoding=encoding)
         except (ValueError, TypeError) as e:
             outfp = open(outfile, "wt")
     elif (fextname == ".gz"):
@@ -848,48 +848,48 @@ def CompressOpenFile(outfile):
             import gzip
         except ImportError:
             return False
-        outfp = gzip.open(outfile, mode, 9, encoding="UTF-8")
+        outfp = gzip.open(outfile, mode, 9, encoding=encoding)
     elif (fextname == ".bz2"):
         try:
             import bz2
         except ImportError:
             return False
-        outfp = bz2.open(outfile, mode, 9, encoding="UTF-8")
+        outfp = bz2.open(outfile, mode, 9, encoding=encoding)
     elif (fextname == ".zst"):
         try:
             import zstandard
         except ImportError:
             return False
         outfp = zstandard.open(
-            outfile, mode, zstandard.ZstdCompressor(level=10), encoding="UTF-8")
+            outfile, mode, zstandard.ZstdCompressor(level=10), encoding=encoding)
     elif (fextname == ".xz"):
         try:
             import lzma
         except ImportError:
             return False
         outfp = lzma.open(outfile, mode, format=lzma.FORMAT_XZ,
-                          preset=9, encoding="UTF-8")
+                          preset=9, encoding=encoding)
     elif (fextname == ".lz4"):
         try:
             import lz4.frame
         except ImportError:
             return False
         outfp = lz4.frame.open(
-            outfile, mode, format=lzma.FORMAT_XZ, preset=9, encoding="UTF-8")
+            outfile, mode, format=lzma.FORMAT_XZ, preset=9, encoding=encoding)
     elif (fextname == ".lzo" or fextname == ".lzop"):
         try:
             import lzo
         except ImportError:
             return False
         outfp = lzo.open(outfile, mode, format=lzma.FORMAT_XZ,
-                         preset=9, encoding="UTF-8")
+                         preset=9, encoding=encoding)
     elif (fextname == ".lzma"):
         try:
             import lzma
         except ImportError:
             return False
         outfp = lzma.open(outfile, mode, format=lzma.FORMAT_ALONE,
-                          preset=9, encoding="UTF-8")
+                          preset=9, encoding=encoding)
     elif (fextname == ".zz" or fextname == ".zl" or fextname == ".zlib"):
         try:
             import lzma
@@ -899,7 +899,7 @@ def CompressOpenFile(outfile):
     return outfp
 
 
-def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=False):
+def MakeFileFromString(instringfile, stringisfile, outstringfile, encoding="UTF-8", returnstring=False):
     if (stringisfile and ((os.path.exists(instringfile) and os.path.isfile(instringfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", instringfile))):
         if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", instringfile)):
             stringfile = UncompressFileURL(
@@ -914,20 +914,20 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
             try:
                 instringsfile = BytesIO(instringfile)
             except TypeError:
-                instringsfile = BytesIO(instringfile.encode("UTF-8"))
+                instringsfile = BytesIO(instringfile.encode(encoding))
             stringfile = UncompressFile(instringsfile)
     else:
         return False
     stringstring = stringfile.read()
     if (hasattr(stringstring, 'decode')):
-        stringstring = stringstring.decode("UTF-8")
+        stringstring = stringstring.decode(encoding)
     fbasename = os.path.splitext(outstringfile)[0]
     fextname = os.path.splitext(outstringfile)[1]
     stringfp = CompressOpenFile(outstringfile)
     try:
         stringfp.write(stringstring)
     except TypeError:
-        stringfp.write(stringstring.encode("UTF-8"))
+        stringfp.write(stringstring.encode(encoding))
     try:
         stringfp.flush()
         os.fsync(stringfp.fileno())
@@ -945,8 +945,8 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring=F
     return True
 
 
-def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, returnstring=False):
-    return MakeFileFromString(instringfile, stringisfile, outstringfile, returnstring)
+def MakeHockeyFileFromHockeyString(instringfile, stringisfile, outstringfile, encoding="UTF-8", returnstring=False):
+    return MakeFileFromString(instringfile, stringisfile, outstringfile, encoding, returnstring)
 
 
 def CheckXMLFile(infile):
@@ -1330,7 +1330,7 @@ def DumpHockeyDatabase(insdbfile, returninsdbfile=True):
     return False
 
 
-def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
+def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, encoding="UTF-8", returninsdbfile=True):
     if (not CheckHockeySQLiteDatabase(insdbfile)[0]):
         return False
     if (insdbfile is None):
@@ -1346,7 +1346,7 @@ def DumpHockeyDatabaseToSQLFile(insdbfile, outsqlfile, returninsdbfile=True):
             try:
                 f.write('%s\n' % line)
             except TypeError:
-                f.write('%s\n' % line.encode("UTF-8"))
+                f.write('%s\n' % line.encode(encoding))
         try:
             f.flush()
             os.fsync(f.fileno())
@@ -1388,7 +1388,7 @@ def RestoreHockeyDatabaseFromSQL(insqlstring, outsdbfile, returnoutsdbfile=True)
     return False
 
 
-def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=True):
+def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, encoding="UTF-8", returnoutsdbfile=True):
     if (outsdbfile is None):
         insqldatacon = MakeHockeyDatabase(":memory:")
     if (outsdbfile is not None and isinstance(outsdbfile, basestring)):
@@ -1400,7 +1400,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, returnoutsdbfile=Tru
     with UncompressFile(insqlfile) as f:
         sqlinput = f.read()
         if (hasattr(sqlinput, 'decode')):
-            sqlinput = sqlinput.decode("UTF-8")
+            sqlinput = sqlinput.decode(encoding)
     insqldatacon[0].execute('BEGIN TRANSACTION')
     insqldatacon[1].executescript(sqlinput)
     insqldatacon[1].commit()
@@ -1437,7 +1437,7 @@ def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=Tr
     return jsonstring
 
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outjsonfile is None):
         return False
     fbasename = os.path.splitext(outjsonfile)[0]
@@ -1448,7 +1448,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
     try:
         jsonfp.write(jsonstring)
     except TypeError:
-        jsonfp.write(jsonstring.encode("UTF-8"))
+        jsonfp.write(jsonstring.encode(encoding))
     try:
         jsonfp.flush()
         os.fsync(jsonfp.fileno())
@@ -1493,7 +1493,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
             try:
                 injsonsfile = BytesIO(injsonfile)
             except TypeError:
-                injsonsfile = BytesIO(injsonfile.encode("UTF-8"))
+                injsonsfile = BytesIO(injsonfile.encode(encoding))
             jsonfp = UncompressFile(injsonsfile)
         hockeyarray = json.load(jsonfp)
         jsonfp.close()
@@ -1527,7 +1527,7 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=Tr
     return picklestring
 
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, verbose=True, jsonverbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outpicklefile is None):
         return False
     fbasename = os.path.splitext(outpicklefile)[0]
@@ -1538,7 +1538,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
     try:
         picklefp.write(picklestring)
     except TypeError:
-        picklefp.write(picklestring.encode("UTF-8"))
+        picklefp.write(picklestring.encode(encoding))
     try:
         picklefp.flush()
         os.fsync(picklefp.fileno())
@@ -1556,7 +1556,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
     return True
 
 
-def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inpicklefile))):
         if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inpicklefile)):
             inpicklefile = UncompressFileURL(
@@ -1567,7 +1567,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, verbose=Tru
             hockeyarray = pickle.load(picklefp, fix_imports=True)
             picklefp.close()
     elif (not pickleisfile):
-        picklefp = BytesIO(inpicklefile.encode("UTF-8"))
+        picklefp = BytesIO(inpicklefile.encode(encoding))
         picklefp = UncompressFile(picklefp)
         hockeyarray = json.load(picklefp, fix_imports=True)
         picklefp.close()
@@ -1597,7 +1597,7 @@ def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, ver
     return marshalstring
 
 
-def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, verbose=True, jsonverbose=True):
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outmarshalfile is None):
         return False
     fbasename = os.path.splitext(outmarshalfile)[0]
@@ -1608,7 +1608,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
     try:
         marshalfp.write(marshalstring)
     except TypeError:
-        marshalfp.write(marshalstring.encode("UTF-8"))
+        marshalfp.write(marshalstring.encode(encoding))
     try:
         marshalfp.flush()
         os.fsync(marshalfp.fileno())
@@ -1626,7 +1626,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
     return True
 
 
-def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inmarshalfile))):
         if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inmarshalfile)):
             inmarshalfile = UncompressFileURL(
@@ -1637,7 +1637,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, verbose=
             hockeyarray = marshal.load(marshalfp)
             marshalfp.close()
     elif (not marshalisfile):
-        marshalfp = BytesIO(inmarshalfile.encode("UTF-8"))
+        marshalfp = BytesIO(inmarshalfile.encode(encoding))
         marshalfp = UncompressFile(marshalfp)
         hockeyarray = json.load(marshalfp)
         marshalfp.close()
@@ -1689,7 +1689,7 @@ def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, retur
     return True
 
 
-def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (shelveisfile):
         with shelve.open(inshelvefile, protocol=version) as shelf_file:
             hockeyarray = dict(shelf_file)
@@ -1697,7 +1697,7 @@ def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pic
         try:
             inshelvefile = BytesIO(inshelvefile)
         except TypeError:
-            inshelvefile = BytesIO(inshelvefile.encode("UTF-8"))
+            inshelvefile = BytesIO(inshelvefile.encode(encoding))
         with shelve.open(inshelvefile, protocol=version) as shelf_file:
             hockeyarray = dict(shelf_file)
     if (not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
@@ -1711,7 +1711,7 @@ def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pic
     return hockeyarray
 
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -1764,7 +1764,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jso
                 xmlstring = xmlstring+"  </games>\n"
         xmlstring = xmlstring+" </league>\n"
     xmlstring = xmlstring+"</hockey>\n"
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeyXML(xmlstring, False)):
         return False
     if (verbose and jsonverbose):
@@ -1775,7 +1775,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jso
     return xmlstring
 
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -1785,7 +1785,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     try:
         xmlfp.write(xmlstring)
     except TypeError:
-        xmlfp.write(xmlstring.encode("UTF-8"))
+        xmlfp.write(xmlstring.encode(encoding))
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
@@ -1803,7 +1803,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     return True
 
 
-def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -1848,22 +1848,22 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, 
                     hasgames = True
                     xmlstring_game = cElementTree.SubElement(xmlstring_games, "game", {'date': str(hgkey['date']), 'time': str(hgkey['time']), 'hometeam': str(hgkey['hometeam']), 'awayteam': str(hgkey['awayteam']), 'goals': str(hgkey['goals']), 'sogs': str(hgkey['sogs']), 'ppgs': str(ppgs), 'shgs': str(
                         hgkey['shgs']), 'penalties': str(hgkey['penalties']), 'pims': str(hgkey['pims']), 'hits': str(hgkey['hits']), 'takeaways': str(hgkey['takeaways']), 'faceoffwins': str(hgkey['faceoffwins']), 'atarena': str(hgkey['atarena']), 'isplayoffgame': str(hgkey['isplayoffgame'])})
-    '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True)'''
+    '''xmlstring = cElementTree.tostring(xmlstring_hockey, encoding, "xml", True, "xml", True)'''
     if (testlxml):
         xmlstring = cElementTree.tostring(
-            xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True, pretty_print=True)
+            xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True, pretty_print=True)
     else:
         try:
             xmlstring = cElementTree.tostring(
-                xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True)
+                xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True)
         except TypeError:
             xmlstring = cElementTree.tostring(
-                xmlstring_hockey, encoding="UTF-8", method="xml")
+                xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
-        xmlstring = xmlstring.decode("UTF-8")
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify)
+        xmlstring = xmlstring.decode(encoding)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
-        xmlstring = xmlstring.decode("UTF-8")
+        xmlstring = xmlstring.decode(encoding)
     if (not CheckHockeyXML(xmlstring, False)):
         return False
     if (verbose and jsonverbose):
@@ -1874,7 +1874,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, verbose=True, 
     return xmlstring
 
 
-def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -1885,7 +1885,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
     try:
         xmlfp.write(xmlstring)
     except TypeError:
-        xmlfp.write(xmlstring.encode("UTF-8"))
+        xmlfp.write(xmlstring.encode(encoding))
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
@@ -1903,7 +1903,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
     return True
 
 
-def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeyXML(inxmlfile, xmlisfile)):
         return False
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
@@ -1913,7 +1913,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
                     inxmlfile, geturls_headers, geturls_cj)
                 try:
                     hockeyfile = cElementTree.parse(
-                        inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                        inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
@@ -1923,7 +1923,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
                         return False
             else:
                 hockeyfile = cElementTree.parse(UncompressFile(
-                    inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"))
+                    inxmlfile), parser=cElementTree.XMLParser(encoding=encoding))
                 hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -1939,11 +1939,11 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, verbose=True, jsonve
             try:
                 inxmlsfile = BytesIO(inxmlfile)
             except TypeError:
-                inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
+                inxmlsfile = BytesIO(inxmlfile.encode(encoding))
             inxmlfile = UncompressFile(inxmlsfile)
         try:
             hockeyfile = cElementTree.parse(
-                inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -2188,7 +2188,7 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
     return pystring
 
 
-def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -2198,7 +2198,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
     try:
         pyfp.write(pystring)
     except TypeError:
-        pyfp.write(pystring.encode("UTF-8"))
+        pyfp.write(pystring.encode(encoding))
     try:
         pyfp.flush()
         os.fsync(pyfp.fileno())
@@ -2308,7 +2308,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     return pystring
 
 
-def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True, verbosepy=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -2319,7 +2319,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     try:
         pyfp.write(pystring)
     except TypeError:
-        pyfp.write(pystring.encode("UTF-8"))
+        pyfp.write(pystring.encode(encoding))
     try:
         pyfp.flush()
         os.fsync(pyfp.fileno())
@@ -2424,7 +2424,7 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
     return pystring
 
 
-def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -2435,7 +2435,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     try:
         pyfp.write(pystring)
     except TypeError:
-        pyfp.write(pystring.encode("UTF-8"))
+        pyfp.write(pystring.encode(encoding))
     try:
         pyfp.flush()
         os.fsync(pyfp.fileno())
@@ -2544,7 +2544,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
     return pystring
 
 
-def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True, verbosepy=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -2555,7 +2555,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
     try:
         pyfp.write(pystring)
     except TypeError:
-        pyfp.write(pystring.encode("UTF-8"))
+        pyfp.write(pystring.encode(encoding))
     try:
         pyfp.flush()
         os.fsync(pyfp.fileno())
@@ -2700,7 +2700,7 @@ def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True)
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
         sqlfp = UncompressFile(insqlfile)
         sqlstring = sqlfp.read()
@@ -2723,7 +2723,7 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, verb
     try:
         sqldatacon[0].executescript(sqlstring)
     except ValueError:
-        sqldatacon[0].executescript(sqlstring.decode("UTF-8"))
+        sqldatacon[0].executescript(sqlstring.decode(encoding))
     leaguecur = sqldatacon[1].cursor()
     getleague_num = leaguecur.execute(
         "SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0]
@@ -2912,7 +2912,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Tr
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outsqlfile is None):
         return False
     fbasename = os.path.splitext(outsqlfile)[0]
@@ -2923,7 +2923,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
     try:
         sqlfp.write(sqlstring)
     except TypeError:
-        sqlfp.write(sqlstring.encode("UTF-8"))
+        sqlfp.write(sqlstring.encode(encoding))
     try:
         sqlfp.flush()
         os.fsync(sqlfp.fileno())
@@ -3022,7 +3022,7 @@ def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
     if (outsqlfile is None):
@@ -3036,7 +3036,7 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
     try:
         sqlfp.write(sqlstring)
     except TypeError:
-        sqlfp.write(sqlstring.encode("UTF-8"))
+        sqlfp.write(sqlstring.encode(encoding))
     try:
         sqlfp.flush()
         os.fsync(sqlfp.fileno())
@@ -3294,7 +3294,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose
     return leaguearrayout
 
 
-def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -3346,7 +3346,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
         xmlstring = xmlstring+"  </rows>\n"
         xmlstring = xmlstring+" </table>\n"
     xmlstring = xmlstring+"</hockeydb>\n"
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
     if (verbose and jsonverbose):
@@ -3358,7 +3358,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, verbo
     return xmlstring
 
 
-def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -3369,7 +3369,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     try:
         xmlfp.write(xmlstring)
     except TypeError:
-        xmlfp.write(xmlstring.encode("UTF-8"))
+        xmlfp.write(xmlstring.encode(encoding))
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
@@ -3387,7 +3387,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     return True
 
 
-def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -3429,22 +3429,22 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
         for rowinfo in inhockeyarray[get_cur_tab]['rows']:
             xmlstring_rowlist = cElementTree.SubElement(
                 xmlstring_rows, "rowlist", {'name': str(rowinfo)})
-    '''xmlstring = cElementTree.tostring(xmlstring_hockey, "UTF-8", "xml", True, "xml", True)'''
+    '''xmlstring = cElementTree.tostring(xmlstring_hockey, encoding, "xml", True, "xml", True)'''
     if (testlxml):
         xmlstring = cElementTree.tostring(
-            xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True, pretty_print=True)
+            xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True, pretty_print=True)
     else:
         try:
             xmlstring = cElementTree.tostring(
-                xmlstring_hockey, encoding="UTF-8", method="xml", xml_declaration=True)
+                xmlstring_hockey, encoding=encoding, method="xml", xml_declaration=True)
         except TypeError:
             xmlstring = cElementTree.tostring(
-                xmlstring_hockey, encoding="UTF-8", method="xml")
+                xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
-        xmlstring = xmlstring.decode("UTF-8")
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", "UTF-8", beautify)
+        xmlstring = xmlstring.decode(encoding)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
-        xmlstring = xmlstring.decode("UTF-8")
+        xmlstring = xmlstring.decode(encoding)
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
     if (verbose and jsonverbose):
@@ -3456,7 +3456,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, ve
     return xmlstring
 
 
-def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -3467,7 +3467,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
     try:
         xmlfp.write(xmlstring)
     except TypeError:
-        xmlfp.write(xmlstring.encode("UTF-8"))
+        xmlfp.write(xmlstring.encode(encoding))
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
@@ -3485,7 +3485,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
     return True
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
         return False
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
@@ -3495,7 +3495,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
                     inxmlfile, geturls_headers, geturls_cj)
                 try:
                     hockeyfile = cElementTree.parse(
-                        inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                        inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
@@ -3505,7 +3505,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
                         return False
             else:
                 hockeyfile = cElementTree.parse(UncompressFile(
-                    inxmlfile), parser=cElementTree.XMLParser(encoding="UTF-8"))
+                    inxmlfile), parser=cElementTree.XMLParser(encoding=encoding))
                 hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -3521,11 +3521,11 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, verbose=
             try:
                 inxmlsfile = BytesIO(inxmlfile)
             except TypeError:
-                inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
+                inxmlsfile = BytesIO(inxmlfile.encode(encoding))
             inxmlfile = UncompressFile(inxmlsfile)
         try:
             hockeyfile = cElementTree.parse(
-                inxmlfile, parser=cElementTree.XMLParser(encoding="UTF-8"))
+                inxmlfile, parser=cElementTree.XMLParser(encoding=encoding))
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
@@ -3752,7 +3752,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (outsqlfile is None):
         return False
     fbasename = os.path.splitext(outsqlfile)[0]
@@ -3763,7 +3763,7 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, retur
     try:
         sqlfp.write(sqlstring)
     except TypeError:
-        sqlfp.write(sqlstring.encode("UTF-8"))
+        sqlfp.write(sqlstring.encode(encoding))
     try:
         sqlfp.flush()
         os.fsync(sqlfp.fileno())

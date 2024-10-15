@@ -1,158 +1,1410 @@
 {
- "AHL": {
+ "database": "./php/data/hockey23-24.db3",
+ "NHL": {
+  "leagueinfo": {
+   "name": "NHL",
+   "fullname": "National Hockey League",
+   "country": "USA",
+   "fullcountry": "United States",
+   "date": "20231010",
+   "playofffmt": "Division=3,Conference=2",
+   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "conferences": "yes",
+   "divisions": "yes"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "Eastern": {
+     "name": "Eastern",
+     "fullname": "Eastern Conference",
+     "league": "NHL"
+    },
+    "Western": {
+     "name": "Western",
+     "fullname": "Western Conference",
+     "league": "NHL"
+    }
+   },
+   "divisioninfo": {
+    "Atlantic": {
+     "name": "Atlantic",
+     "fullname": "Atlantic Division",
+     "league": "NHL",
+     "conference": "Eastern"
+    },
+    "Metropolitan": {
+     "name": "Metropolitan",
+     "fullname": "Metropolitan Division",
+     "league": "NHL",
+     "conference": "Eastern"
+    },
+    "Central": {
+     "name": "Central",
+     "fullname": "Central Division",
+     "league": "NHL",
+     "conference": "Western"
+    },
+    "Pacific": {
+     "name": "Pacific",
+     "fullname": "Pacific Division",
+     "league": "NHL",
+     "conference": "Western"
+    }
+   },
+   "teaminfo": {
+    "Bruins": {
+     "name": "Bruins",
+     "fullname": "Boston Bruins",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Sabres": {
+     "name": "Sabres",
+     "fullname": "Buffalo Sabres",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Red Wings": {
+     "name": "Red Wings",
+     "fullname": "Detroit Red Wings",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Panthers": {
+     "name": "Panthers",
+     "fullname": "Florida Panthers",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Canadiens": {
+     "name": "Canadiens",
+     "fullname": "Montreal Canadiens",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Senators": {
+     "name": "Senators",
+     "fullname": "Ottawa Senators",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Lightning": {
+     "name": "Lightning",
+     "fullname": "Tampa Bay Lightning",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Maple Leafs": {
+     "name": "Maple Leafs",
+     "fullname": "Toronto Maple Leafs",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Hurricanes": {
+     "name": "Hurricanes",
+     "fullname": "Carolina Hurricanes",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Blue Jackets": {
+     "name": "Blue Jackets",
+     "fullname": "Columbus Blue Jackets",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Devils": {
+     "name": "Devils",
+     "fullname": "New Jersey Devils",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Islanders": {
+     "name": "Islanders",
+     "fullname": "New York Islanders",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Rangers": {
+     "name": "Rangers",
+     "fullname": "New York Rangers",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Flyers": {
+     "name": "Flyers",
+     "fullname": "Philadelphia Flyers",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Penguins": {
+     "name": "Penguins",
+     "fullname": "Pittsburgh Penguins",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Capitals": {
+     "name": "Capitals",
+     "fullname": "Washington Capitals",
+     "league": "NHL",
+     "conference": "Eastern",
+     "division": "Metropolitan"
+    },
+    "Coyotes": {
+     "name": "Coyotes",
+     "fullname": "Arizona Coyotes",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Blackhawks": {
+     "name": "Blackhawks",
+     "fullname": "Chicago Blackhawks",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Avalanche": {
+     "name": "Avalanche",
+     "fullname": "Colorado Avalanche",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Stars": {
+     "name": "Stars",
+     "fullname": "Dallas Stars",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Wild": {
+     "name": "Wild",
+     "fullname": "Minnesota Wild",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Predators": {
+     "name": "Predators",
+     "fullname": "Nashville Predators",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Blues": {
+     "name": "Blues",
+     "fullname": "St. Louis Blues",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Jets": {
+     "name": "Jets",
+     "fullname": "Winnipeg Jets",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Ducks": {
+     "name": "Ducks",
+     "fullname": "Anaheim Ducks",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Flames": {
+     "name": "Flames",
+     "fullname": "Calgary Flames",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Oilers": {
+     "name": "Oilers",
+     "fullname": "Edmonton Oilers",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Kings": {
+     "name": "Kings",
+     "fullname": "Los Angeles Kings",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Sharks": {
+     "name": "Sharks",
+     "fullname": "San Jose Sharks",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Kraken": {
+     "name": "Kraken",
+     "fullname": "Seattle Kraken",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Canucks": {
+     "name": "Canucks",
+     "fullname": "Vancouver Canucks",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Golden Knights": {
+     "name": "Golden Knights",
+     "fullname": "Vegas Golden Knights",
+     "league": "NHL",
+     "conference": "Western",
+     "division": "Pacific"
+    }
+   }
+  },
   "Eastern": {
+   "conferenceinfo": {
+    "name": "Eastern",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Eastern Conference",
+    "league": "NHL"
+   },
    "Atlantic": {
-    "Bears": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "PA",
-      "arena": "Giant Center",
-      "city": "Hershey",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Pennsylvania",
-      "fullcountry": "United States",
-      "fullname": "Hershey Bears",
-      "league": "AHL",
-      "name": "Bears",
-      "prefix": "Hershey",
-      "suffix": ""
-     }
+    "divisioninfo": {
+     "name": "Atlantic",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Atlantic Division",
+     "league": "NHL",
+     "conference": "Eastern"
     },
     "Bruins": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "RI",
-      "arena": "Amica Mutual Pavilion",
-      "city": "Providence",
-      "conference": "Eastern",
+      "city": "Boston",
+      "area": "MA",
+      "fullarea": "Massachusetts",
       "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Rhode Island",
       "fullcountry": "United States",
-      "fullname": "Providence Bruins",
-      "league": "AHL",
       "name": "Bruins",
-      "prefix": "Providence",
-      "suffix": ""
+      "fullname": "Boston Bruins",
+      "arena": "TD Garden",
+      "prefix": "Boston",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
-    "Checkers": {
+    "Sabres": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "NC",
-      "arena": "Bojangles' Coliseum",
-      "city": "Charlotte",
-      "conference": "Eastern",
+      "city": "Buffalo",
+      "area": "NY",
+      "fullarea": "New York",
       "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "North Carolina",
       "fullcountry": "United States",
-      "fullname": "Charlotte Checkers",
-      "league": "AHL",
-      "name": "Checkers",
-      "prefix": "Charlotte",
-      "suffix": ""
+      "name": "Sabres",
+      "fullname": "Buffalo Sabres",
+      "arena": "KeyBank Center",
+      "prefix": "Buffalo",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Red Wings": {
+     "teaminfo": {
+      "city": "Detroit",
+      "area": "MI",
+      "fullarea": "Michigan",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Red Wings",
+      "fullname": "Detroit Red Wings",
+      "arena": "Little Caesars Arena",
+      "prefix": "Detroit",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Panthers": {
+     "teaminfo": {
+      "city": "Sunrise",
+      "area": "FL",
+      "fullarea": "Florida",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Panthers",
+      "fullname": "Florida Panthers",
+      "arena": "Amerant Bank Arena",
+      "prefix": "Florida",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Canadiens": {
+     "teaminfo": {
+      "city": "Montreal",
+      "area": "QC",
+      "fullarea": "Quebec",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Canadiens",
+      "fullname": "Montreal Canadiens",
+      "arena": "Bell Centre",
+      "prefix": "Montreal",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Senators": {
+     "teaminfo": {
+      "city": "Ottawa",
+      "area": "ON",
+      "fullarea": "Ontario",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Senators",
+      "fullname": "Ottawa Senators",
+      "arena": "Canadian Tire Centre",
+      "prefix": "Ottawa",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Lightning": {
+     "teaminfo": {
+      "city": "Tampa Bay",
+      "area": "FL",
+      "fullarea": "Florida",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Lightning",
+      "fullname": "Tampa Bay Lightning",
+      "arena": "Amalie Arena",
+      "prefix": "Tampa Bay",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Maple Leafs": {
+     "teaminfo": {
+      "city": "Toronto",
+      "area": "ON",
+      "fullarea": "Ontario",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Maple Leafs",
+      "fullname": "Toronto Maple Leafs",
+      "arena": "Scotiabank Arena",
+      "prefix": "Toronto",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "teamlist": [
+     "Bruins",
+     "Sabres",
+     "Red Wings",
+     "Panthers",
+     "Canadiens",
+     "Senators",
+     "Lightning",
+     "Maple Leafs"
+    ]
+   },
+   "Metropolitan": {
+    "divisioninfo": {
+     "name": "Metropolitan",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Metropolitan Division",
+     "league": "NHL",
+     "conference": "Eastern"
+    },
+    "Hurricanes": {
+     "teaminfo": {
+      "city": "Carolina",
+      "area": "NC",
+      "fullarea": "North Carolina",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Hurricanes",
+      "fullname": "Carolina Hurricanes",
+      "arena": "PNC Arena",
+      "prefix": "Carolina",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
+     }
+    },
+    "Blue Jackets": {
+     "teaminfo": {
+      "city": "Columbus",
+      "area": "OH",
+      "fullarea": "Ohio",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Blue Jackets",
+      "fullname": "Columbus Blue Jackets",
+      "arena": "Nationwide Arena",
+      "prefix": "Columbus",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
+     }
+    },
+    "Devils": {
+     "teaminfo": {
+      "city": "New Jersey",
+      "area": "NJ",
+      "fullarea": "New Jersey",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Devils",
+      "fullname": "New Jersey Devils",
+      "arena": "Prudential Center",
+      "prefix": "New Jersey",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Islanders": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "CT",
-      "arena": "Total Mortgage Arena",
-      "city": "Bridgeport",
-      "conference": "Eastern",
+      "city": "Elmont",
+      "area": "NY",
+      "fullarea": "New York",
       "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Connecticut",
       "fullcountry": "United States",
-      "fullname": "Bridgeport Islanders",
-      "league": "AHL",
       "name": "Islanders",
-      "prefix": "Bridgeport",
-      "suffix": ""
+      "fullname": "New York Islanders",
+      "arena": "UBS Arena",
+      "prefix": "New York",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
+     }
+    },
+    "Rangers": {
+     "teaminfo": {
+      "city": "New York City",
+      "area": "NY",
+      "fullarea": "New York",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Rangers",
+      "fullname": "New York Rangers",
+      "arena": "Madison Square Garden",
+      "prefix": "New York",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
+     }
+    },
+    "Flyers": {
+     "teaminfo": {
+      "city": "Philadelphia",
+      "area": "PA",
+      "fullarea": "Pennsylvania",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Flyers",
+      "fullname": "Philadelphia Flyers",
+      "arena": "Wells Fargo Center",
+      "prefix": "Philadelphia",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
      }
     },
     "Penguins": {
      "teaminfo": {
-      "affiliates": "",
+      "city": "Pittsburgh",
       "area": "PA",
-      "arena": "Mohegan Sun Arena",
-      "city": "Wilkes-Barre",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
       "fullarea": "Pennsylvania",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Wilkes-Barre/Scranton Penguins",
-      "league": "AHL",
       "name": "Penguins",
-      "prefix": "Wilkes-Barre/Scranton",
-      "suffix": ""
+      "fullname": "Pittsburgh Penguins",
+      "arena": "PPG Paints Arena",
+      "prefix": "Pittsburgh",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
      }
+    },
+    "Capitals": {
+     "teaminfo": {
+      "city": "Washington",
+      "area": "DC",
+      "fullarea": "District of Columbia",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Capitals",
+      "fullname": "Washington Capitals",
+      "arena": "Capital One Arena",
+      "prefix": "Washington",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Eastern",
+      "division": "Metropolitan",
+      "affiliates": ""
+     }
+    },
+    "teamlist": [
+     "Hurricanes",
+     "Blue Jackets",
+     "Devils",
+     "Islanders",
+     "Rangers",
+     "Flyers",
+     "Penguins",
+     "Capitals"
+    ]
+   },
+   "divisionlist": [
+    "Atlantic",
+    "Metropolitan"
+   ]
+  },
+  "arenas": [],
+  "games": [],
+  "Western": {
+   "conferenceinfo": {
+    "name": "Western",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Western Conference",
+    "league": "NHL"
+   },
+   "Central": {
+    "divisioninfo": {
+     "name": "Central",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Central Division",
+     "league": "NHL",
+     "conference": "Western"
+    },
+    "Coyotes": {
+     "teaminfo": {
+      "city": "Tempe",
+      "area": "AZ",
+      "fullarea": "Arizona",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Coyotes",
+      "fullname": "Arizona Coyotes",
+      "arena": "Mullett Arena",
+      "prefix": "Arizona",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Blackhawks": {
+     "teaminfo": {
+      "city": "Chicago",
+      "area": "IL",
+      "fullarea": "Illinois",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Blackhawks",
+      "fullname": "Chicago Blackhawks",
+      "arena": "United Center",
+      "prefix": "Chicago",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Avalanche": {
+     "teaminfo": {
+      "city": "Denver",
+      "area": "CO",
+      "fullarea": "Colorado",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Avalanche",
+      "fullname": "Colorado Avalanche",
+      "arena": "Ball Arena",
+      "prefix": "Colorado",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Stars": {
+     "teaminfo": {
+      "city": "Dallas",
+      "area": "TX",
+      "fullarea": "Texas",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Stars",
+      "fullname": "Dallas Stars",
+      "arena": "American Airlines Center",
+      "prefix": "Dallas",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Wild": {
+     "teaminfo": {
+      "city": "St. Paul",
+      "area": "MN",
+      "fullarea": "Minnesota",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Wild",
+      "fullname": "Minnesota Wild",
+      "arena": "Xcel Energy Center",
+      "prefix": "Minnesota",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Predators": {
+     "teaminfo": {
+      "city": "Nashville",
+      "area": "TN",
+      "fullarea": "Tennessee",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Predators",
+      "fullname": "Nashville Predators",
+      "arena": "Bridgestone Arena",
+      "prefix": "Nashville",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Blues": {
+     "teaminfo": {
+      "city": "St. Louis",
+      "area": "MO",
+      "fullarea": "Missouri",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Blues",
+      "fullname": "St. Louis Blues",
+      "arena": "Enterprise Center",
+      "prefix": "St. Louis",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Jets": {
+     "teaminfo": {
+      "city": "Winnipeg",
+      "area": "MB",
+      "fullarea": "Manitoba",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Jets",
+      "fullname": "Winnipeg Jets",
+      "arena": "Canada Life Centre",
+      "prefix": "Winnipeg",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "teamlist": [
+     "Coyotes",
+     "Blackhawks",
+     "Avalanche",
+     "Stars",
+     "Wild",
+     "Predators",
+     "Blues",
+     "Jets"
+    ]
+   },
+   "Pacific": {
+    "divisioninfo": {
+     "name": "Pacific",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Pacific Division",
+     "league": "NHL",
+     "conference": "Western"
+    },
+    "Ducks": {
+     "teaminfo": {
+      "city": "Anaheim",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Ducks",
+      "fullname": "Anaheim Ducks",
+      "arena": "Honda Center",
+      "prefix": "Anaheim",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Flames": {
+     "teaminfo": {
+      "city": "Calgary",
+      "area": "AB",
+      "fullarea": "Alberta",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Flames",
+      "fullname": "Calgary Flames",
+      "arena": "Scotiabank Saddledome",
+      "prefix": "Calgary",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Oilers": {
+     "teaminfo": {
+      "city": "Edmonton",
+      "area": "AB",
+      "fullarea": "Alberta",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Oilers",
+      "fullname": "Edmonton Oilers",
+      "arena": "Rogers Place",
+      "prefix": "Edmonton",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Kings": {
+     "teaminfo": {
+      "city": "Los Angeles",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Kings",
+      "fullname": "Los Angeles Kings",
+      "arena": "Crypto.com Arena",
+      "prefix": "Los Angeles",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Sharks": {
+     "teaminfo": {
+      "city": "San Jose",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Sharks",
+      "fullname": "San Jose Sharks",
+      "arena": "SAP Center",
+      "prefix": "San Jose",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Kraken": {
+     "teaminfo": {
+      "city": "Seattle",
+      "area": "WA",
+      "fullarea": "Washington",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Kraken",
+      "fullname": "Seattle Kraken",
+      "arena": "Climate Pledge Arena",
+      "prefix": "Seattle",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Canucks": {
+     "teaminfo": {
+      "city": "Vancouver",
+      "area": "BC",
+      "fullarea": "British Columbia",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Canucks",
+      "fullname": "Vancouver Canucks",
+      "arena": "Rogers Arena",
+      "prefix": "Vancouver",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Golden Knights": {
+     "teaminfo": {
+      "city": "Paradise",
+      "area": "NV",
+      "fullarea": "Nevada",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Golden Knights",
+      "fullname": "Vegas Golden Knights",
+      "arena": "T-Mobile Arena",
+      "prefix": "Vegas",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "teamlist": [
+     "Ducks",
+     "Flames",
+     "Oilers",
+     "Kings",
+     "Sharks",
+     "Kraken",
+     "Canucks",
+     "Golden Knights"
+    ]
+   },
+   "divisionlist": [
+    "Central",
+    "Pacific"
+   ]
+  },
+  "conferencelist": [
+   "Eastern",
+   "Western"
+  ]
+ },
+ "AHL": {
+  "leagueinfo": {
+   "name": "AHL",
+   "fullname": "American Hockey League",
+   "country": "USA",
+   "fullcountry": "United States",
+   "date": "20231019",
+   "playofffmt": "Division=4",
+   "ordertype": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "conferences": "yes",
+   "divisions": "yes"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "Eastern": {
+     "name": "Eastern",
+     "fullname": "Eastern Conference",
+     "league": "AHL"
+    },
+    "Western": {
+     "name": "Western",
+     "fullname": "Western Conference",
+     "league": "AHL"
+    }
+   },
+   "divisioninfo": {
+    "Atlantic": {
+     "name": "Atlantic",
+     "fullname": "Atlantic Division",
+     "league": "AHL",
+     "conference": "Eastern"
+    },
+    "North": {
+     "name": "North",
+     "fullname": "North Division",
+     "league": "AHL",
+     "conference": "Eastern"
+    },
+    "Central": {
+     "name": "Central",
+     "fullname": "Central Division",
+     "league": "AHL",
+     "conference": "Western"
+    },
+    "Pacific": {
+     "name": "Pacific",
+     "fullname": "Pacific Division",
+     "league": "AHL",
+     "conference": "Western"
+    }
+   },
+   "teaminfo": {
+    "Islanders": {
+     "name": "Islanders",
+     "fullname": "Bridgeport Islanders",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Checkers": {
+     "name": "Checkers",
+     "fullname": "Charlotte Checkers",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Wolf Pack": {
+     "name": "Wolf Pack",
+     "fullname": "Hartford Wolf Pack",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Bears": {
+     "name": "Bears",
+     "fullname": "Hershey Bears",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
     },
     "Phantoms": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "PA",
-      "arena": "PPL Center",
-      "city": "Allentown",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Pennsylvania",
-      "fullcountry": "United States",
-      "fullname": "Lehigh Valley Phantoms",
-      "league": "AHL",
-      "name": "Phantoms",
-      "prefix": "Lehigh Valley",
-      "suffix": ""
-     }
+     "name": "Phantoms",
+     "fullname": "Lehigh Valley Phantoms",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Bruins": {
+     "name": "Bruins",
+     "fullname": "Providence Bruins",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
     },
     "Thunderbirds": {
+     "name": "Thunderbirds",
+     "fullname": "Springfield Thunderbirds",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Penguins": {
+     "name": "Penguins",
+     "fullname": "Wilkes-Barre/Scranton Penguins",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "Atlantic"
+    },
+    "Senators": {
+     "name": "Senators",
+     "fullname": "Belleville Senators",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Monsters": {
+     "name": "Monsters",
+     "fullname": "Cleveland Monsters",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Rocket": {
+     "name": "Rocket",
+     "fullname": "Laval Rocket",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Americans": {
+     "name": "Americans",
+     "fullname": "Rochester Americans",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Crunch": {
+     "name": "Crunch",
+     "fullname": "Syracuse Crunch",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Marlies": {
+     "name": "Marlies",
+     "fullname": "Toronto Marlies",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Comets": {
+     "name": "Comets",
+     "fullname": "Utica Comets",
+     "league": "AHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Wolves": {
+     "name": "Wolves",
+     "fullname": "Chicago Wolves",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Griffins": {
+     "name": "Griffins",
+     "fullname": "Grand Rapids Griffins",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Wild": {
+     "name": "Wild",
+     "fullname": "Iowa Wild",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Moose": {
+     "name": "Moose",
+     "fullname": "Manitoba Moose",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Admirals": {
+     "name": "Admirals",
+     "fullname": "Milwaukee Admirals",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "IceHogs": {
+     "name": "IceHogs",
+     "fullname": "Rockford IceHogs",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Stars": {
+     "name": "Stars",
+     "fullname": "Texas Stars",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Canucks": {
+     "name": "Canucks",
+     "fullname": "Abbotsford Canucks",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Condors": {
+     "name": "Condors",
+     "fullname": "Bakersfield Condors",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Wranglers": {
+     "name": "Wranglers",
+     "fullname": "Calgary Wranglers",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Firebirds": {
+     "name": "Firebirds",
+     "fullname": "Coachella Valley Firebirds",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Eagles": {
+     "name": "Eagles",
+     "fullname": "Colorado Eagles",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Silver Knights": {
+     "name": "Silver Knights",
+     "fullname": "Henderson Silver Knights",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Reign": {
+     "name": "Reign",
+     "fullname": "Ontario Reign",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Gulls": {
+     "name": "Gulls",
+     "fullname": "San Diego Gulls",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Barracuda": {
+     "name": "Barracuda",
+     "fullname": "San Jose Barracuda",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    },
+    "Roadrunners": {
+     "name": "Roadrunners",
+     "fullname": "Tucson Roadrunners",
+     "league": "AHL",
+     "conference": "Western",
+     "division": "Pacific"
+    }
+   }
+  },
+  "Eastern": {
+   "conferenceinfo": {
+    "name": "Eastern",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Eastern Conference",
+    "league": "AHL"
+   },
+   "Atlantic": {
+    "divisioninfo": {
+     "name": "Atlantic",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Atlantic Division",
+     "league": "AHL",
+     "conference": "Eastern"
+    },
+    "Islanders": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "MA",
-      "arena": "MassMutual Center",
-      "city": "Springfield",
-      "conference": "Eastern",
+      "city": "Bridgeport",
+      "area": "CT",
+      "fullarea": "Connecticut",
       "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Massachusetts",
       "fullcountry": "United States",
-      "fullname": "Springfield Thunderbirds",
+      "name": "Islanders",
+      "fullname": "Bridgeport Islanders",
+      "arena": "Total Mortgage Arena",
+      "prefix": "Bridgeport",
+      "suffix": "",
       "league": "AHL",
-      "name": "Thunderbirds",
-      "prefix": "Springfield",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Checkers": {
+     "teaminfo": {
+      "city": "Charlotte",
+      "area": "NC",
+      "fullarea": "North Carolina",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Checkers",
+      "fullname": "Charlotte Checkers",
+      "arena": "Bojangles' Coliseum",
+      "prefix": "Charlotte",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
     "Wolf Pack": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "CT",
-      "arena": "XL Center",
       "city": "Hartford",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
+      "area": "CT",
       "fullarea": "Connecticut",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Hartford Wolf Pack",
-      "league": "AHL",
       "name": "Wolf Pack",
+      "fullname": "Hartford Wolf Pack",
+      "arena": "XL Center",
       "prefix": "Hartford",
-      "suffix": ""
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "Atlantic Division",
-     "league": "AHL",
-     "name": "Atlantic",
-     "prefix": "",
-     "suffix": "Division"
+    "Bears": {
+     "teaminfo": {
+      "city": "Hershey",
+      "area": "PA",
+      "fullarea": "Pennsylvania",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Bears",
+      "fullname": "Hershey Bears",
+      "arena": "Giant Center",
+      "prefix": "Hershey",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Phantoms": {
+     "teaminfo": {
+      "city": "Allentown",
+      "area": "PA",
+      "fullarea": "Pennsylvania",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Phantoms",
+      "fullname": "Lehigh Valley Phantoms",
+      "arena": "PPL Center",
+      "prefix": "Lehigh Valley",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Bruins": {
+     "teaminfo": {
+      "city": "Providence",
+      "area": "RI",
+      "fullarea": "Rhode Island",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Bruins",
+      "fullname": "Providence Bruins",
+      "arena": "Amica Mutual Pavilion",
+      "prefix": "Providence",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Thunderbirds": {
+     "teaminfo": {
+      "city": "Springfield",
+      "area": "MA",
+      "fullarea": "Massachusetts",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Thunderbirds",
+      "fullname": "Springfield Thunderbirds",
+      "arena": "MassMutual Center",
+      "prefix": "Springfield",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
+    },
+    "Penguins": {
+     "teaminfo": {
+      "city": "Wilkes-Barre",
+      "area": "PA",
+      "fullarea": "Pennsylvania",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Penguins",
+      "fullname": "Wilkes-Barre/Scranton Penguins",
+      "arena": "Mohegan Sun Arena",
+      "prefix": "Wilkes-Barre/Scranton",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "Atlantic",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Islanders",
@@ -166,139 +1418,139 @@
     ]
    },
    "North": {
-    "Americans": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "Blue Cross Arena",
-      "city": "Rochester",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "Rochester Americans",
-      "league": "AHL",
-      "name": "Americans",
-      "prefix": "Rochester",
-      "suffix": ""
-     }
+    "divisioninfo": {
+     "name": "North",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "North Division",
+     "league": "AHL",
+     "conference": "Eastern"
     },
-    "Comets": {
+    "Senators": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "Adirondack Bank Center",
-      "city": "Utica",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "Utica Comets",
-      "league": "AHL",
-      "name": "Comets",
-      "prefix": "Utica",
-      "suffix": ""
-     }
-    },
-    "Crunch": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "Upstate Medical University Arena",
-      "city": "Syracuse",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "Syracuse Crunch",
-      "league": "AHL",
-      "name": "Crunch",
-      "prefix": "Syracuse",
-      "suffix": ""
-     }
-    },
-    "Marlies": {
-     "teaminfo": {
-      "affiliates": "",
+      "city": "Belleville",
       "area": "ON",
-      "arena": "Coca-Cola Coliseum",
-      "city": "Toronto",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "North",
       "fullarea": "Ontario",
+      "country": "CAN",
       "fullcountry": "Canada",
-      "fullname": "Toronto Marlies",
+      "name": "Senators",
+      "fullname": "Belleville Senators",
+      "arena": "CAA Arena",
+      "prefix": "Belleville",
+      "suffix": "",
       "league": "AHL",
-      "name": "Marlies",
-      "prefix": "Toronto",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Monsters": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "OH",
-      "arena": "Rocket Mortgage FieldHouse",
       "city": "Cleveland",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
+      "area": "OH",
       "fullarea": "Ohio",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Cleveland Monsters",
-      "league": "AHL",
       "name": "Monsters",
+      "fullname": "Cleveland Monsters",
+      "arena": "Rocket Mortgage FieldHouse",
       "prefix": "Cleveland",
-      "suffix": ""
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Rocket": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "QC",
-      "arena": "Place Bell",
       "city": "Laval",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "North",
+      "area": "QC",
       "fullarea": "Quebec",
-      "fullcountry": "Canada",
-      "fullname": "Laval Rocket",
-      "league": "AHL",
-      "name": "Rocket",
-      "prefix": "Laval",
-      "suffix": ""
-     }
-    },
-    "Senators": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "ON",
-      "arena": "CAA Arena",
-      "city": "Belleville",
-      "conference": "Eastern",
       "country": "CAN",
-      "division": "North",
-      "fullarea": "Ontario",
       "fullcountry": "Canada",
-      "fullname": "Belleville Senators",
+      "name": "Rocket",
+      "fullname": "Laval Rocket",
+      "arena": "Place Bell",
+      "prefix": "Laval",
+      "suffix": "",
       "league": "AHL",
-      "name": "Senators",
-      "prefix": "Belleville",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "North Division",
-     "league": "AHL",
-     "name": "North",
-     "prefix": "",
-     "suffix": "Division"
+    "Americans": {
+     "teaminfo": {
+      "city": "Rochester",
+      "area": "NY",
+      "fullarea": "New York",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Americans",
+      "fullname": "Rochester Americans",
+      "arena": "Blue Cross Arena",
+      "prefix": "Rochester",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
+    },
+    "Crunch": {
+     "teaminfo": {
+      "city": "Syracuse",
+      "area": "NY",
+      "fullarea": "New York",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Crunch",
+      "fullname": "Syracuse Crunch",
+      "arena": "Upstate Medical University Arena",
+      "prefix": "Syracuse",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
+    },
+    "Marlies": {
+     "teaminfo": {
+      "city": "Toronto",
+      "area": "ON",
+      "fullarea": "Ontario",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Marlies",
+      "fullname": "Toronto Marlies",
+      "arena": "Coca-Cola Coliseum",
+      "prefix": "Toronto",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
+    },
+    "Comets": {
+     "teaminfo": {
+      "city": "Utica",
+      "area": "NY",
+      "fullarea": "New York",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Comets",
+      "fullname": "Utica Comets",
+      "arena": "Adirondack Bank Center",
+      "prefix": "Utica",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Senators",
@@ -310,153 +1562,155 @@
      "Comets"
     ]
    },
-   "conferenceinfo": {
-    "fullname": "Eastern Conference",
-    "league": "AHL",
-    "name": "Eastern",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     "Atlantic",
     "North"
    ]
   },
+  "arenas": [],
+  "games": [],
   "Western": {
+   "conferenceinfo": {
+    "name": "Western",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Western Conference",
+    "league": "AHL"
+   },
    "Central": {
-    "Admirals": {
+    "divisioninfo": {
+     "name": "Central",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Central Division",
+     "league": "AHL",
+     "conference": "Western"
+    },
+    "Wolves": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "WI",
-      "arena": "UW-Milwaukee Panther Arena",
-      "city": "Milwaukee",
-      "conference": "Western",
+      "city": "Rosemont",
+      "area": "IL",
+      "fullarea": "Illinois",
       "country": "USA",
-      "division": "Central",
-      "fullarea": "Wisconsin",
       "fullcountry": "United States",
-      "fullname": "Milwaukee Admirals",
+      "name": "Wolves",
+      "fullname": "Chicago Wolves",
+      "arena": "Allstate Arena",
+      "prefix": "Chicago",
+      "suffix": "",
       "league": "AHL",
-      "name": "Admirals",
-      "prefix": "Milwaukee",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Griffins": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "MI",
-      "arena": "Van Andel Arena",
       "city": "Grand Rapids",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
+      "area": "MI",
       "fullarea": "Michigan",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Grand Rapids Griffins",
-      "league": "AHL",
       "name": "Griffins",
+      "fullname": "Grand Rapids Griffins",
+      "arena": "Van Andel Arena",
       "prefix": "Grand Rapids",
-      "suffix": ""
-     }
-    },
-    "IceHogs": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "IL",
-      "arena": "BMO Harris Bank Center",
-      "city": "Rockford",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Illinois",
-      "fullcountry": "United States",
-      "fullname": "Rockford IceHogs",
+      "suffix": "",
       "league": "AHL",
-      "name": "IceHogs",
-      "prefix": "Rockford",
-      "suffix": ""
-     }
-    },
-    "Moose": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MB",
-      "arena": "Canada Life Centre",
-      "city": "Winnipeg",
       "conference": "Western",
-      "country": "CAN",
       "division": "Central",
-      "fullarea": "Manitoba",
-      "fullcountry": "Canada",
-      "fullname": "Manitoba Moose",
-      "league": "AHL",
-      "name": "Moose",
-      "prefix": "Manitoba",
-      "suffix": ""
-     }
-    },
-    "Stars": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "TX",
-      "arena": "H-E-B Center",
-      "city": "Cedar Park",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Texas",
-      "fullcountry": "United States",
-      "fullname": "Texas Stars",
-      "league": "AHL",
-      "name": "Stars",
-      "prefix": "Texas",
-      "suffix": ""
+      "affiliates": ""
      }
     },
     "Wild": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "IA",
-      "arena": "Wells Fargo Arena",
       "city": "Des Moines",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
+      "area": "IA",
       "fullarea": "Iowa",
-      "fullcountry": "United States",
-      "fullname": "Iowa Wild",
-      "league": "AHL",
-      "name": "Wild",
-      "prefix": "Iowa",
-      "suffix": ""
-     }
-    },
-    "Wolves": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "IL",
-      "arena": "Allstate Arena",
-      "city": "Rosemont",
-      "conference": "Western",
       "country": "USA",
-      "division": "Central",
-      "fullarea": "Illinois",
       "fullcountry": "United States",
-      "fullname": "Chicago Wolves",
+      "name": "Wild",
+      "fullname": "Iowa Wild",
+      "arena": "Wells Fargo Arena",
+      "prefix": "Iowa",
+      "suffix": "",
       "league": "AHL",
-      "name": "Wolves",
-      "prefix": "Chicago",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Central Division",
-     "league": "AHL",
-     "name": "Central",
-     "prefix": "",
-     "suffix": "Division"
+    "Moose": {
+     "teaminfo": {
+      "city": "Winnipeg",
+      "area": "MB",
+      "fullarea": "Manitoba",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Moose",
+      "fullname": "Manitoba Moose",
+      "arena": "Canada Life Centre",
+      "prefix": "Manitoba",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Admirals": {
+     "teaminfo": {
+      "city": "Milwaukee",
+      "area": "WI",
+      "fullarea": "Wisconsin",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Admirals",
+      "fullname": "Milwaukee Admirals",
+      "arena": "UW-Milwaukee Panther Arena",
+      "prefix": "Milwaukee",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "IceHogs": {
+     "teaminfo": {
+      "city": "Rockford",
+      "area": "IL",
+      "fullarea": "Illinois",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "IceHogs",
+      "fullname": "Rockford IceHogs",
+      "arena": "BMO Harris Bank Center",
+      "prefix": "Rockford",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Stars": {
+     "teaminfo": {
+      "city": "Cedar Park",
+      "area": "TX",
+      "fullarea": "Texas",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Stars",
+      "fullname": "Texas Stars",
+      "arena": "H-E-B Center",
+      "prefix": "Texas",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Wolves",
@@ -469,193 +1723,193 @@
     ]
    },
    "Pacific": {
-    "Barracuda": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "SAP Center",
-      "city": "San Jose",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "San Jose Barracuda",
-      "league": "AHL",
-      "name": "Barracuda",
-      "prefix": "San Jose",
-      "suffix": ""
-     }
+    "divisioninfo": {
+     "name": "Pacific",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Pacific Division",
+     "league": "AHL",
+     "conference": "Western"
     },
     "Canucks": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "BC",
-      "arena": "Abbotsford Centre",
       "city": "Abbotsford",
-      "conference": "Western",
-      "country": "CAN",
-      "division": "Pacific",
+      "area": "BC",
       "fullarea": "British Columbia",
+      "country": "CAN",
       "fullcountry": "Canada",
-      "fullname": "Abbotsford Canucks",
-      "league": "AHL",
       "name": "Canucks",
+      "fullname": "Abbotsford Canucks",
+      "arena": "Abbotsford Centre",
       "prefix": "Abbotsford",
-      "suffix": ""
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
     "Condors": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Mechanics Bank Arena",
       "city": "Bakersfield",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
+      "area": "CA",
       "fullarea": "California",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Bakersfield Condors",
-      "league": "AHL",
       "name": "Condors",
+      "fullname": "Bakersfield Condors",
+      "arena": "Mechanics Bank Arena",
       "prefix": "Bakersfield",
-      "suffix": ""
-     }
-    },
-    "Eagles": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CO",
-      "arena": "Budweiser Events Center",
-      "city": "Loveland",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "Colorado",
-      "fullcountry": "United States",
-      "fullname": "Colorado Eagles",
+      "suffix": "",
       "league": "AHL",
-      "name": "Eagles",
-      "prefix": "Colorado",
-      "suffix": ""
-     }
-    },
-    "Firebirds": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Acrisure Arena",
-      "city": "Thousand Palms",
       "conference": "Western",
-      "country": "USA",
       "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "Coachella Valley Firebirds",
-      "league": "AHL",
-      "name": "Firebirds",
-      "prefix": "Coachella Valley",
-      "suffix": ""
-     }
-    },
-    "Gulls": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Pechanga Arena",
-      "city": "San Diego",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "San Diego Gulls",
-      "league": "AHL",
-      "name": "Gulls",
-      "prefix": "San Diego",
-      "suffix": ""
-     }
-    },
-    "Reign": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Toyota Arena",
-      "city": "Ontario",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "Ontario Reign",
-      "league": "AHL",
-      "name": "Reign",
-      "prefix": "Ontario",
-      "suffix": ""
-     }
-    },
-    "Roadrunners": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "AZ",
-      "arena": "Tucson Convention Center",
-      "city": "Tucson",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "Arizona",
-      "fullcountry": "United States",
-      "fullname": "Tucson Roadrunners",
-      "league": "AHL",
-      "name": "Roadrunners",
-      "prefix": "Tucson",
-      "suffix": ""
-     }
-    },
-    "Silver Knights": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NV",
-      "arena": "Orleans Arena",
-      "city": "Paradise",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "Nevada",
-      "fullcountry": "United States",
-      "fullname": "Henderson Silver Knights",
-      "league": "AHL",
-      "name": "Silver Knights",
-      "prefix": "Henderson",
-      "suffix": ""
+      "affiliates": ""
      }
     },
     "Wranglers": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "AB",
-      "arena": "Scotiabank Saddledome",
       "city": "Calgary",
-      "conference": "Western",
-      "country": "CAN",
-      "division": "Pacific",
+      "area": "AB",
       "fullarea": "Alberta",
+      "country": "CAN",
       "fullcountry": "Canada",
-      "fullname": "Calgary Wranglers",
-      "league": "AHL",
       "name": "Wranglers",
+      "fullname": "Calgary Wranglers",
+      "arena": "Scotiabank Saddledome",
       "prefix": "Calgary",
-      "suffix": ""
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Pacific Division",
-     "league": "AHL",
-     "name": "Pacific",
-     "prefix": "",
-     "suffix": "Division"
+    "Firebirds": {
+     "teaminfo": {
+      "city": "Thousand Palms",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Firebirds",
+      "fullname": "Coachella Valley Firebirds",
+      "arena": "Acrisure Arena",
+      "prefix": "Coachella Valley",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Eagles": {
+     "teaminfo": {
+      "city": "Loveland",
+      "area": "CO",
+      "fullarea": "Colorado",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Eagles",
+      "fullname": "Colorado Eagles",
+      "arena": "Budweiser Events Center",
+      "prefix": "Colorado",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Silver Knights": {
+     "teaminfo": {
+      "city": "Paradise",
+      "area": "NV",
+      "fullarea": "Nevada",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Silver Knights",
+      "fullname": "Henderson Silver Knights",
+      "arena": "Orleans Arena",
+      "prefix": "Henderson",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Reign": {
+     "teaminfo": {
+      "city": "Ontario",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Reign",
+      "fullname": "Ontario Reign",
+      "arena": "Toyota Arena",
+      "prefix": "Ontario",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Gulls": {
+     "teaminfo": {
+      "city": "San Diego",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Gulls",
+      "fullname": "San Diego Gulls",
+      "arena": "Pechanga Arena",
+      "prefix": "San Diego",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Barracuda": {
+     "teaminfo": {
+      "city": "San Jose",
+      "area": "CA",
+      "fullarea": "California",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Barracuda",
+      "fullname": "San Jose Barracuda",
+      "arena": "SAP Center",
+      "prefix": "San Jose",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
+    },
+    "Roadrunners": {
+     "teaminfo": {
+      "city": "Tucson",
+      "area": "AZ",
+      "fullarea": "Arizona",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Roadrunners",
+      "fullname": "Tucson Roadrunners",
+      "arena": "Tucson Convention Center",
+      "prefix": "Tucson",
+      "suffix": "",
+      "league": "AHL",
+      "conference": "Western",
+      "division": "Pacific",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Canucks",
@@ -670,438 +1924,401 @@
      "Roadrunners"
     ]
    },
-   "conferenceinfo": {
-    "fullname": "Western Conference",
-    "league": "AHL",
-    "name": "Western",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     "Central",
     "Pacific"
    ]
   },
-  "arenas": [],
   "conferencelist": [
    "Eastern",
    "Western"
-  ],
-  "games": [],
+  ]
+ },
+ "ECHL": {
   "leagueinfo": {
-   "conferences": "yes",
+   "name": "ECHL",
+   "fullname": "ECHL",
    "country": "USA",
-   "date": "20231019",
-   "divisions": "yes",
    "fullcountry": "United States",
-   "fullname": "American Hockey League",
-   "name": "AHL",
-   "ordertype": "ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
-   "playofffmt": "Division=4"
+   "date": "20231019",
+   "playofffmt": "Division=4",
+   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "conferences": "yes",
+   "divisions": "yes"
   },
   "quickinfo": {
    "conferenceinfo": {
     "Eastern": {
+     "name": "Eastern",
      "fullname": "Eastern Conference",
-     "league": "AHL",
-     "name": "Eastern"
+     "league": "ECHL"
     },
     "Western": {
+     "name": "Western",
      "fullname": "Western Conference",
-     "league": "AHL",
-     "name": "Western"
+     "league": "ECHL"
     }
    },
    "divisioninfo": {
-    "Atlantic": {
-     "conference": "Eastern",
-     "fullname": "Atlantic Division",
-     "league": "AHL",
-     "name": "Atlantic"
+    "North": {
+     "name": "North",
+     "fullname": "North Division",
+     "league": "ECHL",
+     "conference": "Eastern"
+    },
+    "South": {
+     "name": "South",
+     "fullname": "South Division",
+     "league": "ECHL",
+     "conference": "Eastern"
     },
     "Central": {
-     "conference": "Western",
+     "name": "Central",
      "fullname": "Central Division",
-     "league": "AHL",
-     "name": "Central"
+     "league": "ECHL",
+     "conference": "Western"
     },
-    "North": {
-     "conference": "Eastern",
-     "fullname": "North Division",
-     "league": "AHL",
-     "name": "North"
-    },
-    "Pacific": {
-     "conference": "Western",
-     "fullname": "Pacific Division",
-     "league": "AHL",
-     "name": "Pacific"
+    "Mountain": {
+     "name": "Mountain",
+     "fullname": "Mountain Division",
+     "league": "ECHL",
+     "conference": "Western"
     }
    },
    "teaminfo": {
-    "Admirals": {
+    "Thunder": {
+     "name": "Thunder",
+     "fullname": "Wichita Thunder",
+     "league": "ECHL",
      "conference": "Western",
-     "division": "Central",
-     "fullname": "Milwaukee Admirals",
-     "league": "AHL",
-     "name": "Admirals"
+     "division": "Mountain"
     },
-    "Americans": {
+    "Mariners": {
+     "name": "Mariners",
+     "fullname": "Maine Mariners",
+     "league": "ECHL",
      "conference": "Eastern",
-     "division": "North",
-     "fullname": "Rochester Americans",
-     "league": "AHL",
-     "name": "Americans"
-    },
-    "Barracuda": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "San Jose Barracuda",
-     "league": "AHL",
-     "name": "Barracuda"
-    },
-    "Bears": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Hershey Bears",
-     "league": "AHL",
-     "name": "Bears"
-    },
-    "Bruins": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Providence Bruins",
-     "league": "AHL",
-     "name": "Bruins"
-    },
-    "Canucks": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Abbotsford Canucks",
-     "league": "AHL",
-     "name": "Canucks"
-    },
-    "Checkers": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Charlotte Checkers",
-     "league": "AHL",
-     "name": "Checkers"
-    },
-    "Comets": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Utica Comets",
-     "league": "AHL",
-     "name": "Comets"
-    },
-    "Condors": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Bakersfield Condors",
-     "league": "AHL",
-     "name": "Condors"
-    },
-    "Crunch": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Syracuse Crunch",
-     "league": "AHL",
-     "name": "Crunch"
-    },
-    "Eagles": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Colorado Eagles",
-     "league": "AHL",
-     "name": "Eagles"
-    },
-    "Firebirds": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Coachella Valley Firebirds",
-     "league": "AHL",
-     "name": "Firebirds"
-    },
-    "Griffins": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Grand Rapids Griffins",
-     "league": "AHL",
-     "name": "Griffins"
-    },
-    "Gulls": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "San Diego Gulls",
-     "league": "AHL",
-     "name": "Gulls"
-    },
-    "IceHogs": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Rockford IceHogs",
-     "league": "AHL",
-     "name": "IceHogs"
-    },
-    "Islanders": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Bridgeport Islanders",
-     "league": "AHL",
-     "name": "Islanders"
-    },
-    "Marlies": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Toronto Marlies",
-     "league": "AHL",
-     "name": "Marlies"
-    },
-    "Monsters": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Cleveland Monsters",
-     "league": "AHL",
-     "name": "Monsters"
-    },
-    "Moose": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Manitoba Moose",
-     "league": "AHL",
-     "name": "Moose"
-    },
-    "Penguins": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Wilkes-Barre/Scranton Penguins",
-     "league": "AHL",
-     "name": "Penguins"
-    },
-    "Phantoms": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Lehigh Valley Phantoms",
-     "league": "AHL",
-     "name": "Phantoms"
-    },
-    "Reign": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Ontario Reign",
-     "league": "AHL",
-     "name": "Reign"
-    },
-    "Roadrunners": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Tucson Roadrunners",
-     "league": "AHL",
-     "name": "Roadrunners"
-    },
-    "Rocket": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Laval Rocket",
-     "league": "AHL",
-     "name": "Rocket"
-    },
-    "Senators": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Belleville Senators",
-     "league": "AHL",
-     "name": "Senators"
-    },
-    "Silver Knights": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Henderson Silver Knights",
-     "league": "AHL",
-     "name": "Silver Knights"
-    },
-    "Stars": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Texas Stars",
-     "league": "AHL",
-     "name": "Stars"
-    },
-    "Thunderbirds": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Springfield Thunderbirds",
-     "league": "AHL",
-     "name": "Thunderbirds"
-    },
-    "Wild": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Iowa Wild",
-     "league": "AHL",
-     "name": "Wild"
-    },
-    "Wolf Pack": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Hartford Wolf Pack",
-     "league": "AHL",
-     "name": "Wolf Pack"
-    },
-    "Wolves": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Chicago Wolves",
-     "league": "AHL",
-     "name": "Wolves"
-    },
-    "Wranglers": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Calgary Wranglers",
-     "league": "AHL",
-     "name": "Wranglers"
-    }
-   }
-  }
- },
- "ECHL": {
-  "Eastern": {
-   "North": {
-    "Admirals": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "VA",
-      "arena": "Norfolk Scope",
-      "city": "Norfolk",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
-      "fullarea": "Virginia",
-      "fullcountry": "United States",
-      "fullname": "Norfolk Admirals",
-      "league": "ECHL",
-      "name": "Admirals",
-      "prefix": "Norfolk",
-      "suffix": ""
-     }
+     "division": "North"
     },
     "Growlers": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NL",
-      "arena": "Mary Brown's Centre",
-      "city": "St. John's",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "North",
-      "fullarea": "Newfoundland and Labrador",
-      "fullcountry": "Canada",
-      "fullname": "Newfoundland Growlers",
-      "league": "ECHL",
-      "name": "Growlers",
-      "prefix": "Newfoundland",
-      "suffix": ""
-     }
+     "name": "Growlers",
+     "fullname": "Newfoundland Growlers",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Admirals": {
+     "name": "Admirals",
+     "fullname": "Norfolk Admirals",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Royals": {
+     "name": "Royals",
+     "fullname": "Reading Royals",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "North"
     },
     "Lions": {
+     "name": "Lions",
+     "fullname": "Trois-Rivi\u00e8res Lions",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Railers": {
+     "name": "Railers",
+     "fullname": "Worcester Railers",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "North"
+    },
+    "Gladiators": {
+     "name": "Gladiators",
+     "fullname": "Atlanta Gladiators",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Everblades": {
+     "name": "Everblades",
+     "fullname": "Florida Everblades",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Swamp Rabbits": {
+     "name": "Swamp Rabbits",
+     "fullname": "Greenville Swamp Rabbits",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Icemen": {
+     "name": "Icemen",
+     "fullname": "Jacksonville Icemen",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Solar Bears": {
+     "name": "Solar Bears",
+     "fullname": "Orlando Solar Bears",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Ghost Pirates": {
+     "name": "Ghost Pirates",
+     "fullname": "Savannah Ghost Pirates",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Stingrays": {
+     "name": "Stingrays",
+     "fullname": "South Carolina Stingrays",
+     "league": "ECHL",
+     "conference": "Eastern",
+     "division": "South"
+    },
+    "Cyclones": {
+     "name": "Cyclones",
+     "fullname": "Cincinnati Cyclones",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Komets": {
+     "name": "Komets",
+     "fullname": "Fort Wayne Komets",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Fuel": {
+     "name": "Fuel",
+     "fullname": "Indy Fuel",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Heartlanders": {
+     "name": "Heartlanders",
+     "fullname": "Iowa Heartlanders",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Wings": {
+     "name": "Wings",
+     "fullname": "Kalamazoo Wings",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Walleye": {
+     "name": "Walleye",
+     "fullname": "Toledo Walleye",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Nailers": {
+     "name": "Nailers",
+     "fullname": "Wheeling Nailers",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Central"
+    },
+    "Americans": {
+     "name": "Americans",
+     "fullname": "Allen Americans",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Steelheads": {
+     "name": "Steelheads",
+     "fullname": "Idaho Steelheads",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Mavericks": {
+     "name": "Mavericks",
+     "fullname": "Kansas City Mavericks",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Rush": {
+     "name": "Rush",
+     "fullname": "Rapid City Rush",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Oilers": {
+     "name": "Oilers",
+     "fullname": "Tulsa Oilers",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Mountain"
+    },
+    "Grizzlies": {
+     "name": "Grizzlies",
+     "fullname": "Utah Grizzlies",
+     "league": "ECHL",
+     "conference": "Western",
+     "division": "Mountain"
+    }
+   }
+  },
+  "Eastern": {
+   "conferenceinfo": {
+    "name": "Eastern",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Eastern Conference",
+    "league": "ECHL"
+   },
+   "North": {
+    "divisioninfo": {
+     "name": "North",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "North Division",
+     "league": "ECHL",
+     "conference": "Eastern"
+    },
+    "Thunder": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "QC",
-      "arena": "Colis\u00e9e Vid\u00e9otron",
-      "city": "Trois-Rivi\u00e8res",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "North",
-      "fullarea": "Quebec",
-      "fullcountry": "Canada",
-      "fullname": "Trois-Rivi\u00e8res Lions",
+      "city": "Glens Falls",
+      "area": "NY",
+      "fullarea": "New York",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Thunder",
+      "fullname": "Adirondack Thunder",
+      "arena": "Cool Insuring Arena",
+      "prefix": "Adirondack",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Lions",
-      "prefix": "Trois-Rivi\u00e8res",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Mariners": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "ME",
-      "arena": "Cross Insurance Arena",
       "city": "Portland",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
+      "area": "ME",
       "fullarea": "Maine",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Maine Mariners",
-      "league": "ECHL",
       "name": "Mariners",
+      "fullname": "Maine Mariners",
+      "arena": "Cross Insurance Arena",
       "prefix": "Maine",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
-    "Railers": {
+    "Growlers": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "MA",
-      "arena": "DCU Center",
-      "city": "Worcester",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
-      "fullarea": "Massachusetts",
-      "fullcountry": "United States",
-      "fullname": "Worcester Railers",
+      "city": "St. John's",
+      "area": "NL",
+      "fullarea": "Newfoundland and Labrador",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Growlers",
+      "fullname": "Newfoundland Growlers",
+      "arena": "Mary Brown's Centre",
+      "prefix": "Newfoundland",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Railers",
-      "prefix": "Worcester",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
+    },
+    "Admirals": {
+     "teaminfo": {
+      "city": "Norfolk",
+      "area": "VA",
+      "fullarea": "Virginia",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Admirals",
+      "fullname": "Norfolk Admirals",
+      "arena": "Norfolk Scope",
+      "prefix": "Norfolk",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
     "Royals": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "PA",
-      "arena": "Santander Arena",
       "city": "Reading",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "North",
+      "area": "PA",
       "fullarea": "Pennsylvania",
-      "fullcountry": "United States",
-      "fullname": "Reading Royals",
-      "league": "ECHL",
-      "name": "Royals",
-      "prefix": "Reading",
-      "suffix": ""
-     }
-    },
-    "Thunder": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "Cool Insuring Arena",
-      "city": "Glens Falls",
-      "conference": "Eastern",
       "country": "USA",
-      "division": "North",
-      "fullarea": "New York",
       "fullcountry": "United States",
-      "fullname": "Adirondack Thunder",
+      "name": "Royals",
+      "fullname": "Reading Royals",
+      "arena": "Santander Arena",
+      "prefix": "Reading",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Thunder",
-      "prefix": "Adirondack",
-      "suffix": ""
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "North Division",
-     "league": "ECHL",
-     "name": "North",
-     "prefix": "",
-     "suffix": "Division"
+    "Lions": {
+     "teaminfo": {
+      "city": "Trois-Rivi\u00e8res",
+      "area": "QC",
+      "fullarea": "Quebec",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Lions",
+      "fullname": "Trois-Rivi\u00e8res Lions",
+      "arena": "Colis\u00e9e Vid\u00e9otron",
+      "prefix": "Trois-Rivi\u00e8res",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
+    },
+    "Railers": {
+     "teaminfo": {
+      "city": "Worcester",
+      "area": "MA",
+      "fullarea": "Massachusetts",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Railers",
+      "fullname": "Worcester Railers",
+      "arena": "DCU Center",
+      "prefix": "Worcester",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "North",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Thunder",
@@ -1114,139 +2331,139 @@
     ]
    },
    "South": {
-    "Everblades": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "FL",
-      "arena": "Hertz Arena",
-      "city": "Estero",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "South",
-      "fullarea": "Florida",
-      "fullcountry": "United States",
-      "fullname": "Florida Everblades",
-      "league": "ECHL",
-      "name": "Everblades",
-      "prefix": "Florida",
-      "suffix": ""
-     }
-    },
-    "Ghost Pirates": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "GA",
-      "arena": "Enmarket Arena",
-      "city": "Savannah",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "South",
-      "fullarea": "Georgia",
-      "fullcountry": "United States",
-      "fullname": "Savannah Ghost Pirates",
-      "league": "ECHL",
-      "name": "Ghost Pirates",
-      "prefix": "Savannah",
-      "suffix": ""
-     }
+    "divisioninfo": {
+     "name": "South",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "South Division",
+     "league": "ECHL",
+     "conference": "Eastern"
     },
     "Gladiators": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "GA",
-      "arena": "Gas South Arena",
       "city": "Duluth",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "South",
+      "area": "GA",
       "fullarea": "Georgia",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Atlanta Gladiators",
-      "league": "ECHL",
       "name": "Gladiators",
+      "fullname": "Atlanta Gladiators",
+      "arena": "Gas South Arena",
       "prefix": "Atlanta",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "South",
+      "affiliates": ""
      }
     },
-    "Icemen": {
+    "Everblades": {
      "teaminfo": {
-      "affiliates": "",
+      "city": "Estero",
       "area": "FL",
-      "arena": "VyStar Veterans Memorial Arena",
-      "city": "Jacksonville",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "South",
       "fullarea": "Florida",
-      "fullcountry": "United States",
-      "fullname": "Jacksonville Icemen",
-      "league": "ECHL",
-      "name": "Icemen",
-      "prefix": "Jacksonville",
-      "suffix": ""
-     }
-    },
-    "Solar Bears": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "FL",
-      "arena": "Amway Center",
-      "city": "Orlando",
-      "conference": "Eastern",
       "country": "USA",
-      "division": "South",
-      "fullarea": "Florida",
       "fullcountry": "United States",
-      "fullname": "Orlando Solar Bears",
+      "name": "Everblades",
+      "fullname": "Florida Everblades",
+      "arena": "Hertz Arena",
+      "prefix": "Florida",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Solar Bears",
-      "prefix": "Orlando",
-      "suffix": ""
-     }
-    },
-    "Stingrays": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "SC",
-      "arena": "North Charleston Coliseum",
-      "city": "North Charleston",
       "conference": "Eastern",
-      "country": "USA",
       "division": "South",
-      "fullarea": "South Carolina",
-      "fullcountry": "United States",
-      "fullname": "South Carolina Stingrays",
-      "league": "ECHL",
-      "name": "Stingrays",
-      "prefix": "South Carolina",
-      "suffix": ""
+      "affiliates": ""
      }
     },
     "Swamp Rabbits": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "SC",
-      "arena": "Bon Secours Wellness Arena",
       "city": "Greenville",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "South",
+      "area": "SC",
       "fullarea": "South Carolina",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Greenville Swamp Rabbits",
-      "league": "ECHL",
       "name": "Swamp Rabbits",
+      "fullname": "Greenville Swamp Rabbits",
+      "arena": "Bon Secours Wellness Arena",
       "prefix": "Greenville",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "South",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "South Division",
-     "league": "ECHL",
-     "name": "South",
-     "prefix": "",
-     "suffix": "Division"
+    "Icemen": {
+     "teaminfo": {
+      "city": "Jacksonville",
+      "area": "FL",
+      "fullarea": "Florida",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Icemen",
+      "fullname": "Jacksonville Icemen",
+      "arena": "VyStar Veterans Memorial Arena",
+      "prefix": "Jacksonville",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "South",
+      "affiliates": ""
+     }
+    },
+    "Solar Bears": {
+     "teaminfo": {
+      "city": "Orlando",
+      "area": "FL",
+      "fullarea": "Florida",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Solar Bears",
+      "fullname": "Orlando Solar Bears",
+      "arena": "Amway Center",
+      "prefix": "Orlando",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "South",
+      "affiliates": ""
+     }
+    },
+    "Ghost Pirates": {
+     "teaminfo": {
+      "city": "Savannah",
+      "area": "GA",
+      "fullarea": "Georgia",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Ghost Pirates",
+      "fullname": "Savannah Ghost Pirates",
+      "arena": "Enmarket Arena",
+      "prefix": "Savannah",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "South",
+      "affiliates": ""
+     }
+    },
+    "Stingrays": {
+     "teaminfo": {
+      "city": "North Charleston",
+      "area": "SC",
+      "fullarea": "South Carolina",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Stingrays",
+      "fullname": "South Carolina Stingrays",
+      "arena": "North Charleston Coliseum",
+      "prefix": "South Carolina",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Eastern",
+      "division": "South",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Gladiators",
@@ -1258,153 +2475,155 @@
      "Stingrays"
     ]
    },
-   "conferenceinfo": {
-    "fullname": "Eastern Conference",
-    "league": "ECHL",
-    "name": "Eastern",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     "North",
     "South"
    ]
   },
+  "arenas": [],
+  "games": [],
   "Western": {
+   "conferenceinfo": {
+    "name": "Western",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": "Western Conference",
+    "league": "ECHL"
+   },
    "Central": {
+    "divisioninfo": {
+     "name": "Central",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Central Division",
+     "league": "ECHL",
+     "conference": "Western"
+    },
     "Cyclones": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "OH",
-      "arena": "Heritage Bank Center",
       "city": "Cincinnati",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
+      "area": "OH",
       "fullarea": "Ohio",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Cincinnati Cyclones",
-      "league": "ECHL",
       "name": "Cyclones",
+      "fullname": "Cincinnati Cyclones",
+      "arena": "Heritage Bank Center",
       "prefix": "Cincinnati",
-      "suffix": ""
-     }
-    },
-    "Fuel": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "IN",
-      "arena": "Indiana Farmers Coliseum",
-      "city": "Indianapolis",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Indiana",
-      "fullcountry": "United States",
-      "fullname": "Indy Fuel",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Fuel",
-      "prefix": "Indy",
-      "suffix": ""
-     }
-    },
-    "Heartlanders": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "IA",
-      "arena": "Xtream Arena",
-      "city": "Coralville",
       "conference": "Western",
-      "country": "USA",
       "division": "Central",
-      "fullarea": "Iowa",
-      "fullcountry": "United States",
-      "fullname": "Iowa Heartlanders",
-      "league": "ECHL",
-      "name": "Heartlanders",
-      "prefix": "Iowa",
-      "suffix": ""
+      "affiliates": ""
      }
     },
     "Komets": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "IN",
-      "arena": "Allen County War Memorial Coliseum",
       "city": "Fort Wayne",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
+      "area": "IN",
       "fullarea": "Indiana",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Fort Wayne Komets",
-      "league": "ECHL",
       "name": "Komets",
+      "fullname": "Fort Wayne Komets",
+      "arena": "Allen County War Memorial Coliseum",
       "prefix": "Fort Wayne",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
      }
     },
-    "Nailers": {
+    "Fuel": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "WV",
-      "arena": "WesBanco Arena",
-      "city": "Wheeling",
-      "conference": "Western",
+      "city": "Indianapolis",
+      "area": "IN",
+      "fullarea": "Indiana",
       "country": "USA",
-      "division": "Central",
-      "fullarea": "West Virginia",
       "fullcountry": "United States",
-      "fullname": "Wheeling Nailers",
+      "name": "Fuel",
+      "fullname": "Indy Fuel",
+      "arena": "Indiana Farmers Coliseum",
+      "prefix": "Indy",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Nailers",
-      "prefix": "Wheeling",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
      }
     },
-    "Walleye": {
+    "Heartlanders": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "OH",
-      "arena": "Huntington Center",
-      "city": "Toledo",
-      "conference": "Western",
+      "city": "Coralville",
+      "area": "IA",
+      "fullarea": "Iowa",
       "country": "USA",
-      "division": "Central",
-      "fullarea": "Ohio",
       "fullcountry": "United States",
-      "fullname": "Toledo Walleye",
+      "name": "Heartlanders",
+      "fullname": "Iowa Heartlanders",
+      "arena": "Xtream Arena",
+      "prefix": "Iowa",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Walleye",
-      "prefix": "Toledo",
-      "suffix": ""
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
      }
     },
     "Wings": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "MI",
-      "arena": "Wings Event Center",
       "city": "Kalamazoo",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
+      "area": "MI",
       "fullarea": "Michigan",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Kalamazoo Wings",
-      "league": "ECHL",
       "name": "Wings",
+      "fullname": "Kalamazoo Wings",
+      "arena": "Wings Event Center",
       "prefix": "Kalamazoo",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Central Division",
-     "league": "ECHL",
-     "name": "Central",
-     "prefix": "",
-     "suffix": "Division"
+    "Walleye": {
+     "teaminfo": {
+      "city": "Toledo",
+      "area": "OH",
+      "fullarea": "Ohio",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Walleye",
+      "fullname": "Toledo Walleye",
+      "arena": "Huntington Center",
+      "prefix": "Toledo",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
+    },
+    "Nailers": {
+     "teaminfo": {
+      "city": "Wheeling",
+      "area": "WV",
+      "fullarea": "West Virginia",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Nailers",
+      "fullname": "Wheeling Nailers",
+      "arena": "WesBanco Arena",
+      "prefix": "Wheeling",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Central",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Cyclones",
@@ -1417,139 +2636,139 @@
     ]
    },
    "Mountain": {
+    "divisioninfo": {
+     "name": "Mountain",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": "Mountain Division",
+     "league": "ECHL",
+     "conference": "Western"
+    },
     "Americans": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "TX",
-      "arena": "Credit Union of Texas Event Center",
       "city": "Allen",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
+      "area": "TX",
       "fullarea": "Texas",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Allen Americans",
-      "league": "ECHL",
       "name": "Americans",
+      "fullname": "Allen Americans",
+      "arena": "Credit Union of Texas Event Center",
       "prefix": "Allen",
-      "suffix": ""
-     }
-    },
-    "Grizzlies": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "UT",
-      "arena": "Maverik Center",
-      "city": "West Valley City",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
-      "fullarea": "Utah",
-      "fullcountry": "United States",
-      "fullname": "Utah Grizzlies",
+      "suffix": "",
       "league": "ECHL",
-      "name": "Grizzlies",
-      "prefix": "Utah",
-      "suffix": ""
-     }
-    },
-    "Mavericks": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MO",
-      "arena": "Cable Dahmer Arena",
-      "city": "Independence",
       "conference": "Western",
-      "country": "USA",
       "division": "Mountain",
-      "fullarea": "Missouri",
-      "fullcountry": "United States",
-      "fullname": "Kansas City Mavericks",
-      "league": "ECHL",
-      "name": "Mavericks",
-      "prefix": "Kansas City",
-      "suffix": ""
-     }
-    },
-    "Oilers": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "OK",
-      "arena": "BOK Center",
-      "city": "Tulsa",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
-      "fullarea": "Oklahoma",
-      "fullcountry": "United States",
-      "fullname": "Tulsa Oilers",
-      "league": "ECHL",
-      "name": "Oilers",
-      "prefix": "Tulsa",
-      "suffix": ""
-     }
-    },
-    "Rush": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "SD",
-      "arena": "The Monument",
-      "city": "Rapid City",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
-      "fullarea": "South Dakota",
-      "fullcountry": "United States",
-      "fullname": "Rapid City Rush",
-      "league": "ECHL",
-      "name": "Rush",
-      "prefix": "Rapid City",
-      "suffix": ""
+      "affiliates": ""
      }
     },
     "Steelheads": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "ID",
-      "arena": "Idaho Central Arena",
       "city": "Boise",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
+      "area": "ID",
       "fullarea": "Idaho",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Idaho Steelheads",
-      "league": "ECHL",
       "name": "Steelheads",
+      "fullname": "Idaho Steelheads",
+      "arena": "Idaho Central Arena",
       "prefix": "Idaho",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
+     }
+    },
+    "Mavericks": {
+     "teaminfo": {
+      "city": "Independence",
+      "area": "MO",
+      "fullarea": "Missouri",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Mavericks",
+      "fullname": "Kansas City Mavericks",
+      "arena": "Cable Dahmer Arena",
+      "prefix": "Kansas City",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
+     }
+    },
+    "Rush": {
+     "teaminfo": {
+      "city": "Rapid City",
+      "area": "SD",
+      "fullarea": "South Dakota",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Rush",
+      "fullname": "Rapid City Rush",
+      "arena": "The Monument",
+      "prefix": "Rapid City",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
+     }
+    },
+    "Oilers": {
+     "teaminfo": {
+      "city": "Tulsa",
+      "area": "OK",
+      "fullarea": "Oklahoma",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Oilers",
+      "fullname": "Tulsa Oilers",
+      "arena": "BOK Center",
+      "prefix": "Tulsa",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
+     }
+    },
+    "Grizzlies": {
+     "teaminfo": {
+      "city": "West Valley City",
+      "area": "UT",
+      "fullarea": "Utah",
+      "country": "USA",
+      "fullcountry": "United States",
+      "name": "Grizzlies",
+      "fullname": "Utah Grizzlies",
+      "arena": "Maverik Center",
+      "prefix": "Utah",
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
      }
     },
     "Thunder": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "KS",
-      "arena": "Intrust Bank Arena",
       "city": "Wichita",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Mountain",
+      "area": "KS",
       "fullarea": "Kansas",
+      "country": "USA",
       "fullcountry": "United States",
-      "fullname": "Wichita Thunder",
-      "league": "ECHL",
       "name": "Thunder",
+      "fullname": "Wichita Thunder",
+      "arena": "Intrust Bank Arena",
       "prefix": "Wichita",
-      "suffix": ""
+      "suffix": "",
+      "league": "ECHL",
+      "conference": "Western",
+      "division": "Mountain",
+      "affiliates": ""
      }
-    },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Mountain Division",
-     "league": "ECHL",
-     "name": "Mountain",
-     "prefix": "",
-     "suffix": "Division"
     },
     "teamlist": [
      "Americans",
@@ -1561,1235 +2780,16 @@
      "Thunder"
     ]
    },
-   "conferenceinfo": {
-    "fullname": "Western Conference",
-    "league": "ECHL",
-    "name": "Western",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     "Central",
     "Mountain"
    ]
   },
-  "arenas": [],
   "conferencelist": [
    "Eastern",
    "Western"
-  ],
-  "games": [],
-  "leagueinfo": {
-   "conferences": "yes",
-   "country": "USA",
-   "date": "20231019",
-   "divisions": "yes",
-   "fullcountry": "United States",
-   "fullname": "ECHL",
-   "name": "ECHL",
-   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
-   "playofffmt": "Division=4"
-  },
-  "quickinfo": {
-   "conferenceinfo": {
-    "Eastern": {
-     "fullname": "Eastern Conference",
-     "league": "ECHL",
-     "name": "Eastern"
-    },
-    "Western": {
-     "fullname": "Western Conference",
-     "league": "ECHL",
-     "name": "Western"
-    }
-   },
-   "divisioninfo": {
-    "Central": {
-     "conference": "Western",
-     "fullname": "Central Division",
-     "league": "ECHL",
-     "name": "Central"
-    },
-    "Mountain": {
-     "conference": "Western",
-     "fullname": "Mountain Division",
-     "league": "ECHL",
-     "name": "Mountain"
-    },
-    "North": {
-     "conference": "Eastern",
-     "fullname": "North Division",
-     "league": "ECHL",
-     "name": "North"
-    },
-    "South": {
-     "conference": "Eastern",
-     "fullname": "South Division",
-     "league": "ECHL",
-     "name": "South"
-    }
-   },
-   "teaminfo": {
-    "Admirals": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Norfolk Admirals",
-     "league": "ECHL",
-     "name": "Admirals"
-    },
-    "Americans": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Allen Americans",
-     "league": "ECHL",
-     "name": "Americans"
-    },
-    "Cyclones": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Cincinnati Cyclones",
-     "league": "ECHL",
-     "name": "Cyclones"
-    },
-    "Everblades": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "Florida Everblades",
-     "league": "ECHL",
-     "name": "Everblades"
-    },
-    "Fuel": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Indy Fuel",
-     "league": "ECHL",
-     "name": "Fuel"
-    },
-    "Ghost Pirates": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "Savannah Ghost Pirates",
-     "league": "ECHL",
-     "name": "Ghost Pirates"
-    },
-    "Gladiators": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "Atlanta Gladiators",
-     "league": "ECHL",
-     "name": "Gladiators"
-    },
-    "Grizzlies": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Utah Grizzlies",
-     "league": "ECHL",
-     "name": "Grizzlies"
-    },
-    "Growlers": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Newfoundland Growlers",
-     "league": "ECHL",
-     "name": "Growlers"
-    },
-    "Heartlanders": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Iowa Heartlanders",
-     "league": "ECHL",
-     "name": "Heartlanders"
-    },
-    "Icemen": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "Jacksonville Icemen",
-     "league": "ECHL",
-     "name": "Icemen"
-    },
-    "Komets": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Fort Wayne Komets",
-     "league": "ECHL",
-     "name": "Komets"
-    },
-    "Lions": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Trois-Rivi\u00e8res Lions",
-     "league": "ECHL",
-     "name": "Lions"
-    },
-    "Mariners": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Maine Mariners",
-     "league": "ECHL",
-     "name": "Mariners"
-    },
-    "Mavericks": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Kansas City Mavericks",
-     "league": "ECHL",
-     "name": "Mavericks"
-    },
-    "Nailers": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Wheeling Nailers",
-     "league": "ECHL",
-     "name": "Nailers"
-    },
-    "Oilers": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Tulsa Oilers",
-     "league": "ECHL",
-     "name": "Oilers"
-    },
-    "Railers": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Worcester Railers",
-     "league": "ECHL",
-     "name": "Railers"
-    },
-    "Royals": {
-     "conference": "Eastern",
-     "division": "North",
-     "fullname": "Reading Royals",
-     "league": "ECHL",
-     "name": "Royals"
-    },
-    "Rush": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Rapid City Rush",
-     "league": "ECHL",
-     "name": "Rush"
-    },
-    "Solar Bears": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "Orlando Solar Bears",
-     "league": "ECHL",
-     "name": "Solar Bears"
-    },
-    "Steelheads": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Idaho Steelheads",
-     "league": "ECHL",
-     "name": "Steelheads"
-    },
-    "Stingrays": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "South Carolina Stingrays",
-     "league": "ECHL",
-     "name": "Stingrays"
-    },
-    "Swamp Rabbits": {
-     "conference": "Eastern",
-     "division": "South",
-     "fullname": "Greenville Swamp Rabbits",
-     "league": "ECHL",
-     "name": "Swamp Rabbits"
-    },
-    "Thunder": {
-     "conference": "Western",
-     "division": "Mountain",
-     "fullname": "Wichita Thunder",
-     "league": "ECHL",
-     "name": "Thunder"
-    },
-    "Walleye": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Toledo Walleye",
-     "league": "ECHL",
-     "name": "Walleye"
-    },
-    "Wings": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Kalamazoo Wings",
-     "league": "ECHL",
-     "name": "Wings"
-    }
-   }
-  }
+  ]
  },
- "NHL": {
-  "Eastern": {
-   "Atlantic": {
-    "Bruins": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MA",
-      "arena": "TD Garden",
-      "city": "Boston",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Massachusetts",
-      "fullcountry": "United States",
-      "fullname": "Boston Bruins",
-      "league": "NHL",
-      "name": "Bruins",
-      "prefix": "Boston",
-      "suffix": ""
-     }
-    },
-    "Canadiens": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "QC",
-      "arena": "Bell Centre",
-      "city": "Montreal",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "Atlantic",
-      "fullarea": "Quebec",
-      "fullcountry": "Canada",
-      "fullname": "Montreal Canadiens",
-      "league": "NHL",
-      "name": "Canadiens",
-      "prefix": "Montreal",
-      "suffix": ""
-     }
-    },
-    "Lightning": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "FL",
-      "arena": "Amalie Arena",
-      "city": "Tampa Bay",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Florida",
-      "fullcountry": "United States",
-      "fullname": "Tampa Bay Lightning",
-      "league": "NHL",
-      "name": "Lightning",
-      "prefix": "Tampa Bay",
-      "suffix": ""
-     }
-    },
-    "Maple Leafs": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "ON",
-      "arena": "Scotiabank Arena",
-      "city": "Toronto",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "Atlantic",
-      "fullarea": "Ontario",
-      "fullcountry": "Canada",
-      "fullname": "Toronto Maple Leafs",
-      "league": "NHL",
-      "name": "Maple Leafs",
-      "prefix": "Toronto",
-      "suffix": ""
-     }
-    },
-    "Panthers": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "FL",
-      "arena": "Amerant Bank Arena",
-      "city": "Sunrise",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Florida",
-      "fullcountry": "United States",
-      "fullname": "Florida Panthers",
-      "league": "NHL",
-      "name": "Panthers",
-      "prefix": "Florida",
-      "suffix": ""
-     }
-    },
-    "Red Wings": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MI",
-      "arena": "Little Caesars Arena",
-      "city": "Detroit",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "Michigan",
-      "fullcountry": "United States",
-      "fullname": "Detroit Red Wings",
-      "league": "NHL",
-      "name": "Red Wings",
-      "prefix": "Detroit",
-      "suffix": ""
-     }
-    },
-    "Sabres": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "KeyBank Center",
-      "city": "Buffalo",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Atlantic",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "Buffalo Sabres",
-      "league": "NHL",
-      "name": "Sabres",
-      "prefix": "Buffalo",
-      "suffix": ""
-     }
-    },
-    "Senators": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "ON",
-      "arena": "Canadian Tire Centre",
-      "city": "Ottawa",
-      "conference": "Eastern",
-      "country": "CAN",
-      "division": "Atlantic",
-      "fullarea": "Ontario",
-      "fullcountry": "Canada",
-      "fullname": "Ottawa Senators",
-      "league": "NHL",
-      "name": "Senators",
-      "prefix": "Ottawa",
-      "suffix": ""
-     }
-    },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "Atlantic Division",
-     "league": "NHL",
-     "name": "Atlantic",
-     "prefix": "",
-     "suffix": "Division"
-    },
-    "teamlist": [
-     "Bruins",
-     "Sabres",
-     "Red Wings",
-     "Panthers",
-     "Canadiens",
-     "Senators",
-     "Lightning",
-     "Maple Leafs"
-    ]
-   },
-   "Metropolitan": {
-    "Blue Jackets": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "OH",
-      "arena": "Nationwide Arena",
-      "city": "Columbus",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "Ohio",
-      "fullcountry": "United States",
-      "fullname": "Columbus Blue Jackets",
-      "league": "NHL",
-      "name": "Blue Jackets",
-      "prefix": "Columbus",
-      "suffix": ""
-     }
-    },
-    "Capitals": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "DC",
-      "arena": "Capital One Arena",
-      "city": "Washington",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "District of Columbia",
-      "fullcountry": "United States",
-      "fullname": "Washington Capitals",
-      "league": "NHL",
-      "name": "Capitals",
-      "prefix": "Washington",
-      "suffix": ""
-     }
-    },
-    "Devils": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NJ",
-      "arena": "Prudential Center",
-      "city": "New Jersey",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "New Jersey",
-      "fullcountry": "United States",
-      "fullname": "New Jersey Devils",
-      "league": "NHL",
-      "name": "Devils",
-      "prefix": "New Jersey",
-      "suffix": ""
-     }
-    },
-    "Flyers": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "PA",
-      "arena": "Wells Fargo Center",
-      "city": "Philadelphia",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "Pennsylvania",
-      "fullcountry": "United States",
-      "fullname": "Philadelphia Flyers",
-      "league": "NHL",
-      "name": "Flyers",
-      "prefix": "Philadelphia",
-      "suffix": ""
-     }
-    },
-    "Hurricanes": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NC",
-      "arena": "PNC Arena",
-      "city": "Carolina",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "North Carolina",
-      "fullcountry": "United States",
-      "fullname": "Carolina Hurricanes",
-      "league": "NHL",
-      "name": "Hurricanes",
-      "prefix": "Carolina",
-      "suffix": ""
-     }
-    },
-    "Islanders": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "UBS Arena",
-      "city": "Elmont",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "New York Islanders",
-      "league": "NHL",
-      "name": "Islanders",
-      "prefix": "New York",
-      "suffix": ""
-     }
-    },
-    "Penguins": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "PA",
-      "arena": "PPG Paints Arena",
-      "city": "Pittsburgh",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "Pennsylvania",
-      "fullcountry": "United States",
-      "fullname": "Pittsburgh Penguins",
-      "league": "NHL",
-      "name": "Penguins",
-      "prefix": "Pittsburgh",
-      "suffix": ""
-     }
-    },
-    "Rangers": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NY",
-      "arena": "Madison Square Garden",
-      "city": "New York City",
-      "conference": "Eastern",
-      "country": "USA",
-      "division": "Metropolitan",
-      "fullarea": "New York",
-      "fullcountry": "United States",
-      "fullname": "New York Rangers",
-      "league": "NHL",
-      "name": "Rangers",
-      "prefix": "New York",
-      "suffix": ""
-     }
-    },
-    "divisioninfo": {
-     "conference": "Eastern",
-     "fullname": "Metropolitan Division",
-     "league": "NHL",
-     "name": "Metropolitan",
-     "prefix": "",
-     "suffix": "Division"
-    },
-    "teamlist": [
-     "Hurricanes",
-     "Blue Jackets",
-     "Devils",
-     "Islanders",
-     "Rangers",
-     "Flyers",
-     "Penguins",
-     "Capitals"
-    ]
-   },
-   "conferenceinfo": {
-    "fullname": "Eastern Conference",
-    "league": "NHL",
-    "name": "Eastern",
-    "prefix": "",
-    "suffix": "Conference"
-   },
-   "divisionlist": [
-    "Atlantic",
-    "Metropolitan"
-   ]
-  },
-  "Western": {
-   "Central": {
-    "Avalanche": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CO",
-      "arena": "Ball Arena",
-      "city": "Denver",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Colorado",
-      "fullcountry": "United States",
-      "fullname": "Colorado Avalanche",
-      "league": "NHL",
-      "name": "Avalanche",
-      "prefix": "Colorado",
-      "suffix": ""
-     }
-    },
-    "Blackhawks": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "IL",
-      "arena": "United Center",
-      "city": "Chicago",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Illinois",
-      "fullcountry": "United States",
-      "fullname": "Chicago Blackhawks",
-      "league": "NHL",
-      "name": "Blackhawks",
-      "prefix": "Chicago",
-      "suffix": ""
-     }
-    },
-    "Blues": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MO",
-      "arena": "Enterprise Center",
-      "city": "St. Louis",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Missouri",
-      "fullcountry": "United States",
-      "fullname": "St. Louis Blues",
-      "league": "NHL",
-      "name": "Blues",
-      "prefix": "St. Louis",
-      "suffix": ""
-     }
-    },
-    "Coyotes": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "AZ",
-      "arena": "Mullett Arena",
-      "city": "Tempe",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Arizona",
-      "fullcountry": "United States",
-      "fullname": "Arizona Coyotes",
-      "league": "NHL",
-      "name": "Coyotes",
-      "prefix": "Arizona",
-      "suffix": ""
-     }
-    },
-    "Jets": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MB",
-      "arena": "Canada Life Centre",
-      "city": "Winnipeg",
-      "conference": "Western",
-      "country": "CAN",
-      "division": "Central",
-      "fullarea": "Manitoba",
-      "fullcountry": "Canada",
-      "fullname": "Winnipeg Jets",
-      "league": "NHL",
-      "name": "Jets",
-      "prefix": "Winnipeg",
-      "suffix": ""
-     }
-    },
-    "Predators": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "TN",
-      "arena": "Bridgestone Arena",
-      "city": "Nashville",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Tennessee",
-      "fullcountry": "United States",
-      "fullname": "Nashville Predators",
-      "league": "NHL",
-      "name": "Predators",
-      "prefix": "Nashville",
-      "suffix": ""
-     }
-    },
-    "Stars": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "TX",
-      "arena": "American Airlines Center",
-      "city": "Dallas",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Texas",
-      "fullcountry": "United States",
-      "fullname": "Dallas Stars",
-      "league": "NHL",
-      "name": "Stars",
-      "prefix": "Dallas",
-      "suffix": ""
-     }
-    },
-    "Wild": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "MN",
-      "arena": "Xcel Energy Center",
-      "city": "St. Paul",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Central",
-      "fullarea": "Minnesota",
-      "fullcountry": "United States",
-      "fullname": "Minnesota Wild",
-      "league": "NHL",
-      "name": "Wild",
-      "prefix": "Minnesota",
-      "suffix": ""
-     }
-    },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Central Division",
-     "league": "NHL",
-     "name": "Central",
-     "prefix": "",
-     "suffix": "Division"
-    },
-    "teamlist": [
-     "Coyotes",
-     "Blackhawks",
-     "Avalanche",
-     "Stars",
-     "Wild",
-     "Predators",
-     "Blues",
-     "Jets"
-    ]
-   },
-   "Pacific": {
-    "Canucks": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "BC",
-      "arena": "Rogers Arena",
-      "city": "Vancouver",
-      "conference": "Western",
-      "country": "CAN",
-      "division": "Pacific",
-      "fullarea": "British Columbia",
-      "fullcountry": "Canada",
-      "fullname": "Vancouver Canucks",
-      "league": "NHL",
-      "name": "Canucks",
-      "prefix": "Vancouver",
-      "suffix": ""
-     }
-    },
-    "Ducks": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Honda Center",
-      "city": "Anaheim",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "Anaheim Ducks",
-      "league": "NHL",
-      "name": "Ducks",
-      "prefix": "Anaheim",
-      "suffix": ""
-     }
-    },
-    "Flames": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "AB",
-      "arena": "Scotiabank Saddledome",
-      "city": "Calgary",
-      "conference": "Western",
-      "country": "CAN",
-      "division": "Pacific",
-      "fullarea": "Alberta",
-      "fullcountry": "Canada",
-      "fullname": "Calgary Flames",
-      "league": "NHL",
-      "name": "Flames",
-      "prefix": "Calgary",
-      "suffix": ""
-     }
-    },
-    "Golden Knights": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "NV",
-      "arena": "T-Mobile Arena",
-      "city": "Paradise",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "Nevada",
-      "fullcountry": "United States",
-      "fullname": "Vegas Golden Knights",
-      "league": "NHL",
-      "name": "Golden Knights",
-      "prefix": "Vegas",
-      "suffix": ""
-     }
-    },
-    "Kings": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "Crypto.com Arena",
-      "city": "Los Angeles",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "Los Angeles Kings",
-      "league": "NHL",
-      "name": "Kings",
-      "prefix": "Los Angeles",
-      "suffix": ""
-     }
-    },
-    "Kraken": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "WA",
-      "arena": "Climate Pledge Arena",
-      "city": "Seattle",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "Washington",
-      "fullcountry": "United States",
-      "fullname": "Seattle Kraken",
-      "league": "NHL",
-      "name": "Kraken",
-      "prefix": "Seattle",
-      "suffix": ""
-     }
-    },
-    "Oilers": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "AB",
-      "arena": "Rogers Place",
-      "city": "Edmonton",
-      "conference": "Western",
-      "country": "CAN",
-      "division": "Pacific",
-      "fullarea": "Alberta",
-      "fullcountry": "Canada",
-      "fullname": "Edmonton Oilers",
-      "league": "NHL",
-      "name": "Oilers",
-      "prefix": "Edmonton",
-      "suffix": ""
-     }
-    },
-    "Sharks": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "CA",
-      "arena": "SAP Center",
-      "city": "San Jose",
-      "conference": "Western",
-      "country": "USA",
-      "division": "Pacific",
-      "fullarea": "California",
-      "fullcountry": "United States",
-      "fullname": "San Jose Sharks",
-      "league": "NHL",
-      "name": "Sharks",
-      "prefix": "San Jose",
-      "suffix": ""
-     }
-    },
-    "divisioninfo": {
-     "conference": "Western",
-     "fullname": "Pacific Division",
-     "league": "NHL",
-     "name": "Pacific",
-     "prefix": "",
-     "suffix": "Division"
-    },
-    "teamlist": [
-     "Ducks",
-     "Flames",
-     "Oilers",
-     "Kings",
-     "Sharks",
-     "Kraken",
-     "Canucks",
-     "Golden Knights"
-    ]
-   },
-   "conferenceinfo": {
-    "fullname": "Western Conference",
-    "league": "NHL",
-    "name": "Western",
-    "prefix": "",
-    "suffix": "Conference"
-   },
-   "divisionlist": [
-    "Central",
-    "Pacific"
-   ]
-  },
-  "arenas": [],
-  "conferencelist": [
-   "Eastern",
-   "Western"
-  ],
-  "games": [],
-  "leagueinfo": {
-   "conferences": "yes",
-   "country": "USA",
-   "date": "20231010",
-   "divisions": "yes",
-   "fullcountry": "United States",
-   "fullname": "National Hockey League",
-   "name": "NHL",
-   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
-   "playofffmt": "Division=3,Conference=2"
-  },
-  "quickinfo": {
-   "conferenceinfo": {
-    "Eastern": {
-     "fullname": "Eastern Conference",
-     "league": "NHL",
-     "name": "Eastern"
-    },
-    "Western": {
-     "fullname": "Western Conference",
-     "league": "NHL",
-     "name": "Western"
-    }
-   },
-   "divisioninfo": {
-    "Atlantic": {
-     "conference": "Eastern",
-     "fullname": "Atlantic Division",
-     "league": "NHL",
-     "name": "Atlantic"
-    },
-    "Central": {
-     "conference": "Western",
-     "fullname": "Central Division",
-     "league": "NHL",
-     "name": "Central"
-    },
-    "Metropolitan": {
-     "conference": "Eastern",
-     "fullname": "Metropolitan Division",
-     "league": "NHL",
-     "name": "Metropolitan"
-    },
-    "Pacific": {
-     "conference": "Western",
-     "fullname": "Pacific Division",
-     "league": "NHL",
-     "name": "Pacific"
-    }
-   },
-   "teaminfo": {
-    "Avalanche": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Colorado Avalanche",
-     "league": "NHL",
-     "name": "Avalanche"
-    },
-    "Blackhawks": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Chicago Blackhawks",
-     "league": "NHL",
-     "name": "Blackhawks"
-    },
-    "Blue Jackets": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "Columbus Blue Jackets",
-     "league": "NHL",
-     "name": "Blue Jackets"
-    },
-    "Blues": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "St. Louis Blues",
-     "league": "NHL",
-     "name": "Blues"
-    },
-    "Bruins": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Boston Bruins",
-     "league": "NHL",
-     "name": "Bruins"
-    },
-    "Canadiens": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Montreal Canadiens",
-     "league": "NHL",
-     "name": "Canadiens"
-    },
-    "Canucks": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Vancouver Canucks",
-     "league": "NHL",
-     "name": "Canucks"
-    },
-    "Capitals": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "Washington Capitals",
-     "league": "NHL",
-     "name": "Capitals"
-    },
-    "Coyotes": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Arizona Coyotes",
-     "league": "NHL",
-     "name": "Coyotes"
-    },
-    "Devils": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "New Jersey Devils",
-     "league": "NHL",
-     "name": "Devils"
-    },
-    "Ducks": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Anaheim Ducks",
-     "league": "NHL",
-     "name": "Ducks"
-    },
-    "Flames": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Calgary Flames",
-     "league": "NHL",
-     "name": "Flames"
-    },
-    "Flyers": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "Philadelphia Flyers",
-     "league": "NHL",
-     "name": "Flyers"
-    },
-    "Golden Knights": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Vegas Golden Knights",
-     "league": "NHL",
-     "name": "Golden Knights"
-    },
-    "Hurricanes": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "Carolina Hurricanes",
-     "league": "NHL",
-     "name": "Hurricanes"
-    },
-    "Islanders": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "New York Islanders",
-     "league": "NHL",
-     "name": "Islanders"
-    },
-    "Jets": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Winnipeg Jets",
-     "league": "NHL",
-     "name": "Jets"
-    },
-    "Kings": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Los Angeles Kings",
-     "league": "NHL",
-     "name": "Kings"
-    },
-    "Kraken": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Seattle Kraken",
-     "league": "NHL",
-     "name": "Kraken"
-    },
-    "Lightning": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Tampa Bay Lightning",
-     "league": "NHL",
-     "name": "Lightning"
-    },
-    "Maple Leafs": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Toronto Maple Leafs",
-     "league": "NHL",
-     "name": "Maple Leafs"
-    },
-    "Oilers": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "Edmonton Oilers",
-     "league": "NHL",
-     "name": "Oilers"
-    },
-    "Panthers": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Florida Panthers",
-     "league": "NHL",
-     "name": "Panthers"
-    },
-    "Penguins": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "Pittsburgh Penguins",
-     "league": "NHL",
-     "name": "Penguins"
-    },
-    "Predators": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Nashville Predators",
-     "league": "NHL",
-     "name": "Predators"
-    },
-    "Rangers": {
-     "conference": "Eastern",
-     "division": "Metropolitan",
-     "fullname": "New York Rangers",
-     "league": "NHL",
-     "name": "Rangers"
-    },
-    "Red Wings": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Detroit Red Wings",
-     "league": "NHL",
-     "name": "Red Wings"
-    },
-    "Sabres": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Buffalo Sabres",
-     "league": "NHL",
-     "name": "Sabres"
-    },
-    "Senators": {
-     "conference": "Eastern",
-     "division": "Atlantic",
-     "fullname": "Ottawa Senators",
-     "league": "NHL",
-     "name": "Senators"
-    },
-    "Sharks": {
-     "conference": "Western",
-     "division": "Pacific",
-     "fullname": "San Jose Sharks",
-     "league": "NHL",
-     "name": "Sharks"
-    },
-    "Stars": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Dallas Stars",
-     "league": "NHL",
-     "name": "Stars"
-    },
-    "Wild": {
-     "conference": "Western",
-     "division": "Central",
-     "fullname": "Minnesota Wild",
-     "league": "NHL",
-     "name": "Wild"
-    }
-   }
-  }
- },
- "database": "./php/data/hockey23-24.db3",
  "leaguelist": [
   "NHL",
   "AHL",

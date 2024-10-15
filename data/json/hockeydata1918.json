@@ -1,68 +1,127 @@
 {
+ "database": "./php/data/hockey1918-19.db3",
  "NHL": {
-  "": {
-   "": {
+  "leagueinfo": {
+   "name": "NHL",
+   "fullname": "National Hockey League",
+   "country": "CAN",
+   "fullcountry": "Canada",
+   "date": "19181221",
+   "playofffmt": "League=2",
+   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
+   "conferences": "no",
+   "divisions": "no"
+  },
+  "quickinfo": {
+   "conferenceinfo": {
+    "": {
+     "name": "",
+     "fullname": " Conference",
+     "league": "NHL"
+    }
+   },
+   "divisioninfo": {
+    "": {
+     "name": "",
+     "fullname": " Division",
+     "league": "NHL",
+     "conference": ""
+    }
+   },
+   "teaminfo": {
+    "Senators": {
+     "name": "Senators",
+     "fullname": "Ottawa Senators",
+     "league": "NHL",
+     "conference": "",
+     "division": ""
+    },
+    "Canadiens": {
+     "name": "Canadiens",
+     "fullname": "Montreal Canadiens",
+     "league": "NHL",
+     "conference": "",
+     "division": ""
+    },
     "Arenas": {
+     "name": "Arenas",
+     "fullname": "Toronto Arenas",
+     "league": "NHL",
+     "conference": "",
+     "division": ""
+    }
+   }
+  },
+  "": {
+   "conferenceinfo": {
+    "name": "",
+    "prefix": "",
+    "suffix": "Conference",
+    "fullname": " Conference",
+    "league": "NHL"
+   },
+   "": {
+    "divisioninfo": {
+     "name": "",
+     "prefix": "",
+     "suffix": "Division",
+     "fullname": " Division",
+     "league": "NHL",
+     "conference": ""
+    },
+    "Senators": {
      "teaminfo": {
-      "affiliates": "",
+      "city": "Ottawa",
       "area": "ON",
-      "arena": "Arena Gardens",
-      "city": "Toronto",
-      "conference": "",
-      "country": "CAN",
-      "division": "",
       "fullarea": "Ontario",
+      "country": "CAN",
       "fullcountry": "Canada",
-      "fullname": "Toronto Arenas",
+      "name": "Senators",
+      "fullname": "Ottawa Senators",
+      "arena": "The Arena",
+      "prefix": "Ottawa",
+      "suffix": "",
       "league": "NHL",
-      "name": "Arenas",
-      "prefix": "Toronto",
-      "suffix": ""
+      "conference": "",
+      "division": "",
+      "affiliates": ""
      }
     },
     "Canadiens": {
      "teaminfo": {
-      "affiliates": "",
-      "area": "QC",
-      "arena": "Jubilee Rink",
       "city": "Montreal",
-      "conference": "",
-      "country": "CAN",
-      "division": "",
+      "area": "QC",
       "fullarea": "Quebec",
-      "fullcountry": "Canada",
-      "fullname": "Montreal Canadiens",
-      "league": "NHL",
-      "name": "Canadiens",
-      "prefix": "Montreal",
-      "suffix": ""
-     }
-    },
-    "Senators": {
-     "teaminfo": {
-      "affiliates": "",
-      "area": "ON",
-      "arena": "The Arena",
-      "city": "Ottawa",
-      "conference": "",
       "country": "CAN",
-      "division": "",
-      "fullarea": "Ontario",
       "fullcountry": "Canada",
-      "fullname": "Ottawa Senators",
+      "name": "Canadiens",
+      "fullname": "Montreal Canadiens",
+      "arena": "Jubilee Rink",
+      "prefix": "Montreal",
+      "suffix": "",
       "league": "NHL",
-      "name": "Senators",
-      "prefix": "Ottawa",
-      "suffix": ""
+      "conference": "",
+      "division": "",
+      "affiliates": ""
      }
     },
-    "divisioninfo": {
-     "conference": "",
-     "fullname": " Division",
-     "league": "NHL",
-     "name": "",
-     "prefix": "",
-     "suffix": "Division"
+    "Arenas": {
+     "teaminfo": {
+      "city": "Toronto",
+      "area": "ON",
+      "fullarea": "Ontario",
+      "country": "CAN",
+      "fullcountry": "Canada",
+      "name": "Arenas",
+      "fullname": "Toronto Arenas",
+      "arena": "Arena Gardens",
+      "prefix": "Toronto",
+      "suffix": "",
+      "league": "NHL",
+      "conference": "",
+      "division": "",
+      "affiliates": ""
+     }
     },
     "teamlist": [
      "Senators",
@@ -70,75 +129,16 @@
      "Arenas"
     ]
    },
-   "conferenceinfo": {
-    "fullname": " Conference",
-    "league": "NHL",
-    "name": "",
-    "prefix": "",
-    "suffix": "Conference"
-   },
    "divisionlist": [
     ""
    ]
   },
   "arenas": [],
+  "games": [],
   "conferencelist": [
    ""
-  ],
-  "games": [],
-  "leagueinfo": {
-   "conferences": "no",
-   "country": "CAN",
-   "date": "19181221",
-   "divisions": "no",
-   "fullcountry": "Canada",
-   "fullname": "National Hockey League",
-   "name": "NHL",
-   "ordertype": "ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC",
-   "playofffmt": "League=2"
-  },
-  "quickinfo": {
-   "conferenceinfo": {
-    "": {
-     "fullname": " Conference",
-     "league": "NHL",
-     "name": ""
-    }
-   },
-   "divisioninfo": {
-    "": {
-     "conference": "",
-     "fullname": " Division",
-     "league": "NHL",
-     "name": ""
-    }
-   },
-   "teaminfo": {
-    "Arenas": {
-     "conference": "",
-     "division": "",
-     "fullname": "Toronto Arenas",
-     "league": "NHL",
-     "name": "Arenas"
-    },
-    "Canadiens": {
-     "conference": "",
-     "division": "",
-     "fullname": "Montreal Canadiens",
-     "league": "NHL",
-     "name": "Canadiens"
-    },
-    "Senators": {
-     "conference": "",
-     "division": "",
-     "fullname": "Ottawa Senators",
-     "league": "NHL",
-     "name": "Senators"
-    }
-   }
-  }
+  ]
  },
- "database": "./php/data/hockey1918-19.db3",
  "leaguelist": [
   "NHL"
  ]

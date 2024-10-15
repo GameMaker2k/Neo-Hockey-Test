@@ -195,9 +195,12 @@ if (getargs.export):
                 "Enter Hockey Database SQL File Name to Export: ")
             getargs.outfile = HockeyDatabaseFN
     elif (getargs.type is not None and getargs.type.lower() == "db3"):
-        if (getargs.outfile is None):
+        if (getargs.outfile is None and hockeyarray['database']==":memory:"):
             HockeyDatabaseFN = get_user_input(
                 "Enter Hockey Database File Name to Export: ")
+            getargs.outfile = HockeyDatabaseFN
+        elif (getargs.outfile is None and hockeyarray['database']!=":memory:"):
+            HockeyDatabaseFN = hockeyarray['database']
             getargs.outfile = HockeyDatabaseFN
     else:
         ext = os.path.splitext(getargs.outfile)[-1].lower()
