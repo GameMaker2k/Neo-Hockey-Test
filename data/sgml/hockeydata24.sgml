@@ -1,3 +1,78 @@
+<!DOCTYPE hockey [
+
+<!ELEMENT hockey     - - (league)+>
+<!ATTLIST hockey
+  database           CDATA       #REQUIRED>
+
+<!ELEMENT league     - - (conference+,(arenas,games)?)>
+<!ATTLIST league
+  conferences        CDATA       #REQUIRED
+  country            CDATA       #REQUIRED
+  date               CDATA       #REQUIRED
+  divisions          CDATA       #REQUIRED
+  fullcountry        CDATA       #REQUIRED
+  fullname           CDATA       #REQUIRED
+  name               CDATA       #REQUIRED
+  ordertype          CDATA       #REQUIRED
+  playofffmt         CDATA       #REQUIRED>
+
+<!ELEMENT conference - - (division)+>
+<!ATTLIST conference
+  name               CDATA       #REQUIRED
+  prefix             CDATA       #REQUIRED
+  suffix             CDATA       #REQUIRED>
+
+<!ELEMENT arenas     - - (arena)+>
+
+<!ELEMENT games      - - (game)+>
+
+<!ELEMENT division   - - (team)+>
+<!ATTLIST division
+  name               CDATA       #REQUIRED
+  prefix             CDATA       #REQUIRED
+  suffix             CDATA       #REQUIRED>
+
+<!ELEMENT arena      - O EMPTY>
+<!ATTLIST arena
+  area               CDATA       #REQUIRED
+  city               CDATA       #REQUIRED
+  country            CDATA       #REQUIRED
+  fullarea           CDATA       #REQUIRED
+  fullcountry        CDATA       #REQUIRED
+  name               CDATA       #REQUIRED>
+
+<!ELEMENT game       - O EMPTY>
+<!ATTLIST game
+  atarena            CDATA       #REQUIRED
+  awayteam           CDATA       #REQUIRED
+  date               CDATA       #REQUIRED
+  time               CDATA       #REQUIRED
+  faceoffwins        CDATA       #REQUIRED
+  goals              CDATA       #REQUIRED
+  hits               CDATA       #REQUIRED
+  hometeam           CDATA       #REQUIRED
+  isplayoffgame      CDATA       #REQUIRED
+  penalties          CDATA       #REQUIRED
+  pims               CDATA       #REQUIRED
+  ppgs               CDATA       #REQUIRED
+  shgs               CDATA       #REQUIRED
+  sogs               CDATA       #REQUIRED
+  takeaways          CDATA       #REQUIRED>
+
+<!ELEMENT team       - O EMPTY>
+<!ATTLIST team
+  area               CDATA       #REQUIRED
+  arena              CDATA       #REQUIRED
+  city               CDATA       #REQUIRED
+  country            CDATA       #REQUIRED
+  fullarea           CDATA       #REQUIRED
+  fullcountry        CDATA       #REQUIRED
+  name               CDATA       #REQUIRED
+  prefix             CDATA       #REQUIRED
+  suffix             CDATA       #REQUIRED
+  affiliates         CDATA       #REQUIRED>
+]>
+
 <hockey database="./php/data/hockey24-25.db3">
  <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="20231010" playofffmt="Division=3,Conference=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">

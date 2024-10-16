@@ -1,29 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hockey database="./php/data/hockey1942-43.db3">
- <league name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="19421031" playofffmt="League=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
-  <conference name="" prefix="" suffix="Conference">
-   <division name="" prefix="" suffix="Division">
-    <team city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="Boston Garden" prefix="Boston" suffix="" affiliates="" />
-    <team city="Chicago" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Blackhawks" arena="Chicago Stadium" prefix="Chicago" suffix="" affiliates="" />
-    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Red Wings" arena="Detroit Olympia" prefix="Detroit" suffix="" affiliates="" />
-    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Montreal Forum" prefix="Montreal" suffix="" affiliates="" />
-    <team city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" affiliates="" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Maple Leaf Gardens" prefix="Toronto" suffix="" affiliates="" />
+<!DOCTYPE hockey [
+
+<!ELEMENT hockey (league)+>
+<!ATTLIST hockey
+  xmlns CDATA #FIXED ''
+  database CDATA #REQUIRED>
+
+<!ELEMENT league (conference+,(arenas,games)?)>
+<!ATTLIST league
+  xmlns CDATA #FIXED ''
+  conferences CDATA #REQUIRED
+  country CDATA #REQUIRED
+  date CDATA #REQUIRED
+  divisions CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  fullname CDATA #REQUIRED
+  name CDATA #REQUIRED
+  ordertype CDATA #REQUIRED
+  playofffmt CDATA #REQUIRED>
+
+<!ELEMENT conference (division)+>
+<!ATTLIST conference
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED>
+
+<!ELEMENT arenas (arena)+>
+<!ATTLIST arenas
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT games (game)+>
+<!ATTLIST games
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT division (team)+>
+<!ATTLIST division
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED>
+
+<!ELEMENT arena EMPTY>
+<!ATTLIST arena
+  xmlns CDATA #FIXED ''
+  area CDATA #REQUIRED
+  city CDATA #REQUIRED
+  country CDATA #REQUIRED
+  fullarea CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  name CDATA #REQUIRED>
+
+<!ELEMENT game EMPTY>
+<!ATTLIST game
+  xmlns CDATA #FIXED ''
+  atarena CDATA #REQUIRED
+  awayteam CDATA #REQUIRED
+  date CDATA #REQUIRED
+  time CDATA #REQUIRED
+  faceoffwins CDATA #REQUIRED
+  goals CDATA #REQUIRED
+  hits CDATA #REQUIRED
+  hometeam CDATA #REQUIRED
+  isplayoffgame CDATA #REQUIRED
+  penalties CDATA #REQUIRED
+  pims CDATA #REQUIRED
+  ppgs CDATA #REQUIRED
+  shgs CDATA #REQUIRED
+  sogs CDATA #REQUIRED
+  takeaways CDATA #REQUIRED>
+
+<!ELEMENT team EMPTY>
+<!ATTLIST team
+  xmlns CDATA #FIXED ''
+  area CDATA #REQUIRED
+  arena CDATA #REQUIRED
+  city CDATA #REQUIRED
+  country CDATA #REQUIRED
+  fullarea CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED
+  affiliates CDATA #REQUIRED>
+]>
+<hockey xmlns="" database="./php/data/hockey1942-43.db3">
+ <league xmlns="" name="NHL" fullname="National Hockey League" country="USA" fullcountry="United States" date="19421031" playofffmt="League=4" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
+  <conference xmlns="" name="" prefix="" suffix="Conference">
+   <division xmlns="" name="" prefix="" suffix="Division">
+    <team xmlns="" city="Boston" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Bruins" arena="Boston Garden" prefix="Boston" suffix="" affiliates=""/>
+    <team xmlns="" city="Chicago" area="IL" fullarea="Illinois" country="USA" fullcountry="United States" name="Blackhawks" arena="Chicago Stadium" prefix="Chicago" suffix="" affiliates=""/>
+    <team xmlns="" city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Red Wings" arena="Detroit Olympia" prefix="Detroit" suffix="" affiliates=""/>
+    <team xmlns="" city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Montreal Forum" prefix="Montreal" suffix="" affiliates=""/>
+    <team xmlns="" city="New York City" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Rangers" arena="Madison Square Garden" prefix="New York" suffix="" affiliates=""/>
+    <team xmlns="" city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Maple Leafs" arena="Maple Leaf Gardens" prefix="Toronto" suffix="" affiliates=""/>
    </division>
   </conference>
  </league>
- <league name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States" date="19421031" playofffmt="League=4" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
-  <conference name="" prefix="" suffix="Conference">
-   <division name="" prefix="" suffix="Division">
-    <team city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Bisons" arena="Buffalo Memorial Auditorium" prefix="Buffalo" suffix="" affiliates="" />
-    <team city="Cleveland" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Barons" arena="Cleveland Arena" prefix="Cleveland" suffix="" affiliates="" />
-    <team city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Red Wings" arena="Hersheypark Arena" prefix="Hershey" suffix="" affiliates="" />
-    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Capitals" arena="Indiana State Fairgrounds Coliseum" prefix="Indianapolis" suffix="" affiliates="" />
-    <team city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Rockets" arena="Philadelphia Arena" prefix="Philadelphia" suffix="" affiliates="" />
-    <team city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hornets" arena="Duquesne Gardens" prefix="Pittsburgh" suffix="" affiliates="" />
-    <team city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Reds" arena="Rhode Island Auditorium" prefix="Providence" suffix="" affiliates="" />
-    <team city="West Springfield" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Indians" arena="Eastern States Coliseum" prefix="Springfield" suffix="" affiliates="" />
-    <team city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Lions" arena="Washington Coliseum" prefix="Washington" suffix="" affiliates="" />
+ <league xmlns="" name="AHL" fullname="American Hockey League" country="USA" fullcountry="United States" date="19421031" playofffmt="League=4" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
+  <conference xmlns="" name="" prefix="" suffix="Conference">
+   <division xmlns="" name="" prefix="" suffix="Division">
+    <team xmlns="" city="Buffalo" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Bisons" arena="Buffalo Memorial Auditorium" prefix="Buffalo" suffix="" affiliates=""/>
+    <team xmlns="" city="Cleveland" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Barons" arena="Cleveland Arena" prefix="Cleveland" suffix="" affiliates=""/>
+    <team xmlns="" city="Hershey" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Red Wings" arena="Hersheypark Arena" prefix="Hershey" suffix="" affiliates=""/>
+    <team xmlns="" city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Capitals" arena="Indiana State Fairgrounds Coliseum" prefix="Indianapolis" suffix="" affiliates=""/>
+    <team xmlns="" city="Philadelphia" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Rockets" arena="Philadelphia Arena" prefix="Philadelphia" suffix="" affiliates=""/>
+    <team xmlns="" city="Pittsburgh" area="PA" fullarea="Pennsylvania" country="USA" fullcountry="United States" name="Hornets" arena="Duquesne Gardens" prefix="Pittsburgh" suffix="" affiliates=""/>
+    <team xmlns="" city="Providence" area="RI" fullarea="Rhode Island" country="USA" fullcountry="United States" name="Reds" arena="Rhode Island Auditorium" prefix="Providence" suffix="" affiliates=""/>
+    <team xmlns="" city="West Springfield" area="MA" fullarea="Massachusetts" country="USA" fullcountry="United States" name="Indians" arena="Eastern States Coliseum" prefix="Springfield" suffix="" affiliates=""/>
+    <team xmlns="" city="Washington" area="DC" fullarea="District of Columbia" country="USA" fullcountry="United States" name="Lions" arena="Washington Coliseum" prefix="Washington" suffix="" affiliates=""/>
    </division>
   </conference>
  </league>

@@ -1,11 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hockey database="./php/data/hockey1918-19.db3">
- <league name="NHL" fullname="National Hockey League" country="CAN" fullcountry="Canada" date="19181221" playofffmt="League=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
-  <conference name="" prefix="" suffix="Conference">
-   <division name="" prefix="" suffix="Division">
-    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="The Arena" prefix="Ottawa" suffix="" affiliates="" />
-    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Jubilee Rink" prefix="Montreal" suffix="" affiliates="" />
-    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Arenas" arena="Arena Gardens" prefix="Toronto" suffix="" affiliates="" />
+<!DOCTYPE hockey [
+
+<!ELEMENT hockey (league)+>
+<!ATTLIST hockey
+  xmlns CDATA #FIXED ''
+  database CDATA #REQUIRED>
+
+<!ELEMENT league (conference+,(arenas,games)?)>
+<!ATTLIST league
+  xmlns CDATA #FIXED ''
+  conferences CDATA #REQUIRED
+  country CDATA #REQUIRED
+  date CDATA #REQUIRED
+  divisions CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  fullname CDATA #REQUIRED
+  name CDATA #REQUIRED
+  ordertype CDATA #REQUIRED
+  playofffmt CDATA #REQUIRED>
+
+<!ELEMENT conference (division)+>
+<!ATTLIST conference
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED>
+
+<!ELEMENT arenas (arena)+>
+<!ATTLIST arenas
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT games (game)+>
+<!ATTLIST games
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT division (team)+>
+<!ATTLIST division
+  xmlns CDATA #FIXED ''
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED>
+
+<!ELEMENT arena EMPTY>
+<!ATTLIST arena
+  xmlns CDATA #FIXED ''
+  area CDATA #REQUIRED
+  city CDATA #REQUIRED
+  country CDATA #REQUIRED
+  fullarea CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  name CDATA #REQUIRED>
+
+<!ELEMENT game EMPTY>
+<!ATTLIST game
+  xmlns CDATA #FIXED ''
+  atarena CDATA #REQUIRED
+  awayteam CDATA #REQUIRED
+  date CDATA #REQUIRED
+  time CDATA #REQUIRED
+  faceoffwins CDATA #REQUIRED
+  goals CDATA #REQUIRED
+  hits CDATA #REQUIRED
+  hometeam CDATA #REQUIRED
+  isplayoffgame CDATA #REQUIRED
+  penalties CDATA #REQUIRED
+  pims CDATA #REQUIRED
+  ppgs CDATA #REQUIRED
+  shgs CDATA #REQUIRED
+  sogs CDATA #REQUIRED
+  takeaways CDATA #REQUIRED>
+
+<!ELEMENT team EMPTY>
+<!ATTLIST team
+  xmlns CDATA #FIXED ''
+  area CDATA #REQUIRED
+  arena CDATA #REQUIRED
+  city CDATA #REQUIRED
+  country CDATA #REQUIRED
+  fullarea CDATA #REQUIRED
+  fullcountry CDATA #REQUIRED
+  name CDATA #REQUIRED
+  prefix CDATA #REQUIRED
+  suffix CDATA #REQUIRED
+  affiliates CDATA #REQUIRED>
+]>
+<hockey xmlns="" database="./php/data/hockey1918-19.db3">
+ <league xmlns="" name="NHL" fullname="National Hockey League" country="CAN" fullcountry="Canada" date="19181221" playofffmt="League=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
+  <conference xmlns="" name="" prefix="" suffix="Conference">
+   <division xmlns="" name="" prefix="" suffix="Division">
+    <team xmlns="" city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="The Arena" prefix="Ottawa" suffix="" affiliates=""/>
+    <team xmlns="" city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Jubilee Rink" prefix="Montreal" suffix="" affiliates=""/>
+    <team xmlns="" city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Arenas" arena="Arena Gardens" prefix="Toronto" suffix="" affiliates=""/>
    </division>
   </conference>
  </league>
