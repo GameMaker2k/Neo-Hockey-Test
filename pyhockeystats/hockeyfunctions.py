@@ -2447,7 +2447,7 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
     sgmlstring = ""
     database_value = inhockeyarray.get('database', defaultsdbfile)
     if(includedtd):
-        sgmlstring = sgmlstring+hockeygmldtdstring;
+        sgmlstring = sgmlstring+hockeysgmldtdstring;
     sgmlstring += "<hockey database=\"" + EscapeSGMLString(str(database_value), quote=True) + "\">\n"
 
     for hlkey in inhockeyarray['leaguelist']:
