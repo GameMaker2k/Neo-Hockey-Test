@@ -57,10 +57,10 @@ defsdbfile = "./data/hockeydata.db3"
 defoldsdbfile = "./data/hockeydata.db3"
 defsqlfile = "./data/hockeydata.sql"
 defjsonfile = "./data/hockeydata.json"
-extensions = ['.xml', '.json', '.sql', '.db3', '.py']
-extensionsin = ['.xml', '.json', '.sql', '.db3']
-extensionsc = ['.gz', '.bz2', '.lzma', '.xz']
-filetypes = ['xml', 'json', 'sql', 'db3', 'py', 'pyalt']
+extensions = ['xml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3', 'py']
+extensionsin = ['xml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
+extensionsc = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
+filetypes = ['xml', 'json', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
 
 
 def get_user_input(txt):
@@ -149,7 +149,7 @@ if (premenuact == "2"):
         elif ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeyXML(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
-        elif (ext == ".db3" and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
+        elif ((ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3") and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
                 HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
         elif (ext == ".sql" or subext == ".sql"):
@@ -205,7 +205,7 @@ if (getargs.export):
         if (ext in extensions):
             if (ext == ".xml"):
                 getargs.type = "xml"
-            elif (ext == ".db3"):
+            elif (ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3"):
                 getargs.type = "db3"
             elif (ext == ".sql"):
                 getargs.type = "sql"
@@ -701,7 +701,7 @@ while (keep_loop):
                     if (ext == ".xml" and pyhockeystats.CheckXMLFile(HockeyDatabaseFN)):
                         hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
                             HockeyDatabaseFN)
-                    elif (ext == ".db3" and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
+                    elif ((ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3") and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
                         hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
                             HockeyDatabaseFN)
                     elif (ext == ".sql"):
