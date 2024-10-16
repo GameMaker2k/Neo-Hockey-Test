@@ -2636,7 +2636,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeyXMLAltFromHockeyArray(
-        inhockeyarray, beautify, encoding, includedtd=True, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
