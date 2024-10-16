@@ -169,7 +169,7 @@ if (premenuact == "2"):
 if (getargs.export):
     if (getargs.type is not None and getargs.type not in filetypes):
         getargs.type = None
-    if (getargs.type is not None and (getargs.type.lower() == "xml"
+    if (getargs.type is not None and (getargs.type.lower() == "xml" and
       getargs.type.lower() == "xmlalt")):
         if (getargs.outfile is None):
             HockeyDatabaseFN = get_user_input(
