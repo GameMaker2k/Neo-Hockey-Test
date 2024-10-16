@@ -2454,6 +2454,9 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
         sgmlstring += " </league>\n"
     sgmlstring += "</hockey>\n"
 
+    if (not CheckHockeySGML(sgmlstring, False)):
+        return False
+
     if verbose:
         if jsonverbose:
             VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
@@ -2718,6 +2721,8 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
     """
     Parses SGML data and converts it into a hockey array (nested dictionary).
     """
+    if (not CheckHockeySGML(insgmlfile, sgmlisfile)):
+        return False
     # Read SGML data
     sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
@@ -4161,6 +4166,9 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
     
     sgmlstring += "</hockeydb>\n"
     
+    if (not CheckHockeySQLiteXML(sgmlstring, False)):
+        return False
+    
     if verbose:
         if jsonverbose:
             VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
@@ -4407,6 +4415,8 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
     """
     Parses SGML data representing a hockey SQLite database and converts it into a hockey SQLite array.
     """
+    if (not CheckHockeySQLiteXML(insgmlfile, sgmlisfile)):
+        return False
     # Read SGML data
     sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
