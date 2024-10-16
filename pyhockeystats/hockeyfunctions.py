@@ -42,6 +42,7 @@ from .versioninfo import (__author__, __copyright__, __credits__, __email__,
                           __version_date_plusrc__, __version_info__,
                           version_date, version_info)
 from .xmldtd import *
+from .sgmldtd import *
 
 # Python 2 handling: Reload sys and set UTF-8 encoding if applicable
 try:

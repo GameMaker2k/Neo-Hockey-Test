@@ -36,26 +36,26 @@ except ImportError:
 
 if (implib):
     try:
-        hockeydtd = os.path.join(
+        hockeysgmldtd = os.path.join(
             importlib.resources.files(__name__), "hockeydata.dtd")
-        hockeyaltdtd = os.path.join(
+        hockeyaltsgmldtd = os.path.join(
             importlib.resources.files(__name__), "hockeydatabase.dtd")
-        hockeysgmlpath = os.path.dirname(hockeydtd)
+        hockeysgmlpath = os.path.dirname(hockeysgmldtd)
     except AttributeError:
         with importlib.resources.path(hockeydata.dtd, "") as pkgfile:
-            hockeydtd = pkgfile
+            hockeysgmldtd = pkgfile
         with importlib.resources.path(hockeydatabase.dtd, "") as pkgfile:
-            hockeyaltdtd = pkgfile
-        hockeysgmlpath = os.path.dirname(hockeydtd)
+            hockeyaltsgmldtd = pkgfile
+        hockeysgmlpath = os.path.dirname(hockeysgmldtd)
 elif (pkgres):
-    hockeydtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
-    hockeyaltdtd = pkg_resources.resource_filename(
+    hockeysgmldtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
+    hockeyaltsgmldtd = pkg_resources.resource_filename(
         __name__, "hockeydatabase.dtd")
-    hockeysgmlpath = os.path.dirname(hockeydtd)
+    hockeysgmlpath = os.path.dirname(hockeysgmldtd)
 elif (not pkgres):
-    hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
-    hockeyaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
-    hockeysgmlpath = os.path.dirname(hockeydtd)
+    hockeysgmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
+    hockeyaltsgmldtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
+    hockeysgmlpath = os.path.dirname(hockeysgmldtd)
 else:
-    hockeydtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd""
-    hockeysgmlpath = os.path.dirname(hockeydtd)
+    hockeysgmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd""
+    hockeysgmlpath = os.path.dirname(hockeysgmldtd)
