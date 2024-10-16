@@ -1,0 +1,41 @@
+<!DOCTYPE hockeydb [
+
+<!ELEMENT hockeydb   - - (table)+>
+<!ATTLIST hockeydb
+  database           CDATA       #REQUIRED>
+
+<!ELEMENT table      - - (column, data, rows)>
+<!ATTLIST table
+  name               NMTOKEN     #REQUIRED>
+
+<!ELEMENT column     - - (rowinfo)+>
+
+<!ELEMENT data       - - (row)*>
+
+<!ELEMENT rows       - - (rowlist)+>
+
+<!ELEMENT rowinfo    - O EMPTY>
+<!ATTLIST rowinfo
+  autoincrement      CDATA       #REQUIRED
+  defaultvalue       CDATA       #REQUIRED
+  hidden             CDATA       #REQUIRED
+  id                 CDATA       #REQUIRED
+  name               NMTOKEN     #REQUIRED
+  notnull            CDATA       #REQUIRED
+  primarykey         CDATA       #REQUIRED
+  type               NMTOKEN     #REQUIRED>
+
+<!ELEMENT row        - - (rowdata)+>
+<!ATTLIST row
+  id                 CDATA       #REQUIRED>
+
+<!ELEMENT rowlist    - O EMPTY>
+<!ATTLIST rowlist
+  name               NMTOKEN     #REQUIRED>
+
+<!ELEMENT rowdata    - O EMPTY>
+<!ATTLIST rowdata
+  name               NMTOKEN     #REQUIRED
+  value              CDATA       #REQUIRED>
+]>
+
