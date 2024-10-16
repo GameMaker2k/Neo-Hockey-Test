@@ -2599,7 +2599,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
             for hgkey in inhockeyarray[hlkey]['games']:
                 if (hgkey):
                     hasgames = True
-                    xmlstring_game = cElementTree.SubElement(xmlstring_games, "game", {'date': str(hgkey['date']), 'time': str(hgkey['time']), 'hometeam': str(hgkey['hometeam']), 'awayteam': str(hgkey['awayteam']), 'goals': str(hgkey['goals']), 'sogs': str(hgkey['sogs']), 'ppgs': str(ppgs), 'shgs': str(
+                    xmlstring_game = cElementTree.SubElement(xmlstring_games, "game", {'date': str(hgkey['date']), 'time': str(hgkey['time']), 'hometeam': str(hgkey['hometeam']), 'awayteam': str(hgkey['awayteam']), 'goals': str(hgkey['goals']), 'sogs': str(hgkey['sogs']), 'ppgs': str(hgkey['ppgs']), 'shgs': str(
                         hgkey['shgs']), 'penalties': str(hgkey['penalties']), 'pims': str(hgkey['pims']), 'hits': str(hgkey['hits']), 'takeaways': str(hgkey['takeaways']), 'faceoffwins': str(hgkey['faceoffwins']), 'atarena': str(hgkey['atarena']), 'isplayoffgame': str(hgkey['isplayoffgame'])})
     '''xmlstring = cElementTree.tostring(xmlstring_hockey, encoding, "xml", True, "xml", True)'''
     try:
