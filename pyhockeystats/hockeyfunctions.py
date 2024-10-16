@@ -1436,7 +1436,7 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
     fextname = os.path.splitext(outjsonfile)[1]
     jsonfp = CompressOpenFile(outjsonfile)
     jsonstring = MakeHockeyJSONFromHockeyArray(
-        inhockeyarray, jsonindent, beautify, sortkeys, verbose)
+        inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose)
     try:
         jsonfp.write(jsonstring)
     except TypeError:
@@ -1526,7 +1526,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
     fextname = os.path.splitext(outpicklefile)[1]
     picklefp = CompressOpenFile(outpicklefile)
     picklestring = MakeHockeyPickleFromHockeyArray(
-        inhockeyarray, protocol, verbose)
+        inhockeyarray, protocol, verbose, jsonverbose)
     try:
         picklefp.write(picklestring)
     except TypeError:
@@ -1596,7 +1596,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
     fextname = os.path.splitext(outmarshalfile)[1]
     marshalfp = CompressOpenFile(outmarshalfile)
     marshalstring = MakeHockeyMarshalFromHockeyArray(
-        inhockeyarray, version, verbose)
+        inhockeyarray, version, verbose, jsonverbose)
     try:
         marshalfp.write(marshalstring)
     except TypeError:
@@ -1674,7 +1674,7 @@ def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, retur
             shelf_file[key] = value
     if (returnshelve):
         shelvestring = MakeHockeyShelveFromHockeyArray(
-            inhockeyarray, version, False, False)
+            inhockeyarray, version, verbose, jsonverbose)
         return shelvestring
     if (not returnshelve):
         return True
@@ -1773,7 +1773,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
-    xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, verbose)
+    xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, encoding, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -1852,7 +1852,7 @@ def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgm
     fbasename = os.path.splitext(outsgmlfile)[0]
     fextname = os.path.splitext(outsgmlfile)[1]
     sgmlfp = CompressOpenFile(outsgmlfile)
-    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, verbose)
+    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, encoding, verbose, jsonverbose)
     try:
         sgmlfp.write(sgmlstring)
     except TypeError:
@@ -1948,7 +1948,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeyXMLAltFromHockeyArray(
-        inhockeyarray, beautify, verbose)
+        inhockeyarray, beautify, encoding, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -2261,7 +2261,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
-    pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose)
+    pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose, jsonverbose)
     try:
         pyfp.write(pystring)
     except TypeError:
@@ -2382,7 +2382,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonAltFromHockeyArray(
-        inhockeyarray, verbose, verbosepy)
+        inhockeyarray, verbose, jsonverbose, verbosepy)
     try:
         pyfp.write(pystring)
     except TypeError:
@@ -2497,7 +2497,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
-    pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose)
+    pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose, jsonverbose)
     ()
     try:
         pyfp.write(pystring)
@@ -2618,7 +2618,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonOOPAltFromHockeyArray(
-        inhockeyarray, verbose, verbosepy)
+        inhockeyarray, verbose, jsonverbose, verbosepy)
     try:
         pyfp.write(pystring)
     except TypeError:
@@ -2986,7 +2986,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeyArray(
-        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose)
+        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, jsonverbose)
     try:
         sqlfp.write(sqlstring)
     except TypeError:
@@ -3432,7 +3432,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(
-        inhockeyarray, beautify, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -3524,7 +3524,7 @@ def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=Non
     fextname = os.path.splitext(outsgmlfile)[1]
     sgmlfp = CompressOpenFile(outsgmlfile)
     sgmlstring = MakeHockeySQLiteSGMLFromHockeySQLiteArray(
-        inhockeyarray, beautify, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, verbose, jsonverbose)
     try:
         sgmlfp.write(sgmlstring)
     except TypeError:
@@ -3618,7 +3618,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(
-        inhockeyarray, beautify, verbose)
+        inhockeyarray, beautify, encoding, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -3914,7 +3914,7 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, retur
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeySQLiteArray(
-        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose)
+        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, jsonverbose)
     try:
         sqlfp.write(sqlstring)
     except TypeError:
