@@ -1816,7 +1816,17 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
 
                 for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
                     teaminfo = inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']
-                    sgmlstring += "    <team city=\"" + EscapeSGMLString(str(teaminfo['city'])) + "\" area=\"" + EscapeSGMLString(str(teaminfo['area'])) + "\" fullarea=\"" + EscapeSGMLString(str(teaminfo['fullarea'])) + "\" country=\"" + EscapeSGMLString(str(teaminfo['country'])) + "\" fullcountry=\"" + EscapeSGMLString(str(teaminfo['fullcountry'])) + "\" name=\"" + EscapeSGMLString(str(htkey)) + "\" arena=\"" + EscapeSGMLString(str(teaminfo['arena'])) + "\" prefix=\"" + EscapeSGMLString(str(teaminfo['prefix'])) + "\" suffix=\"" + EscapeSGMLString(str(teaminfo['suffix'])) + "\" affiliates=\"" + EscapeSGMLString(str(teaminfo['affiliates'])) + "\" />\n"
+                    sgmlstring += ("    <team city=\"" + EscapeSGMLString(str(teaminfo['city'])) +
+                                   "\" area=\"" + EscapeSGMLString(str(teaminfo['area'])) +
+                                   "\" fullarea=\"" + EscapeSGMLString(str(teaminfo['fullarea'])) +
+                                   "\" country=\"" + EscapeSGMLString(str(teaminfo['country'])) +
+                                   "\" fullcountry=\"" + EscapeSGMLString(str(teaminfo['fullcountry'])) +
+                                   "\" name=\"" + EscapeSGMLString(str(htkey)) +
+                                   "\" arena=\"" + EscapeSGMLString(str(teaminfo['arena'])) +
+                                   "\" prefix=\"" + EscapeSGMLString(str(teaminfo['prefix'])) +
+                                   "\" suffix=\"" + EscapeSGMLString(str(teaminfo['suffix'])) +
+                                   "\" affiliates=\"" + EscapeSGMLString(str(teaminfo['affiliates'])) + "\">")
+                    sgmlstring += "</team>\n"
                 sgmlstring += "   </division>\n"
             sgmlstring += "  </conference>\n"
 
@@ -1824,14 +1834,35 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
             sgmlstring += "  <arenas>\n"
             for hakey in inhockeyarray[hlkey]['arenas']:
                 if hakey:
-                    sgmlstring += "   <arena city=\"" + EscapeSGMLString(str(hakey['city'])) + "\" area=\"" + EscapeSGMLString(str(hakey['area'])) + "\" fullarea=\"" + EscapeSGMLString(str(hakey['fullarea'])) + "\" country=\"" + EscapeSGMLString(str(hakey['country'])) + "\" fullcountry=\"" + EscapeSGMLString(str(hakey['fullcountry'])) + "\" name=\"" + EscapeSGMLString(str(hakey['name'])) + "\" />\n"
+                    sgmlstring += ("   <arena city=\"" + EscapeSGMLString(str(hakey['city'])) +
+                                   "\" area=\"" + EscapeSGMLString(str(hakey['area'])) +
+                                   "\" fullarea=\"" + EscapeSGMLString(str(hakey['fullarea'])) +
+                                   "\" country=\"" + EscapeSGMLString(str(hakey['country'])) +
+                                   "\" fullcountry=\"" + EscapeSGMLString(str(hakey['fullcountry'])) +
+                                   "\" name=\"" + EscapeSGMLString(str(hakey['name'])) + "\">")
+                    sgmlstring += "</arena>\n"
             sgmlstring += "  </arenas>\n"
 
         if 'games' in inhockeyarray[hlkey] and len(inhockeyarray[hlkey]['games']) > 0:
             sgmlstring += "  <games>\n"
             for hgkey in inhockeyarray[hlkey]['games']:
                 if hgkey:
-                    sgmlstring += "   <game date=\"" + EscapeSGMLString(str(hgkey['date'])) + "\" time=\"" + EscapeSGMLString(str(hgkey['time'])) + "\" hometeam=\"" + EscapeSGMLString(str(hgkey['hometeam'])) + "\" awayteam=\"" + EscapeSGMLString(str(hgkey['awayteam'])) + "\" goals=\"" + EscapeSGMLString(str(hgkey['goals'])) + "\" sogs=\"" + EscapeSGMLString(str(hgkey['sogs'])) + "\" ppgs=\"" + EscapeSGMLString(str(hgkey['ppgs'])) + "\" shgs=\"" + EscapeSGMLString(str(hgkey['shgs'])) + "\" penalties=\"" + EscapeSGMLString(str(hgkey['penalties'])) + "\" pims=\"" + EscapeSGMLString(str(hgkey['pims'])) + "\" hits=\"" + EscapeSGMLString(str(hgkey['hits'])) + "\" takeaways=\"" + EscapeSGMLString(str(hgkey['takeaways'])) + "\" faceoffwins=\"" + EscapeSGMLString(str(hgkey['faceoffwins'])) + "\" atarena=\"" + EscapeSGMLString(str(hgkey['atarena'])) + "\" isplayoffgame=\"" + EscapeSGMLString(str(hgkey['isplayoffgame'])) + "\" />\n"
+                    sgmlstring += ("   <game date=\"" + EscapeSGMLString(str(hgkey['date'])) +
+                                   "\" time=\"" + EscapeSGMLString(str(hgkey['time'])) +
+                                   "\" hometeam=\"" + EscapeSGMLString(str(hgkey['hometeam'])) +
+                                   "\" awayteam=\"" + EscapeSGMLString(str(hgkey['awayteam'])) +
+                                   "\" goals=\"" + EscapeSGMLString(str(hgkey['goals'])) +
+                                   "\" sogs=\"" + EscapeSGMLString(str(hgkey['sogs'])) +
+                                   "\" ppgs=\"" + EscapeSGMLString(str(hgkey['ppgs'])) +
+                                   "\" shgs=\"" + EscapeSGMLString(str(hgkey['shgs'])) +
+                                   "\" penalties=\"" + EscapeSGMLString(str(hgkey['penalties'])) +
+                                   "\" pims=\"" + EscapeSGMLString(str(hgkey['pims'])) +
+                                   "\" hits=\"" + EscapeSGMLString(str(hgkey['hits'])) +
+                                   "\" takeaways=\"" + EscapeSGMLString(str(hgkey['takeaways'])) +
+                                   "\" faceoffwins=\"" + EscapeSGMLString(str(hgkey['faceoffwins'])) +
+                                   "\" atarena=\"" + EscapeSGMLString(str(hgkey['atarena'])) +
+                                   "\" isplayoffgame=\"" + EscapeSGMLString(str(hgkey['isplayoffgame'])) + "\">")
+                    sgmlstring += "</game>\n"
             sgmlstring += "  </games>\n"
 
         sgmlstring += " </league>\n"
@@ -3481,7 +3512,8 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
                            "\" defaultvalue=\"" + EscapeSGMLString(str(rowdata['DefualtValue']), quote=True) +
                            "\" primarykey=\"" + EscapeSGMLString(str(rowdata['PrimaryKey']), quote=True) +
                            "\" autoincrement=\"" + EscapeSGMLString(str(rowdata['AutoIncrement']), quote=True) +
-                           "\" hidden=\"" + EscapeSGMLString(str(rowdata['Hidden']), quote=True) + "\" />\n")
+                           "\" hidden=\"" + EscapeSGMLString(str(rowdata['Hidden']), quote=True) + "\">")
+            sgmlstring += "</rowinfo>\n"
         sgmlstring += "  </column>\n"
         
         # Data rows
@@ -3493,16 +3525,18 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
                 rowid += 1
                 for rkey, rvalue in rowvalues.items():
                     sgmlstring += ("    <rowdata name=\"" + EscapeSGMLString(str(rkey), quote=True) +
-                                   "\" value=\"" + EscapeSGMLString(str(rvalue), quote=True) + "\" />\n")
+                                   "\" value=\"" + EscapeSGMLString(str(rvalue), quote=True) + "\">")
+                    sgmlstring += "</rowdata>\n"
                 sgmlstring += "   </row>\n"
             sgmlstring += "  </data>\n"
         else:
-            sgmlstring += "  <data />\n"
+            sgmlstring += "  <data></data>\n"
         
         # Row list
         sgmlstring += "  <rows>\n"
         for rowinfo in inhockeyarray[get_cur_tab]['rows']:
-            sgmlstring += "   <rowlist name=\"" + EscapeSGMLString(str(rowinfo), quote=True) + "\" />\n"
+            sgmlstring += "   <rowlist name=\"" + EscapeSGMLString(str(rowinfo), quote=True) + "\">"
+            sgmlstring += "</rowlist>\n"
         sgmlstring += "  </rows>\n"
         sgmlstring += " </table>\n"
     
