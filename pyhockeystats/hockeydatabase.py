@@ -103,8 +103,8 @@ defaultjsonfile = "./data/hockeydata.json"
 compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'xz', 'lz4', 'lzo', 'lzop', 'lzma', 'zlib']
 outextlist = ['gz', 'bz2', 'zst', 'xz', 'lz4', 'lzo', 'lzop', 'lzma', 'zl', 'zz', 'zlib']
 outextlistwd = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
-extensions = ['xml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
-extensionswd = ['.xml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
+extensions = ['xml', 'sgml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
+extensionswd = ['.xml', 'sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
 
 # From: https://stackoverflow.com/a/28568003
 # By Phaxmohdem
