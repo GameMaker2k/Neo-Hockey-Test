@@ -1795,6 +1795,85 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     return True
 
 
+def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+    if not CheckHockeyArray(inhockeyarray):
+        return False
+    sgmlstring = ""
+    database_value = inhockeyarray.get('database', defaultsdbfile)
+    sgmlstring += "<hockey database=\"" + EscapeSGMLString(str(database_value), quote=True) + "\">\n"
+
+    for hlkey in inhockeyarray['leaguelist']:
+        league_info = inhockeyarray[hlkey]['leagueinfo']
+        sgmlstring += " <league name=\"" + EscapeSGMLString(str(hlkey)) + "\" fullname=\"" + EscapeSGMLString(str(league_info['fullname'])) + "\" country=\"" + EscapeSGMLString(str(league_info['country'])) + "\" fullcountry=\"" + EscapeSGMLString(str(league_info['fullcountry'])) + "\" date=\"" + EscapeSGMLString(str(league_info['date'])) + "\" playofffmt=\"" + EscapeSGMLString(str(league_info['playofffmt'])) + "\" ordertype=\"" + EscapeSGMLString(str(league_info['ordertype'])) + "\" conferences=\"" + EscapeSGMLString(str(league_info['conferences'])) + "\" divisions=\"" + EscapeSGMLString(str(league_info['divisions'])) + "\">\n"
+
+        for hckey in inhockeyarray[hlkey]['conferencelist']:
+            conference_info = inhockeyarray[hlkey][hckey]['conferenceinfo']
+            sgmlstring += "  <conference name=\"" + EscapeSGMLString(str(hckey)) + "\" prefix=\"" + EscapeSGMLString(str(conference_info['prefix'])) + "\" suffix=\"" + EscapeSGMLString(str(conference_info['suffix'])) + "\">\n"
+
+            for hdkey in inhockeyarray[hlkey][hckey]['divisionlist']:
+                division_info = inhockeyarray[hlkey][hckey][hdkey]['divisioninfo']
+                sgmlstring += "   <division name=\"" + EscapeSGMLString(str(hdkey)) + "\" prefix=\"" + EscapeSGMLString(str(division_info['prefix'])) + "\" suffix=\"" + EscapeSGMLString(str(division_info['suffix'])) + "\">\n"
+
+                for htkey in inhockeyarray[hlkey][hckey][hdkey]['teamlist']:
+                    teaminfo = inhockeyarray[hlkey][hckey][hdkey][htkey]['teaminfo']
+                    sgmlstring += "    <team city=\"" + EscapeSGMLString(str(teaminfo['city'])) + "\" area=\"" + EscapeSGMLString(str(teaminfo['area'])) + "\" fullarea=\"" + EscapeSGMLString(str(teaminfo['fullarea'])) + "\" country=\"" + EscapeSGMLString(str(teaminfo['country'])) + "\" fullcountry=\"" + EscapeSGMLString(str(teaminfo['fullcountry'])) + "\" name=\"" + EscapeSGMLString(str(htkey)) + "\" arena=\"" + EscapeSGMLString(str(teaminfo['arena'])) + "\" prefix=\"" + EscapeSGMLString(str(teaminfo['prefix'])) + "\" suffix=\"" + EscapeSGMLString(str(teaminfo['suffix'])) + "\" affiliates=\"" + EscapeSGMLString(str(teaminfo['affiliates'])) + "\" />\n"
+                sgmlstring += "   </division>\n"
+            sgmlstring += "  </conference>\n"
+
+        if 'arenas' in inhockeyarray[hlkey] and len(inhockeyarray[hlkey]['arenas']) > 0:
+            sgmlstring += "  <arenas>\n"
+            for hakey in inhockeyarray[hlkey]['arenas']:
+                if hakey:
+                    sgmlstring += "   <arena city=\"" + EscapeSGMLString(str(hakey['city'])) + "\" area=\"" + EscapeSGMLString(str(hakey['area'])) + "\" fullarea=\"" + EscapeSGMLString(str(hakey['fullarea'])) + "\" country=\"" + EscapeSGMLString(str(hakey['country'])) + "\" fullcountry=\"" + EscapeSGMLString(str(hakey['fullcountry'])) + "\" name=\"" + EscapeSGMLString(str(hakey['name'])) + "\" />\n"
+            sgmlstring += "  </arenas>\n"
+
+        if 'games' in inhockeyarray[hlkey] and len(inhockeyarray[hlkey]['games']) > 0:
+            sgmlstring += "  <games>\n"
+            for hgkey in inhockeyarray[hlkey]['games']:
+                if hgkey:
+                    sgmlstring += "   <game date=\"" + EscapeSGMLString(str(hgkey['date'])) + "\" time=\"" + EscapeSGMLString(str(hgkey['time'])) + "\" hometeam=\"" + EscapeSGMLString(str(hgkey['hometeam'])) + "\" awayteam=\"" + EscapeSGMLString(str(hgkey['awayteam'])) + "\" goals=\"" + EscapeSGMLString(str(hgkey['goals'])) + "\" sogs=\"" + EscapeSGMLString(str(hgkey['sogs'])) + "\" ppgs=\"" + EscapeSGMLString(str(hgkey['ppgs'])) + "\" shgs=\"" + EscapeSGMLString(str(hgkey['shgs'])) + "\" penalties=\"" + EscapeSGMLString(str(hgkey['penalties'])) + "\" pims=\"" + EscapeSGMLString(str(hgkey['pims'])) + "\" hits=\"" + EscapeSGMLString(str(hgkey['hits'])) + "\" takeaways=\"" + EscapeSGMLString(str(hgkey['takeaways'])) + "\" faceoffwins=\"" + EscapeSGMLString(str(hgkey['faceoffwins'])) + "\" atarena=\"" + EscapeSGMLString(str(hgkey['atarena'])) + "\" isplayoffgame=\"" + EscapeSGMLString(str(hgkey['isplayoffgame'])) + "\" />\n"
+            sgmlstring += "  </games>\n"
+
+        sgmlstring += " </league>\n"
+    sgmlstring += "</hockey>\n"
+
+    if verbose:
+        if jsonverbose:
+            VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
+        else:
+            VerbosePrintOut(sgmlstring)
+
+    return sgmlstring
+
+
+def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+    if (outsgmlfile is None):
+        return False
+    fbasename = os.path.splitext(outsgmlfile)[0]
+    fextname = os.path.splitext(outsgmlfile)[1]
+    sgmlfp = CompressOpenFile(outsgmlfile)
+    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, verbose)
+    try:
+        sgmlfp.write(sgmlstring)
+    except TypeError:
+        sgmlfp.write(sgmlstring.encode(encoding))
+    try:
+        sgmlfp.flush()
+        os.fsync(sgmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
+    sgmlfp.close()
+    if (returnsgml):
+        return sgmlstring
+    if (not returnsgml):
+        return True
+    return True
+
+
 def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
@@ -3371,6 +3450,98 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     if (returnxml):
         return xmlstring
     if (not returnxml):
+        return True
+    return True
+
+
+def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+    if not CheckHockeySQLiteArray(inhockeyarray):
+        return False
+    sgmlstring = ""
+    database_value = inhockeyarray.get('database', defaultsdbfile)
+    sgmlstring += "<hockeydb database=\"" + EscapeSGMLString(str(database_value), quote=True) + "\">\n"
+    
+    # List of tables to process
+    all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"]
+    table_list = ['HockeyLeagues']
+    for leagueinfo_tmp in inhockeyarray['HockeyLeagues']['values']:
+        table_list.extend([leagueinfo_tmp['LeagueName'] + tablename for tablename in all_table_list])
+    
+    for get_cur_tab in table_list:
+        sgmlstring += " <table name=\"" + EscapeSGMLString(str(get_cur_tab), quote=True) + "\">\n"
+        
+        # Column definitions
+        sgmlstring += "  <column>\n"
+        for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+            rowdata = inhockeyarray[get_cur_tab][rowinfo]['info']
+            sgmlstring += ("   <rowinfo id=\"" + EscapeSGMLString(str(rowdata['id']), quote=True) +
+                           "\" name=\"" + EscapeSGMLString(str(rowdata['Name']), quote=True) +
+                           "\" type=\"" + EscapeSGMLString(str(rowdata['Type']), quote=True) +
+                           "\" notnull=\"" + EscapeSGMLString(str(rowdata['NotNull']), quote=True) +
+                           "\" defaultvalue=\"" + EscapeSGMLString(str(rowdata['DefualtValue']), quote=True) +
+                           "\" primarykey=\"" + EscapeSGMLString(str(rowdata['PrimaryKey']), quote=True) +
+                           "\" autoincrement=\"" + EscapeSGMLString(str(rowdata['AutoIncrement']), quote=True) +
+                           "\" hidden=\"" + EscapeSGMLString(str(rowdata['Hidden']), quote=True) + "\" />\n")
+        sgmlstring += "  </column>\n"
+        
+        # Data rows
+        if len(inhockeyarray[get_cur_tab]['values']) > 0:
+            sgmlstring += "  <data>\n"
+            rowid = 0
+            for rowvalues in inhockeyarray[get_cur_tab]['values']:
+                sgmlstring += "   <row id=\"" + EscapeSGMLString(str(rowid), quote=True) + "\">\n"
+                rowid += 1
+                for rkey, rvalue in rowvalues.items():
+                    sgmlstring += ("    <rowdata name=\"" + EscapeSGMLString(str(rkey), quote=True) +
+                                   "\" value=\"" + EscapeSGMLString(str(rvalue), quote=True) + "\" />\n")
+                sgmlstring += "   </row>\n"
+            sgmlstring += "  </data>\n"
+        else:
+            sgmlstring += "  <data />\n"
+        
+        # Row list
+        sgmlstring += "  <rows>\n"
+        for rowinfo in inhockeyarray[get_cur_tab]['rows']:
+            sgmlstring += "   <rowlist name=\"" + EscapeSGMLString(str(rowinfo), quote=True) + "\" />\n"
+        sgmlstring += "  </rows>\n"
+        sgmlstring += " </table>\n"
+    
+    sgmlstring += "</hockeydb>\n"
+    
+    if verbose:
+        if jsonverbose:
+            VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
+        else:
+            VerbosePrintOut(sgmlstring)
+    
+    return sgmlstring
+
+
+def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+    if (outsgmlfile is None):
+        return False
+    fbasename = os.path.splitext(outsgmlfile)[0]
+    fextname = os.path.splitext(outsgmlfile)[1]
+    sgmlfp = CompressOpenFile(outsgmlfile)
+    sgmlstring = MakeHockeySQLiteSGMLFromHockeySQLiteArray(
+        inhockeyarray, beautify, verbose, jsonverbose)
+    try:
+        sgmlfp.write(sgmlstring)
+    except TypeError:
+        sgmlfp.write(sgmlstring.encode(encoding))
+    try:
+        sgmlfp.flush()
+        os.fsync(sgmlfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
+    sgmlfp.close()
+    if (returnsgml):
+        return sgmlstring
+    if (not returnsgml):
         return True
     return True
 

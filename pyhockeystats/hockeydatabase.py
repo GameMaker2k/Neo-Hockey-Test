@@ -301,6 +301,31 @@ def EscapeXMLString(inxml, quote=True):
         return html_escape(inxml, quote=quote)
 
 
+def EscapeSGMLString(insgml, quote=True):
+    """
+    Escapes special characters in a string for SGML output.
+    
+    Parameters:
+    - insgml (str): The input string to escape.
+    - quote (bool): If True, escape quotation marks as well.
+    
+    Returns:
+    - str: The escaped string suitable for SGML output.
+    """
+    sgml_escape_dict = {
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;"
+    }
+    if quote:
+        sgml_escape_dict.update({
+            '"': "&quot;",
+            "'": "&apos;"
+        })
+    # Replace special characters using the escape dictionary
+    return ''.join(sgml_escape_dict.get(c, c) for c in insgml)
+
+
 def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
     if (not dbgenable):
         return True

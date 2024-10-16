@@ -156,6 +156,8 @@ def MakeHockeyDataFromHockeyArrayByDict(outformat="xml", **funcargs):
         return MakeHockeyXMLFromHockeyArray(**funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeyXMLAltFromHockeyArray(**funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySGMLFromHockeyArray(**funcargs)
     elif (outformat == "json"):
         return MakeHockeyJSONFromHockeyArray(**funcargs)
     elif (outformat == "pickle"):
@@ -187,6 +189,8 @@ def MakeHockeyDataFromHockeyArrayByList(outformat="xml", *funcargs):
         return MakeHockeyXMLFromHockeyArray(*funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeyXMLAltFromHockeyArray(*funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySGMLFromHockeyArray(*funcargs)
     elif (outformat == "json"):
         return MakeHockeyJSONFromHockeyArray(*funcargs)
     elif (outformat == "pickle"):
@@ -234,6 +238,11 @@ def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
             funcargs['outxmlfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeyXMLAltFileFromHockeyArray(**funcargs)
+    elif (outformat == "sgml"):
+        if ("outfile" in funcargs and "outxmlfile" not in funcargs):
+            funcargs['outxmlfile'] = funcargs['outfile']
+            del funcargs['outfile']
+        return MakeHockeySGMLFileFromHockeyArray(**funcargs)
     elif (outformat == "json"):
         if ("outfile" in funcargs and "outjsonfile" not in funcargs):
             funcargs['outjsonfile'] = funcargs['outfile']
@@ -285,6 +294,8 @@ def MakeHockeyDataFileFromHockeyArrayByList(outformat="xml", *funcargs):
         return MakeHockeyXMLFileFromHockeyArray(*funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeyXMLAltFileFromHockeyArray(*funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySGMLFileFromHockeyArray(*funcargs)
     elif (outformat == "json"):
         return MakeHockeyJSONFileFromHockeyArray(*funcargs)
     elif (outformat == "pickle"):
@@ -399,6 +410,8 @@ def MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs)
         return MakeHockeySQLiteXMLFromHockeySQLiteArray(**funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(**funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySQLiteSGMLFromHockeySQLiteArray(**funcargs)
     elif (outformat == "json"):
         return MakeHockeySQLiteJSONFromHockeySQLiteArray(**funcargs)
     elif (outformat == "pickle"):
@@ -430,6 +443,8 @@ def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
         return MakeHockeySQLiteXMLFromHockeySQLiteArray(*funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(*funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySQLiteSGMLFromHockeySQLiteArray(*funcargs)
     elif (outformat == "json"):
         return MakeHockeySQLiteJSONFromHockeySQLiteArray(*funcargs)
     elif (outformat == "pickle"):
@@ -471,6 +486,8 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funca
         return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(**funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(**funcargs)
     elif (outformat == "json"):
         return MakeHockeySQLiteJSONFileFromHockeySQLiteArray(**funcargs)
     elif (outformat == "pickle"):
@@ -498,6 +515,8 @@ def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcar
         return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(*funcargs)
     elif (outformat == "xmlalt"):
         return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(*funcargs)
+    elif (outformat == "sgml"):
+        return MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(*funcargs)
     elif (outformat == "json"):
         return MakeHockeySQLiteJSONFileFromHockeySQLiteArray(*funcargs)
     elif (outformat == "pickle"):
