@@ -57,8 +57,8 @@ defsdbfile = "./data/hockeydata.db3"
 defoldsdbfile = "./data/hockeydata.db3"
 defsqlfile = "./data/hockeydata.sql"
 defjsonfile = "./data/hockeydata.json"
-extensions = ['xml', 'sgml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3', 'py']
-extensionsin = ['xml', 'sgml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
+extensions = ['.xml', '.sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3', '.py']
+extensionsin = ['.xml', '.sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
 extensionsc = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
 filetypes = ['xml', 'sgml', 'json', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
 
@@ -120,7 +120,7 @@ if (premenuact == "1"):
     if (getargs.infile is None):
         HockeyDatabaseFN = get_user_input(
             "Enter Hockey Database File Name For Output: ")
-    if (getargs.infile is not None):
+    elif (getargs.infile is not None):
         HockeyDatabaseFN = getargs.infile
     hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
 if (premenuact == "2"):
@@ -791,3 +791,4 @@ while (keep_loop):
                 sub_keep_loop = False
     if (menuact.upper() == "E"):
         keep_loop = False
+        
