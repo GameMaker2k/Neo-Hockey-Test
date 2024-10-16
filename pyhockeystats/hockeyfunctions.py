@@ -4237,8 +4237,8 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
         sgmlstring += " </table>\n"
     
     sgmlstring += "</hockeydb>\n"
-    
-    if (not CheckHockeySQLiteXML(sgmlstring, False)):
+
+    if (not CheckHockeySQLiteSGML(sgmlstring, False)):
         return False
     
     if verbose:
@@ -4491,7 +4491,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
     """
     Parses SGML data representing a hockey SQLite database and converts it into a hockey SQLite array.
     """
-    if (not CheckHockeySQLiteXML(insgmlfile, sgmlisfile)):
+    if (not CheckHockeySQLiteSGML(insgmlfile, sgmlisfile)):
         return False
     # Read SGML data
     sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
