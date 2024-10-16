@@ -628,20 +628,8 @@ class BrotliFile:
 '''
 
 
+# Helper function to read SGML data from a file or URL
 def read_sgml_data(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
-    """
-    Reads SGML data from a file, URL, or string, handling differences between Python 2 and 3.
-
-    Parameters:
-    - insgmlfile (str): The input SGML file path, URL, or data string.
-    - sgmlisfile (bool): If True, 'insgmlfile' is treated as a file path or URL. If False, it's treated as SGML data string.
-    - encoding (str): The encoding to use when reading files or decoding data.
-
-    Returns:
-    - str: The SGML data as a Unicode string.
-    - False: If reading fails.
-    """
-
     if sgmlisfile:
         # insgmlfile is a file path or URL
         if re.match(r'^(http|https|ftp|ftps|sftp)://', insgmlfile):
@@ -649,41 +637,45 @@ def read_sgml_data(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
             try:
                 response = urlopen(insgmlfile)
                 sgml_data = response.read()
-                if sys.version_info[0] < 3:
-                    # Python 2 returns str (bytes)
-                    sgml_data = sgml_data.decode(encoding)
-                else:
-                    # Python 3 returns bytes
+                if isinstance(sgml_data, bytes):
+                    # In Python 3 and some cases in Python 2
                     sgml_data = sgml_data.decode(encoding)
             except Exception as e:
+                print("Error reading SGML data from URL:", e)
                 return False
         else:
             # It's a local file
             if os.path.exists(insgmlfile) and os.path.isfile(insgmlfile):
                 try:
-                    if sys.version_info[0] < 3:
-                        # Python 2
-                        with open(insgmlfile, 'r') as f:
-                            sgml_data = f.read().decode(encoding)
-                    else:
-                        # Python 3
-                        with open(insgmlfile, 'r', encoding=encoding) as f:
-                            sgml_data = f.read()
+                    # Use io.open to support encoding in both Python 2 and 3
+                    with open(insgmlfile, 'r', encoding=encoding) as f:
+                        sgml_data = f.read()
                 except Exception as e:
+                    print("Error reading SGML data from file:", e)
                     return False
             else:
+                print("File does not exist or is not a file:", insgmlfile)
                 return False
     else:
         # insgmlfile is a string containing SGML data
         sgml_data = insgmlfile
         if isinstance(sgml_data, bytes):
             # In Python 3, bytes need to be decoded
-            sgml_data = sgml_data.decode(encoding)
+            try:
+                sgml_data = sgml_data.decode(encoding)
+            except Exception as e:
+                print("Error decoding SGML data string:", e)
+                return False
         elif sys.version_info[0] < 3 and isinstance(sgml_data, str):
             # In Python 2, str is bytes, so decode
-            sgml_data = sgml_data.decode(encoding)
+            try:
+                sgml_data = sgml_data.decode(encoding)
+            except Exception as e:
+                print("Error decoding SGML data string:", e)
+                return False
 
     return sgml_data
+
 
 # Helper function to convert SGML attribute values to Python types
 def ConvertSGMLValuesForPython(value):
@@ -892,10 +884,10 @@ class HockeySGMLParser(HTMLParser):
 
 class HockeySGMLChecker(HTMLParser):
     def __init__(self):
-        if sys.version_info[0] < 3:
-            HTMLParser.__init__(self)
-        else:
+        try:
             super(HockeySGMLChecker, self).__init__()
+        except TypeError:
+            HTMLParser.__init__(self)  # Python 2
 
         self.is_valid = True  # Flag to indicate if the SGML is valid
         self.current_tags = []  # Stack to keep track of open tags
@@ -908,7 +900,14 @@ class HockeySGMLChecker(HTMLParser):
             'arena': ['city', 'area', 'fullarea', 'country', 'fullcountry', 'name'],
             'game': ['date', 'time', 'hometeam', 'awayteam', 'goals', 'sogs', 'ppgs', 'shgs', 'penalties', 'pims', 'hits', 'takeaways', 'faceoffwins', 'atarena', 'isplayoffgame']
         }
-        self.in_hockey = False
+        self.allowed_container_tags = {
+            'hockey': ['league'],
+            'league': ['conference', 'arenas', 'games'],
+            'conference': ['division'],
+            'division': ['team'],
+            'arenas': ['arena'],
+            'games': ['game']
+        }
         self.leaguelist = []
         self.current_league = None
 
@@ -922,64 +921,65 @@ class HockeySGMLChecker(HTMLParser):
         if not self.is_valid:
             return
 
-        if tag == 'hockey':
-            self.in_hockey = True
-            if not self.check_attributes(tag, attrs):
+        if tag in self.required_attributes:
+            if not CheckKeyInArray(self.required_attributes[tag], attrs):
+                print("Tag <{}> missing required attributes.".format(tag))
                 self.is_valid = False
-        elif tag == 'league' and self.in_hockey:
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-            league_name = attrs.get('name')
-            if league_name in self.leaguelist:
-                # Duplicate league name
-                self.is_valid = False
-            else:
+                return
+
+            if tag == 'hockey':
+                pass  # No additional checks
+            elif tag == 'league':
+                league_name = attrs.get('name')
+                if league_name in self.leaguelist:
+                    print("Duplicate league name:", league_name)
+                    self.is_valid = False
+                    return
                 self.leaguelist.append(league_name)
-            self.current_league = league_name
-        elif tag == 'conference':
-            if not self.check_attributes(tag, attrs):
+                self.current_league = league_name
+            elif tag == 'team':
+                pass  # Additional team-specific validations can be added here
+
+        elif tag in self.allowed_container_tags:
+            # Check if the current context allows this container tag
+            if len(self.current_tags) < 2:
+                parent_tag = None
+            else:
+                parent_tag = self.current_tags[-2]
+
+            allowed_children = self.allowed_container_tags.get(parent_tag, [])
+            if tag not in allowed_children:
+                print("Tag <{}> not allowed under <{}>.".format(tag, parent_tag))
                 self.is_valid = False
-        elif tag == 'division':
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-        elif tag == 'team':
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-        elif tag == 'arenas' or tag == 'games':
-            # No attributes to check
+                return
+            # No required attributes for container tags
             pass
-        elif tag == 'arena':
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-        elif tag == 'game':
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
+
         else:
-            # Invalid or unexpected tag
-            self.is_valid = False
+            # If the tag is not in required_attributes or allowed_container_tags, invalidate
+            # Alternatively, check if it's a child of an allowed container tag
+            parent_tag = self.current_tags[-2] if len(self.current_tags) >= 2 else None
+            expected_children = self.allowed_container_tags.get(parent_tag, [])
+            if tag not in expected_children:
+                print("Unexpected tag encountered:", tag)
+                self.is_valid = False
+                return
+            # Otherwise, it's allowed but has no required attributes
+            pass
 
     def handle_endtag(self, tag):
-        if self.current_tags and self.current_tags[-1] == tag:
-            self.current_tags.pop()
-        else:
-            # Mismatched tags
+        if not self.current_tags:
+            print("Mismatched closing tag:", tag)
             self.is_valid = False
-        if tag == 'hockey':
-            self.in_hockey = False
-            self.current_league = None
+            return
 
-    def check_attributes(self, tag, attrs):
-        required_attrs = self.required_attributes.get(tag, [])
-        for attr in required_attrs:
-            if attr not in attrs:
-                return False
-        return True
+        expected_tag = self.current_tags.pop()
+        if tag != expected_tag:
+            print("Tag mismatch: expected </{}>, got </{}>".format(expected_tag, tag))
+            self.is_valid = False
 
     def handle_data(self, data):
         pass  # No character data to process
-
-    def error(self, message):
-        self.is_valid = False
 
 
 class HockeySQLiteSGMLParser(HTMLParser):
@@ -1072,10 +1072,10 @@ class HockeySQLiteSGMLParser(HTMLParser):
 
 class HockeySQLiteSGMLChecker(HTMLParser):
     def __init__(self):
-        if sys.version_info[0] < 3:
-            HTMLParser.__init__(self)
-        else:
+        try:
             super(HockeySQLiteSGMLChecker, self).__init__()
+        except TypeError:
+            HTMLParser.__init__(self)  # Python 2
 
         self.is_valid = True  # Flag to indicate if the SGML is valid
         self.current_tags = []  # Stack to keep track of open tags
@@ -1087,9 +1087,16 @@ class HockeySQLiteSGMLChecker(HTMLParser):
             'rowdata': ['name', 'value'],
             'rowlist': ['name']
         }
-        self.in_hockeydb = False
+        self.allowed_container_tags = {
+            'hockeydb': ['table'],
+            'table': ['column', 'data', 'rows'],
+            'column': ['rowinfo'],
+            'data': ['row'],
+            'row': ['rowdata'],
+            'rows': ['rowlist']
+        }
+        self.leaguelist = []
         self.tablelist = []
-        self.leaguelist = []  # To collect league names from HockeyLeagues table
         self.current_table = None
         self.in_table = False
         self.in_row = False
@@ -1104,76 +1111,73 @@ class HockeySQLiteSGMLChecker(HTMLParser):
         if not self.is_valid:
             return
 
-        if tag == 'hockeydb':
-            self.in_hockeydb = True
-            if not self.check_attributes(tag, attrs):
+        if tag in self.required_attributes:
+            if not CheckKeyInArray(self.required_attributes[tag], attrs):
+                print("Tag <{}> missing required attributes.".format(tag))
                 self.is_valid = False
-        elif tag == 'table' and self.in_hockeydb:
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-            table_name = attrs.get('name')
-            self.tablelist.append(table_name)
-            self.current_table = table_name
-            self.in_table = True
-        elif tag == 'column' and self.in_table:
-            # No attributes to check
-            pass
-        elif tag == 'rowinfo' and self.in_table:
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-        elif tag == 'data' and self.in_table:
-            # No attributes to check
-            pass
-        elif tag == 'row' and self.in_table:
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-            self.in_row = True
-        elif tag == 'rowdata' and self.in_row:
-            if not self.check_attributes(tag, attrs):
-                self.is_valid = False
-            if self.current_table == "HockeyLeagues" and attrs.get('name') == "LeagueName":
-                league_name = attrs.get('value')
-                if league_name in self.leaguelist:
-                    # Duplicate league name
+                return
+
+            if tag == 'hockeydb':
+                pass  # No additional checks
+            elif tag == 'table':
+                table_name = attrs.get('name')
+                if table_name in self.tablelist:
+                    print("Duplicate table name:", table_name)
                     self.is_valid = False
-                else:
+                    return
+                self.tablelist.append(table_name)
+                self.current_table = table_name
+            elif tag == 'rowdata':
+                if self.current_table == "HockeyLeagues" and attrs.get('name') == "LeagueName":
+                    league_name = attrs.get('value')
+                    if league_name in self.leaguelist:
+                        print("Duplicate league name:", league_name)
+                        self.is_valid = False
+                        return
                     self.leaguelist.append(league_name)
-        elif tag == 'rows' and self.in_table:
-            # No attributes to check
-            pass
-        elif tag == 'rowlist':
-            if not self.check_attributes(tag, attrs):
+            elif tag == 'row':
+                pass  # Additional row-specific validations can be added here
+
+        elif tag in self.allowed_container_tags:
+            # Check if the current context allows this container tag
+            if len(self.current_tags) < 2:
+                parent_tag = None
+            else:
+                parent_tag = self.current_tags[-2]
+
+            allowed_children = self.allowed_container_tags.get(parent_tag, [])
+            if tag not in allowed_children:
+                print("Tag <{}> not allowed under <{}>.".format(tag, parent_tag))
                 self.is_valid = False
+                return
+            # No required attributes for container tags
+            pass
+
         else:
-            # Invalid or unexpected tag
-            self.is_valid = False
+            # If the tag is not in required_attributes or allowed_container_tags, invalidate
+            # Alternatively, check if it's a child of an allowed container tag
+            parent_tag = self.current_tags[-2] if len(self.current_tags) >= 2 else None
+            expected_children = self.allowed_container_tags.get(parent_tag, [])
+            if tag not in expected_children:
+                print("Unexpected tag encountered:", tag)
+                self.is_valid = False
+                return
+            # Otherwise, it's allowed but has no required attributes
+            pass
 
     def handle_endtag(self, tag):
-        if self.current_tags and self.current_tags[-1] == tag:
-            self.current_tags.pop()
-        else:
-            # Mismatched tags
+        if not self.current_tags:
+            print("Mismatched closing tag:", tag)
             self.is_valid = False
-        if tag == 'hockeydb':
-            self.in_hockeydb = False
-        elif tag == 'table':
-            self.in_table = False
-            self.current_table = None
-        elif tag == 'row':
-            self.in_row = False
+            return
 
-    def check_attributes(self, tag, attrs):
-        required_attrs = self.required_attributes.get(tag, [])
-        for attr in required_attrs:
-            if attr not in attrs:
-                return False
-        return True
+        expected_tag = self.current_tags.pop()
+        if tag != expected_tag:
+            print("Tag mismatch: expected </{}>, got </{}>".format(expected_tag, tag))
+            self.is_valid = False
 
     def handle_data(self, data):
         pass  # No character data to process
-
-    def error(self, message):
-        self.is_valid = False
 
 
 def CheckCompressionType(infile, closefp=True):
@@ -1719,12 +1723,32 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
 def CheckHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
     """
     Checks if the SGML data is correctly structured as hockey data.
+
+    Parameters:
+    - insgmlfile (str): The input SGML file path, URL, or data string.
+    - sgmlisfile (bool): If True, 'insgmlfile' is treated as a file path or URL. If False, it's treated as SGML data string.
+    - encoding (str): The encoding to use when reading files or decoding data.
+
+    Returns:
+    - bool: True if SGML data is valid, False otherwise.
     """
-    import re  # Ensure 're' is imported
+
     # Read SGML data
     sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
+        print("Failed to read SGML data.")
         return False
+
+    # Parse SGML data
+    parser = HockeySGMLChecker()
+    try:
+        parser.feed(sgml_data)
+        parser.close()
+    except Exception as e:
+        print("Error parsing SGML data:", e)
+        return False
+
+    return parser.is_valid
 
 
 def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
@@ -1838,12 +1862,46 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
 def CheckHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
     """
     Checks if the SGML data is correctly structured as hockey SQLite data.
+
+    Parameters:
+    - insgmlfile (str): The input SGML file path, URL, or data string.
+    - sgmlisfile (bool): If True, 'insgmlfile' is treated as a file path or URL. If False, it's treated as SGML data string.
+    - encoding (str): The encoding to use when reading files or decoding data.
+
+    Returns:
+    - bool: True if SGML data is valid, False otherwise.
     """
-    import re  # Ensure 're' is imported
+
     # Read SGML data
     sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
+        print("Failed to read SGML data.")
         return False
+
+    # Parse SGML data
+    parser = HockeySQLiteSGMLChecker()
+    try:
+        parser.feed(sgml_data)
+        parser.close()
+    except Exception as e:
+        print("Error parsing SGML data:", e)
+        return False
+
+    # After parsing, check that all expected tables are present
+    if parser.is_valid:
+        # Expected tables
+        all_table_list = ["Conferences", "Divisions", "Arenas", "Teams", "Stats", "GameStats", "Games"]
+        expected_tables = ['HockeyLeagues']
+        for league_name in parser.leaguelist:
+            for tablename in all_table_list:
+                expected_tables.append(league_name + tablename)
+        for expected_table in expected_tables:
+            if expected_table not in parser.tablelist:
+                print("Missing expected table:", expected_table)
+                parser.is_valid = False
+                break
+
+    return parser.is_valid
 
 
 def CopyHockeyDatabase(insdbfile, outsdbfile, returninsdbfile=True, returnoutsdbfile=True):

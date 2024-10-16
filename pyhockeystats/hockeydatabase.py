@@ -1112,15 +1112,21 @@ def GetHockeyLeaguesInfo(leaguename):
     return leagueinfo.get(leaguename, {leaguename: {'LeagueName': leaguename, 'FullLeagueName': "Unknown", 'CountryName': "Unknown", 'FullCountryName': "Unknown", 'StartDate': 0, 'PlayOffFMT': "Unknown", 'OrderType': "Unknown"}})
 
 
-def CheckKeyInArray(validkeys, checkdict):
-    # Convert validkeys to a set for faster membership checks
-    validkeys_set = set(validkeys)
+def CheckKeyInArray(required_keys, attrib_dict):
+    """
+    Checks if all required keys are present in the attribute dictionary.
 
-    # Iterate over valid keys and check if each exists in checkdict
-    for key in validkeys_set:
-        if key not in checkdict:
+    Parameters:
+    - required_keys (list): List of required keys.
+    - attrib_dict (dict): Dictionary of attributes to check.
+
+    Returns:
+    - bool: True if all required keys are present, False otherwise.
+    """
+    for key in required_keys:
+        if key not in attrib_dict:
+            print("Missing required attribute:", key)
             return False
-
     return True
 
 
