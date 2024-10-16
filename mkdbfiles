@@ -8,3 +8,8 @@ for infile in ./data/xml/*.xml; do
     outfile="./data/json/$(basename "$infile" .xml).json"
     python ./mkhockeytool.py -t json -i "$infile" -o "$outfile" -x -V
 done
+
+for infile in ./data/xml/*.xml; do
+    outfile="./data/sgml/$(basename "$infile" .xml).sgml"
+    python ./mkhockeytool.py -t sgml -i "$infile" -o "$outfile" -x -V
+done
