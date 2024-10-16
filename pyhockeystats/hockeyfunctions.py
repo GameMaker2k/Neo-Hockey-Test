@@ -2347,10 +2347,12 @@ def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pic
     return hockeyarray
 
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    if(includedtd):
+        xmlstring = xmlstring+"\n"+hockeyxmldtdstring;
     if "database" in inhockeyarray.keys():
         xmlstring = xmlstring+"<hockey database=\"" + \
             EscapeXMLString(
@@ -2411,13 +2413,13 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
     return xmlstring
 
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
-    xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, encoding, verbose, jsonverbose)
+    xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -2439,11 +2441,13 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     return True
 
 
-def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if not CheckHockeyArray(inhockeyarray):
         return False
     sgmlstring = ""
     database_value = inhockeyarray.get('database', defaultsdbfile)
+    if(includedtd):
+        sgmlstring = sgmlstring+hockeygmldtdstring;
     sgmlstring += "<hockey database=\"" + EscapeSGMLString(str(database_value), quote=True) + "\">\n"
 
     for hlkey in inhockeyarray['leaguelist']:
@@ -2519,18 +2523,18 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
         if jsonverbose:
             VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
         else:
-            VerbosePrintOut(sgmlstring)
+            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
 
     return sgmlstring
 
 
-def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (outsgmlfile is None):
         return False
     fbasename = os.path.splitext(outsgmlfile)[0]
     fextname = os.path.splitext(outsgmlfile)[1]
     sgmlfp = CompressOpenFile(outsgmlfile)
-    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, encoding, verbose, jsonverbose)
+    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
     try:
         sgmlfp.write(sgmlstring)
     except TypeError:
@@ -2805,7 +2809,7 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
     if verbose and jsonverbose:
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
     elif verbose and not jsonverbose:
-        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
+        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
 
     return leaguearrayout
 
@@ -4074,10 +4078,12 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose
     return leaguearrayout
 
 
-def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    if(includedtd):
+        xmlstring = xmlstring+"\n"+hockeyaltxmldtdstring;
     if "database" in inhockeyarray.keys():
         xmlstring = xmlstring+"<hockeydb database=\"" + \
             EscapeXMLString(
@@ -4138,14 +4144,14 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
     return xmlstring
 
 
-def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(
-        inhockeyarray, beautify, encoding, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -4167,11 +4173,13 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     return True
 
 
-def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if not CheckHockeySQLiteArray(inhockeyarray):
         return False
     sgmlstring = ""
     database_value = inhockeyarray.get('database', defaultsdbfile)
+    if(includedtd):
+        sgmlstring = sgmlstring+hockeyaltsgmldtdstring;
     sgmlstring += "<hockeydb database=\"" + EscapeSGMLString(str(database_value), quote=True) + "\">\n"
     
     # List of tables to process
@@ -4231,19 +4239,19 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
         if jsonverbose:
             VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
         else:
-            VerbosePrintOut(sgmlstring)
+            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
     
     return sgmlstring
 
 
-def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (outsgmlfile is None):
         return False
     fbasename = os.path.splitext(outsgmlfile)[0]
     fextname = os.path.splitext(outsgmlfile)[1]
     sgmlfp = CompressOpenFile(outsgmlfile)
     sgmlstring = MakeHockeySQLiteSGMLFromHockeySQLiteArray(
-        inhockeyarray, beautify, encoding, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
     try:
         sgmlfp.write(sgmlstring)
     except TypeError:
@@ -4498,7 +4506,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
     if verbose and jsonverbose:
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
     elif verbose and not jsonverbose:
-        VerbosePrintOut(MakeHockeySQLiteSGMLFromHockeySQLiteArray(leaguearrayout, verbose=False, jsonverbose=True))
+        VerbosePrintOut(MakeHockeySQLiteXMLFromHockeySQLiteArray(leaguearrayout, verbose=False, jsonverbose=True))
 
     return leaguearrayout
 
