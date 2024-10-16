@@ -20,6 +20,7 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import os
+from io import open
 
 implib = False
 pkgres = False
@@ -118,3 +119,11 @@ else:
     hockeyxmlaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
     hockeyxmlaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc"
     hockeyxmlxmlpath = os.path.dirname(hockeyxmldtd)
+
+hockeyfp = open(hockeyxmldtd, "r", encoding="UTF-8")
+hockeyxmldtdstring = hockeyfp.read()
+hockeyfp.close()
+
+hockeyaltfp = open(hockeyxmlaltdtd, "r", encoding="UTF-8")
+hockeyaltxmldtdstring = hockeyaltfp.read()
+hockeyaltfp.close()

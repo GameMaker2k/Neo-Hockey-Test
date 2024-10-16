@@ -1,0 +1,54 @@
+<element name="hockeydb">
+  <complexType>
+    <element name="table" maxOccurs="unbounded">
+      <complexType>
+        <sequence>
+          <element name="column">
+            <complexType>
+              <sequence>
+                <element name="rowinfo" maxOccurs="unbounded">
+                  <attribute name="autoincrement" type="string" required="true"/>
+                  <attribute name="defaultvalue" type="string" required="true"/>
+                  <attribute name="hidden" type="string" required="true"/>
+                  <attribute name="id" type="string" required="true"/>
+                  <attribute name="name" type="NMTOKEN" required="true"/>
+                  <attribute name="notnull" type="string" required="true"/>
+                  <attribute name="primarykey" type="string" required="true"/>
+                  <attribute name="type" type="NMTOKEN" required="true"/>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="data" minOccurs="0">
+            <complexType>
+              <sequence>
+                <element name="row" maxOccurs="unbounded">
+                  <complexType>
+                    <sequence>
+                      <element name="rowdata" maxOccurs="unbounded">
+                        <attribute name="name" type="NMTOKEN" required="true"/>
+                        <attribute name="value" type="string" required="true"/>
+                      </element>
+                    </sequence>
+                    <attribute name="id" type="string" required="true"/>
+                  </complexType>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+          <element name="rows">
+            <complexType>
+              <sequence>
+                <element name="rowlist" maxOccurs="unbounded">
+                  <attribute name="name" type="NMTOKEN" required="true"/>
+                </element>
+              </sequence>
+            </complexType>
+          </element>
+        </sequence>
+        <attribute name="name" type="NMTOKEN" required="true"/>
+      </complexType>
+    </element>
+    <attribute name="database" type="string" required="true"/>
+  </complexType>
+</element>

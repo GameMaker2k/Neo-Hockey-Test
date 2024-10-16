@@ -1,0 +1,51 @@
+<element name="hockey">
+  <oneOrMore>
+    <element name="league">
+      <oneOrMore>
+        <element name="conference">
+          <oneOrMore>
+            <element name="division">
+              <oneOrMore>
+                <element name="team">
+                  <empty/>
+                </element>
+              </oneOrMore>
+              <attribute name="name"/>
+              <attribute name="prefix"/>
+              <attribute name="suffix"/>
+            </element>
+          </oneOrMore>
+          <attribute name="name"/>
+          <attribute name="prefix"/>
+          <attribute name="suffix"/>
+        </element>
+      </oneOrMore>
+      <optional>
+        <element name="arenas">
+          <oneOrMore>
+            <element name="arena">
+              <empty/>
+            </element>
+          </oneOrMore>
+        </element>
+        <element name="games">
+          <oneOrMore>
+            <element name="game">
+              <empty/>
+            </element>
+          </oneOrMore>
+        </element>
+      </optional>
+      <attribute name="conferences"/>
+      <attribute name="country"/>
+      <attribute name="date"/>
+      <attribute name="divisions"/>
+      <attribute name="fullcountry"/>
+      <attribute name="fullname"/>
+      <attribute name="name"/>
+      <attribute name="ordertype"/>
+      <attribute name="playofffmt"/>
+    </element>
+  </oneOrMore>
+  <attribute name="database"/>
+</element>

@@ -1,0 +1,48 @@
+<trex>
+  <element name="hockeydb">
+    <oneOrMore>
+      <element name="table">
+        <oneOrMore>
+          <element name="column">
+            <oneOrMore>
+              <element name="rowinfo">
+                <attribute name="autoincrement"/>
+                <attribute name="defaultvalue"/>
+                <attribute name="hidden"/>
+                <attribute name="id"/>
+                <attribute name="name"/>
+                <attribute name="notnull"/>
+                <attribute name="primarykey"/>
+                <attribute name="type"/>
+              </element>
+            </oneOrMore>
+          </element>
+          <optional>
+            <element name="data">
+              <oneOrMore>
+                <element name="row">
+                  <oneOrMore>
+                    <element name="rowdata">
+                      <attribute name="name"/>
+                      <attribute name="value"/>
+                    </element>
+                  </oneOrMore>
+                  <attribute name="id"/>
+                </element>
+              </oneOrMore>
+            </element>
+          </optional>
+          <element name="rows">
+            <oneOrMore>
+              <element name="rowlist">
+                <attribute name="name"/>
+              </element>
+            </oneOrMore>
+          </element>
+        </oneOrMore>
+        <attribute name="name"/>
+      </element>
+    </oneOrMore>
+    <attribute name="database"/>
+  </element>
+</trex>

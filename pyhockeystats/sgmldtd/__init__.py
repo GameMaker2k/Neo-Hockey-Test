@@ -57,5 +57,13 @@ elif (not pkgres):
     hockeyaltsgmldtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
     hockeysgmlpath = os.path.dirname(hockeysgmldtd)
 else:
-    hockeysgmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd""
+    hockeysgmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
     hockeysgmlpath = os.path.dirname(hockeysgmldtd)
+
+hockeyfp = open(hockeysgmldtd, "r", encoding="UTF-8")
+hockeysgmldtdstring = hockeyfp.read()
+hockeyfp.close()
+
+hockeyaltfp = open(hockeyaltsgmldtd, "r", encoding="UTF-8")
+hockeyaltsgmldtdstring = hockeyaltfp.read()
+hockeyaltfp.close()
