@@ -174,9 +174,8 @@ def version_check(myvercheck, newvercheck):
 
 def check_version_number(myversion=__version__, proname=__program_alt_name__, newverurl=__project_release_url__):
     prevercheck = download_from_url(newverurl, geturls_headers, geturls_cj)
-    newvercheck = re.findall(
-        proname+r" ([0-9\.]+)<\/a\>", prevercheck['Content'].decode("UTF-8"))[0]
-    myvercheck = re.findall(r"([0-9\.]+)", myversion)[0]
+    newvercheck = re.findall(proname + " ([0-9\\.]+)<\\/a\\>", prevercheck['Content'].decode("UTF-8"))[0]
+    myvercheck = re.findall("([0-9\\.]+)", myversion)[0]
     return version_check(myvercheck, newvercheck)
 
 
