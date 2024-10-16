@@ -57,10 +57,10 @@ defsdbfile = "./data/hockeydata.db3"
 defoldsdbfile = "./data/hockeydata.db3"
 defsqlfile = "./data/hockeydata.sql"
 defjsonfile = "./data/hockeydata.json"
-extensions = ['xml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3', 'py']
-extensionsin = ['xml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
+extensions = ['xml', 'sgml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3', 'py']
+extensionsin = ['xml', 'sgml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
 extensionsc = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
-filetypes = ['xml', 'json', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
+filetypes = ['xml', 'sgml', 'json', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
 
 
 def get_user_input(txt):
@@ -169,10 +169,16 @@ if (premenuact == "2"):
 if (getargs.export):
     if (getargs.type is not None and getargs.type not in filetypes):
         getargs.type = None
-    if (getargs.type is not None and getargs.type.lower() == "xml"):
+    if (getargs.type is not None and (getargs.type.lower() == "xml"
+      getargs.type.lower() == "xmlalt")):
         if (getargs.outfile is None):
             HockeyDatabaseFN = get_user_input(
                 "Enter Hockey Database XML File Name to Export: ")
+            getargs.outfile = HockeyDatabaseFN
+    if (getargs.type is not None and getargs.type.lower() == "sgml"):
+        if (getargs.outfile is None):
+            HockeyDatabaseFN = get_user_input(
+                "Enter Hockey Database SGML File Name to Export: ")
             getargs.outfile = HockeyDatabaseFN
     elif (getargs.type is not None and getargs.type.lower() == "json"):
         if (getargs.outfile is None):
@@ -217,6 +223,12 @@ if (getargs.export):
                 getargs.type = "db3"
     if (getargs.type.lower() == "xml"):
         pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
+            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+    elif (getargs.type.lower() == "xmlalt"):
+        pyhockeystats.MakeHockeyXMLAltFileFromHockeyArray(
+            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+    elif (getargs.type.lower() == "sgml"):
+        pyhockeystats.MakeHockeySGMLFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
     elif (getargs.type.lower() == "json"):
         pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
@@ -721,7 +733,7 @@ while (keep_loop):
                 sub_sub_keep_loop = True
                 while (sub_sub_keep_loop):
                     subsubmenuact = get_user_input(
-                        "E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey JSON\n3: Export Hockey Database to Hockey Py\n4: Export Hockey Database to Hockey Py Alt\n5: Export Hockey Database to Hockey SQL\n6: Export Hockey Database to Hockey Database File\nWhat do you want to do? ")
+                        "E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey SGML\n3: Export Hockey Database to Hockey JSON\n4: Export Hockey Database to Hockey Py\n5: Export Hockey Database to Hockey Py Alt\n6: Export Hockey Database to Hockey Py OOP\n7: Export Hockey Database to Hockey Py OOP Alt\n8: Export Hockey Database to Hockey SQL\n9: Export Hockey Database to Hockey Database File\nWhat do you want to do? ")
                     if (subsubmenuact.upper() != "E" and not subsubmenuact.isdigit()):
                         print("ERROR: Invalid Command")
                         subsubmenuact = "E"
@@ -735,25 +747,40 @@ while (keep_loop):
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "2"):
                         HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database JSON File Name to Export: ")
-                        pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
+                            "Enter Hockey Database SGML File Name to Export: ")
+                        pyhockeystats.MakeHockeySGMLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "3"):
                         HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
+                            "Enter Hockey Database JSON File Name to Export: ")
+                        pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "4"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     if (subsubmenuact == "5"):
+                        HockeyDatabaseFN = get_user_input(
+                            "Enter Hockey Database Python File Name to Export: ")
+                        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
+                            hockeyarray, HockeyDatabaseFN)
+                    if (subsubmenuact == "6"):
+                        HockeyDatabaseFN = get_user_input(
+                            "Enter Hockey Database Python File Name to Export: ")
+                        pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
+                            hockeyarray, HockeyDatabaseFN)
+                    if (subsubmenuact == "7"):
+                        HockeyDatabaseFN = get_user_input(
+                            "Enter Hockey Database Python File Name to Export: ")
+                        pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
+                            hockeyarray, HockeyDatabaseFN)
+                    if (subsubmenuact == "8"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database SQL File Name to Export: ")
                         pyhockeystats.MakeHockeySQLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "6"):
+                    if (subsubmenuact == "9"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database File Name to Export: ")
                         pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
