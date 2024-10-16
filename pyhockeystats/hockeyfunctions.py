@@ -2556,7 +2556,7 @@ def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgm
     return True
 
 
-def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -2610,6 +2610,12 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
                 xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
+
+    # Insert the DTD after the XML declaration, before the root element
+    if includedtd:
+        xml_declaration = '<?xml version="1.0" encoding="{}"?>\n'.format(encoding)
+        xmlstring = xml_declaration + hockeyxmldtdstring + "\n" + xmlstring[len(xml_declaration):]
+
     xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
@@ -2623,14 +2629,14 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
     return xmlstring
 
 
-def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeyXMLAltFromHockeyArray(
-        inhockeyarray, beautify, encoding, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd=True, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -4273,7 +4279,7 @@ def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=Non
     return True
 
 
-def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -4327,6 +4333,10 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
     xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
+    # Insert the DTD after the XML declaration, before the root element
+    if includedtd:
+        xml_declaration = '<?xml version="1.0" encoding="{}"?>\n'.format(encoding)
+        xmlstring = xml_declaration + hockeyaltxmldtdstring + "\n" + xmlstring[len(xml_declaration):]
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
     if (verbose and jsonverbose):
@@ -4338,14 +4348,14 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
     return xmlstring
 
 
-def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(
-        inhockeyarray, beautify, encoding, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
