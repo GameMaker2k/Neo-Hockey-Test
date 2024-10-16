@@ -75,11 +75,16 @@ except AttributeError:
 
 def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
     informat = informat.lower()
-    if (informat == "xml"):
+    if (informat == "xml" or informat == "xmlalt"):
         if ("infile" in funcargs and "inxmlfile" not in funcargs):
             funcargs['inxmlfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeyArrayFromHockeyXML(**funcargs)
+    elif (informat == "sgml"):
+        if ("infile" in funcargs and "insgmlfile" not in funcargs):
+            funcargs['insgmlfile'] = funcargs['infile']
+            del funcargs['infile']
+        return MakeHockeyArrayFromHockeySGML(**funcargs)
     elif (informat == "json"):
         if ("infile" in funcargs and "injsonfile" not in funcargs):
             funcargs['injsonfile'] = funcargs['infile']
@@ -119,8 +124,10 @@ def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
 
 def MakeHockeyArrayFromHockeyDataByList(informat="xml", *funcargs):
     informat = informat.lower()
-    if (informat == "xml"):
+    if (informat == "xml" or informat == "xmlalt"):
         return MakeHockeyArrayFromHockeyXML(*funcargs)
+    elif (informat == "sgml"):
+        return MakeHockeyArrayFromHockeySGML(*funcargs)
     elif (informat == "json"):
         return MakeHockeyArrayFromHockeyJSON(*funcargs)
     elif (informat == "pickle"):
@@ -239,8 +246,8 @@ def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
             del funcargs['outfile']
         return MakeHockeyXMLAltFileFromHockeyArray(**funcargs)
     elif (outformat == "sgml"):
-        if ("outfile" in funcargs and "outxmlfile" not in funcargs):
-            funcargs['outxmlfile'] = funcargs['outfile']
+        if ("outfile" in funcargs and "outsgmlfile" not in funcargs):
+            funcargs['outsgmlfile'] = funcargs['outfile']
             del funcargs['outfile']
         return MakeHockeySGMLFileFromHockeyArray(**funcargs)
     elif (outformat == "json"):
@@ -329,11 +336,16 @@ def MakeHockeyDataFileFromHockeyArray(funcargs):
 
 def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
     informat = informat.lower()
-    if (informat == "xml"):
+    if (informat == "xml" or informat == "xmlalt"):
         if ("infile" in funcargs and "inxmlfile" not in funcargs):
             funcargs['inxmlfile'] = funcargs['infile']
             del funcargs['infile']
         return MakeHockeySQLiteArrayFromHockeySQLiteXML(**funcargs)
+    elif (informat == "sgml"):
+        if ("infile" in funcargs and "insgmlfile" not in funcargs):
+            funcargs['insgmlfile'] = funcargs['infile']
+            del funcargs['infile']
+        return MakeHockeySQLiteArrayFromHockeySQLiteSGML(**funcargs)
     elif (informat == "json"):
         if ("infile" in funcargs and "injsonfile" not in funcargs):
             funcargs['injsonfile'] = funcargs['infile']
@@ -373,7 +385,9 @@ def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
 
 def MakeHockeySQLiteArrayFromHockeySQLiteDataByList(informat="xml", *funcargs):
     informat = informat.lower()
-    if (informat == "xml"):
+    if (informat == "xml" or informat == "xmlalt"):
+        return MakeHockeySQLiteArrayFromHockeySQLiteXML(*funcargs)
+    elif (informat == "sgml"):
         return MakeHockeySQLiteArrayFromHockeySQLiteXML(*funcargs)
     elif (informat == "json"):
         return MakeHockeySQLiteArrayFromHockeySQLiteJSON(*funcargs)

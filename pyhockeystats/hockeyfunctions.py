@@ -96,6 +96,22 @@ try:
 except ImportError:
     import pickle  # Fallback to pickle in Python 3
 
+# Import necessary modules with compatibility for Python 2 and 3
+try:
+    from html.parser import HTMLParser  # Python 3
+except ImportError:
+    from HTMLParser import HTMLParser  # Python 2
+
+try:
+    from urllib.request import urlopen  # Python 3
+except ImportError:
+    from urllib2 import urlopen  # Python 2
+
+try:
+    from io import StringIO  # Python 3
+except ImportError:
+    from StringIO import StringIO  # Python 2
+
 # Pickle default protocol handling
 # Use DEFAULT_PROTOCOL or fallback to 2
 pickledp = getattr(pickle, 'DEFAULT_PROTOCOL', 2)
@@ -610,6 +626,333 @@ class BrotliFile:
  def __exit__(self, exc_type, exc_value, traceback):
   self.close()
 '''
+
+
+# Helper function to read SGML data from a file or URL
+def read_sgml_data(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
+    if sgmlisfile:
+        # insgmlfile is a file path or URL
+        if re.match(r'^(http|https|ftp|ftps|sftp)://', insgmlfile):
+            # It's a URL
+            try:
+                response = urlopen(insgmlfile)
+                sgml_data = response.read()
+                if isinstance(sgml_data, bytes):
+                    sgml_data = sgml_data.decode(encoding)
+            except Exception as e:
+                return False
+        else:
+            # It's a local file
+            if os.path.exists(insgmlfile) and os.path.isfile(insgmlfile):
+                try:
+                    with open(insgmlfile, 'r', encoding=encoding) as f:
+                        sgml_data = f.read()
+                except TypeError:
+                    # For Python 2
+                    with open(insgmlfile, 'r') as f:
+                        sgml_data = f.read().decode(encoding)
+                except Exception as e:
+                    return False
+            else:
+                return False
+    else:
+        # insgmlfile is a string containing SGML data
+        sgml_data = insgmlfile
+        if isinstance(sgml_data, bytes):
+            sgml_data = sgml_data.decode(encoding)
+    return sgml_data
+
+# Helper function to convert SGML attribute values to Python types
+def ConvertSGMLValuesForPython(value):
+    if value == 'None':
+        return None
+    elif value.isdigit():
+        return int(value)
+    else:
+        return value
+
+class HockeySGMLParser(HTMLParser):
+    def __init__(self):
+        if sys.version_info[0] < 3:
+            HTMLParser.__init__(self)
+        else:
+            super(HockeySGMLParser, self).__init__()
+
+        self.leaguearrayout = {}
+        self.leaguelist = []
+        self.current_league = None
+        self.current_conference = None
+        self.current_division = None
+        self.current_team = None
+        self.in_hockey = False
+        self.in_league = False
+        self.in_conference = False
+        self.in_division = False
+        self.in_team = False
+        self.in_arenas = False
+        self.in_arena = False
+        self.in_games = False
+        self.in_game = False
+        self.database = None
+
+    def handle_decl(self, decl):
+        # Override this method to handle DTD declarations
+        pass  # Simply ignore the DTD declarations
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'hockey':
+            self.in_hockey = True
+            self.database = attrs.get('database', defaultsdbfile)
+            self.leaguearrayout['database'] = self.database
+        elif tag == 'league' and self.in_hockey:
+            self.in_league = True
+            self.current_league = attrs.get('name')
+            league_info = {
+                'leagueinfo': {
+                    'name': attrs.get('name', ''),
+                    'fullname': attrs.get('fullname', ''),
+                    'country': attrs.get('country', ''),
+                    'fullcountry': attrs.get('fullcountry', ''),
+                    'date': attrs.get('date', ''),
+                    'playofffmt': attrs.get('playofffmt', ''),
+                    'ordertype': attrs.get('ordertype', ''),
+                    'conferences': attrs.get('conferences', ''),
+                    'divisions': attrs.get('divisions', ''),
+                },
+                'quickinfo': {
+                    'conferenceinfo': {},
+                    'divisioninfo': {},
+                    'teaminfo': {},
+                },
+                'conferencelist': [],
+                'arenas': [],
+                'games': [],
+            }
+            self.leaguearrayout[self.current_league] = league_info
+            self.leaguelist.append(self.current_league)
+        elif tag == 'conference' and self.in_league:
+            self.in_conference = True
+            self.current_conference = attrs.get('name')
+            conference_info = {
+                'conferenceinfo': {
+                    'name': attrs.get('name', ''),
+                    'prefix': attrs.get('prefix', ''),
+                    'suffix': attrs.get('suffix', ''),
+                    'fullname': GetFullTeamName(attrs.get('name', ''), attrs.get('prefix', ''), attrs.get('suffix', '')),
+                    'league': self.current_league,
+                },
+            }
+            self.leaguearrayout[self.current_league][self.current_conference] = conference_info
+            self.leaguearrayout[self.current_league]['quickinfo']['conferenceinfo'][self.current_conference] = {
+                'name': attrs.get('name', ''),
+                'fullname': conference_info['conferenceinfo']['fullname'],
+                'league': self.current_league,
+            }
+            self.leaguearrayout[self.current_league]['conferencelist'].append(self.current_conference)
+            self.leaguearrayout[self.current_league][self.current_conference]['divisionlist'] = []
+        elif tag == 'division' and self.in_conference:
+            self.in_division = True
+            self.current_division = attrs.get('name')
+            division_info = {
+                'divisioninfo': {
+                    'name': attrs.get('name', ''),
+                    'prefix': attrs.get('prefix', ''),
+                    'suffix': attrs.get('suffix', ''),
+                    'fullname': GetFullTeamName(attrs.get('name', ''), attrs.get('prefix', ''), attrs.get('suffix', '')),
+                    'league': self.current_league,
+                    'conference': self.current_conference,
+                },
+            }
+            self.leaguearrayout[self.current_league][self.current_conference][self.current_division] = division_info
+            self.leaguearrayout[self.current_league]['quickinfo']['divisioninfo'][self.current_division] = {
+                'name': attrs.get('name', ''),
+                'fullname': division_info['divisioninfo']['fullname'],
+                'league': self.current_league,
+                'conference': self.current_conference,
+            }
+            self.leaguearrayout[self.current_league][self.current_conference]['divisionlist'].append(self.current_division)
+            self.leaguearrayout[self.current_league][self.current_conference][self.current_division]['teamlist'] = []
+        elif tag == 'team' and self.in_division:
+            self.in_team = True
+            team_name = attrs.get('name')
+            full_team_name = GetFullTeamName(team_name, attrs.get('prefix', ''), attrs.get('suffix', ''))
+            team_info = {
+                'teaminfo': {
+                    'city': attrs.get('city', ''),
+                    'area': attrs.get('area', ''),
+                    'fullarea': attrs.get('fullarea', ''),
+                    'country': attrs.get('country', ''),
+                    'fullcountry': attrs.get('fullcountry', ''),
+                    'name': team_name,
+                    'fullname': full_team_name,
+                    'arena': attrs.get('arena', ''),
+                    'prefix': attrs.get('prefix', ''),
+                    'suffix': attrs.get('suffix', ''),
+                    'league': self.current_league,
+                    'conference': self.current_conference,
+                    'division': self.current_division,
+                    'affiliates': attrs.get('affiliates', ''),
+                },
+            }
+            self.leaguearrayout[self.current_league][self.current_conference][self.current_division][team_name] = team_info
+            self.leaguearrayout[self.current_league]['quickinfo']['teaminfo'][team_name] = {
+                'name': team_name,
+                'fullname': full_team_name,
+                'league': self.current_league,
+                'conference': self.current_conference,
+                'division': self.current_division,
+            }
+            self.leaguearrayout[self.current_league][self.current_conference][self.current_division]['teamlist'].append(team_name)
+        elif tag == 'arenas' and self.in_league:
+            self.in_arenas = True
+        elif tag == 'arena' and self.in_arenas:
+            self.in_arena = True
+            arena_info = {
+                'city': attrs.get('city', ''),
+                'area': attrs.get('area', ''),
+                'fullarea': attrs.get('fullarea', ''),
+                'country': attrs.get('country', ''),
+                'fullcountry': attrs.get('fullcountry', ''),
+                'name': attrs.get('name', ''),
+            }
+            self.leaguearrayout[self.current_league]['arenas'].append(arena_info)
+        elif tag == 'games' and self.in_league:
+            self.in_games = True
+        elif tag == 'game' and self.in_games:
+            self.in_game = True
+            game_info = {
+                'date': attrs.get('date', ''),
+                'time': attrs.get('time', ''),
+                'hometeam': attrs.get('hometeam', ''),
+                'awayteam': attrs.get('awayteam', ''),
+                'goals': attrs.get('goals', ''),
+                'sogs': attrs.get('sogs', ''),
+                'ppgs': attrs.get('ppgs', ''),
+                'shgs': attrs.get('shgs', ''),
+                'penalties': attrs.get('penalties', ''),
+                'pims': attrs.get('pims', ''),
+                'hits': attrs.get('hits', ''),
+                'takeaways': attrs.get('takeaways', ''),
+                'faceoffwins': attrs.get('faceoffwins', ''),
+                'atarena': attrs.get('atarena', ''),
+                'isplayoffgame': attrs.get('isplayoffgame', ''),
+            }
+            self.leaguearrayout[self.current_league]['games'].append(game_info)
+
+    def handle_endtag(self, tag):
+        if tag == 'hockey':
+            self.in_hockey = False
+        elif tag == 'league':
+            self.in_league = False
+            self.current_league = None
+        elif tag == 'conference':
+            self.in_conference = False
+            self.current_conference = None
+        elif tag == 'division':
+            self.in_division = False
+            self.current_division = None
+        elif tag == 'team':
+            self.in_team = False
+        elif tag == 'arenas':
+            self.in_arenas = False
+        elif tag == 'arena':
+            self.in_arena = False
+        elif tag == 'games':
+            self.in_games = False
+        elif tag == 'game':
+            self.in_game = False
+
+    def handle_data(self, data):
+        pass  # No character data to process in this structure
+
+
+class HockeySQLiteSGMLParser(HTMLParser):
+    def __init__(self):
+        if sys.version_info[0] < 3:
+            HTMLParser.__init__(self)
+        else:
+            super(HockeySQLiteSGMLParser, self).__init__()
+
+        self.leaguearrayout = {}
+        self.current_table = None
+        self.in_hockeydb = False
+        self.in_table = False
+        self.in_column = False
+        self.in_data = False
+        self.in_row = False
+        self.in_rowdata = False
+        self.in_rows = False
+        self.database = None
+
+    def handle_decl(self, decl):
+        # Override this method to handle DTD declarations
+        pass  # Simply ignore the DTD declarations
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == 'hockeydb':
+            self.in_hockeydb = True
+            self.database = attrs.get('database', defaultsdbfile)
+            self.leaguearrayout['database'] = self.database
+        elif tag == 'table' and self.in_hockeydb:
+            self.in_table = True
+            self.current_table = attrs.get('name')
+            self.leaguearrayout[self.current_table] = {'rows': [], 'values': []}
+        elif tag == 'column' and self.in_table:
+            self.in_column = True
+        elif tag == 'rowinfo' and self.in_column:
+            rowinfo_name = attrs.get('name')
+            default_value = attrs.get('defaultvalue')
+            default_value = ConvertSGMLValuesForPython(default_value)
+            column_info = {
+                'info': {
+                    'id': int(attrs.get('id', '0')),
+                    'Name': attrs.get('name', ''),
+                    'Type': attrs.get('type', ''),
+                    'NotNull': int(attrs.get('notnull', '0')),
+                    'DefualtValue': default_value,
+                    'PrimaryKey': int(attrs.get('primarykey', '0')),
+                    'AutoIncrement': int(attrs.get('autoincrement', '0')),
+                    'Hidden': int(attrs.get('hidden', '0')),
+                }
+            }
+            self.leaguearrayout[self.current_table][rowinfo_name] = column_info
+        elif tag == 'data' and self.in_table:
+            self.in_data = True
+        elif tag == 'row' and self.in_data:
+            self.in_row = True
+            self.leaguearrayout[self.current_table]['values'].append({})
+        elif tag == 'rowdata' and self.in_row:
+            self.in_rowdata = True
+            rowdata_name = attrs.get('name', '')
+            rowdata_value = ConvertSGMLValuesForPython(attrs.get('value', ''))
+            self.leaguearrayout[self.current_table]['values'][-1][rowdata_name] = rowdata_value
+        elif tag == 'rows' and self.in_table:
+            self.in_rows = True
+        elif tag == 'rowlist' and self.in_rows:
+            rowlist_name = attrs.get('name', '')
+            self.leaguearrayout[self.current_table]['rows'].append(rowlist_name)
+
+    def handle_endtag(self, tag):
+        if tag == 'hockeydb':
+            self.in_hockeydb = False
+        elif tag == 'table':
+            self.in_table = False
+            self.current_table = None
+        elif tag == 'column':
+            self.in_column = False
+        elif tag == 'data':
+            self.in_data = False
+        elif tag == 'row':
+            self.in_row = False
+        elif tag == 'rowdata':
+            self.in_rowdata = False
+        elif tag == 'rows':
+            self.in_rows = False
+
+    def handle_data(self, data):
+        pass  # No character data to process in this structure
 
 
 def CheckCompressionType(infile, closefp=True):
@@ -2125,6 +2468,39 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", ve
     elif (verbose and not jsonverbose):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False, jsonverbose=True))
+    return leaguearrayout
+
+
+def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+    """
+    Parses SGML data and converts it into a hockey array (nested dictionary).
+    """
+    # Read SGML data
+    sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
+    if sgml_data is False:
+        return False
+
+    # Parse SGML data
+    parser = HockeySGMLParser()
+    try:
+        parser.feed(sgml_data)
+        parser.close()
+    except Exception as e:
+        return False
+
+    leaguearrayout = parser.leaguearrayout
+    leaguearrayout['leaguelist'] = parser.leaguelist
+
+    # Check if the resulting array is valid
+    if not CheckHockeyArray(leaguearrayout):
+        return False
+
+    # Verbose output
+    if verbose and jsonverbose:
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
+    elif verbose and not jsonverbose:
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
+
     return leaguearrayout
 
 
@@ -3781,6 +4157,38 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding
     elif (verbose and not jsonverbose):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False, jsonverbose=True))
+    return leaguearrayout
+
+
+def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+    """
+    Parses SGML data representing a hockey SQLite database and converts it into a hockey SQLite array.
+    """
+    # Read SGML data
+    sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
+    if sgml_data is False:
+        return False
+
+    # Parse SGML data
+    parser = HockeySQLiteSGMLParser()
+    try:
+        parser.feed(sgml_data)
+        parser.close()
+    except Exception as e:
+        return False
+
+    leaguearrayout = parser.leaguearrayout
+
+    # Check if the resulting array is valid
+    if not CheckHockeySQLiteArray(leaguearrayout):
+        return False
+
+    # Verbose output
+    if verbose and jsonverbose:
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
+    elif verbose and not jsonverbose:
+        VerbosePrintOut(MakeHockeySQLiteSGMLFromHockeySQLiteArray(leaguearrayout, verbose=False, jsonverbose=True))
+
     return leaguearrayout
 
 
