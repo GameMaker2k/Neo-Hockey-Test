@@ -12,7 +12,7 @@
     Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: setup.py - Last Update: 10/11/2024 Ver. 0.9.2 RC 1 - Author: cooldude2k $
+    $FileInfo: setup.py - Last Update: 10/17/2024 Ver. 0.9.4 RC 1 - Author: cooldude2k $
 '''
 
 import datetime
@@ -95,27 +95,30 @@ os.chdir("."+os.sep+"..")
 verinfofilename = os.path.realpath("." + os.path.sep + "pyhockeystats" + os.path.sep + "versioninfo.py")
 
 # Use `with` to ensure the file is properly closed after reading
-with open(verinfofilename, "r") as verinfofile:
+# In Python 2, open defaults to text mode; in Python 3, it’s better to specify encoding
+open_kwargs = {'encoding': 'utf-8'} if sys.version_info[0] >= 3 else {}
+with open(verinfofilename, "r", **open_kwargs) as verinfofile:
     verinfodata = verinfofile.read()
 
 # Define the regex pattern for extracting version info
-setuppy_verinfo_esc = re.escape("__version_info__ = (") + r"(\d+,\s*\d+,\s*\d+,\s*'?\w+\s?\d*'?,\s*\d+)" + re.escape(");")
-setuppy_verinfo = re.findall(setuppy_verinfo_esc, verinfodata)
+# We ensure the pattern works correctly in both Python 2 and 3 by escaping the strings properly
+version_pattern = "__version_info__ = \(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*['\"]([\w\s]+)['\"]\s*,\s*(\d+)\s*\)"
+setuppy_verinfo = re.findall(version_pattern, verinfodata)[0]
 
 # If version info is found, process it; handle the case where no match is found
 if setuppy_verinfo:
-    setuppy_verinfo_exp = [vergetspt.strip().replace("\"", "").replace("'", "") for vergetspt in setuppy_verinfo[0].split(',')]
+    setuppy_verinfo_exp = setuppy_verinfo
 else:
     print("Version info not found.")
     setuppy_verinfo_exp = None  # Handle missing version info gracefully
 
 # Define the regex pattern for extracting version date info
-setuppy_dateinfo_esc = re.escape("__version_date_info__ = (") + r"(\d+,\s*\d+,\s*\d+,\s*'?\w+\s?\d*'?,\s*\d+)" + re.escape(");")
-setuppy_dateinfo = re.findall(setuppy_dateinfo_esc, verinfodata)
+date_pattern = "__version_date_info__ = \(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*['\"]([\w\s]+)['\"]\s*,\s*(\d+)\s*\)"
+setuppy_dateinfo = re.findall(date_pattern, verinfodata)[0]
 
 # If date info is found, process it; handle the case where no match is found
 if setuppy_dateinfo:
-    setuppy_dateinfo_exp = [vergetspt.strip().replace("\"", "").replace("'", "") for vergetspt in setuppy_dateinfo[0].split(',')]
+    setuppy_dateinfo_exp = setuppy_dateinfo
 else:
     print("Date info not found.")
     setuppy_dateinfo_exp = None  # Handle missing date info gracefully
