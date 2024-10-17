@@ -2127,7 +2127,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, encoding="UTF-8", re
     return False
 
 
-def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, verbosetype="array"):
+def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if (beautify):
@@ -2149,13 +2149,13 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, so
     return jsonstring
 
 
-def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, verbosetype="array"):
+def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=False, verbosetype="array"):
     jsonstring = MakeHockeyJSONFromHockeyArray(
         inhockeyarray, jsonindent, beautify, sortkeys, verbose, verbosetype)
     return jsonstring
 
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outjsonfile is None):
         return False
     fbasename = os.path.splitext(outjsonfile)[0]
@@ -2184,13 +2184,13 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
     return True
 
 
-def MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, verbosetype="array"):
+def MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=False, verbosetype="array"):
     jsonstring = MakeHockeyJSONFileFromHockeyArray(
         inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, verbosetype)
     return jsonstring
 
 
-def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=False, verbosetype="array"):
     if (jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", injsonfile))):
         if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", injsonfile)):
             injsonfile = UncompressFileURL(
@@ -2233,7 +2233,7 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, ver
     return hockeyarray
 
 
-def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=True, verbosetype="array"):
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if (protocol is None):
@@ -2255,7 +2255,7 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=Tr
     return picklestring
 
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outpicklefile is None):
         return False
     fbasename = os.path.splitext(outpicklefile)[0]
@@ -2284,7 +2284,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
     return True
 
 
-def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inpicklefile))):
         if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inpicklefile)):
             inpicklefile = UncompressFileURL(
@@ -2317,7 +2317,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="U
     return hockeyarray
 
 
-def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, verbose=True, verbosetype="array"):
+def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     marshalstring = marshal.dumps(inhockeyarray, version)
@@ -2335,7 +2335,7 @@ def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, ver
     return marshalstring
 
 
-def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outmarshalfile is None):
         return False
     fbasename = os.path.splitext(outmarshalfile)[0]
@@ -2364,7 +2364,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
     return True
 
 
-def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inmarshalfile))):
         if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inmarshalfile)):
             inmarshalfile = UncompressFileURL(
@@ -2397,7 +2397,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding
     return hockeyarray
 
 
-def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=True, verbosetype="array"):
+def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     outshelvefile = BytesIO()
@@ -2420,7 +2420,7 @@ def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=Tru
     return shelvestring
 
 
-def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, returnshelve=False, version=pickledp, verbose=True, verbosetype="array"):
+def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, returnshelve=False, version=pickledp, verbose=False, verbosetype="array"):
     if (outshelvefile is None):
         return False
     fbasename = os.path.splitext(outshelvefile)[0]
@@ -2437,7 +2437,7 @@ def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, retur
     return True
 
 
-def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (shelveisfile):
         with shelve.open(inshelvefile, protocol=version) as shelf_file:
             hockeyarray = dict(shelf_file)
@@ -2464,7 +2464,7 @@ def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pic
     return hockeyarray
 
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -2535,7 +2535,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
     return xmlstring
 
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -2563,7 +2563,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     return True
 
 
-def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if not CheckHockeyArray(inhockeyarray):
         return False
     sgmlstring = ""
@@ -2651,7 +2651,7 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
     return sgmlstring
 
 
-def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outsgmlfile is None):
         return False
     fbasename = os.path.splitext(outsgmlfile)[0]
@@ -2679,7 +2679,7 @@ def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgm
     return True
 
 
-def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -2757,7 +2757,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
     return xmlstring
 
 
-def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -2786,7 +2786,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
     return True
 
 
-def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (not CheckHockeyXML(inxmlfile, xmlisfile)):
         return False
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile))):
@@ -2918,7 +2918,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", ve
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     """
     Parses SGML data and converts it into a hockey array (nested dictionary).
     """
@@ -2960,11 +2960,11 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeyXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
  return MakeHockeyArrayFromHockeySGML(inxmlfile, xmlisfile, encoding, verbose, verbosetype)
 
 
-def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, verbosetype="array"):
+def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if (outsdbfile is None and "database" in inhockeyarray.keys()):
@@ -3046,7 +3046,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
     return True
 
 
-def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array"):
+def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3132,7 +3132,7 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, verbosetype="ar
     return pystring
 
 
-def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -3162,7 +3162,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
     return True
 
 
-def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array", verbosepy=True):
+def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=False, verbosetype="array", verbosepy=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3257,7 +3257,7 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosetype=
     return pystring
 
 
-def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array", verbosepy=True):
+def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array", verbosepy=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -3288,7 +3288,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     return True
 
 
-def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array"):
+def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3378,7 +3378,7 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, verbosetype=
     return pystring
 
 
-def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -3409,7 +3409,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     return True
 
 
-def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array", verbosepy=True):
+def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=False, verbosetype="array", verbosepy=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3503,7 +3503,7 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, verbosety
     return pystring
 
 
-def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array", verbosepy=True):
+def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array", verbosepy=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
@@ -3534,7 +3534,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
     return True
 
 
-def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=False, verbosetype="array"):
     if (isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
         if (not CheckHockeySQLiteDatabase(insdbfile)[0]):
             return False
@@ -3664,7 +3664,7 @@ def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, verbosetype="arra
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
         sqlfp = UncompressFile(insqlfile)
         sqlstring = sqlfp.read()
@@ -3808,7 +3808,7 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, enco
     return leaguearrayout
 
 
-def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=True, verbosetype="array"):
+def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if (insdbfile is None):
@@ -3889,7 +3889,7 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Tr
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outsqlfile is None):
         return False
     fbasename = os.path.splitext(outsqlfile)[0]
@@ -3918,7 +3918,7 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
     return True
 
 
-def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
+def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=False, verbosetype="array"):
     if (os.path.exists(insdbfile) and os.path.isfile(insdbfile) and isinstance(insdbfile, basestring)):
         sqldatacon = OpenHockeyDatabase(insdbfile)
     else:
@@ -4006,7 +4006,7 @@ def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
     if (outsqlfile is None):
@@ -4038,7 +4038,7 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
     return True
 
 
-def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=False, verbosetype="array"):
     if (isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
         sqldatacon = OpenHockeyDatabase(insdbfile)
     else:
@@ -4203,7 +4203,7 @@ def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, verbosetype="a
     return leaguearrayout
 
 
-def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=False, verbosetype="array"):
     if (isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
         if (not CheckHockeySQLiteDatabase(insdbfile)[0]):
             return False
@@ -4288,7 +4288,7 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, verbosetype
     return leaguearrayout
 
 
-def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -4359,7 +4359,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
     return xmlstring
 
 
-def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -4388,7 +4388,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     return True
 
 
-def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if not CheckHockeySQLiteArray(inhockeyarray):
         return False
     sgmlstring = ""
@@ -4460,7 +4460,7 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
     return sgmlstring
 
 
-def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outsgmlfile is None):
         return False
     fbasename = os.path.splitext(outsgmlfile)[0]
@@ -4489,7 +4489,7 @@ def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=Non
     return True
 
 
-def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -4563,7 +4563,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
     return xmlstring
 
 
-def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
+def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
@@ -4592,7 +4592,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
     return True
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
         return False
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile))):
@@ -4707,7 +4707,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding
     return leaguearrayout
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
     """
     Parses SGML data representing a hockey SQLite database and converts it into a hockey SQLite array.
     """
@@ -4748,11 +4748,11 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
     return leaguearrayout
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
  return MakeHockeySQLiteArrayFromHockeySQLiteSGML(inxmlfile, xmlisfile, encoding, verbose, verbosetype)
 
 
-def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, verbosetype="array"):
+def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=False, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     leaguearrayout = {'database': str(inhockeyarray['database'])}
@@ -4840,7 +4840,7 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, verbosetyp
     return leaguearrayout
 
 
-def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=True, verbosetype="array"):
+def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=False, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if (insdbfile is None or insdbfile == ":memory:"):
@@ -4919,7 +4919,7 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, verbosetype="array"):
+def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outsqlfile is None):
         return False
     fbasename = os.path.splitext(outsqlfile)[0]
