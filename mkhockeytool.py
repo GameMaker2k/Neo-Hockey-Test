@@ -15,7 +15,7 @@ Revised BSD License for more details.
 Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
 Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-$FileInfo: mkhockeytool.py - Last Update: 10/11/2024 Ver. 1.1.0 - Author: cooldude2k $
+$FileInfo: mkhockeytool.py - Last Update: 10/17/2024 Ver. 1.2.0 - Author: cooldude2k $
 """
 
 from __future__ import (absolute_import, division, print_function,
@@ -25,8 +25,9 @@ import argparse
 import logging
 import os
 import sys
-import pyhockeystats
 import re
+
+import pyhockeystats
 
 from typing import Optional
 
@@ -587,15 +588,16 @@ class HockeyTool:
         target = 'conferencelist' if conference_sn else 'divisionlist'
         divisions = self.hockeyarray[league_sn].get(target, [])
         if not divisions:
-            logger.error("ERROR: There are no Hockey Divisions.")
-            return
+            # If divisions are disabled, allow adding teams directly to the league
+            logger.info("Hockey League does not have divisions. Teams will be added directly to the league.")
+            division_sn = None
+        else:
+            self.display_list(divisions, "Hockey Divisions")
+            division_choice = self.prompt_selection(len(divisions), "Enter Hockey Division number: ")
+            if division_choice is None:
+                return
 
-        self.display_list(divisions, "Hockey Divisions")
-        division_choice = self.prompt_selection(len(divisions), "Enter Hockey Division number: ")
-        if division_choice is None:
-            return
-
-        division_sn = divisions[division_choice]
+            division_sn = divisions[division_choice]
 
         submenu_options = {
             '1': lambda: self.add_team(league_sn, conference_sn, division_sn),
@@ -625,7 +627,12 @@ class HockeyTool:
     def add_team(self, league_sn, conference_sn, division_sn):
         """Add a new hockey team."""
         teamname = self.prompt_input("Enter Hockey Team name: ")
-        if teamname in self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', []):
+        team_list = self.hockeyarray[league_sn]
+        if conference_sn:
+            team_list = team_list[conference_sn]
+        if division_sn:
+            team_list = team_list[division_sn]
+        if teamname in team_list.get('teamlist', []):
             logger.error("ERROR: Hockey Team with that name already exists.")
             return
 
@@ -644,11 +651,19 @@ class HockeyTool:
             fullcountryname, fullareaname, teamname, conference_sn, division_sn,
             arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
         )
-        logger.info("Hockey Team '{}' added successfully to division '{}'.".format(teamname, division_sn))
+        logger.info("Hockey Team '{}' added successfully{}.".format(
+            teamname,
+            " to division '{}'".format(division_sn) if division_sn else " to the league"
+        ))
 
     def remove_team(self, league_sn, conference_sn, division_sn):
         """Remove an existing hockey team."""
-        teams = self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', [])
+        team_list = self.hockeyarray[league_sn]
+        if conference_sn:
+            team_list = team_list[conference_sn]
+        if division_sn:
+            team_list = team_list[division_sn]
+        teams = team_list.get('teamlist', [])
         if not teams:
             logger.error("ERROR: There are no Hockey Teams to delete.")
             return
@@ -661,11 +676,19 @@ class HockeyTool:
             self.hockeyarray = pyhockeystats.RemoveHockeyTeamFromArray(
                 self.hockeyarray, league_sn, teamname, conference_sn, division_sn
             )
-            logger.info("Hockey Team '{}' removed successfully from division '{}'.".format(teamname, division_sn))
+            logger.info("Hockey Team '{}' removed successfully{}.".format(
+                teamname,
+                " from division '{}'".format(division_sn) if division_sn else " from the league"
+            ))
 
     def edit_team(self, league_sn, conference_sn, division_sn):
         """Edit an existing hockey team."""
-        teams = self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', [])
+        team_list = self.hockeyarray[league_sn]
+        if conference_sn:
+            team_list = team_list[conference_sn]
+        if division_sn:
+            team_list = team_list[division_sn]
+        teams = team_list.get('teamlist', [])
         if not teams:
             logger.error("ERROR: There are no Hockey Teams to edit.")
             return
@@ -678,7 +701,7 @@ class HockeyTool:
             newteamname = self.prompt_input("Enter new Hockey Team name (press Enter to keep current): ")
             newteamname = newteamname if newteamname else oldteamname
 
-            if newteamname != oldteamname and newteamname in self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', []):
+            if newteamname != oldteamname and newteamname in teams:
                 logger.error("ERROR: Hockey Team with that name already exists.")
                 return
 
@@ -698,7 +721,10 @@ class HockeyTool:
                 cityname, areaname, countryname, fullcountryname, fullareaname,
                 arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
             )
-            logger.info("Hockey Team '{}' updated successfully to '{}' in division '{}'.".format(oldteamname, newteamname, division_sn))
+            logger.info("Hockey Team '{}' updated successfully{}.".format(
+                oldteamname,
+                " to '{}'".format(newteamname) if newteamname != oldteamname else ""
+            ))
 
     def manage_arenas(self):
         """Manage hockey arenas."""
@@ -1065,6 +1091,10 @@ class HockeyTool:
             return
         new_conference_sn = conferences[new_conference_index]
 
+        if old_conference_sn == new_conference_sn:
+            logger.error("ERROR: Source and destination conferences are the same.")
+            return
+
         divisions = self.hockeyarray[league_sn][old_conference_sn].get('divisionlist', [])
         if not divisions:
             logger.error("ERROR: No divisions found in the source conference.")
@@ -1079,7 +1109,9 @@ class HockeyTool:
         self.hockeyarray = pyhockeystats.MoveHockeyDivisionToConferenceFromArray(
             self.hockeyarray, league_sn, division_sn, old_conference_sn, new_conference_sn
         )
-        logger.info("Hockey Division '{}' moved from conference '{}' to '{}.'".format(division_sn, old_conference_sn, new_conference_sn))
+        logger.info("Hockey Division '{}' moved from conference '{}' to '{}'.".format(
+            division_sn, old_conference_sn, new_conference_sn
+        ))
 
     def move_team_to_conference(self):
         """Move a hockey team from one conference to another."""
@@ -1111,6 +1143,10 @@ class HockeyTool:
             return
         new_conference_sn = conferences[new_conference_index]
 
+        if old_conference_sn == new_conference_sn:
+            logger.error("ERROR: Source and destination conferences are the same.")
+            return
+
         divisions = self.hockeyarray[league_sn][old_conference_sn].get('divisionlist', [])
         if not divisions:
             logger.error("ERROR: No divisions found in the source conference.")
@@ -1136,7 +1172,9 @@ class HockeyTool:
         self.hockeyarray = pyhockeystats.MoveHockeyTeamToConferenceFromArray(
             self.hockeyarray, league_sn, team_sn, old_conference_sn, new_conference_sn, division_sn
         )
-        logger.info("Hockey Team '{}' moved from conference '{}' to '{}'.".format(team_sn, old_conference_sn, new_conference_sn))
+        logger.info("Hockey Team '{}' moved from conference '{}' to '{}'.".format(
+            team_sn, old_conference_sn, new_conference_sn
+        ))
 
     def move_team_to_division(self):
         """Move a hockey team from one division to another within the same conference."""
@@ -1179,6 +1217,10 @@ class HockeyTool:
             return
         new_division_sn = divisions[new_division_index]
 
+        if old_division_sn == new_division_sn:
+            logger.error("ERROR: Source and destination divisions are the same.")
+            return
+
         teams = self.hockeyarray[league_sn][conference_sn][old_division_sn].get('teamlist', [])
         if not teams:
             logger.error("ERROR: There are no teams to move in this division.")
@@ -1193,7 +1235,9 @@ class HockeyTool:
         self.hockeyarray = pyhockeystats.MoveHockeyTeamToDivisionFromArray(
             self.hockeyarray, league_sn, team_sn, conference_sn, old_division_sn, new_division_sn
         )
-        logger.info("Hockey Team '{}' moved from division '{}' to '{}'.".format(team_sn, old_division_sn, new_division_sn))
+        logger.info("Hockey Team '{}' moved from division '{}' to '{}'.".format(
+            team_sn, old_division_sn, new_division_sn
+        ))
 
     @staticmethod
     def prompt_input(prompt_text):
