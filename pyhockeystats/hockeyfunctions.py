@@ -723,11 +723,24 @@ class HockeySGMLParser(HTMLParser):
         self.database = None
 
     def handle_decl(self, decl):
-        # Override this method to handle DTD declarations
-        pass  # Simply ignore the DTD declarations
+        pass  # Ignore DTD declarations
+
+    def handle_pi(self, data):
+        # Ignore XML declarations (processing instructions)
+        if data.startswith("xml"):
+            pass  # Ignore <?xml version="1.0" encoding="UTF-8"?>
+        else:
+            super(HockeySGMLParser, self).handle_pi(data)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        self.process_tag(tag, attrs)
+
+    def handle_startendtag(self, tag, attrs):
+        attrs = dict(attrs)
+        self.process_tag(tag, attrs, is_empty=True)
+
+    def process_tag(self, tag, attrs, is_empty=False):
         if tag == 'hockey':
             self.in_hockey = True
             self.database = attrs.get('database', defaultsdbfile)
@@ -888,7 +901,7 @@ class HockeySGMLParser(HTMLParser):
             self.in_game = False
 
     def handle_data(self, data):
-        pass  # No character data to process in this structure
+        pass  # No character data to process
 
 
 class HockeySGMLChecker(HTMLParser):
@@ -921,12 +934,24 @@ class HockeySGMLChecker(HTMLParser):
         self.current_league = None
 
     def handle_decl(self, decl):
-        # Ignore DTD declarations
-        pass
+        pass  # Ignore DTD declarations
+
+    def handle_pi(self, data):
+        # Ignore XML declarations (processing instructions)
+        if data.startswith("xml"):
+            pass  # Ignore <?xml version="1.0" encoding="UTF-8"?>
+        else:
+            super(HockeySGMLChecker, self).handle_pi(data)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        self.process_tag(tag, attrs)
 
+    def handle_startendtag(self, tag, attrs):
+        attrs = dict(attrs)
+        self.process_tag(tag, attrs, is_empty=True)
+
+    def process_tag(self, tag, attrs, is_empty=False):
         # Handle self-closing or empty tags
         if tag in ['arena', 'team', 'game']:
             return
@@ -969,20 +994,7 @@ class HockeySGMLChecker(HTMLParser):
             # No required attributes for container tags
             pass
 
-        else:
-            # If the tag is not in required_attributes or allowed_container_tags, invalidate
-            # Alternatively, check if it's a child of an allowed container tag
-            parent_tag = self.current_tags[-2] if len(self.current_tags) >= 2 else None
-            expected_children = self.allowed_container_tags.get(parent_tag, [])
-            if tag not in expected_children:
-                print("Unexpected tag encountered:", tag)
-                self.is_valid = False
-                return
-            # Otherwise, it's allowed but has no required attributes
-            pass
-
     def handle_endtag(self, tag):
-     
         if not self.current_tags:
             print("Mismatched closing tag:", tag)
             self.is_valid = False
@@ -1016,11 +1028,25 @@ class HockeySQLiteSGMLParser(HTMLParser):
         self.database = None
 
     def handle_decl(self, decl):
-        # Override this method to handle DTD declarations
-        pass  # Simply ignore the DTD declarations
+        # Ignore DTD declarations
+        pass
+    
+    def handle_pi(self, data):
+        # Ignore XML declarations (processing instructions)
+        if data.startswith("xml"):
+            pass  # Ignore <?xml version="1.0" encoding="UTF-8"?>
+        else:
+            super(HockeySQLiteSGMLParser, self).handle_pi(data)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        self.process_tag(tag, attrs)
+
+    def handle_startendtag(self, tag, attrs):
+        attrs = dict(attrs)
+        self.process_tag(tag, attrs, is_empty=True)
+
+    def process_tag(self, tag, attrs, is_empty=False):
         if tag == 'hockeydb':
             self.in_hockeydb = True
             self.database = attrs.get('database', defaultsdbfile)
@@ -1116,12 +1142,24 @@ class HockeySQLiteSGMLChecker(HTMLParser):
         self.in_row = False
 
     def handle_decl(self, decl):
-        # Ignore DTD declarations
-        pass
+        pass  # Ignore DTD declarations
+
+    def handle_pi(self, data):
+        # Ignore XML declarations (processing instructions)
+        if data.startswith("xml"):
+            pass  # Ignore <?xml version="1.0" encoding="UTF-8"?>
+        else:
+            super(HockeySQLiteSGMLChecker, self).handle_pi(data)
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+        self.process_tag(tag, attrs)
 
+    def handle_startendtag(self, tag, attrs):
+        attrs = dict(attrs)
+        self.process_tag(tag, attrs, is_empty=True)
+
+    def process_tag(self, tag, attrs, is_empty=False):
         # Handle self-closing or empty tags
         if tag in ['rowlist', 'rowdata', 'rowinfo']:
             return
@@ -1170,18 +1208,6 @@ class HockeySQLiteSGMLChecker(HTMLParser):
                 self.is_valid = False
                 return
             # No required attributes for container tags
-            pass
-
-        else:
-            # If the tag is not in required_attributes or allowed_container_tags, invalidate
-            # Alternatively, check if it's a child of an allowed container tag
-            parent_tag = self.current_tags[-2] if len(self.current_tags) >= 2 else None
-            expected_children = self.allowed_container_tags.get(parent_tag, [])
-            if tag not in expected_children:
-                print("Unexpected tag encountered:", tag)
-                self.is_valid = False
-                return
-            # Otherwise, it's allowed but has no required attributes
             pass
 
     def handle_endtag(self, tag):
