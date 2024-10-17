@@ -77,45 +77,29 @@
  <league name="HOL" fullname="Hockey League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Conference 1" prefix="" suffix="">
    <division name="Division 1" prefix="" suffix="">
-    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Blasters" arena="DET Arena" prefix="Detroit" suffix="" affiliates="MIL:Northview Loggerheads"></team>
-    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Sabres" arena="IND Arena" prefix="Indianapolis" suffix="" affiliates="MIL:Gulivoire Park Caravans"></team>
-   </division>
+    <team city="Detroit" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Blasters" arena="DET Arena" prefix="Detroit" suffix="" affiliates="MIL:Northview Loggerheads">    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Sabres" arena="IND Arena" prefix="Indianapolis" suffix="" affiliates="MIL:Gulivoire Park Caravans">   </division>
    <division name="Division 2" prefix="" suffix="">
-    <team city="Chicago" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="River Bandits" arena="CHI Arena" prefix="Chicago" suffix="" affiliates="MIL:Wheeling Ramblers"></team>
-    <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Chariots" arena="KAN Arena" prefix="Kansas City" suffix="" affiliates="MIL:Columbia Skychiefs"></team>
-   </division>
+    <team city="Chicago" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="River Bandits" arena="CHI Arena" prefix="Chicago" suffix="" affiliates="MIL:Wheeling Ramblers">    <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Chariots" arena="KAN Arena" prefix="Kansas City" suffix="" affiliates="MIL:Columbia Skychiefs">   </division>
   </conference>
   <conference name="Conference 2" prefix="" suffix="">
    <division name="Division 3" prefix="" suffix="">
-    <team city="St. Paul" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Smoking Guns" arena="SMO Arena" prefix="St. Paul" suffix="" affiliates="MIL:Winona Vipers"></team>
-    <team city="Minneapolis" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Armada" arena="MIN Arena" prefix="Minneapolis" suffix="" affiliates="MIL:New Hope Chaos"></team>
-   </division>
+    <team city="St. Paul" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Smoking Guns" arena="SMO Arena" prefix="St. Paul" suffix="" affiliates="MIL:Winona Vipers">    <team city="Minneapolis" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Armada" arena="MIN Arena" prefix="Minneapolis" suffix="" affiliates="MIL:New Hope Chaos">   </division>
    <division name="Division 4" prefix="" suffix="">
-    <team city="Peoria" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Jammers" arena="PEO Arena" prefix="Peoria" suffix="" affiliates="MIL:Tinley Park Gappers"></team>
-    <team city="Joliet" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Gears" arena="JOL Arena" prefix="Chicago" suffix="" affiliates="MIL:Franklin Park Spirits"></team>
-   </division>
+    <team city="Peoria" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Jammers" arena="PEO Arena" prefix="Peoria" suffix="" affiliates="MIL:Tinley Park Gappers">    <team city="Joliet" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Gears" arena="JOL Arena" prefix="Chicago" suffix="" affiliates="MIL:Franklin Park Spirits">   </division>
   </conference>
  </league>
  <league name="MIL" fullname="Minor League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Conference 1" prefix="" suffix="">
    <division name="Division 1" prefix="" suffix="">
-    <team city="Northview" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Loggerheads" arena="NOR Arena" prefix="Northview" suffix="" affiliates="HOL:Detroit Blasters"></team>
-    <team city="Gulivoire Park" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Caravans" arena="GUL Arena" prefix="Gulivoire Park" suffix="" affiliates="HOL:Indianapolis Sabres"></team>
-   </division>
+    <team city="Northview" area="MI" fullarea="Michigan" country="USA" fullcountry="United States" name="Loggerheads" arena="NOR Arena" prefix="Northview" suffix="" affiliates="HOL:Detroit Blasters">    <team city="Gulivoire Park" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Caravans" arena="GUL Arena" prefix="Gulivoire Park" suffix="" affiliates="HOL:Indianapolis Sabres">   </division>
    <division name="Division 2" prefix="" suffix="">
-    <team city="Wheeling" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Ramblers" arena="WHE Arena" prefix="Wheeling" suffix="" affiliates="HOL:Chicago River Bandits"></team>
-    <team city="Columbia" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Skychiefs" arena="COL Arena" prefix="Columbia" suffix="" affiliates="HOL:Kansas City Chariots"></team>
-   </division>
+    <team city="Wheeling" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Ramblers" arena="WHE Arena" prefix="Wheeling" suffix="" affiliates="HOL:Chicago River Bandits">    <team city="Columbia" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Skychiefs" arena="COL Arena" prefix="Columbia" suffix="" affiliates="HOL:Kansas City Chariots">   </division>
   </conference>
   <conference name="Conference 2" prefix="" suffix="">
    <division name="Division 3" prefix="" suffix="">
-    <team city="Winona" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Vipers" arena="WIN Arena" prefix="Winona" suffix="" affiliates="HOL:St. Paul Smoking Guns"></team>
-    <team city="New Hope" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Chaos" arena="NEW Arena" prefix="New Hope" suffix="" affiliates="HOL:Minneapolis Armada"></team>
-   </division>
+    <team city="Winona" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Vipers" arena="WIN Arena" prefix="Winona" suffix="" affiliates="HOL:St. Paul Smoking Guns">    <team city="New Hope" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Chaos" arena="NEW Arena" prefix="New Hope" suffix="" affiliates="HOL:Minneapolis Armada">   </division>
    <division name="Division 4" prefix="" suffix="">
-    <team city="Tinley Park" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Gappers" arena="TIN Arena" prefix="Tinley Park" suffix="" affiliates="HOL:Peoria Jammers"></team>
-    <team city="Franklin Park" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Spirits" arena="FRA Arena" prefix="Franklin Park" suffix="" affiliates="HOL:Chicago Gears"></team>
-   </division>
+    <team city="Tinley Park" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Gappers" arena="TIN Arena" prefix="Tinley Park" suffix="" affiliates="HOL:Peoria Jammers">    <team city="Franklin Park" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Spirits" arena="FRA Arena" prefix="Franklin Park" suffix="" affiliates="HOL:Chicago Gears">   </division>
   </conference>
  </league>
 </hockey>
