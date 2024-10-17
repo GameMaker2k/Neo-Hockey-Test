@@ -629,7 +629,7 @@ class BrotliFile:
 
 
 # Helper function to read SGML data from a file or URL
-def read_sgml_data(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
+def ReadSGMLData(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
     if sgmlisfile:
         # insgmlfile is a file path or URL
         if re.match(r'^(http|https|ftp|ftps|sftp)://', insgmlfile):
@@ -1770,7 +1770,7 @@ def CheckHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
     """
 
     # Read SGML data
-    sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
+    sgml_data = ReadSGMLData(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
         print("Failed to read SGML data.")
         return False
@@ -1909,7 +1909,7 @@ def CheckHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
     """
 
     # Read SGML data
-    sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
+    sgml_data = ReadSGMLData(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
         print("Failed to read SGML data.")
         return False
@@ -2825,7 +2825,7 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
     if (not CheckHockeySGML(insgmlfile, sgmlisfile)):
         return False
     # Read SGML data
-    sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
+    sgml_data = ReadSGMLData(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
         return False
 
@@ -4524,7 +4524,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
     if (not CheckHockeySQLiteSGML(insgmlfile, sgmlisfile)):
         return False
     # Read SGML data
-    sgml_data = read_sgml_data(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
+    sgml_data = ReadSGMLData(insgmlfile, sgmlisfile=sgmlisfile, encoding=encoding)
     if sgml_data is False:
         return False
 
