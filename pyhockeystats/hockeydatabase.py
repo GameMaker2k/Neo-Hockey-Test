@@ -331,6 +331,7 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
 
     log_functions = {
         "print": print,
+        "pprint": lambda x: pprint(x, indent=2, width=80),
         "log": logging.info,
         "warning": logging.warning,
         "error": logging.error,
