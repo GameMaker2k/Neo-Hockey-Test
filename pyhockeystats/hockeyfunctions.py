@@ -65,11 +65,15 @@ from base64 import b64encode
 # Import core modules
 from ftplib import FTP, FTP_TLS
 
-# JSON handling: prefer simplejson if available, fallback to json
+# JSON handling: prefer ujson or simplejson if available, fallback to json
+
 try:
-    import simplejson as json
+    import ujson as json
 except ImportError:
-    import json
+    try:
+        import simplejson as json
+    except ImportError:
+        import json
 
 # Paramiko (SSH module) handling
 testparamiko = False
@@ -628,17 +632,18 @@ class BrotliFile:
 '''
 
 
-# Helper function to read SGML data from a file or URL
-def ReadSGMLData(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
+# Updated helper function to read SGML data from file, URL, or string
+def ReadSGMLData(insgmlfile, sgmlisfile=True, encoding="UTF-8", headers=None, cookie_jar=None):
+    sgml_data = None
+    
     if sgmlisfile:
         # insgmlfile is a file path or URL
         if re.match(r'^(http|https|ftp|ftps|sftp)://', insgmlfile):
             # It's a URL
             try:
-                response = urlopen(insgmlfile)
-                sgml_data = response.read()
+                insgmlfile = UncompressFileURL(insgmlfile, headers, cookie_jar)
+                sgml_data = insgmlfile.read()
                 if isinstance(sgml_data, bytes):
-                    # In Python 3 and some cases in Python 2
                     sgml_data = sgml_data.decode(encoding)
             except Exception as e:
                 print("Error reading SGML data from URL:", e)
@@ -647,9 +652,8 @@ def ReadSGMLData(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
             # It's a local file
             if os.path.exists(insgmlfile) and os.path.isfile(insgmlfile):
                 try:
-                    # Use io.open to support encoding in both Python 2 and 3
-                    with open(insgmlfile, 'r', encoding=encoding) as f:
-                        sgml_data = f.read()
+                    insgmlfile = UncompressFile(insgmlfile, mode="rt", encoding=encoding)
+                    sgml_data = insgmlfile.read()
                 except Exception as e:
                     print("Error reading SGML data from file:", e)
                     return False
@@ -658,16 +662,24 @@ def ReadSGMLData(insgmlfile, sgmlisfile=True, encoding="UTF-8"):
                 return False
     else:
         # insgmlfile is a string containing SGML data
-        sgml_data = insgmlfile
+        chckcompression = CheckCompressionTypeFromString(insgmlfile)
+        if not chckcompression:
+            sgml_data = insgmlfile
+        else:
+            try:
+                insgmlsfile = BytesIO(insgmlfile.encode(encoding))
+            except TypeError:
+                insgmlsfile = BytesIO(insgmlfile)
+            insgmlfile = UncompressFile(insgmlsfile)
+            sgml_data = insgmlfile.read()
+
         if isinstance(sgml_data, bytes):
-            # In Python 3, bytes need to be decoded
             try:
                 sgml_data = sgml_data.decode(encoding)
             except Exception as e:
                 print("Error decoding SGML data string:", e)
                 return False
         elif sys.version_info[0] < 3 and isinstance(sgml_data, str):
-            # In Python 2, str is bytes, so decode
             try:
                 sgml_data = sgml_data.decode(encoding)
             except Exception as e:
@@ -1458,9 +1470,12 @@ def CompressOpenFile(outfile, encoding="UTF-8"):
                           preset=9, encoding=encoding)
     elif (fextname == ".zz" or fextname == ".zl" or fextname == ".zlib"):
         try:
-            import lzma
+            import pylzma
         except ImportError:
-            return False
+            try:
+                import lzma
+            except ImportError:
+                return False
         outfp = ZlibFile(outfile, mode=mode, level=9)
     return outfp
 
