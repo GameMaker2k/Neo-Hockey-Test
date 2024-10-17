@@ -332,7 +332,7 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
 
     log_functions = {
         "print": print,
-        "pprint": lambda x: pprint(x, indent=2, width=80),
+        "pprint": lambda x: pprint(x, indent=1, width=80),
         "log": logging.info,
         "warning": logging.warning,
         "error": logging.error,
@@ -347,7 +347,7 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
     if log_function:
         # If dbgtxt is a dict, list, or tuple, pretty print it
         if isinstance(dbgtxt, (dict, list, tuple)):
-            log_function(pprint(dbgtxt, indent=2, width=80))
+            log_function(pprint(dbgtxt, indent=1, width=80))
         else:
             log_function(dbgtxt)
 
