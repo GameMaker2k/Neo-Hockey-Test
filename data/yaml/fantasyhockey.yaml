@@ -1,0 +1,568 @@
+database: ./php/data/fantasyhockey.db3
+FHL:
+  leagueinfo:
+    name: FHL
+    fullname: Fantasy Hockey League
+    country: USA
+    fullcountry: United States
+    date: '20241010'
+    playofffmt: Division=4,Conference=2
+    ordertype: ORDER BY Points DESC, GoalsFor DESC, Wins DESC
+    conferences: 'yes'
+    divisions: 'yes'
+  quickinfo:
+    conferenceinfo:
+      Eastern:
+        name: Eastern
+        fullname: Eastern Conference
+        league: FHL
+      Western:
+        name: Western
+        fullname: Western Conference
+        league: FHL
+    divisioninfo:
+      Fire:
+        name: Fire
+        fullname: Fire Division
+        league: FHL
+        conference: Eastern
+      Ice:
+        name: Ice
+        fullname: Ice Division
+        league: FHL
+        conference: Eastern
+      Mountain:
+        name: Mountain
+        fullname: Mountain Division
+        league: FHL
+        conference: Western
+      Pacific:
+        name: Pacific
+        fullname: Pacific Division
+        league: FHL
+        conference: Western
+    teaminfo:
+      Dragons:
+        name: Dragons
+        fullname: Dragonsville Dragons
+        league: FHL
+        conference: Eastern
+        division: Fire
+      Yetis:
+        name: Yetis
+        fullname: Icecliff Yetis
+        league: FHL
+        conference: Eastern
+        division: Fire
+      Phoenixes:
+        name: Phoenixes
+        fullname: Flamehill Phoenixes
+        league: FHL
+        conference: Eastern
+        division: Fire
+      Wolves:
+        name: Wolves
+        fullname: Frostbite Wolves
+        league: FHL
+        conference: Eastern
+        division: Fire
+      Blizzards:
+        name: Blizzards
+        fullname: Blizzard Bay Blizzards
+        league: FHL
+        conference: Eastern
+        division: Ice
+      Icemen:
+        name: Icemen
+        fullname: Frostlake Icemen
+        league: FHL
+        conference: Eastern
+        division: Ice
+      Snow Leopards:
+        name: Snow Leopards
+        fullname: Glacierfall Snow Leopards
+        league: FHL
+        conference: Eastern
+        division: Ice
+      Thunderbirds:
+        name: Thunderbirds
+        fullname: Thunderberg Thunderbirds
+        league: FHL
+        conference: Eastern
+        division: Ice
+      Giants:
+        name: Giants
+        fullname: Frostforge Giants
+        league: FHL
+        conference: Western
+        division: Mountain
+      Avalanche:
+        name: Avalanche
+        fullname: Avalanche City Avalanche
+        league: FHL
+        conference: Western
+        division: Mountain
+      Crystals:
+        name: Crystals
+        fullname: Crystalfalls Crystals
+        league: FHL
+        conference: Western
+        division: Mountain
+      Mountaineers:
+        name: Mountaineers
+        fullname: Frostmount Mountaineers
+        league: FHL
+        conference: Western
+        division: Mountain
+      Sharks:
+        name: Sharks
+        fullname: Icelake Sharks
+        league: FHL
+        conference: Western
+        division: Pacific
+      Polar Bears:
+        name: Polar Bears
+        fullname: Glacierpoint Polar Bears
+        league: FHL
+        conference: Western
+        division: Pacific
+      Sabertooths:
+        name: Sabertooths
+        fullname: Frostbite Valley Sabertooths
+        league: FHL
+        conference: Western
+        division: Pacific
+      Lynxes:
+        name: Lynxes
+        fullname: Snowy Hills Lynxes
+        league: FHL
+        conference: Western
+        division: Pacific
+  Eastern:
+    conferenceinfo:
+      name: Eastern
+      prefix: ''
+      suffix: Conference
+      fullname: Eastern Conference
+      league: FHL
+    Fire:
+      divisioninfo:
+        name: Fire
+        prefix: ''
+        suffix: Division
+        fullname: Fire Division
+        league: FHL
+        conference: Eastern
+      Dragons:
+        teaminfo:
+          city: Dragonsville
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Dragons
+          fullname: Dragonsville Dragons
+          arena: Dragon Dome
+          prefix: Dragonsville
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Fire
+          affiliates: ''
+      Yetis:
+        teaminfo:
+          city: Icecliff
+          area: ME
+          fullarea: Maine
+          country: USA
+          fullcountry: United States
+          name: Yetis
+          fullname: Icecliff Yetis
+          arena: Frozen Peak Arena
+          prefix: Icecliff
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Fire
+          affiliates: ''
+      Phoenixes:
+        teaminfo:
+          city: Flamehill
+          area: MA
+          fullarea: Massachusetts
+          country: USA
+          fullcountry: United States
+          name: Phoenixes
+          fullname: Flamehill Phoenixes
+          arena: Firestone Stadium
+          prefix: Flamehill
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Fire
+          affiliates: ''
+      Wolves:
+        teaminfo:
+          city: Frostbite
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Wolves
+          fullname: Frostbite Wolves
+          arena: Arctic Howl Arena
+          prefix: Frostbite
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Fire
+          affiliates: ''
+      teamlist:
+      - Dragons
+      - Yetis
+      - Phoenixes
+      - Wolves
+    Ice:
+      divisioninfo:
+        name: Ice
+        prefix: ''
+        suffix: Division
+        fullname: Ice Division
+        league: FHL
+        conference: Eastern
+      Blizzards:
+        teaminfo:
+          city: Blizzard Bay
+          area: FL
+          fullarea: Florida
+          country: USA
+          fullcountry: United States
+          name: Blizzards
+          fullname: Blizzard Bay Blizzards
+          arena: Winterstorm Stadium
+          prefix: Blizzard Bay
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Ice
+          affiliates: ''
+      Icemen:
+        teaminfo:
+          city: Frostlake
+          area: QC
+          fullarea: Quebec
+          country: CAN
+          fullcountry: Canada
+          name: Icemen
+          fullname: Frostlake Icemen
+          arena: Glacier Arena
+          prefix: Frostlake
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Ice
+          affiliates: ''
+      Snow Leopards:
+        teaminfo:
+          city: Glacierfall
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Snow Leopards
+          fullname: Glacierfall Snow Leopards
+          arena: Snowy Peak Arena
+          prefix: Glacierfall
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Ice
+          affiliates: ''
+      Thunderbirds:
+        teaminfo:
+          city: Thunderberg
+          area: NJ
+          fullarea: New Jersey
+          country: USA
+          fullcountry: United States
+          name: Thunderbirds
+          fullname: Thunderberg Thunderbirds
+          arena: Stormfield Stadium
+          prefix: Thunderberg
+          suffix: ''
+          league: FHL
+          conference: Eastern
+          division: Ice
+          affiliates: ''
+      teamlist:
+      - Blizzards
+      - Icemen
+      - Snow Leopards
+      - Thunderbirds
+    divisionlist:
+    - Fire
+    - Ice
+  arenas:
+  - city: Stockholm
+    area: AB
+    fullarea: Stockholm County
+    country: SWE
+    fullcountry: Sweden
+    name: Ericsson Globe
+  - city: Helsinki
+    area: Uusimaa
+    fullarea: Uusimaa Region
+    country: FIN
+    fullcountry: Finland
+    name: Helsinki Ice Hall
+  - city: Lake Placid
+    area: NY
+    fullarea: New York
+    country: USA
+    fullcountry: United States
+    name: Olympic Center
+  games:
+  - date: '20241012'
+    time: '1900'
+    hometeam: Dragonsville Dragons
+    awayteam: Icecliff Yetis
+    goals: 2:1,1:0,0:1
+    sogs: 10:8,12:5,5:7
+    ppgs: 1:0,0:0,0:0
+    shgs: 0:0,0:0,0:0
+    penalties: 1:2,0:1,1:1
+    pims: 4:8,0:2,2:2
+    hits: 5:5,6:3,4:6
+    takeaways: 1:1,1:0,0:1
+    faceoffwins: 15:14,10:12,7:8
+    atarena: '0'
+    isplayoffgame: '0'
+  - date: '20241015'
+    time: '2000'
+    hometeam: Avalanche City Avalanche
+    awayteam: Crystalfalls Crystals
+    goals: 1:1,2:0,0:1
+    sogs: 8:8,15:6,5:7
+    ppgs: 0:0,1:0,0:0
+    shgs: 0:0,0:0,0:0
+    penalties: 1:2,0:1,1:1
+    pims: 4:8,0:2,2:2
+    hits: 7:5,8:6,6:7
+    takeaways: 0:1,2:1,1:1
+    faceoffwins: 12:10,14:10,11:9
+    atarena: '0'
+    isplayoffgame: '0'
+  - date: '20241020'
+    time: '2100'
+    hometeam: Blizzard Bay Blizzards
+    awayteam: Frostlake Icemen
+    goals: 1:0,2:1,1:1
+    sogs: 9:5,12:9,7:10
+    ppgs: 0:0,1:1,0:0
+    shgs: 0:0,0:0,0:0
+    penalties: 0:1,2:1,1:1
+    pims: 2:4,4:2,2:2
+    hits: 8:7,5:5,4:6
+    takeaways: 0:1,2:1,1:2
+    faceoffwins: 10:10,11:9,9:10
+    atarena: '0'
+    isplayoffgame: '0'
+  - date: '20241025'
+    time: '1930'
+    hometeam: Frostforge Giants
+    awayteam: Frostmount Mountaineers
+    goals: 2:0,1:1,0:2
+    sogs: 15:7,10:8,6:9
+    ppgs: 1:0,0:0,0:1
+    shgs: 0:0,0:0,0:0
+    penalties: 1:2,0:1,1:0
+    pims: 2:4,0:2,2:0
+    hits: 5:4,6:5,7:6
+    takeaways: 1:0,2:1,0:1
+    faceoffwins: 12:10,14:10,10:11
+    atarena: '0'
+    isplayoffgame: '0'
+  - date: '20241101'
+    time: '1800'
+    hometeam: Thunderberg Thunderbirds
+    awayteam: Frostlake Icemen
+    goals: 1:2,0:1,1:1
+    sogs: 11:14,9:10,7:7
+    ppgs: 0:1,0:0,0:0
+    shgs: 0:0,0:0,0:0
+    penalties: 1:2,1:1,0:2
+    pims: 2:4,2:2,0:4
+    hits: 6:5,7:6,5:7
+    takeaways: 2:1,0:1,1:0
+    faceoffwins: 12:14,10:12,8:8
+    atarena: Ericsson Globe, Stockholm
+    isplayoffgame: '0'
+  Western:
+    conferenceinfo:
+      name: Western
+      prefix: ''
+      suffix: Conference
+      fullname: Western Conference
+      league: FHL
+    Mountain:
+      divisioninfo:
+        name: Mountain
+        prefix: ''
+        suffix: Division
+        fullname: Mountain Division
+        league: FHL
+        conference: Western
+      Giants:
+        teaminfo:
+          city: Frostforge
+          area: CO
+          fullarea: Colorado
+          country: USA
+          fullcountry: United States
+          name: Giants
+          fullname: Frostforge Giants
+          arena: Iceforge Stadium
+          prefix: Frostforge
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Avalanche:
+        teaminfo:
+          city: Avalanche City
+          area: UT
+          fullarea: Utah
+          country: USA
+          fullcountry: United States
+          name: Avalanche
+          fullname: Avalanche City Avalanche
+          arena: Summit Peak Arena
+          prefix: Avalanche City
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Crystals:
+        teaminfo:
+          city: Crystalfalls
+          area: MT
+          fullarea: Montana
+          country: USA
+          fullcountry: United States
+          name: Crystals
+          fullname: Crystalfalls Crystals
+          arena: Crystal Falls Ice Center
+          prefix: Crystalfalls
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Mountaineers:
+        teaminfo:
+          city: Frostmount
+          area: WY
+          fullarea: Wyoming
+          country: USA
+          fullcountry: United States
+          name: Mountaineers
+          fullname: Frostmount Mountaineers
+          arena: Frozen Range Arena
+          prefix: Frostmount
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      teamlist:
+      - Giants
+      - Avalanche
+      - Crystals
+      - Mountaineers
+    Pacific:
+      divisioninfo:
+        name: Pacific
+        prefix: ''
+        suffix: Division
+        fullname: Pacific Division
+        league: FHL
+        conference: Western
+      Sharks:
+        teaminfo:
+          city: Icelake
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Sharks
+          fullname: Icelake Sharks
+          arena: Deep Freeze Arena
+          prefix: Icelake
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Polar Bears:
+        teaminfo:
+          city: Glacierpoint
+          area: WA
+          fullarea: Washington
+          country: USA
+          fullcountry: United States
+          name: Polar Bears
+          fullname: Glacierpoint Polar Bears
+          arena: Icefield Arena
+          prefix: Glacierpoint
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Sabertooths:
+        teaminfo:
+          city: Frostbite Valley
+          area: NV
+          fullarea: Nevada
+          country: USA
+          fullcountry: United States
+          name: Sabertooths
+          fullname: Frostbite Valley Sabertooths
+          arena: Sabertooth Stadium
+          prefix: Frostbite Valley
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Lynxes:
+        teaminfo:
+          city: Snowy Hills
+          area: OR
+          fullarea: Oregon
+          country: USA
+          fullcountry: United States
+          name: Lynxes
+          fullname: Snowy Hills Lynxes
+          arena: Frozen Hills Iceplex
+          prefix: Snowy Hills
+          suffix: ''
+          league: FHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      teamlist:
+      - Sharks
+      - Polar Bears
+      - Sabertooths
+      - Lynxes
+    divisionlist:
+    - Mountain
+    - Pacific
+  conferencelist:
+  - Eastern
+  - Western
+leaguelist:
+- FHL

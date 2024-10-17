@@ -1,0 +1,443 @@
+database: ./php/data/hockey1942-43.db3
+NHL:
+  leagueinfo:
+    name: NHL
+    fullname: National Hockey League
+    country: USA
+    fullcountry: United States
+    date: '19421031'
+    playofffmt: League=4
+    ordertype: ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference
+      DESC
+    conferences: 'no'
+    divisions: 'no'
+  quickinfo:
+    conferenceinfo:
+      ? ''
+      : name: ''
+        fullname: ' Conference'
+        league: NHL
+    divisioninfo:
+      ? ''
+      : name: ''
+        fullname: ' Division'
+        league: NHL
+        conference: ''
+    teaminfo:
+      Bruins:
+        name: Bruins
+        fullname: Boston Bruins
+        league: NHL
+        conference: ''
+        division: ''
+      Blackhawks:
+        name: Blackhawks
+        fullname: Chicago Blackhawks
+        league: NHL
+        conference: ''
+        division: ''
+      Red Wings:
+        name: Red Wings
+        fullname: Detroit Red Wings
+        league: NHL
+        conference: ''
+        division: ''
+      Canadiens:
+        name: Canadiens
+        fullname: Montreal Canadiens
+        league: NHL
+        conference: ''
+        division: ''
+      Rangers:
+        name: Rangers
+        fullname: New York Rangers
+        league: NHL
+        conference: ''
+        division: ''
+      Maple Leafs:
+        name: Maple Leafs
+        fullname: Toronto Maple Leafs
+        league: NHL
+        conference: ''
+        division: ''
+  ? ''
+  : conferenceinfo:
+      name: ''
+      prefix: ''
+      suffix: Conference
+      fullname: ' Conference'
+      league: NHL
+    ? ''
+    : divisioninfo:
+        name: ''
+        prefix: ''
+        suffix: Division
+        fullname: ' Division'
+        league: NHL
+        conference: ''
+      Bruins:
+        teaminfo:
+          city: Boston
+          area: MA
+          fullarea: Massachusetts
+          country: USA
+          fullcountry: United States
+          name: Bruins
+          fullname: Boston Bruins
+          arena: Boston Garden
+          prefix: Boston
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Blackhawks:
+        teaminfo:
+          city: Chicago
+          area: IL
+          fullarea: Illinois
+          country: USA
+          fullcountry: United States
+          name: Blackhawks
+          fullname: Chicago Blackhawks
+          arena: Chicago Stadium
+          prefix: Chicago
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Red Wings:
+        teaminfo:
+          city: Detroit
+          area: MI
+          fullarea: Michigan
+          country: USA
+          fullcountry: United States
+          name: Red Wings
+          fullname: Detroit Red Wings
+          arena: Detroit Olympia
+          prefix: Detroit
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Canadiens:
+        teaminfo:
+          city: Montreal
+          area: QC
+          fullarea: Quebec
+          country: CAN
+          fullcountry: Canada
+          name: Canadiens
+          fullname: Montreal Canadiens
+          arena: Montreal Forum
+          prefix: Montreal
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Rangers:
+        teaminfo:
+          city: New York City
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Rangers
+          fullname: New York Rangers
+          arena: Madison Square Garden
+          prefix: New York
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Maple Leafs:
+        teaminfo:
+          city: Toronto
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Maple Leafs
+          fullname: Toronto Maple Leafs
+          arena: Maple Leaf Gardens
+          prefix: Toronto
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      teamlist:
+      - Bruins
+      - Blackhawks
+      - Red Wings
+      - Canadiens
+      - Rangers
+      - Maple Leafs
+    divisionlist:
+    - ''
+  arenas: []
+  games: []
+  conferencelist:
+  - ''
+AHL:
+  leagueinfo:
+    name: AHL
+    fullname: American Hockey League
+    country: USA
+    fullcountry: United States
+    date: '19421031'
+    playofffmt: League=4
+    ordertype: ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference
+      DESC
+    conferences: 'no'
+    divisions: 'no'
+  quickinfo:
+    conferenceinfo:
+      ? ''
+      : name: ''
+        fullname: ' Conference'
+        league: AHL
+    divisioninfo:
+      ? ''
+      : name: ''
+        fullname: ' Division'
+        league: AHL
+        conference: ''
+    teaminfo:
+      Bisons:
+        name: Bisons
+        fullname: Buffalo Bisons
+        league: AHL
+        conference: ''
+        division: ''
+      Barons:
+        name: Barons
+        fullname: Cleveland Barons
+        league: AHL
+        conference: ''
+        division: ''
+      Red Wings:
+        name: Red Wings
+        fullname: Hershey Red Wings
+        league: AHL
+        conference: ''
+        division: ''
+      Capitals:
+        name: Capitals
+        fullname: Indianapolis Capitals
+        league: AHL
+        conference: ''
+        division: ''
+      Rockets:
+        name: Rockets
+        fullname: Philadelphia Rockets
+        league: AHL
+        conference: ''
+        division: ''
+      Hornets:
+        name: Hornets
+        fullname: Pittsburgh Hornets
+        league: AHL
+        conference: ''
+        division: ''
+      Reds:
+        name: Reds
+        fullname: Providence Reds
+        league: AHL
+        conference: ''
+        division: ''
+      Indians:
+        name: Indians
+        fullname: Springfield Indians
+        league: AHL
+        conference: ''
+        division: ''
+      Lions:
+        name: Lions
+        fullname: Washington Lions
+        league: AHL
+        conference: ''
+        division: ''
+  ? ''
+  : conferenceinfo:
+      name: ''
+      prefix: ''
+      suffix: Conference
+      fullname: ' Conference'
+      league: AHL
+    ? ''
+    : divisioninfo:
+        name: ''
+        prefix: ''
+        suffix: Division
+        fullname: ' Division'
+        league: AHL
+        conference: ''
+      Bisons:
+        teaminfo:
+          city: Buffalo
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Bisons
+          fullname: Buffalo Bisons
+          arena: Buffalo Memorial Auditorium
+          prefix: Buffalo
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Barons:
+        teaminfo:
+          city: Cleveland
+          area: OH
+          fullarea: Ohio
+          country: USA
+          fullcountry: United States
+          name: Barons
+          fullname: Cleveland Barons
+          arena: Cleveland Arena
+          prefix: Cleveland
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Red Wings:
+        teaminfo:
+          city: Hershey
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Red Wings
+          fullname: Hershey Red Wings
+          arena: Hersheypark Arena
+          prefix: Hershey
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Capitals:
+        teaminfo:
+          city: Indianapolis
+          area: IN
+          fullarea: Indiana
+          country: USA
+          fullcountry: United States
+          name: Capitals
+          fullname: Indianapolis Capitals
+          arena: Indiana State Fairgrounds Coliseum
+          prefix: Indianapolis
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Rockets:
+        teaminfo:
+          city: Philadelphia
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Rockets
+          fullname: Philadelphia Rockets
+          arena: Philadelphia Arena
+          prefix: Philadelphia
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Hornets:
+        teaminfo:
+          city: Pittsburgh
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Hornets
+          fullname: Pittsburgh Hornets
+          arena: Duquesne Gardens
+          prefix: Pittsburgh
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Reds:
+        teaminfo:
+          city: Providence
+          area: RI
+          fullarea: Rhode Island
+          country: USA
+          fullcountry: United States
+          name: Reds
+          fullname: Providence Reds
+          arena: Rhode Island Auditorium
+          prefix: Providence
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Indians:
+        teaminfo:
+          city: West Springfield
+          area: MA
+          fullarea: Massachusetts
+          country: USA
+          fullcountry: United States
+          name: Indians
+          fullname: Springfield Indians
+          arena: Eastern States Coliseum
+          prefix: Springfield
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Lions:
+        teaminfo:
+          city: Washington
+          area: DC
+          fullarea: District of Columbia
+          country: USA
+          fullcountry: United States
+          name: Lions
+          fullname: Washington Lions
+          arena: Washington Coliseum
+          prefix: Washington
+          suffix: ''
+          league: AHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      teamlist:
+      - Bisons
+      - Barons
+      - Red Wings
+      - Capitals
+      - Rockets
+      - Hornets
+      - Reds
+      - Indians
+      - Lions
+    divisionlist:
+    - ''
+  arenas: []
+  games: []
+  conferencelist:
+  - ''
+leaguelist:
+- NHL
+- AHL

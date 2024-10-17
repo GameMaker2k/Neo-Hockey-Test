@@ -1,0 +1,2407 @@
+database: ./php/data/hockey21-22.db3
+NHL:
+  leagueinfo:
+    name: NHL
+    fullname: National Hockey League
+    country: USA
+    fullcountry: United States
+    date: '20211012'
+    playofffmt: Division=3,Conference=2
+    ordertype: ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference
+      DESC
+    conferences: 'yes'
+    divisions: 'yes'
+  quickinfo:
+    conferenceinfo:
+      Eastern:
+        name: Eastern
+        fullname: Eastern Conference
+        league: NHL
+      Western:
+        name: Western
+        fullname: Western Conference
+        league: NHL
+    divisioninfo:
+      Atlantic:
+        name: Atlantic
+        fullname: Atlantic Division
+        league: NHL
+        conference: Eastern
+      Metropolitan:
+        name: Metropolitan
+        fullname: Metropolitan Division
+        league: NHL
+        conference: Eastern
+      Central:
+        name: Central
+        fullname: Central Division
+        league: NHL
+        conference: Western
+      Pacific:
+        name: Pacific
+        fullname: Pacific Division
+        league: NHL
+        conference: Western
+    teaminfo:
+      Bruins:
+        name: Bruins
+        fullname: Boston Bruins
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Sabres:
+        name: Sabres
+        fullname: Buffalo Sabres
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Red Wings:
+        name: Red Wings
+        fullname: Detroit Red Wings
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Panthers:
+        name: Panthers
+        fullname: Florida Panthers
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Canadiens:
+        name: Canadiens
+        fullname: Montreal Canadiens
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Senators:
+        name: Senators
+        fullname: Ottawa Senators
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Lightning:
+        name: Lightning
+        fullname: Tampa Bay Lightning
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Maple Leafs:
+        name: Maple Leafs
+        fullname: Toronto Maple Leafs
+        league: NHL
+        conference: Eastern
+        division: Atlantic
+      Hurricanes:
+        name: Hurricanes
+        fullname: Carolina Hurricanes
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Blue Jackets:
+        name: Blue Jackets
+        fullname: Columbus Blue Jackets
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Devils:
+        name: Devils
+        fullname: New Jersey Devils
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Islanders:
+        name: Islanders
+        fullname: New York Islanders
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Rangers:
+        name: Rangers
+        fullname: New York Rangers
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Flyers:
+        name: Flyers
+        fullname: Philadelphia Flyers
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Penguins:
+        name: Penguins
+        fullname: Pittsburgh Penguins
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Capitals:
+        name: Capitals
+        fullname: Washington Capitals
+        league: NHL
+        conference: Eastern
+        division: Metropolitan
+      Coyotes:
+        name: Coyotes
+        fullname: Arizona Coyotes
+        league: NHL
+        conference: Western
+        division: Central
+      Blackhawks:
+        name: Blackhawks
+        fullname: Chicago Blackhawks
+        league: NHL
+        conference: Western
+        division: Central
+      Avalanche:
+        name: Avalanche
+        fullname: Colorado Avalanche
+        league: NHL
+        conference: Western
+        division: Central
+      Stars:
+        name: Stars
+        fullname: Dallas Stars
+        league: NHL
+        conference: Western
+        division: Central
+      Wild:
+        name: Wild
+        fullname: Minnesota Wild
+        league: NHL
+        conference: Western
+        division: Central
+      Predators:
+        name: Predators
+        fullname: Nashville Predators
+        league: NHL
+        conference: Western
+        division: Central
+      Blues:
+        name: Blues
+        fullname: St. Louis Blues
+        league: NHL
+        conference: Western
+        division: Central
+      Jets:
+        name: Jets
+        fullname: Winnipeg Jets
+        league: NHL
+        conference: Western
+        division: Central
+      Ducks:
+        name: Ducks
+        fullname: Anaheim Ducks
+        league: NHL
+        conference: Western
+        division: Pacific
+      Flames:
+        name: Flames
+        fullname: Calgary Flames
+        league: NHL
+        conference: Western
+        division: Pacific
+      Oilers:
+        name: Oilers
+        fullname: Edmonton Oilers
+        league: NHL
+        conference: Western
+        division: Pacific
+      Kings:
+        name: Kings
+        fullname: Los Angeles Kings
+        league: NHL
+        conference: Western
+        division: Pacific
+      Sharks:
+        name: Sharks
+        fullname: San Jose Sharks
+        league: NHL
+        conference: Western
+        division: Pacific
+      Kraken:
+        name: Kraken
+        fullname: Seattle Kraken
+        league: NHL
+        conference: Western
+        division: Pacific
+      Canucks:
+        name: Canucks
+        fullname: Vancouver Canucks
+        league: NHL
+        conference: Western
+        division: Pacific
+      Golden Knights:
+        name: Golden Knights
+        fullname: Vegas Golden Knights
+        league: NHL
+        conference: Western
+        division: Pacific
+  Eastern:
+    conferenceinfo:
+      name: Eastern
+      prefix: ''
+      suffix: Conference
+      fullname: Eastern Conference
+      league: NHL
+    Atlantic:
+      divisioninfo:
+        name: Atlantic
+        prefix: ''
+        suffix: Division
+        fullname: Atlantic Division
+        league: NHL
+        conference: Eastern
+      Bruins:
+        teaminfo:
+          city: Boston
+          area: MA
+          fullarea: Massachusetts
+          country: USA
+          fullcountry: United States
+          name: Bruins
+          fullname: Boston Bruins
+          arena: TD Garden
+          prefix: Boston
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Sabres:
+        teaminfo:
+          city: Buffalo
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Sabres
+          fullname: Buffalo Sabres
+          arena: KeyBank Center
+          prefix: Buffalo
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Red Wings:
+        teaminfo:
+          city: Detroit
+          area: MI
+          fullarea: Michigan
+          country: USA
+          fullcountry: United States
+          name: Red Wings
+          fullname: Detroit Red Wings
+          arena: Little Caesars Arena
+          prefix: Detroit
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Panthers:
+        teaminfo:
+          city: Sunrise
+          area: FL
+          fullarea: Florida
+          country: USA
+          fullcountry: United States
+          name: Panthers
+          fullname: Florida Panthers
+          arena: BB&T Center
+          prefix: Florida
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Canadiens:
+        teaminfo:
+          city: Montreal
+          area: QC
+          fullarea: Quebec
+          country: CAN
+          fullcountry: Canada
+          name: Canadiens
+          fullname: Montreal Canadiens
+          arena: Bell Centre
+          prefix: Montreal
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Senators:
+        teaminfo:
+          city: Ottawa
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Senators
+          fullname: Ottawa Senators
+          arena: Canadian Tire Centre
+          prefix: Ottawa
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Lightning:
+        teaminfo:
+          city: Tampa Bay
+          area: FL
+          fullarea: Florida
+          country: USA
+          fullcountry: United States
+          name: Lightning
+          fullname: Tampa Bay Lightning
+          arena: Amalie Arena
+          prefix: Tampa Bay
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Maple Leafs:
+        teaminfo:
+          city: Toronto
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Maple Leafs
+          fullname: Toronto Maple Leafs
+          arena: Scotiabank Arena
+          prefix: Toronto
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      teamlist:
+      - Bruins
+      - Sabres
+      - Red Wings
+      - Panthers
+      - Canadiens
+      - Senators
+      - Lightning
+      - Maple Leafs
+    Metropolitan:
+      divisioninfo:
+        name: Metropolitan
+        prefix: ''
+        suffix: Division
+        fullname: Metropolitan Division
+        league: NHL
+        conference: Eastern
+      Hurricanes:
+        teaminfo:
+          city: Carolina
+          area: NC
+          fullarea: North Carolina
+          country: USA
+          fullcountry: United States
+          name: Hurricanes
+          fullname: Carolina Hurricanes
+          arena: PNC Arena
+          prefix: Carolina
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Blue Jackets:
+        teaminfo:
+          city: Columbus
+          area: OH
+          fullarea: Ohio
+          country: USA
+          fullcountry: United States
+          name: Blue Jackets
+          fullname: Columbus Blue Jackets
+          arena: Nationwide Arena
+          prefix: Columbus
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Devils:
+        teaminfo:
+          city: New Jersey
+          area: NJ
+          fullarea: New Jersey
+          country: USA
+          fullcountry: United States
+          name: Devils
+          fullname: New Jersey Devils
+          arena: Prudential Center
+          prefix: New Jersey
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Islanders:
+        teaminfo:
+          city: Elmont
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Islanders
+          fullname: New York Islanders
+          arena: UBS Arena
+          prefix: New York
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Rangers:
+        teaminfo:
+          city: New York City
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Rangers
+          fullname: New York Rangers
+          arena: Madison Square Garden
+          prefix: New York
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Flyers:
+        teaminfo:
+          city: Philadelphia
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Flyers
+          fullname: Philadelphia Flyers
+          arena: Wells Fargo Center
+          prefix: Philadelphia
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Penguins:
+        teaminfo:
+          city: Pittsburgh
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Penguins
+          fullname: Pittsburgh Penguins
+          arena: PPG Paints Arena
+          prefix: Pittsburgh
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      Capitals:
+        teaminfo:
+          city: Washington
+          area: DC
+          fullarea: District of Columbia
+          country: USA
+          fullcountry: United States
+          name: Capitals
+          fullname: Washington Capitals
+          arena: Capital One Arena
+          prefix: Washington
+          suffix: ''
+          league: NHL
+          conference: Eastern
+          division: Metropolitan
+          affiliates: ''
+      teamlist:
+      - Hurricanes
+      - Blue Jackets
+      - Devils
+      - Islanders
+      - Rangers
+      - Flyers
+      - Penguins
+      - Capitals
+    divisionlist:
+    - Atlantic
+    - Metropolitan
+  arenas: []
+  games: []
+  Western:
+    conferenceinfo:
+      name: Western
+      prefix: ''
+      suffix: Conference
+      fullname: Western Conference
+      league: NHL
+    Central:
+      divisioninfo:
+        name: Central
+        prefix: ''
+        suffix: Division
+        fullname: Central Division
+        league: NHL
+        conference: Western
+      Coyotes:
+        teaminfo:
+          city: Glendale
+          area: AZ
+          fullarea: Arizona
+          country: USA
+          fullcountry: United States
+          name: Coyotes
+          fullname: Arizona Coyotes
+          arena: Gila River Arena
+          prefix: Arizona
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Blackhawks:
+        teaminfo:
+          city: Chicago
+          area: IL
+          fullarea: Illinois
+          country: USA
+          fullcountry: United States
+          name: Blackhawks
+          fullname: Chicago Blackhawks
+          arena: United Center
+          prefix: Chicago
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Avalanche:
+        teaminfo:
+          city: Denver
+          area: CO
+          fullarea: Colorado
+          country: USA
+          fullcountry: United States
+          name: Avalanche
+          fullname: Colorado Avalanche
+          arena: Ball Arena
+          prefix: Colorado
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Stars:
+        teaminfo:
+          city: Dallas
+          area: TX
+          fullarea: Texas
+          country: USA
+          fullcountry: United States
+          name: Stars
+          fullname: Dallas Stars
+          arena: American Airlines Center
+          prefix: Dallas
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Wild:
+        teaminfo:
+          city: St. Paul
+          area: MN
+          fullarea: Minnesota
+          country: USA
+          fullcountry: United States
+          name: Wild
+          fullname: Minnesota Wild
+          arena: Xcel Energy Center
+          prefix: Minnesota
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Predators:
+        teaminfo:
+          city: Nashville
+          area: TN
+          fullarea: Tennessee
+          country: USA
+          fullcountry: United States
+          name: Predators
+          fullname: Nashville Predators
+          arena: Bridgestone Arena
+          prefix: Nashville
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Blues:
+        teaminfo:
+          city: St. Louis
+          area: MO
+          fullarea: Missouri
+          country: USA
+          fullcountry: United States
+          name: Blues
+          fullname: St. Louis Blues
+          arena: Enterprise Center
+          prefix: St. Louis
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Jets:
+        teaminfo:
+          city: Winnipeg
+          area: MB
+          fullarea: Manitoba
+          country: CAN
+          fullcountry: Canada
+          name: Jets
+          fullname: Winnipeg Jets
+          arena: Canada Life Centre
+          prefix: Winnipeg
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      teamlist:
+      - Coyotes
+      - Blackhawks
+      - Avalanche
+      - Stars
+      - Wild
+      - Predators
+      - Blues
+      - Jets
+    Pacific:
+      divisioninfo:
+        name: Pacific
+        prefix: ''
+        suffix: Division
+        fullname: Pacific Division
+        league: NHL
+        conference: Western
+      Ducks:
+        teaminfo:
+          city: Anaheim
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Ducks
+          fullname: Anaheim Ducks
+          arena: Honda Center
+          prefix: Anaheim
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Flames:
+        teaminfo:
+          city: Calgary
+          area: AB
+          fullarea: Alberta
+          country: CAN
+          fullcountry: Canada
+          name: Flames
+          fullname: Calgary Flames
+          arena: Scotiabank Saddledome
+          prefix: Calgary
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Oilers:
+        teaminfo:
+          city: Edmonton
+          area: AB
+          fullarea: Alberta
+          country: CAN
+          fullcountry: Canada
+          name: Oilers
+          fullname: Edmonton Oilers
+          arena: Rogers Place
+          prefix: Edmonton
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Kings:
+        teaminfo:
+          city: Los Angeles
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Kings
+          fullname: Los Angeles Kings
+          arena: Staples Center
+          prefix: Los Angeles
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Sharks:
+        teaminfo:
+          city: San Jose
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Sharks
+          fullname: San Jose Sharks
+          arena: SAP Center
+          prefix: San Jose
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Kraken:
+        teaminfo:
+          city: Seattle
+          area: WA
+          fullarea: Washington
+          country: USA
+          fullcountry: United States
+          name: Kraken
+          fullname: Seattle Kraken
+          arena: Climate Pledge Arena
+          prefix: Seattle
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Canucks:
+        teaminfo:
+          city: Vancouver
+          area: BC
+          fullarea: British Columbia
+          country: CAN
+          fullcountry: Canada
+          name: Canucks
+          fullname: Vancouver Canucks
+          arena: Rogers Arena
+          prefix: Vancouver
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Golden Knights:
+        teaminfo:
+          city: Paradise
+          area: NV
+          fullarea: Nevada
+          country: USA
+          fullcountry: United States
+          name: Golden Knights
+          fullname: Vegas Golden Knights
+          arena: T-Mobile Arena
+          prefix: Vegas
+          suffix: ''
+          league: NHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      teamlist:
+      - Ducks
+      - Flames
+      - Oilers
+      - Kings
+      - Sharks
+      - Kraken
+      - Canucks
+      - Golden Knights
+    divisionlist:
+    - Central
+    - Pacific
+  conferencelist:
+  - Eastern
+  - Western
+AHL:
+  leagueinfo:
+    name: AHL
+    fullname: American Hockey League
+    country: USA
+    fullcountry: United States
+    date: '20211015'
+    playofffmt: Division=4
+    ordertype: ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference
+      DESC
+    conferences: 'yes'
+    divisions: 'yes'
+  quickinfo:
+    conferenceinfo:
+      Eastern:
+        name: Eastern
+        fullname: Eastern Conference
+        league: AHL
+      Western:
+        name: Western
+        fullname: Western Conference
+        league: AHL
+    divisioninfo:
+      Atlantic:
+        name: Atlantic
+        fullname: Atlantic Division
+        league: AHL
+        conference: Eastern
+      North:
+        name: North
+        fullname: North Division
+        league: AHL
+        conference: Eastern
+      Central:
+        name: Central
+        fullname: Central Division
+        league: AHL
+        conference: Western
+      Pacific:
+        name: Pacific
+        fullname: Pacific Division
+        league: AHL
+        conference: Western
+    teaminfo:
+      Islanders:
+        name: Islanders
+        fullname: Bridgeport Islanders
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Checkers:
+        name: Checkers
+        fullname: Charlotte Checkers
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Wolf Pack:
+        name: Wolf Pack
+        fullname: Hartford Wolf Pack
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Bears:
+        name: Bears
+        fullname: Hershey Bears
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Phantoms:
+        name: Phantoms
+        fullname: Lehigh Valley Phantoms
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Bruins:
+        name: Bruins
+        fullname: Providence Bruins
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Thunderbirds:
+        name: Thunderbirds
+        fullname: Springfield Thunderbirds
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Penguins:
+        name: Penguins
+        fullname: Wilkes-Barre/Scranton Penguins
+        league: AHL
+        conference: Eastern
+        division: Atlantic
+      Senators:
+        name: Senators
+        fullname: Belleville Senators
+        league: AHL
+        conference: Eastern
+        division: North
+      Monsters:
+        name: Monsters
+        fullname: Cleveland Monsters
+        league: AHL
+        conference: Eastern
+        division: North
+      Rocket:
+        name: Rocket
+        fullname: Laval Rocket
+        league: AHL
+        conference: Eastern
+        division: North
+      Americans:
+        name: Americans
+        fullname: Rochester Americans
+        league: AHL
+        conference: Eastern
+        division: North
+      Crunch:
+        name: Crunch
+        fullname: Syracuse Crunch
+        league: AHL
+        conference: Eastern
+        division: North
+      Marlies:
+        name: Marlies
+        fullname: Toronto Marlies
+        league: AHL
+        conference: Eastern
+        division: North
+      Comets:
+        name: Comets
+        fullname: Utica Comets
+        league: AHL
+        conference: Eastern
+        division: North
+      Wolves:
+        name: Wolves
+        fullname: Chicago Wolves
+        league: AHL
+        conference: Western
+        division: Central
+      Griffins:
+        name: Griffins
+        fullname: Grand Rapids Griffins
+        league: AHL
+        conference: Western
+        division: Central
+      Wild:
+        name: Wild
+        fullname: Iowa Wild
+        league: AHL
+        conference: Western
+        division: Central
+      Moose:
+        name: Moose
+        fullname: Manitoba Moose
+        league: AHL
+        conference: Western
+        division: Central
+      Admirals:
+        name: Admirals
+        fullname: Milwaukee Admirals
+        league: AHL
+        conference: Western
+        division: Central
+      IceHogs:
+        name: IceHogs
+        fullname: Rockford IceHogs
+        league: AHL
+        conference: Western
+        division: Central
+      Stars:
+        name: Stars
+        fullname: Texas Stars
+        league: AHL
+        conference: Western
+        division: Central
+      Canucks:
+        name: Canucks
+        fullname: Abbotsford Canucks
+        league: AHL
+        conference: Western
+        division: Pacific
+      Condors:
+        name: Condors
+        fullname: Bakersfield Condors
+        league: AHL
+        conference: Western
+        division: Pacific
+      Eagles:
+        name: Eagles
+        fullname: Colorado Eagles
+        league: AHL
+        conference: Western
+        division: Pacific
+      Silver Knights:
+        name: Silver Knights
+        fullname: Henderson Silver Knights
+        league: AHL
+        conference: Western
+        division: Pacific
+      Reign:
+        name: Reign
+        fullname: Ontario Reign
+        league: AHL
+        conference: Western
+        division: Pacific
+      Rampage:
+        name: Rampage
+        fullname: San Antonio Rampage
+        league: AHL
+        conference: Western
+        division: Pacific
+      Gulls:
+        name: Gulls
+        fullname: San Diego Gulls
+        league: AHL
+        conference: Western
+        division: Pacific
+      Barracuda:
+        name: Barracuda
+        fullname: San Jose Barracuda
+        league: AHL
+        conference: Western
+        division: Pacific
+      Heat:
+        name: Heat
+        fullname: Stockton Heat
+        league: AHL
+        conference: Western
+        division: Pacific
+      Roadrunners:
+        name: Roadrunners
+        fullname: Tucson Roadrunners
+        league: AHL
+        conference: Western
+        division: Pacific
+  Eastern:
+    conferenceinfo:
+      name: Eastern
+      prefix: ''
+      suffix: Conference
+      fullname: Eastern Conference
+      league: AHL
+    Atlantic:
+      divisioninfo:
+        name: Atlantic
+        prefix: ''
+        suffix: Division
+        fullname: Atlantic Division
+        league: AHL
+        conference: Eastern
+      Islanders:
+        teaminfo:
+          city: Bridgeport
+          area: CT
+          fullarea: Connecticut
+          country: USA
+          fullcountry: United States
+          name: Islanders
+          fullname: Bridgeport Islanders
+          arena: Webster Bank Arena
+          prefix: Bridgeport
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Checkers:
+        teaminfo:
+          city: Charlotte
+          area: NC
+          fullarea: North Carolina
+          country: USA
+          fullcountry: United States
+          name: Checkers
+          fullname: Charlotte Checkers
+          arena: Bojangles' Coliseum
+          prefix: Charlotte
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Wolf Pack:
+        teaminfo:
+          city: Hartford
+          area: CT
+          fullarea: Connecticut
+          country: USA
+          fullcountry: United States
+          name: Wolf Pack
+          fullname: Hartford Wolf Pack
+          arena: XL Center
+          prefix: Hartford
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Bears:
+        teaminfo:
+          city: Hershey
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Bears
+          fullname: Hershey Bears
+          arena: Giant Center
+          prefix: Hershey
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Phantoms:
+        teaminfo:
+          city: Allentown
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Phantoms
+          fullname: Lehigh Valley Phantoms
+          arena: PPL Center
+          prefix: Lehigh Valley
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Bruins:
+        teaminfo:
+          city: Providence
+          area: RI
+          fullarea: Rhode Island
+          country: USA
+          fullcountry: United States
+          name: Bruins
+          fullname: Providence Bruins
+          arena: Dunkin' Donuts Center
+          prefix: Providence
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Thunderbirds:
+        teaminfo:
+          city: Springfield
+          area: MA
+          fullarea: Massachusetts
+          country: USA
+          fullcountry: United States
+          name: Thunderbirds
+          fullname: Springfield Thunderbirds
+          arena: MassMutual Center
+          prefix: Springfield
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      Penguins:
+        teaminfo:
+          city: Wilkes-Barre
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Penguins
+          fullname: Wilkes-Barre/Scranton Penguins
+          arena: Mohegan Sun Arena
+          prefix: Wilkes-Barre/Scranton
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: Atlantic
+          affiliates: ''
+      teamlist:
+      - Islanders
+      - Checkers
+      - Wolf Pack
+      - Bears
+      - Phantoms
+      - Bruins
+      - Thunderbirds
+      - Penguins
+    North:
+      divisioninfo:
+        name: North
+        prefix: ''
+        suffix: Division
+        fullname: North Division
+        league: AHL
+        conference: Eastern
+      Senators:
+        teaminfo:
+          city: Belleville
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Senators
+          fullname: Belleville Senators
+          arena: CAA Arena
+          prefix: Belleville
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Monsters:
+        teaminfo:
+          city: Cleveland
+          area: OH
+          fullarea: Ohio
+          country: USA
+          fullcountry: United States
+          name: Monsters
+          fullname: Cleveland Monsters
+          arena: Rocket Mortgage FieldHouse
+          prefix: Cleveland
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Rocket:
+        teaminfo:
+          city: Laval
+          area: QC
+          fullarea: Quebec
+          country: CAN
+          fullcountry: Canada
+          name: Rocket
+          fullname: Laval Rocket
+          arena: Place Bell
+          prefix: Laval
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Americans:
+        teaminfo:
+          city: Rochester
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Americans
+          fullname: Rochester Americans
+          arena: Blue Cross Arena
+          prefix: Rochester
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Crunch:
+        teaminfo:
+          city: Syracuse
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Crunch
+          fullname: Syracuse Crunch
+          arena: Upstate Medical University Arena
+          prefix: Syracuse
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Marlies:
+        teaminfo:
+          city: Toronto
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Marlies
+          fullname: Toronto Marlies
+          arena: Coca-Cola Coliseum
+          prefix: Toronto
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Comets:
+        teaminfo:
+          city: Utica
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Comets
+          fullname: Utica Comets
+          arena: Adirondack Bank Center
+          prefix: Utica
+          suffix: ''
+          league: AHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      teamlist:
+      - Senators
+      - Monsters
+      - Rocket
+      - Americans
+      - Crunch
+      - Marlies
+      - Comets
+    divisionlist:
+    - Atlantic
+    - North
+  arenas: []
+  games: []
+  Western:
+    conferenceinfo:
+      name: Western
+      prefix: ''
+      suffix: Conference
+      fullname: Western Conference
+      league: AHL
+    Central:
+      divisioninfo:
+        name: Central
+        prefix: ''
+        suffix: Division
+        fullname: Central Division
+        league: AHL
+        conference: Western
+      Wolves:
+        teaminfo:
+          city: Rosemont
+          area: IL
+          fullarea: Illinois
+          country: USA
+          fullcountry: United States
+          name: Wolves
+          fullname: Chicago Wolves
+          arena: Allstate Arena
+          prefix: Chicago
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Griffins:
+        teaminfo:
+          city: Grand Rapids
+          area: MI
+          fullarea: Michigan
+          country: USA
+          fullcountry: United States
+          name: Griffins
+          fullname: Grand Rapids Griffins
+          arena: Van Andel Arena
+          prefix: Grand Rapids
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Wild:
+        teaminfo:
+          city: Des Moines
+          area: IA
+          fullarea: Iowa
+          country: USA
+          fullcountry: United States
+          name: Wild
+          fullname: Iowa Wild
+          arena: Wells Fargo Arena
+          prefix: Iowa
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Moose:
+        teaminfo:
+          city: Winnipeg
+          area: MB
+          fullarea: Manitoba
+          country: CAN
+          fullcountry: Canada
+          name: Moose
+          fullname: Manitoba Moose
+          arena: Canada Life Centre
+          prefix: Manitoba
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Admirals:
+        teaminfo:
+          city: Milwaukee
+          area: WI
+          fullarea: Wisconsin
+          country: USA
+          fullcountry: United States
+          name: Admirals
+          fullname: Milwaukee Admirals
+          arena: UW-Milwaukee Panther Arena
+          prefix: Milwaukee
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      IceHogs:
+        teaminfo:
+          city: Rockford
+          area: IL
+          fullarea: Illinois
+          country: USA
+          fullcountry: United States
+          name: IceHogs
+          fullname: Rockford IceHogs
+          arena: BMO Harris Bank Center
+          prefix: Rockford
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Stars:
+        teaminfo:
+          city: Cedar Park
+          area: TX
+          fullarea: Texas
+          country: USA
+          fullcountry: United States
+          name: Stars
+          fullname: Texas Stars
+          arena: H-E-B Center
+          prefix: Texas
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      teamlist:
+      - Wolves
+      - Griffins
+      - Wild
+      - Moose
+      - Admirals
+      - IceHogs
+      - Stars
+    Pacific:
+      divisioninfo:
+        name: Pacific
+        prefix: ''
+        suffix: Division
+        fullname: Pacific Division
+        league: AHL
+        conference: Western
+      Canucks:
+        teaminfo:
+          city: Abbotsford
+          area: BC
+          fullarea: British Columbia
+          country: CAN
+          fullcountry: Canada
+          name: Canucks
+          fullname: Abbotsford Canucks
+          arena: Abbotsford Centre
+          prefix: Abbotsford
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Condors:
+        teaminfo:
+          city: Bakersfield
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Condors
+          fullname: Bakersfield Condors
+          arena: Mechanics Bank Arena
+          prefix: Bakersfield
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Eagles:
+        teaminfo:
+          city: Loveland
+          area: CO
+          fullarea: Colorado
+          country: USA
+          fullcountry: United States
+          name: Eagles
+          fullname: Colorado Eagles
+          arena: Budweiser Events Center
+          prefix: Colorado
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Silver Knights:
+        teaminfo:
+          city: Paradise
+          area: NV
+          fullarea: Nevada
+          country: USA
+          fullcountry: United States
+          name: Silver Knights
+          fullname: Henderson Silver Knights
+          arena: Orleans Arena
+          prefix: Henderson
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Reign:
+        teaminfo:
+          city: Ontario
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Reign
+          fullname: Ontario Reign
+          arena: Toyota Arena
+          prefix: Ontario
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Rampage:
+        teaminfo:
+          city: San Antonio
+          area: TX
+          fullarea: Texas
+          country: USA
+          fullcountry: United States
+          name: Rampage
+          fullname: San Antonio Rampage
+          arena: AT&T Center
+          prefix: San Antonio
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Gulls:
+        teaminfo:
+          city: San Diego
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Gulls
+          fullname: San Diego Gulls
+          arena: Pechanga Arena
+          prefix: San Diego
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Barracuda:
+        teaminfo:
+          city: San Jose
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Barracuda
+          fullname: San Jose Barracuda
+          arena: SAP Center
+          prefix: San Jose
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Heat:
+        teaminfo:
+          city: Stockton
+          area: CA
+          fullarea: California
+          country: USA
+          fullcountry: United States
+          name: Heat
+          fullname: Stockton Heat
+          arena: Stockton Arena
+          prefix: Stockton
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      Roadrunners:
+        teaminfo:
+          city: Tucson
+          area: AZ
+          fullarea: Arizona
+          country: USA
+          fullcountry: United States
+          name: Roadrunners
+          fullname: Tucson Roadrunners
+          arena: Tucson Convention Center
+          prefix: Tucson
+          suffix: ''
+          league: AHL
+          conference: Western
+          division: Pacific
+          affiliates: ''
+      teamlist:
+      - Canucks
+      - Condors
+      - Eagles
+      - Silver Knights
+      - Reign
+      - Rampage
+      - Gulls
+      - Barracuda
+      - Heat
+      - Roadrunners
+    divisionlist:
+    - Central
+    - Pacific
+  conferencelist:
+  - Eastern
+  - Western
+ECHL:
+  leagueinfo:
+    name: ECHL
+    fullname: ECHL
+    country: USA
+    fullcountry: United States
+    date: '20211021'
+    playofffmt: Division=4
+    ordertype: ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference
+      DESC
+    conferences: 'yes'
+    divisions: 'yes'
+  quickinfo:
+    conferenceinfo:
+      Eastern:
+        name: Eastern
+        fullname: Eastern Conference
+        league: ECHL
+      Western:
+        name: Western
+        fullname: Western Conference
+        league: ECHL
+    divisioninfo:
+      North:
+        name: North
+        fullname: North Division
+        league: ECHL
+        conference: Eastern
+      South:
+        name: South
+        fullname: South Division
+        league: ECHL
+        conference: Eastern
+      Central:
+        name: Central
+        fullname: Central Division
+        league: ECHL
+        conference: Western
+      Mountain:
+        name: Mountain
+        fullname: Mountain Division
+        league: ECHL
+        conference: Western
+    teaminfo:
+      Thunder:
+        name: Thunder
+        fullname: Wichita Thunder
+        league: ECHL
+        conference: Western
+        division: Mountain
+      Mariners:
+        name: Mariners
+        fullname: Maine Mariners
+        league: ECHL
+        conference: Eastern
+        division: North
+      Growlers:
+        name: Growlers
+        fullname: Newfoundland Growlers
+        league: ECHL
+        conference: Eastern
+        division: North
+      Royals:
+        name: Royals
+        fullname: Reading Royals
+        league: ECHL
+        conference: Eastern
+        division: North
+      Lions:
+        name: Lions
+        fullname: "Trois-Rivi\xE8res Lions"
+        league: ECHL
+        conference: Eastern
+        division: North
+      Railers:
+        name: Railers
+        fullname: Worcester Railers
+        league: ECHL
+        conference: Eastern
+        division: North
+      Gladiators:
+        name: Gladiators
+        fullname: Atlanta Gladiators
+        league: ECHL
+        conference: Eastern
+        division: South
+      Everblades:
+        name: Everblades
+        fullname: Florida Everblades
+        league: ECHL
+        conference: Eastern
+        division: South
+      Swamp Rabbits:
+        name: Swamp Rabbits
+        fullname: Greenville Swamp Rabbits
+        league: ECHL
+        conference: Eastern
+        division: South
+      Icemen:
+        name: Icemen
+        fullname: Jacksonville Icemen
+        league: ECHL
+        conference: Eastern
+        division: South
+      Admirals:
+        name: Admirals
+        fullname: Norfolk Admirals
+        league: ECHL
+        conference: Eastern
+        division: South
+      Solar Bears:
+        name: Solar Bears
+        fullname: Orlando Solar Bears
+        league: ECHL
+        conference: Eastern
+        division: South
+      Stingrays:
+        name: Stingrays
+        fullname: South Carolina Stingrays
+        league: ECHL
+        conference: Eastern
+        division: South
+      Cyclones:
+        name: Cyclones
+        fullname: Cincinnati Cyclones
+        league: ECHL
+        conference: Western
+        division: Central
+      Komets:
+        name: Komets
+        fullname: Fort Wayne Komets
+        league: ECHL
+        conference: Western
+        division: Central
+      Fuel:
+        name: Fuel
+        fullname: Indy Fuel
+        league: ECHL
+        conference: Western
+        division: Central
+      Heartlanders:
+        name: Heartlanders
+        fullname: Iowa Heartlanders
+        league: ECHL
+        conference: Western
+        division: Central
+      Wings:
+        name: Wings
+        fullname: Kalamazoo Wings
+        league: ECHL
+        conference: Western
+        division: Central
+      Walleye:
+        name: Walleye
+        fullname: Toledo Walleye
+        league: ECHL
+        conference: Western
+        division: Central
+      Nailers:
+        name: Nailers
+        fullname: Wheeling Nailers
+        league: ECHL
+        conference: Western
+        division: Central
+      Americans:
+        name: Americans
+        fullname: Allen Americans
+        league: ECHL
+        conference: Western
+        division: Mountain
+      Steelheads:
+        name: Steelheads
+        fullname: Idaho Steelheads
+        league: ECHL
+        conference: Western
+        division: Mountain
+      Mavericks:
+        name: Mavericks
+        fullname: Kansas City Mavericks
+        league: ECHL
+        conference: Western
+        division: Mountain
+      Rush:
+        name: Rush
+        fullname: Rapid City Rush
+        league: ECHL
+        conference: Western
+        division: Mountain
+      Oilers:
+        name: Oilers
+        fullname: Tulsa Oilers
+        league: ECHL
+        conference: Western
+        division: Mountain
+      Grizzlies:
+        name: Grizzlies
+        fullname: Utah Grizzlies
+        league: ECHL
+        conference: Western
+        division: Mountain
+  Eastern:
+    conferenceinfo:
+      name: Eastern
+      prefix: ''
+      suffix: Conference
+      fullname: Eastern Conference
+      league: ECHL
+    North:
+      divisioninfo:
+        name: North
+        prefix: ''
+        suffix: Division
+        fullname: North Division
+        league: ECHL
+        conference: Eastern
+      Thunder:
+        teaminfo:
+          city: Glens Falls
+          area: NY
+          fullarea: New York
+          country: USA
+          fullcountry: United States
+          name: Thunder
+          fullname: Adirondack Thunder
+          arena: Cool Insuring Arena
+          prefix: Adirondack
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Mariners:
+        teaminfo:
+          city: Portland
+          area: ME
+          fullarea: Maine
+          country: USA
+          fullcountry: United States
+          name: Mariners
+          fullname: Maine Mariners
+          arena: Cross Insurance Arena
+          prefix: Maine
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Growlers:
+        teaminfo:
+          city: St. John's
+          area: NL
+          fullarea: Newfoundland and Labrador
+          country: CAN
+          fullcountry: Canada
+          name: Growlers
+          fullname: Newfoundland Growlers
+          arena: Mile One Centre
+          prefix: Newfoundland
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Royals:
+        teaminfo:
+          city: Reading
+          area: PA
+          fullarea: Pennsylvania
+          country: USA
+          fullcountry: United States
+          name: Royals
+          fullname: Reading Royals
+          arena: Santander Arena
+          prefix: Reading
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Lions:
+        teaminfo:
+          city: "Trois-Rivi\xE8res"
+          area: QC
+          fullarea: Quebec
+          country: CAN
+          fullcountry: Canada
+          name: Lions
+          fullname: "Trois-Rivi\xE8res Lions"
+          arena: "Le Nouveau Colis\xE9e"
+          prefix: "Trois-Rivi\xE8res"
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      Railers:
+        teaminfo:
+          city: Worcester
+          area: MA
+          fullarea: Massachusetts
+          country: USA
+          fullcountry: United States
+          name: Railers
+          fullname: Worcester Railers
+          arena: DCU Center
+          prefix: Worcester
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: North
+          affiliates: ''
+      teamlist:
+      - Thunder
+      - Mariners
+      - Growlers
+      - Royals
+      - Lions
+      - Railers
+    South:
+      divisioninfo:
+        name: South
+        prefix: ''
+        suffix: Division
+        fullname: South Division
+        league: ECHL
+        conference: Eastern
+      Gladiators:
+        teaminfo:
+          city: Duluth
+          area: GA
+          fullarea: Georgia
+          country: USA
+          fullcountry: United States
+          name: Gladiators
+          fullname: Atlanta Gladiators
+          arena: Gas South Arena
+          prefix: Atlanta
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      Everblades:
+        teaminfo:
+          city: Estero
+          area: FL
+          fullarea: Florida
+          country: USA
+          fullcountry: United States
+          name: Everblades
+          fullname: Florida Everblades
+          arena: Hertz Arena
+          prefix: Florida
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      Swamp Rabbits:
+        teaminfo:
+          city: Greenville
+          area: SC
+          fullarea: South Carolina
+          country: USA
+          fullcountry: United States
+          name: Swamp Rabbits
+          fullname: Greenville Swamp Rabbits
+          arena: Bon Secours Wellness Arena
+          prefix: Greenville
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      Icemen:
+        teaminfo:
+          city: Jacksonville
+          area: FL
+          fullarea: Florida
+          country: USA
+          fullcountry: United States
+          name: Icemen
+          fullname: Jacksonville Icemen
+          arena: VyStar Veterans Memorial Arena
+          prefix: Jacksonville
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      Admirals:
+        teaminfo:
+          city: Norfolk
+          area: VA
+          fullarea: Virginia
+          country: USA
+          fullcountry: United States
+          name: Admirals
+          fullname: Norfolk Admirals
+          arena: Norfolk Scope
+          prefix: Norfolk
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      Solar Bears:
+        teaminfo:
+          city: Orlando
+          area: FL
+          fullarea: Florida
+          country: USA
+          fullcountry: United States
+          name: Solar Bears
+          fullname: Orlando Solar Bears
+          arena: Amway Center
+          prefix: Orlando
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      Stingrays:
+        teaminfo:
+          city: North Charleston
+          area: SC
+          fullarea: South Carolina
+          country: USA
+          fullcountry: United States
+          name: Stingrays
+          fullname: South Carolina Stingrays
+          arena: North Charleston Coliseum
+          prefix: South Carolina
+          suffix: ''
+          league: ECHL
+          conference: Eastern
+          division: South
+          affiliates: ''
+      teamlist:
+      - Gladiators
+      - Everblades
+      - Swamp Rabbits
+      - Icemen
+      - Admirals
+      - Solar Bears
+      - Stingrays
+    divisionlist:
+    - North
+    - South
+  arenas: []
+  games: []
+  Western:
+    conferenceinfo:
+      name: Western
+      prefix: ''
+      suffix: Conference
+      fullname: Western Conference
+      league: ECHL
+    Central:
+      divisioninfo:
+        name: Central
+        prefix: ''
+        suffix: Division
+        fullname: Central Division
+        league: ECHL
+        conference: Western
+      Cyclones:
+        teaminfo:
+          city: Cincinnati
+          area: OH
+          fullarea: Ohio
+          country: USA
+          fullcountry: United States
+          name: Cyclones
+          fullname: Cincinnati Cyclones
+          arena: Heritage Bank Center
+          prefix: Cincinnati
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Komets:
+        teaminfo:
+          city: Fort Wayne
+          area: IN
+          fullarea: Indiana
+          country: USA
+          fullcountry: United States
+          name: Komets
+          fullname: Fort Wayne Komets
+          arena: Allen County War Memorial Coliseum
+          prefix: Fort Wayne
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Fuel:
+        teaminfo:
+          city: Indianapolis
+          area: IN
+          fullarea: Indiana
+          country: USA
+          fullcountry: United States
+          name: Fuel
+          fullname: Indy Fuel
+          arena: Indiana Farmers Coliseum
+          prefix: Indy
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Heartlanders:
+        teaminfo:
+          city: Coralville
+          area: IA
+          fullarea: Iowa
+          country: USA
+          fullcountry: United States
+          name: Heartlanders
+          fullname: Iowa Heartlanders
+          arena: Xtream Arena
+          prefix: Iowa
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Wings:
+        teaminfo:
+          city: Kalamazoo
+          area: MI
+          fullarea: Michigan
+          country: USA
+          fullcountry: United States
+          name: Wings
+          fullname: Kalamazoo Wings
+          arena: Wings Event Center
+          prefix: Kalamazoo
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Walleye:
+        teaminfo:
+          city: Toledo
+          area: OH
+          fullarea: Ohio
+          country: USA
+          fullcountry: United States
+          name: Walleye
+          fullname: Toledo Walleye
+          arena: Huntington Center
+          prefix: Toledo
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      Nailers:
+        teaminfo:
+          city: Wheeling
+          area: WV
+          fullarea: West Virginia
+          country: USA
+          fullcountry: United States
+          name: Nailers
+          fullname: Wheeling Nailers
+          arena: WesBanco Arena
+          prefix: Wheeling
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Central
+          affiliates: ''
+      teamlist:
+      - Cyclones
+      - Komets
+      - Fuel
+      - Heartlanders
+      - Wings
+      - Walleye
+      - Nailers
+    Mountain:
+      divisioninfo:
+        name: Mountain
+        prefix: ''
+        suffix: Division
+        fullname: Mountain Division
+        league: ECHL
+        conference: Western
+      Americans:
+        teaminfo:
+          city: Allen
+          area: TX
+          fullarea: Texas
+          country: USA
+          fullcountry: United States
+          name: Americans
+          fullname: Allen Americans
+          arena: Allen Event Center
+          prefix: Allen
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Steelheads:
+        teaminfo:
+          city: Boise
+          area: ID
+          fullarea: Idaho
+          country: USA
+          fullcountry: United States
+          name: Steelheads
+          fullname: Idaho Steelheads
+          arena: Idaho Central Arena
+          prefix: Idaho
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Mavericks:
+        teaminfo:
+          city: Independence
+          area: MO
+          fullarea: Missouri
+          country: USA
+          fullcountry: United States
+          name: Mavericks
+          fullname: Kansas City Mavericks
+          arena: Cable Dahmer Arena
+          prefix: Kansas City
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Rush:
+        teaminfo:
+          city: Rapid City
+          area: SD
+          fullarea: South Dakota
+          country: USA
+          fullcountry: United States
+          name: Rush
+          fullname: Rapid City Rush
+          arena: Rushmore Plaza Civic Center
+          prefix: Rapid City
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Oilers:
+        teaminfo:
+          city: Tulsa
+          area: OK
+          fullarea: Oklahoma
+          country: USA
+          fullcountry: United States
+          name: Oilers
+          fullname: Tulsa Oilers
+          arena: BOK Center
+          prefix: Tulsa
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Grizzlies:
+        teaminfo:
+          city: West Valley City
+          area: UT
+          fullarea: Utah
+          country: USA
+          fullcountry: United States
+          name: Grizzlies
+          fullname: Utah Grizzlies
+          arena: Maverik Center
+          prefix: Utah
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      Thunder:
+        teaminfo:
+          city: Wichita
+          area: KS
+          fullarea: Kansas
+          country: USA
+          fullcountry: United States
+          name: Thunder
+          fullname: Wichita Thunder
+          arena: Intrust Bank Arena
+          prefix: Wichita
+          suffix: ''
+          league: ECHL
+          conference: Western
+          division: Mountain
+          affiliates: ''
+      teamlist:
+      - Americans
+      - Steelheads
+      - Mavericks
+      - Rush
+      - Oilers
+      - Grizzlies
+      - Thunder
+    divisionlist:
+    - Central
+    - Mountain
+  conferencelist:
+  - Eastern
+  - Western
+leaguelist:
+- NHL
+- AHL
+- ECHL

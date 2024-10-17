@@ -2281,21 +2281,31 @@ def MakeHockeyYAMLFromHockeyArray(inhockeyarray, yamlindent=1, beautify=True, so
 
 def MakeHockeyYAMLFileFromHockeyArray(inhockeyarray, outyamlfile=None, returnyaml=False, yamlindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if testyaml:
-        if outyamlfile is None:
+        if (outyamlfile is None):
             return False
-        yamlstring = MakeHockeyYAMLFromHockeyArray(inhockeyarray, yamlindent, beautify, sortkeys, verbose, verbosetype)
-        with CompressOpenFile(outyamlfile) as yamlfp:
-            try:
-                yamlfp.write(yamlstring)
-            except TypeError:
-                yamlfp.write(yamlstring.encode(encoding))
+        fbasename = os.path.splitext(outyamlfile)[0]
+        fextname = os.path.splitext(outyamlfile)[1]
+        yamlfp = CompressOpenFile(outyamlfile)
+        yamlstring = MakeHockeyYAMLFromHockeyArray(
+            inhockeyarray, yamlindent, beautify, sortkeys, verbose, verbosetype)
+        try:
+            yamlfp.write(yamlstring)
+        except TypeError:
+            yamlfp.write(yamlstring.encode(encoding))
         try:
             yamlfp.flush()
             os.fsync(yamlfp.fileno())
-        except (io.UnsupportedOperation, AttributeError, OSError):
+        except io.UnsupportedOperation:
             pass
-        if returnyaml:
+        except AttributeError:
+            pass
+        except OSError as e:
+            pass
+        yamlfp.close()
+        if (returnyaml):
             return yamlstring
+        if (not returnyaml):
+            return True
         return True
     else:
         # Fallback to JSON file function

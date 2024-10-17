@@ -1,0 +1,119 @@
+database: ./php/data/hockey1918-19.db3
+NHL:
+  leagueinfo:
+    name: NHL
+    fullname: National Hockey League
+    country: CAN
+    fullcountry: Canada
+    date: '19181221'
+    playofffmt: League=2
+    ordertype: ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference
+      DESC
+    conferences: 'no'
+    divisions: 'no'
+  quickinfo:
+    conferenceinfo:
+      ? ''
+      : name: ''
+        fullname: ' Conference'
+        league: NHL
+    divisioninfo:
+      ? ''
+      : name: ''
+        fullname: ' Division'
+        league: NHL
+        conference: ''
+    teaminfo:
+      Senators:
+        name: Senators
+        fullname: Ottawa Senators
+        league: NHL
+        conference: ''
+        division: ''
+      Canadiens:
+        name: Canadiens
+        fullname: Montreal Canadiens
+        league: NHL
+        conference: ''
+        division: ''
+      Arenas:
+        name: Arenas
+        fullname: Toronto Arenas
+        league: NHL
+        conference: ''
+        division: ''
+  ? ''
+  : conferenceinfo:
+      name: ''
+      prefix: ''
+      suffix: Conference
+      fullname: ' Conference'
+      league: NHL
+    ? ''
+    : divisioninfo:
+        name: ''
+        prefix: ''
+        suffix: Division
+        fullname: ' Division'
+        league: NHL
+        conference: ''
+      Senators:
+        teaminfo:
+          city: Ottawa
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Senators
+          fullname: Ottawa Senators
+          arena: The Arena
+          prefix: Ottawa
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Canadiens:
+        teaminfo:
+          city: Montreal
+          area: QC
+          fullarea: Quebec
+          country: CAN
+          fullcountry: Canada
+          name: Canadiens
+          fullname: Montreal Canadiens
+          arena: Jubilee Rink
+          prefix: Montreal
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      Arenas:
+        teaminfo:
+          city: Toronto
+          area: 'ON'
+          fullarea: Ontario
+          country: CAN
+          fullcountry: Canada
+          name: Arenas
+          fullname: Toronto Arenas
+          arena: Arena Gardens
+          prefix: Toronto
+          suffix: ''
+          league: NHL
+          conference: ''
+          division: ''
+          affiliates: ''
+      teamlist:
+      - Senators
+      - Canadiens
+      - Arenas
+    divisionlist:
+    - ''
+  arenas: []
+  games: []
+  conferencelist:
+  - ''
+leaguelist:
+- NHL
