@@ -2894,6 +2894,10 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
     return leaguearrayout
 
 
+def MakeHockeyArrayFromHockeyXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+ return MakeHockeyArrayFromHockeySGML(inxmlfile, xmlisfile, encoding, verbose, jsonverbose)
+
+
 def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, jsonverbose=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
@@ -4590,6 +4594,10 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
         VerbosePrintOut(MakeHockeySQLiteXMLFromHockeySQLiteArray(leaguearrayout, verbose=False, jsonverbose=True))
 
     return leaguearrayout
+
+
+def MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+ return MakeHockeySQLiteArrayFromHockeySQLiteSGML(inxmlfile, xmlisfile, encoding, verbose, jsonverbose)
 
 
 def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
