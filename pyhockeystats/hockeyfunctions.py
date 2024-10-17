@@ -790,7 +790,6 @@ class HockeySGMLParser(HTMLParser):
             self.leaguearrayout[self.current_league][self.current_conference]['divisionlist'].append(self.current_division)
             self.leaguearrayout[self.current_league][self.current_conference][self.current_division]['teamlist'] = []
         elif tag == 'team' and self.in_division:
-            self.in_team = True
             team_name = attrs.get('name')
             full_team_name = GetFullTeamName(team_name, attrs.get('prefix', ''), attrs.get('suffix', ''))
             team_info = {
@@ -823,7 +822,6 @@ class HockeySGMLParser(HTMLParser):
         elif tag == 'arenas' and self.in_league:
             self.in_arenas = True
         elif tag == 'arena' and self.in_arenas:
-            self.in_arena = True
             arena_info = {
                 'city': attrs.get('city', ''),
                 'area': attrs.get('area', ''),
@@ -836,7 +834,6 @@ class HockeySGMLParser(HTMLParser):
         elif tag == 'games' and self.in_league:
             self.in_games = True
         elif tag == 'game' and self.in_games:
-            self.in_game = True
             game_info = {
                 'date': attrs.get('date', ''),
                 'time': attrs.get('time', ''),
@@ -918,6 +915,11 @@ class HockeySGMLChecker(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+
+        # Handle self-closing or empty tags
+        if tag in ['arena', 'team', 'game']:
+            return
+
         self.current_tags.append(tag)
         if not self.is_valid:
             return
@@ -969,6 +971,7 @@ class HockeySGMLChecker(HTMLParser):
             pass
 
     def handle_endtag(self, tag):
+     
         if not self.current_tags:
             print("Mismatched closing tag:", tag)
             self.is_valid = False
@@ -1040,7 +1043,6 @@ class HockeySQLiteSGMLParser(HTMLParser):
             self.in_row = True
             self.leaguearrayout[self.current_table]['values'].append({})
         elif tag == 'rowdata' and self.in_row:
-            self.in_rowdata = True
             rowdata_name = attrs.get('name', '')
             rowdata_value = ConvertSGMLValuesForPython(attrs.get('value', ''))
             self.leaguearrayout[self.current_table]['values'][-1][rowdata_name] = rowdata_value
@@ -1108,6 +1110,11 @@ class HockeySQLiteSGMLChecker(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
+
+        # Handle self-closing or empty tags
+        if tag in ['rowlist', 'rowdata', 'rowinfo']:
+            return
+
         self.current_tags.append(tag)
         if not self.is_valid:
             return
@@ -2473,8 +2480,7 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
                                    "\" arena=\"" + EscapeSGMLString(str(teaminfo['arena'])) +
                                    "\" prefix=\"" + EscapeSGMLString(str(teaminfo['prefix'])) +
                                    "\" suffix=\"" + EscapeSGMLString(str(teaminfo['suffix'])) +
-                                   "\" affiliates=\"" + EscapeSGMLString(str(teaminfo['affiliates'])) + "\">")
-                    sgmlstring += "</team>\n"
+                                   "\" affiliates=\"" + EscapeSGMLString(str(teaminfo['affiliates'])) + "\">\n")
                 sgmlstring += "   </division>\n"
             sgmlstring += "  </conference>\n"
 
@@ -2487,8 +2493,7 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
                                    "\" fullarea=\"" + EscapeSGMLString(str(hakey['fullarea'])) +
                                    "\" country=\"" + EscapeSGMLString(str(hakey['country'])) +
                                    "\" fullcountry=\"" + EscapeSGMLString(str(hakey['fullcountry'])) +
-                                   "\" name=\"" + EscapeSGMLString(str(hakey['name'])) + "\">")
-                    sgmlstring += "</arena>\n"
+                                   "\" name=\"" + EscapeSGMLString(str(hakey['name'])) + "\">\n")
             sgmlstring += "  </arenas>\n"
 
         if 'games' in inhockeyarray[hlkey] and len(inhockeyarray[hlkey]['games']) > 0:
@@ -2509,8 +2514,7 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
                                    "\" takeaways=\"" + EscapeSGMLString(str(hgkey['takeaways'])) +
                                    "\" faceoffwins=\"" + EscapeSGMLString(str(hgkey['faceoffwins'])) +
                                    "\" atarena=\"" + EscapeSGMLString(str(hgkey['atarena'])) +
-                                   "\" isplayoffgame=\"" + EscapeSGMLString(str(hgkey['isplayoffgame'])) + "\">")
-                    sgmlstring += "</game>\n"
+                                   "\" isplayoffgame=\"" + EscapeSGMLString(str(hgkey['isplayoffgame'])) + "\">\n")
             sgmlstring += "  </games>\n"
 
         sgmlstring += " </league>\n"
@@ -4208,8 +4212,7 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
                            "\" defaultvalue=\"" + EscapeSGMLString(str(rowdata['DefualtValue']), quote=True) +
                            "\" primarykey=\"" + EscapeSGMLString(str(rowdata['PrimaryKey']), quote=True) +
                            "\" autoincrement=\"" + EscapeSGMLString(str(rowdata['AutoIncrement']), quote=True) +
-                           "\" hidden=\"" + EscapeSGMLString(str(rowdata['Hidden']), quote=True) + "\">")
-            sgmlstring += "</rowinfo>\n"
+                           "\" hidden=\"" + EscapeSGMLString(str(rowdata['Hidden']), quote=True) + "\">\n")
         sgmlstring += "  </column>\n"
         
         # Data rows
@@ -4221,8 +4224,7 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
                 rowid += 1
                 for rkey, rvalue in rowvalues.items():
                     sgmlstring += ("    <rowdata name=\"" + EscapeSGMLString(str(rkey), quote=True) +
-                                   "\" value=\"" + EscapeSGMLString(str(rvalue), quote=True) + "\">")
-                    sgmlstring += "</rowdata>\n"
+                                   "\" value=\"" + EscapeSGMLString(str(rvalue), quote=True) + "\">\n")
                 sgmlstring += "   </row>\n"
             sgmlstring += "  </data>\n"
         else:
@@ -4231,8 +4233,7 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
         # Row list
         sgmlstring += "  <rows>\n"
         for rowinfo in inhockeyarray[get_cur_tab]['rows']:
-            sgmlstring += "   <rowlist name=\"" + EscapeSGMLString(str(rowinfo), quote=True) + "\">"
-            sgmlstring += "</rowlist>\n"
+            sgmlstring += "   <rowlist name=\"" + EscapeSGMLString(str(rowinfo), quote=True) + "\">\n"
         sgmlstring += "  </rows>\n"
         sgmlstring += " </table>\n"
     
