@@ -103,18 +103,18 @@ if (not getargs.empty and getargs.infile is None):
     if (premenuact.upper() != "E" and not premenuact.isdigit()):
         print("ERROR: Invalid Command")
         premenuact = "E"
-    if (premenuact.upper() != "E" and premenuact.isdigit() and (int(premenuact) > 2 or int(premenuact) < 1)):
+    elif (premenuact.upper() != "E" and premenuact.isdigit() and (int(premenuact) > 2 or int(premenuact) < 1)):
         print("ERROR: Invalid Command")
         premenuact = "E"
-    if (premenuact.upper() == "E"):
+    elif (premenuact.upper() == "E"):
         sys.exit()
 if (getargs.empty and getargs.infile is None):
     premenuact = "1"
-if (getargs.infile is not None):
+elif (getargs.infile is not None):
     premenuact = "2"
     if (getargs.empty):
         premenuact = "1"
-    if (not getargs.empty):
+    elif (not getargs.empty):
         premenuact = "2"
 if (premenuact == "1"):
     if (getargs.infile is None):
@@ -123,11 +123,11 @@ if (premenuact == "1"):
     elif (getargs.infile is not None):
         HockeyDatabaseFN = getargs.infile
     hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
-if (premenuact == "2"):
+elif (premenuact == "2"):
     if (getargs.infile is None):
         HockeyDatabaseFN = get_user_input(
             "Enter Hockey Database File Name For Import: ")
-    if (getargs.infile is not None):
+    elif (getargs.infile is not None):
         HockeyDatabaseFN = getargs.infile
     fileinfo = os.path.splitext(HockeyDatabaseFN)
     ext = fileinfo[-1].lower()
@@ -263,7 +263,7 @@ if (getargs.export):
 
 if (premenuact == "1"):
     print("Using Empty Database at Location: "+HockeyDatabaseFN)
-if (premenuact == "2"):
+elif (premenuact == "2"):
     print("Using Populated Database at Location: "+HockeyDatabaseFN)
 keep_loop = True
 while (keep_loop):
@@ -272,10 +272,10 @@ while (keep_loop):
     if (menuact.upper() != "E" and not menuact.isdigit()):
         print("ERROR: Invalid Command")
         menuact = ""
-    if (menuact.upper() != "E" and menuact.isdigit() and (int(menuact) > 7 or int(menuact) < 1)):
+    elif (menuact.upper() != "E" and menuact.isdigit() and (int(menuact) > 7 or int(menuact) < 1)):
         print("ERROR: Invalid Command")
         menuact = ""
-    if (menuact == "1"):
+    elif (menuact == "1"):
         sub_keep_loop = True
         while (sub_keep_loop):
             submenuact = get_user_input(
@@ -283,15 +283,15 @@ while (keep_loop):
             if (submenuact.upper() != "E" and not submenuact.isdigit()):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact == "1"):
+            elif (submenuact == "1"):
                 HockeyLeagueSN = get_user_input(
                     "Enter Hockey League short name: ")
                 if (HockeyLeagueSN in hockeyarray['leaguelist']):
                     print("ERROR: Hockey League with that short name exists")
-                if (HockeyLeagueSN not in hockeyarray['leaguelist']):
+                elif (HockeyLeagueSN not in hockeyarray['leaguelist']):
                     HockeyLeagueFN = get_user_input(
                         "Enter Hockey League full name: ")
                     HockeyLeagueCSN = get_user_input(
@@ -316,9 +316,9 @@ while (keep_loop):
                     if (HockeyLeagueHD == "no"):
                         hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                             hockeyarray, HockeyLeagueSN, "", "")
-            if (submenuact == "2" and len(hockeyarray['leaguelist']) <= 0):
+            elif (submenuact == "2" and len(hockeyarray['leaguelist']) <= 0):
                 print("ERROR: There are no Hockey Leagues to delete")
-            if (submenuact == "2" and len(hockeyarray['leaguelist']) > 0):
+            elif (submenuact == "2" and len(hockeyarray['leaguelist']) > 0):
                 leaguec = 0
                 print("E: Back to Hockey League Tool")
                 while (leaguec < len(hockeyarray['leaguelist'])):
@@ -331,17 +331,17 @@ while (keep_loop):
                 if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
                     print("ERROR: Invalid Command")
                     HockeyLeaguePreSN = "E"
-                if (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
+                elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
                     print("ERROR: Invalid Command")
                     HockeyLeaguePreSN = "E"
-                if (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
+                elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
                     HockeyLeagueIntSN = int(HockeyLeaguePreSN)
                     HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
                     hockeyarray = pyhockeystats.RemoveHockeyLeagueFromArray(
                         hockeyarray, HockeyLeagueSN)
-            if (submenuact == "3" and len(hockeyarray['leaguelist']) <= 0):
+            elif (submenuact == "3" and len(hockeyarray['leaguelist']) <= 0):
                 print("ERROR: There are no Hockey Leagues to edit")
-            if (submenuact == "3" and len(hockeyarray['leaguelist']) > 0):
+            elif (submenuact == "3" and len(hockeyarray['leaguelist']) > 0):
                 leaguec = 0
                 print("E: Back to Hockey League Tool")
                 while (leaguec < len(hockeyarray['leaguelist'])):
@@ -354,17 +354,17 @@ while (keep_loop):
                 if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
                     print("ERROR: Invalid Command")
                     HockeyLeaguePreSN = "E"
-                if (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
+                elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
                     print("ERROR: Invalid Command")
                     HockeyLeaguePreSN = "E"
-                if (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
+                elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
                     HockeyLeagueIntSN = int(HockeyLeaguePreSN)
                     HockeyLeagueOldSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
                     HockeyLeagueSN = get_user_input(
                         "Enter Hockey League short name: ")
                     if (HockeyLeagueSN in hockeyarray['leaguelist']):
                         print("ERROR: Hockey League with that short name exists")
-                    if (HockeyLeagueSN not in hockeyarray['leaguelist']):
+                    elif (HockeyLeagueSN not in hockeyarray['leaguelist']):
                         HockeyLeagueFN = get_user_input(
                             "Enter Hockey League full name: ")
                         HockeyLeagueCSN = get_user_input(
@@ -383,11 +383,11 @@ while (keep_loop):
                             "Does Hockey League have divisions: ")
                         hockeyarray = pyhockeystats.ReplaceHockeyLeagueFromArray(
                             hockeyarray, HockeyLeagueOldSN, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD)
-            if (submenuact.upper() == "E"):
+            elif (submenuact.upper() == "E"):
                 sub_keep_loop = False
-    if (menuact == "2" and len(hockeyarray['leaguelist']) <= 0):
+    elif (menuact == "2" and len(hockeyarray['leaguelist']) <= 0):
         print("ERROR: There are no Hockey Leagues")
-    if (menuact == "2" and len(hockeyarray['leaguelist']) > 0):
+    elif (menuact == "2" and len(hockeyarray['leaguelist']) > 0):
         sub_keep_loop = True
         while (sub_keep_loop):
             leaguec = 0
@@ -401,16 +401,16 @@ while (keep_loop):
             if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
                 print("ERROR: Invalid Command")
                 HockeyLeaguePreSN = "E"
-            if (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
+            elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
                 print("ERROR: Invalid Command")
                 HockeyLeaguePreSN = "E"
-            if (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
+            elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
                 HockeyLeagueIntSN = int(HockeyLeaguePreSN)
                 HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
                 if (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "no"):
                     print("ERROR: Hockey League can not have any conferences")
                     HockeyLeaguePreSN = "E"
-                if (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "yes"):
+                elif (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "yes"):
                     sub_sub_keep_loop = True
                     while (sub_sub_keep_loop):
                         subsubmenuact = get_user_input(
@@ -418,25 +418,25 @@ while (keep_loop):
                         if (subsubmenuact.upper() != "E" and not subsubmenuact.isdigit()):
                             print("ERROR: Invalid Command")
                             subsubmenuact = ""
-                        if (subsubmenuact.upper() != "E" and subsubmenuact.isdigit() and (int(subsubmenuact) > 3 or int(subsubmenuact) < 1)):
+                        elif (subsubmenuact.upper() != "E" and subsubmenuact.isdigit() and (int(subsubmenuact) > 3 or int(subsubmenuact) < 1)):
                             print("ERROR: Invalid Command")
                             subsubmenuact = ""
-                        if (subsubmenuact.upper() == "1"):
+                        elif (subsubmenuact.upper() == "1"):
                             HockeyConferenceCN = get_user_input(
                                 "Enter Hockey Conference name: ")
                             if (HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['conferencelist']):
                                 print(
                                     "ERROR: Hockey Conference with that name exists")
-                            if (HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
+                            elif (HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
                                 HockeyConferenceCPFN = get_user_input(
                                     "Enter Hockey Conference prefix: ")
                                 HockeyConferenceCSFN = get_user_input(
                                     "Enter Hockey Conference suffix: ")
                                 hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
                                     hockeyarray, HockeyLeagueSN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN)
-                        if (subsubmenuact == "2" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
+                        elif (subsubmenuact == "2" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
                             print("ERROR: There are no Hockey Conferences to delete")
-                        if (subsubmenuact == "2" and len(hockeyarray['leaguelist']) > 0 and len(hockeyarray[HockeyLeagueSN]['conferencelist']) > 0):
+                        elif (subsubmenuact == "2" and len(hockeyarray['leaguelist']) > 0 and len(hockeyarray[HockeyLeagueSN]['conferencelist']) > 0):
                             conferencec = 0
                             print("E: Back to Hockey Conference Tool")
                             while (conferencec < len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
@@ -449,18 +449,18 @@ while (keep_loop):
                             if (HockeyConferencePreCN.upper() != "E" and not HockeyConferencePreCN.isdigit()):
                                 print("ERROR: Invalid Command")
                                 HockeyConferencePreCN = "E"
-                            if (HockeyConferencePreCN.upper() != "E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN) > 6 or int(HockeyConferencePreCN) < 0)):
+                            elif (HockeyConferencePreCN.upper() != "E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN) > 6 or int(HockeyConferencePreCN) < 0)):
                                 print("ERROR: Invalid Command")
                                 HockeyConferencePreCN = "E"
-                            if (HockeyConferencePreCN.upper() != "E" and int(HockeyConferencePreCN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN) > -1):
+                            elif (HockeyConferencePreCN.upper() != "E" and int(HockeyConferencePreCN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN) > -1):
                                 HockeyConferenceIntCN = int(
                                     HockeyConferencePreCN)
                                 HockeyConferenceCN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntCN]
                                 hockeyarray = pyhockeystats.RemoveHockeyConferenceFromArray(
                                     hockeyarray, HockeyLeagueSN, HockeyConferenceCN)
-                        if (subsubmenuact == "3" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
+                        elif (subsubmenuact == "3" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
                             print("ERROR: There are no Hockey Conferences to edit")
-                        if (subsubmenuact == "3" and len(hockeyarray['leaguelist']) > 0 and len(hockeyarray[HockeyLeagueSN]['conferencelist']) > 0):
+                        elif (subsubmenuact == "3" and len(hockeyarray['leaguelist']) > 0 and len(hockeyarray[HockeyLeagueSN]['conferencelist']) > 0):
                             conferencec = 0
                             print("E: Back to Hockey Conference Tool")
                             while (conferencec < len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
@@ -473,10 +473,10 @@ while (keep_loop):
                             if (HockeyConferencePreCN.upper() != "E" and not HockeyConferencePreCN.isdigit()):
                                 print("ERROR: Invalid Command")
                                 HockeyConferencePreCN = "E"
-                            if (HockeyConferencePreCN.upper() != "E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN) > 6 or int(HockeyConferencePreCN) < 0)):
+                            elif (HockeyConferencePreCN.upper() != "E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN) > 6 or int(HockeyConferencePreCN) < 0)):
                                 print("ERROR: Invalid Command")
                                 HockeyConferencePreCN = "E"
-                            if (HockeyConferencePreCN.upper() != "E" and int(HockeyConferencePreCN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN) > -1):
+                            elif (HockeyConferencePreCN.upper() != "E" and int(HockeyConferencePreCN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN) > -1):
                                 HockeyConferenceIntCN = int(
                                     HockeyConferencePreCN)
                                 HockeyConferenceOldCN = hockeyarray[HockeyLeagueSN][
@@ -486,20 +486,20 @@ while (keep_loop):
                                 if (HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['conferencelist']):
                                     print(
                                         "ERROR: Hockey Conference with that name exists")
-                                if (HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
+                                elif (HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
                                     HockeyConferenceCPFN = get_user_input(
                                         "Enter Hockey Conference prefix: ")
                                     HockeyConferenceCSFN = get_user_input(
                                         "Enter Hockey Conference suffix: ")
                                 hockeyarray = pyhockeystats.ReplaceHockeyConferencFromArray(
                                     hockeyarray, HockeyLeagueSN, HockeyConferenceOldCN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN)
-                        if (subsubmenuact.upper() == "E"):
+                        elif (subsubmenuact.upper() == "E"):
                             sub_sub_keep_loop = False
-            if (HockeyLeaguePreSN.upper() == "E"):
+            elif (HockeyLeaguePreSN.upper() == "E"):
                 sub_keep_loop = False
-    if (menuact == "3" and len(hockeyarray['leaguelist']) <= 0):
+    elif (menuact == "3" and len(hockeyarray['leaguelist']) <= 0):
         print("ERROR: There are no Hockey Leagues")
-    if (menuact == "3" and len(hockeyarray['leaguelist']) > 0):
+    elif (menuact == "3" and len(hockeyarray['leaguelist']) > 0):
         sub_keep_loop = True
         while (sub_keep_loop):
             leaguec = 0
@@ -513,16 +513,16 @@ while (keep_loop):
             if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
                 print("ERROR: Invalid Command")
                 HockeyLeaguePreSN = "E"
-            if (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
+            elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
                 print("ERROR: Invalid Command")
                 HockeyLeaguePreSN = "E"
-            if (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
+            elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
                 HockeyLeagueIntSN = int(HockeyLeaguePreSN)
                 HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
                 if (hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions'] == "no"):
                     print("ERROR: Hockey League can not have any divisions")
                     HockeyLeaguePreSN = "E"
-                if (hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions'] == "yes"):
+                elif (hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions'] == "yes"):
                     if (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "no"):
                         sub_sub_keep_loop = True
                         while (sub_sub_keep_loop):
@@ -531,23 +531,23 @@ while (keep_loop):
                             if (submenuact.upper() != "E" and not submenuact.isdigit()):
                                 print("ERROR: Invalid Command")
                                 submenuact = ""
-                            if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+                            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                                 print("ERROR: Invalid Command")
                                 submenuact = ""
-                            if (submenuact.upper() == "1"):
+                            elif (submenuact.upper() == "1"):
                                 HockeyDivisionDN = get_user_input(
                                     "Enter Hockey Division name: ")
                                 if (HockeyDivisionDN in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
                                     print(
                                         "ERROR: Hockey Division with that name exists")
-                                if (HockeyDivisionDN not in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
+                                elif (HockeyDivisionDN not in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
                                     HockeyDivisionDPFN = get_user_input(
                                         "Enter Hockey Division prefix: ")
                                     HockeyDivisionDSFN = get_user_input(
                                         "Enter Hockey Division suffix: ")
                                 hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                                     hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN)
-                            if (submenuact.upper() == "2"):
+                            elif (submenuact.upper() == "2"):
                                 divisionc = 0
                                 print("E: Back to Hockey Division Tool")
                                 while (divisionc < len(hockeyarray[HockeyLeagueSN]['']['divisionlist'])):
@@ -560,18 +560,18 @@ while (keep_loop):
                                 if (HockeyDivisionPreDN.upper() != "E" and not HockeyDivisionPreDN.isdigit()):
                                     print("ERROR: Invalid Command")
                                     HockeyDivisionPreDN = "E"
-                                if (HockeyDivisionPreDN.upper() != "E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN) > 6 or int(HockeyDivisionPreDN) < 0)):
+                                elif (HockeyDivisionPreDN.upper() != "E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN) > 6 or int(HockeyDivisionPreDN) < 0)):
                                     print("ERROR: Invalid Command")
                                     HockeyDivisionPreDN = "E"
-                                if (HockeyDivisionPreDN.upper() != "E" and int(HockeyDivisionPreDN) < len(hockeyarray[HockeyLeagueSN]['']['divisionlist']) and int(HockeyDivisionPreDN) > -1):
+                                elif (HockeyDivisionPreDN.upper() != "E" and int(HockeyDivisionPreDN) < len(hockeyarray[HockeyLeagueSN]['']['divisionlist']) and int(HockeyDivisionPreDN) > -1):
                                     HockeyDivisionIntCN = int(
                                         HockeyDivisionPreDN)
                                     HockeyDivisionDN = hockeyarray[HockeyLeagueSN]['']['divisionlist'][HockeyDivisionIntCN]
                                     hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
                                         hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "")
-                            if (submenuact.upper() == "E"):
+                            elif (submenuact.upper() == "E"):
                                 sub_sub_keep_loop = False
-                    if (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "yes"):
+                    elif (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "yes"):
                         sub_sub_keep_loop = True
                         while (sub_sub_keep_loop):
                             conferencec = 0
@@ -586,10 +586,10 @@ while (keep_loop):
                             if (HockeyConferencePreSN.upper() != "E" and not HockeyConferencePreSN.isdigit()):
                                 print("ERROR: Invalid Command")
                                 HockeyConferencePreSN = "E"
-                            if (HockeyConferencePreSN.upper() != "E" and HockeyConferencePreSN.isdigit() and (int(HockeyConferencePreSN) > len(hockeyarray[HockeyLeagueSN]['conferencelist']) or int(HockeyConferencePreSN) < 0)):
+                            elif (HockeyConferencePreSN.upper() != "E" and HockeyConferencePreSN.isdigit() and (int(HockeyConferencePreSN) > len(hockeyarray[HockeyLeagueSN]['conferencelist']) or int(HockeyConferencePreSN) < 0)):
                                 print("ERROR: Invalid Command")
                                 HockeyConferencePreSN = "E"
-                            if (HockeyConferencePreSN.upper() != "E" and int(HockeyConferencePreSN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreSN) > -1):
+                            elif (HockeyConferencePreSN.upper() != "E" and int(HockeyConferencePreSN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreSN) > -1):
                                 HockeyConferenceIntSN = int(
                                     HockeyConferencePreSN)
                                 HockeyConferenceSN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntSN]
@@ -600,23 +600,23 @@ while (keep_loop):
                                     if (submenuact.upper() != "E" and not submenuact.isdigit()):
                                         print("ERROR: Invalid Command")
                                         submenuact = ""
-                                    if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+                                    elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                                         print("ERROR: Invalid Command")
                                         submenuact = ""
-                                    if (submenuact.upper() == "1"):
+                                    elif (submenuact.upper() == "1"):
                                         HockeyDivisionDN = get_user_input(
                                             "Enter Hockey Division name: ")
                                         if (HockeyDivisionDN in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
                                             print(
                                                 "ERROR: Hockey Division with that name exists")
-                                        if (HockeyDivisionDN not in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
+                                        elif (HockeyDivisionDN not in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
                                             HockeyDivisionDPFN = get_user_input(
                                                 "Enter Hockey Division prefix: ")
                                             HockeyDivisionDSFN = get_user_input(
                                                 "Enter Hockey Division suffix: ")
                                         hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                                             hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN)
-                                    if (submenuact.upper() == "2"):
+                                    elif (submenuact.upper() == "2"):
                                         divisionc = 0
                                         print("E: Back to Hockey Division Tool")
                                         while (divisionc < len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist'])):
@@ -629,25 +629,25 @@ while (keep_loop):
                                         if (HockeyDivisionPreDN.upper() != "E" and not HockeyDivisionPreDN.isdigit()):
                                             print("ERROR: Invalid Command")
                                             HockeyDivisionPreDN = "E"
-                                        if (HockeyDivisionPreDN.upper() != "E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN) > 6 or int(HockeyDivisionPreDN) < 0)):
+                                        elif (HockeyDivisionPreDN.upper() != "E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN) > 6 or int(HockeyDivisionPreDN) < 0)):
                                             print("ERROR: Invalid Command")
                                             HockeyDivisionPreDN = "E"
-                                        if (HockeyDivisionPreDN.upper() != "E" and int(HockeyDivisionPreDN) < len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']) and int(HockeyDivisionPreDN) > -1):
+                                        elif (HockeyDivisionPreDN.upper() != "E" and int(HockeyDivisionPreDN) < len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']) and int(HockeyDivisionPreDN) > -1):
                                             HockeyDivisionIntCN = int(
                                                 HockeyDivisionPreDN)
                                             HockeyDivisionDN = hockeyarray[HockeyLeagueSN][
                                                 HockeyConferenceSN]['divisionlist'][HockeyDivisionIntCN]
                                             hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
                                                 hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN)
-                                    if (submenuact.upper() == "E"):
+                                    elif (submenuact.upper() == "E"):
                                         sub_sub_sub_keep_loop = False
-                            if (HockeyConferencePreSN.upper() == "E"):
+                            elif (HockeyConferencePreSN.upper() == "E"):
                                 sub_sub_keep_loop = False
-            if (HockeyLeaguePreSN.upper() == "E"):
+            elif (HockeyLeaguePreSN.upper() == "E"):
                 sub_keep_loop = False
-    if (menuact == "4" and len(hockeyarray['leaguelist']) <= 0):
+    elif (menuact == "4" and len(hockeyarray['leaguelist']) <= 0):
         print("ERROR: There are no Hockey Leagues")
-    if (menuact == "4" and len(hockeyarray['leaguelist']) > 0):
+    elif (menuact == "4" and len(hockeyarray['leaguelist']) > 0):
         sub_keep_loop = True
         while (sub_keep_loop):
             submenuact = get_user_input(
@@ -655,16 +655,16 @@ while (keep_loop):
             if (submenuact.upper() != "E" and not submenuact.isdigit()):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() == "E"):
+            elif (submenuact.upper() == "E"):
                 sub_keep_loop = False
             print("ERROR: Sorry Command not Implemented yet")
             raise NotImplementedError
-    if (menuact == "5" and len(hockeyarray['leaguelist']) <= 0):
+    elif (menuact == "5" and len(hockeyarray['leaguelist']) <= 0):
         print("ERROR: There are no Hockey Leagues")
-    if (menuact == "5" and len(hockeyarray['leaguelist']) > 0):
+    elif (menuact == "5" and len(hockeyarray['leaguelist']) > 0):
         sub_keep_loop = True
         while (sub_keep_loop):
             submenuact = get_user_input(
@@ -672,16 +672,16 @@ while (keep_loop):
             if (submenuact.upper() != "E" and not submenuact.isdigit()):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() == "E"):
+            elif (submenuact.upper() == "E"):
                 sub_keep_loop = False
             print("ERROR: Sorry Command not Implemented yet")
             raise NotImplementedError
-    if (menuact == "6" and len(hockeyarray['leaguelist']) <= 0):
+    elif (menuact == "6" and len(hockeyarray['leaguelist']) <= 0):
         print("ERROR: There are no Hockey Leagues")
-    if (menuact == "6" and len(hockeyarray['leaguelist']) > 0):
+    elif (menuact == "6" and len(hockeyarray['leaguelist']) > 0):
         sub_keep_loop = True
         while (sub_keep_loop):
             submenuact = get_user_input(
@@ -689,14 +689,14 @@ while (keep_loop):
             if (submenuact.upper() != "E" and not submenuact.isdigit()):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() == "E"):
+            elif (submenuact.upper() == "E"):
                 sub_keep_loop = False
             print("ERROR: Sorry Command not Implemented yet")
             raise NotImplementedError
-    if (menuact == "7"):
+    elif (menuact == "7"):
         sub_keep_loop = True
         while (sub_keep_loop):
             submenuact = get_user_input(
@@ -704,14 +704,14 @@ while (keep_loop):
             if (submenuact.upper() != "E" and not submenuact.isdigit()):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
+            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
                 print("ERROR: Invalid Command")
                 submenuact = ""
-            if (submenuact == "1"):
+            elif (submenuact == "1"):
                 HockeyDatabaseFN = get_user_input(
                     "Enter Hockey Database File Name For Output: ")
                 hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
-            if (submenuact == "2"):
+            elif (submenuact == "2"):
                 HockeyDatabaseFN = get_user_input(
                     "Enter Hockey Database File Name For Import: ")
                 ext = os.path.splitext(HockeyDatabaseFN)[-1].lower()
@@ -735,7 +735,7 @@ while (keep_loop):
                             hockeyarray)
                     if (not pyhockeystats.CheckHockeyArray(hockeyarray)):
                         print("ERROR: Invalid Command")
-            if (submenuact.upper() == "3"):
+            elif (submenuact.upper() == "3"):
                 sub_sub_keep_loop = True
                 while (sub_sub_keep_loop):
                     subsubmenuact = get_user_input(
@@ -743,57 +743,57 @@ while (keep_loop):
                     if (subsubmenuact.upper() != "E" and not subsubmenuact.isdigit()):
                         print("ERROR: Invalid Command")
                         subsubmenuact = "E"
-                    if (subsubmenuact.upper() != "E" and subsubmenuact.isdigit() and (int(subsubmenuact) > 6 or int(subsubmenuact) < 1)):
+                    elif (subsubmenuact.upper() != "E" and subsubmenuact.isdigit() and (int(subsubmenuact) > 6 or int(subsubmenuact) < 1)):
                         print("ERROR: Invalid Command")
                         subsubmenuact = "E"
-                    if (subsubmenuact == "1"):
+                    elif (subsubmenuact == "1"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database XML File Name to Export: ")
                         pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "2"):
+                    elif (subsubmenuact == "2"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database SGML File Name to Export: ")
                         pyhockeystats.MakeHockeySGMLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "3"):
+                    elif (subsubmenuact == "3"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database JSON File Name to Export: ")
                         pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "4"):
+                    elif (subsubmenuact == "4"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
                         pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "5"):
+                    elif (subsubmenuact == "5"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
                         pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "6"):
+                    elif (subsubmenuact == "6"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
                         pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "7"):
+                    elif (subsubmenuact == "7"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
                         pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "8"):
+                    elif (subsubmenuact == "8"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database SQL File Name to Export: ")
                         pyhockeystats.MakeHockeySQLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact == "9"):
+                    elif (subsubmenuact == "9"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database File Name to Export: ")
                         pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    if (subsubmenuact.upper() == "E"):
+                    elif (subsubmenuact.upper() == "E"):
                         sub_sub_keep_loop = False
-            if (submenuact.upper() == "E"):
+            elif (submenuact.upper() == "E"):
                 sub_keep_loop = False
     if (menuact.upper() == "E"):
         keep_loop = False
