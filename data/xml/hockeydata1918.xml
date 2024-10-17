@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!DOCTYPE hockey [
 
 <!ELEMENT hockey (league)+>
@@ -84,13 +85,13 @@
   suffix CDATA #REQUIRED
   affiliates CDATA #REQUIRED>
 ]>
-<hockey xmlns="" database="./php/data/hockey1918-19.db3">
- <league xmlns="" name="NHL" fullname="National Hockey League" country="CAN" fullcountry="Canada" date="19181221" playofffmt="League=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
-  <conference xmlns="" name="" prefix="" suffix="Conference">
-   <division xmlns="" name="" prefix="" suffix="Division">
-    <team xmlns="" city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="The Arena" prefix="Ottawa" suffix="" affiliates=""/>
-    <team xmlns="" city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Jubilee Rink" prefix="Montreal" suffix="" affiliates=""/>
-    <team xmlns="" city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Arenas" arena="Arena Gardens" prefix="Toronto" suffix="" affiliates=""/>
+<hockey database="./php/data/hockey1918-19.db3">
+ <league name="NHL" fullname="National Hockey League" country="CAN" fullcountry="Canada" date="19181221" playofffmt="League=2" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="no" divisions="no">
+  <conference name="" prefix="" suffix="Conference">
+   <division name="" prefix="" suffix="Division">
+    <team city="Ottawa" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Senators" arena="The Arena" prefix="Ottawa" suffix="" affiliates="" />
+    <team city="Montreal" area="QC" fullarea="Quebec" country="CAN" fullcountry="Canada" name="Canadiens" arena="Jubilee Rink" prefix="Montreal" suffix="" affiliates="" />
+    <team city="Toronto" area="ON" fullarea="Ontario" country="CAN" fullcountry="Canada" name="Arenas" arena="Arena Gardens" prefix="Toronto" suffix="" affiliates="" />
    </division>
   </conference>
  </league>
