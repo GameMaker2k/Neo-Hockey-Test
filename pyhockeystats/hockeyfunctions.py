@@ -3586,12 +3586,14 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, enco
         file_wo_extension, file_extension = os.path.splitext(insqlfile)
         insdbfile = file_wo_extension+".db3"
     sqldatacon = MakeHockeyDatabase(":memory:")
+    sqldatacon[0].execute('BEGIN TRANSACTION')
     if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
         return False
     try:
         sqldatacon[0].executescript(sqlstring)
     except ValueError:
         sqldatacon[0].executescript(sqlstring.decode(encoding))
+    sqldatacon[1].commit()
     leaguecur = sqldatacon[1].cursor()
     getleague_num = leaguecur.execute(
         "SELECT COUNT(*) FROM HockeyLeagues").fetchone()[0]
