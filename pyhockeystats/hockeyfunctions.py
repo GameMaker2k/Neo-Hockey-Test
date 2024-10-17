@@ -2127,7 +2127,7 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, encoding="UTF-8", re
     return False
 
 
-def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if (beautify):
@@ -2136,28 +2136,33 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, so
     else:
         jsonstring = json.dumps(
             inhockeyarray, sort_keys=sortkeys, separators=(', ', ': '))
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(jsonstring)
-    elif (verbose and not jsonverbose):
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False)
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False)
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return jsonstring
 
 
-def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=True, verbosetype="array"):
     jsonstring = MakeHockeyJSONFromHockeyArray(
-        inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose)
+        inhockeyarray, jsonindent, beautify, sortkeys, verbose, verbosetype)
     return jsonstring
 
 
-def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outjsonfile is None):
         return False
     fbasename = os.path.splitext(outjsonfile)[0]
     fextname = os.path.splitext(outjsonfile)[1]
     jsonfp = CompressOpenFile(outjsonfile)
     jsonstring = MakeHockeyJSONFromHockeyArray(
-        inhockeyarray, jsonindent, beautify, sortkeys, verbose, jsonverbose)
+        inhockeyarray, jsonindent, beautify, sortkeys, verbose, verbosetype)
     try:
         jsonfp.write(jsonstring)
     except TypeError:
@@ -2179,13 +2184,13 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
     return True
 
 
-def MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, jsonverbose=True):
+def MakeHockeyJSONFileFromHockeySQLiteArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, verbose=True, verbosetype="array"):
     jsonstring = MakeHockeyJSONFileFromHockeyArray(
-        inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, jsonverbose)
+        inhockeyarray, outjsonfile, returnjson, jsonindent, beautify, sortkeys, verbose, verbosetype)
     return jsonstring
 
 
-def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, verbosetype="array"):
     if (jsonisfile and ((os.path.exists(injsonfile) and os.path.isfile(injsonfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", injsonfile))):
         if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", injsonfile)):
             injsonfile = UncompressFileURL(
@@ -2214,16 +2219,21 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=True, jso
         return False
     if (not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
     return hockeyarray
 
 
-def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=True, jsonverbose=True):
+def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if (protocol is None):
@@ -2231,23 +2241,28 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=Tr
     else:
         picklestring = pickle.dumps(
             inhockeyarray, protocol=protocol, fix_imports=True)
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return picklestring
 
 
-def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outpicklefile is None):
         return False
     fbasename = os.path.splitext(outpicklefile)[0]
     fextname = os.path.splitext(outpicklefile)[1]
     picklefp = CompressOpenFile(outpicklefile)
     picklestring = MakeHockeyPickleFromHockeyArray(
-        inhockeyarray, protocol, verbose, jsonverbose)
+        inhockeyarray, protocol, verbose, verbosetype)
     try:
         picklefp.write(picklestring)
     except TypeError:
@@ -2269,7 +2284,7 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
     return True
 
 
-def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (pickleisfile and ((os.path.exists(inpicklefile) and os.path.isfile(inpicklefile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inpicklefile))):
         if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inpicklefile)):
             inpicklefile = UncompressFileURL(
@@ -2288,36 +2303,46 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="U
         return False
     if (not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
     return hockeyarray
 
 
-def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, verbose=True, jsonverbose=True):
+def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     marshalstring = marshal.dumps(inhockeyarray, version)
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return marshalstring
 
 
-def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outmarshalfile is None):
         return False
     fbasename = os.path.splitext(outmarshalfile)[0]
     fextname = os.path.splitext(outmarshalfile)[1]
     marshalfp = CompressOpenFile(outmarshalfile)
     marshalstring = MakeHockeyMarshalFromHockeyArray(
-        inhockeyarray, version, verbose, jsonverbose)
+        inhockeyarray, version, verbose, verbosetype)
     try:
         marshalfp.write(marshalstring)
     except TypeError:
@@ -2339,7 +2364,7 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
     return True
 
 
-def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (marshalisfile and ((os.path.exists(inmarshalfile) and os.path.isfile(inmarshalfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inmarshalfile))):
         if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inmarshalfile)):
             inmarshalfile = UncompressFileURL(
@@ -2358,16 +2383,21 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding
         return False
     if (not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
     return hockeyarray
 
 
-def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=True, jsonverbose=True):
+def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     outshelvefile = BytesIO()
@@ -2376,16 +2406,21 @@ def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=Tru
             shelf_file[key] = value
     outshelvefile.seek(0)
     shelvestring = outshelvefile.read()
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return shelvestring
 
 
-def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, returnshelve=False, version=pickledp, verbose=True, jsonverbose=True):
+def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, returnshelve=False, version=pickledp, verbose=True, verbosetype="array"):
     if (outshelvefile is None):
         return False
     fbasename = os.path.splitext(outshelvefile)[0]
@@ -2395,14 +2430,14 @@ def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, retur
             shelf_file[key] = value
     if (returnshelve):
         shelvestring = MakeHockeyShelveFromHockeyArray(
-            inhockeyarray, version, verbose, jsonverbose)
+            inhockeyarray, version, verbose, verbosetype)
         return shelvestring
     if (not returnshelve):
         return True
     return True
 
 
-def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pickledp, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (shelveisfile):
         with shelve.open(inshelvefile, protocol=version) as shelf_file:
             hockeyarray = dict(shelf_file)
@@ -2415,16 +2450,21 @@ def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pic
             hockeyarray = dict(shelf_file)
     if (not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            hockeyarray, verbose=False, jsonverbose=True))
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
     return hockeyarray
 
 
-def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -2482,21 +2522,26 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
     #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeyXML(xmlstring, False)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(xmlstring)
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return xmlstring
 
 
-def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
-    xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
+    xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -2518,7 +2563,7 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
     return True
 
 
-def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if not CheckHockeyArray(inhockeyarray):
         return False
     sgmlstring = ""
@@ -2594,21 +2639,25 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
         return False
 
     if verbose:
-        if jsonverbose:
-            VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
+        if verbosetype=="json":
+            VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False))
+        elif verbosetype=="xml":
+            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False))
+        elif verbosetype=="sgmml":
+            VerbosePrintOut(sgmlstring)
         else:
-            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
+            VerbosePrintOut(inhockeyarray)
 
     return sgmlstring
 
 
-def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (outsgmlfile is None):
         return False
     fbasename = os.path.splitext(outsgmlfile)[0]
     fextname = os.path.splitext(outsgmlfile)[1]
     sgmlfp = CompressOpenFile(outsgmlfile)
-    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
+    sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         sgmlfp.write(sgmlstring)
     except TypeError:
@@ -2630,7 +2679,7 @@ def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgm
     return True
 
 
-def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -2695,22 +2744,27 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
         xmlstring = xmlstring.decode(encoding)
     if (not CheckHockeyXML(xmlstring, False)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(xmlstring)
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return xmlstring
 
 
-def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeyXMLAltFromHockeyArray(
-        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -2732,7 +2786,7 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
     return True
 
 
-def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (not CheckHockeyXML(inxmlfile, xmlisfile)):
         return False
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile))):
@@ -2850,16 +2904,21 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", ve
     leaguearrayout.update({'leaguelist': leaguelist})
     if (not CheckHockeyArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     """
     Parses SGML data and converts it into a hockey array (nested dictionary).
     """
@@ -2886,19 +2945,26 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
         return False
 
     # Verbose output
-    if verbose and jsonverbose:
-        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
-    elif verbose and not jsonverbose:
-        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
+    if (verbose and verbosetype=="json"):
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
+        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
 
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeyXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
- return MakeHockeyArrayFromHockeySGML(inxmlfile, xmlisfile, encoding, verbose, jsonverbose)
+def MakeHockeyArrayFromHockeyXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+ return MakeHockeyArrayFromHockeySGML(inxmlfile, xmlisfile, encoding, verbose, verbosetype)
 
 
-def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, jsonverbose=True):
+def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=False, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if (outsdbfile is None and "database" in inhockeyarray.keys()):
@@ -2960,12 +3026,17 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
                     MakeHockeyGame(sqldatacon, hlkey, hgkey['date'], hgkey['time'], hgkey['hometeam'], hgkey['awayteam'], hgkey['goals'], hgkey['sogs'], hgkey['ppgs'],
                                    hgkey['shgs'], hgkey['penalties'], hgkey['pims'], hgkey['hits'], hgkey['takeaways'], hgkey['faceoffwins'], hgkey['atarena'], hgkey['isplayoffgame'])
         sqldatacon[1].commit()
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     if (not returndb):
         CloseHockeyDatabase(sqldatacon)
     if (returndb):
@@ -2975,7 +3046,7 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
     return True
 
 
-def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3047,22 +3118,27 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=Tru
                         'ppgs']+"\", \""+hgkey['shgs']+"\", \""+hgkey['penalties']+"\", \""+hgkey['pims']+"\", \""+hgkey['hits']+"\", \""+hgkey['takeaways']+"\", \""+hgkey['faceoffwins']+"\", \""+hgkey['atarena']+"\", \""+hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
     pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon)\n"
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return pystring
 
 
-def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
-    pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose, jsonverbose)
+    pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose, verbosetype)
     try:
         pyfp.write(pystring)
     except TypeError:
@@ -3086,7 +3162,7 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
     return True
 
 
-def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array", verbosepy=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3166,24 +3242,29 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
         pyverbose = "False"
     pystring = pystring+pyfilename + \
         ".MakeHockeyDatabaseFromHockeyArray(hockeyarray, None, False, "+str(
-            pyverbose)+", "+str(jsonverbose)+")\n"
-    if (verbose and jsonverbose):
+            pyverbose)+", \""+str(verbosetype)+"\")\n"
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return pystring
 
 
-def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array", verbosepy=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonAltFromHockeyArray(
-        inhockeyarray, verbose, jsonverbose, verbosepy)
+        inhockeyarray, verbose, verbosetype, verbosepy)
     try:
         pyfp.write(pystring)
     except TypeError:
@@ -3207,7 +3288,7 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     return True
 
 
-def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3283,22 +3364,27 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=
                         hgkey['isplayoffgame']+"\")\n"
     pystring = pystring+"\n"
     pystring = pystring+"sqldatacon.CloseHockeyDatabase(sqldatacon)\n"
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return pystring
 
 
-def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
-    pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose, jsonverbose)
+    pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose, verbosetype)
     ()
     try:
         pyfp.write(pystring)
@@ -3323,7 +3409,7 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
     return True
 
 
-def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, verbosetype="array", verbosepy=True):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     pyfilename = __package__
@@ -3402,24 +3488,29 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=True, jsonverbo
         pyverbose = "False"
     pystring = pystring + \
         "hockeyarray.MakeHockeyDatabase(None, False, " + \
-        str(pyverbose)+", "+str(jsonverbose)+")\n"
-    if (verbose and jsonverbose):
+        str(pyverbose)+", \""+str(verbosetype)+"\")\n"
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return pystring
 
 
-def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, jsonverbose=True, verbosepy=True):
+def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=True, verbosetype="array", verbosepy=True):
     if (outpyfile is None):
         return False
     fbasename = os.path.splitext(outpyfile)[0]
     fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonOOPAltFromHockeyArray(
-        inhockeyarray, verbose, jsonverbose, verbosepy)
+        inhockeyarray, verbose, verbosetype, verbosepy)
     try:
         pyfp.write(pystring)
     except TypeError:
@@ -3443,7 +3534,7 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
     return True
 
 
-def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
     if (isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
         if (not CheckHockeySQLiteDatabase(insdbfile)[0]):
             return False
@@ -3559,16 +3650,21 @@ def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True)
     sqldatacon[1].close()
     if (not CheckHockeyArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (sqlisfile and (os.path.exists(insqlfile) and os.path.isfile(insqlfile))):
         sqlfp = UncompressFile(insqlfile)
         sqlstring = sqlfp.read()
@@ -3698,16 +3794,21 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, enco
     sqldatacon[1].close()
     if (not CheckHockeyArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=True, jsonverbose=True):
+def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=True, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray)):
         return False
     if (insdbfile is None):
@@ -3774,23 +3875,28 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Tr
         sqldump = sqldump+get_insert_stmt_full + \
             "\n-- --------------------------------------------------------\n\n"
     CloseHockeyDatabase(sqldatacon)
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outsqlfile is None):
         return False
     fbasename = os.path.splitext(outsqlfile)[0]
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeyArray(
-        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, jsonverbose)
+        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, verbosetype)
     try:
         sqlfp.write(sqlstring)
     except TypeError:
@@ -3812,12 +3918,13 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
     return True
 
 
-def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
     if (os.path.exists(insdbfile) and os.path.isfile(insdbfile) and isinstance(insdbfile, basestring)):
         sqldatacon = OpenHockeyDatabase(insdbfile)
     else:
         if (insdbfile is not None and isinstance(insdbfile, (tuple, list))):
             sqldatacon = tuple(insdbfile)
+            insdbfile = GetHockeyDatabaseFileName(sqldatacon)
         else:
             return False
     if (not hasattr(sqldatacon[0], "execute")):
@@ -3884,16 +3991,22 @@ def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
         sqldump = sqldump+get_insert_stmt_full + \
             "\n-- --------------------------------------------------------\n\n"
     CloseHockeyDatabase(sqldatacon)
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(
-            insdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            insdbfile, verbose=False), verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(
-            insdbfile, verbose=False, jsonverbose=True), verbose=False, jsonverbose=True))
+            insdbfile, verbose=False), verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(
+            insdbfile, verbose=False), verbose=False))
+    elif (verbose):
+        VerbosePrintOut(MakeHockeyArrayFromHockeyDatabase(
+            insdbfile, verbose=False))
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (not os.path.exists(insdbfile) or not os.path.isfile(insdbfile)):
         return False
     if (outsqlfile is None):
@@ -3903,7 +4016,7 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeyDatabase(
-        insdbfile, verbose, jsonverbose)
+        insdbfile, verbose, verbosetype)
     try:
         sqlfp.write(sqlstring)
     except TypeError:
@@ -3925,7 +4038,7 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
     return True
 
 
-def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
     if (isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
         sqldatacon = OpenHockeyDatabase(insdbfile)
     else:
@@ -4076,16 +4189,21 @@ def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=True, jsonverbose=Tr
     CloseHockeyDatabase(sqldatacon)
     if (not CheckHockeyArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, verbosetype="array"):
     if (isinstance(insdbfile, basestring) and (os.path.exists(insdbfile) and os.path.isfile(insdbfile))):
         if (not CheckHockeySQLiteDatabase(insdbfile)[0]):
             return False
@@ -4156,16 +4274,21 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=True, jsonverbose
     sqldatacon[1].close()
     if (not CheckHockeySQLiteArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     xmlstring = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -4222,23 +4345,28 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
     xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return xmlstring
 
 
-def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(
-        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -4260,7 +4388,7 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
     return True
 
 
-def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if not CheckHockeySQLiteArray(inhockeyarray):
         return False
     sgmlstring = ""
@@ -4320,22 +4448,26 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
         return False
     
     if verbose:
-        if jsonverbose:
-            VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
+        if verbosetype=="json":
+            VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False))
+        if verbosetype=="xml":
+            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False))
+        if verbosetype=="sgml":
+            VerbosePrintOut(MakeHockeySGMLFromHockeyArray(inhockeyarray, verbose=False))
         else:
-            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False, jsonverbose=True))
+            VerbosePrintOut(inhockeyarray)
     
     return sgmlstring
 
 
-def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (outsgmlfile is None):
         return False
     fbasename = os.path.splitext(outsgmlfile)[0]
     fextname = os.path.splitext(outsgmlfile)[1]
     sgmlfp = CompressOpenFile(outsgmlfile)
     sgmlstring = MakeHockeySQLiteSGMLFromHockeySQLiteArray(
-        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         sgmlfp.write(sgmlstring)
     except TypeError:
@@ -4357,7 +4489,7 @@ def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=Non
     return True
 
 
-def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if "database" in inhockeyarray.keys():
@@ -4417,23 +4549,28 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
         xmlstring = xml_declaration + hockeyaltxmldtdstring + "\n" + xmlstring[len(xml_declaration):]
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return xmlstring
 
 
-def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, jsonverbose=True):
+def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=True, verbosetype="array"):
     if (outxmlfile is None):
         return False
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
     xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(
-        inhockeyarray, beautify, encoding, includedtd, verbose, jsonverbose)
+        inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         xmlfp.write(xmlstring)
     except TypeError:
@@ -4455,7 +4592,7 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
     return True
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (not CheckHockeySQLiteXML(inxmlfile, xmlisfile)):
         return False
     if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile))):
@@ -4556,16 +4693,21 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding
                             rowscount = rowscount + 1
     if (not CheckHockeySQLiteArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
     """
     Parses SGML data representing a hockey SQLite database and converts it into a hockey SQLite array.
     """
@@ -4591,19 +4733,26 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
         return False
 
     # Verbose output
-    if verbose and jsonverbose:
-        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(leaguearrayout, verbose=False, jsonverbose=True))
-    elif verbose and not jsonverbose:
-        VerbosePrintOut(MakeHockeySQLiteXMLFromHockeySQLiteArray(leaguearrayout, verbose=False, jsonverbose=True))
+    if (verbose and verbosetype=="json"):
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
+        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
 
     return leaguearrayout
 
 
-def MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, jsonverbose=True):
- return MakeHockeySQLiteArrayFromHockeySQLiteSGML(inxmlfile, xmlisfile, encoding, verbose, jsonverbose)
+def MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt(inxmlfile, xmlisfile=True, encoding="UTF-8", verbose=True, verbosetype="array"):
+ return MakeHockeySQLiteArrayFromHockeySQLiteSGML(inxmlfile, xmlisfile, encoding, verbose, verbosetype)
 
 
-def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbose=True):
+def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     leaguearrayout = {'database': str(inhockeyarray['database'])}
@@ -4677,16 +4826,21 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=True, jsonverbos
     leaguearrayout.update({'leaguelist': leaguelist})
     if (not CheckHockeyArray(leaguearrayout)):
         return False
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            leaguearrayout, verbose=False, jsonverbose=True))
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(leaguearrayout)
     return leaguearrayout
 
 
-def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=True, jsonverbose=True):
+def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verbose=True, verbosetype="array"):
     if (not CheckHockeySQLiteArray(inhockeyarray)):
         return False
     if (insdbfile is None or insdbfile == ":memory:"):
@@ -4751,23 +4905,28 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
                 str(get_cur_tab)+" ("+str(', '.join(rkeylist))+") VALUES\n"
             sqldump = sqldump+"("+str(', '.join(rvaluelist))+");\n"
         sqldump = sqldump+"\n-- --------------------------------------------------------\n\n"
-    if (verbose and jsonverbose):
+    if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
-    elif (verbose and not jsonverbose):
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False, jsonverbose=True))
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(inhockeyarray)
     return sqldump
 
 
-def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, jsonverbose=True):
+def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=True, verbosetype="array"):
     if (outsqlfile is None):
         return False
     fbasename = os.path.splitext(outsqlfile)[0]
     fextname = os.path.splitext(outsqlfile)[1]
     sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeySQLiteArray(
-        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, jsonverbose)
+        inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, verbosetype)
     try:
         sqlfp.write(sqlstring)
     except TypeError:

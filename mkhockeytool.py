@@ -72,23 +72,49 @@ def get_user_input(txt):
 
 
 argparser = argparse.ArgumentParser(
-    description="Just a test script dealing with hockey games and stats", conflict_handler="resolve", add_help=True)
-argparser.add_argument("-v", "--ver", "--version",
-                       action="version", version=__program_name__+" "+__version__)
-argparser.add_argument("-i", "-f", "--infile", nargs="?",
-                       default=None, help="database file to load")
-argparser.add_argument("-e", "-n", "--empty",
-                       action="store_true", help="create empty database file")
-argparser.add_argument("-o", "-e", "--outfile", nargs="?",
-                       default=None, help="database file to save")
-argparser.add_argument("-x", "-p", "--export",
-                       action="store_true", help="export file to database")
-argparser.add_argument("-t", "-y", "--type", nargs="?",
-                       default=None, help="type of file to export")
-argparser.add_argument("-V", "-d", "--verbose", action="store_true",
-                       help="print various debugging information")
-argparser.add_argument("-j", "-s", "--jsonverbose", action="store_true",
-                       help="print various debugging information in json")
+    description="A test script for managing hockey games and stats.",
+    conflict_handler="resolve", add_help=True
+)
+argparser.add_argument(
+    "-v", "--ver", "--version",
+    action="version",
+    version=__program_name__ + " " + __version__
+)
+argparser.add_argument(
+    "-i", "-f", "--infile",
+    nargs="?", default=None,
+    help="Specify the input database file to load."
+)
+argparser.add_argument(
+    "-e", "-n", "--empty",
+    action="store_true",
+    help="Create an empty database file."
+)
+argparser.add_argument(
+    "-o", "-e", "--outfile",
+    nargs="?", default=None,
+    help="Specify the output database file to save."
+)
+argparser.add_argument(
+    "-x", "-p", "--export",
+    action="store_true",
+    help="Export the input file to the database."
+)
+argparser.add_argument(
+    "-t", "-y", "--type",
+    nargs="?", default=None,
+    help="Specify the type of file to export."
+)
+argparser.add_argument(
+    "-V", "-d", "--verbose",
+    action="store_true",
+    help="Enable verbose output for debugging information."
+)
+argparser.add_argument(
+    "-T", "-r", "--verbosetype",
+    type=str, default="array",
+    help="Set the verbosity type (e.g., json, sgml, xml). Default is 'array'."
+)
 getargs = argparser.parse_args()
 verboseon = getargs.verbose
 if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
@@ -145,30 +171,30 @@ elif (premenuact == "2"):
             verbosein = False
         if ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeyXML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         elif ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeyXML(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         if ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySGML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySGML(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         elif ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteSGML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeySGML(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         elif ((ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3") and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         elif (ext == ".sql" or subext == ".sql"):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQL(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         elif (ext == ".json" or subext == ".json"):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyJSON(
-                HockeyDatabaseFN, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         else:
             print("ERROR: Invalid Command")
         if (pyhockeystats.CheckHockeySQLiteArray(hockeyarray)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQLiteArray(
-                hockeyarray, verbose=verbosein, jsonverbose=getargs.jsonverbose)
+                hockeyarray, verbose=verbosein, verbosetype=getargs.verbosetype)
         if (not pyhockeystats.CheckHockeyArray(hockeyarray)):
             print("ERROR: Invalid Command")
 
@@ -229,34 +255,34 @@ if (getargs.export):
                 getargs.type = "db3"
     if (getargs.type.lower() == "xml"):
         pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "xmlalt"):
         pyhockeystats.MakeHockeyXMLAltFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "sgml"):
         pyhockeystats.MakeHockeySGMLFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "json"):
         pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "py"):
         pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "pyalt"):
         pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "oopy"):
         pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "oopyalt"):
         pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "sql"):
         pyhockeystats.MakeHockeySQLFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "db3"):
         pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, jsonverbose=getargs.jsonverbose)
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     else:
         print("ERROR: Invalid Command")
     sys.exit()
