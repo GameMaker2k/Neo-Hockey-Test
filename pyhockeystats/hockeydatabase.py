@@ -24,7 +24,7 @@ import logging
 import os
 import re
 import sys
-from pprint import pprint
+from pprint import pprint, pformat
 from xml.sax.saxutils import XMLGenerator
 
 # Python 2 handling: Reload sys and set UTF-8 encoding if applicable
