@@ -25,14 +25,20 @@ import argparse
 import logging
 import os
 import sys
-
 import pyhockeystats
+import re
 
 from typing import Optional
 
 # Configure logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
+
+# Compatibility for input function in Python 2 and 3
+try:
+    input = raw_input
+except NameError:
+    pass
 
 
 class HockeyTool:
@@ -162,7 +168,7 @@ class HockeyTool:
             logger.error("ERROR: Failed to export database. {}".format(e))
             sys.exit(1)
 
-    def determine_export_type(self):
+    def determine_export_type(self) -> Optional[str]:
         """Determine the export type based on the output file extension."""
         if not self.args.outfile:
             return None
@@ -179,7 +185,10 @@ class HockeyTool:
             '4': self.manage_teams,
             '5': self.manage_arenas,
             '6': self.manage_games,
-            '7': self.manage_database
+            '7': self.manage_database,
+            '8': self.move_division_to_conference,
+            '9': self.move_team_to_conference,
+            '10': self.move_team_to_division
         }
 
         while True:
@@ -192,8 +201,11 @@ class HockeyTool:
                 "5: Hockey Arena Tool\n"
                 "6: Hockey Game Tool\n"
                 "7: Hockey Database Tool\n"
+                "8: Move Division to Conference\n"
+                "9: Move Team to Conference\n"
+                "10: Move Team to Division\n"
                 "What would you like to do? ",
-                choices=['E', '1', '2', '3', '4', '5', '6', '7']
+                choices=['E', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
             )
 
             if choice == 'E':
@@ -243,11 +255,18 @@ class HockeyTool:
         fn = self.prompt_input("Enter Hockey League full name: ")
         csn = self.prompt_input("Enter Hockey League country short name: ")
         cfn = self.prompt_input("Enter Hockey League country full name: ")
-        sd = self.prompt_input("Enter Hockey League start date (YYYY-MM-DD): ")
+        sd = self.prompt_input("Enter Hockey League start date (YYYYMMDD): ")
+        if not self.validate_date(sd):
+            logger.error("ERROR: Invalid date format. Please use YYYYMMDD.")
+            return
         pof = self.prompt_input("Enter Hockey League playoff format: ")
         ot = self.prompt_input("Enter Hockey League order type: ")
         hc = self.prompt_input("Does the Hockey League have conferences? (yes/no): ").lower()
         hd = self.prompt_input("Does the Hockey League have divisions? (yes/no): ").lower()
+
+        if hc not in ['yes', 'no'] or hd not in ['yes', 'no']:
+            logger.error("ERROR: Please respond with 'yes' or 'no'.")
+            return
 
         self.hockeyarray = pyhockeystats.AddHockeyLeagueToArray(
             self.hockeyarray, sn, fn, csn, cfn, sd, pof, ot, hc, hd
@@ -292,34 +311,43 @@ class HockeyTool:
 
         if choice is not None:
             old_sn = leagues[choice]
-            new_sn = self.prompt_input("Enter new Hockey League short name: ")
-            if new_sn in self.hockeyarray.get('leaguelist', []):
+            new_sn = self.prompt_input("Enter new Hockey League short name (press Enter to keep current): ")
+            new_sn = new_sn if new_sn else old_sn
+
+            if new_sn != old_sn and new_sn in self.hockeyarray.get('leaguelist', []):
                 logger.error("ERROR: Hockey League with that short name already exists.")
                 return
 
-            new_fn = self.prompt_input("Enter new Hockey League full name: ")
-            new_csn = self.prompt_input("Enter new Hockey League country short name: ")
-            new_cfn = self.prompt_input("Enter new Hockey League country full name: ")
-            new_sd = self.prompt_input("Enter new Hockey League start date (YYYY-MM-DD): ")
-            new_pof = self.prompt_input("Enter new Hockey League playoff format: ")
-            new_ot = self.prompt_input("Enter new Hockey League order type: ")
-            new_hc = self.prompt_input("Does the Hockey League have conferences? (yes/no): ").lower()
-            new_hd = self.prompt_input("Does the Hockey League have divisions? (yes/no): ").lower()
+            new_fn = self.prompt_input("Enter new Hockey League full name (press Enter to keep current): ") or self.hockeyarray[old_sn]['leagueinfo']['fullname']
+            new_csn = self.prompt_input("Enter new Hockey League country short name (press Enter to keep current): ") or self.hockeyarray[old_sn]['leagueinfo']['country_short']
+            new_cfn = self.prompt_input("Enter new Hockey League country full name (press Enter to keep current): ") or self.hockeyarray[old_sn]['leagueinfo']['country_full']
+            new_sd = self.prompt_input("Enter new Hockey League start date (YYYYMMDD) (press Enter to keep current): ") or self.hockeyarray[old_sn]['leagueinfo']['start_date']
+            if new_sd != self.hockeyarray[old_sn]['leagueinfo']['start_date'] and not self.validate_date(new_sd):
+                logger.error("ERROR: Invalid date format. Please use YYYYMMDD.")
+                return
+            new_pof = self.prompt_input("Enter new Hockey League playoff format (press Enter to keep current): ") or self.hockeyarray[old_sn]['leagueinfo']['playoff_format']
+            new_ot = self.prompt_input("Enter new Hockey League order type (press Enter to keep current): ") or self.hockeyarray[old_sn]['leagueinfo']['order_type']
+            new_hc = self.prompt_input("Does the Hockey League have conferences? (yes/no) (press Enter to keep current): ").lower() or self.hockeyarray[old_sn]['leagueinfo']['conferences']
+            new_hd = self.prompt_input("Does the Hockey League have divisions? (yes/no) (press Enter to keep current): ").lower() or self.hockeyarray[old_sn]['leagueinfo']['divisions']
+
+            if new_hc not in ['yes', 'no'] or new_hd not in ['yes', 'no']:
+                logger.error("ERROR: Please respond with 'yes' or 'no'.")
+                return
 
             self.hockeyarray = pyhockeystats.ReplaceHockeyLeagueFromArray(
                 self.hockeyarray, old_sn, new_sn, new_fn, new_csn, new_cfn,
                 new_sd, new_pof, new_ot, new_hc, new_hd
             )
 
-            if new_hc == "no":
+            if new_hc == "no" and self.hockeyarray[old_sn]['leagueinfo']['conferences'] != "no":
                 self.hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
                     self.hockeyarray, new_sn, ""
                 )
-            if new_hd == "no":
+            if new_hd == "no" and self.hockeyarray[old_sn]['leagueinfo']['divisions'] != "no":
                 self.hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
                     self.hockeyarray, new_sn, "", ""
                 )
-            logger.info("Hockey League '{}' updated successfully.".format(old_sn))
+            logger.info("Hockey League '{}' updated successfully.".format(new_fn))
 
     def manage_conferences(self):
         """Manage hockey conferences."""
@@ -335,15 +363,13 @@ class HockeyTool:
 
         league_sn = leagues[league_index]
         if self.hockeyarray[league_sn]['leagueinfo'].get('conferences', 'no') != "yes":
-            logger.error("ERROR: The Hockey League does not have conferences.")
+            logger.error("ERROR: Hockey League does not have conferences.")
             return
 
         submenu_options = {
             '1': lambda: self.add_conference(league_sn),
             '2': lambda: self.remove_conference(league_sn),
-            '3': lambda: self.edit_conference(league_sn),
-            '4': lambda: self.move_division_to_conference(league_sn),
-            '5': lambda: self.move_team_to_conference(league_sn)
+            '3': lambda: self.edit_conference(league_sn)
         }
 
         while True:
@@ -352,10 +378,8 @@ class HockeyTool:
                 "1: Add Hockey Conference\n"
                 "2: Remove Hockey Conference\n"
                 "3: Edit Hockey Conference\n"
-                "4: Move Hockey Division to Another Conference\n"
-                "5: Move Hockey Team to Another Conference\n"
                 "What would you like to do? ",
-                choices=['E', '1', '2', '3', '4', '5']
+                choices=['E', '1', '2', '3']
             )
 
             if choice == 'E':
@@ -370,7 +394,7 @@ class HockeyTool:
     def add_conference(self, league_sn):
         """Add a new hockey conference to a league."""
         cn = self.prompt_input("Enter Hockey Conference name: ")
-        if cn in self.hockeyarray[league_sn].get('conferencelist', []):
+        if cn in self.hockeyarray[league_sn]['conferencelist']:
             logger.error("ERROR: Hockey Conference with that name already exists.")
             return
 
@@ -411,117 +435,20 @@ class HockeyTool:
 
         if choice is not None:
             old_cn = conferences[choice]
-            new_cn = self.prompt_input("Enter new Hockey Conference name: ")
-            if new_cn in self.hockeyarray[league_sn].get('conferencelist', []):
+            new_cn = self.prompt_input("Enter new Hockey Conference name (press Enter to keep current): ")
+            new_cn = new_cn if new_cn else old_cn
+
+            if new_cn != old_cn and new_cn in self.hockeyarray[league_sn]['conferencelist']:
                 logger.error("ERROR: Hockey Conference with that name already exists.")
                 return
 
-            new_cpf = self.prompt_input("Enter new Hockey Conference prefix: ")
-            new_csf = self.prompt_input("Enter new Hockey Conference suffix: ")
+            new_cpf = self.prompt_input("Enter new Hockey Conference prefix (press Enter to keep current): ") or self.hockeyarray[league_sn][old_cn]['conferenceinfo']['prefix']
+            new_csf = self.prompt_input("Enter new Hockey Conference suffix (press Enter to keep current): ") or self.hockeyarray[league_sn][old_cn]['conferenceinfo']['suffix']
 
-            self.hockeyarray = pyhockeystats.ReplaceHockeyConferencFromArray(
+            self.hockeyarray = pyhockeystats.ReplaceHockeyConferenceFromArray(
                 self.hockeyarray, league_sn, old_cn, new_cn, new_cpf, new_csf
             )
-            logger.info("Hockey Conference '{}' updated successfully in league '{}'.".format(old_cn, league_sn))
-
-    def move_division_to_conference(self, league_sn):
-        """Move a hockey division from one conference to another within a league."""
-        divisions = []
-        for conf in self.hockeyarray[league_sn].get('conferencelist', []):
-            divisions += [(conf, div) for div in self.hockeyarray[league_sn].get(conf, {}).get('divisionlist', [])]
-
-        if not divisions:
-            logger.error("ERROR: There are no Hockey Divisions to move.")
-            return
-
-        # Display divisions with their current conferences
-        division_descriptions = ["{}: {}".format(conf, div) for conf, div in divisions]
-        self.display_list(division_descriptions, "Hockey Divisions (Conference: Division)")
-
-        choice = self.prompt_selection(len(divisions), "Enter Hockey Division number to move: ")
-        if choice is None:
-            return
-
-        old_conference, division = divisions[choice]
-
-        # Display target conferences
-        target_conferences = self.hockeyarray[league_sn].get('conferencelist', [])
-        if not target_conferences:
-            logger.error("ERROR: There are no target conferences available.")
-            return
-
-        self.display_list(target_conferences, "Target Conferences")
-        target_choice = self.prompt_selection(len(target_conferences), "Enter target Hockey Conference number: ")
-        if target_choice is None:
-            return
-
-        new_conference = target_conferences[target_choice]
-
-        if old_conference == new_conference:
-            logger.error("ERROR: Division is already in the selected conference.")
-            return
-
-        self.hockeyarray = pyhockeystats.MoveHockeyDivisionToConferenceFromArray(
-            self.hockeyarray, league_sn, division, old_conference, new_conference
-        )
-        logger.info("Hockey Division '{}' moved from conference '{}' to '{}.'".format(division, old_conference, new_conference))
-
-    def move_team_to_conference(self, league_sn):
-        """Move a hockey team from one conference to another within a league."""
-        teams = []
-        for conf in self.hockeyarray[league_sn].get('conferencelist', []):
-            for div in self.hockeyarray[league_sn].get(conf, {}).get('divisionlist', []):
-                for team in self.hockeyarray[league_sn].get(conf, {}).get(div, {}).get('teamlist', []):
-                    teams.append((conf, div, team))
-
-        if not teams:
-            logger.error("ERROR: There are no Hockey Teams to move.")
-            return
-
-        # Display teams with their current conferences and divisions
-        team_descriptions = ["{} > {}: {}".format(conf, div, team) for conf, div, team in teams]
-        self.display_list(team_descriptions, "Hockey Teams (Conference > Division: Team)")
-
-        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
-        if choice is None:
-            return
-
-        old_conference, old_division, teamname = teams[choice]
-
-        # Display target conferences
-        target_conferences = self.hockeyarray[league_sn].get('conferencelist', [])
-        if not target_conferences:
-            logger.error("ERROR: There are no target conferences available.")
-            return
-
-        self.display_list(target_conferences, "Target Conferences")
-        target_choice = self.prompt_selection(len(target_conferences), "Enter target Hockey Conference number: ")
-        if target_choice is None:
-            return
-
-        new_conference = target_conferences[target_choice]
-
-        if old_conference == new_conference:
-            logger.error("ERROR: Team is already in the selected conference.")
-            return
-
-        # Display target divisions within the new conference
-        target_divisions = self.hockeyarray[league_sn].get(new_conference, {}).get('divisionlist', [])
-        if not target_divisions:
-            logger.error("ERROR: There are no target divisions in the selected conference.")
-            return
-
-        self.display_list(target_divisions, "Target Divisions in Conference '{}'".format(new_conference))
-        division_choice = self.prompt_selection(len(target_divisions), "Enter target Hockey Division number: ")
-        if division_choice is None:
-            return
-
-        new_division = target_divisions[division_choice]
-
-        self.hockeyarray = pyhockeystats.MoveHockeyTeamToConferenceFromArray(
-            self.hockeyarray, league_sn, teamname, old_conference, new_conference, new_division
-        )
-        logger.info("Hockey Team '{}' moved from conference '{}' to '{}' in division '{}'.".format(teamname, old_conference, new_conference, new_division))
+            logger.info("Hockey Conference '{}' updated successfully in league '{}'.".format(new_cn, league_sn))
 
     def manage_divisions(self):
         """Manage hockey divisions."""
@@ -536,16 +463,14 @@ class HockeyTool:
             return
 
         league_sn = leagues[league_index]
-        has_divisions = self.hockeyarray[league_sn]['leagueinfo'].get('divisions', 'no') == "yes"
-        if not has_divisions:
-            logger.error("ERROR: The Hockey League does not have divisions.")
+        if self.hockeyarray[league_sn]['leagueinfo'].get('divisions', 'no') != "yes":
+            logger.error("ERROR: Hockey League does not have divisions.")
             return
 
         submenu_options = {
             '1': lambda: self.add_division(league_sn),
             '2': lambda: self.remove_division(league_sn),
-            '3': lambda: self.edit_division(league_sn),
-            '4': lambda: self.move_team_to_division(league_sn)
+            '3': lambda: self.edit_division(league_sn)
         }
 
         while True:
@@ -554,9 +479,8 @@ class HockeyTool:
                 "1: Add Hockey Division\n"
                 "2: Remove Hockey Division\n"
                 "3: Edit Hockey Division\n"
-                "4: Move Hockey Team to Another Division\n"
                 "What would you like to do? ",
-                choices=['E', '1', '2', '3', '4']
+                choices=['E', '1', '2', '3']
             )
 
             if choice == 'E':
@@ -572,8 +496,7 @@ class HockeyTool:
         """Add a new hockey division to a league or conference."""
         dn = self.prompt_input("Enter Hockey Division name: ")
         target = 'conferencelist' if conference_sn else 'divisionlist'
-        existing_divisions = self.hockeyarray[league_sn].get(target, [])
-        if dn in existing_divisions:
+        if dn in self.hockeyarray[league_sn][target]:
             logger.error("ERROR: Hockey Division with that name already exists.")
             return
 
@@ -618,64 +541,21 @@ class HockeyTool:
 
         if choice is not None:
             old_dn = divisions[choice]
-            new_dn = self.prompt_input("Enter new Hockey Division name: ")
-            if new_dn in self.hockeyarray[league_sn].get(target, []):
+            new_dn = self.prompt_input("Enter new Hockey Division name (press Enter to keep current): ")
+            new_dn = new_dn if new_dn else old_dn
+
+            if new_dn != old_dn and new_dn in self.hockeyarray[league_sn][target]:
                 logger.error("ERROR: Hockey Division with that name already exists.")
                 return
 
-            new_dpf = self.prompt_input("Enter new Hockey Division prefix: ")
-            new_dsf = self.prompt_input("Enter new Hockey Division suffix: ")
+            new_dpf = self.prompt_input("Enter new Hockey Division prefix (press Enter to keep current): ") or self.hockeyarray[league_sn][target][old_dn]['divisioninfo']['prefix']
+            new_dsf = self.prompt_input("Enter new Hockey Division suffix (press Enter to keep current): ") or self.hockeyarray[league_sn][target][old_dn]['divisioninfo']['suffix']
 
             self.hockeyarray = pyhockeystats.ReplaceHockeyDivisionFromArray(
                 self.hockeyarray, league_sn, new_dn, old_dn, conference_sn, new_dpf, new_dsf
             )
             location = "conference '{}' in league '{}'".format(conference_sn, league_sn) if conference_sn else "league '{}'".format(league_sn)
-            logger.info("Hockey Division '{}' updated successfully in {}.".format(old_dn, location))
-
-    def move_team_to_division(self, league_sn):
-        """Move a hockey team from one division to another within a league."""
-        teams = []
-        for conf in self.hockeyarray[league_sn].get('conferencelist', []):
-            for div in self.hockeyarray[league_sn].get(conf, {}).get('divisionlist', []):
-                for team in self.hockeyarray[league_sn].get(conf, {}).get(div, {}).get('teamlist', []):
-                    teams.append((conf, div, team))
-
-        if not teams:
-            logger.error("ERROR: There are no Hockey Teams to move.")
-            return
-
-        # Display teams with their current conferences and divisions
-        team_descriptions = ["{} > {}: {}".format(conf, div, team) for conf, div, team in teams]
-        self.display_list(team_descriptions, "Hockey Teams (Conference > Division: Team)")
-
-        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
-        if choice is None:
-            return
-
-        old_conference, old_division, teamname = teams[choice]
-
-        # Display target divisions within the same conference
-        target_divisions = self.hockeyarray[league_sn].get(old_conference, {}).get('divisionlist', [])
-        if not target_divisions:
-            logger.error("ERROR: There are no target divisions available.")
-            return
-
-        self.display_list(target_divisions, "Target Divisions in Conference '{}'".format(old_conference))
-        division_choice = self.prompt_selection(len(target_divisions), "Enter target Hockey Division number: ")
-        if division_choice is None:
-            return
-
-        new_division = target_divisions[division_choice]
-
-        if old_division == new_division:
-            logger.error("ERROR: Team is already in the selected division.")
-            return
-
-        self.hockeyarray = pyhockeystats.MoveHockeyTeamToDivisionFromArray(
-            self.hockeyarray, league_sn, teamname, old_conference, new_division
-        )
-        logger.info("Hockey Team '{}' moved from division '{}' to '{}' in conference '{}'.".format(
-            teamname, old_division, new_division, old_conference))
+            logger.info("Hockey Division '{}' updated successfully to '{}' in {}.".format(old_dn, new_dn, location))
 
     def manage_teams(self):
         """Manage hockey teams."""
@@ -691,19 +571,19 @@ class HockeyTool:
 
         league_sn = leagues[league_index]
 
-        # Display Conferences if they exist
+        # Determine if the league has conferences
         conferences = self.hockeyarray[league_sn].get('conferencelist', [])
-        if conferences:
+        if conferences and self.hockeyarray[league_sn]['leagueinfo'].get('conferences', 'no') == "yes":
             self.display_list(conferences, "Hockey Conferences")
-            conference_index = self.prompt_selection(len(conferences), "Enter Hockey Conference number (or 'E' to skip): ")
-            if conference_index is not None:
-                conference_sn = conferences[conference_index]
+            conference_choice = self.prompt_selection(len(conferences), "Enter Hockey Conference number (or 'E' to skip): ")
+            if conference_choice is not None:
+                conference_sn = conferences[conference_choice]
             else:
                 conference_sn = None
         else:
             conference_sn = None
 
-        # Display Divisions
+        # Determine divisions based on conference presence
         target = 'conferencelist' if conference_sn else 'divisionlist'
         divisions = self.hockeyarray[league_sn].get(target, [])
         if not divisions:
@@ -711,17 +591,16 @@ class HockeyTool:
             return
 
         self.display_list(divisions, "Hockey Divisions")
-        division_index = self.prompt_selection(len(divisions), "Enter Hockey Division number: ")
-        if division_index is None:
+        division_choice = self.prompt_selection(len(divisions), "Enter Hockey Division number: ")
+        if division_choice is None:
             return
 
-        division_sn = divisions[division_index]
+        division_sn = divisions[division_choice]
 
         submenu_options = {
             '1': lambda: self.add_team(league_sn, conference_sn, division_sn),
             '2': lambda: self.remove_team(league_sn, conference_sn, division_sn),
-            '3': lambda: self.edit_team(league_sn, conference_sn, division_sn),
-            '4': lambda: self.move_team_to_division_within(league_sn, conference_sn, division_sn)
+            '3': lambda: self.edit_team(league_sn, conference_sn, division_sn)
         }
 
         while True:
@@ -730,9 +609,8 @@ class HockeyTool:
                 "1: Add Hockey Team\n"
                 "2: Remove Hockey Team\n"
                 "3: Edit Hockey Team\n"
-                "4: Move Hockey Team to Another Division\n"
                 "What would you like to do? ",
-                choices=['E', '1', '2', '3', '4']
+                choices=['E', '1', '2', '3']
             )
 
             if choice == 'E':
@@ -797,8 +675,10 @@ class HockeyTool:
 
         if choice is not None:
             oldteamname = teams[choice]
-            newteamname = self.prompt_input("Enter new Hockey Team name: ")
-            if newteamname in self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', []):
+            newteamname = self.prompt_input("Enter new Hockey Team name (press Enter to keep current): ")
+            newteamname = newteamname if newteamname else oldteamname
+
+            if newteamname != oldteamname and newteamname in self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', []):
                 logger.error("ERROR: Hockey Team with that name already exists.")
                 return
 
@@ -819,42 +699,6 @@ class HockeyTool:
                 arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
             )
             logger.info("Hockey Team '{}' updated successfully to '{}' in division '{}'.".format(oldteamname, newteamname, division_sn))
-
-    def move_team_to_division_within(self, league_sn, conference_sn, division_sn):
-        """Move a hockey team to another division within the same conference."""
-        teams = self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', [])
-        if not teams:
-            logger.error("ERROR: There are no Hockey Teams to move.")
-            return
-
-        self.display_list(teams, "Hockey Teams")
-        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
-
-        if choice is not None:
-            teamname = teams[choice]
-
-            # Display target divisions within the same conference
-            target_divisions = self.hockeyarray[league_sn].get(conference_sn, {}).get('divisionlist', [])
-            if not target_divisions:
-                logger.error("ERROR: There are no target divisions available.")
-                return
-
-            self.display_list(target_divisions, "Target Divisions in Conference '{}'".format(conference_sn))
-            division_choice = self.prompt_selection(len(target_divisions), "Enter target Hockey Division number: ")
-            if division_choice is None:
-                return
-
-            new_division = target_divisions[division_choice]
-
-            if division_sn == new_division:
-                logger.error("ERROR: Team is already in the selected division.")
-                return
-
-            self.hockeyarray = pyhockeystats.MoveHockeyTeamToDivisionFromArray(
-                self.hockeyarray, league_sn, teamname, conference_sn, division_sn, new_division
-            )
-            logger.info("Hockey Team '{}' moved from division '{}' to '{}' in conference '{}'.".format(
-                teamname, division_sn, new_division, conference_sn))
 
     def manage_arenas(self):
         """Manage hockey arenas."""
@@ -945,8 +789,10 @@ class HockeyTool:
 
         if choice is not None:
             old_arenaname = arenas[choice]['name']
-            new_arenaname = self.prompt_input("Enter new Hockey Arena name: ")
-            if any(arena['name'] == new_arenaname for arena in self.hockeyarray.get(league_sn, {}).get('arenas', [])):
+            new_arenaname = self.prompt_input("Enter new Hockey Arena name (press Enter to keep current): ")
+            new_arenaname = new_arenaname if new_arenaname else old_arenaname
+
+            if new_arenaname != old_arenaname and any(arena['name'] == new_arenaname for arena in self.hockeyarray[league_sn].get('arenas', [])):
                 logger.error("ERROR: Hockey Arena with that name already exists.")
                 return
 
@@ -961,8 +807,7 @@ class HockeyTool:
                 self.hockeyarray, league_sn, old_arenaname, new_arenaname,
                 cityname, areaname, countryname, fullcountryname, fullareaname
             )
-            logger.info("Hockey Arena '{}' updated successfully to '{}' in league '{}'.".format(
-                old_arenaname, new_arenaname, league_sn))
+            logger.info("Hockey Arena '{}' updated successfully to '{}' in league '{}'.".format(old_arenaname, new_arenaname, league_sn))
 
     def manage_games(self):
         """Manage hockey games."""
@@ -981,8 +826,7 @@ class HockeyTool:
         submenu_options = {
             '1': lambda: self.add_game(league_sn),
             '2': lambda: self.remove_game(league_sn),
-            '3': lambda: self.edit_game(league_sn),
-            '4': lambda: self.move_game(league_sn)
+            '3': lambda: self.edit_game(league_sn)
         }
 
         while True:
@@ -991,9 +835,8 @@ class HockeyTool:
                 "1: Add Hockey Game\n"
                 "2: Remove Hockey Game\n"
                 "3: Edit Hockey Game\n"
-                "4: Move Hockey Game\n"
                 "What would you like to do? ",
-                choices=['E', '1', '2', '3', '4']
+                choices=['E', '1', '2', '3']
             )
 
             if choice == 'E':
@@ -1007,8 +850,16 @@ class HockeyTool:
 
     def add_game(self, league_sn):
         """Add a new hockey game."""
-        date = self.prompt_input("Enter Game Date (YYYY-MM-DD): ")
+        date = self.prompt_input("Enter Game Date (YYYYMMDD): ")
+        if not self.validate_date(date):
+            logger.error("ERROR: Invalid date format. Please use YYYYMMDD.")
+            return
+
         time = self.prompt_input("Enter Game Time (HH:MM): ")
+        if not self.validate_time(time):
+            logger.error("ERROR: Invalid time format. Please use HH:MM.")
+            return
+
         hometeam = self.prompt_input("Enter Home Team Full Name: ")
         awayteam = self.prompt_input("Enter Away Team Full Name: ")
         periodsscore = self.prompt_input("Enter Periods' Score: ")
@@ -1022,6 +873,9 @@ class HockeyTool:
         faceoffwins = self.prompt_input("Enter Faceoff Wins: ")
         atarena = self.prompt_input("Enter Arena Name: ")
         isplayoffgame = self.prompt_input("Is Playoff Game? (yes/no): ").lower()
+        if isplayoffgame not in ['yes', 'no']:
+            logger.error("ERROR: Please respond with 'yes' or 'no'.")
+            return
 
         self.hockeyarray = pyhockeystats.AddHockeyGameToArray(
             self.hockeyarray, league_sn, date, time, hometeam, awayteam,
@@ -1029,8 +883,7 @@ class HockeyTool:
             periodpims, periodhits, takeaways, faceoffwins, atarena,
             isplayoffgame
         )
-        logger.info("Hockey Game between '{}' and '{}' on {} added successfully.".format(
-            hometeam, awayteam, date))
+        logger.info("Hockey Game between '{}' and '{}' on {} added successfully.".format(hometeam, awayteam, date))
 
     def remove_game(self, league_sn):
         """Remove an existing hockey game."""
@@ -1051,8 +904,7 @@ class HockeyTool:
             self.hockeyarray = pyhockeystats.RemoveHockeyGameFromArray(
                 self.hockeyarray, league_sn, game['date'], game['hometeam'], game['awayteam']
             )
-            logger.info("Hockey Game between '{}' and '{}' on {} removed successfully.".format(
-                game['hometeam'], game['awayteam'], game['date']))
+            logger.info("Hockey Game between '{}' and '{}' on {} removed successfully.".format(game['hometeam'], game['awayteam'], game['date']))
 
     def edit_game(self, league_sn):
         """Edit an existing hockey game."""
@@ -1071,25 +923,37 @@ class HockeyTool:
         if choice is not None:
             game = games[choice]
             olddate = game['date']
+            oldtime = game['time']
             oldhometeam = game['hometeam']
             oldawayteam = game['awayteam']
 
             # Collect optional updates
-            newdate = self.prompt_input("Enter new Game Date (YYYY-MM-DD) (press Enter to skip): ") or None
-            newtime = self.prompt_input("Enter new Game Time (HH:MM) (press Enter to skip): ") or None
-            newhometeam = self.prompt_input("Enter new Home Team Full Name (press Enter to skip): ") or None
-            newawayteam = self.prompt_input("Enter new Away Team Full Name (press Enter to skip): ") or None
-            periodsscore = self.prompt_input("Enter new Periods' Score (press Enter to skip): ") or None
-            shotsongoal = self.prompt_input("Enter new Shots on Goal (press Enter to skip): ") or None
-            ppgoals = self.prompt_input("Enter new Power-Play Goals (press Enter to skip): ") or None
-            shgoals = self.prompt_input("Enter new Short-Handed Goals (press Enter to skip): ") or None
-            periodpens = self.prompt_input("Enter new Period Penalties (press Enter to skip): ") or None
-            periodpims = self.prompt_input("Enter new Period PIMs (press Enter to skip): ") or None
-            periodhits = self.prompt_input("Enter new Period Hits (press Enter to skip): ") or None
-            takeaways = self.prompt_input("Enter new Takeaways (press Enter to skip): ") or None
-            faceoffwins = self.prompt_input("Enter new Faceoff Wins (press Enter to skip): ") or None
-            atarena = self.prompt_input("Enter new Arena Name (press Enter to skip): ") or None
-            isplayoffgame = self.prompt_input("Is Playoff Game? (yes/no) (press Enter to skip): ").lower() or None
+            newdate = self.prompt_input("Enter new Game Date (YYYYMMDD) (press Enter to keep current): ") or olddate
+            if newdate != olddate and not self.validate_date(newdate):
+                logger.error("ERROR: Invalid date format. Please use YYYYMMDD.")
+                return
+
+            newtime = self.prompt_input("Enter new Game Time (HH:MM) (press Enter to keep current): ") or oldtime
+            if newtime != oldtime and not self.validate_time(newtime):
+                logger.error("ERROR: Invalid time format. Please use HH:MM.")
+                return
+
+            newhometeam = self.prompt_input("Enter new Home Team Full Name (press Enter to keep current): ") or oldhometeam
+            newawayteam = self.prompt_input("Enter new Away Team Full Name (press Enter to keep current): ") or oldawayteam
+            periodsscore = self.prompt_input("Enter new Periods' Score (press Enter to keep current): ") or game['goals']
+            shotsongoal = self.prompt_input("Enter new Shots on Goal (press Enter to keep current): ") or game['sogs']
+            ppgoals = self.prompt_input("Enter new Power-Play Goals (press Enter to keep current): ") or game['ppgs']
+            shgoals = self.prompt_input("Enter new Short-Handed Goals (press Enter to keep current): ") or game['shgs']
+            periodpens = self.prompt_input("Enter new Period Penalties (press Enter to keep current): ") or game['penalties']
+            periodpims = self.prompt_input("Enter new Period PIMs (press Enter to keep current): ") or game['pims']
+            periodhits = self.prompt_input("Enter new Period Hits (press Enter to keep current): ") or game['hits']
+            takeaways = self.prompt_input("Enter new Takeaways (press Enter to keep current): ") or game['takeaways']
+            faceoffwins = self.prompt_input("Enter new Faceoff Wins (press Enter to keep current): ") or game['faceoffwins']
+            atarena = self.prompt_input("Enter new Arena Name (press Enter to keep current): ") or game['atarena']
+            isplayoffgame = self.prompt_input("Is Playoff Game? (yes/no) (press Enter to keep current): ").lower() or game['isplayoffgame']
+            if isplayoffgame not in ['yes', 'no']:
+                logger.error("ERROR: Please respond with 'yes' or 'no'.")
+                return
 
             self.hockeyarray = pyhockeystats.ReplaceHockeyGameInArray(
                 self.hockeyarray, league_sn, olddate, oldhometeam, oldawayteam,
@@ -1097,14 +961,7 @@ class HockeyTool:
                 shotsongoal, ppgoals, shgoals, periodpens, periodpims,
                 periodhits, takeaways, faceoffwins, atarena, isplayoffgame
             )
-            logger.info("Hockey Game on {} between '{}' and '{}' updated successfully.".format(
-                olddate, oldhometeam, oldawayteam))
-
-    def move_game(self, league_sn):
-        """Move a hockey game to another league (if applicable)."""
-        # Assuming moving a game between leagues is not typical, but the function is added for completeness.
-        logger.error("ERROR: Moving games between leagues is not implemented.")
-        print("Moving games between leagues is not supported at this time.")
+            logger.info("Hockey Game on '{}' between '{}' and '{}' updated successfully.".format(newdate, newhometeam, newawayteam))
 
     def manage_database(self):
         """Manage hockey database (import/export)."""
@@ -1178,48 +1035,220 @@ class HockeyTool:
             else:
                 logger.error("ERROR: Invalid Command.")
 
-    def prompt_input(self, prompt_text):
-        """Prompt the user for input."""
-        try:
-            return raw_input(prompt_text).strip()
-        except NameError:
-            return input(prompt_text).strip()
+    def move_division_to_conference(self):
+        """Move a hockey division from one conference to another."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
 
-    def prompt_filename(self, prompt_text):
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+
+        conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if len(conferences) < 2:
+            logger.error("ERROR: Not enough conferences to perform move.")
+            return
+
+        self.display_list(conferences, "Hockey Conferences")
+        old_conference_index = self.prompt_selection(len(conferences), "Enter source Hockey Conference number: ")
+        if old_conference_index is None:
+            return
+        old_conference_sn = conferences[old_conference_index]
+
+        new_conference_index = self.prompt_selection(len(conferences), "Enter destination Hockey Conference number: ")
+        if new_conference_index is None:
+            return
+        new_conference_sn = conferences[new_conference_index]
+
+        divisions = self.hockeyarray[league_sn][old_conference_sn].get('divisionlist', [])
+        if not divisions:
+            logger.error("ERROR: No divisions found in the source conference.")
+            return
+
+        self.display_list(divisions, "Hockey Divisions in Conference '{}'".format(old_conference_sn))
+        division_index = self.prompt_selection(len(divisions), "Enter Hockey Division number to move: ")
+        if division_index is None:
+            return
+        division_sn = divisions[division_index]
+
+        self.hockeyarray = pyhockeystats.MoveHockeyDivisionToConferenceFromArray(
+            self.hockeyarray, league_sn, division_sn, old_conference_sn, new_conference_sn
+        )
+        logger.info("Hockey Division '{}' moved from conference '{}' to '{}.'".format(division_sn, old_conference_sn, new_conference_sn))
+
+    def move_team_to_conference(self):
+        """Move a hockey team from one conference to another."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+
+        conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if len(conferences) < 2:
+            logger.error("ERROR: Not enough conferences to perform move.")
+            return
+
+        self.display_list(conferences, "Hockey Conferences")
+        old_conference_index = self.prompt_selection(len(conferences), "Enter source Hockey Conference number: ")
+        if old_conference_index is None:
+            return
+        old_conference_sn = conferences[old_conference_index]
+
+        new_conference_index = self.prompt_selection(len(conferences), "Enter destination Hockey Conference number: ")
+        if new_conference_index is None:
+            return
+        new_conference_sn = conferences[new_conference_index]
+
+        divisions = self.hockeyarray[league_sn][old_conference_sn].get('divisionlist', [])
+        if not divisions:
+            logger.error("ERROR: No divisions found in the source conference.")
+            return
+
+        self.display_list(divisions, "Hockey Divisions in Conference '{}'".format(old_conference_sn))
+        division_index = self.prompt_selection(len(divisions), "Enter Hockey Division number containing the team: ")
+        if division_index is None:
+            return
+        division_sn = divisions[division_index]
+
+        teams = self.hockeyarray[league_sn][old_conference_sn][division_sn].get('teamlist', [])
+        if not teams:
+            logger.error("ERROR: There are no teams to move in this division.")
+            return
+
+        self.display_list(teams, "Hockey Teams in Division '{}'".format(division_sn))
+        team_index = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
+        if team_index is None:
+            return
+        team_sn = teams[team_index]
+
+        self.hockeyarray = pyhockeystats.MoveHockeyTeamToConferenceFromArray(
+            self.hockeyarray, league_sn, team_sn, old_conference_sn, new_conference_sn, division_sn
+        )
+        logger.info("Hockey Team '{}' moved from conference '{}' to '{}'.".format(team_sn, old_conference_sn, new_conference_sn))
+
+    def move_team_to_division(self):
+        """Move a hockey team from one division to another within the same conference."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+
+        conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if not conferences:
+            logger.error("ERROR: There are no Hockey Conferences.")
+            return
+
+        self.display_list(conferences, "Hockey Conferences")
+        conference_index = self.prompt_selection(len(conferences), "Enter Hockey Conference number: ")
+        if conference_index is None:
+            return
+        conference_sn = conferences[conference_index]
+
+        divisions = self.hockeyarray[league_sn][conference_sn].get('divisionlist', [])
+        if len(divisions) < 2:
+            logger.error("ERROR: Not enough divisions to perform move.")
+            return
+
+        self.display_list(divisions, "Hockey Divisions in Conference '{}'".format(conference_sn))
+        old_division_index = self.prompt_selection(len(divisions), "Enter source Hockey Division number: ")
+        if old_division_index is None:
+            return
+        old_division_sn = divisions[old_division_index]
+
+        new_division_index = self.prompt_selection(len(divisions), "Enter destination Hockey Division number: ")
+        if new_division_index is None:
+            return
+        new_division_sn = divisions[new_division_index]
+
+        teams = self.hockeyarray[league_sn][conference_sn][old_division_sn].get('teamlist', [])
+        if not teams:
+            logger.error("ERROR: There are no teams to move in this division.")
+            return
+
+        self.display_list(teams, "Hockey Teams in Division '{}'".format(old_division_sn))
+        team_index = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
+        if team_index is None:
+            return
+        team_sn = teams[team_index]
+
+        self.hockeyarray = pyhockeystats.MoveHockeyTeamToDivisionFromArray(
+            self.hockeyarray, league_sn, team_sn, conference_sn, old_division_sn, new_division_sn
+        )
+        logger.info("Hockey Team '{}' moved from division '{}' to '{}'.".format(team_sn, old_division_sn, new_division_sn))
+
+    @staticmethod
+    def prompt_input(prompt_text):
+        """Prompt the user for input."""
+        return input(prompt_text).strip()
+
+    @staticmethod
+    def prompt_filename(prompt_text):
         """Prompt the user for a filename."""
         while True:
-            filename = self.prompt_input(prompt_text)
+            filename = input(prompt_text).strip()
             if filename:
                 return filename
             else:
                 print("Filename cannot be empty. Please try again.")
 
-    def display_list(self, items, title):
+    @staticmethod
+    def display_list(items, title):
         """Display a list of items with indices."""
         print("\n{}:".format(title))
         for idx, item in enumerate(items):
-            print("{0}: {1}".format(idx, item))
+            print("{}: {}".format(idx, item))
         print()
 
-    def prompt_selection(self, max_index, prompt_text):
+    @staticmethod
+    def prompt_selection(max_index, prompt_text):
         """Prompt the user to select an item from a list."""
         while True:
-            selection = self.prompt_input(prompt_text)
+            selection = input(prompt_text).strip()
             if selection.upper() == 'E':
                 return None
             if selection.isdigit():
                 index = int(selection)
                 if 0 <= index < max_index:
                     return index
-            print("ERROR: Invalid Command.")
+            print("ERROR: Invalid selection. Please try again.")
 
-    def get_user_choice(self, prompt_text, choices):
+    @staticmethod
+    def get_user_choice(prompt_text, choices):
         """Prompt the user to make a choice from the given options."""
         while True:
-            choice = self.prompt_input(prompt_text).upper()
+            choice = input(prompt_text).strip().upper()
             if choice in choices:
                 return choice
             print("ERROR: Invalid Command.")
+
+    @staticmethod
+    def validate_date(date_str):
+        """Validate the date format YYYYMMDD."""
+        return bool(re.match(r'^\d{8}$', date_str))
+
+    @staticmethod
+    def validate_time(time_str):
+        """Validate the time format HH:MM."""
+        return bool(re.match(r'^\d{2}:\d{2}$', time_str))
 
 
 def parse_arguments():
