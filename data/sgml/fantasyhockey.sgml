@@ -74,7 +74,7 @@
 ]>
 
 <hockey database="./php/data/fantasyhockey.db3">
- <league name="FHL" fullname="Fantasy Hockey League" country="USA" fullcountry="United States" date="20241010" playofffmt="Division=4,Conference=2" ordertype="ORDER BY Points DESC, Goals DESC, Wins DESC" conferences="yes" divisions="yes">
+ <league name="FHL" fullname="Fantasy Hockey League" country="USA" fullcountry="United States" date="20241010" playofffmt="Division=4,Conference=2" ordertype="ORDER BY Points DESC, GoalsFor DESC, Wins DESC" conferences="yes" divisions="yes">
   <conference name="Eastern" prefix="" suffix="Conference">
    <division name="Fire" prefix="" suffix="Division">
     <team city="Dragonsville" area="NY" fullarea="New York" country="USA" fullcountry="United States" name="Dragons" arena="Dragon Dome" prefix="Dragonsville" suffix="" affiliates=""></team>

@@ -225,6 +225,7 @@ if (isset($_GET['month']) && strlen($_GET['month']) == 1) {
 if (isset($_GET['day']) && strlen($_GET['day']) == 1) {
     $_GET['day'] = "0".$_GET['day'];
 }
+$chckmonth = "01";
 if (isset($_GET['date']) && strlen($_GET['date']) == 8) {
     $chckyear = substr($_GET['date'], 0, 4);
     $chckmonth = substr($_GET['date'], 4, 2);

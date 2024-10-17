@@ -8,7 +8,7 @@
    "fullcountry": "United States",
    "date": "20241010",
    "playofffmt": "Division=4,Conference=2",
-   "ordertype": "ORDER BY Points DESC, Goals DESC, Wins DESC",
+   "ordertype": "ORDER BY Points DESC, GoalsFor DESC, Wins DESC",
    "conferences": "yes",
    "divisions": "yes"
   },
