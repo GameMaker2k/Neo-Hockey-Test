@@ -177,7 +177,7 @@ elif (premenuact == "2"):
         elif ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeyXML(
                 HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        if ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySGML(HockeyDatabaseFN)):
+        elif ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySGML(HockeyDatabaseFN)):
             hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySGML(
                 HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
         elif ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteSGML(HockeyDatabaseFN)):
