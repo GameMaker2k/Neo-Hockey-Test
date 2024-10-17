@@ -3586,8 +3586,9 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, enco
         file_wo_extension, file_extension = os.path.splitext(insqlfile)
         insdbfile = file_wo_extension+".db3"
     sqldatacon = MakeHockeyDatabase(":memory:")
-    sqldatacon[0].execute('BEGIN TRANSACTION')
-    if (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
+    if (CheckHockeySQLiteDatabaseConnection(sqldatacon)):
+     sqldatacon[0].execute('BEGIN TRANSACTION')
+    elif (not CheckHockeySQLiteDatabaseConnection(sqldatacon)):
         return False
     try:
         sqldatacon[0].executescript(sqlstring)
