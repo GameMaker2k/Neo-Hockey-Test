@@ -95,17 +95,19 @@ dbpragma = {
 }
 
 defaultxmlfile = "./data/hockeydata.xml"
+defaultsgmlfile = "./data/hockeydata.sgml"
 defaultsdbfile = "./data/hockeydata.db3"
 defaultoldsdbfile = "./data/hockeydata.db3"
 defaultpyfile = "./data/hockeydata.py"
 defaultpythonfile = defaultpyfile
 defaultsqlfile = "./data/hockeydata.sql"
 defaultjsonfile = "./data/hockeydata.json"
+defaultyamlfile = "./data/hockeydata.yaml"
 compressionlist = ['auto', 'gzip', 'bzip2', 'zstd', 'xz', 'lz4', 'lzo', 'lzop', 'lzma', 'zlib']
 outextlist = ['gz', 'bz2', 'zst', 'xz', 'lz4', 'lzo', 'lzop', 'lzma', 'zl', 'zz', 'zlib']
 outextlistwd = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
-extensions = ['xml', 'sgml', 'json', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
-extensionswd = ['.xml', 'sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
+extensions = ['xml', 'sgml', 'json', 'yaml', 'sql', 'db3', 'db', 'sdb', 'sqlite', 'sqlite3']
+extensionswd = ['.xml', 'sgml', '.json', '.yaml', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
 
 # From: https://stackoverflow.com/a/28568003
 # By Phaxmohdem

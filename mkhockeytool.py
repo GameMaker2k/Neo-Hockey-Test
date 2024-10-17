@@ -53,14 +53,16 @@ __version_date_plusrc__ = pyhockeystats.__version_date_plusrc__
 __version__ = pyhockeystats.__version__
 
 defxmlfile = "./data/hockeydata.xml"
+defsgmlfile = "./data/hockeydata.sgml"
 defsdbfile = "./data/hockeydata.db3"
 defoldsdbfile = "./data/hockeydata.db3"
 defsqlfile = "./data/hockeydata.sql"
 defjsonfile = "./data/hockeydata.json"
-extensions = ['.xml', '.sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3', '.py']
-extensionsin = ['.xml', '.sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
+defyamlfile = "./data/hockeydata.yaml"
+extensions = ['.xml', '.sgml', '.json', '.yaml', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3', '.py']
+extensionsin = ['.xml', '.sgml', '.json', '.yaml', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
 extensionsc = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
-filetypes = ['xml', 'sgml', 'json', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
+filetypes = ['xml', 'sgml', 'json', 'yaml', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
 
 
 def get_user_input(txt):
@@ -113,7 +115,7 @@ argparser.add_argument(
 argparser.add_argument(
     "-T", "-r", "--verbosetype",
     type=str, default="array",
-    help="Set the verbosity type (e.g., json, sgml, xml). Default is 'array'."
+    help="Set the verbosity type (e.g., json, yaml, sgml, xml). Default is 'array'."
 )
 getargs = argparser.parse_args()
 verboseon = getargs.verbose
@@ -217,6 +219,11 @@ if (getargs.export):
             HockeyDatabaseFN = get_user_input(
                 "Enter Hockey Database JSON File Name to Export: ")
             getargs.outfile = HockeyDatabaseFN
+    elif (getargs.type is not None and getargs.type.lower() == "yaml"):
+        if (getargs.outfile is None):
+            HockeyDatabaseFN = get_user_input(
+                "Enter Hockey Database YAML File Name to Export: ")
+            getargs.outfile = HockeyDatabaseFN
     elif (getargs.type is not None and getargs.type.lower() == "py" or
           getargs.type is not None and getargs.type.lower() == "pyalt" or
           getargs.type is not None and getargs.type.lower() == "oopy" or
@@ -249,6 +256,8 @@ if (getargs.export):
                 getargs.type = "sql"
             elif (ext == ".json"):
                 getargs.type = "json"
+            elif (ext == ".yaml"):
+                getargs.type = "yaml"
             elif (ext == ".py"):
                 getargs.type = "py"
             else:
@@ -264,6 +273,9 @@ if (getargs.export):
             hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "json"):
         pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
+            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
+    elif (getargs.type.lower() == "yaml"):
+        pyhockeystats.MakeHockeyYAMLFileFromHockeyArray(
             hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
     elif (getargs.type.lower() == "py"):
         pyhockeystats.MakeHockeyPythonFileFromHockeyArray(

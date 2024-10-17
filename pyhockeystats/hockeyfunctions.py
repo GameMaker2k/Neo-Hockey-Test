@@ -75,6 +75,17 @@ except ImportError:
     except ImportError:
         import json
 
+testyaml = False
+try:
+    import oyaml as yaml
+    testyaml = True
+except ImportError:
+    try:
+        import yaml
+        testyaml = True
+    except ImportError:
+        testyaml = False
+
 # Paramiko (SSH module) handling
 testparamiko = False
 try:
@@ -2138,6 +2149,9 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, so
             inhockeyarray, sort_keys=sortkeys, separators=(', ', ': '))
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(jsonstring)
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             inhockeyarray, verbose=False))
@@ -2222,6 +2236,9 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=False, ve
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            hockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             hockeyarray, verbose=False))
@@ -2236,6 +2253,106 @@ def MakeHockeySQLiteArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=Fal
  hockeyarray = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, verbose, verbosetype)
  return hockeyarray
 
+
+def MakeHockeyYAMLFromHockeyArray(inhockeyarray, yamlindent=1, beautify=True, sortkeys=False, verbose=False, verbosetype="array"):
+    if testyaml:
+        # Using YAML if available
+        if not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray):
+            return False
+        if beautify:
+            yamlstring = yaml.dump(inhockeyarray, sort_keys=sortkeys, indent=yamlindent)
+        else:
+            yamlstring = yaml.dump(inhockeyarray, sort_keys=sortkeys, default_flow_style=False)
+        if verbose and verbosetype == "json":
+            VerbosePrintOut(MakeHockeJSONFromHockeyArray(inhockeyarray, verbose=False))
+        elif verbose and verbosetype == "yaml":
+            VerbosePrintOut(yamlstring)
+        elif verbose and verbosetype == "xml":
+            VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False))
+        elif verbose and verbosetype == "sgml":
+            VerbosePrintOut(MakeHockeySGMLFromHockeyArray(inhockeyarray, verbose=False))
+        elif verbose:
+            VerbosePrintOut(inhockeyarray)
+        return yamlstring
+    else:
+        # Fallback to JSON functions
+        return MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=yamlindent, beautify=beautify, sortkeys=sortkeys, verbose=verbose, verbosetype=verbosetype)
+
+
+def MakeHockeyYAMLFileFromHockeyArray(inhockeyarray, outyamlfile=None, returnyaml=False, yamlindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=False, verbosetype="array"):
+    if testyaml:
+        if outyamlfile is None:
+            return False
+        yamlstring = MakeHockeyYAMLFromHockeyArray(inhockeyarray, yamlindent, beautify, sortkeys, verbose, verbosetype)
+        with CompressOpenFile(outyamlfile) as yamlfp:
+            try:
+                yamlfp.write(yamlstring)
+            except TypeError:
+                yamlfp.write(yamlstring.encode(encoding))
+        try:
+            yamlfp.flush()
+            os.fsync(yamlfp.fileno())
+        except (io.UnsupportedOperation, AttributeError, OSError):
+            pass
+        if returnyaml:
+            return yamlstring
+        return True
+    else:
+        # Fallback to JSON file function
+        return MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outyamlfile, returnjson=returnyaml, jsonindent=yamlindent, beautify=beautify, sortkeys=sortkeys, encoding=encoding, verbose=verbose, verbosetype=verbosetype)
+
+
+def MakeHockeyArrayFromHockeyYAML(inyamlfile, yamlisfile=True, verbose=False, verbosetype="array"):
+    if testyaml:
+        if yamlisfile and (os.path.isfile(inyamlfile) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inyamlfile)):
+            if re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inyamlfile):
+                inyamlfile = UncompressFileURL(inyamlfile, geturls_headers, geturls_cj)
+                with inyamlfile as yamlfp:
+                    try:
+                        hockeyarray = yaml.load(yamlfp, Loader=yaml.SafeLoader)
+                    except yaml.YAMLError:
+                        return False
+            else:
+                with UncompressFile(inyamlfile) as yamlfp:
+                    hockeyarray = yaml.load(yamlfp, Loader=yaml.SafeLoader)
+        else:
+            if not yamlisfile:
+                chckcompression = CheckCompressionTypeFromString(inyamlfile)
+                if not chckcompression:
+                    yamlfp = StringIO(inyamlfile)
+                else:
+                    try:
+                        inyamlsfile = BytesIO(inyamlfile.encode("utf-8"))
+                    except TypeError:
+                        inyamlsfile = BytesIO(inyamlfile)
+                    yamlfp = UncompressFile(inyamlsfile)
+                hockeyarray = yaml.load(yamlfp, Loader=yaml.SafeLoader)
+            else:
+                return False
+        if not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray):
+            return False
+        if verbose:
+            if verbose and verbosetype == "json":
+                VerbosePrintOut(MakeHockeJSONFromHockeyArray(hockeyarray, verbose=False))
+            elif verbose and verbosetype == "yaml":
+                VerbosePrintOut(MakeHockeYAMLFromHockeyArray(hockeyarray, verbose=False))
+            elif verbosetype == "xml":
+                VerbosePrintOut(MakeHockeyXMLFromHockeyArray(hockeyarray, verbose=False))
+            elif verbosetype == "sgml":
+                VerbosePrintOut(MakeHockeySGMLFromHockeyArray(hockeyarray, verbose=False))
+            else:
+                VerbosePrintOut(hockeyarray)
+        return hockeyarray
+    else:
+        # Fallback to JSON loading
+        return MakeHockeyArrayFromHockeyJSON(inyamlfile, jsonisfile=yamlisfile, verbose=verbose, verbosetype=verbosetype)
+
+
+def MakeHockeySQLiteArrayFromHockeyYAML(inyamlfile, yamlisfile=True, verbose=False, verbosetype="array"):
+    hockeyarray = MakeHockeyArrayFromHockeyYAML(inyamlfile, yamlisfile, verbose, verbosetype)
+    return hockeyarray
+
+
 def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
@@ -2246,6 +2363,9 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=Fa
             inhockeyarray, protocol=protocol, fix_imports=True)
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -2309,6 +2429,9 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="U
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            hockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             hockeyarray, verbose=False))
@@ -2326,6 +2449,9 @@ def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, ver
     marshalstring = marshal.dumps(inhockeyarray, version)
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -2389,6 +2515,9 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            hockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             hockeyarray, verbose=False))
@@ -2411,6 +2540,9 @@ def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=Fal
     shelvestring = outshelvefile.read()
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -2455,6 +2587,9 @@ def MakeHockeyArrayFromHockeyShelve(inshelvefile, shelveisfile=True, version=pic
         return False
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             hockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -2527,6 +2662,9 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
         return False
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(xmlstring)
@@ -2644,6 +2782,8 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
     if verbose:
         if verbosetype=="json":
             VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False))
+        elif verbosetype=="yaml":
+            VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(inhockeyarray, verbose=False))
         elif verbosetype=="xml":
             VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False))
         elif verbosetype=="sgmml":
@@ -2749,6 +2889,9 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
         return False
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(xmlstring)
@@ -2910,6 +3053,9 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", ve
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -2950,6 +3096,9 @@ def MakeHockeyArrayFromHockeySGML(insgmlfile, sgmlisfile=True, encoding="UTF-8",
     # Verbose output
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -3031,6 +3180,9 @@ def MakeHockeyDatabaseFromHockeyArray(inhockeyarray, outsdbfile=None, returndb=F
         sqldatacon[1].commit()
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -3123,6 +3275,9 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=False, verbosetype="a
     pystring = pystring+pyfilename+".CloseHockeyDatabase(sqldatacon)\n"
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -3249,6 +3404,9 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=False, verbosetype
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             inhockeyarray, verbose=False))
@@ -3369,6 +3527,9 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=False, verbosetype
     pystring = pystring+"sqldatacon.CloseHockeyDatabase(sqldatacon)\n"
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -3494,6 +3655,9 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=False, verboset
         str(pyverbose)+", \""+str(verbosetype)+"\")\n"
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -3656,6 +3820,9 @@ def MakeHockeyArrayFromHockeyDatabase(insdbfile, verbose=False, verbosetype="arr
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -3800,6 +3967,9 @@ def MakeHockeyArrayFromHockeySQL(insqlfile, insdbfile=None, sqlisfile=True, enco
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -3880,6 +4050,9 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Fa
     CloseHockeyDatabase(sqldatacon)
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -3996,6 +4169,9 @@ def MakeHockeySQLFromHockeyDatabase(insdbfile, verbose=False, verbosetype="array
     CloseHockeyDatabase(sqldatacon)
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(
+            insdbfile, verbose=False), verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(
             insdbfile, verbose=False), verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(MakeHockeyArrayFromHockeyDatabase(
@@ -4195,6 +4371,9 @@ def MakeHockeyArrayFromOldHockeyDatabase(insdbfile, verbose=False, verbosetype="
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -4280,6 +4459,9 @@ def MakeHockeySQLiteArrayFromHockeyDatabase(insdbfile, verbose=False, verbosetyp
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -4350,6 +4532,9 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
         return False
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -4453,6 +4638,8 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
     if verbose:
         if verbosetype=="json":
             VerbosePrintOut(MakeHockeyJSONFromHockeyArray(inhockeyarray, verbose=False))
+        if verbosetype=="yaml":
+            VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(inhockeyarray, verbose=False))
         if verbosetype=="xml":
             VerbosePrintOut(MakeHockeyXMLFromHockeyArray(inhockeyarray, verbose=False))
         if verbosetype=="sgml":
@@ -4554,6 +4741,9 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
         return False
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -4699,6 +4889,9 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -4738,6 +4931,9 @@ def MakeHockeySQLiteArrayFromHockeySQLiteSGML(insgmlfile, sgmlisfile=True, encod
     # Verbose output
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
@@ -4832,6 +5028,9 @@ def MakeHockeyArrayFromHockeySQLiteArray(inhockeyarray, verbose=False, verbosety
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
             leaguearrayout, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            leaguearrayout, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
             leaguearrayout, verbose=False))
@@ -4910,6 +5109,9 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
         sqldump = sqldump+"\n-- --------------------------------------------------------\n\n"
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
