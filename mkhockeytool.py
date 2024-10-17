@@ -1,20 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the Revised BSD License.
+"""
+Hockey Management Tool
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    Revised BSD License for more details.
+This program is free software; you can redistribute it and/or modify
+it under the terms of the Revised BSD License.
 
-    Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
-    Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+Revised BSD License for more details.
 
-    $FileInfo: mkhockeytool.py - Last Update: 10/11/2024 Ver. 0.9.2 RC 1 - Author: cooldude2k $
-'''
+Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
+Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
+
+$FileInfo: mkhockeytool.py - Last Update: 10/11/2024 Ver. 1.1.0 - Author: cooldude2k $
+"""
 
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
@@ -26,801 +28,1265 @@ import sys
 
 import pyhockeystats
 
-try:
-    reload(sys)
-except NameError:
-    from importlib import reload
-    reload(sys)
-try:
-    sys.setdefaultencoding('utf-8')
-except AttributeError:
-    pass
+from typing import Optional
 
-havereadline = False
-try:
-    import readline
-    havereadline = True
-except ImportError:
-    havereadline = False
-
-__project__ = pyhockeystats.__project__
-__program_name__ = pyhockeystats.__program_name__
-__project_url__ = pyhockeystats.__project_url__
-__version_info__ = pyhockeystats.__version_info__
-__version_date_info__ = pyhockeystats.__version_date_info__
-__version_date__ = pyhockeystats.__version_date__
-__version_date_plusrc__ = pyhockeystats.__version_date_plusrc__
-__version__ = pyhockeystats.__version__
-
-defxmlfile = "./data/hockeydata.xml"
-defsdbfile = "./data/hockeydata.db3"
-defoldsdbfile = "./data/hockeydata.db3"
-defsqlfile = "./data/hockeydata.sql"
-defjsonfile = "./data/hockeydata.json"
-extensions = ['.xml', '.sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3', '.py']
-extensionsin = ['.xml', '.sgml', '.json', '.sql', '.db3', '.db', '.sdb', '.sqlite', '.sqlite3']
-extensionsc = ['.gz', '.bz2', '.zst', '.xz', '.lz4', '.lzo', '.lzop', '.lzma', '.zl', '.zz', '.zlib']
-filetypes = ['xml', 'sgml', 'json', 'sql', 'db3', 'py', 'pyalt', 'oopy', 'oopyalt']
+# Configure logging
+logger = logging.getLogger(__name__)
+logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
 
 
-def get_user_input(txt):
-    try:
-        return raw_input(txt)
-    except NameError:
-        return input(txt)
-    return False
+class HockeyTool:
+    """Main class for the Hockey Management Tool."""
 
+    def __init__(self, args):
+        self.args = args
+        self.hockeyarray = {}
+        self.supported_extensions = {
+            '.xml': 'xml',
+            '.sgml': 'sgml',
+            '.json': 'json',
+            '.sql': 'sql',
+            '.db3': 'db3',
+            '.db': 'db3',
+            '.sdb': 'db3',
+            '.sqlite': 'db3',
+            '.sqlite3': 'db3',
+            '.py': 'py'
+        }
 
-argparser = argparse.ArgumentParser(
-    description="A test script for managing hockey games and stats.",
-    conflict_handler="resolve", add_help=True
-)
-argparser.add_argument(
-    "-v", "--ver", "--version",
-    action="version",
-    version=__program_name__ + " " + __version__
-)
-argparser.add_argument(
-    "-i", "-f", "--infile",
-    nargs="?", default=None,
-    help="Specify the input database file to load."
-)
-argparser.add_argument(
-    "-e", "-n", "--empty",
-    action="store_true",
-    help="Create an empty database file."
-)
-argparser.add_argument(
-    "-o", "-e", "--outfile",
-    nargs="?", default=None,
-    help="Specify the output database file to save."
-)
-argparser.add_argument(
-    "-x", "-p", "--export",
-    action="store_true",
-    help="Export the input file to the database."
-)
-argparser.add_argument(
-    "-t", "-y", "--type",
-    nargs="?", default=None,
-    help="Specify the type of file to export."
-)
-argparser.add_argument(
-    "-V", "-d", "--verbose",
-    action="store_true",
-    help="Enable verbose output for debugging information."
-)
-argparser.add_argument(
-    "-T", "-r", "--verbosetype",
-    type=str, default="array",
-    help="Set the verbosity type (e.g., json, sgml, xml). Default is 'array'."
-)
-getargs = argparser.parse_args()
-verboseon = getargs.verbose
-if ('VERBOSE' in os.environ or 'DEBUG' in os.environ):
-    verboseon = True
-if (verboseon):
-    logging.basicConfig(format="%(message)s",
-                        stream=sys.stdout, level=logging.DEBUG)
+    def run(self):
+        """Execute the main workflow of the tool."""
+        self.handle_initial_setup()
+        if self.args.export:
+            self.handle_export()
+            sys.exit()
 
-if (not getargs.empty and getargs.infile is None):
-    premenuact = get_user_input(
-        "E: Exit Hockey Tool\n1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat do you want to do? ")
-    if (premenuact.upper() != "E" and not premenuact.isdigit()):
-        print("ERROR: Invalid Command")
-        premenuact = "E"
-    elif (premenuact.upper() != "E" and premenuact.isdigit() and (int(premenuact) > 2 or int(premenuact) < 1)):
-        print("ERROR: Invalid Command")
-        premenuact = "E"
-    elif (premenuact.upper() == "E"):
-        sys.exit()
-if (getargs.empty and getargs.infile is None):
-    premenuact = "1"
-elif (getargs.infile is not None):
-    premenuact = "2"
-    if (getargs.empty):
-        premenuact = "1"
-    elif (not getargs.empty):
-        premenuact = "2"
-if (premenuact == "1"):
-    if (getargs.infile is None):
-        HockeyDatabaseFN = get_user_input(
-            "Enter Hockey Database File Name For Output: ")
-    elif (getargs.infile is not None):
-        HockeyDatabaseFN = getargs.infile
-    hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
-elif (premenuact == "2"):
-    if (getargs.infile is None):
-        HockeyDatabaseFN = get_user_input(
-            "Enter Hockey Database File Name For Import: ")
-    elif (getargs.infile is not None):
-        HockeyDatabaseFN = getargs.infile
-    fileinfo = os.path.splitext(HockeyDatabaseFN)
-    ext = fileinfo[-1].lower()
-    subfileinfo = None
-    subext = None
-    if (ext in extensionsc):
-        subfileinfo = os.path.splitext(fileinfo[0])
-        subext = subfileinfo[1].lower()
-    else:
-        subfileinfo = None
-        subext = None
-    if (ext in extensionsin or subext in extensions):
-        verbosein = True
-        if (getargs.export):
-            verbosein = False
-        if ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeyXML(HockeyDatabaseFN)):
-            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        elif ((ext == ".xml" or subext == ".xml") and pyhockeystats.CheckXMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteXML(HockeyDatabaseFN)):
-            hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeyXML(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        if ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySGML(HockeyDatabaseFN)):
-            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySGML(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        elif ((ext == ".sgml" or subext == ".sgml") and pyhockeystats.CheckSGMLFile(HockeyDatabaseFN) and pyhockeystats.CheckHockeySQLiteSGML(HockeyDatabaseFN)):
-            hockeyarray = pyhockeystats.MakeHockeySQLiteArrayFromHockeySGML(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        elif ((ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3") and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
-            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        elif (ext == ".sql" or subext == ".sql"):
-            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQL(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
-        elif (ext == ".json" or subext == ".json"):
-            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyJSON(
-                HockeyDatabaseFN, verbose=verbosein, verbosetype=getargs.verbosetype)
+        self.main_menu_loop()
+
+    def handle_initial_setup(self):
+        """Handle initial database setup based on arguments or user input."""
+        if not self.args.empty and not self.args.infile:
+            choice = self.get_user_choice(
+                "E: Exit Hockey Tool\n1: Empty Hockey Database\n2: Import Hockey Database From File\nWhat would you like to do? ",
+                choices=['E', '1', '2']
+            )
+            if choice == 'E':
+                logger.info("Exiting Hockey Tool.")
+                sys.exit()
+            elif choice == '1':
+                self.create_empty_database()
+            elif choice == '2':
+                self.import_database()
         else:
-            print("ERROR: Invalid Command")
-        if (pyhockeystats.CheckHockeySQLiteArray(hockeyarray)):
-            hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQLiteArray(
-                hockeyarray, verbose=verbosein, verbosetype=getargs.verbosetype)
-        if (not pyhockeystats.CheckHockeyArray(hockeyarray)):
-            print("ERROR: Invalid Command")
+            if self.args.empty:
+                self.create_empty_database()
+            elif self.args.infile:
+                self.import_database()
 
-if (getargs.export):
-    if (getargs.type is not None and getargs.type not in filetypes):
-        getargs.type = None
-    if (getargs.type is not None and (getargs.type.lower() == "xml" and
-      getargs.type.lower() == "xmlalt")):
-        if (getargs.outfile is None):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database XML File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-    if (getargs.type is not None and getargs.type.lower() == "sgml"):
-        if (getargs.outfile is None):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database SGML File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-    elif (getargs.type is not None and getargs.type.lower() == "json"):
-        if (getargs.outfile is None):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database JSON File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-    elif (getargs.type is not None and getargs.type.lower() == "py" or
-          getargs.type is not None and getargs.type.lower() == "pyalt" or
-          getargs.type is not None and getargs.type.lower() == "oopy" or
-          getargs.type is not None and getargs.type.lower() == "oopyalt"):
-        if (getargs.outfile is None):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database Python File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-    elif (getargs.type is not None and getargs.type.lower() == "sql"):
-        if (getargs.outfile is None):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database SQL File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-    elif (getargs.type is not None and getargs.type.lower() == "db3"):
-        if (getargs.outfile is None and hockeyarray['database']==":memory:"):
-            HockeyDatabaseFN = get_user_input(
-                "Enter Hockey Database File Name to Export: ")
-            getargs.outfile = HockeyDatabaseFN
-        elif (getargs.outfile is None and hockeyarray['database']!=":memory:"):
-            HockeyDatabaseFN = hockeyarray['database']
-            getargs.outfile = HockeyDatabaseFN
-    else:
-        ext = os.path.splitext(getargs.outfile)[-1].lower()
-        if (ext in extensions):
-            if (ext == ".xml"):
-                getargs.type = "xml"
-            elif (ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3"):
-                getargs.type = "db3"
-            elif (ext == ".sql"):
-                getargs.type = "sql"
-            elif (ext == ".json"):
-                getargs.type = "json"
-            elif (ext == ".py"):
-                getargs.type = "py"
+    def create_empty_database(self):
+        """Create an empty hockey database."""
+        filename = self.args.outfile or self.prompt_filename("Enter Hockey Database File Name for Output: ")
+        self.hockeyarray = pyhockeystats.CreateHockeyArray(filename)
+        logger.info("Created empty database at: {}".format(filename))
+
+    def import_database(self):
+        """Import hockey database from a file."""
+        filename = self.args.infile or self.prompt_filename("Enter Hockey Database File Name for Import: ")
+        ext = os.path.splitext(filename)[1].lower()
+        file_type = self.supported_extensions.get(ext)
+
+        if not file_type:
+            logger.error("ERROR: Unsupported file type.")
+            sys.exit(1)
+
+        # Mapping file types to pyhockeystats import functions
+        import_methods = {
+            'xml': pyhockeystats.MakeHockeyArrayFromHockeyXML,
+            'sgml': pyhockeystats.MakeHockeyArrayFromHockeySGML,
+            'json': pyhockeystats.MakeHockeyArrayFromHockeyJSON,
+            'sql': pyhockeystats.MakeHockeyArrayFromHockeySQL,
+            'db3': pyhockeystats.MakeHockeyArrayFromHockeyDatabase,
+            'py': pyhockeystats.MakeHockeyArrayFromHockeyPython
+        }
+
+        import_func = import_methods.get(file_type)
+
+        if not import_func:
+            logger.error("ERROR: Import method not implemented for this file type.")
+            sys.exit(1)
+
+        try:
+            self.hockeyarray = import_func(filename, verbose=self.args.verbose, verbosetype=self.args.verbosetype)
+            logger.info("Imported database from: {}".format(filename))
+        except Exception as e:
+            logger.error("ERROR: Failed to import database. {}".format(e))
+            sys.exit(1)
+
+        if pyhockeystats.CheckHockeyArray(self.hockeyarray):
+            logger.info("Database imported successfully.")
+        else:
+            logger.error("ERROR: Invalid Hockey Array after import.")
+            sys.exit(1)
+
+    def handle_export(self):
+        """Handle exporting the hockey database to a file."""
+        if not self.hockeyarray:
+            logger.error("ERROR: No data to export.")
+            sys.exit(1)
+
+        export_type = self.args.type or self.determine_export_type()
+        outfile = self.args.outfile or self.prompt_filename("Enter Hockey Database File Name to Export: ")
+
+        export_methods = {
+            'xml': pyhockeystats.MakeHockeyXMLFileFromHockeyArray,
+            'xmlalt': pyhockeystats.MakeHockeyXMLAltFileFromHockeyArray,
+            'sgml': pyhockeystats.MakeHockeySGMLFileFromHockeyArray,
+            'json': pyhockeystats.MakeHockeyJSONFileFromHockeyArray,
+            'py': pyhockeystats.MakeHockeyPythonFileFromHockeyArray,
+            'pyalt': pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray,
+            'oopy': pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray,
+            'oopyalt': pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray,
+            'sql': pyhockeystats.MakeHockeySQLFileFromHockeyArray,
+            'db3': pyhockeystats.MakeHockeyDatabaseFromHockeyArray
+        }
+
+        export_func = export_methods.get(export_type.lower())
+        if not export_func:
+            logger.error("ERROR: Unsupported export type.")
+            sys.exit(1)
+
+        try:
+            export_func(self.hockeyarray, outfile, verbose=self.args.verbose, verbosetype=self.args.verbosetype)
+            logger.info("Exported database to: {}".format(outfile))
+        except Exception as e:
+            logger.error("ERROR: Failed to export database. {}".format(e))
+            sys.exit(1)
+
+    def determine_export_type(self):
+        """Determine the export type based on the output file extension."""
+        if not self.args.outfile:
+            return None
+
+        ext = os.path.splitext(self.args.outfile)[1].lower()
+        return self.supported_extensions.get(ext)
+
+    def main_menu_loop(self):
+        """Display the main menu and handle user actions."""
+        menu_options = {
+            '1': self.manage_leagues,
+            '2': self.manage_conferences,
+            '3': self.manage_divisions,
+            '4': self.manage_teams,
+            '5': self.manage_arenas,
+            '6': self.manage_games,
+            '7': self.manage_database
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Exit Hockey Tool\n"
+                "1: Hockey League Tool\n"
+                "2: Hockey Conference Tool\n"
+                "3: Hockey Division Tool\n"
+                "4: Hockey Team Tool\n"
+                "5: Hockey Arena Tool\n"
+                "6: Hockey Game Tool\n"
+                "7: Hockey Database Tool\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3', '4', '5', '6', '7']
+            )
+
+            if choice == 'E':
+                logger.info("Exiting Hockey Tool.")
+                break
+
+            action = menu_options.get(choice)
+            if action:
+                action()
             else:
-                getargs.type = "db3"
-    if (getargs.type.lower() == "xml"):
-        pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "xmlalt"):
-        pyhockeystats.MakeHockeyXMLAltFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "sgml"):
-        pyhockeystats.MakeHockeySGMLFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "json"):
-        pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "py"):
-        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "pyalt"):
-        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "oopy"):
-        pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "oopyalt"):
-        pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "sql"):
-        pyhockeystats.MakeHockeySQLFileFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    elif (getargs.type.lower() == "db3"):
-        pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
-            hockeyarray, getargs.outfile, verbose=verboseon, verbosetype=getargs.verbosetype)
-    else:
-        print("ERROR: Invalid Command")
-    sys.exit()
+                logger.error("ERROR: Invalid Command.")
 
-if (premenuact == "1"):
-    print("Using Empty Database at Location: "+HockeyDatabaseFN)
-elif (premenuact == "2"):
-    print("Using Populated Database at Location: "+HockeyDatabaseFN)
-keep_loop = True
-while (keep_loop):
-    menuact = get_user_input(
-        "E: Exit Hockey Tool\n1: Hockey League Tool\n2: Hockey Conference Tool\n3: Hockey Division Tool\n4: Hockey Team Tool\n5: Hockey Arena Tool\n6: Hockey Game Tool\n7: Hockey Database Tool\nWhat do you want to do? ")
-    if (menuact.upper() != "E" and not menuact.isdigit()):
-        print("ERROR: Invalid Command")
-        menuact = ""
-    elif (menuact.upper() != "E" and menuact.isdigit() and (int(menuact) > 7 or int(menuact) < 1)):
-        print("ERROR: Invalid Command")
-        menuact = ""
-    elif (menuact == "1"):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            submenuact = get_user_input(
-                "E: Back to Main Menu\n1: Add Hockey League\n2: Remove Hockey League\n3: Edit Hockey League\nWhat do you want to do? ")
-            if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact == "1"):
-                HockeyLeagueSN = get_user_input(
-                    "Enter Hockey League short name: ")
-                if (HockeyLeagueSN in hockeyarray['leaguelist']):
-                    print("ERROR: Hockey League with that short name exists")
-                elif (HockeyLeagueSN not in hockeyarray['leaguelist']):
-                    HockeyLeagueFN = get_user_input(
-                        "Enter Hockey League full name: ")
-                    HockeyLeagueCSN = get_user_input(
-                        "Enter Hockey League country short name: ")
-                    HockeyLeagueCFN = get_user_input(
-                        "Enter Hockey League country full name: ")
-                    HockeyLeagueSD = get_user_input(
-                        "Enter Hockey League start date: ")
-                    HockeyLeaguePOF = get_user_input(
-                        "Enter Hockey League playoff format: ")
-                    HockeyLeagueOT = get_user_input(
-                        "Enter Hockey League ordertype: ")
-                    HockeyLeagueHC = get_user_input(
-                        "Does Hockey League have conferences: ")
-                    HockeyLeagueHD = get_user_input(
-                        "Does Hockey League have divisions: ")
-                    hockeyarray = pyhockeystats.AddHockeyLeagueToArray(
-                        hockeyarray, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD)
-                    if (HockeyLeagueHC == "no"):
-                        hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
-                            hockeyarray, HockeyLeagueSN, "")
-                    if (HockeyLeagueHD == "no"):
-                        hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
-                            hockeyarray, HockeyLeagueSN, "", "")
-            elif (submenuact == "2" and len(hockeyarray['leaguelist']) <= 0):
-                print("ERROR: There are no Hockey Leagues to delete")
-            elif (submenuact == "2" and len(hockeyarray['leaguelist']) > 0):
-                leaguec = 0
-                print("E: Back to Hockey League Tool")
-                while (leaguec < len(hockeyarray['leaguelist'])):
-                    lshn = hockeyarray['leaguelist'][leaguec]
-                    print(str(leaguec)+": " +
-                          hockeyarray[lshn]['leagueinfo']['fullname'])
-                    leaguec = leaguec + 1
-                HockeyLeaguePreSN = get_user_input(
-                    "Enter Hockey League number: ")
-                if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
-                    print("ERROR: Invalid Command")
-                    HockeyLeaguePreSN = "E"
-                elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
-                    print("ERROR: Invalid Command")
-                    HockeyLeaguePreSN = "E"
-                elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
-                    HockeyLeagueIntSN = int(HockeyLeaguePreSN)
-                    HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
-                    hockeyarray = pyhockeystats.RemoveHockeyLeagueFromArray(
-                        hockeyarray, HockeyLeagueSN)
-            elif (submenuact == "3" and len(hockeyarray['leaguelist']) <= 0):
-                print("ERROR: There are no Hockey Leagues to edit")
-            elif (submenuact == "3" and len(hockeyarray['leaguelist']) > 0):
-                leaguec = 0
-                print("E: Back to Hockey League Tool")
-                while (leaguec < len(hockeyarray['leaguelist'])):
-                    lshn = hockeyarray['leaguelist'][leaguec]
-                    print(str(leaguec)+": " +
-                          hockeyarray[lshn]['leagueinfo']['fullname'])
-                    leaguec = leaguec + 1
-                HockeyLeaguePreSN = get_user_input(
-                    "Enter Hockey League number: ")
-                if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
-                    print("ERROR: Invalid Command")
-                    HockeyLeaguePreSN = "E"
-                elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
-                    print("ERROR: Invalid Command")
-                    HockeyLeaguePreSN = "E"
-                elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
-                    HockeyLeagueIntSN = int(HockeyLeaguePreSN)
-                    HockeyLeagueOldSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
-                    HockeyLeagueSN = get_user_input(
-                        "Enter Hockey League short name: ")
-                    if (HockeyLeagueSN in hockeyarray['leaguelist']):
-                        print("ERROR: Hockey League with that short name exists")
-                    elif (HockeyLeagueSN not in hockeyarray['leaguelist']):
-                        HockeyLeagueFN = get_user_input(
-                            "Enter Hockey League full name: ")
-                        HockeyLeagueCSN = get_user_input(
-                            "Enter Hockey League country short name: ")
-                        HockeyLeagueCFN = get_user_input(
-                            "Enter Hockey League country full name: ")
-                        HockeyLeagueSD = get_user_input(
-                            "Enter Hockey League start date: ")
-                        HockeyLeaguePOF = get_user_input(
-                            "Enter Hockey League playoff format: ")
-                        HockeyLeagueOT = get_user_input(
-                            "Enter Hockey League ordertype: ")
-                        HockeyLeagueHC = get_user_input(
-                            "Does Hockey League have conferences: ")
-                        HockeyLeagueHD = get_user_input(
-                            "Does Hockey League have divisions: ")
-                        hockeyarray = pyhockeystats.ReplaceHockeyLeagueFromArray(
-                            hockeyarray, HockeyLeagueOldSN, HockeyLeagueSN, HockeyLeagueFN, HockeyLeagueCSN, HockeyLeagueCFN, HockeyLeagueSD, HockeyLeaguePOF, HockeyLeagueOT, HockeyLeagueHC, HockeyLeagueHD)
-            elif (submenuact.upper() == "E"):
-                sub_keep_loop = False
-    elif (menuact == "2" and len(hockeyarray['leaguelist']) <= 0):
-        print("ERROR: There are no Hockey Leagues")
-    elif (menuact == "2" and len(hockeyarray['leaguelist']) > 0):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            leaguec = 0
-            print("E: Back to Main Menu")
-            while (leaguec < len(hockeyarray['leaguelist'])):
-                lshn = hockeyarray['leaguelist'][leaguec]
-                print(str(leaguec)+": " +
-                      hockeyarray[lshn]['leagueinfo']['fullname'])
-                leaguec = leaguec + 1
-            HockeyLeaguePreSN = get_user_input("Enter Hockey League number: ")
-            if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
-                print("ERROR: Invalid Command")
-                HockeyLeaguePreSN = "E"
-            elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
-                print("ERROR: Invalid Command")
-                HockeyLeaguePreSN = "E"
-            elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
-                HockeyLeagueIntSN = int(HockeyLeaguePreSN)
-                HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
-                if (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "no"):
-                    print("ERROR: Hockey League can not have any conferences")
-                    HockeyLeaguePreSN = "E"
-                elif (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "yes"):
-                    sub_sub_keep_loop = True
-                    while (sub_sub_keep_loop):
-                        subsubmenuact = get_user_input(
-                            "E: Back to Main Menu\n1: Add Hockey Conference\n2: Remove Hockey Conference\n3: Edit Hockey Conference\nWhat do you want to do? ")
-                        if (subsubmenuact.upper() != "E" and not subsubmenuact.isdigit()):
-                            print("ERROR: Invalid Command")
-                            subsubmenuact = ""
-                        elif (subsubmenuact.upper() != "E" and subsubmenuact.isdigit() and (int(subsubmenuact) > 3 or int(subsubmenuact) < 1)):
-                            print("ERROR: Invalid Command")
-                            subsubmenuact = ""
-                        elif (subsubmenuact.upper() == "1"):
-                            HockeyConferenceCN = get_user_input(
-                                "Enter Hockey Conference name: ")
-                            if (HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['conferencelist']):
-                                print(
-                                    "ERROR: Hockey Conference with that name exists")
-                            elif (HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
-                                HockeyConferenceCPFN = get_user_input(
-                                    "Enter Hockey Conference prefix: ")
-                                HockeyConferenceCSFN = get_user_input(
-                                    "Enter Hockey Conference suffix: ")
-                                hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
-                                    hockeyarray, HockeyLeagueSN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN)
-                        elif (subsubmenuact == "2" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
-                            print("ERROR: There are no Hockey Conferences to delete")
-                        elif (subsubmenuact == "2" and len(hockeyarray['leaguelist']) > 0 and len(hockeyarray[HockeyLeagueSN]['conferencelist']) > 0):
-                            conferencec = 0
-                            print("E: Back to Hockey Conference Tool")
-                            while (conferencec < len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
-                                lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec]
-                                print(str(
-                                    conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname'])
-                                conferencec = conferencec + 1
-                            HockeyConferencePreCN = get_user_input(
-                                "Enter Hockey Conference number: ")
-                            if (HockeyConferencePreCN.upper() != "E" and not HockeyConferencePreCN.isdigit()):
-                                print("ERROR: Invalid Command")
-                                HockeyConferencePreCN = "E"
-                            elif (HockeyConferencePreCN.upper() != "E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN) > 6 or int(HockeyConferencePreCN) < 0)):
-                                print("ERROR: Invalid Command")
-                                HockeyConferencePreCN = "E"
-                            elif (HockeyConferencePreCN.upper() != "E" and int(HockeyConferencePreCN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN) > -1):
-                                HockeyConferenceIntCN = int(
-                                    HockeyConferencePreCN)
-                                HockeyConferenceCN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntCN]
-                                hockeyarray = pyhockeystats.RemoveHockeyConferenceFromArray(
-                                    hockeyarray, HockeyLeagueSN, HockeyConferenceCN)
-                        elif (subsubmenuact == "3" and (len(hockeyarray['leaguelist']) <= 0 or len(hockeyarray[HockeyLeagueSN]['conferencelist']) <= 0)):
-                            print("ERROR: There are no Hockey Conferences to edit")
-                        elif (subsubmenuact == "3" and len(hockeyarray['leaguelist']) > 0 and len(hockeyarray[HockeyLeagueSN]['conferencelist']) > 0):
-                            conferencec = 0
-                            print("E: Back to Hockey Conference Tool")
-                            while (conferencec < len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
-                                lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec]
-                                print(str(
-                                    conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname'])
-                                conferencec = conferencec + 1
-                            HockeyConferencePreCN = get_user_input(
-                                "Enter Hockey Conference number: ")
-                            if (HockeyConferencePreCN.upper() != "E" and not HockeyConferencePreCN.isdigit()):
-                                print("ERROR: Invalid Command")
-                                HockeyConferencePreCN = "E"
-                            elif (HockeyConferencePreCN.upper() != "E" and HockeyConferencePreCN.isdigit() and (int(HockeyConferencePreCN) > 6 or int(HockeyConferencePreCN) < 0)):
-                                print("ERROR: Invalid Command")
-                                HockeyConferencePreCN = "E"
-                            elif (HockeyConferencePreCN.upper() != "E" and int(HockeyConferencePreCN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreCN) > -1):
-                                HockeyConferenceIntCN = int(
-                                    HockeyConferencePreCN)
-                                HockeyConferenceOldCN = hockeyarray[HockeyLeagueSN][
-                                    'conferencelist'][HockeyConferenceIntCN]
-                                HockeyConferenceCN = get_user_input(
-                                    "Enter Hockey Conference name: ")
-                                if (HockeyConferenceCN in hockeyarray[HockeyLeagueSN]['conferencelist']):
-                                    print(
-                                        "ERROR: Hockey Conference with that name exists")
-                                elif (HockeyConferenceCN not in hockeyarray[HockeyLeagueSN]['conferencelist']):
-                                    HockeyConferenceCPFN = get_user_input(
-                                        "Enter Hockey Conference prefix: ")
-                                    HockeyConferenceCSFN = get_user_input(
-                                        "Enter Hockey Conference suffix: ")
-                                hockeyarray = pyhockeystats.ReplaceHockeyConferencFromArray(
-                                    hockeyarray, HockeyLeagueSN, HockeyConferenceOldCN, HockeyConferenceCN, HockeyConferenceCPFN, HockeyConferenceCSFN)
-                        elif (subsubmenuact.upper() == "E"):
-                            sub_sub_keep_loop = False
-            elif (HockeyLeaguePreSN.upper() == "E"):
-                sub_keep_loop = False
-    elif (menuact == "3" and len(hockeyarray['leaguelist']) <= 0):
-        print("ERROR: There are no Hockey Leagues")
-    elif (menuact == "3" and len(hockeyarray['leaguelist']) > 0):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            leaguec = 0
-            print("E: Back to Main Menu")
-            while (leaguec < len(hockeyarray['leaguelist'])):
-                lshn = hockeyarray['leaguelist'][leaguec]
-                print(str(leaguec)+": " +
-                      hockeyarray[lshn]['leagueinfo']['fullname'])
-                leaguec = leaguec + 1
-            HockeyLeaguePreSN = get_user_input("Enter Hockey League number: ")
-            if (HockeyLeaguePreSN.upper() != "E" and not HockeyLeaguePreSN.isdigit()):
-                print("ERROR: Invalid Command")
-                HockeyLeaguePreSN = "E"
-            elif (HockeyLeaguePreSN.upper() != "E" and HockeyLeaguePreSN.isdigit() and (int(HockeyLeaguePreSN) > len(hockeyarray['leaguelist']) or int(HockeyLeaguePreSN) < 0)):
-                print("ERROR: Invalid Command")
-                HockeyLeaguePreSN = "E"
-            elif (HockeyLeaguePreSN.upper() != "E" and int(HockeyLeaguePreSN) < len(hockeyarray['leaguelist']) and int(HockeyLeaguePreSN) > -1):
-                HockeyLeagueIntSN = int(HockeyLeaguePreSN)
-                HockeyLeagueSN = hockeyarray['leaguelist'][HockeyLeagueIntSN]
-                if (hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions'] == "no"):
-                    print("ERROR: Hockey League can not have any divisions")
-                    HockeyLeaguePreSN = "E"
-                elif (hockeyarray[HockeyLeagueSN]['leagueinfo']['divisions'] == "yes"):
-                    if (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "no"):
-                        sub_sub_keep_loop = True
-                        while (sub_sub_keep_loop):
-                            submenuact = get_user_input(
-                                "E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ")
-                            if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                                print("ERROR: Invalid Command")
-                                submenuact = ""
-                            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                                print("ERROR: Invalid Command")
-                                submenuact = ""
-                            elif (submenuact.upper() == "1"):
-                                HockeyDivisionDN = get_user_input(
-                                    "Enter Hockey Division name: ")
-                                if (HockeyDivisionDN in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
-                                    print(
-                                        "ERROR: Hockey Division with that name exists")
-                                elif (HockeyDivisionDN not in hockeyarray[HockeyLeagueSN]['']['divisionlist']):
-                                    HockeyDivisionDPFN = get_user_input(
-                                        "Enter Hockey Division prefix: ")
-                                    HockeyDivisionDSFN = get_user_input(
-                                        "Enter Hockey Division suffix: ")
-                                hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
-                                    hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "", HockeyDivisionDPFN, HockeyDivisionDSFN)
-                            elif (submenuact.upper() == "2"):
-                                divisionc = 0
-                                print("E: Back to Hockey Division Tool")
-                                while (divisionc < len(hockeyarray[HockeyLeagueSN]['']['divisionlist'])):
-                                    lshn = hockeyarray[HockeyLeagueSN]['']['divisionlist'][divisionc]
-                                    print(str(
-                                        divisionc)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['divisioninfo'][lshn]['fullname'])
-                                    divisionc = divisionc + 1
-                                HockeyDivisionPreDN = get_user_input(
-                                    "Enter Hockey Division number: ")
-                                if (HockeyDivisionPreDN.upper() != "E" and not HockeyDivisionPreDN.isdigit()):
-                                    print("ERROR: Invalid Command")
-                                    HockeyDivisionPreDN = "E"
-                                elif (HockeyDivisionPreDN.upper() != "E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN) > 6 or int(HockeyDivisionPreDN) < 0)):
-                                    print("ERROR: Invalid Command")
-                                    HockeyDivisionPreDN = "E"
-                                elif (HockeyDivisionPreDN.upper() != "E" and int(HockeyDivisionPreDN) < len(hockeyarray[HockeyLeagueSN]['']['divisionlist']) and int(HockeyDivisionPreDN) > -1):
-                                    HockeyDivisionIntCN = int(
-                                        HockeyDivisionPreDN)
-                                    HockeyDivisionDN = hockeyarray[HockeyLeagueSN]['']['divisionlist'][HockeyDivisionIntCN]
-                                    hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
-                                        hockeyarray, HockeyLeagueSN, HockeyDivisionDN, "")
-                            elif (submenuact.upper() == "E"):
-                                sub_sub_keep_loop = False
-                    elif (hockeyarray[HockeyLeagueSN]['leagueinfo']['conferences'] == "yes"):
-                        sub_sub_keep_loop = True
-                        while (sub_sub_keep_loop):
-                            conferencec = 0
-                            print("E: Back to Main Menu")
-                            while (conferencec < len(hockeyarray[HockeyLeagueSN]['conferencelist'])):
-                                lshn = hockeyarray[HockeyLeagueSN]['conferencelist'][conferencec]
-                                print(str(
-                                    conferencec)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['conferenceinfo'][lshn]['fullname'])
-                                conferencec = conferencec + 1
-                            HockeyConferencePreSN = get_user_input(
-                                "Enter Hockey Conference number: ")
-                            if (HockeyConferencePreSN.upper() != "E" and not HockeyConferencePreSN.isdigit()):
-                                print("ERROR: Invalid Command")
-                                HockeyConferencePreSN = "E"
-                            elif (HockeyConferencePreSN.upper() != "E" and HockeyConferencePreSN.isdigit() and (int(HockeyConferencePreSN) > len(hockeyarray[HockeyLeagueSN]['conferencelist']) or int(HockeyConferencePreSN) < 0)):
-                                print("ERROR: Invalid Command")
-                                HockeyConferencePreSN = "E"
-                            elif (HockeyConferencePreSN.upper() != "E" and int(HockeyConferencePreSN) < len(hockeyarray[HockeyLeagueSN]['conferencelist']) and int(HockeyConferencePreSN) > -1):
-                                HockeyConferenceIntSN = int(
-                                    HockeyConferencePreSN)
-                                HockeyConferenceSN = hockeyarray[HockeyLeagueSN]['conferencelist'][HockeyConferenceIntSN]
-                                sub_sub_sub_keep_loop = True
-                                while (sub_sub_sub_keep_loop):
-                                    submenuact = get_user_input(
-                                        "E: Back to Main Menu\n1: Add Hockey Division\n2: Remove Hockey Division\n3: Edit Hockey Division\nWhat do you want to do? ")
-                                    if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                                        print("ERROR: Invalid Command")
-                                        submenuact = ""
-                                    elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                                        print("ERROR: Invalid Command")
-                                        submenuact = ""
-                                    elif (submenuact.upper() == "1"):
-                                        HockeyDivisionDN = get_user_input(
-                                            "Enter Hockey Division name: ")
-                                        if (HockeyDivisionDN in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
-                                            print(
-                                                "ERROR: Hockey Division with that name exists")
-                                        elif (HockeyDivisionDN not in hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']):
-                                            HockeyDivisionDPFN = get_user_input(
-                                                "Enter Hockey Division prefix: ")
-                                            HockeyDivisionDSFN = get_user_input(
-                                                "Enter Hockey Division suffix: ")
-                                        hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
-                                            hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN, HockeyDivisionDPFN, HockeyDivisionDSFN)
-                                    elif (submenuact.upper() == "2"):
-                                        divisionc = 0
-                                        print("E: Back to Hockey Division Tool")
-                                        while (divisionc < len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist'])):
-                                            lshn = hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist'][divisionc]
-                                            print(str(
-                                                divisionc)+": "+hockeyarray[HockeyLeagueSN]['quickinfo']['divisioninfo'][lshn]['fullname'])
-                                            divisionc = divisionc + 1
-                                        HockeyDivisionPreDN = get_user_input(
-                                            "Enter Hockey Division number: ")
-                                        if (HockeyDivisionPreDN.upper() != "E" and not HockeyDivisionPreDN.isdigit()):
-                                            print("ERROR: Invalid Command")
-                                            HockeyDivisionPreDN = "E"
-                                        elif (HockeyDivisionPreDN.upper() != "E" and HockeyDivisionPreDN.isdigit() and (int(HockeyDivisionPreDN) > 6 or int(HockeyDivisionPreDN) < 0)):
-                                            print("ERROR: Invalid Command")
-                                            HockeyDivisionPreDN = "E"
-                                        elif (HockeyDivisionPreDN.upper() != "E" and int(HockeyDivisionPreDN) < len(hockeyarray[HockeyLeagueSN][HockeyConferenceSN]['divisionlist']) and int(HockeyDivisionPreDN) > -1):
-                                            HockeyDivisionIntCN = int(
-                                                HockeyDivisionPreDN)
-                                            HockeyDivisionDN = hockeyarray[HockeyLeagueSN][
-                                                HockeyConferenceSN]['divisionlist'][HockeyDivisionIntCN]
-                                            hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
-                                                hockeyarray, HockeyLeagueSN, HockeyDivisionDN, HockeyConferenceSN)
-                                    elif (submenuact.upper() == "E"):
-                                        sub_sub_sub_keep_loop = False
-                            elif (HockeyConferencePreSN.upper() == "E"):
-                                sub_sub_keep_loop = False
-            elif (HockeyLeaguePreSN.upper() == "E"):
-                sub_keep_loop = False
-    elif (menuact == "4" and len(hockeyarray['leaguelist']) <= 0):
-        print("ERROR: There are no Hockey Leagues")
-    elif (menuact == "4" and len(hockeyarray['leaguelist']) > 0):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            submenuact = get_user_input(
-                "E: Back to Main Menu\n1: Add Hockey Team\n2: Remove Hockey Team\n3: Edit Hockey Team\nWhat do you want to do? ")
-            if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() == "E"):
-                sub_keep_loop = False
-            print("ERROR: Sorry Command not Implemented yet")
-            raise NotImplementedError
-    elif (menuact == "5" and len(hockeyarray['leaguelist']) <= 0):
-        print("ERROR: There are no Hockey Leagues")
-    elif (menuact == "5" and len(hockeyarray['leaguelist']) > 0):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            submenuact = get_user_input(
-                "E: Back to Main Menu\n1: Add Hockey Arena\n2: Remove Hockey Arena\n3: Edit Hockey Arena\nWhat do you want to do? ")
-            if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() == "E"):
-                sub_keep_loop = False
-            print("ERROR: Sorry Command not Implemented yet")
-            raise NotImplementedError
-    elif (menuact == "6" and len(hockeyarray['leaguelist']) <= 0):
-        print("ERROR: There are no Hockey Leagues")
-    elif (menuact == "6" and len(hockeyarray['leaguelist']) > 0):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            submenuact = get_user_input(
-                "E: Back to Main Menu\n1: Add Hockey Game\n2: Remove Hockey Game\n3: Edit Hockey Game\nWhat do you want to do? ")
-            if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() == "E"):
-                sub_keep_loop = False
-            print("ERROR: Sorry Command not Implemented yet")
-            raise NotImplementedError
-    elif (menuact == "7"):
-        sub_keep_loop = True
-        while (sub_keep_loop):
-            submenuact = get_user_input(
-                "E: Back to Main Menu\n1: Empty Hockey Database\n2: Import Hockey Database From File\n3: Export Hockey Database to File\nWhat do you want to do? ")
-            if (submenuact.upper() != "E" and not submenuact.isdigit()):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact.upper() != "E" and submenuact.isdigit() and (int(submenuact) > 3 or int(submenuact) < 1)):
-                print("ERROR: Invalid Command")
-                submenuact = ""
-            elif (submenuact == "1"):
-                HockeyDatabaseFN = get_user_input(
-                    "Enter Hockey Database File Name For Output: ")
-                hockeyarray = pyhockeystats.CreateHockeyArray(HockeyDatabaseFN)
-            elif (submenuact == "2"):
-                HockeyDatabaseFN = get_user_input(
-                    "Enter Hockey Database File Name For Import: ")
-                ext = os.path.splitext(HockeyDatabaseFN)[-1].lower()
-                if (ext in extensions):
-                    if (ext == ".xml" and pyhockeystats.CheckXMLFile(HockeyDatabaseFN)):
-                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyXML(
-                            HockeyDatabaseFN)
-                    elif ((ext == ".db3" or ext == ".db" or ext == ".sdb" or ext == ".sqlite" or ext == ".sqlite3") and pyhockeystats.CheckSQLiteDatabase(HockeyDatabaseFN)):
-                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyDatabase(
-                            HockeyDatabaseFN)
-                    elif (ext == ".sql"):
-                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQL(
-                            HockeyDatabaseFN)
-                    elif (ext == ".json"):
-                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeyJSON(
-                            HockeyDatabaseFN)
-                    else:
-                        print("ERROR: Invalid Command")
-                    if (pyhockeystats.CheckHockeySQLiteArray(hockeyarray)):
-                        hockeyarray = pyhockeystats.MakeHockeyArrayFromHockeySQLiteArray(
-                            hockeyarray)
-                    if (not pyhockeystats.CheckHockeyArray(hockeyarray)):
-                        print("ERROR: Invalid Command")
-            elif (submenuact.upper() == "3"):
-                sub_sub_keep_loop = True
-                while (sub_sub_keep_loop):
-                    subsubmenuact = get_user_input(
-                        "E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey SGML\n3: Export Hockey Database to Hockey JSON\n4: Export Hockey Database to Hockey Py\n5: Export Hockey Database to Hockey Py Alt\n6: Export Hockey Database to Hockey Py OOP\n7: Export Hockey Database to Hockey Py OOP Alt\n8: Export Hockey Database to Hockey SQL\n9: Export Hockey Database to Hockey Database File\nWhat do you want to do? ")
-                    if (subsubmenuact.upper() != "E" and not subsubmenuact.isdigit()):
-                        print("ERROR: Invalid Command")
-                        subsubmenuact = "E"
-                    elif (subsubmenuact.upper() != "E" and subsubmenuact.isdigit() and (int(subsubmenuact) > 6 or int(subsubmenuact) < 1)):
-                        print("ERROR: Invalid Command")
-                        subsubmenuact = "E"
-                    elif (subsubmenuact == "1"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database XML File Name to Export: ")
-                        pyhockeystats.MakeHockeyXMLFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "2"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database SGML File Name to Export: ")
-                        pyhockeystats.MakeHockeySGMLFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "3"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database JSON File Name to Export: ")
-                        pyhockeystats.MakeHockeyJSONFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "4"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "5"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "6"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "7"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "8"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database SQL File Name to Export: ")
-                        pyhockeystats.MakeHockeySQLFileFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "9"):
-                        HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database File Name to Export: ")
-                        pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
-                            hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact.upper() == "E"):
-                        sub_sub_keep_loop = False
-            elif (submenuact.upper() == "E"):
-                sub_keep_loop = False
-    if (menuact.upper() == "E"):
-        keep_loop = False
-        
+    def manage_leagues(self):
+        """Manage hockey leagues."""
+        submenu_options = {
+            '1': self.add_league,
+            '2': self.remove_league,
+            '3': self.edit_league
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Add Hockey League\n"
+                "2: Remove Hockey League\n"
+                "3: Edit Hockey League\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def add_league(self):
+        """Add a new hockey league."""
+        sn = self.prompt_input("Enter Hockey League short name: ")
+        if sn in self.hockeyarray.get('leaguelist', []):
+            logger.error("ERROR: Hockey League with that short name already exists.")
+            return
+
+        fn = self.prompt_input("Enter Hockey League full name: ")
+        csn = self.prompt_input("Enter Hockey League country short name: ")
+        cfn = self.prompt_input("Enter Hockey League country full name: ")
+        sd = self.prompt_input("Enter Hockey League start date (YYYY-MM-DD): ")
+        pof = self.prompt_input("Enter Hockey League playoff format: ")
+        ot = self.prompt_input("Enter Hockey League order type: ")
+        hc = self.prompt_input("Does the Hockey League have conferences? (yes/no): ").lower()
+        hd = self.prompt_input("Does the Hockey League have divisions? (yes/no): ").lower()
+
+        self.hockeyarray = pyhockeystats.AddHockeyLeagueToArray(
+            self.hockeyarray, sn, fn, csn, cfn, sd, pof, ot, hc, hd
+        )
+
+        if hc == "no":
+            self.hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
+                self.hockeyarray, sn, ""
+            )
+        if hd == "no":
+            self.hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
+                self.hockeyarray, sn, "", ""
+            )
+        logger.info("Hockey League '{}' added successfully.".format(fn))
+
+    def remove_league(self):
+        """Remove an existing hockey league."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues to delete.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        choice = self.prompt_selection(len(leagues), "Enter Hockey League number to remove: ")
+
+        if choice is not None:
+            sn = leagues[choice]
+            self.hockeyarray = pyhockeystats.RemoveHockeyLeagueFromArray(
+                self.hockeyarray, sn
+            )
+            logger.info("Hockey League '{}' removed successfully.".format(sn))
+
+    def edit_league(self):
+        """Edit an existing hockey league."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues to edit.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        choice = self.prompt_selection(len(leagues), "Enter Hockey League number to edit: ")
+
+        if choice is not None:
+            old_sn = leagues[choice]
+            new_sn = self.prompt_input("Enter new Hockey League short name: ")
+            if new_sn in self.hockeyarray.get('leaguelist', []):
+                logger.error("ERROR: Hockey League with that short name already exists.")
+                return
+
+            new_fn = self.prompt_input("Enter new Hockey League full name: ")
+            new_csn = self.prompt_input("Enter new Hockey League country short name: ")
+            new_cfn = self.prompt_input("Enter new Hockey League country full name: ")
+            new_sd = self.prompt_input("Enter new Hockey League start date (YYYY-MM-DD): ")
+            new_pof = self.prompt_input("Enter new Hockey League playoff format: ")
+            new_ot = self.prompt_input("Enter new Hockey League order type: ")
+            new_hc = self.prompt_input("Does the Hockey League have conferences? (yes/no): ").lower()
+            new_hd = self.prompt_input("Does the Hockey League have divisions? (yes/no): ").lower()
+
+            self.hockeyarray = pyhockeystats.ReplaceHockeyLeagueFromArray(
+                self.hockeyarray, old_sn, new_sn, new_fn, new_csn, new_cfn,
+                new_sd, new_pof, new_ot, new_hc, new_hd
+            )
+
+            if new_hc == "no":
+                self.hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
+                    self.hockeyarray, new_sn, ""
+                )
+            if new_hd == "no":
+                self.hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
+                    self.hockeyarray, new_sn, "", ""
+                )
+            logger.info("Hockey League '{}' updated successfully.".format(old_sn))
+
+    def manage_conferences(self):
+        """Manage hockey conferences."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+        if self.hockeyarray[league_sn]['leagueinfo'].get('conferences', 'no') != "yes":
+            logger.error("ERROR: The Hockey League does not have conferences.")
+            return
+
+        submenu_options = {
+            '1': lambda: self.add_conference(league_sn),
+            '2': lambda: self.remove_conference(league_sn),
+            '3': lambda: self.edit_conference(league_sn),
+            '4': lambda: self.move_division_to_conference(league_sn),
+            '5': lambda: self.move_team_to_conference(league_sn)
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Add Hockey Conference\n"
+                "2: Remove Hockey Conference\n"
+                "3: Edit Hockey Conference\n"
+                "4: Move Hockey Division to Another Conference\n"
+                "5: Move Hockey Team to Another Conference\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3', '4', '5']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def add_conference(self, league_sn):
+        """Add a new hockey conference to a league."""
+        cn = self.prompt_input("Enter Hockey Conference name: ")
+        if cn in self.hockeyarray[league_sn].get('conferencelist', []):
+            logger.error("ERROR: Hockey Conference with that name already exists.")
+            return
+
+        cpf = self.prompt_input("Enter Hockey Conference prefix: ")
+        csf = self.prompt_input("Enter Hockey Conference suffix: ")
+
+        self.hockeyarray = pyhockeystats.AddHockeyConferenceToArray(
+            self.hockeyarray, league_sn, cn, cpf, csf
+        )
+        logger.info("Hockey Conference '{}' added successfully to league '{}'.".format(cn, league_sn))
+
+    def remove_conference(self, league_sn):
+        """Remove an existing hockey conference from a league."""
+        conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if not conferences:
+            logger.error("ERROR: There are no Hockey Conferences to delete.")
+            return
+
+        self.display_list(conferences, "Hockey Conferences")
+        choice = self.prompt_selection(len(conferences), "Enter Hockey Conference number to remove: ")
+
+        if choice is not None:
+            cn = conferences[choice]
+            self.hockeyarray = pyhockeystats.RemoveHockeyConferenceFromArray(
+                self.hockeyarray, league_sn, cn
+            )
+            logger.info("Hockey Conference '{}' removed successfully from league '{}'.".format(cn, league_sn))
+
+    def edit_conference(self, league_sn):
+        """Edit an existing hockey conference in a league."""
+        conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if not conferences:
+            logger.error("ERROR: There are no Hockey Conferences to edit.")
+            return
+
+        self.display_list(conferences, "Hockey Conferences")
+        choice = self.prompt_selection(len(conferences), "Enter Hockey Conference number to edit: ")
+
+        if choice is not None:
+            old_cn = conferences[choice]
+            new_cn = self.prompt_input("Enter new Hockey Conference name: ")
+            if new_cn in self.hockeyarray[league_sn].get('conferencelist', []):
+                logger.error("ERROR: Hockey Conference with that name already exists.")
+                return
+
+            new_cpf = self.prompt_input("Enter new Hockey Conference prefix: ")
+            new_csf = self.prompt_input("Enter new Hockey Conference suffix: ")
+
+            self.hockeyarray = pyhockeystats.ReplaceHockeyConferencFromArray(
+                self.hockeyarray, league_sn, old_cn, new_cn, new_cpf, new_csf
+            )
+            logger.info("Hockey Conference '{}' updated successfully in league '{}'.".format(old_cn, league_sn))
+
+    def move_division_to_conference(self, league_sn):
+        """Move a hockey division from one conference to another within a league."""
+        divisions = []
+        for conf in self.hockeyarray[league_sn].get('conferencelist', []):
+            divisions += [(conf, div) for div in self.hockeyarray[league_sn].get(conf, {}).get('divisionlist', [])]
+
+        if not divisions:
+            logger.error("ERROR: There are no Hockey Divisions to move.")
+            return
+
+        # Display divisions with their current conferences
+        division_descriptions = ["{}: {}".format(conf, div) for conf, div in divisions]
+        self.display_list(division_descriptions, "Hockey Divisions (Conference: Division)")
+
+        choice = self.prompt_selection(len(divisions), "Enter Hockey Division number to move: ")
+        if choice is None:
+            return
+
+        old_conference, division = divisions[choice]
+
+        # Display target conferences
+        target_conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if not target_conferences:
+            logger.error("ERROR: There are no target conferences available.")
+            return
+
+        self.display_list(target_conferences, "Target Conferences")
+        target_choice = self.prompt_selection(len(target_conferences), "Enter target Hockey Conference number: ")
+        if target_choice is None:
+            return
+
+        new_conference = target_conferences[target_choice]
+
+        if old_conference == new_conference:
+            logger.error("ERROR: Division is already in the selected conference.")
+            return
+
+        self.hockeyarray = pyhockeystats.MoveHockeyDivisionToConferenceFromArray(
+            self.hockeyarray, league_sn, division, old_conference, new_conference
+        )
+        logger.info("Hockey Division '{}' moved from conference '{}' to '{}.'".format(division, old_conference, new_conference))
+
+    def move_team_to_conference(self, league_sn):
+        """Move a hockey team from one conference to another within a league."""
+        teams = []
+        for conf in self.hockeyarray[league_sn].get('conferencelist', []):
+            for div in self.hockeyarray[league_sn].get(conf, {}).get('divisionlist', []):
+                for team in self.hockeyarray[league_sn].get(conf, {}).get(div, {}).get('teamlist', []):
+                    teams.append((conf, div, team))
+
+        if not teams:
+            logger.error("ERROR: There are no Hockey Teams to move.")
+            return
+
+        # Display teams with their current conferences and divisions
+        team_descriptions = ["{} > {}: {}".format(conf, div, team) for conf, div, team in teams]
+        self.display_list(team_descriptions, "Hockey Teams (Conference > Division: Team)")
+
+        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
+        if choice is None:
+            return
+
+        old_conference, old_division, teamname = teams[choice]
+
+        # Display target conferences
+        target_conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if not target_conferences:
+            logger.error("ERROR: There are no target conferences available.")
+            return
+
+        self.display_list(target_conferences, "Target Conferences")
+        target_choice = self.prompt_selection(len(target_conferences), "Enter target Hockey Conference number: ")
+        if target_choice is None:
+            return
+
+        new_conference = target_conferences[target_choice]
+
+        if old_conference == new_conference:
+            logger.error("ERROR: Team is already in the selected conference.")
+            return
+
+        # Display target divisions within the new conference
+        target_divisions = self.hockeyarray[league_sn].get(new_conference, {}).get('divisionlist', [])
+        if not target_divisions:
+            logger.error("ERROR: There are no target divisions in the selected conference.")
+            return
+
+        self.display_list(target_divisions, "Target Divisions in Conference '{}'".format(new_conference))
+        division_choice = self.prompt_selection(len(target_divisions), "Enter target Hockey Division number: ")
+        if division_choice is None:
+            return
+
+        new_division = target_divisions[division_choice]
+
+        self.hockeyarray = pyhockeystats.MoveHockeyTeamToConferenceFromArray(
+            self.hockeyarray, league_sn, teamname, old_conference, new_conference, new_division
+        )
+        logger.info("Hockey Team '{}' moved from conference '{}' to '{}' in division '{}'.".format(teamname, old_conference, new_conference, new_division))
+
+    def manage_divisions(self):
+        """Manage hockey divisions."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+        has_divisions = self.hockeyarray[league_sn]['leagueinfo'].get('divisions', 'no') == "yes"
+        if not has_divisions:
+            logger.error("ERROR: The Hockey League does not have divisions.")
+            return
+
+        submenu_options = {
+            '1': lambda: self.add_division(league_sn),
+            '2': lambda: self.remove_division(league_sn),
+            '3': lambda: self.edit_division(league_sn),
+            '4': lambda: self.move_team_to_division(league_sn)
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Add Hockey Division\n"
+                "2: Remove Hockey Division\n"
+                "3: Edit Hockey Division\n"
+                "4: Move Hockey Team to Another Division\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3', '4']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def add_division(self, league_sn, conference_sn=None):
+        """Add a new hockey division to a league or conference."""
+        dn = self.prompt_input("Enter Hockey Division name: ")
+        target = 'conferencelist' if conference_sn else 'divisionlist'
+        existing_divisions = self.hockeyarray[league_sn].get(target, [])
+        if dn in existing_divisions:
+            logger.error("ERROR: Hockey Division with that name already exists.")
+            return
+
+        dpf = self.prompt_input("Enter Hockey Division prefix: ")
+        dsf = self.prompt_input("Enter Hockey Division suffix: ")
+
+        self.hockeyarray = pyhockeystats.AddHockeyDivisionToArray(
+            self.hockeyarray, league_sn, dn, conference_sn, dpf, dsf
+        )
+        location = "conference '{}' in league '{}'".format(conference_sn, league_sn) if conference_sn else "league '{}'".format(league_sn)
+        logger.info("Hockey Division '{}' added successfully to {}.".format(dn, location))
+
+    def remove_division(self, league_sn, conference_sn=None):
+        """Remove an existing hockey division from a league or conference."""
+        target = 'conferencelist' if conference_sn else 'divisionlist'
+        divisions = self.hockeyarray[league_sn].get(target, [])
+        if not divisions:
+            logger.error("ERROR: There are no Hockey Divisions to delete.")
+            return
+
+        self.display_list(divisions, "Hockey Divisions")
+        choice = self.prompt_selection(len(divisions), "Enter Hockey Division number to remove: ")
+
+        if choice is not None:
+            dn = divisions[choice]
+            self.hockeyarray = pyhockeystats.RemoveHockeyDivisionFromArray(
+                self.hockeyarray, league_sn, dn, conference_sn
+            )
+            location = "conference '{}' in league '{}'".format(conference_sn, league_sn) if conference_sn else "league '{}'".format(league_sn)
+            logger.info("Hockey Division '{}' removed successfully from {}.".format(dn, location))
+
+    def edit_division(self, league_sn, conference_sn=None):
+        """Edit an existing hockey division in a league or conference."""
+        target = 'conferencelist' if conference_sn else 'divisionlist'
+        divisions = self.hockeyarray[league_sn].get(target, [])
+        if not divisions:
+            logger.error("ERROR: There are no Hockey Divisions to edit.")
+            return
+
+        self.display_list(divisions, "Hockey Divisions")
+        choice = self.prompt_selection(len(divisions), "Enter Hockey Division number to edit: ")
+
+        if choice is not None:
+            old_dn = divisions[choice]
+            new_dn = self.prompt_input("Enter new Hockey Division name: ")
+            if new_dn in self.hockeyarray[league_sn].get(target, []):
+                logger.error("ERROR: Hockey Division with that name already exists.")
+                return
+
+            new_dpf = self.prompt_input("Enter new Hockey Division prefix: ")
+            new_dsf = self.prompt_input("Enter new Hockey Division suffix: ")
+
+            self.hockeyarray = pyhockeystats.ReplaceHockeyDivisionFromArray(
+                self.hockeyarray, league_sn, new_dn, old_dn, conference_sn, new_dpf, new_dsf
+            )
+            location = "conference '{}' in league '{}'".format(conference_sn, league_sn) if conference_sn else "league '{}'".format(league_sn)
+            logger.info("Hockey Division '{}' updated successfully in {}.".format(old_dn, location))
+
+    def move_team_to_division(self, league_sn):
+        """Move a hockey team from one division to another within a league."""
+        teams = []
+        for conf in self.hockeyarray[league_sn].get('conferencelist', []):
+            for div in self.hockeyarray[league_sn].get(conf, {}).get('divisionlist', []):
+                for team in self.hockeyarray[league_sn].get(conf, {}).get(div, {}).get('teamlist', []):
+                    teams.append((conf, div, team))
+
+        if not teams:
+            logger.error("ERROR: There are no Hockey Teams to move.")
+            return
+
+        # Display teams with their current conferences and divisions
+        team_descriptions = ["{} > {}: {}".format(conf, div, team) for conf, div, team in teams]
+        self.display_list(team_descriptions, "Hockey Teams (Conference > Division: Team)")
+
+        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
+        if choice is None:
+            return
+
+        old_conference, old_division, teamname = teams[choice]
+
+        # Display target divisions within the same conference
+        target_divisions = self.hockeyarray[league_sn].get(old_conference, {}).get('divisionlist', [])
+        if not target_divisions:
+            logger.error("ERROR: There are no target divisions available.")
+            return
+
+        self.display_list(target_divisions, "Target Divisions in Conference '{}'".format(old_conference))
+        division_choice = self.prompt_selection(len(target_divisions), "Enter target Hockey Division number: ")
+        if division_choice is None:
+            return
+
+        new_division = target_divisions[division_choice]
+
+        if old_division == new_division:
+            logger.error("ERROR: Team is already in the selected division.")
+            return
+
+        self.hockeyarray = pyhockeystats.MoveHockeyTeamToDivisionFromArray(
+            self.hockeyarray, league_sn, teamname, old_conference, new_division
+        )
+        logger.info("Hockey Team '{}' moved from division '{}' to '{}' in conference '{}'.".format(
+            teamname, old_division, new_division, old_conference))
+
+    def manage_teams(self):
+        """Manage hockey teams."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+
+        # Display Conferences if they exist
+        conferences = self.hockeyarray[league_sn].get('conferencelist', [])
+        if conferences:
+            self.display_list(conferences, "Hockey Conferences")
+            conference_index = self.prompt_selection(len(conferences), "Enter Hockey Conference number (or 'E' to skip): ")
+            if conference_index is not None:
+                conference_sn = conferences[conference_index]
+            else:
+                conference_sn = None
+        else:
+            conference_sn = None
+
+        # Display Divisions
+        target = 'conferencelist' if conference_sn else 'divisionlist'
+        divisions = self.hockeyarray[league_sn].get(target, [])
+        if not divisions:
+            logger.error("ERROR: There are no Hockey Divisions.")
+            return
+
+        self.display_list(divisions, "Hockey Divisions")
+        division_index = self.prompt_selection(len(divisions), "Enter Hockey Division number: ")
+        if division_index is None:
+            return
+
+        division_sn = divisions[division_index]
+
+        submenu_options = {
+            '1': lambda: self.add_team(league_sn, conference_sn, division_sn),
+            '2': lambda: self.remove_team(league_sn, conference_sn, division_sn),
+            '3': lambda: self.edit_team(league_sn, conference_sn, division_sn),
+            '4': lambda: self.move_team_to_division_within(league_sn, conference_sn, division_sn)
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Add Hockey Team\n"
+                "2: Remove Hockey Team\n"
+                "3: Edit Hockey Team\n"
+                "4: Move Hockey Team to Another Division\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3', '4']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def add_team(self, league_sn, conference_sn, division_sn):
+        """Add a new hockey team."""
+        teamname = self.prompt_input("Enter Hockey Team name: ")
+        if teamname in self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', []):
+            logger.error("ERROR: Hockey Team with that name already exists.")
+            return
+
+        cityname = self.prompt_input("Enter Hockey Team city name: ")
+        areaname = self.prompt_input("Enter Hockey Team area name: ")
+        fullareaname = self.prompt_input("Enter Hockey Team full area name: ")
+        countryname = self.prompt_input("Enter Hockey Team country name: ")
+        fullcountryname = self.prompt_input("Enter Hockey Team full country name: ")
+        arenaname = self.prompt_input("Enter Hockey Team arena name: ")
+        teamnameprefix = self.prompt_input("Enter Hockey Team name prefix (optional): ") or ""
+        teamnamesuffix = self.prompt_input("Enter Hockey Team name suffix (optional): ") or ""
+        teamaffiliates = self.prompt_input("Enter Hockey Team affiliates (optional): ") or ""
+
+        self.hockeyarray = pyhockeystats.AddHockeyTeamToArray(
+            self.hockeyarray, league_sn, cityname, areaname, countryname,
+            fullcountryname, fullareaname, teamname, conference_sn, division_sn,
+            arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
+        )
+        logger.info("Hockey Team '{}' added successfully to division '{}'.".format(teamname, division_sn))
+
+    def remove_team(self, league_sn, conference_sn, division_sn):
+        """Remove an existing hockey team."""
+        teams = self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', [])
+        if not teams:
+            logger.error("ERROR: There are no Hockey Teams to delete.")
+            return
+
+        self.display_list(teams, "Hockey Teams")
+        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to remove: ")
+
+        if choice is not None:
+            teamname = teams[choice]
+            self.hockeyarray = pyhockeystats.RemoveHockeyTeamFromArray(
+                self.hockeyarray, league_sn, teamname, conference_sn, division_sn
+            )
+            logger.info("Hockey Team '{}' removed successfully from division '{}'.".format(teamname, division_sn))
+
+    def edit_team(self, league_sn, conference_sn, division_sn):
+        """Edit an existing hockey team."""
+        teams = self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', [])
+        if not teams:
+            logger.error("ERROR: There are no Hockey Teams to edit.")
+            return
+
+        self.display_list(teams, "Hockey Teams")
+        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to edit: ")
+
+        if choice is not None:
+            oldteamname = teams[choice]
+            newteamname = self.prompt_input("Enter new Hockey Team name: ")
+            if newteamname in self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', []):
+                logger.error("ERROR: Hockey Team with that name already exists.")
+                return
+
+            # Collect optional updates
+            cityname = self.prompt_input("Enter new Hockey Team city name (press Enter to skip): ") or None
+            areaname = self.prompt_input("Enter new Hockey Team area name (press Enter to skip): ") or None
+            countryname = self.prompt_input("Enter new Hockey Team country name (press Enter to skip): ") or None
+            fullcountryname = self.prompt_input("Enter new Hockey Team full country name (press Enter to skip): ") or None
+            fullareaname = self.prompt_input("Enter new Hockey Team full area name (press Enter to skip): ") or None
+            arenaname = self.prompt_input("Enter new Hockey Team arena name (press Enter to skip): ") or None
+            teamnameprefix = self.prompt_input("Enter new Hockey Team name prefix (press Enter to skip): ") or None
+            teamnamesuffix = self.prompt_input("Enter new Hockey Team name suffix (press Enter to skip): ") or None
+            teamaffiliates = self.prompt_input("Enter new Hockey Team affiliates (press Enter to skip): ") or None
+
+            self.hockeyarray = pyhockeystats.ReplaceHockeyTeamFromArray(
+                self.hockeyarray, league_sn, oldteamname, newteamname, conference_sn, division_sn,
+                cityname, areaname, countryname, fullcountryname, fullareaname,
+                arenaname, teamnameprefix, teamnamesuffix, teamaffiliates
+            )
+            logger.info("Hockey Team '{}' updated successfully to '{}' in division '{}'.".format(oldteamname, newteamname, division_sn))
+
+    def move_team_to_division_within(self, league_sn, conference_sn, division_sn):
+        """Move a hockey team to another division within the same conference."""
+        teams = self.hockeyarray[league_sn][conference_sn][division_sn].get('teamlist', [])
+        if not teams:
+            logger.error("ERROR: There are no Hockey Teams to move.")
+            return
+
+        self.display_list(teams, "Hockey Teams")
+        choice = self.prompt_selection(len(teams), "Enter Hockey Team number to move: ")
+
+        if choice is not None:
+            teamname = teams[choice]
+
+            # Display target divisions within the same conference
+            target_divisions = self.hockeyarray[league_sn].get(conference_sn, {}).get('divisionlist', [])
+            if not target_divisions:
+                logger.error("ERROR: There are no target divisions available.")
+                return
+
+            self.display_list(target_divisions, "Target Divisions in Conference '{}'".format(conference_sn))
+            division_choice = self.prompt_selection(len(target_divisions), "Enter target Hockey Division number: ")
+            if division_choice is None:
+                return
+
+            new_division = target_divisions[division_choice]
+
+            if division_sn == new_division:
+                logger.error("ERROR: Team is already in the selected division.")
+                return
+
+            self.hockeyarray = pyhockeystats.MoveHockeyTeamToDivisionFromArray(
+                self.hockeyarray, league_sn, teamname, conference_sn, division_sn, new_division
+            )
+            logger.info("Hockey Team '{}' moved from division '{}' to '{}' in conference '{}'.".format(
+                teamname, division_sn, new_division, conference_sn))
+
+    def manage_arenas(self):
+        """Manage hockey arenas."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+
+        submenu_options = {
+            '1': lambda: self.add_arena(league_sn),
+            '2': lambda: self.remove_arena(league_sn),
+            '3': lambda: self.edit_arena(league_sn)
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Add Hockey Arena\n"
+                "2: Remove Hockey Arena\n"
+                "3: Edit Hockey Arena\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def add_arena(self, league_sn):
+        """Add a new hockey arena."""
+        arenaname = self.prompt_input("Enter Hockey Arena name: ")
+        if any(arena['name'] == arenaname for arena in self.hockeyarray.get(league_sn, {}).get('arenas', [])):
+            logger.error("ERROR: Hockey Arena with that name already exists.")
+            return
+
+        cityname = self.prompt_input("Enter Hockey Arena city name: ")
+        areaname = self.prompt_input("Enter Hockey Arena area name: ")
+        fullareaname = self.prompt_input("Enter Hockey Arena full area name: ")
+        countryname = self.prompt_input("Enter Hockey Arena country name: ")
+        fullcountryname = self.prompt_input("Enter Hockey Arena full country name: ")
+
+        self.hockeyarray = pyhockeystats.AddHockeyArenaToArray(
+            self.hockeyarray, league_sn, cityname, areaname, countryname,
+            fullcountryname, fullareaname, arenaname
+        )
+        logger.info("Hockey Arena '{}' added successfully to league '{}'.".format(arenaname, league_sn))
+
+    def remove_arena(self, league_sn):
+        """Remove an existing hockey arena."""
+        arenas = self.hockeyarray[league_sn].get('arenas', [])
+        if not arenas:
+            logger.error("ERROR: There are no Hockey Arenas to delete.")
+            return
+
+        arena_names = [arena['name'] for arena in arenas]
+        self.display_list(arena_names, "Hockey Arenas")
+        choice = self.prompt_selection(len(arenas), "Enter Hockey Arena number to remove: ")
+
+        if choice is not None:
+            arenaname = arenas[choice]['name']
+            self.hockeyarray = pyhockeystats.RemoveHockeyArenaFromArray(
+                self.hockeyarray, league_sn, arenaname
+            )
+            logger.info("Hockey Arena '{}' removed successfully from league '{}'.".format(arenaname, league_sn))
+
+    def edit_arena(self, league_sn):
+        """Edit an existing hockey arena."""
+        arenas = self.hockeyarray[league_sn].get('arenas', [])
+        if not arenas:
+            logger.error("ERROR: There are no Hockey Arenas to edit.")
+            return
+
+        arena_names = [arena['name'] for arena in arenas]
+        self.display_list(arena_names, "Hockey Arenas")
+        choice = self.prompt_selection(len(arenas), "Enter Hockey Arena number to edit: ")
+
+        if choice is not None:
+            old_arenaname = arenas[choice]['name']
+            new_arenaname = self.prompt_input("Enter new Hockey Arena name: ")
+            if any(arena['name'] == new_arenaname for arena in self.hockeyarray.get(league_sn, {}).get('arenas', [])):
+                logger.error("ERROR: Hockey Arena with that name already exists.")
+                return
+
+            # Collect optional updates
+            cityname = self.prompt_input("Enter new Hockey Arena city name (press Enter to skip): ") or None
+            areaname = self.prompt_input("Enter new Hockey Arena area name (press Enter to skip): ") or None
+            countryname = self.prompt_input("Enter new Hockey Arena country name (press Enter to skip): ") or None
+            fullcountryname = self.prompt_input("Enter new Hockey Arena full country name (press Enter to skip): ") or None
+            fullareaname = self.prompt_input("Enter new Hockey Arena full area name (press Enter to skip): ") or None
+
+            self.hockeyarray = pyhockeystats.ReplaceHockeyArenaInArray(
+                self.hockeyarray, league_sn, old_arenaname, new_arenaname,
+                cityname, areaname, countryname, fullcountryname, fullareaname
+            )
+            logger.info("Hockey Arena '{}' updated successfully to '{}' in league '{}'.".format(
+                old_arenaname, new_arenaname, league_sn))
+
+    def manage_games(self):
+        """Manage hockey games."""
+        leagues = self.hockeyarray.get('leaguelist', [])
+        if not leagues:
+            logger.error("ERROR: There are no Hockey Leagues.")
+            return
+
+        self.display_list(leagues, "Hockey Leagues")
+        league_index = self.prompt_selection(len(leagues), "Enter Hockey League number: ")
+        if league_index is None:
+            return
+
+        league_sn = leagues[league_index]
+
+        submenu_options = {
+            '1': lambda: self.add_game(league_sn),
+            '2': lambda: self.remove_game(league_sn),
+            '3': lambda: self.edit_game(league_sn),
+            '4': lambda: self.move_game(league_sn)
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Add Hockey Game\n"
+                "2: Remove Hockey Game\n"
+                "3: Edit Hockey Game\n"
+                "4: Move Hockey Game\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3', '4']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def add_game(self, league_sn):
+        """Add a new hockey game."""
+        date = self.prompt_input("Enter Game Date (YYYY-MM-DD): ")
+        time = self.prompt_input("Enter Game Time (HH:MM): ")
+        hometeam = self.prompt_input("Enter Home Team Full Name: ")
+        awayteam = self.prompt_input("Enter Away Team Full Name: ")
+        periodsscore = self.prompt_input("Enter Periods' Score: ")
+        shotsongoal = self.prompt_input("Enter Shots on Goal: ")
+        ppgoals = self.prompt_input("Enter Power-Play Goals: ")
+        shgoals = self.prompt_input("Enter Short-Handed Goals: ")
+        periodpens = self.prompt_input("Enter Period Penalties: ")
+        periodpims = self.prompt_input("Enter Period PIMs: ")
+        periodhits = self.prompt_input("Enter Period Hits: ")
+        takeaways = self.prompt_input("Enter Takeaways: ")
+        faceoffwins = self.prompt_input("Enter Faceoff Wins: ")
+        atarena = self.prompt_input("Enter Arena Name: ")
+        isplayoffgame = self.prompt_input("Is Playoff Game? (yes/no): ").lower()
+
+        self.hockeyarray = pyhockeystats.AddHockeyGameToArray(
+            self.hockeyarray, league_sn, date, time, hometeam, awayteam,
+            periodsscore, shotsongoal, ppgoals, shgoals, periodpens,
+            periodpims, periodhits, takeaways, faceoffwins, atarena,
+            isplayoffgame
+        )
+        logger.info("Hockey Game between '{}' and '{}' on {} added successfully.".format(
+            hometeam, awayteam, date))
+
+    def remove_game(self, league_sn):
+        """Remove an existing hockey game."""
+        games = self.hockeyarray[league_sn].get('games', [])
+        if not games:
+            logger.error("ERROR: There are no Hockey Games to delete.")
+            return
+
+        game_descriptions = [
+            "{} {} - {} vs {}".format(game['date'], game['time'], game['hometeam'], game['awayteam'])
+            for game in games
+        ]
+        self.display_list(game_descriptions, "Hockey Games")
+        choice = self.prompt_selection(len(games), "Enter Hockey Game number to remove: ")
+
+        if choice is not None:
+            game = games[choice]
+            self.hockeyarray = pyhockeystats.RemoveHockeyGameFromArray(
+                self.hockeyarray, league_sn, game['date'], game['hometeam'], game['awayteam']
+            )
+            logger.info("Hockey Game between '{}' and '{}' on {} removed successfully.".format(
+                game['hometeam'], game['awayteam'], game['date']))
+
+    def edit_game(self, league_sn):
+        """Edit an existing hockey game."""
+        games = self.hockeyarray[league_sn].get('games', [])
+        if not games:
+            logger.error("ERROR: There are no Hockey Games to edit.")
+            return
+
+        game_descriptions = [
+            "{} {} - {} vs {}".format(game['date'], game['time'], game['hometeam'], game['awayteam'])
+            for game in games
+        ]
+        self.display_list(game_descriptions, "Hockey Games")
+        choice = self.prompt_selection(len(games), "Enter Hockey Game number to edit: ")
+
+        if choice is not None:
+            game = games[choice]
+            olddate = game['date']
+            oldhometeam = game['hometeam']
+            oldawayteam = game['awayteam']
+
+            # Collect optional updates
+            newdate = self.prompt_input("Enter new Game Date (YYYY-MM-DD) (press Enter to skip): ") or None
+            newtime = self.prompt_input("Enter new Game Time (HH:MM) (press Enter to skip): ") or None
+            newhometeam = self.prompt_input("Enter new Home Team Full Name (press Enter to skip): ") or None
+            newawayteam = self.prompt_input("Enter new Away Team Full Name (press Enter to skip): ") or None
+            periodsscore = self.prompt_input("Enter new Periods' Score (press Enter to skip): ") or None
+            shotsongoal = self.prompt_input("Enter new Shots on Goal (press Enter to skip): ") or None
+            ppgoals = self.prompt_input("Enter new Power-Play Goals (press Enter to skip): ") or None
+            shgoals = self.prompt_input("Enter new Short-Handed Goals (press Enter to skip): ") or None
+            periodpens = self.prompt_input("Enter new Period Penalties (press Enter to skip): ") or None
+            periodpims = self.prompt_input("Enter new Period PIMs (press Enter to skip): ") or None
+            periodhits = self.prompt_input("Enter new Period Hits (press Enter to skip): ") or None
+            takeaways = self.prompt_input("Enter new Takeaways (press Enter to skip): ") or None
+            faceoffwins = self.prompt_input("Enter new Faceoff Wins (press Enter to skip): ") or None
+            atarena = self.prompt_input("Enter new Arena Name (press Enter to skip): ") or None
+            isplayoffgame = self.prompt_input("Is Playoff Game? (yes/no) (press Enter to skip): ").lower() or None
+
+            self.hockeyarray = pyhockeystats.ReplaceHockeyGameInArray(
+                self.hockeyarray, league_sn, olddate, oldhometeam, oldawayteam,
+                newdate, newtime, newhometeam, newawayteam, periodsscore,
+                shotsongoal, ppgoals, shgoals, periodpens, periodpims,
+                periodhits, takeaways, faceoffwins, atarena, isplayoffgame
+            )
+            logger.info("Hockey Game on {} between '{}' and '{}' updated successfully.".format(
+                olddate, oldhometeam, oldawayteam))
+
+    def move_game(self, league_sn):
+        """Move a hockey game to another league (if applicable)."""
+        # Assuming moving a game between leagues is not typical, but the function is added for completeness.
+        logger.error("ERROR: Moving games between leagues is not implemented.")
+        print("Moving games between leagues is not supported at this time.")
+
+    def manage_database(self):
+        """Manage hockey database (import/export)."""
+        submenu_options = {
+            '1': self.create_empty_database,
+            '2': self.import_database,
+            '3': self.export_database_menu
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Main Menu\n"
+                "1: Empty Hockey Database\n"
+                "2: Import Hockey Database From File\n"
+                "3: Export Hockey Database to File\n"
+                "What would you like to do? ",
+                choices=['E', '1', '2', '3']
+            )
+
+            if choice == 'E':
+                break
+
+            action = submenu_options.get(choice)
+            if action:
+                action()
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def export_database_menu(self):
+        """Submenu for exporting the database to various formats."""
+        export_options = {
+            '1': ('xml', pyhockeystats.MakeHockeyXMLFileFromHockeyArray),
+            '2': ('sgml', pyhockeystats.MakeHockeySGMLFileFromHockeyArray),
+            '3': ('json', pyhockeystats.MakeHockeyJSONFileFromHockeyArray),
+            '4': ('py', pyhockeystats.MakeHockeyPythonFileFromHockeyArray),
+            '5': ('pyalt', pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray),
+            '6': ('oopy', pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray),
+            '7': ('oopyalt', pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray),
+            '8': ('sql', pyhockeystats.MakeHockeySQLFileFromHockeyArray),
+            '9': ('db3', pyhockeystats.MakeHockeyDatabaseFromHockeyArray)
+        }
+
+        while True:
+            choice = self.get_user_choice(
+                "E: Back to Hockey Database Tool\n"
+                "1: Export to Hockey XML\n"
+                "2: Export to Hockey SGML\n"
+                "3: Export to Hockey JSON\n"
+                "4: Export to Hockey Python\n"
+                "5: Export to Hockey Python Alt\n"
+                "6: Export to Hockey Python OOP\n"
+                "7: Export to Hockey Python OOP Alt\n"
+                "8: Export to Hockey SQL\n"
+                "9: Export to Hockey Database File\n"
+                "What would you like to do? ",
+                choices=[str(i) for i in range(1, 10)] + ['E']
+            )
+
+            if choice == 'E':
+                break
+
+            export_info = export_options.get(choice)
+            if export_info:
+                export_type, export_func = export_info
+                outfile = self.prompt_filename("Enter Hockey Database File Name to Export: ")
+                try:
+                    export_func(self.hockeyarray, outfile, verbose=self.args.verbose, verbosetype=self.args.verbosetype)
+                    logger.info("Exported database to: {}".format(outfile))
+                except Exception as e:
+                    logger.error("ERROR: Failed to export database. {}".format(e))
+            else:
+                logger.error("ERROR: Invalid Command.")
+
+    def prompt_input(self, prompt_text):
+        """Prompt the user for input."""
+        try:
+            return raw_input(prompt_text).strip()
+        except NameError:
+            return input(prompt_text).strip()
+
+    def prompt_filename(self, prompt_text):
+        """Prompt the user for a filename."""
+        while True:
+            filename = self.prompt_input(prompt_text)
+            if filename:
+                return filename
+            else:
+                print("Filename cannot be empty. Please try again.")
+
+    def display_list(self, items, title):
+        """Display a list of items with indices."""
+        print("\n{}:".format(title))
+        for idx, item in enumerate(items):
+            print("{0}: {1}".format(idx, item))
+        print()
+
+    def prompt_selection(self, max_index, prompt_text):
+        """Prompt the user to select an item from a list."""
+        while True:
+            selection = self.prompt_input(prompt_text)
+            if selection.upper() == 'E':
+                return None
+            if selection.isdigit():
+                index = int(selection)
+                if 0 <= index < max_index:
+                    return index
+            print("ERROR: Invalid Command.")
+
+    def get_user_choice(self, prompt_text, choices):
+        """Prompt the user to make a choice from the given options."""
+        while True:
+            choice = self.prompt_input(prompt_text).upper()
+            if choice in choices:
+                return choice
+            print("ERROR: Invalid Command.")
+
+
+def parse_arguments():
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Hockey Management Tool: Manage hockey games and stats.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+    )
+    parser.add_argument(
+        "-v", "--version",
+        action="version",
+        version="%(prog)s {}".format(pyhockeystats.__version__)
+    )
+    parser.add_argument(
+        "-i", "--infile",
+        type=str,
+        help="Specify the input database file to load."
+    )
+    parser.add_argument(
+        "-e", "--empty",
+        action="store_true",
+        help="Create an empty database file."
+    )
+    parser.add_argument(
+        "-o", "--outfile",
+        type=str,
+        help="Specify the output database file to save."
+    )
+    parser.add_argument(
+        "-x", "--export",
+        action="store_true",
+        help="Export the input file to the database."
+    )
+    parser.add_argument(
+        "-t", "--type",
+        type=str,
+        choices=['xml', 'sgml', 'json', 'py', 'pyalt', 'oopy', 'oopyalt', 'sql', 'db3'],
+        help="Specify the type of file to export."
+    )
+    parser.add_argument(
+        "-V", "--verbose",
+        action="store_true",
+        help="Enable verbose output for debugging information."
+    )
+    parser.add_argument(
+        "-T", "--verbosetype",
+        type=str,
+        default="array",
+        choices=['json', 'sgml', 'xml', 'array'],
+        help="Set the verbosity type."
+    )
+    return parser.parse_args()
+
+
+def main():
+    """Main entry point for the script."""
+    args = parse_arguments()
+
+    # Configure logging level based on verbosity
+    if args.verbose or os.getenv('VERBOSE') or os.getenv('DEBUG'):
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.INFO)
+
+    tool = HockeyTool(args)
+    tool.run()
+
+
+if __name__ == "__main__":
+    main()
