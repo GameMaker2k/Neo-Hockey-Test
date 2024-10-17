@@ -1591,6 +1591,10 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
         # Get the root element
         root = tree.getroot()
 
+        # Optionally remove unnecessary blanks if beautify is True
+        if beautify:
+            RemoveBlanks(root)
+
         # Convert the ElementTree back to string
         rough_string = ET.tostring(root, encoding=encoding, method="xml")
 
