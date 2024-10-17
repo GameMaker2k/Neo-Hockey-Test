@@ -1,20 +1,20 @@
 #/bin/bash
 
 for infile in ./data/xml/*.xml; do
-    python ./mkhockeytool.py -t db3 -i "$infile" -x -V
+    python ./mkhockeytool.py -t db3 -i "$infile" -x -V -T xml
 done
 
 for infile in ./data/xml/*.xml; do
     outfile="./data/json/$(basename "$infile" .xml).json"
-    python ./mkhockeytool.py -t json -i "$infile" -o "$outfile" -x -V
+    python ./mkhockeytool.py -t json -i "$infile" -o "$outfile" -x -V -T json
 done
 
 for infile in ./data/xml/*.xml; do
     outfile="./data/yaml/$(basename "$infile" .xml).yaml"
-    python ./mkhockeytool.py -t yaml -i "$infile" -o "$outfile" -x -V
+    python ./mkhockeytool.py -t yaml -i "$infile" -o "$outfile" -x -V -T yaml
 done
 
 for infile in ./data/xml/*.xml; do
     outfile="./data/sgml/$(basename "$infile" .xml).sgml"
-    python ./mkhockeytool.py -t sgml -i "$infile" -o "$outfile" -x -V
+    python ./mkhockeytool.py -t sgml -i "$infile" -o "$outfile" -x -V -T sgml
 done
