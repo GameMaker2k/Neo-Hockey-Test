@@ -94,6 +94,12 @@ try:
 except ImportError:
     testparamiko = False
 
+# Define FileNotFoundError for Python 2
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
+
 try:
     import xml.etree.cElementTree as cElementTree  # Fallback to cElementTree
 except ImportError:
@@ -1431,13 +1437,10 @@ def UncompressFileURL(inurl, inheaders, incookiejar):
             inurlfix = list(urlparse.urlparse(inurl))
             inurlfix[1] = inurlcheck.hostname
             inurl = urlparse.urlunparse(inurlfix)
-        inbfile = BytesIO(download_from_url(inurl, inheaders, incookiejar)['Content'])
+        inbfile = BytesIO(download_file_from_internet_string(inurl, inheaders))
         inufile = UncompressFile(inbfile)
-    elif re.findall("^(ftp|ftps)://", inurl):
-        inbfile = BytesIO(download_file_from_ftp_string(inurl))
-        inufile = UncompressFile(inbfile)
-    elif re.findall("^(sftp)://", inurl) and testparamiko:
-        inbfile = BytesIO(download_file_from_sftp_string(inurl))
+    elif re.findall("^(ftp|ftps|sftp)://", inurl):
+        inbfile = BytesIO(download_file_from_internet_string(inurl))
         inufile = UncompressFile(inbfile)
     else:
         return False
