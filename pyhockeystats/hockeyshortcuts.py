@@ -75,672 +75,225 @@ except AttributeError:
 
 def MakeHockeyArrayFromHockeyDataByDict(informat="xml", **funcargs):
     informat = informat.lower()
-    if (informat == "xml" or informat == "xmlalt"):
-        if ("infile" in funcargs and "inxmlfile" not in funcargs):
-            funcargs['inxmlfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeyXML(**funcargs)
-    elif (informat == "sgml"):
-        if ("infile" in funcargs and "insgmlfile" not in funcargs):
-            funcargs['insgmlfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeySGML(**funcargs)
-    elif (informat == "json"):
-        if ("infile" in funcargs and "injsonfile" not in funcargs):
-            funcargs['injsonfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeyJSON(**funcargs)
-    elif (informat == "pickle"):
-        if ("infile" in funcargs and "inpicklefile" not in funcargs):
-            funcargs['inpicklefile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeyPickle(**funcargs)
-    elif (informat == "marshal"):
-        if ("infile" in funcargs and "inmarshalfile" not in funcargs):
-            funcargs['inmarshalfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeyPickle(**funcargs)
-    elif (informat == "database"):
-        if ("infile" in funcargs and "insdbfile" not in funcargs):
-            funcargs['insdbfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeyDatabase(**funcargs)
-    elif (informat == "olddatabase"):
-        if ("infile" in funcargs and "insdbfile" not in funcargs):
-            funcargs['insdbfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromOldHockeyDatabase(**funcargs)
-    elif (informat == "sql"):
-        if ("infile" in funcargs and "insqlfile" not in funcargs):
-            funcargs['insqlfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeyArrayFromHockeySQL(**funcargs)
-    elif (informat == "array"):
-        return MakeHockeyArrayFromHockeySQLiteArray(**funcargs)
-    else:
-        return False
-    return False
+    input_file_key = 'infile'
+    format_mappings = {
+        'xml': ('inxmlfile', MakeHockeyArrayFromHockeyXML),
+        'xmlalt': ('inxmlfile', MakeHockeyArrayFromHockeyXMLAlt),
+        'sgml': ('insgmlfile', MakeHockeyArrayFromHockeySGML),
+        'json': ('injsonfile', MakeHockeyArrayFromHockeyJSON),
+        'pickle': ('inpicklefile', MakeHockeyArrayFromHockeyPickle),
+        'marshal': ('inmarshalfile', MakeHockeyArrayFromHockeyPickle),
+        'database': ('insdbfile', MakeHockeyArrayFromHockeyDatabase),
+        'olddatabase': ('insdbfile', MakeHockeyArrayFromOldHockeyDatabase),
+        'sql': ('insqlfile', MakeHockeyArrayFromHockeySQL),
+        'array': ('inhockeyarray', MakeHockeyArrayFromHockeySQLiteArray)
+    }
 
+    if informat in format_mappings:
+        file_key, function = format_mappings[informat]
+        if file_key and input_file_key in funcargs:
+            funcargs[file_key] = funcargs.pop(input_file_key)
+        return function(**funcargs)
+    return False
 
 def MakeHockeyArrayFromHockeyDataByList(informat="xml", *funcargs):
-    informat = informat.lower()
-    if (informat == "xml" or informat == "xmlalt"):
-        return MakeHockeyArrayFromHockeyXML(*funcargs)
-    elif (informat == "sgml"):
-        return MakeHockeyArrayFromHockeySGML(*funcargs)
-    elif (informat == "json"):
-        return MakeHockeyArrayFromHockeyJSON(*funcargs)
-    elif (informat == "pickle"):
-        return MakeHockeyArrayFromHockeyPickle(*funcargs)
-    elif (informat == "marshal"):
-        return MakeHockeyArrayFromHockeyPickle(*funcargs)
-    elif (informat == "database"):
-        return MakeHockeyArrayFromHockeyDatabase(*funcargs)
-    elif (informat == "olddatabase"):
-        return MakeHockeyArrayFromOldHockeyDatabase(*funcargs)
-    elif (informat == "sql"):
-        return MakeHockeyArrayFromHockeySQL(*funcargs)
-    elif (informat == "array"):
-        return MakeHockeyArrayFromHockeySQLiteArray(*funcargs)
-    else:
-        return False
-    return False
-
+    format_mappings = {
+        'xml': MakeHockeyArrayFromHockeyXML,
+        'xmlalt': MakeHockeyArrayFromHockeyXMLAlt,
+        'sgml': MakeHockeyArrayFromHockeySGML,
+        'json': MakeHockeyArrayFromHockeyJSON,
+        'pickle': MakeHockeyArrayFromHockeyPickle,
+        'marshal': MakeHockeyArrayFromHockeyPickle,
+        'database': MakeHockeyArrayFromHockeyDatabase,
+        'olddatabase': MakeHockeyArrayFromOldHockeyDatabase,
+        'sql': MakeHockeyArrayFromHockeySQL,
+        'array': MakeHockeyArrayFromHockeySQLiteArray
+    }
+    return format_mappings.get(informat.lower(), lambda *args: False)(*funcargs)
 
 def MakeHockeyArrayFromHockeyData(funcargs):
-    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if isinstance(funcargs, (tuple, list)):
         return MakeHockeyArrayFromHockeyDataByList(*funcargs)
-    elif (funcargs is not None and isinstance(funcargs, (dict))):
+    elif isinstance(funcargs, dict):
         return MakeHockeyArrayFromHockeyDataByDict(**funcargs)
-    else:
-        return False
     return False
-
 
 def MakeHockeyDataFromHockeyArrayByDict(outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeyXMLFromHockeyArray(**funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeyXMLAltFromHockeyArray(**funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySGMLFromHockeyArray(**funcargs)
-    elif (outformat == "json"):
-        return MakeHockeyJSONFromHockeyArray(**funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeyPickleFromHockeyArray(**funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeyMarshalFromHockeyArray(**funcargs)
-    elif (outformat == "database"):
-        return MakeHockeyDatabaseFromHockeyArray(**funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFromHockeyArray(**funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFromHockeyArray(**funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFromHockeyArray(**funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFromHockeyArray(**funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFromHockeyArray(**funcargs)
-    elif (outformat == "array"):
-        return MakeHockeySQLiteArrayFromHockeyArray(**funcargs)
-    else:
-        return False
-    return False
-
+    format_mappings = {
+        'xml': MakeHockeyXMLFromHockeyArray,
+        'xmlalt': MakeHockeyXMLAltFromHockeyArray,
+        'sgml': MakeHockeySGMLFromHockeyArray,
+        'json': MakeHockeyJSONFromHockeyArray,
+        'pickle': MakeHockeyPickleFromHockeyArray,
+        'marshal': MakeHockeyMarshalFromHockeyArray,
+        'database': MakeHockeyDatabaseFromHockeyArray,
+        'py': MakeHockeyPythonFromHockeyArray,
+        'pyalt': MakeHockeyPythonAltFromHockeyArray,
+        'pyoop': MakeHockeyPythonOOPFromHockeyArray,
+        'pyoopalt': MakeHockeyPythonOOPAltFromHockeyArray,
+        'sql': MakeHockeySQLFromHockeyArray,
+        'array': MakeHockeySQLiteArrayFromHockeyArray
+    }
+    return format_mappings.get(outformat, lambda **kwargs: False)(**funcargs)
 
 def MakeHockeyDataFromHockeyArrayByList(outformat="xml", *funcargs):
-    outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeyXMLFromHockeyArray(*funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeyXMLAltFromHockeyArray(*funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySGMLFromHockeyArray(*funcargs)
-    elif (outformat == "json"):
-        return MakeHockeyJSONFromHockeyArray(*funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeyPickleFromHockeyArray(*funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeyMarshalFromHockeyArray(*funcargs)
-    elif (outformat == "database"):
-        return MakeHockeyDatabaseFromHockeyArray(*funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFromHockeyArray(*funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFromHockeyArray(*funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFromHockeyArray(*funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFromHockeyArray(*funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFromHockeyArray(*funcargs)
-    elif (outformat == "array"):
-        return MakeHockeySQLiteArrayFromHockeyArray(*funcargs)
-    else:
-        return False
-    return False
-
+    format_mappings = {
+        'xml': MakeHockeyXMLFromHockeyArray,
+        'xmlalt': MakeHockeyXMLAltFromHockeyArray,
+        'sgml': MakeHockeySGMLFromHockeyArray,
+        'json': MakeHockeyJSONFromHockeyArray,
+        'pickle': MakeHockeyPickleFromHockeyArray,
+        'marshal': MakeHockeyMarshalFromHockeyArray,
+        'database': MakeHockeyDatabaseFromHockeyArray,
+        'py': MakeHockeyPythonFromHockeyArray,
+        'pyalt': MakeHockeyPythonAltFromHockeyArray,
+        'pyoop': MakeHockeyPythonOOPFromHockeyArray,
+        'pyoopalt': MakeHockeyPythonOOPAltFromHockeyArray,
+        'sql': MakeHockeySQLFromHockeyArray,
+        'array': MakeHockeySQLiteArrayFromHockeyArray
+    }
+    return format_mappings.get(outformat.lower(), lambda *args: False)(*funcargs)
 
 def MakeHockeyDataFromHockeyArray(funcargs):
-    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if isinstance(funcargs, (tuple, list)):
         return MakeHockeyDataFromHockeyArrayByList(*funcargs)
-    elif (funcargs is not None and isinstance(funcargs, (dict))):
+    elif isinstance(funcargs, dict):
         return MakeHockeyDataFromHockeyArrayByDict(**funcargs)
-    else:
-        return False
     return False
-
 
 def MakeHockeyDataFileFromHockeyArrayByDict(outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if (outformat == "xml"):
-        if ("outfile" in funcargs and "outxmlfile" not in funcargs):
-            funcargs['outxmlfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyXMLFileFromHockeyArray(**funcargs)
-    elif (outformat == "xmlalt"):
-        if ("outfile" in funcargs and "outxmlfile" not in funcargs):
-            funcargs['outxmlfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyXMLAltFileFromHockeyArray(**funcargs)
-    elif (outformat == "sgml"):
-        if ("outfile" in funcargs and "outsgmlfile" not in funcargs):
-            funcargs['outsgmlfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeySGMLFileFromHockeyArray(**funcargs)
-    elif (outformat == "json"):
-        if ("outfile" in funcargs and "outjsonfile" not in funcargs):
-            funcargs['outjsonfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyJSONFileFromHockeyArray(**funcargs)
-    elif (outformat == "pickle"):
-        if ("outfile" in funcargs and "outpicklefile" not in funcargs):
-            funcargs['outpicklefile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyPickleFileFromHockeyArray(**funcargs)
-    elif (outformat == "marshal"):
-        if ("outfile" in funcargs and "outmarshalfile" not in funcargs):
-            funcargs['outmarshalfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyMarshalFileFromHockeyArray(**funcargs)
-    elif (outformat == "py"):
-        if ("outfile" in funcargs and "outpyfile" not in funcargs):
-            funcargs['outpyfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyPythonFileFromHockeyArray(**funcargs)
-    elif (outformat == "pyalt"):
-        if ("outfile" in funcargs and "outpyfile" not in funcargs):
-            funcargs['outpyfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyPythonAltFileFromHockeyArray(**funcargs)
-    elif (outformat == "pyoop"):
-        if ("outfile" in funcargs and "outpyfile" not in funcargs):
-            funcargs['outpyfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyPythonOOPFileFromHockeyArray(**funcargs)
-    elif (outformat == "pyoopalt"):
-        if ("outfile" in funcargs and "outpyfile" not in funcargs):
-            funcargs['outpyfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeyPythonOOPAltFileFromHockeyArray(**funcargs)
-    elif (outformat == "sql"):
-        if ("outfile" in funcargs and "outsqlfile" not in funcargs):
-            funcargs['outsqlfile'] = funcargs['outfile']
-            del funcargs['outfile']
-        return MakeHockeySQLFileFromHockeyArray(**funcargs)
-    else:
-        return False
-    return False
+    file_format_mappings = {
+        'xml': ('outxmlfile', MakeHockeyXMLFileFromHockeyArray),
+        'xmlalt': ('outxmlfile', MakeHockeyXMLAltFileFromHockeyArray),
+        'sgml': ('outsgmlfile', MakeHockeySGMLFileFromHockeyArray),
+        'json': ('outjsonfile', MakeHockeyJSONFileFromHockeyArray),
+        'pickle': ('outpicklefile', MakeHockeyPickleFileFromHockeyArray),
+        'marshal': ('outmarshalfile', MakeHockeyMarshalFileFromHockeyArray),
+        'py': ('outpyfile', MakeHockeyPythonFileFromHockeyArray),
+        'pyalt': ('outpyfile', MakeHockeyPythonAltFileFromHockeyArray),
+        'pyoop': ('outpyfile', MakeHockeyPythonOOPFileFromHockeyArray),
+        'pyoopalt': ('outpyfile', MakeHockeyPythonOOPAltFileFromHockeyArray),
+        'sql': ('outsqlfile', MakeHockeySQLFileFromHockeyArray)
+    }
 
+    if outformat in file_format_mappings:
+        file_key, function = file_format_mappings[outformat]
+        if file_key in funcargs and 'outfile' in funcargs:
+            funcargs[file_key] = funcargs.pop('outfile')
+        return function(**funcargs)
+    return False
 
 def MakeHockeyDataFileFromHockeyArrayByList(outformat="xml", *funcargs):
-    outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeyXMLFileFromHockeyArray(*funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeyXMLAltFileFromHockeyArray(*funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySGMLFileFromHockeyArray(*funcargs)
-    elif (outformat == "json"):
-        return MakeHockeyJSONFileFromHockeyArray(*funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeyPickleFileFromHockeyArray(*funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeyMarshalFileFromHockeyArray(*funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFileFromHockeyArray(*funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFileFromHockeyArray(*funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFileFromHockeyArray(*funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFileFromHockeyArray(*funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFileFromHockeyArray(*funcargs)
-    else:
-        return False
-    return False
-
+    file_format_mappings = {
+        'xml': MakeHockeyXMLFileFromHockeyArray,
+        'xmlalt': MakeHockeyXMLAltFileFromHockeyArray,
+        'sgml': MakeHockeySGMLFileFromHockeyArray,
+        'json': MakeHockeyJSONFileFromHockeyArray,
+        'pickle': MakeHockeyPickleFileFromHockeyArray,
+        'marshal': MakeHockeyMarshalFileFromHockeyArray,
+        'py': MakeHockeyPythonFileFromHockeyArray,
+        'pyalt': MakeHockeyPythonAltFileFromHockeyArray,
+        'pyoop': MakeHockeyPythonOOPFileFromHockeyArray,
+        'pyoopalt': MakeHockeyPythonOOPAltFileFromHockeyArray,
+        'sql': MakeHockeySQLFileFromHockeyArray
+    }
+    return file_format_mappings.get(outformat.lower(), lambda *args: False)(*funcargs)
 
 def MakeHockeyDataFileFromHockeyArray(funcargs):
-    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if isinstance(funcargs, (tuple, list)):
         return MakeHockeyDataFileFromHockeyArrayByList(*funcargs)
-    elif (funcargs is not None and isinstance(funcargs, (dict))):
+    elif isinstance(funcargs, dict):
         return MakeHockeyDataFileFromHockeyArrayByDict(**funcargs)
-    else:
-        return False
     return False
-
 
 def MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(informat="xml", **funcargs):
     informat = informat.lower()
-    if (informat == "xml" or informat == "xmlalt"):
-        if ("infile" in funcargs and "inxmlfile" not in funcargs):
-            funcargs['inxmlfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeySQLiteXML(**funcargs)
-    elif (informat == "sgml"):
-        if ("infile" in funcargs and "insgmlfile" not in funcargs):
-            funcargs['insgmlfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeySQLiteSGML(**funcargs)
-    elif (informat == "json"):
-        if ("infile" in funcargs and "injsonfile" not in funcargs):
-            funcargs['injsonfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeySQLiteJSON(**funcargs)
-    elif (informat == "pickle"):
-        if ("infile" in funcargs and "inpicklefile" not in funcargs):
-            funcargs['inpicklefile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs)
-    elif (informat == "marshal"):
-        if ("infile" in funcargs and "inmarshalfile" not in funcargs):
-            funcargs['inmarshalfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeySQLitePickle(**funcargs)
-    elif (informat == "database"):
-        if ("infile" in funcargs and "insdbfile" not in funcargs):
-            funcargs['insdbfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeyDatabase(**funcargs)
-    elif (informat == "olddatabase"):
-        if ("infile" in funcargs and "insdbfile" not in funcargs):
-            funcargs['insdbfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromOldHockeyDatabase(**funcargs)
-    elif (informat == "sql"):
-        if ("infile" in funcargs and "insqlfile" not in funcargs):
-            funcargs['insqlfile'] = funcargs['infile']
-            del funcargs['infile']
-        return MakeHockeySQLiteArrayFromHockeySQL(**funcargs)
-    elif (informat == "array"):
-        return MakeHockeySQLiteArrayFromHockeyArray(**funcargs)
-    else:
-        return False
-    return False
+    file_format_mappings = {
+        'xml': ('inxmlfile', MakeHockeySQLiteArrayFromHockeySQLiteXML),
+        'xmlalt': ('inxmlfile', MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt),
+        'sgml': ('insgmlfile', MakeHockeySQLiteArrayFromHockeySQLiteSGML),
+        'json': ('injsonfile', MakeHockeySQLiteArrayFromHockeySQLiteJSON),
+        'pickle': ('inpicklefile', MakeHockeySQLiteArrayFromHockeySQLitePickle),
+        'marshal': ('inmarshalfile', MakeHockeySQLiteArrayFromHockeySQLitePickle),
+        'database': ('insdbfile', MakeHockeySQLiteArrayFromHockeyDatabase),
+        'olddatabase': ('insdbfile', MakeHockeySQLiteArrayFromOldHockeyDatabase),
+        'sql': ('insqlfile', MakeHockeySQLiteArrayFromHockeySQL),
+        'array': ('inhockeyarray', MakeHockeySQLiteArrayFromHockeyArray)
+    }
 
+    if informat in file_format_mappings:
+        file_key, function = file_format_mappings[informat]
+        if file_key in funcargs and 'infile' in funcargs:
+            funcargs[file_key] = funcargs.pop('infile')
+        return function(**funcargs)
+    return False
 
 def MakeHockeySQLiteArrayFromHockeySQLiteDataByList(informat="xml", *funcargs):
-    informat = informat.lower()
-    if (informat == "xml" or informat == "xmlalt"):
-        return MakeHockeySQLiteArrayFromHockeySQLiteXML(*funcargs)
-    elif (informat == "sgml"):
-        return MakeHockeySQLiteArrayFromHockeySQLiteXML(*funcargs)
-    elif (informat == "json"):
-        return MakeHockeySQLiteArrayFromHockeySQLiteJSON(*funcargs)
-    elif (informat == "pickle"):
-        return MakeHockeySQLiteArrayFromHockeySQLitePickle(*funcargs)
-    elif (informat == "marshal"):
-        return MakeHockeySQLiteArrayFromHockeySQLitePickle(*funcargs)
-    elif (informat == "database"):
-        return MakeHockeySQLiteArrayFromHockeyDatabase(*funcargs)
-    elif (informat == "olddatabase"):
-        return MakeHockeySQLiteArrayFromOldHockeyDatabase(*funcargs)
-    elif (informat == "sql"):
-        return MakeHockeySQLiteArrayFromHockeySQL(*funcargs)
-    elif (informat == "array"):
-        return MakeHockeySQLiteArrayFromHockeyArray(*funcargs)
-    else:
-        return False
-    return False
-
+    format_mappings = {
+        'xml': MakeHockeySQLiteArrayFromHockeySQLiteXML,
+        'xmlalt': MakeHockeySQLiteArrayFromHockeySQLiteXMLAlt,
+        'sgml': MakeHockeySQLiteArrayFromHockeySQLiteSGML,
+        'json': MakeHockeySQLiteArrayFromHockeySQLiteJSON,
+        'pickle': MakeHockeySQLiteArrayFromHockeySQLitePickle,
+        'marshal': MakeHockeySQLiteArrayFromHockeySQLitePickle,
+        'database': MakeHockeySQLiteArrayFromHockeyDatabase,
+        'olddatabase': MakeHockeySQLiteArrayFromOldHockeyDatabase,
+        'sql': MakeHockeySQLiteArrayFromHockeySQL,
+        'array': MakeHockeySQLiteArrayFromHockeyArray
+    }
+    return format_mappings.get(informat.lower(), lambda *args: False)(*funcargs)
 
 def MakeHockeySQLiteArrayFromHockeySQLiteData(funcargs):
-    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if isinstance(funcargs, (tuple, list)):
         return MakeHockeySQLiteArrayFromHockeySQLiteDataByList(*funcargs)
-    elif (funcargs is not None and isinstance(funcargs, (dict))):
+    elif isinstance(funcargs, dict):
         return MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(**funcargs)
-    else:
-        return False
     return False
-
-
-def MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
-    outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeySQLiteXMLFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySQLiteSGMLFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "json"):
-        return MakeHockeySQLiteJSONFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeySQLitePickleFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeySQLiteMarshalFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "database"):
-        return MakeHockeyDatabaseFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "array"):
-        return MakeHockeyArrayFromHockeySQLiteArray(**funcargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeySQLiteDataFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
-    outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeySQLiteXMLFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeySQLiteXMLAltFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySQLiteSGMLFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "json"):
-        return MakeHockeySQLiteJSONFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeySQLitePickleFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeySQLiteMarshalFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "database"):
-        return MakeHockeyDatabaseFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "array"):
-        return MakeHockeyArrayFromHockeySQLiteArray(*funcargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeySQLiteDataFromHockeySQLiteArray(funcargs):
-    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
-        return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*funcargs)
-    elif (funcargs is not None and isinstance(funcargs, (dict))):
-        return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**funcargs)
-    else:
-        return False
-    return False
-
 
 def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(outformat="xml", **funcargs):
     outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "json"):
-        return MakeHockeySQLiteJSONFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeySQLitePickleFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(**funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFileFromHockeySQLiteArray(**funcargs)
-    else:
-        return False
-    return False
+    file_format_mappings = {
+        'xml': ('outxmlfile', MakeHockeySQLiteXMLFileFromHockeySQLiteArray),
+        'xmlalt': ('outxmlfile', MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray),
+        'sgml': ('outsgmlfile', MakeHockeySQLiteSGMLFileFromHockeySQLiteArray),
+        'json': ('outjsonfile', MakeHockeySQLiteJSONFileFromHockeySQLiteArray),
+        'pickle': ('outpicklefile', MakeHockeySQLitePickleFileFromHockeySQLiteArray),
+        'marshal': ('outmarshalfile', MakeHockeySQLiteMarshalFileFromHockeySQLiteArray),
+        'py': ('outpyfile', MakeHockeyPythonFileFromHockeySQLiteArray),
+        'pyalt': ('outpyfile', MakeHockeyPythonAltFileFromHockeySQLiteArray),
+        'pyoop': ('outpyfile', MakeHockeyPythonOOPFileFromHockeySQLiteArray),
+        'pyoopalt': ('outpyfile', MakeHockeyPythonOOPAltFileFromHockeySQLiteArray),
+        'sql': ('outsqlfile', MakeHockeySQLFileFromHockeySQLiteArray)
+    }
 
+    if outformat in file_format_mappings:
+        file_key, function = file_format_mappings[outformat]
+        if file_key in funcargs and 'outfile' in funcargs:
+            funcargs[file_key] = funcargs.pop('outfile')
+        return function(**funcargs)
+    return False
 
 def MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(outformat="xml", *funcargs):
-    outformat = outformat.lower()
-    if (outformat == "xml"):
-        return MakeHockeySQLiteXMLFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "xmlalt"):
-        return MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "sgml"):
-        return MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "json"):
-        return MakeHockeySQLiteJSONFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pickle"):
-        return MakeHockeySQLitePickleFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "marshal"):
-        return MakeHockeySQLiteMarshalFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "py"):
-        return MakeHockeyPythonFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pyalt"):
-        return MakeHockeyPythonAltFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pyoop"):
-        return MakeHockeyPythonOOPFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "pyoopalt"):
-        return MakeHockeyPythonOOPAltFileFromHockeySQLiteArray(*funcargs)
-    elif (outformat == "sql"):
-        return MakeHockeySQLFileFromHockeySQLiteArray(*funcargs)
-    else:
-        return False
-    return False
-
+    file_format_mappings = {
+        'xml': MakeHockeySQLiteXMLFileFromHockeySQLiteArray,
+        'xmlalt': MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray,
+        'sgml': MakeHockeySQLiteSGMLFileFromHockeySQLiteArray,
+        'json': MakeHockeySQLiteJSONFileFromHockeySQLiteArray,
+        'pickle': MakeHockeySQLitePickleFileFromHockeySQLiteArray,
+        'marshal': MakeHockeySQLiteMarshalFileFromHockeySQLiteArray,
+        'py': MakeHockeyPythonFileFromHockeySQLiteArray,
+        'pyalt': MakeHockeyPythonAltFileFromHockeySQLiteArray,
+        'pyoop': MakeHockeyPythonOOPFileFromHockeySQLiteArray,
+        'pyoopalt': MakeHockeyPythonOOPAltFileFromHockeySQLiteArray,
+        'sql': MakeHockeySQLFileFromHockeySQLiteArray
+    }
+    return file_format_mappings.get(outformat.lower(), lambda *args: False)(*funcargs)
 
 def MakeHockeySQLiteDataFileFromHockeySQLiteArray(funcargs):
-    if (funcargs is not None and isinstance(funcargs, (tuple, list))):
+    if isinstance(funcargs, (tuple, list)):
         return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*funcargs)
-    elif (funcargs is not None and isinstance(funcargs, (dict))):
+    elif isinstance(funcargs, dict):
         return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**funcargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeyDataFromHockeyData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
-    else:
-        return False
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeyDataFromHockeyArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeyDataFromHockeyArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeyDataFileFromHockeyData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
-    else:
-        return False
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeyDataFileFromHockeyArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeyDataFileFromHockeyArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeyDataFromHockeySQLiteData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
-            *infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
-            **infuncargs)
-    else:
-        return False
-    inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
-        inhockeyarray, False, False)
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeyDataFromHockeyArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeyDataFromHockeyArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeyDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
-            *infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
-            **infuncargs)
-    else:
-        return False
-    inhockeyarray = MakeHockeyArrayFromHockeySQLiteArray(
-        inhockeyarray, False, False)
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeyDataFileFromHockeyArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeyDataFileFromHockeyArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeySQLiteDataFromHockeySQLiteData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
-            *infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
-            **infuncargs)
-    else:
-        return False
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeySQLiteDataFileFromHockeySQLiteData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByList(
-            *infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeySQLiteArrayFromHockeySQLiteDataByDict(
-            **infuncargs)
-    else:
-        return False
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeySQLiteDataFromHockeyData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
-    else:
-        return False
-    inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(
-        inhockeyarray, False, False)
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeySQLiteDataFromHockeySQLiteArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeySQLiteDataFromHockeySQLiteArrayByDict(**outfuncargs)
-    else:
-        return False
-    return False
-
-
-def MakeHockeySQLiteDataFileFromHockeyData(infuncargs, outfuncargs):
-    if (infuncargs is not None and isinstance(infuncargs, (tuple, list))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByList(*infuncargs)
-    elif (infuncargs is not None and isinstance(infuncargs, (dict))):
-        inhockeyarray = MakeHockeyArrayFromHockeyDataByDict(**infuncargs)
-    else:
-        return False
-    inhockeyarray = MakeHockeySQLiteArrayFromHockeyArray(
-        inhockeyarray, False, False)
-    if (outfuncargs is not None and isinstance(outfuncargs, (tuple, list))):
-        if (len(outfuncargs) > 1):
-            outfuncargs[1] = inhockeyarray
-        else:
-            outfuncargs.append(inhockeyarray)
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByList(*outfuncargs)
-    elif (outfuncargs is not None and isinstance(outfuncargs, (dict))):
-        outfuncargs.update({'inhockeyarray': inhockeyarray})
-        return MakeHockeySQLiteDataFileFromHockeySQLiteArrayByDict(**outfuncargs)
-    else:
-        return False
     return False
