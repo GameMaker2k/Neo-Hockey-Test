@@ -2232,6 +2232,9 @@ def MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=False, ve
         VerbosePrintOut(hockeyarray)
     return hockeyarray
 
+def MakeHockeySQLiteArrayFromHockeyJSON(injsonfile, jsonisfile=True, verbose=False, verbosetype="array"):
+ hockeyarray = MakeHockeyArrayFromHockeyJSON(injsonfile, jsonisfile, verbose, verbosetype)
+ return hockeyarray
 
 def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
