@@ -2140,10 +2140,10 @@ def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, so
         VerbosePrintOut(jsonstring)
     elif (verbose and verbosetype=="xml"):
         VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
-            inhockeyarray, verbose=False)
+            inhockeyarray, verbose=False))
     elif (verbose and verbosetype=="sgml"):
         VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
-            inhockeyarray, verbose=False)
+            inhockeyarray, verbose=False))
     elif (verbose):
         VerbosePrintOut(inhockeyarray)
     return jsonstring
