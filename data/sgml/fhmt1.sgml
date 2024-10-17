@@ -77,29 +77,45 @@
  <league name="HOL" fullname="Hockey League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY Points DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Conference 1" prefix="" suffix="">
    <division name="Division 1" prefix="" suffix="">
-    <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Flies" arena="KAN Arena" prefix="Kansas City" suffix="" affiliates="MIL:Milan Dazzle">    <team city="Chicago" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Lampreys" arena="CHI Arena" prefix="Chicago" suffix="" affiliates="MIL:Moline Expositions">   </division>
+    <team city="Kansas City" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Flies" arena="KAN Arena" prefix="Kansas City" suffix="" affiliates="MIL:Milan Dazzle">
+    <team city="Chicago" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Lampreys" arena="CHI Arena" prefix="Chicago" suffix="" affiliates="MIL:Moline Expositions">
+   </division>
    <division name="Division 2" prefix="" suffix="">
-    <team city="Ft. Wayne" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Whitecaps" arena="WHI Arena" prefix="Ft. Wayne" suffix="" affiliates="MIL:Kokomo Loggerheads">    <team city="Minneapolis" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Frogs" arena="MIN Arena" prefix="Minneapolis" suffix="" affiliates="MIL:Becker Winged Wheelers">   </division>
+    <team city="Ft. Wayne" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Whitecaps" arena="WHI Arena" prefix="Ft. Wayne" suffix="" affiliates="MIL:Kokomo Loggerheads">
+    <team city="Minneapolis" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Frogs" arena="MIN Arena" prefix="Minneapolis" suffix="" affiliates="MIL:Becker Winged Wheelers">
+   </division>
   </conference>
   <conference name="Conference 2" prefix="" suffix="">
    <division name="Division 3" prefix="" suffix="">
-    <team city="Columbus" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Passion" arena="COL Arena" prefix="Columbus" suffix="" affiliates="MIL:Toledo Pugs">    <team city="Akron" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Cattlemen" arena="AKR Arena" prefix="Akron" suffix="" affiliates="MIL:Mason Caravans">   </division>
+    <team city="Columbus" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Passion" arena="COL Arena" prefix="Columbus" suffix="" affiliates="MIL:Toledo Pugs">
+    <team city="Akron" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Cattlemen" arena="AKR Arena" prefix="Akron" suffix="" affiliates="MIL:Mason Caravans">
+   </division>
    <division name="Division 4" prefix="" suffix="">
-    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Gears" arena="IND Arena" prefix="Indianapolis" suffix="" affiliates="MIL:Lawrence Walkers">    <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Rail Hawks" arena="WIC Arena" prefix="Wichita" suffix="" affiliates="MIL:Garden City Jammers">   </division>
+    <team city="Indianapolis" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Gears" arena="IND Arena" prefix="Indianapolis" suffix="" affiliates="MIL:Lawrence Walkers">
+    <team city="Wichita" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Rail Hawks" arena="WIC Arena" prefix="Wichita" suffix="" affiliates="MIL:Garden City Jammers">
+   </division>
   </conference>
  </league>
  <league name="MIL" fullname="Minor League" country="USA" fullcountry="United States" date="20171001" playofffmt="Division=1,Conference=1" ordertype="ORDER BY PCT DESC, GamesPlayed ASC, TWins DESC, Losses ASC, GoalsDifference DESC" conferences="yes" divisions="yes">
   <conference name="Conference 1" prefix="" suffix="">
    <division name="Division 1" prefix="" suffix="">
-    <team city="Milan" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Dazzle" arena="MIL Arena" prefix="Milan" suffix="" affiliates="HOL:Kansas City Flies">    <team city="Moline" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Expositions" arena="MOL Arena" prefix="Moline" suffix="" affiliates="HOL:Chicago Lampreys">   </division>
+    <team city="Milan" area="MO" fullarea="Missouri" country="USA" fullcountry="United States" name="Dazzle" arena="MIL Arena" prefix="Milan" suffix="" affiliates="HOL:Kansas City Flies">
+    <team city="Moline" area="IL" fullarea="Illionis" country="USA" fullcountry="United States" name="Expositions" arena="MOL Arena" prefix="Moline" suffix="" affiliates="HOL:Chicago Lampreys">
+   </division>
    <division name="Division 2" prefix="" suffix="">
-    <team city="Kokomo" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Loggerheads" arena="KOK Arena" prefix="Kokomo" suffix="" affiliates="HOL:Ft. Wayne Whitecaps">    <team city="Becker" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Winged Wheelers" arena="BEC Arena" prefix="Becker" suffix="" affiliates="HOL:Minneapolis Frogs">   </division>
+    <team city="Kokomo" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Loggerheads" arena="KOK Arena" prefix="Kokomo" suffix="" affiliates="HOL:Ft. Wayne Whitecaps">
+    <team city="Becker" area="MN" fullarea="Minnesota" country="USA" fullcountry="United States" name="Winged Wheelers" arena="BEC Arena" prefix="Becker" suffix="" affiliates="HOL:Minneapolis Frogs">
+   </division>
   </conference>
   <conference name="Conference 2" prefix="" suffix="">
    <division name="Division 3" prefix="" suffix="">
-    <team city="Toledo" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Pugs" arena="TOL Arena" prefix="Toledo" suffix="" affiliates="HOL:Columbus Passion">    <team city="Mason" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Caravans" arena="MAS Arena" prefix="Mason" suffix="" affiliates="HOL:Akron Cattlemen">   </division>
+    <team city="Toledo" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Pugs" arena="TOL Arena" prefix="Toledo" suffix="" affiliates="HOL:Columbus Passion">
+    <team city="Mason" area="OH" fullarea="Ohio" country="USA" fullcountry="United States" name="Caravans" arena="MAS Arena" prefix="Mason" suffix="" affiliates="HOL:Akron Cattlemen">
+   </division>
    <division name="Division 4" prefix="" suffix="">
-    <team city="Lawrence" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Walkers" arena="LAW Arena" prefix="Lawrence" suffix="" affiliates="HOL:Indianapolis Gears">    <team city="Garden City" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Jammers" arena="GAR Arena" prefix="Garden City" suffix="" affiliates="HOL:Wichita Rail Hawks">   </division>
+    <team city="Lawrence" area="IN" fullarea="Indiana" country="USA" fullcountry="United States" name="Walkers" arena="LAW Arena" prefix="Lawrence" suffix="" affiliates="HOL:Indianapolis Gears">
+    <team city="Garden City" area="KS" fullarea="Kansas" country="USA" fullcountry="United States" name="Jammers" arena="GAR Arena" prefix="Garden City" suffix="" affiliates="HOL:Wichita Rail Hawks">
+   </division>
   </conference>
  </league>
 </hockey>
