@@ -777,7 +777,7 @@ while (keep_loop):
                 sub_sub_keep_loop = True
                 while (sub_sub_keep_loop):
                     subsubmenuact = get_user_input(
-                        "E: Back to Hockey Database Tool\n1: Export Hockey Database to Hockey XML\n2: Export Hockey Database to Hockey SGML\n3: Export Hockey Database to Hockey JSON\n4: Export Hockey Database to Hockey Py\n5: Export Hockey Database to Hockey Py Alt\n6: Export Hockey Database to Hockey Py OOP\n7: Export Hockey Database to Hockey Py OOP Alt\n8: Export Hockey Database to Hockey SQL\n9: Export Hockey Database to Hockey Database File\nWhat do you want to do? ")
+                        " E: Back to Hockey Database Tool\n 1: Export Hockey Database to Hockey XML\n 2: Export Hockey Database to Hockey SGML\n 3: Export Hockey Database to Hockey JSON\n 4: Export Hockey Database to Hockey YAML\n 5: Export Hockey Database to Hockey Py\n 6: Export Hockey Database to Hockey Py Alt\n 7: Export Hockey Database to Hockey Py OOP\n 8: Export Hockey Database to Hockey Py OOP Alt\n 9: Export Hockey Database to Hockey SQL\n10: Export Hockey Database to Hockey Database File\nWhat do you want to do? ")
                     if (subsubmenuact.upper() != "E" and not subsubmenuact.isdigit()):
                         print("ERROR: Invalid Command")
                         subsubmenuact = "E"
@@ -801,30 +801,35 @@ while (keep_loop):
                             hockeyarray, HockeyDatabaseFN)
                     elif (subsubmenuact == "4"):
                         HockeyDatabaseFN = get_user_input(
-                            "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
+                            "Enter Hockey Database YAML File Name to Export: ")
+                        pyhockeystats.MakeHockeyYAMLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     elif (subsubmenuact == "5"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyPythonFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     elif (subsubmenuact == "6"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyPythonAltFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     elif (subsubmenuact == "7"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database Python File Name to Export: ")
-                        pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
+                        pyhockeystats.MakeHockeyPythonOOPFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
                     elif (subsubmenuact == "8"):
+                        HockeyDatabaseFN = get_user_input(
+                            "Enter Hockey Database Python File Name to Export: ")
+                        pyhockeystats.MakeHockeyPythonOOPAltFileFromHockeyArray(
+                            hockeyarray, HockeyDatabaseFN)
+                    elif (subsubmenuact == "9"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database SQL File Name to Export: ")
                         pyhockeystats.MakeHockeySQLFileFromHockeyArray(
                             hockeyarray, HockeyDatabaseFN)
-                    elif (subsubmenuact == "9"):
+                    elif (subsubmenuact == "10"):
                         HockeyDatabaseFN = get_user_input(
                             "Enter Hockey Database File Name to Export: ")
                         pyhockeystats.MakeHockeyDatabaseFromHockeyArray(
