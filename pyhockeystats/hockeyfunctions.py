@@ -1530,12 +1530,18 @@ def CheckXMLFile(infile):
 
 
 def RemoveBlanks(node):
-    for x in node.childNodes:
-        if (x.nodeType == xml.dom.minidom.Node.TEXT_NODE):
-            if (x.nodeValue):
-                x.nodeValue = x.nodeValue.strip()
-        elif (x.nodeType == xml.dom.minidom.Node.ELEMENT_NODE):
-            RemoveBlanks(x)
+    # If the node has text, strip it of leading/trailing whitespace
+    if node.text:
+        node.text = node.text.strip()
+
+    # If the node has tail text (whitespace between siblings), strip it
+    if node.tail:
+        node.tail = node.tail.strip()
+
+    # Recursively apply RemoveBlanks to all child elements
+    for child in node:
+        RemoveBlanks(child)
+
     return True
 
 
