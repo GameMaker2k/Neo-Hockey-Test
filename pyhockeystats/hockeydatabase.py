@@ -326,8 +326,9 @@ def EscapeSGMLString(insgml, quote=True):
 
 
 def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
-    if (not dbgenable):
+    if not dbgenable:
         return True
+
     log_functions = {
         "print": print,
         "log": logging.info,
@@ -338,9 +339,16 @@ def VerbosePrintOut(dbgtxt, outtype="log", dbgenable=True, dgblevel=20):
         "logalt": lambda x: logging.log(dgblevel, x),
         "debug": logging.debug
     }
+    
     log_function = log_functions.get(outtype)
-    if (log_function):
-        log_function(dbgtxt)
+
+    if log_function:
+        # If dbgtxt is a dict, list, or tuple, pretty print it
+        if isinstance(dbgtxt, (dict, list, tuple)):
+            log_function(pprint(dbgtxt, indent=2, width=80))
+        else:
+            log_function(dbgtxt)
+
         return True
     return False
 
