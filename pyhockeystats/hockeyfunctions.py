@@ -27,7 +27,6 @@ import re
 import sqlite3
 import sys
 import time
-import xml.dom.minidom
 from io import open
 
 from .hockeydatabase import *
