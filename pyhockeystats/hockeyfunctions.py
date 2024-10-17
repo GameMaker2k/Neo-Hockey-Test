@@ -1562,73 +1562,93 @@ def GetDataFromArrayAlt(structure, path, default=None):
 
 
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
-    if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile))):
-        try:
-            if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile)):
-                inxmlfile = UncompressFileURL(
-                    inxmlfile, geturls_headers, geturls_cj)
-                xmldom = xml.dom.minidom.parse(file=inxmlfile)
+    try:
+        if xmlisfile:
+            # If it's a file, read and parse it
+            if re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile):
+                inxmlfile = UncompressFileURL(inxmlfile, geturls_headers, geturls_cj)
+                tree = ET.parse(inxmlfile)
             else:
-                xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlfile))
-        except:
-            return False
-    elif (not xmlisfile):
-        chckcompression = CheckCompressionTypeFromString(inxmlfile)
-        if (not chckcompression):
-            inxmlfile = StringIO(inxmlfile)
+                tree = ET.parse(UncompressFile(inxmlfile))
         else:
-            try:
-                inxmlsfile = BytesIO(inxmlfile)
-            except TypeError:
-                inxmlsfile = BytesIO(inxmlfile.encode(encoding))
-            inxmlfile = UncompressFile(inxmlsfile)
-        try:
-            xmldom = xml.dom.minidom.parse(file=inxmlfile)
-        except:
-            return False
-    else:
+            # If it's a string, parse it
+            chckcompression = CheckCompressionTypeFromString(inxmlfile)
+            if not chckcompression:
+                inxmlfile = StringIO(inxmlfile)
+            else:
+                try:
+                    inxmlfile = BytesIO(inxmlfile.encode(encoding))
+                except TypeError:
+                    inxmlfile = BytesIO(inxmlfile)
+                inxmlfile = UncompressFile(inxmlfile)
+            tree = ET.ElementTree(ET.fromstring(inxmlfile.read()))
+
+        # Get the root element
+        root = tree.getroot()
+
+        # Convert the ElementTree back to string
+        rough_string = ET.tostring(root, encoding=encoding, method="xml")
+
+        if isinstance(rough_string, bytes):
+            rough_string = rough_string.decode(encoding)
+
+        # Strip the xmlns attribute if present
+        clean_string = re.sub(r'\sxmlns="[^"]+"', '', rough_string, count=1)
+
+        # Optionally beautify the XML
+        if beautify:
+            clean_string = pretty_print_xml(clean_string, indent=indent, newl=newl)
+
+        return clean_string
+    except Exception as e:
+        print(f"Error in BeautifyXMLCode: {e}")
         return False
-    RemoveBlanks(xmldom)
-    xmldom.normalize()
-    if (beautify):
-        outxmlcode = xmldom.toprettyxml(indent, newl, encoding)
-    else:
-        outxmlcode = xmldom.toxml(encoding)
-    if (hasattr(outxmlcode, 'decode')):
-        outxmlcode = outxmlcode.decode(encoding)
-    xmldom.unlink()
-    return outxmlcode
 
 
 def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True, returnxml=False):
-    if (outxmlfile is None):
+    if outxmlfile is None:
         return False
+
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
+
+    # Open the output file (supporting compression if necessary)
     xmlfp = CompressOpenFile(outxmlfile)
-    xmlstring = BeautifyXMLCode(
-        inxmlfile, xmlisfile, indent, newl, encoding, beautify)
-    if (fextname in outextlistwd):
+    
+    # Call BeautifyXMLCode to get the XML string
+    xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, newl, encoding, beautify)
+
+    # Handle writing based on file extension (if required)
+    if fextname in outextlistwd:
         xmlstring = xmlstring
+
     try:
-        xmlfp.write(xmlstring)
+        # Use basestring to handle both Python 2 and 3 types
+        if isinstance(xmlstring, basestring):
+            # In Python 3, encode the string before writing (if it's not already bytes)
+            xmlfp.write(xmlstring.encode(encoding))
+        else:
+            # In Python 2, it might already be a bytes string, so just write it
+            xmlfp.write(xmlstring)
     except TypeError:
+        # Fallback if the write fails due to encoding mismatch
         xmlfp.write(xmlstring.encode(encoding))
+
+    # Handle flush and file syncing
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
-    except io.UnsupportedOperation:
+    except (io.UnsupportedOperation, AttributeError, OSError):
         pass
-    except AttributeError:
-        pass
-    except OSError as e:
-        pass
+
+    # Close the file
     xmlfp.close()
-    if (returnxml):
+
+    # Return XML string if requested
+    if returnxml:
         return xmlstring
-    if (not returnxml):
+    else:
         return True
-    return True
 
 
 def CheckHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
@@ -2409,7 +2429,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
                 xmlstring = xmlstring+"  </games>\n"
         xmlstring = xmlstring+" </league>\n"
     xmlstring = xmlstring+"</hockey>\n"
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeyXML(xmlstring, False)):
         return False
     if (verbose and jsonverbose):
