@@ -1,4 +1,4 @@
-<?xml encoding="UTF-8"?>
+<!DOCTYPE hockey [
 
 <!ELEMENT hockeydb (table)+>
 <!ATTLIST hockeydb
@@ -49,3 +49,4 @@
   xmlns CDATA #FIXED ''
   name NMTOKEN #REQUIRED
   value CDATA #REQUIRED>
+]>
