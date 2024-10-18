@@ -26,6 +26,7 @@ import platform
 import re
 import sqlite3
 import sys
+import xml.dom.minidom
 import time
 from io import open
 
@@ -1577,19 +1578,28 @@ def CheckXMLFile(infile):
 
 
 def RemoveBlanks(node):
-    # If the node has text, strip it of leading/trailing whitespace
-    if node.text:
-        node.text = node.text.strip()
+    for x in node.childNodes:
+        if (x.nodeType == xml.dom.minidom.Node.TEXT_NODE):
+            if (x.nodeValue):
+                x.nodeValue = x.nodeValue.strip()
+        elif (x.nodeType == xml.dom.minidom.Node.ELEMENT_NODE):
+            RemoveBlanks(x)
+    return True
 
-    # If the node has tail text (whitespace between siblings), strip it
-    if node.tail:
-        node.tail = node.tail.strip()
 
-    # Recursively apply RemoveBlanks to all child elements
-    for child in node:
-        RemoveBlanks(child)
+def RemoveNamespaces(node):
+    """Recursively remove xmlns attributes from all elements."""
+    # Check if the node has the attribute 'xmlns'
+    if node.hasAttribute("xmlns"):
+        node.removeAttribute("xmlns")
+
+    # Recursively remove 'xmlns' from child elements
+    for child in node.childNodes:
+        if child.nodeType == xml.dom.minidom.Node.ELEMENT_NODE:
+            RemoveNamespaces(child)
 
     return True
+
 
 
 def GetDataFromArray(data, path, default=None):
@@ -1614,115 +1624,80 @@ def GetDataFromArrayAlt(structure, path, default=None):
     return element
 
 
-def PrettyPrintXML(xml_string, indent="\t", newl="\n"):
-    """Manually format the XML string for pretty printing."""
-    lines = xml_string.splitlines()
-    pretty_xml = []
-    level = 0
-
-    for line in lines:
-        stripped_line = line.strip()
-        if stripped_line.startswith("</"):
-            level -= 1
-        pretty_xml.append((indent * level) + stripped_line)
-        if stripped_line.startswith("<") and not stripped_line.startswith("</") and not stripped_line.endswith("/>"):
-            level += 1
-
-    return newl.join(pretty_xml)
-
-
-def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
-    try:
-        if xmlisfile:
-            # If it's a file, read and parse it
-            if re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile):
-                inxmlfile = UncompressFileURL(inxmlfile)
-                tree = cElementTree.parse(inxmlfile)
+def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True, remove_namespaces=True):
+    if (xmlisfile and ((os.path.exists(inxmlfile) and os.path.isfile(inxmlfile)) or re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile))):
+        try:
+            if (re.findall(r"^(http|https|ftp|ftps|sftp)\:\/\/", inxmlfile)):
+                inxmlfile = UncompressFileURL(
+                    inxmlfile, geturls_headers, geturls_cj)
+                xmldom = xml.dom.minidom.parse(file=inxmlfile)
             else:
-                tree = cElementTree.parse(UncompressFile(inxmlfile))
+                xmldom = xml.dom.minidom.parse(file=UncompressFile(inxmlfile))
+        except:
+            return False
+    elif (not xmlisfile):
+        chckcompression = CheckCompressionTypeFromString(inxmlfile)
+        if (not chckcompression):
+            inxmlfile = StringIO(inxmlfile)
         else:
-            # If it's a string, parse it
-            chckcompression = CheckCompressionTypeFromString(inxmlfile)
-            if not chckcompression:
-                inxmlfile = StringIO(inxmlfile)
-            else:
-                try:
-                    inxmlfile = BytesIO(inxmlfile.encode(encoding))
-                except TypeError:
-                    inxmlfile = BytesIO(inxmlfile)
-                inxmlfile = UncompressFile(inxmlfile)
-            tree = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile.read()))
-
-        # Get the root element
-        root = tree.getroot()
-
-        # Optionally remove unnecessary blanks if beautify is True
-        if beautify:
-            RemoveBlanks(root)
-
-        # Convert the ElementTree back to string
-        rough_string = cElementTree.tostring(root, encoding=encoding, method="xml")
-
-        if isinstance(rough_string, bytes):
-            rough_string = rough_string.decode(encoding)
-
-        # Strip the xmlns attribute if present
-        clean_string = re.sub(r'\sxmlns="[^"]+"', '', rough_string, count=1)
-
-        # Optionally beautify the XML
-        if beautify:
-            clean_string = PrettyPrintXML(clean_string, indent=indent, newl=newl)
-
-        return clean_string
-    except Exception as e:
-        print("Error in BeautifyXMLCode: {}".format(e))
+            try:
+                inxmlsfile = BytesIO(inxmlfile)
+            except TypeError:
+                inxmlsfile = BytesIO(inxmlfile.encode("UTF-8"))
+            inxmlfile = UncompressFile(inxmlsfile)
+        try:
+            xmldom = xml.dom.minidom.parse(file=inxmlfile)
+        except:
+            return False
+    else:
         return False
 
+    # Optionally remove namespaces
+    if remove_namespaces:
+        RemoveNamespaces(xmldom.documentElement)
 
-def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True, returnxml=False):
-    if outxmlfile is None:
+    RemoveBlanks(xmldom)
+    xmldom.normalize()
+    
+    if (beautify):
+        outxmlcode = xmldom.toprettyxml(indent, newl, encoding)
+    else:
+        outxmlcode = xmldom.toxml(encoding)
+    if (hasattr(outxmlcode, 'decode')):
+        outxmlcode = outxmlcode.decode("UTF-8")
+    xmldom.unlink()
+    return outxmlcode
+
+
+def BeautifyXMLCodeToFile(inxmlfile, outxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True, remove_namespaces=True, returnxml=False):
+    if (outxmlfile is None):
         return False
-
     fbasename = os.path.splitext(outxmlfile)[0]
     fextname = os.path.splitext(outxmlfile)[1]
-
-    # Open the output file (supporting compression if necessary)
     xmlfp = CompressOpenFile(outxmlfile)
-    
-    # Call BeautifyXMLCode to get the XML string
-    xmlstring = BeautifyXMLCode(inxmlfile, xmlisfile, indent, newl, encoding, beautify)
-
-    # Handle writing based on file extension (if required)
-    if fextname in outextlistwd:
+    xmlstring = BeautifyXMLCode(
+        inxmlfile, xmlisfile, indent, newl, encoding, beautify, remove_namespaces)
+    if (fextname in outextlistwd):
         xmlstring = xmlstring
-
     try:
-        # Use basestring to handle both Python 2 and 3 types
-        if isinstance(xmlstring, basestring):
-            # In Python 3, encode the string before writing (if it's not already bytes)
-            xmlfp.write(xmlstring.encode(encoding))
-        else:
-            # In Python 2, it might already be a bytes string, so just write it
-            xmlfp.write(xmlstring)
+        xmlfp.write(xmlstring)
     except TypeError:
-        # Fallback if the write fails due to encoding mismatch
-        xmlfp.write(xmlstring.encode(encoding))
-
-    # Handle flush and file syncing
+        xmlfp.write(xmlstring.encode("UTF-8"))
     try:
         xmlfp.flush()
         os.fsync(xmlfp.fileno())
-    except (io.UnsupportedOperation, AttributeError, OSError):
+    except io.UnsupportedOperation:
         pass
-
-    # Close the file
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
     xmlfp.close()
-
-    # Return XML string if requested
-    if returnxml:
+    if (returnxml):
         return xmlstring
-    else:
+    if (not returnxml):
         return True
+    return True
 
 
 def CheckHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
@@ -2696,7 +2671,7 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
                 xmlstring = xmlstring+"  </games>\n"
         xmlstring = xmlstring+" </league>\n"
     xmlstring = xmlstring+"</hockey>\n"
-    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeyXML(xmlstring, False)):
         return False
     if (verbose and verbosetype=="json"):
@@ -2931,7 +2906,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
         xml_declaration = '<?xml version="1.0" encoding="{}"?>\n'.format(encoding)
         xmlstring = xml_declaration + hockeyxmldtdstring + "\n" + xmlstring[len(xml_declaration):]
 
-    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
     if (not CheckHockeyXML(xmlstring, False)):
@@ -4605,7 +4580,7 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
         xmlstring = xmlstring+"  </rows>\n"
         xmlstring = xmlstring+" </table>\n"
     xmlstring = xmlstring+"</hockeydb>\n"
-    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
     if (verbose and verbosetype=="json"):
@@ -4818,7 +4793,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
                 xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
-    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
     # Insert the DTD after the XML declaration, before the root element
