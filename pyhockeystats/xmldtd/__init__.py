@@ -39,6 +39,8 @@ if (implib):
     try:
         hockeyxmldtd = os.path.join(
             importlib.resources.files(__name__), "hockeydata.dtd")
+        hockeyxmlxslt = os.path.join(
+            importlib.resources.files(__name__), "hockeydata.xslt")
         hockeyxmlxsl = os.path.join(
             importlib.resources.files(__name__), "hockeydata.xsl")
         hockeyxmlxsd = os.path.join(
@@ -49,6 +51,8 @@ if (implib):
             importlib.resources.files(__name__), "hockeydata.rnc")
         hockeyxmlaltdtd = os.path.join(
             importlib.resources.files(__name__), "hockeydatabase.dtd")
+        hockeyxmlaltxslt = os.path.join(
+            importlib.resources.files(__name__), "hockeydatabase.xslt")
         hockeyxmlaltxsl = os.path.join(
             importlib.resources.files(__name__), "hockeydatabase.xsl")
         hockeyxmlaltxsd = os.path.join(
@@ -58,34 +62,41 @@ if (implib):
         hockeyxmlaltrnc = os.path.join(
             importlib.resources.files(__name__), "hockeydatabase.rnc")
     except AttributeError:
-        with importlib.resources.path(hockeyxmldata.dtd, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldata.dtd", "") as pkgfile:
             hockeyxmldtd = pkgfile
-        with importlib.resources.path(hockeyxmldata.xsl, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldata.xslt", "") as pkgfile:
+            hockeyxmlxslt = pkgfile
+        with importlib.resources.path("hockeyxmldata.xsl", "") as pkgfile:
             hockeyxmlxsl = pkgfile
-        with importlib.resources.path(hockeyxmldata.xsd, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldata.xsd", "") as pkgfile:
             hockeyxmlxsd = pkgfile
-        with importlib.resources.path(hockeyxmldata.rng, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldata.rng", "") as pkgfile:
             hockeyxmlrng = pkgfile
-        with importlib.resources.path(hockeyxmldata.rnc, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldata.rnc", "") as pkgfile:
             hockeyxmlrnc = pkgfile
-        with importlib.resources.path(hockeyxmldatabase.dtd, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldatabase.dtd", "") as pkgfile:
             hockeyxmlaltdtd = pkgfile
-        with importlib.resources.path(hockeyxmldatabase.xsl, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldatabase.xslt", "") as pkgfile:
+            hockeyxmlaltxslt = pkgfile
+        with importlib.resources.path("hockeyxmldatabase.xsl", "") as pkgfile:
             hockeyxmlaltxsl = pkgfile
-        with importlib.resources.path(hockeyxmldatabase.xsd, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldatabase.xsd", "") as pkgfile:
             hockeyxmlaltxsd = pkgfile
-        with importlib.resources.path(hockeyxmldatabase.rng, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldatabase.rng", "") as pkgfile:
             hockeyxmlaltrng = pkgfile
-        with importlib.resources.path(hockeyxmldatabase.rnc, "") as pkgfile:
+        with importlib.resources.path("hockeyxmldatabase.rnc", "") as pkgfile:
             hockeyxmlaltrnc = pkgfile
 elif (pkgres):
     hockeyxmldtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
+    hockeyxmlxslt = pkg_resources.resource_filename(__name__, "hockeydata.xslt")
     hockeyxmlxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl")
     hockeyxmlxsd = pkg_resources.resource_filename(__name__, "hockeydata.xsd")
     hockeyxmlrng = pkg_resources.resource_filename(__name__, "hockeydata.rng")
     hockeyxmlrnc = pkg_resources.resource_filename(__name__, "hockeydata.rnc")
     hockeyxmlaltdtd = pkg_resources.resource_filename(
         __name__, "hockeydatabase.dtd")
+    hockeyxmlaltxslt = pkg_resources.resource_filename(
+        __name__, "hockeydatabase.xslt")
     hockeyxmlaltxsl = pkg_resources.resource_filename(
         __name__, "hockeydatabase.xsl")
     hockeyxmlaltxsd = pkg_resources.resource_filename(
@@ -97,11 +108,13 @@ elif (pkgres):
     hockeyxmlxmlpath = os.path.dirname(hockeyxmldtd)
 elif (not pkgres):
     hockeyxmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
+    hockeyxmlxslt = os.path.dirname(__file__)+os.sep+"hockeydata.xslt"
     hockeyxmlxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
     hockeyxmlxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"
     hockeyxmlrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng"
     hockeyxmlrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc"
     hockeyxmlaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
+    hockeyxmlaltxslt = os.path.dirname(__file__)+os.sep+"hockeydatabase.xslt"
     hockeyxmlaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl"
     hockeyxmlaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd"
     hockeyxmlaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
@@ -109,11 +122,13 @@ elif (not pkgres):
     hockeyxmlxmlpath = os.path.dirname(hockeyxmldtd)
 else:
     hockeyxmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
+    hockeyxmlxslt = os.path.dirname(__file__)+os.sep+"hockeydata.xslt"
     hockeyxmlxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
     hockeyxmlxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"
     hockeyxmlrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng"
     hockeyxmlrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc"
     hockeyxmlaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
+    hockeyxmlaltxsly = os.path.dirname(__file__)+os.sep+"hockeydatabase.xslt"
     hockeyxmlaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl"
     hockeyxmlaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd"
     hockeyxmlaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
