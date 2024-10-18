@@ -1531,9 +1531,10 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, encoding="UTF-
     stringstring = stringfile.read()
     if (hasattr(stringstring, 'decode')):
         stringstring = stringstring.decode(encoding)
-    fbasename = os.path.splitext(outstringfile)[0]
-    fextname = os.path.splitext(outstringfile)[1]
-    stringfp = CompressOpenFile(outstringfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outstringfile))):
+        stringfp = BytesIO()
+    else:
+        stringfp = CompressOpenFile(outstringfile)
     try:
         stringfp.write(stringstring)
     except TypeError:
@@ -1547,6 +1548,9 @@ def MakeFileFromString(instringfile, stringisfile, outstringfile, encoding="UTF-
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outstringfile))):
+        stringfp.seek(0, 0)
+        upload_file_to_internet_file(stringfp, outstringfile)
     stringfp.close()
     if (returnstring):
         return stringstring
@@ -2164,9 +2168,10 @@ def MakeHockeyJSONFromHockeySQLiteArray(inhockeyarray, jsonindent=1, beautify=Tr
 def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjson=False, jsonindent=1, beautify=True, sortkeys=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outjsonfile is None):
         return False
-    fbasename = os.path.splitext(outjsonfile)[0]
-    fextname = os.path.splitext(outjsonfile)[1]
-    jsonfp = CompressOpenFile(outjsonfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outjsonfile))):
+        jsonfp = BytesIO()
+    else:
+        jsonfp = CompressOpenFile(outjsonfile)
     jsonstring = MakeHockeyJSONFromHockeyArray(
         inhockeyarray, jsonindent, beautify, sortkeys, verbose, verbosetype)
     try:
@@ -2182,6 +2187,9 @@ def MakeHockeyJSONFileFromHockeyArray(inhockeyarray, outjsonfile=None, returnjso
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outjsonfile))):
+        jsonfp.seek(0, 0)
+        upload_file_to_internet_file(jsonfp, outjsonfile)
     jsonfp.close()
     if (returnjson):
         return jsonstring
@@ -2275,9 +2283,10 @@ def MakeHockeyYAMLFileFromHockeyArray(inhockeyarray, outyamlfile=None, returnyam
     if testyaml:
         if (outyamlfile is None):
             return False
-        fbasename = os.path.splitext(outyamlfile)[0]
-        fextname = os.path.splitext(outyamlfile)[1]
-        yamlfp = CompressOpenFile(outyamlfile)
+        if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outyamlfile))):
+            yamlfp = BytesIO()
+        else:
+            yamlfp = CompressOpenFile(outyamlfile)
         yamlstring = MakeHockeyYAMLFromHockeyArray(
             inhockeyarray, yamlindent, beautify, sortkeys, verbose, verbosetype)
         try:
@@ -2293,6 +2302,9 @@ def MakeHockeyYAMLFileFromHockeyArray(inhockeyarray, outyamlfile=None, returnyam
             pass
         except OSError as e:
             pass
+        if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outyamlfile))):
+            yamlfp.seek(0, 0)
+            upload_file_to_internet_file(yamlfp, outyamlfile)
         yamlfp.close()
         if (returnyaml):
             return yamlstring
@@ -2383,9 +2395,10 @@ def MakeHockeyPickleFromHockeyArray(inhockeyarray, protocol=pickledp, verbose=Fa
 def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, returnpickle=False, protocol=pickledp, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outpicklefile is None):
         return False
-    fbasename = os.path.splitext(outpicklefile)[0]
-    fextname = os.path.splitext(outpicklefile)[1]
-    picklefp = CompressOpenFile(outpicklefile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpicklefile))):
+        picklefp = BytesIO()
+    else:
+        picklefp = CompressOpenFile(outpicklefile)
     picklestring = MakeHockeyPickleFromHockeyArray(
         inhockeyarray, protocol, verbose, verbosetype)
     try:
@@ -2401,6 +2414,10 @@ def MakeHockeyPickleFileFromHockeyArray(inhockeyarray, outpicklefile=None, retur
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpicklefile))):
+        picklefp.seek(0, 0)
+        upload_file_to_internet_file(picklefp, outpicklefile)
+        picklefp.close()
     picklefp.close()
     if (returnpickle):
         return picklestring
@@ -2469,9 +2486,10 @@ def MakeHockeyMarshalFromHockeyArray(inhockeyarray, version=marshal.version, ver
 def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, returnmarshal=False, version=marshal.version, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outmarshalfile is None):
         return False
-    fbasename = os.path.splitext(outmarshalfile)[0]
-    fextname = os.path.splitext(outmarshalfile)[1]
-    marshalfp = CompressOpenFile(outmarshalfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outmarshalfile))):
+        marshalfp = BytesIO()
+    else:
+        marshalfp = CompressOpenFile(outmarshalfile)
     marshalstring = MakeHockeyMarshalFromHockeyArray(
         inhockeyarray, version, verbose, verbosetype)
     try:
@@ -2487,6 +2505,10 @@ def MakeHockeyMarshalFileFromHockeyArray(inhockeyarray, outmarshalfile=None, ret
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outmarshalfile))):
+        marshalfp.seek(0, 0)
+        upload_file_to_internet_file(marshalfp, outmarshalfile)
+        marshalfp.close()
     marshalfp.close()
     if (returnmarshal):
         return marshalstring
@@ -2560,8 +2582,6 @@ def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=Fal
 def MakeHockeyShelveFileFromHockeyArray(inhockeyarray, outshelvefile=None, returnshelve=False, version=pickledp, verbose=False, verbosetype="array"):
     if (outshelvefile is None):
         return False
-    fbasename = os.path.splitext(outshelvefile)[0]
-    fextname = os.path.splitext(outshelvefile)[1]
     with shelve.open(outshelvefile, protocol=version) as shelf_file:
         for key, value in inhockeyarray.items():
             shelf_file[key] = value
@@ -2681,9 +2701,10 @@ def MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8",
 def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
-    fbasename = os.path.splitext(outxmlfile)[0]
-    fextname = os.path.splitext(outxmlfile)[1]
-    xmlfp = CompressOpenFile(outxmlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp = BytesIO()
+    else:
+        xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeyXMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         xmlfp.write(xmlstring)
@@ -2698,6 +2719,10 @@ def MakeHockeyXMLFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=F
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp.seek(0, 0)
+        upload_file_to_internet_file(xmlfp, outxmlfile)
+        xmlfp.close()
     xmlfp.close()
     if (returnxml):
         return xmlstring
@@ -2799,9 +2824,10 @@ def MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-8"
 def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outsgmlfile is None):
         return False
-    fbasename = os.path.splitext(outsgmlfile)[0]
-    fextname = os.path.splitext(outsgmlfile)[1]
-    sgmlfp = CompressOpenFile(outsgmlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsgmlfile))):
+        sgmlfp = BytesIO()
+    else:
+        sgmlfp = CompressOpenFile(outsgmlfile)
     sgmlstring = MakeHockeySGMLFromHockeyArray(inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
         sgmlfp.write(sgmlstring)
@@ -2816,6 +2842,10 @@ def MakeHockeySGMLFileFromHockeyArray(inhockeyarray, outsgmlfile=None, returnsgm
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsgmlfile))):
+        sgmlfp.seek(0, 0)
+        upload_file_to_internet_file(sgmlfp, outsgmlfile)
+        sgmlfp.close()
     sgmlfp.close()
     if (returnsgml):
         return sgmlstring
@@ -2908,9 +2938,10 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
 def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
-    fbasename = os.path.splitext(outxmlfile)[0]
-    fextname = os.path.splitext(outxmlfile)[1]
-    xmlfp = CompressOpenFile(outxmlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp = BytesIO()
+    else:
+        xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeyXMLAltFromHockeyArray(
         inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
@@ -2926,6 +2957,10 @@ def MakeHockeyXMLAltFileFromHockeyArray(inhockeyarray, outxmlfile=None, returnxm
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp.seek(0, 0)
+        upload_file_to_internet_file(xmlfp, outxmlfile)
+        xmlfp.close()
     xmlfp.close()
     if (returnxml):
         return xmlstring
@@ -3295,9 +3330,10 @@ def MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose=False, verbosetype="a
 def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outpyfile is None):
         return False
-    fbasename = os.path.splitext(outpyfile)[0]
-    fextname = os.path.splitext(outpyfile)[1]
-    pyfp = CompressOpenFile(outpyfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpyfile))):
+        pyfp = BytesIO()
+    else:
+        pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonFromHockeyArray(inhockeyarray, verbose, verbosetype)
     try:
         pyfp.write(pystring)
@@ -3312,6 +3348,10 @@ def MakeHockeyPythonFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpyfile))):
+        pyfp.seek(0, 0)
+        upload_file_to_internet_file(pyfp, outpyfile)
+        pyfp.close()
     pyfp.close()
     if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -3423,8 +3463,6 @@ def MakeHockeyPythonAltFromHockeyArray(inhockeyarray, verbose=False, verbosetype
 def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array", verbosepy=True):
     if (outpyfile is None):
         return False
-    fbasename = os.path.splitext(outpyfile)[0]
-    fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonAltFromHockeyArray(
         inhockeyarray, verbose, verbosetype, verbosepy)
@@ -3441,6 +3479,10 @@ def MakeHockeyPythonAltFileFromHockeyArray(inhockeyarray, outpyfile=None, return
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpyfile))):
+        pyfp.seek(0, 0)
+        upload_file_to_internet_file(pyfp, outpyfile)
+        pyfp.close()
     pyfp.close()
     if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -3547,8 +3589,6 @@ def MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose=False, verbosetype
 def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outpyfile is None):
         return False
-    fbasename = os.path.splitext(outpyfile)[0]
-    fextname = os.path.splitext(outpyfile)[1]
     pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonOOPFromHockeyArray(inhockeyarray, verbose, verbosetype)
     ()
@@ -3565,6 +3605,10 @@ def MakeHockeyPythonOOPFileFromHockeyArray(inhockeyarray, outpyfile=None, return
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpyfile))):
+        pyfp.seek(0, 0)
+        upload_file_to_internet_file(pyfp, outpyfile)
+        pyfp.close()
     pyfp.close()
     if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -3675,9 +3719,10 @@ def MakeHockeyPythonOOPAltFromHockeyArray(inhockeyarray, verbose=False, verboset
 def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, returnpy=False, encoding="UTF-8", verbose=False, verbosetype="array", verbosepy=True):
     if (outpyfile is None):
         return False
-    fbasename = os.path.splitext(outpyfile)[0]
-    fextname = os.path.splitext(outpyfile)[1]
-    pyfp = CompressOpenFile(outpyfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpyfile))):
+        pyfp = BytesIO()
+    else:
+        pyfp = CompressOpenFile(outpyfile)
     pystring = MakeHockeyPythonOOPAltFromHockeyArray(
         inhockeyarray, verbose, verbosetype, verbosepy)
     try:
@@ -3693,6 +3738,10 @@ def MakeHockeyPythonOOPAltFileFromHockeyArray(inhockeyarray, outpyfile=None, ret
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outpyfile))):
+        pyfp.seek(0, 0)
+        upload_file_to_internet_file(pyfp, outpyfile)
+        pyfp.close()
     pyfp.close()
     if (fextname not in outextlistwd):
         os.chmod(outpyfile, 0o755)
@@ -4070,9 +4119,10 @@ def MakeHockeySQLFromHockeyArray(inhockeyarray, insdbfile=":memory:", verbose=Fa
 def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outsqlfile is None):
         return False
-    fbasename = os.path.splitext(outsqlfile)[0]
-    fextname = os.path.splitext(outsqlfile)[1]
-    sqlfp = CompressOpenFile(outsqlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsqlfile))):
+        sqlfp = BytesIO()
+    else:
+        sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeyArray(
         inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, verbosetype)
     try:
@@ -4088,6 +4138,10 @@ def MakeHockeySQLFileFromHockeyArray(inhockeyarray, outsqlfile=None, returnsql=F
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsqlfile))):
+        sqlfp.seek(0, 0)
+        upload_file_to_internet_file(sqlfp, outsqlfile)
+        sqlfp.close()
     sqlfp.close()
     if (returnsql):
         return sqlstring
@@ -4193,9 +4247,10 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
     if (outsqlfile is None):
         file_wo_extension, file_extension = os.path.splitext(insdbfile)
         outsqlfile = file_wo_extension+".sql"
-    fbasename = os.path.splitext(outsqlfile)[0]
-    fextname = os.path.splitext(outsqlfile)[1]
-    sqlfp = CompressOpenFile(outsqlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsqlfile))):
+        sqlfp = BytesIO()
+    else:
+        sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeyDatabase(
         insdbfile, verbose, verbosetype)
     try:
@@ -4211,6 +4266,10 @@ def MakeHockeySQLFileFromHockeyDatabase(insdbfile, outsqlfile=None, returnsql=Fa
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsqlfile))):
+        sqlfp.seek(0, 0)
+        upload_file_to_internet_file(sqlfp, outsqlfile)
+        sqlfp.close()
     sqlfp.close()
     if (returnsql):
         return sqlstring
@@ -4552,9 +4611,10 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
 def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
-    fbasename = os.path.splitext(outxmlfile)[0]
-    fextname = os.path.splitext(outxmlfile)[1]
-    xmlfp = CompressOpenFile(outxmlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp = BytesIO()
+    else:
+        xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLFromHockeySQLiteArray(
         inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
@@ -4570,6 +4630,10 @@ def MakeHockeySQLiteXMLFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None,
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp.seek(0, 0)
+        upload_file_to_internet_file(xmlfp, outxmlfile)
+        xmlfp.close()
     xmlfp.close()
     if (returnxml):
         return xmlstring
@@ -4655,9 +4719,10 @@ def MakeHockeySQLiteSGMLFromHockeySQLiteArray(inhockeyarray, beautify=True, enco
 def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=None, returnsgml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outsgmlfile is None):
         return False
-    fbasename = os.path.splitext(outsgmlfile)[0]
-    fextname = os.path.splitext(outsgmlfile)[1]
-    sgmlfp = CompressOpenFile(outsgmlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsgmlfile))):
+        sgmlfp = BytesIO()
+    else:
+        sgmlfp = CompressOpenFile(outsgmlfile)
     sgmlstring = MakeHockeySQLiteSGMLFromHockeySQLiteArray(
         inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
@@ -4673,6 +4738,10 @@ def MakeHockeySQLiteSGMLFileFromHockeySQLiteArray(inhockeyarray, outsgmlfile=Non
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsgmlfile))):
+        sgmlfp.seek(0, 0)
+        upload_file_to_internet_file(sgmlfp, outsgmlfile)
+        sgmlfp.close()
     sgmlfp.close()
     if (returnsgml):
         return sgmlstring
@@ -4761,9 +4830,10 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
 def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=None, returnxml=False, beautify=True, encoding="UTF-8", includedtd=True, verbose=False, verbosetype="array"):
     if (outxmlfile is None):
         return False
-    fbasename = os.path.splitext(outxmlfile)[0]
-    fextname = os.path.splitext(outxmlfile)[1]
-    xmlfp = CompressOpenFile(outxmlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp = BytesIO()
+    else:
+        xmlfp = CompressOpenFile(outxmlfile)
     xmlstring = MakeHockeySQLiteXMLAltFromHockeySQLiteArray(
         inhockeyarray, beautify, encoding, includedtd, verbose, verbosetype)
     try:
@@ -4779,6 +4849,10 @@ def MakeHockeySQLiteXMLAltFileFromHockeySQLiteArray(inhockeyarray, outxmlfile=No
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outxmlfile))):
+        xmlfp.seek(0, 0)
+        upload_file_to_internet_file(xmlfp, outxmlfile)
+        xmlfp.close()
     xmlfp.close()
     if (returnxml):
         return xmlstring
@@ -5129,9 +5203,10 @@ def MakeHockeySQLFromHockeySQLiteArray(inhockeyarray, insdbfile=":memory:", verb
 def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, returnsql=False, encoding="UTF-8", verbose=False, verbosetype="array"):
     if (outsqlfile is None):
         return False
-    fbasename = os.path.splitext(outsqlfile)[0]
-    fextname = os.path.splitext(outsqlfile)[1]
-    sqlfp = CompressOpenFile(outsqlfile)
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsqlfile))):
+        sqlfp = BytesIO()
+    else:
+        sqlfp = CompressOpenFile(outsqlfile)
     sqlstring = MakeHockeySQLFromHockeySQLiteArray(
         inhockeyarray, os.path.splitext(outsqlfile)[0]+".db3", verbose, verbosetype)
     try:
@@ -5147,6 +5222,10 @@ def MakeHockeySQLFileFromHockeySQLiteArray(inhockeyarray, outsqlfile=None, retur
         pass
     except OSError as e:
         pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outsqlfile))):
+        sqlfp.seek(0, 0)
+        upload_file_to_internet_file(sqlfp, outsqlfile)
+        sqlfp.close()
     sqlfp.close()
     if (returnsql):
         return sqlstring
