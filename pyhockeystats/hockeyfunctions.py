@@ -1620,9 +1620,9 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
             # If it's a file, read and parse it
             if re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inxmlfile):
                 inxmlfile = UncompressFileURL(inxmlfile)
-                tree = ET.parse(inxmlfile)
+                tree = cElementTree.parse(inxmlfile)
             else:
-                tree = ET.parse(UncompressFile(inxmlfile))
+                tree = cElementTree.parse(UncompressFile(inxmlfile))
         else:
             # If it's a string, parse it
             chckcompression = CheckCompressionTypeFromString(inxmlfile)
@@ -1634,7 +1634,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
                 except TypeError:
                     inxmlfile = BytesIO(inxmlfile)
                 inxmlfile = UncompressFile(inxmlfile)
-            tree = ET.ElementTree(ET.fromstring(inxmlfile.read()))
+            tree = cElementTree.ElementTree(cElementTree.fromstring(inxmlfile.read()))
 
         # Get the root element
         root = tree.getroot()
@@ -1644,7 +1644,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
             RemoveBlanks(root)
 
         # Convert the ElementTree back to string
-        rough_string = ET.tostring(root, encoding=encoding, method="xml")
+        rough_string = cElementTree.tostring(root, encoding=encoding, method="xml")
 
         if isinstance(rough_string, bytes):
             rough_string = rough_string.decode(encoding)
