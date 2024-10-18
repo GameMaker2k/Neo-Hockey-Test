@@ -1614,6 +1614,23 @@ def GetDataFromArrayAlt(structure, path, default=None):
     return element
 
 
+def PrettyPrintXML(xml_string, indent="\t", newl="\n"):
+    """Manually format the XML string for pretty printing."""
+    lines = xml_string.splitlines()
+    pretty_xml = []
+    level = 0
+
+    for line in lines:
+        stripped_line = line.strip()
+        if stripped_line.startswith("</"):
+            level -= 1
+        pretty_xml.append((indent * level) + stripped_line)
+        if stripped_line.startswith("<") and not stripped_line.startswith("</") and not stripped_line.endswith("/>"):
+            level += 1
+
+    return newl.join(pretty_xml)
+
+
 def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding="UTF-8", beautify=True):
     try:
         if xmlisfile:
@@ -1654,7 +1671,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
 
         # Optionally beautify the XML
         if beautify:
-            clean_string = pretty_print_xml(clean_string, indent=indent, newl=newl)
+            clean_string = PrettyPrintXML(clean_string, indent=indent, newl=newl)
 
         return clean_string
     except Exception as e:
@@ -2914,7 +2931,7 @@ def MakeHockeyXMLAltFromHockeyArray(inhockeyarray, beautify=True, encoding="UTF-
         xml_declaration = '<?xml version="1.0" encoding="{}"?>\n'.format(encoding)
         xmlstring = xml_declaration + hockeyxmldtdstring + "\n" + xmlstring[len(xml_declaration):]
 
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
     if (not CheckHockeyXML(xmlstring, False)):
@@ -4588,7 +4605,8 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
         xmlstring = xmlstring+"  </rows>\n"
         xmlstring = xmlstring+" </table>\n"
     xmlstring = xmlstring+"</hockeydb>\n"
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    print(xmlstring)
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
     if (verbose and verbosetype=="json"):
@@ -4801,7 +4819,7 @@ def MakeHockeySQLiteXMLAltFromHockeySQLiteArray(inhockeyarray, beautify=True, en
                 xmlstring_hockey, encoding=encoding, method="xml")
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
-    xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
+    #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
     if (hasattr(xmlstring, 'decode')):
         xmlstring = xmlstring.decode(encoding)
     # Insert the DTD after the XML declaration, before the root element
