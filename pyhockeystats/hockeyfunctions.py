@@ -1658,7 +1658,7 @@ def BeautifyXMLCode(inxmlfile, xmlisfile=True, indent="\t", newl="\n", encoding=
 
         return clean_string
     except Exception as e:
-        print(f"Error in BeautifyXMLCode: {e}")
+        print("Error in BeautifyXMLCode: {}".format(e))
         return False
 
 
