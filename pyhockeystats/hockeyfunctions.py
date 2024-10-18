@@ -4606,7 +4606,6 @@ def MakeHockeySQLiteXMLFromHockeySQLiteArray(inhockeyarray, beautify=True, encod
         xmlstring = xmlstring+" </table>\n"
     xmlstring = xmlstring+"</hockeydb>\n"
     #xmlstring = BeautifyXMLCode(xmlstring, False, " ", "\n", encoding, beautify)
-    print(xmlstring)
     if (not CheckHockeySQLiteXML(xmlstring, False)):
         return False
     if (verbose and verbosetype=="json"):
