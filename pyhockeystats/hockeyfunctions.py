@@ -1428,7 +1428,7 @@ def UncompressStringAlt(infile):
 
 
 def UncompressFileURL(inurl, encoding="UTF-8"):
-    if  re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inurl):
+    if re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inurl):
         inbfile = download_file_from_internet_string(inurl)
         inufile = BytesIO(UncompressString(inbfile).encode(encoding))
     else:
