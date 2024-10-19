@@ -20,10 +20,10 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import os
-from io import open
 
 implib = False
 pkgres = False
+
 try:
     import pkg_resources
     pkgres = True
@@ -35,110 +35,42 @@ except ImportError:
     except ImportError:
         implib = False
 
-if (implib):
+# Define the required file names
+file_names = [
+    "hockeydatabase.dsdl", "hockeydatabase.dtd", "hockeydata.dsdl",
+    "hockeydata.dtd", "hockeydata.rnc", "hockeydata.rng", "hockeydata.trex",
+    "hockeydata.xsd", "hockeydata.xsl", "hockeydatabase.rnc", "hockeydatabase.rng",
+    "hockeydatabase.trex", "hockeydatabase.xsd", "hockeydatabase.xsl"
+]
+
+# Helper function to assign file paths based on the method available
+def get_file_paths(base_function):
+    return {name: os.path.join(base_function(__name__), name) for name in file_names}
+
+if implib:
     try:
-        hockeyxmldtd = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.dtd")
-        hockeyxmlxslt = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.xslt")
-        hockeyxmlxsl = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.xsl")
-        hockeyxmlxsd = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.xsd")
-        hockeyxmlrng = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.rng")
-        hockeyxmlrnc = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.rnc")
-        hockeyxmlaltdtd = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.dtd")
-        hockeyxmlaltxslt = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.xslt")
-        hockeyxmlaltxsl = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.xsl")
-        hockeyxmlaltxsd = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.xsd")
-        hockeyxmlaltrng = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.rng")
-        hockeyxmlaltrnc = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.rnc")
+        # Use importlib.resources.files() for modern resource handling
+        file_paths = get_file_paths(importlib.resources.files)
     except AttributeError:
-        with importlib.resources.path("hockeyxmldata.dtd", "") as pkgfile:
-            hockeyxmldtd = pkgfile
-        with importlib.resources.path("hockeyxmldata.xslt", "") as pkgfile:
-            hockeyxmlxslt = pkgfile
-        with importlib.resources.path("hockeyxmldata.xsl", "") as pkgfile:
-            hockeyxmlxsl = pkgfile
-        with importlib.resources.path("hockeyxmldata.xsd", "") as pkgfile:
-            hockeyxmlxsd = pkgfile
-        with importlib.resources.path("hockeyxmldata.rng", "") as pkgfile:
-            hockeyxmlrng = pkgfile
-        with importlib.resources.path("hockeyxmldata.rnc", "") as pkgfile:
-            hockeyxmlrnc = pkgfile
-        with importlib.resources.path("hockeyxmldatabase.dtd", "") as pkgfile:
-            hockeyxmlaltdtd = pkgfile
-        with importlib.resources.path("hockeyxmldatabase.xslt", "") as pkgfile:
-            hockeyxmlaltxslt = pkgfile
-        with importlib.resources.path("hockeyxmldatabase.xsl", "") as pkgfile:
-            hockeyxmlaltxsl = pkgfile
-        with importlib.resources.path("hockeyxmldatabase.xsd", "") as pkgfile:
-            hockeyxmlaltxsd = pkgfile
-        with importlib.resources.path("hockeyxmldatabase.rng", "") as pkgfile:
-            hockeyxmlaltrng = pkgfile
-        with importlib.resources.path("hockeyxmldatabase.rnc", "") as pkgfile:
-            hockeyxmlaltrnc = pkgfile
-elif (pkgres):
-    hockeyxmldtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
-    hockeyxmlxslt = pkg_resources.resource_filename(__name__, "hockeydata.xslt")
-    hockeyxmlxsl = pkg_resources.resource_filename(__name__, "hockeydata.xsl")
-    hockeyxmlxsd = pkg_resources.resource_filename(__name__, "hockeydata.xsd")
-    hockeyxmlrng = pkg_resources.resource_filename(__name__, "hockeydata.rng")
-    hockeyxmlrnc = pkg_resources.resource_filename(__name__, "hockeydata.rnc")
-    hockeyxmlaltdtd = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.dtd")
-    hockeyxmlaltxslt = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.xslt")
-    hockeyxmlaltxsl = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.xsl")
-    hockeyxmlaltxsd = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.xsd")
-    hockeyxmlaltrng = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.rng")
-    hockeyxmlaltrnc = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.rnc")
-    hockeyxmlxmlpath = os.path.dirname(hockeyxmldtd)
-elif (not pkgres):
-    hockeyxmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
-    hockeyxmlxslt = os.path.dirname(__file__)+os.sep+"hockeydata.xslt"
-    hockeyxmlxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
-    hockeyxmlxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"
-    hockeyxmlrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng"
-    hockeyxmlrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc"
-    hockeyxmlaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
-    hockeyxmlaltxslt = os.path.dirname(__file__)+os.sep+"hockeydatabase.xslt"
-    hockeyxmlaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl"
-    hockeyxmlaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd"
-    hockeyxmlaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
-    hockeyxmlaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc"
-    hockeyxmlxmlpath = os.path.dirname(hockeyxmldtd)
+        # Fallback for older versions using importlib.resources.path()
+        file_paths = {}
+        for name in file_names:
+            with importlib.resources.path(__name__, name) as pkgfile:
+                file_paths[name] = pkgfile
+elif pkgres:
+    # Use pkg_resources for resource handling
+    file_paths = get_file_paths(pkg_resources.resource_filename)
 else:
-    hockeyxmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
-    hockeyxmlxslt = os.path.dirname(__file__)+os.sep+"hockeydata.xslt"
-    hockeyxmlxsl = os.path.dirname(__file__)+os.sep+"hockeydata.xsl"
-    hockeyxmlxsd = os.path.dirname(__file__)+os.sep+"hockeydata.xsd"
-    hockeyxmlrng = os.path.dirname(__file__)+os.sep+"hockeydata.rng"
-    hockeyxmlrnc = os.path.dirname(__file__)+os.sep+"hockeydata.rnc"
-    hockeyxmlaltdtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
-    hockeyxmlaltxsly = os.path.dirname(__file__)+os.sep+"hockeydatabase.xslt"
-    hockeyxmlaltxsl = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsl"
-    hockeyxmlaltxsd = os.path.dirname(__file__)+os.sep+"hockeydatabase.xsd"
-    hockeyxmlaltrng = os.path.dirname(__file__)+os.sep+"hockeydatabase.rng"
-    hockeyxmlaltrnc = os.path.dirname(__file__)+os.sep+"hockeydatabase.rnc"
-    hockeyxmlxmlpath = os.path.dirname(hockeyxmldtd)
+    # Fallback if neither importlib.resources nor pkg_resources are available
+    base_path = os.path.dirname(__file__)
+    file_paths = {name: os.path.join(base_path, name) for name in file_names}
 
-hockeyfp = open(hockeyxmldtd, "r", encoding="UTF-8")
-hockeyxmldtdstring = hockeyfp.read()
-hockeyfp.close()
+# Now that we have the file paths, let's open and read the relevant files
+with open(file_paths["hockeydata.dtd"], "r", encoding="UTF-8") as hockey_fp:
+    hockeyxmldtdstring = hockey_fp.read()
 
-hockeyaltfp = open(hockeyxmlaltdtd, "r", encoding="UTF-8")
-hockeyaltxmldtdstring = hockeyaltfp.read()
-hockeyaltfp.close()
+with open(file_paths["hockeydatabase.dtd"], "r", encoding="UTF-8") as hockey_alt_fp:
+    hockeyaltxmldtdstring = hockey_alt_fp.read()
+
+# You can now use `hockeyxmldtdstring` and `hockeyaltxmldtdstring` 
+# in further processing as needed.
