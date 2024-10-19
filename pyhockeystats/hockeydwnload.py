@@ -397,7 +397,7 @@ if(haveparamiko):
         sftpfile = download_file_from_sftp_file(url)
         return sftpfile.read()
 else:
-    def download_file_from_ftp_string(url):
+    def download_file_from_sftp_string(url):
         return False
 
 if(haveparamiko):
@@ -513,7 +513,7 @@ if(havepysftp):
         sftpfile = download_file_from_pysftp_file(url)
         return sftpfile.read()
 else:
-    def download_file_from_ftp_string(url):
+    def download_file_from_pyftp_string(url):
         return False
 
 if(havepysftp):
