@@ -246,7 +246,7 @@ class ZlibFile:
             raise ValueError("Mode should be 'rb' or 'wb'")
 
     def _load_file(self):
-        self.file.seek(0)
+        self.file.seek(0, 0)
         self._compressed_data = self.file.read()
         if not self._compressed_data.startswith((b'\x78\x01', b'\x78\x5E', b'\x78\x9C', b'\x78\xDA')):
             raise ValueError("Invalid zlib file header")
@@ -362,7 +362,7 @@ class GzipFile:
             raise ValueError("Mode should be 'rb' or 'wb'")
 
     def _load_file(self):
-        self.file.seek(0)
+        self.file.seek(0, 0)
         self._compressed_data = self.file.read()
         if not self._compressed_data.startswith(b'\x1f\x8b'):
             raise ValueError("Invalid gzip file header")
@@ -474,7 +474,7 @@ class BloscFile:
    raise ValueError("Mode should be 'rb' or 'wb'")
 
  def _load_file(self):
-  self.file.seek(0)
+  self.file.seek(0, 0)
   self._compressed_data = self.file.read()
   if not self._compressed_data:
    raise ValueError("Invalid blosc file header")
@@ -581,7 +581,7 @@ class BrotliFile:
    raise ValueError("Mode should be 'rb' or 'wb'")
 
  def _load_file(self):
-  self.file.seek(0)
+  self.file.seek(0, 0)
   self._compressed_data = self.file.read()
   if not self._compressed_data:
    raise ValueError("Invalid brotli file header")
@@ -1425,7 +1425,7 @@ def UncompressStringAlt(infile):
     filefp = StringIO()
     outstring = UncompressString(infile)
     filefp.write(outstring)
-    filefp.seek(0)
+    filefp.seek(0, 0)
     return filefp
 
 
@@ -1713,7 +1713,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
-                        inxmlfile.seek(0)
+                        inxmlfile.seek(0, 0)
                         hockeyroot = cElementTree.fromstring(inxmlfile.read())
                     except cElementTree.ParseError:
                         return False
@@ -1743,7 +1743,7 @@ def CheckHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
-                inxmlfile.seek(0)
+                inxmlfile.seek(0, 0)
                 hockeyroot = cElementTree.fromstring(inxmlfile.read())
             except cElementTree.ParseError:
                 return False
@@ -1840,7 +1840,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
-                        inxmlfile.seek(0)
+                        inxmlfile.seek(0, 0)
                         hockeyroot = cElementTree.fromstring(inxmlfile.read())
                     except cElementTree.ParseError:
                         return False
@@ -1870,7 +1870,7 @@ def CheckHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding="UTF-8"):
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
-                inxmlfile.seek(0)
+                inxmlfile.seek(0, 0)
                 hockeyroot = cElementTree.fromstring(inxmlfile.read())
             except cElementTree.ParseError:
                 return False
@@ -2169,6 +2169,31 @@ def DumpHockeyArrayToFile(inhockeyarray, outarrayfile, returnarray=False, encodi
     if (not returnarray):
         return True
     return True
+
+
+def DumpHockeyArrayToString(inhockeyarray, encoding="UTF-8", verbose=False, verbosetype="array"):
+    if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
+        return False
+    arrayfp = StringIO()
+    print(inhockeyarray, file=arrayfp)
+    arrayfp.seek(0, 0)
+    outstr = arrayfp.read()
+    arrayfp.close()
+    if (verbose and verbosetype=="json"):
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
+        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
+    return outstr
 
 
 def RestoreHockeyArrayFromFile(inarrayfile, arrayisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
@@ -2642,7 +2667,7 @@ def MakeHockeyShelveFromHockeyArray(inhockeyarray, version=pickledp, verbose=Fal
     with shelve.open(outshelvefile, protocol=version) as shelf_file:
         for key, value in inhockeyarray.items():
             shelf_file[key] = value
-    outshelvefile.seek(0)
+    outshelvefile.seek(0, 0)
     shelvestring = outshelvefile.read()
     if (verbose and verbosetype=="json"):
         VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
@@ -3065,7 +3090,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", ve
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
-                        inxmlfile.seek(0)
+                        inxmlfile.seek(0, 0)
                         hockeyroot = cElementTree.fromstring(inxmlfile.read())
                     except cElementTree.ParseError:
                         return False
@@ -3095,7 +3120,7 @@ def MakeHockeyArrayFromHockeyXML(inxmlfile, xmlisfile=True, encoding="UTF-8", ve
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
-                inxmlfile.seek(0)
+                inxmlfile.seek(0, 0)
                 hockeyroot = cElementTree.fromstring(inxmlfile.read())
             except cElementTree.ParseError:
                 return False
@@ -4957,7 +4982,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding
                     hockeyroot = hockeyfile.getroot()
                 except cElementTree.ParseError:
                     try:
-                        inxmlfile.seek(0)
+                        inxmlfile.seek(0, 0)
                         hockeyroot = cElementTree.fromstring(inxmlfile.read())
                     except cElementTree.ParseError:
                         return False
@@ -4987,7 +5012,7 @@ def MakeHockeySQLiteArrayFromHockeySQLiteXML(inxmlfile, xmlisfile=True, encoding
             hockeyroot = hockeyfile.getroot()
         except cElementTree.ParseError:
             try:
-                inxmlfile.seek(0)
+                inxmlfile.seek(0, 0)
                 hockeyroot = cElementTree.fromstring(inxmlfile.read())
             except cElementTree.ParseError:
                 return False
