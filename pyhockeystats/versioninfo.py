@@ -13,11 +13,10 @@
     Copyright 2015-2024 Game Maker 2k - https://github.com/GameMaker2k
     Copyright 2015-2024 Kazuki Przyborowski - https://github.com/KazukiPrzyborowski
 
-    $FileInfo: versioninfo.py - Last Update: 10/19/2024 Ver. 0.9.8 RC 1 - Author: cooldude2k $
+    $FileInfo: versioninfo.py - Last Update: 10/17/2024 Ver. 0.9.8 RC 1 - Author: cooldude2k $
 '''
 
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import absolute_import, division, print_function, unicode_literals, generators, with_statement, nested_scopes
 
 import datetime
 import platform
@@ -120,7 +119,7 @@ def get_build_python_info(infotype=None):
 
 
 __revision__ = __version_info__[3]
-__revision_id__ = "$Id$"
+__revision_id__ = "$Id: b$"
 if (__version_info__[3] is not None):
     __version__ = "{major}.{minor}.{build} {release}".format(major=__version_info__[
                                                              0], minor=__version_info__[1], build=__version_info__[2], release=__version_info__[3])
@@ -138,7 +137,7 @@ def version_info():
         return {"major": __version_info__[0], "minor": __version_info__[1], "build": __version_info__[2], "release": None}
 
 
-__version_date_info__ = (2024, 10, 19, "RC 1", 1)
+__version_date_info__ = (2024, 10, 17, "RC 1", 1)
 
 
 def version_date():
