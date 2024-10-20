@@ -19,6 +19,7 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
+import ast
 import binascii
 import marshal
 import os
@@ -656,7 +657,7 @@ def ReadSGMLData(insgmlfile, sgmlisfile=True, encoding="UTF-8", headers=None, co
     
     if sgmlisfile:
         # insgmlfile is a file path or URL
-        if re.match(r'^(http|https|ftp|ftps|sftp)://', insgmlfile):
+        if re.match('^(http|https|ftp|ftps|sftp)://', insgmlfile):
             # It's a URL
             try:
                 insgmlfile = UncompressFileURL(insgmlfile)
@@ -2126,6 +2127,95 @@ def RestoreHockeyDatabaseFromSQLFile(insqlfile, outsdbfile, encoding="UTF-8", re
     return False
 
 
+def DumpHockeyArrayToFile(inhockeyarray, outarrayfile, returnarray=False, encoding="UTF-8", verbose=False, verbosetype="array"):
+    if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
+        return False
+    if (outarrayfile is None):
+        return False
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outarrayfile))):
+        arrayfp = BytesIO()
+    else:
+        arrayfp = CompressOpenFile(outarrayfile)
+    print(inhockeyarray, file=arrayfp)
+    try:
+        arrayfp.flush()
+        os.fsync(arrayfp.fileno())
+    except io.UnsupportedOperation:
+        pass
+    except AttributeError:
+        pass
+    except OSError as e:
+        pass
+    if(re.findall(r"^(ftp|ftps|sftp)\:\/\/", str(outarrayfile))):
+        arrayfp.seek(0, 0)
+        upload_file_to_internet_file(arrayfp, outjsonfile)
+    arrayfp.close()
+    if (verbose and verbosetype=="json"):
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
+        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            inhockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
+    if (returnarray):
+        return inhockeyarray
+    if (not returnarray):
+        return True
+    return True
+
+
+def RestoreHockeyArrayFromFile(inarrayfile, arrayisfile=True, encoding="UTF-8", verbose=False, verbosetype="array"):
+    if (arrayisfile and ((os.path.exists(inarrayfile) and os.path.isfile(inarrayfile)) or re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inarrayfile))):
+        if (re.findall("^(http|https|ftp|ftps|sftp)\\:\\/\\/", inarrayfile)):
+            inarrayfile = UncompressFileURL(
+                inarrayfile)
+            hockeyarray = ast.literal_eval(arrayfp.read())
+        else:
+            arrayfp = UncompressFile(inarrayfile)
+            hockeyarray = ast.literal_eval(arrayfp.read())
+            arrayfp.close()
+    elif (not arrayisfile):
+        arrayfp = BytesIO(inarrayfile.encode(encoding))
+        arrayfp = UncompressFile(arrayfp)
+        hockeyarray = ast.literal_eval(arrayfp.read())
+        arrayfp.close()
+    else:
+        return False
+    if (not CheckHockeyArray(hockeyarray) and not CheckHockeySQLiteArray(hockeyarray)):
+        return False
+    if (verbose and verbosetype=="json"):
+        VerbosePrintOut(MakeHockeyJSONFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="yaml"):
+        VerbosePrintOut(MakeHockeyYAMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="xml"):
+        VerbosePrintOut(MakeHockeyXMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose and verbosetype=="sgml"):
+        VerbosePrintOut(MakeHockeySGMLFromHockeyArray(
+            hockeyarray, verbose=False))
+    elif (verbose):
+        VerbosePrintOut(hockeyarray)
+    return hockeyarray
+
+
+
+def RestoreHockeyArrayFromFile(file_path):
+    with open(file_path, 'r') as f:
+        content = f.read()
+        # Safely evaluate the content and return the array
+    ast.literal_eval(content)
+    return ast.literal_eval(content)
+
+
 def MakeHockeyJSONFromHockeyArray(inhockeyarray, jsonindent=1, beautify=True, sortkeys=False, verbose=False, verbosetype="array"):
     if (not CheckHockeyArray(inhockeyarray) and not CheckHockeySQLiteArray(inhockeyarray)):
         return False
@@ -2431,7 +2521,7 @@ def MakeHockeyArrayFromHockeyPickle(inpicklefile, pickleisfile=True, encoding="U
     elif (not pickleisfile):
         picklefp = BytesIO(inpicklefile.encode(encoding))
         picklefp = UncompressFile(picklefp)
-        hockeyarray = json.load(picklefp, fix_imports=True)
+        hockeyarray = pickle.load(picklefp, fix_imports=True)
         picklefp.close()
     else:
         return False
@@ -2522,7 +2612,7 @@ def MakeHockeyArrayFromHockeyMarshal(inmarshalfile, marshalisfile=True, encoding
     elif (not marshalisfile):
         marshalfp = BytesIO(inmarshalfile.encode(encoding))
         marshalfp = UncompressFile(marshalfp)
-        hockeyarray = json.load(marshalfp)
+        hockeyarray = marshal.load(marshalfp)
         marshalfp.close()
     else:
         return False
