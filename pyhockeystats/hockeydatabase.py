@@ -1357,7 +1357,7 @@ def MakeHockeyLeagueTable(sqldatacon, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS HockeyLeagues")
     sqldatacon[0].execute("CREATE TABLE HockeyLeagues (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  LeagueName TEXT NOT NULL DEFAULT '',\n" +
                           "  LeagueFullName TEXT NOT NULL DEFAULT '',\n" +
                           "  CountryName TEXT NOT NULL DEFAULT '',\n" +
@@ -1493,7 +1493,7 @@ def MakeHockeyConferenceTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Conferences")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"Conferences (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  Conference TEXT NOT NULL DEFAULT '',\n" +
                           "  ConferencePrefix TEXT NOT NULL DEFAULT '',\n" +
                           "  ConferenceSuffix TEXT NOT NULL DEFAULT '',\n" +
@@ -1655,7 +1655,7 @@ def MakeHockeyDivisionTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Divisions")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"Divisions (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  Division TEXT NOT NULL DEFAULT '',\n" +
                           "  DivisionPrefix TEXT NOT NULL DEFAULT '',\n" +
                           "  DivisionSuffix TEXT NOT NULL DEFAULT '',\n" +
@@ -1874,7 +1874,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Arenas")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"Arenas (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  TeamID INTEGER NOT NULL DEFAULT 0,\n" +
                           "  TeamName TEXT NOT NULL DEFAULT '',\n" +
                           "  TeamFullName TEXT NOT NULL DEFAULT '',\n" +
@@ -1892,7 +1892,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Teams")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"Teams (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  Date INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Time INTEGER NOT NULL DEFAULT 0,\n" +
                           "  DateTime INTEGER NOT NULL DEFAULT 0,\n" +
@@ -1975,7 +1975,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Stats")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"Stats (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  TeamID INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Date INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Time INTEGER NOT NULL DEFAULT 0,\n" +
@@ -2059,7 +2059,7 @@ def MakeHockeyTeamTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"GameStats")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"GameStats (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  GameID INTEGER NOT NULL DEFAULT 0,\n" +
                           "  TeamID INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Date INTEGER NOT NULL DEFAULT 0,\n" +
@@ -2158,7 +2158,7 @@ def MakeHockeyPlayoffTeamTable(sqldatacon, leaguename, droptable=True):
         sqldatacon[0].execute("DROP TABLE IF EXISTS " +
                               leaguename+"PlayoffTeams")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"PlayoffTeams (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  TeamID INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Date INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Time INTEGER NOT NULL DEFAULT 0,\n" +
@@ -2463,7 +2463,7 @@ def MakeHockeyGameTable(sqldatacon, leaguename, droptable=True):
     if (droptable):
         sqldatacon[0].execute("DROP TABLE IF EXISTS "+leaguename+"Games")
     sqldatacon[0].execute("CREATE TABLE "+leaguename+"Games (\n" +
-                          "  id INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                          "  id INTEGER PRIMARY KEY,\n" +
                           "  Date INTEGER NOT NULL DEFAULT 0,\n" +
                           "  Time INTEGER NOT NULL DEFAULT 0,\n" +
                           "  DateTime INTEGER NOT NULL DEFAULT 0,\n" +
