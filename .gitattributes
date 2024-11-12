@@ -1,6 +1,7 @@
 *.py ident
 * text=auto eol=lf
 libhockeydata/versioninfo.py ident
+* text eol=lf
 
 # Basic .gitattributes for a python repo.
 
