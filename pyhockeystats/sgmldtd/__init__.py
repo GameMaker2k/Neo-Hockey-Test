@@ -23,6 +23,7 @@ from io import open
 
 implib = False
 pkgres = False
+
 try:
     import pkg_resources
     pkgres = True
@@ -34,36 +35,45 @@ except ImportError:
     except ImportError:
         implib = False
 
-if (implib):
-    try:
-        hockeysgmldtd = os.path.join(
-            importlib.resources.files(__name__), "hockeydata.dtd")
-        hockeyaltsgmldtd = os.path.join(
-            importlib.resources.files(__name__), "hockeydatabase.dtd")
-        hockeysgmlpath = os.path.dirname(hockeysgmldtd)
-    except AttributeError:
-        with importlib.resources.path(hockeydata.dtd, "") as pkgfile:
-            hockeysgmldtd = pkgfile
-        with importlib.resources.path(hockeydatabase.dtd, "") as pkgfile:
-            hockeyaltsgmldtd = pkgfile
-        hockeysgmlpath = os.path.dirname(hockeysgmldtd)
-elif (pkgres):
-    hockeysgmldtd = pkg_resources.resource_filename(__name__, "hockeydata.dtd")
-    hockeyaltsgmldtd = pkg_resources.resource_filename(
-        __name__, "hockeydatabase.dtd")
-    hockeysgmlpath = os.path.dirname(hockeysgmldtd)
-elif (not pkgres):
-    hockeysgmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
-    hockeyaltsgmldtd = os.path.dirname(__file__)+os.sep+"hockeydatabase.dtd"
-    hockeysgmlpath = os.path.dirname(hockeysgmldtd)
-else:
-    hockeysgmldtd = os.path.dirname(__file__)+os.sep+"hockeydata.dtd"
-    hockeysgmlpath = os.path.dirname(hockeysgmldtd)
+# Define the required file names
+file_names = [
+    "hockeydatabase.dtd", "hockeydata.dtd"
+]
 
-hockeyfp = open(hockeysgmldtd, "r", encoding="UTF-8")
+# Helper function to assign file paths based on the method available
+def get_file_paths(base_function, use_pkg_resources=False):
+    if use_pkg_resources:
+        return {name: base_function(__name__, name) for name in file_names}
+    else:
+        return {name: os.path.join(base_function(__name__), name) for name in file_names}
+
+if implib:
+    try:
+        # Use importlib.resources.files() for modern resource handling
+        file_paths = get_file_paths(importlib.resources.files)
+    except AttributeError:
+        # Fallback for older versions using importlib.resources.path()
+        file_paths = {}
+        for name in file_names:
+            with importlib.resources.path(__name__, name) as pkgfile:
+                file_paths[name] = pkgfile
+elif pkgres:
+    # Use pkg_resources for resource handling
+    file_paths = get_file_paths(pkg_resources.resource_filename, use_pkg_resources=True)
+else:
+    # Fallback if neither importlib.resources nor pkg_resources are available
+    base_path = os.path.dirname(__file__)
+    file_paths = {name: os.path.join(base_path, name) for name in file_names}
+
+# Now that we have the file paths, let's open and read the relevant files
+
+hockeyfp = open(file_paths["hockeydata.dtd"], "r", encoding="UTF-8")
 hockeysgmldtdstring = hockeyfp.read()
 hockeyfp.close()
 
-hockeyaltfp = open(hockeyaltsgmldtd, "r", encoding="UTF-8")
+hockeyaltfp = open(file_paths["hockeydatabase.dtd"], "r", encoding="UTF-8")
 hockeyaltsgmldtdstring = hockeyaltfp.read()
 hockeyaltfp.close()
+
+# You can now use `hockeysgmldtdstring` and `hockeyaltsgmldtdstring` 
+# in further processing as needed.
