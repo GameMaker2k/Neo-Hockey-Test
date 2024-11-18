@@ -19,6 +19,7 @@
 from __future__ import absolute_import, division, print_function, unicode_literals, generators, with_statement, nested_scopes
 
 import os
+from io import open
 
 implib = False
 pkgres = False
@@ -43,8 +44,11 @@ file_names = [
 ]
 
 # Helper function to assign file paths based on the method available
-def get_file_paths(base_function):
-    return {name: os.path.join(base_function(__name__), name) for name in file_names}
+def get_file_paths(base_function, use_pkg_resources=False):
+    if use_pkg_resources:
+        return {name: base_function(__name__, name) for name in file_names}
+    else:
+        return {name: os.path.join(base_function(__name__), name) for name in file_names}
 
 if implib:
     try:
@@ -58,18 +62,21 @@ if implib:
                 file_paths[name] = pkgfile
 elif pkgres:
     # Use pkg_resources for resource handling
-    file_paths = get_file_paths(pkg_resources.resource_filename)
+    file_paths = get_file_paths(pkg_resources.resource_filename, use_pkg_resources=True)
 else:
     # Fallback if neither importlib.resources nor pkg_resources are available
     base_path = os.path.dirname(__file__)
     file_paths = {name: os.path.join(base_path, name) for name in file_names}
 
 # Now that we have the file paths, let's open and read the relevant files
-with open(file_paths["hockeydata.dtd"], "r", encoding="UTF-8") as hockey_fp:
-    hockeyxmldtdstring = hockey_fp.read()
 
-with open(file_paths["hockeydatabase.dtd"], "r", encoding="UTF-8") as hockey_alt_fp:
-    hockeyaltxmldtdstring = hockey_alt_fp.read()
+hockeyfp = open(file_paths["hockeydata.dtd"], "r", encoding="UTF-8")
+hockeysgmldtdstring = hockeyfp.read()
+hockeyfp.close()
+
+hockeyaltfp = open(file_paths["hockeydatabase.dtd"], "r", encoding="UTF-8")
+hockeyaltsgmldtdstring = hockeyaltfp.read()
+hockeyaltfp.close()
 
 # You can now use `hockeyxmldtdstring` and `hockeyaltxmldtdstring` 
 # in further processing as needed.
