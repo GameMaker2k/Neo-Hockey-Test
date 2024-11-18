@@ -71,11 +71,11 @@ else:
 # Now that we have the file paths, let's open and read the relevant files
 
 hockeyfp = open(file_paths["hockeydata.dtd"], "r", encoding="UTF-8")
-hockeysgmldtdstring = hockeyfp.read()
+hockeyxmldtdstring = hockeyfp.read()
 hockeyfp.close()
 
 hockeyaltfp = open(file_paths["hockeydatabase.dtd"], "r", encoding="UTF-8")
-hockeyaltsgmldtdstring = hockeyaltfp.read()
+hockeyaltxmldtdstring = hockeyaltfp.read()
 hockeyaltfp.close()
 
 # You can now use `hockeyxmldtdstring` and `hockeyaltxmldtdstring` 
