@@ -22,8 +22,6 @@ import re
 import shutil
 import sys
 import time
-
-import pkg_resources
 from setuptools import find_packages, setup
 
 install_requires = []
@@ -184,8 +182,8 @@ if (len(sys.argv) > 1 and (sys.argv[1] == "versioninfo" or sys.argv[1] == "getve
     print(pymodule_data)
     sys.exit()
 if (len(sys.argv) > 1 and (sys.argv[1] == "sourceinfo" or sys.argv[1] == "getsourceinfo")):
-    srcinfofilename = os.path.realpath("."+os.path.sep+pkg_resources.to_filename(
-        pymodule['name'])+".egg-info"+os.path.sep+"SOURCES.txt")
+    srcinfofilename = os.path.realpath("."+os.path.sep+
+        pymodule['name'].replace('-', '_')+".egg-info"+os.path.sep+"SOURCES.txt")
     srcinfofile = open(srcinfofilename, "r")
     srcinfodata = srcinfofile.read()
     srcinfofile.close()
@@ -199,7 +197,7 @@ if (len(sys.argv) > 1 and (sys.argv[1] == "sourceinfo" or sys.argv[1] == "getsou
 if (len(sys.argv) > 1 and sys.argv[1] == "cleansourceinfo"):
     os.system("rm -rfv \""+os.path.realpath("."+os.path.sep+"dist\""))
     os.system("rm -rfv \""+os.path.realpath("."+os.path.sep +
-              pkg_resources.to_filename(pymodule['name'])+".egg-info\""))
+              pymodule['name'].replace('-', '_')+".egg-info\""))
     sys.exit()
 
 if (pygenbuildinfo):
@@ -238,6 +236,26 @@ if (pygenbuildinfo):
     verinfofile = open(verinfofilename, "w")
     verinfofile.write(verinfodata)
     verinfofile.close()
+
+if(len(sys.argv) > 1 and (sys.argv[1] == "buildcfg" or sys.argv[1] == "makecfg")):
+    outcfgvar = """[project]
+    name = "{}"
+    version = "{}"
+    readme = "README.md"
+    license = {{ text = "BSD-3-Clause" }}
+    keywords = []
+    description = "{}"
+    authors = [
+        {{ name = "{}", email = "{}" }},
+    ]
+    """.format(pymodule['name'], pymodule['version'], pymodule['description'], pymodule['author'], pymodule['authoremail'])
+    mytoml = open("./pyproject.toml", "w")
+    mytoml.write(outcfgvar)
+    mytoml.flush()
+    if(hasattr(os, "sync")):
+        os.fsync(mytoml.fileno())
+    mytoml.close()
+    sys.exit()
 
 setup(
     name=pymodule['name'],

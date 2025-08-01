@@ -1,0 +1,11 @@
+[project]
+    name = "PyHockeyStats"
+    version = "0.10.6"
+    readme = "README.md"
+    license = { text = "BSD-3-Clause" }
+    keywords = []
+    description = "Just a test script dealing with hockey games and stats."
+    authors = [
+        { name = "Kazuki Przyborowski", email = "kazuki.przyborowski@gmail.com" },
+    ]
+    
