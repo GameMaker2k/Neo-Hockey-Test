@@ -1,6 +1,6 @@
 [project]
     name = "PyHockeyStats"
-    version = "0.10.8"
+    version = "0.10.10"
     readme = "README.md"
     license = { text = "BSD-3-Clause" }
     keywords = []
