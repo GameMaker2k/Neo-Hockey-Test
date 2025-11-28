@@ -25,15 +25,15 @@ implib = False
 pkgres = False
 
 try:
-    import pkg_resources
-    pkgres = True
+    import importlib.resources
+    implib = True
 except ImportError:
-    pkgres = False
+    implib = False
     try:
-        import importlib.resources
-        implib = True
+        import pkg_resources
+        pkgres = True
     except ImportError:
-        implib = False
+        pkgres = False
 
 # Define the required file names
 file_names = [
